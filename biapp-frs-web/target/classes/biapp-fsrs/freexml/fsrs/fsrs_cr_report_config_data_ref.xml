@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>报送策略</templetname>
+</templet>
+
+<templet_item>
+    <itemkey>data_dt</itemkey>
+    <itemname>数据日期</itemname>
+    <itemtype>日历</itemtype>
+    <card_isshow>Y</card_isshow>
+    <card_width>300</card_width>
+    <ismust>Y</ismust>
+</templet_item>
+
+</root>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<firstinstall descr="首次安装的表数据">
+		<table name="yx_poc_dwmx01">POC多维模型01</table>
+		<table name="yx_poc_fhmx01">POC泛化模型01</table>
+		<table name="yx_poc_zzmx01">POC总帐模型01</table>
+		<table name="yx_poc_mxmx01">POC明细模型01</table>
+		<table name="yx_poc_bbmx01">POC报表模型01</table>
+	</firstinstall>
+
+	<upgrade descr="升级安装的表数据">
+	</upgrade>
+</root>

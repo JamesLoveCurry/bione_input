@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.rptfill.repository.DataSumMybatisDao">
+
+	<!-- 获取汇总状态信息 -->
+	<select id="searchSumSts" resultType="com.yusys.biapp.frs.rptfill.entity.RptEngineOrgSumSts" parameterType="HashMap">
+		SELECT
+		    RPT_ID as "id.rptId",
+		    DATA_DATE as "id.dataDate",
+		    ORG_NO as "id.orgNo",
+		    STS,
+		    TASK_ID
+		FROM
+		    RPT_ENGINE_ORG_SUM_STS sts
+		where 1 = 1
+		<if test="rptIdList != null">
+			and (sts.RPT_ID in 
+			<foreach item="rptIds"  collection="rptIdList" separator=" or sts.RPT_ID in ">
+				<foreach collection="rptIds" item="rptId" open="(" separator="," close=")">
+					#{rptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="orgNoList != null">
+			and (sts.ORG_NO in 
+			<foreach item="orgNos"  collection="orgNoList" separator=" or sts.ORG_NO in ">
+				<foreach collection="orgNos" item="orgNo" open="(" separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="dataDate != null">
+			and sts.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	
+	<!-- 获取汇总结果 -->
+	<select id="searchSumResult" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		    inf.task_id   task_id,
+		    inf.task_nm   task_nm,
+		    sts.sts       sum_sts,
+		    sts.data_date data_date,
+		    org.org_nm    exe_obj_nm,
+		    org.org_no    exe_obj_id,
+		    org.org_type  task_type,
+		    rpt.rpt_id    task_obj_id,
+		    rpt.rpt_nm    task_obj_nm,
+		    sts.start_time 
+		FROM
+		    rpt_engine_org_sum_sts sts
+		INNER JOIN
+		    RPT_ORG_INFO org
+		ON
+		    sts.org_no = org.org_no
+		    <!--  AND org.org_Type = #{taskType} AND sts.data_date = #{dataDate} -->
+		    <if test="mgrOrgNoList != null and mgrOrgNoList.size() > 0">
+				AND (
+					org.namespace LIKE '%' || 
+					<foreach item="orgNo"  collection="mgrOrgNoList" separator=" or org.namespace LIKE '%' || ">
+						#{orgNo} || '%'
+					</foreach>
+				)
+		    </if>
+		    <if test="taskObjId != null and taskObjId.size() > 0">
+			    and 
+			    ( 
+					sts.RPT_ID in
+					<foreach item="rptIds"  collection="taskObjId" separator=" or sts.RPT_ID in ">
+						<foreach collection="rptIds" item="rptId" open="(" separator="," close=")">
+							#{rptId}
+						</foreach>
+					</foreach>
+				)
+		    </if>
+		INNER JOIN
+		    RPT_MGR_REPORT_INFO rpt
+		ON
+		    sts.RPT_ID = rpt.RPT_ID
+		INNER JOIN
+		    rpt_fltsk_info inf
+		ON
+		    sts.task_id = inf.task_id AND inf.LOGIC_DEL_NO = 'N'
+		<if test="sts != null "> AND ( sts.sts = '01' or sts.sts = '02') </if>
+		
+	</select>
+	
+	<!-- 获取具有汇总结果的任务信息 -->
+	<select id="searchSumStsTaskInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT DISTINCT
+			task.task_id id, task.task_nm text
+		FROM
+			rpt_engine_org_sum_sts sts
+		INNER JOIN
+			rpt_fltsk_info task
+		ON
+			sts.task_id = task.task_id
+		<if test="dataDate != null and dataDate.length() > 0"> AND sts.dataDate = #{dataDate} </if>
+		<if test="sumSts != null and sumSts.length() > 0"> AND sts.sts = #{sumSts} </if>
+		<if test="orgNoList != null and orgNo.size() > 0">
+			AND (
+				sts.ORG_NO in
+				<foreach item="orgNos"  collection="orgNoList" separator=" or sts.ORG_NO in ">
+					<foreach collection="orgNos" item="orgNo" open="(" separator="," close=")">
+						#{orgNo}
+					</foreach>
+				</foreach>
+			)
+		</if>
+		<if test="rptIdList != null and rptIdList.size() > 0">
+		    AND ( 
+				sts.RPT_ID in
+				<foreach item="rptIds"  collection="rptIdList" separator=" or sts.RPT_ID in ">
+					<foreach collection="rptIds" item="rptId" open="(" separator="," close=")">
+						#{rptId}
+					</foreach>
+				</foreach>
+			)
+	    </if>
+	</select>
+	
+	<!-- 获取具有汇总结果的机构信息 -->
+	<select id="searchSumStsOrgInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT DISTINCT
+		    org.org_no id, org.org_nm text, org.up_org_no up_id
+		FROM
+		    rpt_org_info org
+		INNER JOIN
+		    rpt_engine_org_sum_sts sts
+		ON
+		    sts.org_no = org.org_no
+		<if test="dataDate != null and dataDate.length() > 0"> AND sts.data_date = #{dataDate} </if>
+		<if test="orgType != null and orgType.length() > 0"> AND org.org_type = #{orgType} </if>
+		<if test="mgrOrgNoList != null and mgrOrgNoList.size() > 0">
+			AND (
+				org.namespace LIKE '%' || 
+				<foreach item="orgNo"  collection="mgrOrgNoList" separator=" or org.namespace LIKE '%' || ">
+					#{orgNo} || '%'
+				</foreach>
+			)
+		</if>
+		LEFT JOIN
+		    rpt_fltsk_ins ins
+		ON
+		    sts.rpt_id = ins.task_obj_id AND ins.task_type = org.org_type
+		<if test="taskId != null and taskId.length() > 0"> AND ins.task_id = #{taskId} </if>
+	</select>
+	
+	<!-- 获取具有汇总结果的报表信息 -->
+	<select id="searchSumStsRptInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT DISTINCT
+		    rpt.rpt_id id, rpt.rpt_nm text
+		FROM
+		    rpt_mgr_report_info rpt
+		INNER JOIN
+		    rpt_engine_org_sum_sts sts
+		ON
+		    rpt.rpt_id = sts.rpt_id
+		INNER JOIN
+			rpt_org_info org
+		ON
+			sts.org_no = org.org_no
+		<if test="taskType != null and taskType.length() > 0"> AND org.org_Type = #{taskType} </if>
+		<if test="dataDate != null and dataDate.length() > 0"> AND sts.data_Date = #{dataDate} </if>
+	</select>
+	
+	<!-- 插入汇总状态数据 -->
+	<insert id="saveSumSts" parameterType="com.yusys.biapp.frs.rptfill.entity.RptEngineOrgSumSts">
+		INSERT INTO
+    		RPT_ENGINE_ORG_SUM_STS ( RPT_ID, DATA_DATE, ORG_NO, STS, TASK_ID ,START_TIME,END_TIME)
+    	VALUES ( #{id.rptId}, #{id.dataDate}, #{id.orgNo}, #{sts}, #{taskId} ,#{startTime},#{endTime})
+	</insert>
+	<!-- 修改汇总状态数据 -->
+	<update id="updateSumSts" parameterType="com.yusys.biapp.frs.rptfill.entity.RptEngineOrgSumSts">
+		UPDATE
+		    RPT_ENGINE_ORG_SUM_STS
+		SET
+		    STS = #{sts}, TASK_ID = #{taskId},START_TIME = #{startTime},END_TIME = #{endTime}
+		WHERE
+		    RPT_ID = #{id.rptId} AND DATA_DATE = #{id.dataDate} AND ORG_NO = #{id.orgNo}
+	</update>
+</mapper>

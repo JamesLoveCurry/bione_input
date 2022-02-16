@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.yusys.bione.plugin.engine.repository.mybatis.FrsEngineDao">
+	<select id="getEngineIdxStsList"
+		resultType="com.yusys.bione.plugin.engine.entity.RptEngineIdxSt"
+		parameterType="HashMap">
+		select
+		t1.INDEX_NO as "id.indexNo" ,
+		t1.DATA_DATE as "id.dataDate",
+		t1.STS ,
+		t1.ERROR_LOG ,
+		t1.START_TIME ,
+		t1.END_TIME ,
+		t2.index_nm
+		FROM
+		RPT_ENGINE_IDX_STS t1,RPT_IDX_INFO t2
+		where
+		t1.INDEX_NO=t2.INDEX_NO
+		and
+		t2.index_ver_id =(
+		select max(index_ver_id)
+		from RPT_IDX_INFO where
+		index_no=t2.index_no
+		)
+		<if test="indexNo!=null">
+			and t1.index_no like #{indexNo}
+		</if>
+		<if test="indexNm!=null">
+			and t2.index_nm like #{indexNm}
+		</if>
+		<if test="sts!=null">
+			and t1.sts = #{sts}
+		</if>
+		<if test="dataDate!=null">
+			and t1.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	<select id="getEngineRptStsListNew"
+		resultType="com.yusys.bione.plugin.engine.entity.RptTaskInstanceInfo"
+		parameterType="HashMap">
+		select 
+		t1.instance_id as "id.instanceId",
+       	t1.data_date   as "id.dataDate",
+       	t1.sts,
+       	t1.TASK_NM,
+       	t1.TASK_TYPE,
+       	t1.TASK_NO as "id.taskNo",
+       	t1.DATA_DATE,
+       	t1.start_time,
+       	t1.end_time,
+       	t2.rpt_nm,
+       	t2.rpt_num
+  		from 
+  		rpt_task_instance_info t1, rpt_mgr_report_info t2
+ 		where 
+ 		t1.instance_id = t2.rpt_id
+ 		and t1.task_type='RptId'
+		<if test="rptNum!=null">
+			and t2.rpt_num like #{rptNum}
+		</if>
+		<if test="rptNm!=null">
+			and t2.RPT_NM like #{rptNm}
+		</if>
+		<if test="sts!=null">
+			and t1.STS = #{sts}
+		</if>
+		<if test="dataDate!=null">
+			and t1.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+
+	<insert id="createProcess"  parameterType="com.yusys.bione.plugin.engine.entity.RptEngineProcess">
+		INSERT INTO RPT_ENGINE_PROCESS(TASK_ID, TASK_NM, DS_ID, PROCESS_NM, DATADATE) 
+		VALUES(#{taskId},#{taskNm},#{dsId},#{processNm},#{dataDate})
+	</insert>
+	
+	<select id="getProcessByDsId" 
+		resultType="com.yusys.bione.plugin.engine.entity.RptEngineProcess"
+		parameterType="String">
+		SELECT TASK_ID, TASK_NM, DS_ID, PROCESS_NM, DATADATE FROM RPT_ENGINE_PROCESS WHERE DS_ID=#{dsId} order by DATADATE DESC 
+	</select>
+	
+	<select id="getProcessByTaskId" 
+		resultType="com.yusys.bione.plugin.engine.entity.RptEngineProcess"
+		parameterType="String">
+		SELECT TASK_ID, TASK_NM, DS_ID, PROCESS_NM, DATADATE FROM RPT_ENGINE_PROCESS WHERE TASK_ID=#{taskId}
+	</select>
+
+	<update id="updateProcessByTaskId" parameterType="com.yusys.bione.plugin.engine.entity.RptEngineProcess">
+		update RPT_ENGINE_PROCESS
+		<set>
+			<if test="taskNm != null">TASK_NM=#{taskNm},</if>
+			<if test="dsId != null">DS_ID=#{dsId},</if>
+			<if test="processNm != null">PROCESS_NM=#{processNm},</if>
+			<if test="dateDate != null">DATADATE=#{dateDate},</if>
+			<if test="taskId != null">TASK_ID=#{taskId}</if>
+		</set>
+		where  TASK_ID=#{taskId}
+
+	</update>
+	<delete id="deleteProcessByTaskId" parameterType="HashMap">
+		delete from RPT_ENGINE_PROCESS
+		where 1=1
+		and TASK_ID IN 
+		<foreach collection="taskList" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteProcessByDsId" parameterType="String">
+		delete from RPT_ENGINE_PROCESS
+		where DS_ID = #{dsId}
+	</delete>
+</mapper> 

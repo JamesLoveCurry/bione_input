@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+<templet>
+<templetname>取值范围校验</templetname>
+<fromtable>east_cr_rule_range</fromtable>
+<savetable>east_cr_rule_range</savetable>
+<pkname>id</pkname>
+<querycontion/>
+<autocondition descr="自动查询时的条件"/>
+<autoquery descr="是否自动查询数据">N</autoquery>
+<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+<orderbys/>
+<card_btns/>
+<card_size>750*400</card_size>
+<card_isdebugborder>N</card_isdebugborder>
+<list_btns></list_btns>
+<list_issearch/>
+<list_ispagebar>N</list_ispagebar>
+<list_ischeckstyle>N</list_ischeckstyle>
+</templet>
+
+
+<templet_item>
+    <itemkey>id</itemkey>
+    <itemname>主键</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <defaultformula></defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <isonlyone>Y</isonlyone>
+    <formatvalidate></formatvalidate>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width>300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue>SELECT NVL(max(ID),0)+1 from east_cr_rule_range</defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>type_cd</itemkey>
+    <itemname>限制类型</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"1/枚举|2/区间|3/字典表"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>multi_val</itemkey>
+    <itemname>是否多值</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>{"类型":"直接值","内容":"Y/多值|N/单值"}</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>200</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>sep</itemkey>
+    <itemname>多值时分隔字符</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width>125,200</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>range_cd</itemkey>
+    <itemname>枚举值</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>250</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+<templet_item>
+    <itemkey>min_range</itemkey>
+    <itemname>最小值</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine><![CDATA[【{"类型":"直接值","内容":">|>="}】]]></itemdefine>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <card_isshow>Y</card_isshow>
+    <card_width>200</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+<templet_item>
+    <itemkey>min_val</itemkey>
+    <itemname> </itemname>
+    <itemtype>数字框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【精度=2】</itemdefine>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <card_isshow>Y</card_isshow>
+    <card_width>20,120</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+<templet_item>
+    <itemkey>max_range</itemkey>
+    <itemname>最大值</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine><![CDATA[【{"类型":"直接值","内容":"<|<="}】]]></itemdefine>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>200</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>max_val</itemkey>
+    <itemname> </itemname>
+    <itemtype>数字框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <card_isshow>Y</card_isshow>
+    <card_width>20,120</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+<templet_item>
+    <itemkey>dic_view</itemkey>
+    <itemname>字典视图</itemname>
+    <itemtype>列表参照</itemtype>
+    <itemdefine>【templetcode=/biapp-east/freexml/rule_ranges_dict_code.xml】【cols=column_value->dic_view】【winsize=800*380】</itemdefine>
+    <helptip></helptip>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+</templet_item>
+</root>

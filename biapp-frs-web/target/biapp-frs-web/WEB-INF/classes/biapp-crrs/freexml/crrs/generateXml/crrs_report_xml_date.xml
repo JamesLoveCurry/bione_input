@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>生成报文</templetname>
+	</templet>
+
+	<templet_item>
+		<itemkey>data_dt</itemkey>
+		<itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<itemdefine>【is8=Y】</itemdefine>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+		
+	<templet_item>
+		<itemkey>seq</itemkey>
+		<itemname>批次</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from crrs_bs_dict_code where parent_item_code = 'A01040'"}】</itemdefine>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<list_isshow>N</list_isshow>
+		<card_iswrap>Y</card_iswrap>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>
+

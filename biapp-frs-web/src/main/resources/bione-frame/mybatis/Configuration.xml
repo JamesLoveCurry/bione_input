@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="database.properties" />
+
+	<settings>
+		<!--这行配置设置findProperty方法参数useCamelCaseMapping boolean属性-->
+		<setting name="mapUnderscoreToCamelCase" value="true"></setting>
+	</settings>
+
+	<!--这行配置自定义的ObjectWrapperFactory 实现类-->
+<!--	<objectWrapperFactory type="com.yusys.bione.comp.repository.mybatis.MapWrapperFactory"/>-->
+
+	<plugins>
+		<!-- packageName为PageHelper类所在包名 -->
+		<plugin interceptor="com.yusys.bione.comp.repository.mybatis.PageHelper">
+			<property name="dialect" value="${database.type}" />
+		</plugin>
+		<plugin interceptor="com.yusys.bione.comp.repository.mybatis.OracleParamHelper">
+			<property name="dialect" value="${database.type}" />
+		</plugin>
+	</plugins>
+	<!-- MyBatis可以配置成适应多种环境，这种机制有助于将 SQL映射应用于多种数据库之中 -->
+	<environments default="dev">
+        <environment id="dev">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driverClassName}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
+            </dataSource>
+        </environment>
+    </environments>
+	
+	<!-- MyBatis可以根据不同的数据库厂商执行不同的语句,这种多厂商的支持是基于映射语句中的 databaseId属性 -->
+	<databaseIdProvider type="DB_VENDOR">
+		<property name="MySQL" value="mysql" />
+		<property name="DB2" value="db2" />
+		<property name="Oracle" value="oracle" />
+		<property name="PostgreSQL" value="postgresql" />
+	</databaseIdProvider>
+</configuration>

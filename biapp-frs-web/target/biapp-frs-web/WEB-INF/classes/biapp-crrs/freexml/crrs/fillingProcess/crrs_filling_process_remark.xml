@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>提交原因</templetname>
+		<fromtable>crrs_filling_reason</fromtable>
+		<savetable>crrs_filling_reason</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	    <orderbys></orderbys>
+		<card_btns></card_btns>
+		<card_size>700*560</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+	</templet>
+	
+	<templet_item>
+	    <itemkey>reason</itemkey>
+	    <itemname>提交原因</itemname>
+	    <itemtype>多行文本框</itemtype>
+	    <issave>Y</issave>
+	    <ismust>N</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>Y</card_isshow>
+	    <card_width>500</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>300</list_width>
+	    <list_align>左</list_align>
+	    <list_render></list_render>
+	</templet_item>
+	
+</root>

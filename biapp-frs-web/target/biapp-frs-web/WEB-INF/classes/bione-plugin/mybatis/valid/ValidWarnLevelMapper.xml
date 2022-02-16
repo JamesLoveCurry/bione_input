@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.valid.repository.ValidWarnLevelMybatisDao">
+	<select id="listWarnLevel" resultType="com.yusys.bione.plugin.valid.entitiy.RptValidWarnLevel"
+	parameterType="HashMap">
+		select LEVEL_NUM as "id.levelNum",CHECK_ID as "id.checkId",LEVEL_NM,LEVEL_TYPE,MINUS_RANGE_VAL,POSTIVE_RANGE_VAL,REMIND_COLOR,IS_PASS_COND,INDEX_NO
+		from
+		RPT_VALID_WARN_LEVEL
+		where 1=1
+		<if test="levelNum != null">and LEVEL_NUM = #{levelNum}</if>
+		<if test="checkId != null">and CHECK_ID = #{checkId}</if>
+		<if test="levelNm != null">and LEVEL_NM = #{levelNm}</if>
+		<if test="levelType != null">and LEVEL_TYPE = #{levelType}</if>
+		<if test="minusRangeVal != null">and MINUS_RANGE_VAL = #{minusRangeVal}</if>
+		<if test="postiveRangeVal != null">and POSTIVE_RANGE_VAL = #{postiveRangeVal}</if>
+		<if test="remindColor != null">and REMIND_COLOR = #{remindColor}</if>
+		<if test="isPassCond != null">and IS_PASS_COND = #{isPassCond}</if>
+		<if test="indexNo != null">and INDEX_NO = #{indexNo}</if>
+	</select>
+	<insert id="saveWarnLevel" parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidWarnLevel">insert into RPT_VALID_WARN_LEVEL(LEVEL_NUM,CHECK_ID,LEVEL_NM,LEVEL_TYPE,MINUS_RANGE_VAL,POSTIVE_RANGE_VAL,REMIND_COLOR,IS_PASS_COND,INDEX_NO)
+		values(#{id.levelNum},#{id.checkId},#{levelNm},#{levelType},#{minusRangeVal},#{postiveRangeVal},#{remindColor},#{isPassCond},#{indexNo})</insert>
+	<update id="updateWarnLevel" parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidWarnLevel">
+		update RPT_VALID_WARN_LEVEL
+		<set>
+			<if test="id.levelNum != null">LEVEL_NUM=#{id.levelNum},</if>
+			<if test="id.checkId != null">CHECK_ID=#{id.checkId},</if>
+			<if test="levelNm != null">LEVEL_NM=#{levelNm},</if>
+			<if test="levelType != null">LEVEL_TYPE=#{levelType},</if>
+			<if test="minusRangeVal != null">MINUS_RANGE_VAL=#{minusRangeVal},</if>
+			<if test="postiveRangeVal != null">POSTIVE_RANGE_VAL=#{postiveRangeVal},</if>
+			<if test="remindColor != null">REMIND_COLOR=#{remindColor},</if>
+			<if test="isPassCond != null">IS_PASS_COND=#{isPassCond},</if>
+			<if test="indexNo != null">INDEX_NO=#{indexNo}</if>
+		</set>
+		where 1=1 and LEVEL_NUM=#{id.levelNum}
+		and CHECK_ID=#{id.checkId}
+	</update>
+	<delete id="deleteWarnLevel" parameterType="HashMap">
+			delete from RPT_VALID_WARN_LEVEL
+			where 1=1
+			<if test="id != null">
+				<if test="id.levelNum != null">and LEVEL_NUM=#{id.levelNum}</if>
+				<if test="id.checkId != null">and CHECK_ID=#{id.checkId}</if>
+			</if>
+			<if test="checkIds != null">
+				and CHECK_ID in
+				<foreach  collection="checkIds" index="index" item="item"  open="("  separator="," close=")">#{item}</foreach>
+			</if>
+		</delete>
+
+</mapper> 

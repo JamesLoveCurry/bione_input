@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<!-- 金标报送数据表 -->
+	<firstinstall descr="首次安装的表数据">
+		<table name="fsrs_cr_tab">模型表定义</table>
+		<table name="fsrs_cr_col">模型表字段定义</table>
+	</firstinstall>
+
+	<upgrade descr="升级安装的表数据">
+	</upgrade>
+</root>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.integratedquery.rptquery.detailsel.repository.DetailRptDao">
+
+	<select id="queryTreeList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"  parameterType="hashMap">
+		SELECT *
+  		FROM RPT_MGR_REPORT_INFO INFO
+ 		where 1=1
+ 		<if test="catalogId != null">
+ 			AND INFO.CATALOG_ID = #{catalogId}
+ 		</if>
+ 		and INFO.RPT_TYPE='05'
+ 		and INFO.RPT_ID IN
+        <foreach  collection = "rptLists" index="index" item="item"  open="("  separator="," close=")">
+              #{item}               
+        </foreach> 
+	</select>
+	
+	<select id="queryAllTreeList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"  parameterType="hashMap">
+		SELECT *
+  		FROM RPT_MGR_REPORT_INFO INFO
+ 		where 1=1
+ 		<if test="catalogId != null">
+ 			AND INFO.CATALOG_ID = #{catalogId}
+ 		</if>
+ 		and INFO.RPT_TYPE='05'
+	</select>
+	
+	<select id="getDetailCatalogIdList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"  parameterType="java.util.List">
+		SELECT * FROM RPT_MGR_REPORT_CATALOG CATALOG WHERE CATALOG.CATALOG_ID IN(
+			SELECT DISTINCT(INFO.CATALOG_ID)
+	  		FROM RPT_MGR_REPORT_INFO INFO
+	 		where 1=1
+	 		and INFO.RPT_TYPE='05'
+	 		and INFO.RPT_ID IN
+	        <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+	              #{item}               
+	        </foreach> 
+	        )
+	</select>
+	
+	<select id="getChildOrgNos" resultType="HashMap" parameterType="String" >
+		select info.org_no from bione_org_info info where info.namespace like #{orgNoLike}
+	</select>
+	
+	<select id="getAllDetailCatalogIdList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"  parameterType="java.util.List">
+		SELECT * FROM RPT_MGR_REPORT_CATALOG CATALOG WHERE CATALOG.EXT_TYPE='05'
+	</select>
+	
+	<select id="queryChildCatalogList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"  parameterType="java.util.List">
+		SELECT *
+		FROM RPT_MGR_REPORT_CATALOG LOG
+		WHERE 1=1
+ 		<if test="catalogId != null">
+ 			AND LOG.UP_CATALOG_ID = #{catalogId}
+ 		</if>
+	</select>
+	
+	<select id="getDetailList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"  parameterType="hashMap">
+		SELECT *
+  		FROM RPT_MGR_REPORT_INFO INFO
+ 		where 1=1
+ 		and INFO.RPT_TYPE='05'
+ 		<if test="catalogId != null">
+ 			AND INFO.CATALOG_ID = #{catalogId}
+ 		</if>
+ 		<if test="rptId != null">
+ 			AND INFO.RPT_ID = #{rptId}
+ 		</if>
+	</select>
+	
+	<insert id="editColumn" parameterType="HashMap">
+		insert into DETAIL_TC_CFG(
+		TC_ID,
+		TABLE_NAME_EN,
+		TABLE_NAME_CN,
+		COL_NAME_EN,
+		COL_NAME_CN,
+		EDIT_TYPE,
+		EDIT_STS,
+		RPT_ID
+		)values(
+		#{tcId},#{tableNameEn},#{tableNameCn},#{colNameEn},#{colNameCn},#{editType},#{editSts},#{rptId}
+		)
+	</insert>
+	
+	<select id="getProperties" resultType="HashMap" parameterType="String" >
+		SELECT 
+		CONN_USER,
+		CONN_PWD,
+		CONN_URL,
+		HOST,
+		PORT,
+		DBNAME
+		FROM
+		BIONE_DS_INFO
+		where DS_ID = #{dsId}
+	</select>
+	
+	<select id="getEditInfo" resultType="com.yusys.biapp.frs.integratedquery.rptquery.detailsel.entity.DetailTcCfg" parameterType="java.util.Map" >
+		SELECT *
+		FROM 
+		DETAIL_TC_CFG
+		where 1=1
+		and RPT_ID = #{rptId}
+		and EDIT_TYPE = #{editType}
+		and EDIT_STS = #{editSts}
+	</select>
+	
+	
+	<select id="getBaseInfo" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo" parameterType="String" >
+		SELECT *
+		FROM
+		RPT_MGR_REPORT_INFO
+		where RPT_ID = #{rptId}
+	</select>
+	
+	<select id="getDimInfo" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol" parameterType="String">
+		select *
+  			from rpt_sys_module_col col
+			where col.col_type = '02'
+   			and col.set_id =
+       			(select mo.set_id
+        			from rpt_sys_module_info mo
+       				where mo.table_en_nm =
+               			(select info.rpt_num
+                  			from rpt_mgr_report_info info
+                 			where info.rpt_id = #{rptId}))
+	</select>
+	<select id="getOtherBaseInfo" resultType="HashMap" parameterType="String" >
+		SELECT DISTINCT 
+		EXT.DEF_DEPT,CFG.TABLE_NAME_EN 
+		FROM RPT_MGR_FRS_EXT EXT 
+		LEFT JOIN DETAIL_TC_CFG CFG 
+		ON EXT.RPT_ID = CFG.RPT_ID
+ 		WHERE EXT.RPT_ID=#{rptId}
+	</select>
+	<delete id="deleteDetails" parameterType="String">
+             delete from DETAIL_TC_CFG where RPT_ID = #{rptId}
+    </delete>
+     <delete id="deleteMgrDetails" parameterType="String">
+             delete from RPT_MGR_REPORT_INFO where RPT_ID = #{rptId}
+    </delete>
+     <delete id="deleteExtDetails" parameterType="String">
+		delete from RPT_MGR_FRS_EXT where RPT_ID = #{rptId}
+    </delete>
+    <select id="getCatalogNmByCatalogId" resultType="String" parameterType="String" >
+		SELECT CATALOG_NM
+		FROM
+		RPT_MGR_REPORT_CATALOG
+		where CATALOG_ID = #{catalogId}
+	</select>
+	
+	<select id="getDetailDefaultInfo" resultType="com.yusys.biapp.frs.integratedquery.rptquery.detailsel.entity.DetailPersonCfg" parameterType="hashMap">
+		select *
+  			from detail_person_cfg
+ 		where rpt_id = #{rptId}
+   			and user_id = #{userId}
+	</select>
+	
+	<delete id="deleteDefault" parameterType="HashMap">
+		delete from detail_person_cfg where rpt_id= #{rptId} and user_id = #{userId}
+	</delete>
+	
+	<insert id="insertDefault" parameterType="HashMap">
+		insert into detail_person_cfg
+  			(rpt_id, user_id, col_name_en, col_name_cn, edit_type)
+		values
+  			(#{rptId}, #{userId}, #{Uchecked}, #{UcheckedCN}, #{editType})
+	</insert>
+	
+	
+</mapper> 

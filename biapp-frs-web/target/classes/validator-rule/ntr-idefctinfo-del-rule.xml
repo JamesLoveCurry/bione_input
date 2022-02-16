@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30078872.0.0" classType="org.pbccrc.archive.collect.messagetools.ntridentify.msg.IdEfctInfDelRecord" >
+			<field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+				<rule  id="DelRecType_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="DelRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecType_NotNull" />
+				<rule id="DelRecType_Equal" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="DelRecType_NotEmpty">
+					<property name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field> 
+			<field  name="InfSurcCode" fbTag="InfSurcCode" classType="java.lang.String" >
+				<rule  id="InfSurcCode_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="InfSurcCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfSurcCode_NotNull" />
+				<rule  id="InfSurcCode_DataType" type="DataType" errCode="ABE001" depExp="InfSurcCode_NotEmpty" >
+					<property  name="type" value="AN..20" />
+				</rule>
+				<!-- 前14为数据提供机构区代码校验 -->
+				<rule  id="InfSurcCode_FinanVali" type="FinanOrgan" errCode="ABE002" depExp="InfSurcCode_DataType" >
+				</rule>
+			</field> 
+			<field  name="Name" fbTag="Name" classType="java.lang.String" >
+				<rule  id="Name_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="Name_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Name_NotNull" />
+				<rule  id="Name_DataType" type="DataType" errCode="ABE001" depExp="Name_NotEmpty" >
+					<property  name="type" value="ANC..30" />
+				</rule>
+			</field> 
+			<field  name="IDType" fbTag="IDType" classType="java.lang.String" >
+				<rule  id="IDType_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="IDType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDType_NotNull" />
+				<rule id="IDType_Dict" type="Dict" errCode="ABE001" depExp="IDType_NotEmpty" scope="local">
+							<property name="dictKey" value="NtrCertType" />
+				</rule>
+			</field> 
+			<field  name="IDNum" fbTag="IDNum" classType="java.lang.String" >
+				<rule  id="IDNum_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="IDNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDNum_NotNull" />
+				<rule  id="IDNum_DataType" type="DataType" errCode="ABE001" depExp="IDNum_NotEmpty" >
+					<property  name="type" value="ANC..20" />
+				</rule>
+				<!-- 根据证件类型，校验不同的证件号xxxx -->
+				<rule id="IDNum_Vali" type="NtrCert" errCode="ABE004" depExp="IDType_Dict"> 
+				   <property name="certType" value="${IDType}"></property>
+				</rule>
+			</field> 
+	</validator>
+</validators>

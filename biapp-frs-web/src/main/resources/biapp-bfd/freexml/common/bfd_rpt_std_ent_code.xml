@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>校验规则</templetname>
+	<fromtable>rpt_std_code_info</fromtable>
+	<savetable>rpt_std_code_info</savetable>
+	<querycontion>rpt_type = 'BFD' and code_type = 'ENT_SCALE'</querycontion>
+	<autocondition descr="自动查询时的条件">rpt_type = 'BFD' and code_type = 'ENT_SCALE'</autocondition>
+	<autoquery descr="是否自动查询数据">Y</autoquery>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<card_btns></card_btns>
+	<list_btns></list_btns>
+    <orderbys>order_no</orderbys>
+	<list_issearch></list_issearch>
+	<list_ispagebar>N</list_ispagebar>
+</templet>
+
+<templet_item>
+    <itemkey>item</itemkey>
+    <itemname>企业规模代码</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>Y</query_isshow>
+    <query_width>60,200</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>item_name</itemkey>
+    <itemname>企业规模</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>350</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>280</list_width>
+    <list_align>左</list_align>
+    <list_render></list_render>
+    <query_isshow>Y</query_isshow>
+    <query_width>60,200</query_width>
+</templet_item>
+
+
+</root>
+

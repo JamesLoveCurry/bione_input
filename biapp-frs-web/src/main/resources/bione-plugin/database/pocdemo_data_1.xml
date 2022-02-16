@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">k0001</col>
+  <col name="code">001</col>
+  <col name="name">张三</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">145.251717</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">k0002</col>
+  <col name="code">002</col>
+  <col name="name">李四</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">123.891303</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">k0003</col>
+  <col name="code">003</col>
+  <col name="name">王五</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">213.051276</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">k0004</col>
+  <col name="code">004</col>
+  <col name="name">赵六</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">178.891303</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">k0005</col>
+  <col name="code">005</col>
+  <col name="name">黄七</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">187.873673</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">r0001</col>
+  <col name="code">001</col>
+  <col name="name">张三</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">1200.250367</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">r0002</col>
+  <col name="code">002</col>
+  <col name="name">李四</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">1535.456832</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">r0003</col>
+  <col name="code">003</col>
+  <col name="name">王五</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">2200.873246</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">r0004</col>
+  <col name="code">004</col>
+  <col name="name">赵六</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">3500.983752</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">r0005</col>
+  <col name="code">005</col>
+  <col name="name">黄七</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">1800.984635</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">w0001</col>
+  <col name="code">001</col>
+  <col name="name">张三</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">35.093283</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">w0002</col>
+  <col name="code">002</col>
+  <col name="name">李四</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">12.348735</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">w0003</col>
+  <col name="code">003</col>
+  <col name="name">王五</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">18.093541</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">w0004</col>
+  <col name="code">004</col>
+  <col name="name">赵六</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">52.128464</col>
+</record>
+
+<record tabname="yx_poc_dwmx01">
+  <col name="rid">w0005</col>
+  <col name="code">005</col>
+  <col name="name">黄七</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">25.198463</col>
+</record>
+
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">k0001</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">145.250000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">k0002</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">256.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">k0003</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">380.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">k0004</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">400.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">k0005</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">720.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">r0001</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">1045.250000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">r0002</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">2450.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">r0003</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">5200.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">r0004</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">4600.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">r0005</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">1700.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">w0001</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">76.250000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">w0002</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">55.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">w0003</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">64.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">w0004</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">94.000000</col>
+</record>
+
+<record tabname="yx_poc_fhmx01">
+  <col name="rid">w0005</col>
+  <col name="idxcode">POC_FHZB01</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">002</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">32.000000</col>
+</record>
+
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">k0001</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">张三</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">210.000000</col>
+  <col name="amount2">123.000000</col>
+  <col name="amount3">456.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">k0002</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">李四</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">450.000000</col>
+  <col name="amount2">327.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">k0003</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">王五</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">327.000000</col>
+  <col name="amount2">176.000000</col>
+  <col name="amount3">321.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">k0004</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">赵六</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">276.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">216.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">k0005</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">黄七</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">367.000000</col>
+  <col name="amount2">218.000000</col>
+  <col name="amount3">167.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">m0001</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">张三</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">35.000000</col>
+  <col name="amount2">55.760000</col>
+  <col name="amount3">76.350000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">m0002</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">李四</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">56.780000</col>
+  <col name="amount2">37.900000</col>
+  <col name="amount3">43.800000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">m0003</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">王五</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">45.800000</col>
+  <col name="amount2">98.500000</col>
+  <col name="amount3">38.700000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">m0004</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">赵六</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">38.900000</col>
+  <col name="amount2">17.800000</col>
+  <col name="amount3">97.400000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">m0005</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">黄七</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">76.300000</col>
+  <col name="amount2">65.200000</col>
+  <col name="amount3">58.300000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">r0001</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">张三</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">1245.000000</col>
+  <col name="amount2">2120.000000</col>
+  <col name="amount3">1235.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">r0002</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">李四</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">2256.980000</col>
+  <col name="amount2">2019.250000</col>
+  <col name="amount3">1256.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">r0003</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">王五</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">500.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">2035.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">r0004</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">赵六</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">6020.000000</col>
+  <col name="amount2">2310.000000</col>
+  <col name="amount3">1135.000000</col>
+</record>
+
+<record tabname="yx_poc_zzmx01">
+  <col name="rid">r0005</col>
+  <col name="idxcode">POC_ZZZB01</col>
+  <col name="code"></col>
+  <col name="name">黄七</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">3700.000000</col>
+  <col name="amount2">3210.000000</col>
+  <col name="amount3">3135.000000</col>
+</record>
+
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">k0001</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">145.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">k0002</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">450.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">k0003</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">500.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">k0004</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">600.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">k0005</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">700.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">m0001</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">145.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">m0002</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">450.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">m0003</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">500.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">m0004</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">600.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">m0005</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">700.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">r0001</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">145.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">r0002</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">450.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">r0003</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">500.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">r0004</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">600.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_mxmx01">
+  <col name="rid">r0005</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">700.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">k0001</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">145.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">k0002</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">450.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">k0003</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">500.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">k0004</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">600.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">k0005</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">002</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">700.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">m0001</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">145.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">m0002</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">450.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">m0003</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">500.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">m0004</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">600.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">m0005</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">003</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">700.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">r0001</col>
+  <col name="code">G01</col>
+  <col name="name">张三</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">145.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">r0002</col>
+  <col name="code">G02</col>
+  <col name="name">李四</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">450.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">r0003</col>
+  <col name="code">G03</col>
+  <col name="name">王五</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">500.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">r0004</col>
+  <col name="code">G04</col>
+  <col name="name">赵六</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T01</col>
+  <col name="dimtype2">C002</col>
+  <col name="amount">600.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+<record tabname="yx_poc_bbmx01">
+  <col name="rid">r0005</col>
+  <col name="code">G05</col>
+  <col name="name">黄七</col>
+  <col name="org_no">001</col>
+  <col name="data_date">20190512</col>
+  <col name="curry">001</col>
+  <col name="sex">男</col>
+  <col name="dimtype1">T02</col>
+  <col name="dimtype2">C001</col>
+  <col name="amount">700.000000</col>
+  <col name="amount2">210.000000</col>
+  <col name="amount3">135.000000</col>
+</record>
+
+
+</root>

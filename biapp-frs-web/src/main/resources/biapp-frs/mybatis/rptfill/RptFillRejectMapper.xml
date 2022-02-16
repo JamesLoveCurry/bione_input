@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 驳回信息操作 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.rptfill.repository.RptFillRejectDao">
+	<select id="getOrgTypeByTaskId"
+		resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskIns"
+		parameterType="HashMap">
+		SELECT
+		DISTINCT(TASK_TYPE) AS TASK_TYPE
+		FROM
+		RPT_FLTSK_INS
+		WHERE 1 = 1
+		<if test="taskId != null">
+			AND TASK_ID = #{taskId}
+		</if>
+		and LOGIC_DEL_NO = 'N'
+	</select>
+	<!-- 获取机构树数据 -->
+	<select id="getOrgTreeByOrgList"
+		resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+		parameterType="HashMap">
+		SELECT
+		ORG_NO AS "id.orgNo",
+		UP_ORG_NO,
+		ORG_NM
+		FROM
+		RPT_ORG_INFO
+		WHERE 1 = 1
+		<!-- orgList 参数暂没用 15-01-06 -->
+		<if test="orgList != null">
+			AND ORG_NO IN
+			<foreach item="orgNo" index="index" collection="orgList"
+				open="(" separator="," close=")">
+				#{orgNo}
+			</foreach>
+		</if>
+		<if test="orgLike != null">
+			AND NAMESPACE like #{orgLike}
+		</if>
+		<if test="orgType != null">
+			AND ORG_TYPE = #{orgType}
+		</if>
+		<if test="id != null">
+			AND UP_ORG_NO = #{id}
+		</if>
+	</select>
+	<insert id="saveApplyData"
+		parameterType="com.yusys.biapp.frs.rptfill.entity.RptFltskRebut">
+		INSERT
+		INTO
+		RPT_FLTSK_REBUT
+		(
+		REBUT_ID,
+		TASK_INSTANCE_ID,
+		APPLY_USER_NO,
+		APPLY_TIME,
+		COLLATE_USER_NO,
+		COLLATE_TIME,
+		APPLY_DESC,
+		REBUT_DESC,
+		STS
+		)
+		VALUES
+		(
+		#{rebutId},
+		#{taskInstanceId},
+		#{applyUserNo},
+		#{applyTime},
+		#{collateUserNo},
+		#{collateTime},
+		#{applyDesc},
+		#{rebutDesc},
+		#{sts}
+		)
+	</insert>
+	<!-- 一次，获取驳回信息 -->
+	<select id="queryReject"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskRebutVO"
+		parameterType="HashMap">
+		SELECT
+		re.REBUT_ID,
+		I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjNm,
+		re.APPLY_USER_NO,
+		re.APPLY_TIME,
+		re.COLLATE_USER_NO,
+		re.COLLATE_TIME,
+		re.APPLY_DESC,
+		re.REBUT_DESC,
+		re.STS AS collateSts,
+		re.ERROR_RES,
+		u.USER_NAME AS applyUserNm,
+		uc.USER_NAME AS collateUserNm,
+		tpp.template_type as templateType,
+		tpp.template_id AS templateId,
+		tpp.fixed_length,
+		tpp.is_paging
+		FROM
+		RPT_FLTSK_REBUT re
+		INNER JOIN
+		RPT_FLTSK_INS I
+		ON
+		re.TASK_INSTANCE_ID =
+		I.TASK_INSTANCE_ID
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID =
+		rpt.RPT_ID
+		INNER JOIN rpt_design_tmp_info tpp 
+    	ON rpt.cfg_id = tpp.template_id
+		and tpp.ver_id = (select max(ver_id) from rpt_design_tmp_info where template_id =  rpt.cfg_id )
+		INNER JOIN
+		RPT_ORG_INFO O
+		ON
+		I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		<if test="taskType != null">
+		AND
+		I.TASK_TYPE = #{taskType}
+		</if>
+		INNER JOIN
+		BIONE_USER_INFO u
+		ON
+		u.USER_NO =
+		re.APPLY_USER_NO
+		LEFT JOIN
+		BIONE_USER_INFO uc
+		ON
+		uc.USER_NO =
+		re.COLLATE_USER_NO
+		where 1 = 1
+		and i.task_mgr_sts='1'
+		<!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+		<if test="userNo != null">
+			AND re.APPLY_USER_NO = #{userNo}
+		</if>
+		<if test="userSts != null">
+			AND u.USER_STS = #{userSts}
+		</if>
+		<if test="taskInstanceId != null">
+			AND I.TASK_INSTANCE_ID = #{taskInstanceId}
+		</if>
+		<if test="taskObjId != null and taskObjId.size > 0">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjId" collection="taskObjId" separator=" or i.TASK_OBJ_ID in ">
+				<foreach collection="taskObjId" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="exeObjId != null and exeObjId.size() > 0">
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjId"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="ownOrgNos != null">
+			and I.EXE_OBJ_ID not in
+			<foreach item="ownOrgNos" index="index" collection="ownOrgNos"
+				open="(" separator="," close=")">
+				#{ownOrgNos}
+			</foreach>
+		</if>
+		<if test="rebutId != null">
+			and re.REBUT_ID = #{rebutId}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+	<!-- 二次，获取驳回信息 -->
+	<select id="queryRejectChild"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskRebutVO"
+		parameterType="HashMap">
+		SELECT
+		re.REBUT_ID,
+		I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjNm,
+		re.APPLY_USER_NO,
+		re.APPLY_TIME,
+		re.COLLATE_USER_NO,
+		re.COLLATE_TIME,
+		re.APPLY_DESC,
+		re.REBUT_DESC,
+		re.STS AS collateSts,
+		u.USER_NAME AS
+		applyUserNm,
+		u.USER_NAME AS applyUserNm,
+		uc.USER_NAME AS collateUserNm,
+		rpt.cfg_id AS templateId
+		FROM
+		RPT_FLTSK_REBUT re
+		INNER
+		JOIN
+		RPT_FLTSK_INS I
+		ON
+		re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER
+		JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN
+		BIONE_USER_INFO u
+		ON
+		u.USER_NO = re.APPLY_USER_NO
+		LEFT JOIN
+		BIONE_USER_INFO uc
+		ON
+		uc.USER_NO = re.COLLATE_USER_NO
+		where 1 = 1
+		<if test="userNo != null">
+			AND re.APPLY_USER_NO = #{userNo}
+		</if>
+		<if test="userSts != null">
+			AND u.USER_STS = #{userSts}
+		</if>
+		<if test="taskType != null">
+			AND I.TASK_TYPE =#{taskType}
+		</if>
+		<if test="taskInstanceId != null">
+			AND I.TASK_INSTANCE_ID = #{taskInstanceId}
+		</if>
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjId" collection="taskObjId" separator=" or i.TASK_OBJ_ID in ">
+				<foreach collection="taskObjId" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="exeObjId != null">
+			and I.EXE_OBJ_ID in
+			<foreach item="exeObjId" index="index" collection="exeObjId"
+				open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if>
+		<if test="taskInsId != null">
+			and I.TASK_INSTANCE_ID in
+			<foreach item="taskInsId" index="index" collection="taskInsId"
+				open="(" separator="," close=")">
+				#{taskInsId}
+			</foreach>
+		</if>
+		<if test="rebutId != null">
+			and re.REBUT_ID = #{rebutId}
+		</if>
+		<if test="child != null">
+			and I.UP_TASK_INSTANCE_ID is not null
+			<!-- and I.UP_TASK_INSTANCE_ID != '' -->
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+	<!-- 申请驳回撤销 -->
+	<delete id="batchRemoveApplyRej">
+		DELETE
+		FROM
+		RPT_FLTSK_REBUT
+		WHERE
+		REBUT_ID IN
+		<foreach collection="array" item="rebutId" index="index" open="("
+			separator="," close=")">
+			#{rebutId}
+		</foreach>
+	</delete>
+	<!-- 根据任务实例ID和状态获取驳回信息 -->
+	<select id="findByTaskInstanceIdAndSts"
+		resultType="com.yusys.biapp.frs.rptfill.entity.RptFltskRebut">
+		SELECT
+		TASK_INSTANCE_ID,
+		APPLY_USER_NO,
+		APPLY_TIME,
+		COLLATE_USER_NO,
+		COLLATE_TIME,
+		APPLY_DESC,
+		REBUT_DESC,
+		STS
+		FROM
+		RPT_FLTSK_REBUT
+		where 1 = 1
+		<if test="taskInstanceId != null">
+			and TASK_INSTANCE_ID = #{taskInstanceId}
+		</if>
+		<if test="rebutId != null">
+			and REBUT_ID = #{rebutId}
+		</if>
+		<if test="stsList != null">
+			and STS in
+			<foreach item="stsindex" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsindex}
+			</foreach>
+		</if>
+		<if test="sts != null">
+			and STS = #{sts}
+		</if>
+	</select>
+	<!-- 审批驳回保存 -->
+	<update id="saveApproveData" parameterType="HashMap">
+		UPDATE
+		RPT_FLTSK_REBUT
+		SET
+		COLLATE_USER_NO = #{collateUserNo},
+		COLLATE_TIME =
+		#{collateTime},
+		REBUT_DESC = #{rebutDesc},
+		STS = #{sts},
+		ERROR_RES = #{errorRes}
+		WHERE
+		REBUT_ID =
+		#{rebutId}
+	</update>
+	<select id="queryLineList"
+		resultType="com.yusys.bione.plugin.frsorg.entity.RptMgrFrsLine">
+		SELECT
+		LINE_ID,
+		LINE_NM
+		FROM
+		RPT_MGR_FRS_LINE
+	</select>
+	<!-- queryChildTaskOrgGrid方法暂没用上 15-01-06 -->
+	<select id="queryChildTaskOrgGrid" resultType="String">
+		select distinct f.EXE_OBJ_ID
+		from RPT_FLTSK_INS I
+		inner join
+		RPT_FLTSK_INS F
+		on I.UP_TASK_INSTANCE_ID = f.TASK_INSTANCE_ID
+		where 1 =
+		1
+		<if test="exeObjIdF != null">
+			and f.EXE_OBJ_ID in
+			<foreach item="exeObjId" index="index" collection="exeObjIdF"
+				open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="taskType != null">
+			and I.TASK_TYPE=#{taskType}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		order by F.EXE_OBJ_ID
+	</select>
+	<select id="queryTaskInsForReject" resultType="String">
+		SELECT I.TASK_INSTANCE_ID
+		from RPT_FLTSK_INS I
+		inner join RPT_FLTSK_INS
+		F
+		on I.UP_TASK_INSTANCE_ID = F.TASK_INSTANCE_ID
+		inner join
+		RPT_MGR_REPORT_INFO rpt
+		on I.TASK_OBJ_ID = rpt.RPT_ID
+		inner join
+		RPT_ORG_INFO O
+		on F.EXE_OBJ_ID = O.ORG_NO
+		and F.TASK_TYPE = O.ORG_TYPE
+		where 1=1
+		<if test="taskObjId != null">
+			and (F.TASK_OBJ_ID in
+			<foreach item="taskObjId" collection="taskObjId" separator=" or F.TASK_OBJ_ID in ">
+				<foreach collection="taskObjId" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="exeObjId != null and exeObjId.size() > 0">
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjId"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+	<select id="getTaskInsSts" resultType="String">
+		SELECT
+		STS
+		FROM
+		RPT_FLTSK_INS
+		WHERE
+		1=1
+		<if test="taskId != null">
+			AND TASK_ID = #{taskId}
+		</if>
+		<if test="taskObjId != null">
+			AND TASK_OBJ_ID = #{taskObjId}
+		</if>
+		<if test="taskType != null">
+			AND TASK_TYPE = #{taskType}
+		</if>
+		<if test="dataDate != null">
+			AND DATA_DATE = #{dataDate}
+		</if>
+		<if test="exeObjId != null">
+			AND EXE_OBJ_ID = #{exeObjId}
+		</if>
+	</select>
+	<select id="getIns"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO"
+		parameterType="HashMap">
+	    SELECT
+	    ins.*,rpt_id,rpt.rpt_nm
+	    FROM
+	    RPT_FLTSK_INS ins
+	    left join rpt_mgr_report_info rpt
+	    on ins.task_obj_id = rpt.rpt_id
+	    WHERE 1=1
+		<if test="insIds!=null">
+			AND ins.TASK_INSTANCE_ID in
+			<foreach collection="insIds" item="insId" open="(" separator=","
+				close=")">
+				#{insId}
+			</foreach>
+		</if>
+		<if test="taskObjId!=null">
+			AND ins.TASK_OBJ_ID = #{taskObjId}
+		</if>
+		<if test="taskType!=null">
+			AND ins.TASK_TYPE = #{taskType}
+		</if>
+		<if test="exeObjecIds!=null">
+			AND ins.EXE_OBJ_ID in
+			<foreach collection="exeObjecIds" item="exeObjecId" open="("
+				separator="," close=")">
+				#{exeObjecId}
+			</foreach>
+		</if>
+		<if test="notSts!=null">
+			AND ins.STS != #{notSts}
+		</if>
+	</select>
+ 	<select id="getRebutIdByInsId" resultType="String">
+		SELECT
+		REBUT_ID
+		FROM
+		RPT_FLTSK_REBUT
+		WHERE
+		TASK_INSTANCE_ID = #{taskInsId} AND STS = '0'
+	</select>
+	<delete id="deleteTskAuthInfo">
+		DELETE
+		FROM
+		RPT_TSK_AUTH_INFO
+		WHERE
+		TASK_INSTANCE_ID = #{taskInstanceId}
+	</delete>
+ 	<update id="updateRebutByInsId" parameterType="HashMap" >
+		UPDATE
+		RPT_FLTSK_REBUT
+		SET
+		COLLATE_USER_NO = #{collateUserNo},
+		COLLATE_TIME =
+		#{collateTime},
+		REBUT_DESC = #{rebutDesc},
+		STS = '1'
+		WHERE
+		REBUT_ID =
+		#{rebutId}
+	</update>  
+</mapper> 

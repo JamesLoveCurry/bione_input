@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="FILE_NAME_DEFAULT_ID2.0.0"
+		classType="org.pbccrc.collectclient.api.feedback.msg.FileName">
+
+		<field name="orgCode" fbTag="0000" classType="java.lang.String">
+			<rule id="orgCode_DataType" type="DataType" fbValue="" errCode="ABN003">
+				<property name="type" value="AN14" />
+			</rule>
+		</field>
+
+		<field name="fileCreateTime" fbTag="0000" classType="java.lang.String">
+			<!-- <rule id="fileCreateTime_DataType" type="DataType" fbValue="fileCreateTime_DataType"
+				errCode="ABN003">
+				<property name="type" value="TimeDigit" />
+			</rule> -->
+		</field>
+
+		<field name="recordType" fbTag="0000" classType="java.lang.String">
+			<rule id="recordType_DataType" type="DataType" fbValue=""
+				errCode="ABN003">
+				<property name="type" value="N3" />
+			</rule>
+		</field>
+
+		<field name="reserved" fbTag="0000" classType="java.lang.String">
+			<rule id="reserved_Eq0" type="Equals" fbValue="" errCode="ABN003">
+				<property name="data" value="0" />
+			</rule>
+		</field>
+
+		<field name="serialNum" fbTag="0000" classType="java.lang.String">
+			<rule id="serialNum_DataType" type="DataType" fbValue=""
+				errCode="ABN003">
+				<property name="type" value="AN3" />
+			</rule>
+		</field>
+
+		<field name="feedbackId" fbTag="0000" classType="java.lang.String">
+			<rule id="feedbackId_Eq0" type="Equals" fbValue="" errCode="ABN003">
+				<property name="data" value="0" />
+			</rule>
+		</field>
+	</validator>
+</validators>

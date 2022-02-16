@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+    <validator id="30079342.0.0" classType="org.pbccrc.archive.collect.messagetools.report.message.ReportVOECFNormalRecord" >
+
+         <field  name="CashFlowsBsSgmt" fbTag="CashFlowsBsSgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.CashFlowsBsSgmt" >
+			<rule  id="CashFlowsBsSgmt_NotNull" type="NotNull" errCode="ABD000"  />
+            <field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+            <rule  id="InfRecType_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull" />
+            <rule  id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000"   depExp="InfRecType_NotNull"/>
+            <rule id="InfRecType_Equal" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecType_NotEmpty">
+                <property name="data" value="${$context.REC_TYPE}" />
+            </rule>
+            <rule id="InfRecTp_Dict" type="DictManage" errCode="ABE001" depExp="InfRecType_NotEmpty">
+					<property name="dictKey" value="EntInfRecType" />
+				</rule>
+	        </field> 
+	        <field  name="EntName" fbTag="EntName" classType="java.lang.String" >
+	            <rule  id="EntName_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"  />
+	            <rule  id="EntName_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntName_NotNull" />
+	            <rule  id="EntName_DataType" type="DataType" errCode="ABE001"  depExp="EntName_NotEmpty" >
+	                <property  name="type" value="ANC..80" />
+	            </rule>
+	        </field> 
+	        <!-- 证件类型判断 -->
+	        <field  name="EntCertType" fbTag="EntCertType" classType="java.lang.String" >
+	            <rule  id="EntCertType_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"  />
+	            <rule  id="EntCertType_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertType_NotNull" />
+	            <rule id="EntCertType_Dict" type="Dict" errCode="ABE001"  depExp="EntCertType_NotEmpty"  scope="local">
+	                <property name="dictKey" value="EntCertType" />
+	            </rule> 
+	        </field> 
+	        <field  name="EntCertNum" fbTag="EntCertNum" classType="java.lang.String" >
+	            <rule  id="EntCertNum_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"  />
+	            <rule  id="EntCertNum_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertNum_NotNull"/>
+	            <rule  id="EntCertNum_DataType" type="DataType" errCode="ABE001"   depExp="EntCertNum_NotEmpty">
+	                <property  name="type" value="ANC..40" />
+	            </rule>
+	             <!-- 根据证件类型，校验不同的证件号 -->
+	             <rule id="EntCertNum_Vali" type="LegCert" errCode="ABE004"  depExp="EntCertNum_DataType"> 
+	               <property name="certType" value="${CashFlowsBsSgmt.EntCertType}"/>
+	            </rule> 
+	        </field> 
+	        <field  name="RptDate" fbTag="RptDate" classType="java.lang.String" >
+	            <rule  id="RptDate_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"  />
+	            <rule  id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="RptDate_NotNull"/>
+	            <rule  id="RptDate_DataType" type="DataType" errCode="ABE001"  depExp="RptDate_NotEmpty" >
+	                <property  name="type" value="Date" />
+	            </rule>
+	            <rule  id="RptDate_Range" type="DateRange" errCode="ABE008"  depExp="RptDate_DataType" />
+	            <rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001"  depExp="RptDate_Range">
+	                    <property name="type" value="date" />
+	                    <property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+	            </rule>
+	        </field> 
+	        <field  name="SheetYear" fbTag="SheetYear" classType="java.lang.String" >
+	                <rule  id="SheetYear_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"  />
+	                <rule  id="SheetYear_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetYear_NotNull"/>
+	                <rule id="SheetYear_DataType" type="DataType" errCode="ABR001"  depExp="SheetYear_NotEmpty">
+	                        <property name="type" value="Year" />
+	                </rule>
+	                <rule  id="SheetYear_Range" type="DateRange" errCode="ABE008"  depExp="SheetYear_DataType" />
+	        </field> 
+	        <field  name="SheetType" fbTag="SheetType" classType="java.lang.String" >
+	            <rule  id="SheetType_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlowsBsSgmt_NotNull" />
+	            <rule  id="SheetType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="SheetType_NotNull" />
+	            <rule id="SheetType_Dict" type="Dict" errCode="ABE001"  depExp="SheetType_NotEmpty"  >
+	                <property name="dictKey" value="EntSheetType" />
+	            </rule>
+	        </field> 
+	        <field  name="SheetTypeDivide" fbTag="SheetTypeDivide" classType="java.lang.String" >
+	            <rule  id="SheetTypeDivide_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull" />
+	            <rule  id="SheetTypeDivide_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetTypeDivide_NotNull"/>
+	            <rule id="SheetTypeDivide_Dict" type="Dict" errCode="ABE001"  depExp="SheetTypeDivide_NotEmpty"  >
+	                <property name="dictKey" value="EntSheetTypeDivide" />
+	            </rule>
+	        </field>  
+            <field  name="RptDateCode" fbTag="RptDateCode" classType="java.lang.String" >
+                <rule  id="RptDateCode_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull" />
+                <rule  id="RptDateCode_NotEmpty" type="NotEmpty" errCode="ABE000"   depExp="RptDateCode_NotNull"/>
+                <rule id="RptDateCode_Dict" type="Dict" errCode="ABE001"  depExp="RptDateCode_NotEmpty">
+                    <property name="dictKey" value="EntSheetRptDateCode" />
+                </rule> 
+            </field> 
+            <field  name="Cimoc" fbTag="Cimoc" classType="java.lang.String" >
+                <rule  id="Cimoc_NotNull" type="NotNull" errCode="ABD000"   depExp="CashFlowsBsSgmt_NotNull"/>
+                <rule  id="Cimoc_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="Cimoc_NotNull"/>
+                <rule  id="Cimoc_DataType" type="DataType" errCode="ABE001"  depExp="Cimoc_NotEmpty">
+                    <property  name="type" value="AN14" />
+                </rule>
+                <!-- 客户资料维护机构/业务管理机构应在库中存在，且应是数据提供机构的分支机构或数据提供机构本身ABE003 -->
+                <rule  id="Cimoc_FinanVali" type="Organ" errCode="ABE003" fbTag="Cimoc" depExp="Cimoc_DataType" >
+                </rule> 
+            </field> 
+            <field  name="AuditFirmName" fbTag="AuditFirmName" classType="java.lang.String" >
+                <rule  id="AuditFirmName_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"/>
+                <rule  id="AuditFirmName_Empty" type="Empty"   depExp="AuditFirmName_NotNull"/>
+                <rule  id="AuditFirmName_NotEmpty" type="NotEmpty"   depExp="AuditFirmName_NotNull"/>
+                <rule id="AuditFirmName_DataType" type="DataType" errCode="ABE001"  depExp="AuditFirmName_NotNull">
+                        <property name="type" value="ANC..80" />
+                </rule>
+            </field> 
+            <field  name="AuditorName" fbTag="AuditorName" classType="java.lang.String" >
+                <rule  id="AuditorName_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"/>
+                <rule  id="AuditorName_Empty" type="Empty"   depExp="AuditorName_NotNull"/>
+                <rule  id="AuditorName_NotEmpty" type="NotEmpty"   depExp="AuditorName_NotNull"/>
+                <rule id="AuditorName_DataType" type="DataType" errCode="ABE001"  depExp="AuditorName_NotEmpty">
+                        <property name="type" value="ANC..30" />
+                </rule>
+            </field> 
+            <field  name="AuditTime" fbTag="AuditTime" classType="java.lang.String" >
+                <rule  id="AuditTime_NotNull" type="NotNull" errCode="ABD000"  depExp="CashFlowsBsSgmt_NotNull"/>
+                <rule  id="AuditTime_Empty" type="Empty"   depExp="AuditTime_NotNull"/>
+                <rule  id="AuditTime_NotEmpty" type="NotEmpty"   depExp="AuditTime_NotNull"/>
+                <rule id="AuditTime_DataType" type="DataType" errCode="ABR001"  depExp="AuditTime_NotEmpty">
+                        <property name="type" value="Date" />
+                </rule>
+                <rule  id="AuditTime_Range" type="DateRange" errCode="ABE008"  depExp="AuditTime_DataType" />
+                <rule id="AuditTime_LTfileCreate" type="DateCompare" errCode="ABE007"  depExp="AuditTime_Range">
+                        <property name="type" value="date" />
+                        <property name="endDate" value="${CashFlowsBsSgmt.RptDate}" />
+                </rule>
+            </field>  
+        </field>  
+
+		<field  name="CashFlows2002Sgmt" fbTag="CashFlows2002Sgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.CashFlows2002Sgmt" >
+			<rule  id="CashFlows2002Sgmt_NotNullc" type="NotNull" />
+			<rule  id="CashFlows2002Sgmt_Nullc" type="Null" />
+			<rule  id="CashFlows2002Sgmt_Null" type="Null" errCode="ABR006" fbTag="0000" fbValue="" depExp="CashFlows2002Sgmt_NotNullc &amp; CashFlows2007Sgmt_NotNullc"/>
+			<rule  id="CashFlows2002Sgmt_NotNull" type="NotNull" errCode="ABR006" fbTag="0000" fbValue="" depExp="CashFlows2002Sgmt_Nullc &amp;  CashFlows2007Sgmt_Nullc" />
+			<field  name="CashReceivedFromSalesOfGoodsOrRendingOfServices" fbTag="CashReceivedFromSalesOfGoodsOrRendingOfServices" classType="java.lang.String" >
+				<rule  id="CashReceivedFromSalesOfGoodsOrRendingOfServices_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashReceivedFromSalesOfGoodsOrRendingOfServices_NotEmpty" type="NotEmpty" depExp="CashReceivedFromSalesOfGoodsOrRendingOfServices_NotNull" />
+				<rule  id="CashReceivedFromSalesOfGoodsOrRendingOfServices_Empty" type="Empty" depExp="CashReceivedFromSalesOfGoodsOrRendingOfServices_NotNull" />
+				<rule  id="CashReceivedFromSalesOfGoodsOrRendingOfServices_DataType" type="DataType" errCode="ABE001" depExp="CashReceivedFromSalesOfGoodsOrRendingOfServices_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TaxRefunds" fbTag="TaxRefunds" classType="java.lang.String" >
+				<rule  id="TaxRefunds_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="TaxRefunds_NotEmpty" type="NotEmpty" depExp="TaxRefunds_NotNull" />
+				<rule  id="TaxRefunds_Empty" type="Empty" depExp="TaxRefunds_NotNull" />
+				<rule  id="TaxRefunds_DataType" type="DataType" errCode="ABE001" depExp="TaxRefunds_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCashReceivedRelatingToOperatingActivities" fbTag="OtherCashReceivedRelatingToOperatingActivities" classType="java.lang.String" >
+				<rule  id="OtherCashReceivedRelatingToOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="OtherCashReceivedRelatingToOperatingActivities_NotEmpty" type="NotEmpty" depExp="OtherCashReceivedRelatingToOperatingActivities_NotNull" />
+				<rule  id="OtherCashReceivedRelatingToOperatingActivities_Empty" type="Empty" depExp="OtherCashReceivedRelatingToOperatingActivities_NotNull" />
+				<rule  id="OtherCashReceivedRelatingToOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="OtherCashReceivedRelatingToOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashInflowsFromOperatingActivities" fbTag="TotalCashInflowsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="TotalCashInflowsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="TotalCashInflowsFromOperatingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCashInflowsFromOperatingActivities_NotNull" />
+				<rule  id="TotalCashInflowsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="TotalCashInflowsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaidForGoodsAndServices" fbTag="CashPaidForGoodsAndServices" classType="java.lang.String" >
+				<rule  id="CashPaidForGoodsAndServices_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashPaidForGoodsAndServices_NotEmpty" type="NotEmpty" depExp="CashPaidForGoodsAndServices_NotNull" />
+				<rule  id="CashPaidForGoodsAndServices_Empty" type="Empty" depExp="CashPaidForGoodsAndServices_NotNull" />
+				<rule  id="CashPaidForGoodsAndServices_DataType" type="DataType" errCode="ABE001" depExp="CashPaidForGoodsAndServices_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaidToAndOnBehalfOfEmployees" fbTag="CashPaidToAndOnBehalfOfEmployees" classType="java.lang.String" >
+				<rule  id="CashPaidToAndOnBehalfOfEmployees_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashPaidToAndOnBehalfOfEmployees_NotEmpty" type="NotEmpty" depExp="CashPaidToAndOnBehalfOfEmployees_NotNull" />
+				<rule  id="CashPaidToAndOnBehalfOfEmployees_Empty" type="Empty" depExp="CashPaidToAndOnBehalfOfEmployees_NotNull" />
+				<rule  id="CashPaidToAndOnBehalfOfEmployees_DataType" type="DataType" errCode="ABE001" depExp="CashPaidToAndOnBehalfOfEmployees_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PaymentsOfAllTypesOfTaxes" fbTag="PaymentsOfAllTypesOfTaxes" classType="java.lang.String" >
+				<rule  id="PaymentsOfAllTypesOfTaxes_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="PaymentsOfAllTypesOfTaxes_NotEmpty" type="NotEmpty" depExp="PaymentsOfAllTypesOfTaxes_NotNull" />
+				<rule  id="PaymentsOfAllTypesOfTaxes_Empty" type="Empty" depExp="PaymentsOfAllTypesOfTaxes_NotNull" />
+				<rule  id="PaymentsOfAllTypesOfTaxes_DataType" type="DataType" errCode="ABE001" depExp="PaymentsOfAllTypesOfTaxes_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCashPaymentsFromOperatingActivities" fbTag="OtherCashPaymentsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="OtherCashPaymentsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="OtherCashPaymentsFromOperatingActivities_NotEmpty" type="NotEmpty" depExp="OtherCashPaymentsFromOperatingActivities_NotNull" />
+				<rule  id="OtherCashPaymentsFromOperatingActivities_Empty" type="Empty" depExp="OtherCashPaymentsFromOperatingActivities_NotNull" />
+				<rule  id="OtherCashPaymentsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="OtherCashPaymentsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashOutflowsFromOperatingActivities" fbTag="TotalCashOutflowsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="TotalCashOutflowsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="TotalCashOutflowsFromOperatingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCashOutflowsFromOperatingActivities_NotNull" />
+				<rule  id="TotalCashOutflowsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="TotalCashOutflowsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromOperatingActivities" fbTag="NetCashFlowsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="NetCashFlowsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetCashFlowsFromOperatingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NetCashFlowsFromOperatingActivities_NotNull" />
+				<rule  id="NetCashFlowsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="NetCashFlowsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="NetCashFlowsFromOperatingActivities_NumberLimit" type="NumberLimit" errCode="CRE100"  
+					depExp="NetCashFlowsFromOperatingActivities_DataType &amp; TotalCashInflowsFromOperatingActivities_DataType &amp; TotalCashOutflowsFromOperatingActivities_DataType ">
+	               <property name="startValue" value="${CashFlows2002Sgmt.TotalCashInflowsFromOperatingActivities}-${CashFlows2002Sgmt.TotalCashOutflowsFromOperatingActivities}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2002Sgmt.TotalCashInflowsFromOperatingActivities}-${CashFlows2002Sgmt.TotalCashOutflowsFromOperatingActivities}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="CashReceivedFromReturnOfInvestment" fbTag="CashReceivedFromReturnOfInvestment" classType="java.lang.String" >
+				<rule  id="CashReceivedFromReturnOfInvestment_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashReceivedFromReturnOfInvestment_NotEmpty" type="NotEmpty" depExp="CashReceivedFromReturnOfInvestment_NotNull" />
+				<rule  id="CashReceivedFromReturnOfInvestment_Empty" type="Empty" depExp="CashReceivedFromReturnOfInvestment_NotNull" />
+				<rule  id="CashReceivedFromReturnOfInvestment_DataType" type="DataType" errCode="ABE001" depExp="CashReceivedFromReturnOfInvestment_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashReceivedFromOnvestments" fbTag="CashReceivedFromOnvestments" classType="java.lang.String" >
+				<rule  id="CashReceivedFromOnvestments_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashReceivedFromOnvestments_NotEmpty" type="NotEmpty" depExp="CashReceivedFromOnvestments_NotNull" />
+				<rule  id="CashReceivedFromOnvestments_Empty" type="Empty" depExp="CashReceivedFromOnvestments_NotNull" />
+				<rule  id="CashReceivedFromOnvestments_DataType" type="DataType" errCode="ABE001" depExp="CashReceivedFromOnvestments_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" fbTag="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" classType="java.lang.String" >
+				<rule  id="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" type="NotEmpty" depExp="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_Empty" type="Empty" depExp="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_DataType" type="DataType" errCode="ABE001" depExp="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashReceivedRelatingToOtherInvestingActivities" fbTag="CashReceivedRelatingToOtherInvestingActivities" classType="java.lang.String" >
+				<rule  id="CashReceivedRelatingToOtherInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashReceivedRelatingToOtherInvestingActivities_NotEmpty" type="NotEmpty" depExp="CashReceivedRelatingToOtherInvestingActivities_NotNull" />
+				<rule  id="CashReceivedRelatingToOtherInvestingActivities_Empty" type="Empty" depExp="CashReceivedRelatingToOtherInvestingActivities_NotNull" />
+				<rule  id="CashReceivedRelatingToOtherInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashReceivedRelatingToOtherInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashInflowsFromInvestingActivities" fbTag="TotalCashInflowsFromInvestingActivities" classType="java.lang.String" >
+				<rule  id="TotalCashInflowsFromInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="TotalCashInflowsFromInvestingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCashInflowsFromInvestingActivities_NotNull" />
+				<rule  id="TotalCashInflowsFromInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="TotalCashInflowsFromInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents" fbTag="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents" classType="java.lang.String" >
+				<rule  id="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotEmpty" type="NotEmpty" depExp="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotNull" />
+				<rule  id="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_Empty" type="Empty" depExp="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotNull" />
+				<rule  id="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_DataType" type="DataType" errCode="ABE001" depExp="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsForInvestments" fbTag="CashPaymentsForInvestments" classType="java.lang.String" >
+				<rule  id="CashPaymentsForInvestments_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashPaymentsForInvestments_NotEmpty" type="NotEmpty" depExp="CashPaymentsForInvestments_NotNull" />
+				<rule  id="CashPaymentsForInvestments_Empty" type="Empty" depExp="CashPaymentsForInvestments_NotNull" />
+				<rule  id="CashPaymentsForInvestments_DataType" type="DataType" errCode="ABE001" depExp="CashPaymentsForInvestments_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsRelatedToOtherInvestingActivities" fbTag="CashPaymentsRelatedToOtherInvestingActivities" classType="java.lang.String" >
+				<rule  id="CashPaymentsRelatedToOtherInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashPaymentsRelatedToOtherInvestingActivities_NotEmpty" type="NotEmpty" depExp="CashPaymentsRelatedToOtherInvestingActivities_NotNull" />
+				<rule  id="CashPaymentsRelatedToOtherInvestingActivities_Empty" type="Empty" depExp="CashPaymentsRelatedToOtherInvestingActivities_NotNull" />
+				<rule  id="CashPaymentsRelatedToOtherInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashPaymentsRelatedToOtherInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashOutflowsFromInvestingActivities" fbTag="TotalCashOutflowsFromInvestingActivities" classType="java.lang.String" >
+				<rule  id="TotalCashOutflowsFromInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="TotalCashOutflowsFromInvestingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCashOutflowsFromInvestingActivities_NotNull" />
+				<rule  id="TotalCashOutflowsFromInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="TotalCashOutflowsFromInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromInvestingActivities" fbTag="NetCashFlowsFromInvestingActivities" classType="java.lang.String" >
+				<rule  id="NetCashFlowsFromInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetCashFlowsFromInvestingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NetCashFlowsFromInvestingActivities_NotNull" />
+				<rule  id="NetCashFlowsFromInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="NetCashFlowsFromInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="NetCashFlowsFromInvestingActivities_NumberLimit" type="NumberLimit" errCode="CRE101"  
+					depExp="NetCashFlowsFromInvestingActivities_DataType &amp; TotalCashInflowsFromInvestingActivities_DataType &amp; TotalCashOutflowsFromInvestingActivities_DataType ">
+	               <property name="startValue" value="${CashFlows2002Sgmt.TotalCashInflowsFromInvestingActivities}-${CashFlows2002Sgmt.TotalCashOutflowsFromInvestingActivities}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2002Sgmt.TotalCashInflowsFromInvestingActivities}-${CashFlows2002Sgmt.TotalCashOutflowsFromInvestingActivities}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="CashReceivedFromInvestors" fbTag="CashReceivedFromInvestors" classType="java.lang.String" >
+				<rule  id="CashReceivedFromInvestors_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashReceivedFromInvestors_NotEmpty" type="NotEmpty" depExp="CashReceivedFromInvestors_NotNull" />
+				<rule  id="CashReceivedFromInvestors_Empty" type="Empty" depExp="CashReceivedFromInvestors_NotNull" />
+				<rule  id="CashReceivedFromInvestors_DataType" type="DataType" errCode="ABE001" depExp="CashReceivedFromInvestors_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashFromBorrowings" fbTag="CashFromBorrowings" classType="java.lang.String" >
+				<rule  id="CashFromBorrowings_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashFromBorrowings_NotEmpty" type="NotEmpty" depExp="CashFromBorrowings_NotNull" />
+				<rule  id="CashFromBorrowings_Empty" type="Empty" depExp="CashFromBorrowings_NotNull" />
+				<rule  id="CashFromBorrowings_DataType" type="DataType" errCode="ABE001" depExp="CashFromBorrowings_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCashReceivedRelatingToFinancingActivities" fbTag="OtherCashReceivedRelatingToFinancingActivities" classType="java.lang.String" >
+				<rule  id="OtherCashReceivedRelatingToFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="OtherCashReceivedRelatingToFinancingActivities_NotEmpty" type="NotEmpty" depExp="OtherCashReceivedRelatingToFinancingActivities_NotNull" />
+				<rule  id="OtherCashReceivedRelatingToFinancingActivities_Empty" type="Empty" depExp="OtherCashReceivedRelatingToFinancingActivities_NotNull" />
+				<rule  id="OtherCashReceivedRelatingToFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="OtherCashReceivedRelatingToFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashInflowsFromFinancingActivities" fbTag="TotalCashInflowsFromFinancingActivities" classType="java.lang.String" >
+				<rule  id="TotalCashInflowsFromFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="TotalCashInflowsFromFinancingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCashInflowsFromFinancingActivities_NotNull" />
+				<rule  id="TotalCashInflowsFromFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="TotalCashInflowsFromFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashRepaymentsForDebts" fbTag="CashRepaymentsForDebts" classType="java.lang.String" >
+				<rule  id="CashRepaymentsForDebts_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashRepaymentsForDebts_NotEmpty" type="NotEmpty" depExp="CashRepaymentsForDebts_NotNull" />
+				<rule  id="CashRepaymentsForDebts_Empty" type="Empty" depExp="CashRepaymentsForDebts_NotNull" />
+				<rule  id="CashRepaymentsForDebts_DataType" type="DataType" errCode="ABE001" depExp="CashRepaymentsForDebts_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses" fbTag="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses" classType="java.lang.String" >
+				<rule  id="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotEmpty" type="NotEmpty" depExp="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotNull" />
+				<rule  id="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_Empty" type="Empty" depExp="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotNull" />
+				<rule  id="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_DataType" type="DataType" errCode="ABE001" depExp="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsRelatedToOtherFinancingActivities" fbTag="CashPaymentsRelatedToOtherFinancingActivities" classType="java.lang.String" >
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_NotEmpty" type="NotEmpty" depExp="CashPaymentsRelatedToOtherFinancingActivities_NotNull" />
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_Empty" type="Empty" depExp="CashPaymentsRelatedToOtherFinancingActivities_NotNull" />
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashPaymentsRelatedToOtherFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashOutflowsFromFinancingActivities" fbTag="TotalCashOutflowsFromFinancingActivities" classType="java.lang.String" >
+				<rule  id="TotalCashOutflowsFromFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="TotalCashOutflowsFromFinancingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCashOutflowsFromFinancingActivities_NotNull" />
+				<rule  id="TotalCashOutflowsFromFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="TotalCashOutflowsFromFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromFinancingActivities" fbTag="NetCashFlowsFromFinancingActivities" classType="java.lang.String" >
+				<rule  id="NetCashFlowsFromFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetCashFlowsFromFinancingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NetCashFlowsFromFinancingActivities_NotNull" />
+				<rule  id="NetCashFlowsFromFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="NetCashFlowsFromFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="NetCashFlowsFromFinancingActivities_NumberLimit" type="NumberLimit" errCode="CRE102"  
+					depExp="NetCashFlowsFromFinancingActivities_DataType &amp; TotalCashInflowsFromFinancingActivities_DataType &amp; TotalCashOutflowsFromFinancingActivities_DataType">
+	               <property name="startValue" value="${CashFlows2002Sgmt.TotalCashInflowsFromFinancingActivities}-${CashFlows2002Sgmt.TotalCashOutflowsFromFinancingActivities}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2002Sgmt.TotalCashInflowsFromFinancingActivities}-${CashFlows2002Sgmt.TotalCashOutflowsFromFinancingActivities}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="EffectOfExchangRateChangesOnCash" fbTag="EffectOfExchangRateChangesOnCash" classType="java.lang.String" >
+				<rule  id="EffectOfExchangRateChangesOnCash_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="EffectOfExchangRateChangesOnCash_NotEmpty" type="NotEmpty" depExp="EffectOfExchangRateChangesOnCash_NotNull" />
+				<rule  id="EffectOfExchangRateChangesOnCash_Empty" type="Empty" depExp="EffectOfExchangRateChangesOnCash_NotNull" />
+				<rule  id="EffectOfExchangRateChangesOnCash_DataType" type="DataType" errCode="ABE001" depExp="EffectOfExchangRateChangesOnCash_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetIncreaseInCashAndCashEquivalents" fbTag="NetIncreaseInCashAndCashEquivalents" classType="java.lang.String" >
+				<rule  id="NetIncreaseInCashAndCashEquivalents_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetIncreaseInCashAndCashEquivalents_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NetIncreaseInCashAndCashEquivalents_NotNull" />
+				<rule  id="NetIncreaseInCashAndCashEquivalents_DataType" type="DataType" errCode="ABE001" depExp="NetIncreaseInCashAndCashEquivalents_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="NetIncreaseInCashAndCashEquivalents_NumberLimit" type="NumberLimit" errCode="CRE103"  
+						depExp="NetIncreaseInCashAndCashEquivalents_DataType &amp; NetCashFlowsFromFinancingActivities_DataType &amp; EffectOfExchangRateChangesOnCash_DataType &amp; NetCashFlowsFromOperatingActivities_DataType  &amp; NetCashFlowsFromInvestingActivities_DataType">
+	               <property name="startValue" value="${CashFlows2002Sgmt.NetCashFlowsFromFinancingActivities}+${CashFlows2002Sgmt.EffectOfExchangRateChangesOnCash}+${CashFlows2002Sgmt.NetCashFlowsFromOperatingActivities}+${CashFlows2002Sgmt.NetCashFlowsFromInvestingActivities}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2002Sgmt.NetCashFlowsFromFinancingActivities}+${CashFlows2002Sgmt.EffectOfExchangRateChangesOnCash}+${CashFlows2002Sgmt.NetCashFlowsFromOperatingActivities}+${CashFlows2002Sgmt.NetCashFlowsFromInvestingActivities}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="NetProfit" fbTag="NetProfit" classType="java.lang.String" >
+				<rule  id="NetProfit_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetProfit_NotEmpty" type="NotEmpty" depExp="NetProfit_NotNull" />
+				<rule  id="NetProfit_Empty" type="Empty" depExp="NetProfit_NotNull" />
+				<rule  id="NetProfit_DataType" type="DataType" errCode="ABE001" depExp="NetProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProvisionForAssets" fbTag="ProvisionForAssets" classType="java.lang.String" >
+				<rule  id="ProvisionForAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="ProvisionForAssets_NotEmpty" type="NotEmpty" depExp="ProvisionForAssets_NotNull" />
+				<rule  id="ProvisionForAssets_Empty" type="Empty" depExp="ProvisionForAssets_NotNull" />
+				<rule  id="ProvisionForAssets_DataType" type="DataType" errCode="ABE001" depExp="ProvisionForAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DepreciationOfFixedAssets" fbTag="DepreciationOfFixedAssets" classType="java.lang.String" >
+				<rule  id="DepreciationOfFixedAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="DepreciationOfFixedAssets_NotEmpty" type="NotEmpty" depExp="DepreciationOfFixedAssets_NotNull" />
+				<rule  id="DepreciationOfFixedAssets_Empty" type="Empty" depExp="DepreciationOfFixedAssets_NotNull" />
+				<rule  id="DepreciationOfFixedAssets_DataType" type="DataType" errCode="ABE001" depExp="DepreciationOfFixedAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AmortisationOfIntangibleAssets" fbTag="AmortisationOfIntangibleAssets" classType="java.lang.String" >
+				<rule  id="AmortisationOfIntangibleAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="AmortisationOfIntangibleAssets_NotEmpty" type="NotEmpty" depExp="AmortisationOfIntangibleAssets_NotNull" />
+				<rule  id="AmortisationOfIntangibleAssets_Empty" type="Empty" depExp="AmortisationOfIntangibleAssets_NotNull" />
+				<rule  id="AmortisationOfIntangibleAssets_DataType" type="DataType" errCode="ABE001" depExp="AmortisationOfIntangibleAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LongTermDeferredExpensesAmortization" fbTag="LongTermDeferredExpensesAmortization" classType="java.lang.String" >
+				<rule  id="LongTermDeferredExpensesAmortization_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="LongTermDeferredExpensesAmortization_NotEmpty" type="NotEmpty" depExp="LongTermDeferredExpensesAmortization_NotNull" />
+				<rule  id="LongTermDeferredExpensesAmortization_Empty" type="Empty" depExp="LongTermDeferredExpensesAmortization_NotNull" />
+				<rule  id="LongTermDeferredExpensesAmortization_DataType" type="DataType" errCode="ABE001" depExp="LongTermDeferredExpensesAmortization_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DecreaseOfDefferedExpenses" fbTag="DecreaseOfDefferedExpenses" classType="java.lang.String" >
+				<rule  id="DecreaseOfDefferedExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="DecreaseOfDefferedExpenses_NotEmpty" type="NotEmpty" depExp="DecreaseOfDefferedExpenses_NotNull" />
+				<rule  id="DecreaseOfDefferedExpenses_Empty" type="Empty" depExp="DecreaseOfDefferedExpenses_NotNull" />
+				<rule  id="DecreaseOfDefferedExpenses_DataType" type="DataType" errCode="ABE001" depExp="DecreaseOfDefferedExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AdditionOfAccuedExpense" fbTag="AdditionOfAccuedExpense" classType="java.lang.String" >
+				<rule  id="AdditionOfAccuedExpense_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="AdditionOfAccuedExpense_NotEmpty" type="NotEmpty" depExp="AdditionOfAccuedExpense_NotNull" />
+				<rule  id="AdditionOfAccuedExpense_Empty" type="Empty" depExp="AdditionOfAccuedExpense_NotNull" />
+				<rule  id="AdditionOfAccuedExpense_DataType" type="DataType" errCode="ABE001" depExp="AdditionOfAccuedExpense_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" fbTag="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" classType="java.lang.String" >
+				<rule  id="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" type="NotEmpty" depExp="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_Empty" type="Empty" depExp="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_DataType" type="DataType" errCode="ABE001" depExp="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossesOnScrappingOfFixedAssets" fbTag="LossesOnScrappingOfFixedAssets" classType="java.lang.String" >
+				<rule  id="LossesOnScrappingOfFixedAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="LossesOnScrappingOfFixedAssets_NotEmpty" type="NotEmpty" depExp="LossesOnScrappingOfFixedAssets_NotNull" />
+				<rule  id="LossesOnScrappingOfFixedAssets_Empty" type="Empty" depExp="LossesOnScrappingOfFixedAssets_NotNull" />
+				<rule  id="LossesOnScrappingOfFixedAssets_DataType" type="DataType" errCode="ABE001" depExp="LossesOnScrappingOfFixedAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinanceExpense" fbTag="FinanceExpense" classType="java.lang.String" >
+				<rule  id="FinanceExpense_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="FinanceExpense_NotEmpty" type="NotEmpty" depExp="FinanceExpense_NotNull" />
+				<rule  id="FinanceExpense_Empty" type="Empty" depExp="FinanceExpense_NotNull" />
+				<rule  id="FinanceExpense_DataType" type="DataType" errCode="ABE001" depExp="FinanceExpense_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossesArsingFromInvestment" fbTag="LossesArsingFromInvestment" classType="java.lang.String" >
+				<rule  id="LossesArsingFromInvestment_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="LossesArsingFromInvestment_NotEmpty" type="NotEmpty" depExp="LossesArsingFromInvestment_NotNull" />
+				<rule  id="LossesArsingFromInvestment_Empty" type="Empty" depExp="LossesArsingFromInvestment_NotNull" />
+				<rule  id="LossesArsingFromInvestment_DataType" type="DataType" errCode="ABE001" depExp="LossesArsingFromInvestment_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DeferredTaxCredit" fbTag="DeferredTaxCredit" classType="java.lang.String" >
+				<rule  id="DeferredTaxCredit_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="DeferredTaxCredit_NotEmpty" type="NotEmpty" depExp="DeferredTaxCredit_NotNull" />
+				<rule  id="DeferredTaxCredit_Empty" type="Empty" depExp="DeferredTaxCredit_NotNull" />
+				<rule  id="DeferredTaxCredit_DataType" type="DataType" errCode="ABE001" depExp="DeferredTaxCredit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DecreaseInInventories" fbTag="DecreaseInInventories" classType="java.lang.String" >
+				<rule  id="DecreaseInInventories_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="DecreaseInInventories_NotEmpty" type="NotEmpty" depExp="DecreaseInInventories_NotNull" />
+				<rule  id="DecreaseInInventories_Empty" type="Empty" depExp="DecreaseInInventories_NotNull" />
+				<rule  id="DecreaseInInventories_DataType" type="DataType" errCode="ABE001" depExp="DecreaseInInventories_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DecreaseInOperatingReceivables" fbTag="DecreaseInOperatingReceivables" classType="java.lang.String" >
+				<rule  id="DecreaseInOperatingReceivables_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="DecreaseInOperatingReceivables_NotEmpty" type="NotEmpty" depExp="DecreaseInOperatingReceivables_NotNull" />
+				<rule  id="DecreaseInOperatingReceivables_Empty" type="Empty" depExp="DecreaseInOperatingReceivables_NotNull" />
+				<rule  id="DecreaseInOperatingReceivables_DataType" type="DataType" errCode="ABE001" depExp="DecreaseInOperatingReceivables_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IncreaseInOperatingReceivables" fbTag="IncreaseInOperatingReceivables" classType="java.lang.String" >
+				<rule  id="IncreaseInOperatingReceivables_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="IncreaseInOperatingReceivables_NotEmpty" type="NotEmpty" depExp="IncreaseInOperatingReceivables_NotNull" />
+				<rule  id="IncreaseInOperatingReceivables_Empty" type="Empty" depExp="IncreaseInOperatingReceivables_NotNull" />
+				<rule  id="IncreaseInOperatingReceivables_DataType" type="DataType" errCode="ABE001" depExp="IncreaseInOperatingReceivables_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="Others" fbTag="Others" classType="java.lang.String" >
+				<rule  id="Others_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="Others_NotEmpty" type="NotEmpty" depExp="Others_NotNull" />
+				<rule  id="Others_Empty" type="Empty" depExp="Others_NotNull" />
+				<rule  id="Others_DataType" type="DataType" errCode="ABE001" depExp="Others_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromOperatingActivitiesMi" fbTag="NetCashFlowsFromOperatingActivitiesMi" classType="java.lang.String" >
+				<rule  id="NetCashFlowsFromOperatingActivitiesMi_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetCashFlowsFromOperatingActivitiesMi_NotEmpty" type="NotEmpty"  depExp="NetCashFlowsFromOperatingActivitiesMi_NotNull" />
+				<rule  id="NetCashFlowsFromOperatingActivitiesMi_DataType" type="DataType" errCode="ABE001" depExp="NetCashFlowsFromOperatingActivitiesMi_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DebtsTransferToCapital" fbTag="DebtsTransferToCapital" classType="java.lang.String" >
+				<rule  id="DebtsTransferToCapital_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="DebtsTransferToCapital_NotEmpty" type="NotEmpty" depExp="DebtsTransferToCapital_NotNull" />
+				<rule  id="DebtsTransferToCapital_Empty" type="Empty" depExp="DebtsTransferToCapital_NotNull" />
+				<rule  id="DebtsTransferToCapital_DataType" type="DataType" errCode="ABE001" depExp="DebtsTransferToCapital_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OneYearDueConvertibleBonds" fbTag="OneYearDueConvertibleBonds" classType="java.lang.String" >
+				<rule  id="OneYearDueConvertibleBonds_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="OneYearDueConvertibleBonds_NotEmpty" type="NotEmpty" depExp="OneYearDueConvertibleBonds_NotNull" />
+				<rule  id="OneYearDueConvertibleBonds_Empty" type="Empty" depExp="OneYearDueConvertibleBonds_NotNull" />
+				<rule  id="OneYearDueConvertibleBonds_DataType" type="DataType" errCode="ABE001" depExp="OneYearDueConvertibleBonds_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinancingRentToTheFixedAsset" fbTag="FinancingRentToTheFixedAsset" classType="java.lang.String" >
+				<rule  id="FinancingRentToTheFixedAsset_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="FinancingRentToTheFixedAsset_NotEmpty" type="NotEmpty" depExp="FinancingRentToTheFixedAsset_NotNull" />
+				<rule  id="FinancingRentToTheFixedAsset_Empty" type="Empty" depExp="FinancingRentToTheFixedAsset_NotNull" />
+				<rule  id="FinancingRentToTheFixedAsset_DataType" type="DataType" errCode="ABE001" depExp="FinancingRentToTheFixedAsset_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonCashOthers" fbTag="NonCashOthers" classType="java.lang.String" >
+				<rule  id="NonCashOthers_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NonCashOthers_NotEmpty" type="NotEmpty" depExp="NonCashOthers_NotNull" />
+				<rule  id="NonCashOthers_Empty" type="Empty" depExp="NonCashOthers_NotNull" />
+				<rule  id="NonCashOthers_DataType" type="DataType" errCode="ABE001" depExp="NonCashOthers_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashAtTheEndOfPeriod" fbTag="CashAtTheEndOfPeriod" classType="java.lang.String" >
+				<rule  id="CashAtTheEndOfPeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashAtTheEndOfPeriod_NotEmpty" type="NotEmpty" depExp="CashAtTheEndOfPeriod_NotNull" />
+				<rule  id="CashAtTheEndOfPeriod_Empty" type="Empty" depExp="CashAtTheEndOfPeriod_NotNull" />
+				<rule  id="CashAtTheEndOfPeriod_DataType" type="DataType" errCode="ABE001" depExp="CashAtTheEndOfPeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashAtTheBeginningOfThePeriod" fbTag="CashAtTheBeginningOfThePeriod" classType="java.lang.String" >
+				<rule  id="CashAtTheBeginningOfThePeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashAtTheBeginningOfThePeriod_NotEmpty" type="NotEmpty" depExp="CashAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashAtTheBeginningOfThePeriod_Empty" type="Empty" depExp="CashAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashAtTheBeginningOfThePeriod_DataType" type="DataType" errCode="ABE001" depExp="CashAtTheBeginningOfThePeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashEquivalentsAtTheEndOfThePeriod" fbTag="CashEquivalentsAtTheEndOfThePeriod" classType="java.lang.String" >
+				<rule  id="CashEquivalentsAtTheEndOfThePeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashEquivalentsAtTheEndOfThePeriod_NotEmpty" type="NotEmpty" depExp="CashEquivalentsAtTheEndOfThePeriod_NotNull" />
+				<rule  id="CashEquivalentsAtTheEndOfThePeriod_Empty" type="Empty" depExp="CashEquivalentsAtTheEndOfThePeriod_NotNull" />
+				<rule  id="CashEquivalentsAtTheEndOfThePeriod_DataType" type="DataType" errCode="ABE001" depExp="CashEquivalentsAtTheEndOfThePeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashRquivalentsAtTheBeginningOfThePeriod" fbTag="CashRquivalentsAtTheBeginningOfThePeriod" classType="java.lang.String" >
+				<rule  id="CashRquivalentsAtTheBeginningOfThePeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="CashRquivalentsAtTheBeginningOfThePeriod_NotEmpty" type="NotEmpty" depExp="CashRquivalentsAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashRquivalentsAtTheBeginningOfThePeriod_Empty" type="Empty" depExp="CashRquivalentsAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashRquivalentsAtTheBeginningOfThePeriod_DataType" type="DataType" errCode="ABE001" depExp="CashRquivalentsAtTheBeginningOfThePeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetIncreaseInCashAndCashEquivalentsMi" fbTag="NetIncreaseInCashAndCashEquivalentsMi" classType="java.lang.String" >
+				<rule  id="NetIncreaseInCashAndCashEquivalentsMi_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2002Sgmt_NotNullc"/>
+				<rule  id="NetIncreaseInCashAndCashEquivalentsMi_NotEmpty" type="NotEmpty" depExp="NetIncreaseInCashAndCashEquivalentsMi_NotNull" />
+				<rule  id="NetIncreaseInCashAndCashEquivalentsMi_Empty" type="Empty" depExp="NetIncreaseInCashAndCashEquivalentsMi_NotNull" />
+				<rule  id="NetIncreaseInCashAndCashEquivalentsMi_DataType" type="DataType" errCode="ABE001" depExp="NetIncreaseInCashAndCashEquivalentsMi_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+		</field> 
+
+		<field  name="CashFlows2007Sgmt" fbTag="CashFlows2007Sgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.CashFlows2007Sgmt" >
+			<rule  id="CashFlows2007Sgmt_NotNullc" type="NotNull"  />
+			<rule  id="CashFlows2007Sgmt_Nullc" type="Null" />
+			<field  name="CashReceivedFromSalesOfGoodsOrRendingOfServices" fbTag="CashReceivedFromSalesOfGoodsOrRendingOfServices" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromSalesOfGoodsOrRendingOfServices_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromSalesOfGoodsOrRendingOfServices_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashReceivedFromSalesOfGoodsOrRendingOfServices_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromSalesOfGoodsOrRendingOfServices_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashReceivedFromSalesOfGoodsOrRendingOfServices_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromSalesOfGoodsOrRendingOfServices_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashReceivedFromSalesOfGoodsOrRendingOfServices_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TaxRefunds" fbTag="TaxRefunds" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-TaxRefunds_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-TaxRefunds_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-TaxRefunds_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TaxRefunds_Empty" type="Empty" depExp="CashFlows2007Sgmt-TaxRefunds_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TaxRefunds_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-TaxRefunds_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCashReceivedRelatingToOperatingActivities" fbTag="OtherCashReceivedRelatingToOperatingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToOperatingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-OtherCashReceivedRelatingToOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToOperatingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-OtherCashReceivedRelatingToOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-OtherCashReceivedRelatingToOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashInflowsFromOperatingActivities" fbTag="TotalCashInflowsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromOperatingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CashFlows2007Sgmt-TotalCashInflowsFromOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-TotalCashInflowsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaidForGoodsAndServices" fbTag="CashPaidForGoodsAndServices" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashPaidForGoodsAndServices_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashPaidForGoodsAndServices_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashPaidForGoodsAndServices_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaidForGoodsAndServices_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashPaidForGoodsAndServices_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaidForGoodsAndServices_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashPaidForGoodsAndServices_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaidToAndOnBehalfOfEmployees" fbTag="CashPaidToAndOnBehalfOfEmployees" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashPaidToAndOnBehalfOfEmployees_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashPaidToAndOnBehalfOfEmployees_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashPaidToAndOnBehalfOfEmployees_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaidToAndOnBehalfOfEmployees_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashPaidToAndOnBehalfOfEmployees_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaidToAndOnBehalfOfEmployees_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashPaidToAndOnBehalfOfEmployees_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PaymentsOfAllTypesOfTaxes" fbTag="PaymentsOfAllTypesOfTaxes" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-PaymentsOfAllTypesOfTaxes_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-PaymentsOfAllTypesOfTaxes_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-PaymentsOfAllTypesOfTaxes_NotNull" />
+				<rule  id="CashFlows2007Sgmt-PaymentsOfAllTypesOfTaxes_Empty" type="Empty" depExp="CashFlows2007Sgmt-PaymentsOfAllTypesOfTaxes_NotNull" />
+				<rule  id="CashFlows2007Sgmt-PaymentsOfAllTypesOfTaxes_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-PaymentsOfAllTypesOfTaxes_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCashPaymentsFromOperatingActivities" fbTag="OtherCashPaymentsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-OtherCashPaymentsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-OtherCashPaymentsFromOperatingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-OtherCashPaymentsFromOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OtherCashPaymentsFromOperatingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-OtherCashPaymentsFromOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OtherCashPaymentsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-OtherCashPaymentsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashOutflowsFromOperatingActivities" fbTag="TotalCashOutflowsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromOperatingActivities" fbTag="NetCashFlowsFromOperatingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_NumberLimit" type="NumberLimit" errCode="CRE104"  
+					depExp="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_DataType &amp; CashFlows2007Sgmt-TotalCashInflowsFromOperatingActivities_DataType &amp; CashFlows2007Sgmt-TotalCashOutflowsFromOperatingActivities_DataType">
+	               <property name="startValue" value="${CashFlows2007Sgmt.TotalCashInflowsFromOperatingActivities}-${CashFlows2007Sgmt.TotalCashOutflowsFromOperatingActivities}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2007Sgmt.TotalCashInflowsFromOperatingActivities}-${CashFlows2007Sgmt.TotalCashOutflowsFromOperatingActivities}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="CashReceivedFromReturnOfInvestment" fbTag="CashReceivedFromReturnOfInvestment" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromReturnOfInvestment_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromReturnOfInvestment_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashReceivedFromReturnOfInvestment_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromReturnOfInvestment_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashReceivedFromReturnOfInvestment_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromReturnOfInvestment_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashReceivedFromReturnOfInvestment_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashReceivedFromOnvestments" fbTag="CashReceivedFromOnvestments" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromOnvestments_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromOnvestments_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashReceivedFromOnvestments_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromOnvestments_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashReceivedFromOnvestments_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromOnvestments_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashReceivedFromOnvestments_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" fbTag="NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_Empty" type="Empty" depExp="CashFlows2007Sgmt-NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetCashReceivedFromDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities" fbTag="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities" classType="java.lang.String" >
+				<rule  id="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities_NotEmpty" type="NotEmpty" depExp="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities_NotNull" />
+				<rule  id="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities_Empty" type="Empty" depExp="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities_NotNull" />
+				<rule  id="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities_DataType" type="DataType" errCode="ABE001" depExp="NetCashInflowsOfDisposalOfSubsidiariesAndOtherBusinessEntities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashReceivedRelatingToOtherInvestingActivities" fbTag="CashReceivedRelatingToOtherInvestingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashReceivedRelatingToOtherInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashReceivedRelatingToOtherInvestingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashReceivedRelatingToOtherInvestingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedRelatingToOtherInvestingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashReceivedRelatingToOtherInvestingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedRelatingToOtherInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashReceivedRelatingToOtherInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashInflowsFromInvestingActivities" fbTag="TotalCashInflowsFromInvestingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromInvestingActivities_NotEmpty" type="NotEmpty"  depExp="CashFlows2007Sgmt-TotalCashInflowsFromInvestingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-TotalCashInflowsFromInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents" fbTag="CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashPaidToAcquireFixedAssetsIntangibleAssetsAndOtherLongTermAssents_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsForInvestments" fbTag="CashPaymentsForInvestments" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForInvestments_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForInvestments_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashPaymentsForInvestments_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForInvestments_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashPaymentsForInvestments_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForInvestments_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashPaymentsForInvestments_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits" fbTag="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits" classType="java.lang.String" >
+				<rule  id="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits_NotEmpty" type="NotEmpty" depExp="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits_NotNull" />
+				<rule  id="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits_Empty" type="Empty" depExp="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits_NotNull" />
+				<rule  id="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits_DataType" type="DataType" errCode="ABE001" depExp="NetCashOutflowsOfProcurementOfSubsidiariesAndOtherBusinessUnits_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsRelatedToOtherInvestingActivities" fbTag="CashPaymentsRelatedToOtherInvestingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashPaymentsRelatedToOtherInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashPaymentsRelatedToOtherInvestingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashPaymentsRelatedToOtherInvestingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaymentsRelatedToOtherInvestingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashPaymentsRelatedToOtherInvestingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaymentsRelatedToOtherInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashPaymentsRelatedToOtherInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SubTotalOfCashOutflows" fbTag="SubTotalOfCashOutflows" classType="java.lang.String" >
+				<rule  id="SubTotalOfCashOutflows_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="SubTotalOfCashOutflows_NotEmpty" type="NotEmpty" depExp="SubTotalOfCashOutflows_NotNull" />
+				<rule  id="SubTotalOfCashOutflows_Empty" type="Empty" depExp="SubTotalOfCashOutflows_NotNull" />
+				<rule  id="SubTotalOfCashOutflows_DataType" type="DataType" errCode="ABE001" depExp="SubTotalOfCashOutflows_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromInvestingActivities" fbTag="NetCashFlowsFromInvestingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_NumberLimit" type="NumberLimit" errCode="CRE105"  
+					depExp="CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_DataType &amp; CashFlows2007Sgmt-TotalCashInflowsFromInvestingActivities_DataType &amp; SubTotalOfCashOutflows_DataType">
+	               <property name="startValue" value="${CashFlows2007Sgmt.TotalCashInflowsFromInvestingActivities}-${CashFlows2007Sgmt.SubTotalOfCashOutflows}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2007Sgmt.TotalCashInflowsFromInvestingActivities}-${CashFlows2007Sgmt.SubTotalOfCashOutflows}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="CashReceivedFromInvestors" fbTag="CashReceivedFromInvestors" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromInvestors_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromInvestors_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashReceivedFromInvestors_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromInvestors_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashReceivedFromInvestors_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashReceivedFromInvestors_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashReceivedFromInvestors_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashFromBorrowings" fbTag="CashFromBorrowings" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashFromBorrowings_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashFromBorrowings_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashFromBorrowings_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashFromBorrowings_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashFromBorrowings_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashFromBorrowings_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashFromBorrowings_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCashReceivedRelatingToFinancingActivities" fbTag="OtherCashReceivedRelatingToFinancingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToFinancingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-OtherCashReceivedRelatingToFinancingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToFinancingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-OtherCashReceivedRelatingToFinancingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OtherCashReceivedRelatingToFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-OtherCashReceivedRelatingToFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashInflowsFromFinancingActivities" fbTag="TotalCashInflowsFromFinancingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashRepaymentsForDebts" fbTag="CashRepaymentsForDebts" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashRepaymentsForDebts_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashRepaymentsForDebts_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashRepaymentsForDebts_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashRepaymentsForDebts_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashRepaymentsForDebts_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashRepaymentsForDebts_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashRepaymentsForDebts_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses" fbTag="CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashPaymentsForDistributionOfDividendsOrProfitAndInterestExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashPaymentsRelatedToOtherFinancingActivities" fbTag="CashPaymentsRelatedToOtherFinancingActivities" classType="java.lang.String" >
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_1_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_1_NotEmpty" type="NotEmpty" depExp="CashPaymentsRelatedToOtherFinancingActivities_1_NotNull" />
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_1_Empty" type="Empty" depExp="CashPaymentsRelatedToOtherFinancingActivities_1_NotNull" />
+				<rule  id="CashPaymentsRelatedToOtherFinancingActivities_1_DataType" type="DataType" errCode="ABE001" depExp="CashPaymentsRelatedToOtherFinancingActivities_1_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCashOutflowsFromFinancingActivities" fbTag="TotalCashOutflowsFromFinancingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_Empty" type="Empty" depExp="CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromFinancingActivities" fbTag="NetCashFlowsFromFinancingActivities" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_NumberLimit" type="NumberLimit" errCode="CRE106"  
+					depExp="CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_DataType &amp; CashFlows2007Sgmt-TotalCashInflowsFromFinancingActivities_DataType &amp; CashFlows2007Sgmt-TotalCashOutflowsFromFinancingActivities_DataType">
+	               <property name="startValue" value="${CashFlows2007Sgmt.TotalCashInflowsFromFinancingActivities}-${CashFlows2007Sgmt.TotalCashOutflowsFromFinancingActivities}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2007Sgmt.TotalCashInflowsFromFinancingActivities}-${CashFlows2007Sgmt.TotalCashOutflowsFromFinancingActivities}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="EffectOfExchangRateChangesOnCash" fbTag="EffectOfExchangRateChangesOnCash" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-EffectOfExchangRateChangesOnCash_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-EffectOfExchangRateChangesOnCash_NotEmpty" type="NotEmpty"  depExp="CashFlows2007Sgmt-EffectOfExchangRateChangesOnCash_NotNull" />
+				<rule  id="CashFlows2007Sgmt-EffectOfExchangRateChangesOnCash_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-EffectOfExchangRateChangesOnCash_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetIncreaseInCashAndCashEquivalents" fbTag="NetIncreaseInCashAndCashEquivalents" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_NumberLimit" type="NumberLimit" errCode="CRE107"  
+					depExp="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_DataType &amp; CashFlows2007Sgmt-NetCashFlowsFromOperatingActivities_DataType &amp; CashFlows2007Sgmt-NetCashFlowsFromInvestingActivities_DataType &amp; CashFlows2007Sgmt-NetCashFlowsFromFinancingActivities_DataType &amp; CashFlows2007Sgmt-EffectOfExchangRateChangesOnCash_DataType ">
+	               <property name="startValue" value="${CashFlows2007Sgmt.NetCashFlowsFromOperatingActivities}+${CashFlows2007Sgmt.NetCashFlowsFromInvestingActivities}+${CashFlows2007Sgmt.NetCashFlowsFromFinancingActivities}+${CashFlows2007Sgmt.EffectOfExchangRateChangesOnCash}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2007Sgmt.NetCashFlowsFromOperatingActivities}+${CashFlows2007Sgmt.NetCashFlowsFromInvestingActivities}+${CashFlows2007Sgmt.NetCashFlowsFromFinancingActivities}+${CashFlows2007Sgmt.EffectOfExchangRateChangesOnCash}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="InitialCashAndCashEquivalentsBalance" fbTag="InitialCashAndCashEquivalentsBalance" classType="java.lang.String" >
+				<rule  id="InitialCashAndCashEquivalentsBalance_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="InitialCashAndCashEquivalentsBalance_NotEmpty" type="NotEmpty" depExp="InitialCashAndCashEquivalentsBalance_NotNull" />
+				<rule  id="InitialCashAndCashEquivalentsBalance_Empty" type="Empty" depExp="InitialCashAndCashEquivalentsBalance_NotNull" />
+				<rule  id="InitialCashAndCashEquivalentsBalance_DataType" type="DataType" errCode="ABE001" depExp="InitialCashAndCashEquivalentsBalance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TheFinalCashAndCashEquivalentsBalance" fbTag="TheFinalCashAndCashEquivalentsBalance" classType="java.lang.String" >
+				<rule  id="TheFinalCashAndCashEquivalentsBalance_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="TheFinalCashAndCashEquivalentsBalance_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TheFinalCashAndCashEquivalentsBalance_NotNull" />
+				<rule  id="TheFinalCashAndCashEquivalentsBalance_DataType" type="DataType" errCode="ABE001" depExp="TheFinalCashAndCashEquivalentsBalance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="TheFinalCashAndCashEquivalentsBalance_NumberLimit" type="NumberLimit" errCode="CRE108"  
+					depExp="TheFinalCashAndCashEquivalentsBalance_DataType &amp; CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalents_DataType &amp; InitialCashAndCashEquivalentsBalance_DataType  ">
+	               <property name="startValue" value="${CashFlows2007Sgmt.NetIncreaseInCashAndCashEquivalents}+${CashFlows2007Sgmt.InitialCashAndCashEquivalentsBalance}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${CashFlows2007Sgmt.NetIncreaseInCashAndCashEquivalents}+${CashFlows2007Sgmt.InitialCashAndCashEquivalentsBalance}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="NetProfit" fbTag="NetProfit" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetProfit_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetProfit_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-NetProfit_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetProfit_Empty" type="Empty" depExp="CashFlows2007Sgmt-NetProfit_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetProfit_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProvisionForAssetImpairment" fbTag="ProvisionForAssetImpairment" classType="java.lang.String" >
+				<rule  id="ProvisionForAssetImpairment_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="ProvisionForAssetImpairment_NotEmpty" type="NotEmpty" depExp="ProvisionForAssetImpairment_NotNull" />
+				<rule  id="ProvisionForAssetImpairment_Empty" type="Empty" depExp="ProvisionForAssetImpairment_NotNull" />
+				<rule  id="ProvisionForAssetImpairment_DataType" type="DataType" errCode="ABE001" depExp="ProvisionForAssetImpairment_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DepreciationOfFixedAssets" fbTag="DepreciationOfFixedAssets" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-DepreciationOfFixedAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-DepreciationOfFixedAssets_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-DepreciationOfFixedAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DepreciationOfFixedAssets_Empty" type="Empty" depExp="CashFlows2007Sgmt-DepreciationOfFixedAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DepreciationOfFixedAssets_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-DepreciationOfFixedAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AmortisationOfIntangibleAssets" fbTag="AmortisationOfIntangibleAssets" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-AmortisationOfIntangibleAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-AmortisationOfIntangibleAssets_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-AmortisationOfIntangibleAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-AmortisationOfIntangibleAssets_Empty" type="Empty" depExp="CashFlows2007Sgmt-AmortisationOfIntangibleAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-AmortisationOfIntangibleAssets_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-AmortisationOfIntangibleAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AmortisationOfLongTermDefferedExpenses" fbTag="AmortisationOfLongTermDefferedExpenses" classType="java.lang.String" >
+				<rule  id="AmortisationOfLongTermDefferedExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="AmortisationOfLongTermDefferedExpenses_NotEmpty" type="NotEmpty" depExp="AmortisationOfLongTermDefferedExpenses_NotNull" />
+				<rule  id="AmortisationOfLongTermDefferedExpenses_Empty" type="Empty" depExp="AmortisationOfLongTermDefferedExpenses_NotNull" />
+				<rule  id="AmortisationOfLongTermDefferedExpenses_DataType" type="DataType" errCode="ABE001" depExp="AmortisationOfLongTermDefferedExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DecreaseOfDefferedExpenses" fbTag="DecreaseOfDefferedExpenses" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-DecreaseOfDefferedExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-DecreaseOfDefferedExpenses_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-DecreaseOfDefferedExpenses_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DecreaseOfDefferedExpenses_Empty" type="Empty" depExp="CashFlows2007Sgmt-DecreaseOfDefferedExpenses_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DecreaseOfDefferedExpenses_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-DecreaseOfDefferedExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AdditionOfAccuedExpense" fbTag="AdditionOfAccuedExpense" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-AdditionOfAccuedExpense_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-AdditionOfAccuedExpense_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-AdditionOfAccuedExpense_NotNull" />
+				<rule  id="CashFlows2007Sgmt-AdditionOfAccuedExpense_Empty" type="Empty" depExp="CashFlows2007Sgmt-AdditionOfAccuedExpense_NotNull" />
+				<rule  id="CashFlows2007Sgmt-AdditionOfAccuedExpense_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-AdditionOfAccuedExpense_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" fbTag="LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_Empty" type="Empty" depExp="CashFlows2007Sgmt-LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-LossesOnDisposalOfFixedAssetsIntangibleAssetsAndOtherLongTermAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossesOnScrappingOfFixedAssets" fbTag="LossesOnScrappingOfFixedAssets" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-LossesOnScrappingOfFixedAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-LossesOnScrappingOfFixedAssets_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-LossesOnScrappingOfFixedAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-LossesOnScrappingOfFixedAssets_Empty" type="Empty" depExp="CashFlows2007Sgmt-LossesOnScrappingOfFixedAssets_NotNull" />
+				<rule  id="CashFlows2007Sgmt-LossesOnScrappingOfFixedAssets_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-LossesOnScrappingOfFixedAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitOrLossFromChangesInFairValue" fbTag="ProfitOrLossFromChangesInFairValue" classType="java.lang.String" >
+				<rule  id="ProfitOrLossFromChangesInFairValue_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="ProfitOrLossFromChangesInFairValue_NotEmpty" type="NotEmpty" depExp="ProfitOrLossFromChangesInFairValue_NotNull" />
+				<rule  id="ProfitOrLossFromChangesInFairValue_Empty" type="Empty" depExp="ProfitOrLossFromChangesInFairValue_NotNull" />
+				<rule  id="ProfitOrLossFromChangesInFairValue_DataType" type="DataType" errCode="ABE001" depExp="ProfitOrLossFromChangesInFairValue_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinanceExpense" fbTag="FinanceExpense" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-FinanceExpense_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-FinanceExpense_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-FinanceExpense_NotNull" />
+				<rule  id="CashFlows2007Sgmt-FinanceExpense_Empty" type="Empty" depExp="CashFlows2007Sgmt-FinanceExpense_NotNull" />
+				<rule  id="CashFlows2007Sgmt-FinanceExpense_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-FinanceExpense_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossesArsingFromInvestment" fbTag="LossesArsingFromInvestment" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-LossesArsingFromInvestment_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-LossesArsingFromInvestment_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-LossesArsingFromInvestment_NotNull" />
+				<rule  id="CashFlows2007Sgmt-LossesArsingFromInvestment_Empty" type="Empty" depExp="CashFlows2007Sgmt-LossesArsingFromInvestment_NotNull" />
+				<rule  id="CashFlows2007Sgmt-LossesArsingFromInvestment_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-LossesArsingFromInvestment_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DeferredIncomeTaxAssets" fbTag="DeferredIncomeTaxAssets" classType="java.lang.String" >
+				<rule  id="DeferredIncomeTaxAssets_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="DeferredIncomeTaxAssets_NotEmpty" type="NotEmpty" depExp="DeferredIncomeTaxAssets_NotNull" />
+				<rule  id="DeferredIncomeTaxAssets_Empty" type="Empty" depExp="DeferredIncomeTaxAssets_NotNull" />
+				<rule  id="DeferredIncomeTaxAssets_DataType" type="DataType" errCode="ABE001" depExp="DeferredIncomeTaxAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DeferredIncomeTaxLiabilities" fbTag="DeferredIncomeTaxLiabilities" classType="java.lang.String" >
+				<rule  id="DeferredIncomeTaxLiabilities_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="DeferredIncomeTaxLiabilities_NotEmpty" type="NotEmpty" depExp="DeferredIncomeTaxLiabilities_NotNull" />
+				<rule  id="DeferredIncomeTaxLiabilities_Empty" type="Empty" depExp="DeferredIncomeTaxLiabilities_NotNull" />
+				<rule  id="DeferredIncomeTaxLiabilities_DataType" type="DataType" errCode="ABE001" depExp="DeferredIncomeTaxLiabilities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DecreaseInInventories" fbTag="DecreaseInInventories" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-DecreaseInInventories_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-DecreaseInInventories_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-DecreaseInInventories_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DecreaseInInventories_Empty" type="Empty" depExp="CashFlows2007Sgmt-DecreaseInInventories_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DecreaseInInventories_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-DecreaseInInventories_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DecreaseInOperatingReceivables" fbTag="DecreaseInOperatingReceivables" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-DecreaseInOperatingReceivables_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-DecreaseInOperatingReceivables_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-DecreaseInOperatingReceivables_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DecreaseInOperatingReceivables_Empty" type="Empty" depExp="CashFlows2007Sgmt-DecreaseInOperatingReceivables_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DecreaseInOperatingReceivables_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-DecreaseInOperatingReceivables_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IncreaseInOperatingReceivables" fbTag="IncreaseInOperatingReceivables" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-IncreaseInOperatingReceivables_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-IncreaseInOperatingReceivables_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-IncreaseInOperatingReceivables_NotNull" />
+				<rule  id="CashFlows2007Sgmt-IncreaseInOperatingReceivables_Empty" type="Empty" depExp="CashFlows2007Sgmt-IncreaseInOperatingReceivables_NotNull" />
+				<rule  id="CashFlows2007Sgmt-IncreaseInOperatingReceivables_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-IncreaseInOperatingReceivables_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="Others" fbTag="Others" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-Others_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-Others_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-Others_NotNull" />
+				<rule  id="CashFlows2007Sgmt-Others_Empty" type="Empty" depExp="CashFlows2007Sgmt-Others_NotNull" />
+				<rule  id="CashFlows2007Sgmt-Others_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-Others_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetCashFlowsFromOperatingActivitiesMi" fbTag="NetCashFlowsFromOperatingActivitiesMi" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivitiesMi_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivitiesMi_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivitiesMi_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivitiesMi_Empty" type="Empty" depExp="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivitiesMi_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivitiesMi_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetCashFlowsFromOperatingActivitiesMi_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DebtsTransferToCapital" fbTag="DebtsTransferToCapital" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-DebtsTransferToCapital_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-DebtsTransferToCapital_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-DebtsTransferToCapital_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DebtsTransferToCapital_Empty" type="Empty" depExp="CashFlows2007Sgmt-DebtsTransferToCapital_NotNull" />
+				<rule  id="CashFlows2007Sgmt-DebtsTransferToCapital_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-DebtsTransferToCapital_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OneYearDueConvertibleBonds" fbTag="OneYearDueConvertibleBonds" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-OneYearDueConvertibleBonds_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-OneYearDueConvertibleBonds_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-OneYearDueConvertibleBonds_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OneYearDueConvertibleBonds_Empty" type="Empty" depExp="CashFlows2007Sgmt-OneYearDueConvertibleBonds_NotNull" />
+				<rule  id="CashFlows2007Sgmt-OneYearDueConvertibleBonds_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-OneYearDueConvertibleBonds_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinancingRentToTheFixedAsset" fbTag="FinancingRentToTheFixedAsset" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-FinancingRentToTheFixedAsset_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-FinancingRentToTheFixedAsset_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-FinancingRentToTheFixedAsset_NotNull" />
+				<rule  id="CashFlows2007Sgmt-FinancingRentToTheFixedAsset_Empty" type="Empty" depExp="CashFlows2007Sgmt-FinancingRentToTheFixedAsset_NotNull" />
+				<rule  id="CashFlows2007Sgmt-FinancingRentToTheFixedAsset_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-FinancingRentToTheFixedAsset_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashAtTheEndOfPeriod" fbTag="CashAtTheEndOfPeriod" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashAtTheEndOfPeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashAtTheEndOfPeriod_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashAtTheEndOfPeriod_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashAtTheEndOfPeriod_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashAtTheEndOfPeriod_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashAtTheEndOfPeriod_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashAtTheEndOfPeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashAtTheBeginningOfThePeriod" fbTag="CashAtTheBeginningOfThePeriod" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashAtTheBeginningOfThePeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashAtTheBeginningOfThePeriod_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashAtTheBeginningOfThePeriod_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashAtTheBeginningOfThePeriod_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashAtTheBeginningOfThePeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashEquivalentsAtTheEndOfThePeriod" fbTag="CashEquivalentsAtTheEndOfThePeriod" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-CashEquivalentsAtTheEndOfThePeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-CashEquivalentsAtTheEndOfThePeriod_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-CashEquivalentsAtTheEndOfThePeriod_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashEquivalentsAtTheEndOfThePeriod_Empty" type="Empty" depExp="CashFlows2007Sgmt-CashEquivalentsAtTheEndOfThePeriod_NotNull" />
+				<rule  id="CashFlows2007Sgmt-CashEquivalentsAtTheEndOfThePeriod_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-CashEquivalentsAtTheEndOfThePeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CashEquivalentsAtTheBeginningOfThePeriod" fbTag="CashEquivalentsAtTheBeginningOfThePeriod" classType="java.lang.String" >
+				<rule  id="CashEquivalentsAtTheBeginningOfThePeriod_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashEquivalentsAtTheBeginningOfThePeriod_NotEmpty" type="NotEmpty" depExp="CashEquivalentsAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashEquivalentsAtTheBeginningOfThePeriod_Empty" type="Empty" depExp="CashEquivalentsAtTheBeginningOfThePeriod_NotNull" />
+				<rule  id="CashEquivalentsAtTheBeginningOfThePeriod_DataType" type="DataType" errCode="ABE001" depExp="CashEquivalentsAtTheBeginningOfThePeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetIncreaseInCashAndCashEquivalentsMi" fbTag="NetIncreaseInCashAndCashEquivalentsMi" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalentsMi_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalentsMi_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalentsMi_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalentsMi_Empty" type="Empty" depExp="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalentsMi_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalentsMi_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NetIncreaseInCashAndCashEquivalentsMi_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonCashOthers" fbTag="NonCashOthers" classType="java.lang.String" >
+				<rule  id="CashFlows2007Sgmt-NonCashOthers_NotNull" type="NotNull" errCode="ABD000" depExp="CashFlows2007Sgmt_NotNullc"/>
+				<rule  id="CashFlows2007Sgmt-NonCashOthers_NotEmpty" type="NotEmpty" depExp="CashFlows2007Sgmt-NonCashOthers_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NonCashOthers_Empty" type="Empty" depExp="CashFlows2007Sgmt-NonCashOthers_NotNull" />
+				<rule  id="CashFlows2007Sgmt-NonCashOthers_DataType" type="DataType" errCode="ABE001" depExp="CashFlows2007Sgmt-NonCashOthers_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+		</field> 
+    </validator>
+</validators>

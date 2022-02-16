@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30079092.0.0" classType="org.pbccrc.archive.collect.messagetools.entbaseinfo.message.IdentifyDelRecord" >
+
+
+	<field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+			<rule  id="InfRecType_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecType_NotNull"/>
+			  <rule id="InfRecType_Equal" type="Equals" errCode="ABR000" fbTag="0000" depExp="InfRecType_NotEmpty">
+                    <property name="data" value="${$context.REC_TYPE}" />
+                </rule>
+		</field> 
+
+		 <field  name="InfSurcCode" fbTag="InfSurcCode" classType="java.lang.String" >
+			<rule  id="InfSurcCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="InfSurcCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfSurcCode_NotNull"/>
+			<rule  id="InfSurcCode_DataType" type="DataType" errCode="ABE001" depExp="InfSurcCode_NotEmpty">
+                    <property  name="type" value="AN..20" />
+            </rule>
+            <!-- 前14为数据提供机构区代码校验 -->
+            <rule  id="InfSurcCode_FinanVali" type="FinanOrgan" errCode="ABE002" depExp="InfSurcCode_DataType" >
+            </rule>
+		</field> 
+
+		<field  name="EntName" fbTag="EntName" classType="java.lang.String" >
+			<rule  id="EntName_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="EntName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="EntName_NotNull"/>
+			<rule  id="EntName_DataType" type="DataType" errCode="ABE001" depExp="EntName_NotEmpty">
+				<property  name="type" value="ANC..80" />
+			</rule>
+		</field> 
+
+		<field  name="EntCertType" fbTag="EntCertType" classType="java.lang.String" >
+			<rule  id="EntCertType_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="EntCertType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="EntCertType_NotNull"/>
+			<rule id="EntCertType_Dict" type="Dict" errCode="ABE001" depExp="EntCertType_NotEmpty" scope="local">
+                    <property name="dictKey" value="EntCertType" />
+            </rule> 
+		</field> 
+
+		<field  name="EntCertNum" fbTag="EntCertNum" classType="java.lang.String" >
+			<rule  id="EntCertNum_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="EntCertNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="EntCertNum_NotNull"/>
+			<rule  id="EntCertNum_DataType" type="DataType" errCode="ABE001" depExp="EntCertNum_NotEmpty">
+				<property  name="type" value="ANC..40" />
+			</rule>
+
+            <!-- 根据证件类型，校验不同的证件号 -->
+            <rule id="EntCertNum_Vali" type="LegCert" errCode="ABE004" depExp="EntCertNum_DataType"> 
+                   <property name="certType" value="${EntCertType}"/>
+            </rule> 
+		</field>  
+	</validator>
+</validators>

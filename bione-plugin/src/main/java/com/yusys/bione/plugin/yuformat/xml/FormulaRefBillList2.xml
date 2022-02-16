@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+<templet>
+	<templetname>字段名</templetname>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<list_ispagebar>N</list_ispagebar>
+</templet>
+
+<templet_item>
+    <itemkey>colname</itemkey>
+    <itemname>名称</itemname>
+    <itemtype>文本框</itemtype>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+</root>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptidx.repository.IdxMeasureMybatisDao">
+	<select id="list" resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxMeasureInfoVO"
+	parameterType="HashMap">
+		select  rel.INDEX_VER_ID,
+				rel.INDEX_NO,
+				idx.index_nm,
+				measure.MEASURE_NO,
+   				measure.CALC_FORMULA,
+    			measure.MEASURE_NM,
+    			measure.MEASURE_TYPE,
+    			measure.REMARK
+    	from
+		RPT_IDX_MEASURE_INFO measure,RPT_IDX_MEASURE_REL rel, RPT_IDX_INFO idx
+		where 
+		measure.MEASURE_NO=rel.MEASURE_NO
+		and rel.index_no = idx.index_no
+		and rel.index_ver_id = idx.index_ver_id
+		and idx.end_date = '29991231'
+		and idx.IS_RPT_INDEX = 'N'
+		and idx.INDEX_STS = 'Y'
+		and idx.index_Type = '05'
+		<if test="remark != null">and measure.REMARK = #{remark}</if>
+		<if test="id != null">
+			<if test="id.indexVerId != null">and rel.INDEX_VER_ID = #{id.indexVerId}</if>
+			<if test="id.dsId != null">and rel.DS_ID = #{id.dsId}</if>
+			<if test="id.indexNo != null">and rel.INDEX_NO = #{id.indexNo}</if>
+		</if>
+		<if test="orderNum != null">and rel.ORDER_NUM = #{orderNum}</if>
+		<if test="storeCol != null">and rel.STORE_COL = #{storeCol}</if>
+		<if test="measureType != null">and measure.MEASURE_TYPE = #{measureType}</if>
+		<if test="measureNm != null">and measure.MEASURE_NM = #{measureNm}</if>
+		<if test="measureNo != null">and measure.MEASURE_NO = #{measureNo}</if>
+		<if test="calcFormula != null">and measure.CALC_FORMULA = #{calcFormula}</if>
+	</select>
+
+	<select id="getMeasure" resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxMeasureInfoVO"
+	parameterType="HashMap">
+		select  rel.INDEX_VER_ID,
+				rel.INDEX_NO,
+				rel.MEASURE_NO
+    	from
+		RPT_IDX_MEASURE_REL rel
+		where 1=1
+		<if test="id != null">
+			<if test="id.indexVerId != null">and rel.INDEX_VER_ID = #{id.indexVerId}</if>
+			<if test="id.indexNo != null">and rel.INDEX_NO = #{id.indexNo}</if>
+		</if>
+		<if test="idxList != null">
+			and 
+			<foreach item="id" index="index" collection="idxList" open="("
+				separator=" or " close=")">
+				(rel.index_no = #{id.id.indexNo} and rel.index_ver_id = #{id.id.indexVerId})
+			</foreach>
+		</if>
+		
+	</select>
+</mapper> 

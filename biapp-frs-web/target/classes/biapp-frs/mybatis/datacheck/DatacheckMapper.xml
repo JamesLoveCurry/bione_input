@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.frs.datacheck.repository.DatacheckDao">
+	
+	<select id="getStsById" parameterType="String"
+		resultType="String">
+
+		SELECT
+			ins.STS
+		FROM 
+			RPT_FLTSK_INS ins
+		WHERE
+			ins.TASK_INSTANCE_ID = #{taskInsId}
+	</select>
+	
+	<select id="getstsVlDescById" parameterType="String"
+		resultType="List">
+
+		SELECT
+			ins.STS
+		FROM 
+			RPT_FLTSK_INS ins
+		WHERE
+			ins.TASK_INSTANCE_ID = #{taskInsId}
+	</select>
+	
+	<update id="updateInsSts" parameterType="HashMap">
+		UPDATE
+			RPT_FLTSK_INS ins
+		SET 
+			ins.STS = #{sts}
+		WHERE
+			ins.TASK_INSTANCE_ID = #{taskInsId}
+	</update>
+	
+	<!-- 根据条件查询报表列表 -->
+	<insert id="saveMsg" parameterType="com.yusys.biapp.frs.datacheck.entity.TaskFilltabMsg">
+		INSERT INTO 
+			TASK_FILLTAB_MSG 
+			 
+			(TASK_INSTANCE_ID,
+			USER_ID,
+			USER_NM,
+			TASK_INSTANCE_NM,
+			OPER_DATE,
+			OPER_CONTENT)
+		VALUES
+			(#{taskinstanceid},
+			 #{userid},
+			 #{usernm},
+			 #{taskinstancenm},
+			 #{operdate},
+			 #{opercontent})
+	</insert>
+	
+	<select id="getTskInsNm" parameterType="String" resultType="String">
+		SELECT 
+			ins.TASK_NM 
+		FROM 
+			RPT_FLTSK_INS ins
+		WHERE
+			ins.TASK_INSTANCE_ID = #{id} 
+	</select>
+	
+	<select id="getUserOrgLevel" parameterType="String" resultType="String">
+		SELECT 
+			ORG_LEVEL 
+		FROM 
+			RPT_ORG_INFO 
+		WHERE
+			ORG_NO = #{id} 
+	</select>
+	
+	<!--分行审核时间  -->
+	<update id="updateShFHDate" parameterType="HashMap">
+		UPDATE
+			rpt_fltsk_ins ins
+		SET 
+			ins.FH_CHECK_DATE = #{date}
+		WHERE
+			ins.TASK_INSTANCE_ID = #{taskInsId}
+	</update>
+	
+	<!--总行审核时间  -->
+	<update id="updateShZHDate"  parameterType="HashMap">
+		
+			UPDATE
+			rpt_fltsk_ins ins
+		SET 
+			ins.ZH_CHECK_DATE = #{zhCheckDate}
+		WHERE
+			ins.TASK_INSTANCE_ID = #{taskInsId}
+	</update>
+	<select id="getAutherList"  parameterType="HashMap" resultType="String" >
+		SELECT DISTINCT USR.USER_ID
+		  FROM RPT_ORG_INFO RPT
+		  INNER JOIN 
+		  	(select *
+		          from bione_org_info INFO
+		         where INFO.org_id in  
+		       	<foreach collection="orgs" item="org" open="("
+					separator="," close=")">
+					#{org}
+				</foreach>
+		        connect by INFO.org_no = prior INFO.up_no) INFO
+		  ON (RPT.ORG_NO = INFO.ORG_NO AND RPT.ORG_TYPE = #{moduleType})
+		 LEFT JOIN (SELECT OG.USER_ID, OG.ORG_NO, ROL.ROLE_NO
+               FROM (select II.ORG_NO, T.USER_ID
+		               from BIONE_AUTH_OBJ_USER_REL t
+		              INNER JOIN BIONE_ORG_INFO II
+		                 ON II.ORG_ID = T.OBJ_ID
+		              where t.obj_def_no = 'AUTH_OBJ_ORG') OG
+		   INNER JOIN (select ROL.ROLE_NO, T.USER_ID
+               from BIONE_AUTH_OBJ_USER_REL t
+              INNER JOIN BIONE_ROLE_INFO ROL
+                 ON ROL.ROLE_ID = T.OBJ_ID
+                 <if test=" roles !=null and roles.size > 0 ">
+                 	AND ROL.ROLE_NO IN 
+	              	<foreach collection="roles" item="role" open="("
+									separator="," close=")">
+									#{role}
+					</foreach>
+                 </if>
+                <!-- AND ROL.ROLE_NO IN ('03SHG', '09FHSH', 'RR03SH') -->
+              where t.obj_def_no = 'AUTH_OBJ_ROLE') ROL 
+              ON OG.USER_ID = ROL.USER_ID) RO
+    	ON RO.ORG_NO = INFO.ORG_NO
+    	LEFT JOIN BIONE_USER_INFO USR
+ 		ON USR.USER_ID=RO.USER_ID 
+ 		WHERE 1=1 
+ 		AND
+ 		 USR.USER_NAME IS NOT NULL
+	</select>
+	<!-- 查询具有审批解锁权限的用户 -->
+	<select id="getSHJQList" parameterType="HashMap" resultType="String">
+		SELECT A.USER_ID FROM BIONE_USER_INFO A
+		WHERE A.USER_ID IN( 
+			SELECT B.USER_ID FROM BIONE_AUTH_OBJ_USER_REL B
+			WHERE B.OBJ_ID IN (
+				SELECT C.OBJ_ID FROM BIONE_AUTH_OBJ_RES_REL C
+				WHERE 1=1
+				<if test="resId != null and resId != ''">
+					AND RES_ID=#{resId}
+				</if>
+			)
+		)
+		<if test="orgNos != null and orgNos != ''">
+			 AND A.ORG_NO IN=#{orgNo}
+			 <foreach collection="roles" item="role" open="("
+									separator="," close=")">
+									#{orgNo}
+			</foreach>
+		</if>
+	</select>
+</mapper> 

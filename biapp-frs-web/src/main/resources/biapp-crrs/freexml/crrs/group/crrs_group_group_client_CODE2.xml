@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+	<templet>
+		<templetname>基本信息</templetname>
+		<fromtable>crrs_group_group_client</fromtable>
+		<savetable>crrs_group_group_client</savetable>
+		<pkname>rid</pkname>
+		<querycontion>type='2'</querycontion>
+		<autocondition descr="自动查询时的条件">type='2'</autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys>data_dt desc</orderbys>
+		<card_btns></card_btns>
+		<card_size>900*560</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns>[icon-add]新增/insert1;[icon-edit]编辑/update1;[icon-remove]删除/delete1;[icon-p67]下载模板/downModel;[icon-p68]导入/importGYLFun;[icon-p31]查看/onView;[icon-p09]查看规则/viewRule;</list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+	</templet>
+
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<helptip></helptip>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>customer_code</itemkey>
+		<itemname>供应链编码</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<isonlyone>Y</isonlyone>
+		<validatefields>data_dt</validatefields>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<formatvalidate>非特殊符号</formatvalidate>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>140</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>customer_name</itemkey>
+		<itemname>客户名称</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>200</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>data_dt</itemkey>
+		<itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<itemdefine>【is8=Y】</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>customer_type</itemkey>
+		<itemname>客户分类</itemname>
+		<itemtype>下拉框</itemtype>
+		<defaultformula>1</defaultformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>type</itemkey>
+		<itemname>分类</itemname>
+		<itemtype>下拉框</itemtype>
+		<defaultformula>2</defaultformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>credit_type</itemkey>
+		<itemname>授信类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from crrs_bs_dict_code where parent_item_code = 'A01028'"}】</itemdefine>
+		<defaultformula>2</defaultformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>member_number</itemkey>
+		<itemname>集团成员数</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>staff_code</itemkey>
+		<itemname>客户经理柜员号</itemname>
+		<itemtype>列表参照</itemtype>
+		<itemdefine>【templetcode=/biapp-crrs/freexml/crrs/ent/crrs_bs_staff_info_CODE1.xml】【cols=gyh->staff_code;gymc->staff_name】【winsize=900*400】</itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+		<query_iswrap>Y</query_iswrap>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>staff_name</itemkey>
+		<itemname>客户经理名称</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<loadformula>【type=SQL】【SQL=select gymc from crrs_bs_staff where gyh=${staff_code}】</loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>inst_no</itemkey>
+		<itemname>经办机构号</itemname>
+		<itemtype>树型参照</itemtype>
+		<itemdefine>【templetcode=/biapp-crrs/freexml/crrs/common/rpt_org_info_CODE1.xml】【cols=org_no->inst_no;org_nm->inst_name】【winsize=400*560】</itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>90</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>inst_name</itemkey>
+		<itemname>经办机构名称</itemname>
+		<itemtype>文本框</itemtype>
+		<loadformula>【type=SQL】【SQL=select org_nm name from rpt_org_info where org_no=${inst_no} and ORG_TYPE = '08'】</loadformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>issued_no</itemkey>
+		<itemname>填报机构号</itemname>
+		<itemtype>树型参照</itemtype>
+		<itemdefine>【templetcode=/biapp-crrs/freexml/crrs/common/rpt_org_info_CODE1.xml】【cols=org_no->issued_no;org_nm->issued_name】【winsize=400*560】
+		</itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>issued_name</itemkey>
+		<itemname>填报机构名称</itemname>
+		<itemtype>文本框</itemtype>
+		<loadformula>【type=SQL】【SQL=select org_nm name from rpt_org_info where org_no=${issued_no} and ORG_TYPE = '08' 】</loadformula>
+		<issave>N</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>status</itemkey>
+		<itemname>状态</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+	
+</root>

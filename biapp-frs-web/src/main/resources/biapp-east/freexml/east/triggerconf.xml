@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>规则</templetname>
+		<fromtable>east_cr_col</fromtable>
+		<savetable>east_cr_col</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">N</autoquery>
+		<ishavebillquery descr="是否有查询面板"></ishavebillquery>
+		<orderbys></orderbys>
+		<card_btns></card_btns>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+	</templet>
+
+	<templet_item>
+		<itemkey>triggerconf</itemkey>
+		<itemname>执行频率</itemname>
+		<itemtype>多行文本框</itemtype>
+		<helptip></helptip>
+		<itemdefine></itemdefine>
+		<defaultformula></defaultformula>
+		<loadformula></loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<seq>5</seq>
+		<grouptitle></grouptitle>
+		<card_isshow>Y</card_isshow>
+		<card_width>400*200</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>80</list_width>
+		<list_align>中</list_align>
+		<list_render></list_render>
+		<query_isshow>N</query_isshow>
+		<query_itemtype></query_itemtype>
+		<query_itemdefine></query_itemdefine>
+		<validateinfo></validateinfo>
+		<showformula></showformula>
+		<defvalue></defvalue>
+	</templet_item>
+
+</root>

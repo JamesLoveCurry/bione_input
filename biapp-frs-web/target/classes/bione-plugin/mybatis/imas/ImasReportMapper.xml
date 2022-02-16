@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.imasreport.repository.ImasReportDao">
+	<resultMap id="ImasReportMap" type="com.yusys.bione.plugin.imasreport.entity.ImasReport">
+		<id column="RID" property="rid" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="TAB_NAME" property="tabName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="TAB_NAME_EN" property="tabNameEn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="TAB_TYPE" property="tabType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="TAB_NO" property="tabNo" jdbcType="VARCHAR" javaType="java.lang.String"/>
+	</resultMap>
+
+
+	<!-- 查询所有的业务表 -->
+	<select id="getAllImasReport" resultMap="ImasReportMap">
+		select rid, tab_name, tab_name_en , tab_type, tab_no  from imas_cr_tab where tab_belong = '业务表'
+		<if test="authRptIds != null">
+			and tab_name_en in
+			<foreach item="rptId" index="index" collection="authRptIds"
+				open="(" separator="," close=")">
+				#{rptId}
+			</foreach>
+		</if>
+		order by tab_no
+	</select>
+</mapper>

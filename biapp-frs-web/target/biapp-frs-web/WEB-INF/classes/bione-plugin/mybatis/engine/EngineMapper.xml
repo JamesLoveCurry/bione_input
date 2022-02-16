@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.yusys.bione.plugin.engine.repository.mybatis.EngineDao">
+	<select id="getEngineIdxStsList"
+		resultType="com.yusys.bione.plugin.engine.entity.RptEngineIdxSt"
+		parameterType="HashMap">
+		select
+		t1.INDEX_NO as "id.indexNo" ,
+		t1.DATA_DATE as "id.dataDate",
+		t1.STS ,
+		t1.ERROR_LOG ,
+		t1.START_TIME ,
+		t1.END_TIME ,
+		t2.index_nm
+		FROM
+		RPT_ENGINE_IDX_STS t1,RPT_IDX_INFO t2
+		where
+		t1.INDEX_NO=t2.INDEX_NO
+		and
+		t2.index_ver_id =(
+		select max(index_ver_id)
+		from RPT_IDX_INFO where
+		index_no=t2.index_no
+		)
+		<if test="indexNo!=null">
+			and t1.index_no like #{indexNo}
+		</if>
+		<if test="indexNm!=null">
+			and t2.index_nm like #{indexNm}
+		</if>
+		<if test="sts!=null">
+			and t1.sts = #{sts}
+		</if>
+		<if test="dataDate!=null">
+			and t1.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	<select id="getEngineRptStsList"
+		resultType="com.yusys.bione.plugin.valid.entitiy.RptEngineReportSts"
+		parameterType="HashMap">
+		select
+		t1.RPT_ID as "id.rptId",
+		t1.DATA_DATE as "id.dataDate",
+		t1.STS,
+		t1.START_TIME,
+		t1.END_TIME,
+		t2.RPT_NM,
+		t2.rpt_num
+		FROM
+		RPT_ENGINE_REPORT_STS t1,RPT_MGR_REPORT_INFO t2
+		where
+		t1.RPT_ID=t2.RPT_ID
+		<if test="rptNum!=null">
+			and t2.rpt_num like #{rptNum}
+		</if>
+		<if test="rptNm!=null">
+			and t2.RPT_NM like #{rptNm}
+		</if>
+		<if test="sts!=null">
+			and t1.STS = #{sts}
+		</if>
+		<if test="dataDate!=null">
+			and t1.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	<select id="getRptIdxInfosByParams"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+		parameterType="HashMap">
+		SELECT t1.INDEX_NO as
+		"id.indexNo",t2.INDEX_NM
+		FROM RPT_ENGINE_IDX_STS
+		t1 ,RPT_IDX_INFO t2
+		WHERE
+		t1.STS in
+		<foreach collection="sts" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		AND
+		t1.DATA_DATE =#{dataDate}
+		<if test="nos != null">
+			and (t1.index_no in
+			<foreach item="nos" collection="nos" separator=" or t1.index_no in ">
+				<foreach collection="nos" item="nos" open="(" separator=","
+					close=")">
+					#{nos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		AND
+		t1.INDEX_NO = t2.INDEX_NO
+		and t2.index_ver_id=(
+		select
+		max(index_ver_id) from RPT_IDX_INFO where index_no = t2.index_no
+		)
+	</select>
+	<select id="getRptMgrReportInfosByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+		parameterType="HashMap">
+		SELECT t1.RPT_ID as
+		"id.rptId",t2.RPT_NM
+		FROM RPT_ENGINE_REPORT_STS
+		t1
+		,RPT_MGR_REPORT_INFO t2
+		WHERE
+		t1.STS in
+		<foreach collection="sts" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		AND
+		t1.DATA_DATE =#{dataDate}
+		AND
+		t1.RPT_ID IN
+		<foreach collection="rptIds" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		AND
+		t1.RPT_ID = t2.RPT_ID
+	</select>
+	<update id="updateRptEngineIdxSts" parameterType="HashMap">
+		update RPT_ENGINE_IDX_STS
+		<set>
+			<if test="sts != null">STS=#{sts}</if>
+		</set>
+		where 1=1
+		<if test="indexNo!=null">
+			and INDEX_NO=#{indexNo}
+		</if>
+		<if test="dataDate!=null">
+			and DATA_DATE=#{dataDate}
+		</if>
+	</update>
+
+	<update id="updateRptEngineReportSts" parameterType="HashMap">
+		update RPT_ENGINE_REPORT_STS
+		<set>
+			<if test="sts != null">STS=#{sts}</if>
+		</set>
+		where 1=1
+		<if test="rptId!=null">
+			and RPT_ID=#{rptId}
+		</if>
+		<if test="dataDate!=null">
+			and DATA_DATE=#{dataDate}
+		</if>
+	</update>
+
+	<select id="getEngineInfo"
+		resultType="com.yusys.bione.plugin.engine.entity.RptEngineTsk"
+		parameterType="HashMap">
+		select tsk.task_no,tsk.task_Nm,tsk.obj_type FROM
+		Rpt_Engine_Tsk tsk 
+	</select>
+
+	<update id="updateRptEngineReportCheckeSts" parameterType="HashMap">
+		update RPT_ENGINE_CHECK_STS
+		set CHECK_STS='04'
+		where (CHECK_STS ='01' or CHECK_STS='02')
+
+		<if test="dataDate!=null">
+			and DATA_DATE=#{dataDate}
+		</if>
+	</update>
+
+	<update id="updateRptEngineReportSumSts" parameterType="HashMap">
+		update RPT_ENGINE_ORG_SUM_STS
+		set STS='04'
+		where (STS ='01' or STS='02')
+
+		<if test="dataDate!=null">
+			and DATA_DATE=#{dataDate}
+		</if>
+	</update>
+	
+	<select id="getEngineRptList"
+		resultType="com.yusys.bione.plugin.engine.entity.RptTaskInstanceInfo"
+		parameterType="HashMap">
+		SELECT t.task_no as "id.taskNo",
+		       t.task_nm,
+		       t.data_date as "id.dataDate",
+		       t.instance_id as "id.instanceId", 
+		       t.task_type,
+		       t.sts,
+		       t.start_time,
+		       t.end_time,
+		       t.exec_node,
+		       t.parent_task_id,
+		       t.run_log,
+		       t.org
+		  FROM RPT_TASK_INSTANCE_INFO t
+		where 1=1
+		and t.parent_task_id is null
+		<if test="taskTypes != null">
+			and t.task_type in
+			<foreach collection="taskTypes" index="index" item="taskType" open="("
+				separator="," close=")">
+				#{taskType}
+			</foreach>
+		</if>
+		<if test="authRptIds != null">
+			 and (  t.instance_id in
+			<foreach item="authRptIdList" index="index" collection="authRptIds"
+				separator=" or t.instance_id in ">
+				<foreach collection="authRptIdList" item="authRptId" open="("
+					separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			 )
+		</if>
+	</select>
+	
+	<select id="getEngineIdxList"
+		resultType="com.yusys.bione.plugin.engine.entity.RptTaskInstanceInfo"
+		parameterType="HashMap">
+		SELECT t.task_no as "id.taskNo",
+		       t.task_nm,
+		       t.data_date as "id.dataDate",
+		       t.instance_id as "id.instanceId", 
+		       t.task_type,
+		       t.sts,
+		       t.start_time,
+		       t.end_time,
+		       t.exec_node,
+		       t.parent_task_id,
+		       t.run_log,
+		       t.org,
+		       t2.index_type
+		  FROM RPT_TASK_INSTANCE_INFO t
+		  left join rpt_idx_info t2
+		  on t.instance_id = t2.index_no
+		  and t.data_date &lt; t2.end_date
+		  and t.data_date >= t2.start_date
+		  and t2.is_rpt_index = 'N'
+		where 1=1
+		and t.parent_task_id is null
+		<if test="taskTypes != null">
+			and t.task_type in
+			<foreach collection="taskTypes" index="index" item="taskType" open="("
+				separator="," close=")">
+				#{taskType}
+			</foreach>
+		</if>
+		<if test="authIdxIds != null">
+			 and (  t.instance_id in
+			<foreach item="authIdxIdList" index="index" collection="authIdxIds"
+				separator=" or t.instance_id in ">
+				<foreach collection="authIdxIdList" item="authIdxId" open="("
+					separator="," close=")">
+					#{authIdxId}
+				</foreach>
+			</foreach>
+			 )
+		</if>
+	</select>
+	<select id="getRptSts" parameterType="HashMap" resultType="java.util.Map">
+		SELECT
+		    i.TASK_INSTANCE_ID,
+			i.DATA_DATE,
+			i.END_TIME,
+			i.EXE_OBJ_ID,
+			i.sts,
+			o.org_nm,
+			r.rpt_nm
+		FROM
+		    RPT_FLTSK_INS i
+		LEFT JOIN RPT_MGR_REPORT_INFO r
+    	ON i.TASK_OBJ_ID = r.RPT_ID AND i.task_type = r.BUSI_TYPE
+  		LEFT JOIN RPT_ORG_INFO o
+    	ON i.EXE_OBJ_ID = o.ORG_NO AND i.task_type = o.ORG_TYPE
+		WHERE
+			i.TASK_OBJ_ID = #{rptId} AND i.data_date = #{dataDate}
+			and i.sts != '0'
+	</select>
+	
+	<select id="getEngineChildIdxStsList" resultType="com.yusys.bione.plugin.engine.entity.RptTaskInstanceInfo" parameterType="HashMap">
+		SELECT t.task_no as "id.taskNo",
+		       t.task_nm,
+		       t.data_date as "id.dataDate",
+		       t.instance_id as "id.instanceId", 
+		       t.task_type,
+		       t.sts,
+		       t.start_time,
+		       t.end_time,
+		       t.exec_node,
+		       t.parent_task_id,
+		       t.run_log,
+		       t.org
+		  FROM rpt_task_instance_info t
+		 <where>
+		 	t.parent_task_id = #{taskNo}
+		 <if test="taskTypes != null">
+			and t.task_type in
+			<foreach collection="taskTypes" index="index" item="taskType" open="("
+				separator="," close=")">
+				#{taskType}
+			</foreach>
+		</if>
+		 </where> 
+	</select>
+</mapper> 

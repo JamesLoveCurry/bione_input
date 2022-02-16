@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>为了一个时间字段</templetname>
+</templet>
+
+
+<templet_item>
+	<itemkey>new_time</itemkey>
+	<itemname>目标日期</itemname>
+	<itemtype>日历</itemtype>
+	<helptip></helptip>
+	<itemdefine></itemdefine>
+	<defaultformula>$CURRDATE</defaultformula>
+	<loadformula></loadformula>
+	<editformula></editformula>
+	<issave>N</issave>
+	<ismust>Y</ismust>
+	<seq>5</seq>
+	<grouptitle></grouptitle>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,400</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>N</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<list_render></list_render>
+	<query_isshow>N</query_isshow>
+	<query_itemtype></query_itemtype>
+	<query_itemdefine></query_itemdefine>
+	<validateinfo></validateinfo>
+	<showformula></showformula>
+	<defvalue></defvalue>
+</templet_item>
+
+
+</root>

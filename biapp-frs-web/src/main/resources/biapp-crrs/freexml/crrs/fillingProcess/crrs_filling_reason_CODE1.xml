@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>填报原因</templetname>
+		<fromtable>crrs_filling_reason</fromtable>
+		<savetable>crrs_filling_reason</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	    <orderbys>data_time desc</orderbys>
+		<card_btns></card_btns>
+		<card_size>700*560</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+	</templet>
+	
+	<templet_item>
+	    <itemkey>type</itemkey>
+	    <itemname>操作名称</itemname>
+	    <itemtype>下拉框</itemtype>
+	    <itemdefine>【{"类型":"直接值","内容":"1/提交|2/退回|3/通过"}】</itemdefine>
+	    <issave>Y</issave>
+	    <ismust>N</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>Y</card_isshow>
+	    <card_width>500</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>80</list_width>
+	    <list_align>中</list_align>
+	    <list_render></list_render>
+	</templet_item>
+	
+	<templet_item>
+	    <itemkey>reason</itemkey>
+	    <itemname>操作原因</itemname>
+	    <itemtype>多行文本框</itemtype>
+	    <issave>Y</issave>
+	    <ismust>N</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>Y</card_isshow>
+	    <card_width>500</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>300</list_width>
+	    <list_align>左</list_align>
+	    <list_render></list_render>
+	</templet_item>
+	
+	<templet_item>
+	    <itemkey>user_no</itemkey>
+	    <itemname>操作人</itemname>
+	    <itemtype>文本框</itemtype>
+	    <issave>Y</issave>
+	    <ismust>N</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>Y</card_isshow>
+	    <card_width>500</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>100</list_width>
+	    <list_align>中</list_align>
+	    <list_render></list_render>
+	</templet_item>
+	
+	<templet_item>
+	    <itemkey>data_time</itemkey>
+	    <itemname>操作时间</itemname>
+	    <itemtype>文本框</itemtype>
+	    <issave>Y</issave>
+	    <ismust>N</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>Y</card_isshow>
+	    <card_width>500</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>150</list_width>
+	    <list_align>中</list_align>
+	    <list_render></list_render>
+	</templet_item>
+	
+</root>

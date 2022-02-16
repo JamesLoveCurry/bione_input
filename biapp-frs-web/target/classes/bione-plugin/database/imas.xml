@@ -1,0 +1,2346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="imas_result_tab_summary" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="pass_count" type="decimal" length="38" descr="" />
+			<col name="fail_count" type="decimal" length="38" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="20" descr="" />
+			<col name="dim1" type="varchar" length="200" descr="" />
+			<col name="dim2" type="varchar" length="200" descr="" />
+			<col name="dim3" type="varchar" length="200" descr="" />
+			<col name="dim4" type="varchar" length="200" descr="" />
+			<col name="dim5" type="varchar" length="200" descr="" />
+			<col name="busi_type" type="varchar" length="100" descr="" />
+		</columns>
+	</table>
+
+	<table name="imas_result_tab_summary_his" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="pass_count" type="decimal" length="38" descr="" />
+			<col name="fail_count" type="decimal" length="38" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="20" descr="" />
+			<col name="dim1" type="varchar" length="200" descr="" />
+			<col name="dim2" type="varchar" length="200" descr="" />
+			<col name="dim3" type="varchar" length="200" descr="" />
+			<col name="dim4" type="varchar" length="200" descr="" />
+			<col name="dim5" type="varchar" length="200" descr="" />
+			<col name="busi_type" type="varchar" length="100" descr="" />
+		</columns>
+	</table>
+	<table name="imas_result_rule_summary" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="rule_id" type="decimal" length="20" descr="" />
+			<col name="pass_count" type="decimal" length="38" descr="" />
+			<col name="fail_count" type="decimal" length="38" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="20" descr="" />
+			<col name="dim1" type="varchar" length="200" descr="" />
+			<col name="dim2" type="varchar" length="200" descr="" />
+			<col name="dim3" type="varchar" length="200" descr="" />
+			<col name="dim4" type="varchar" length="200" descr="" />
+			<col name="dim5" type="varchar" length="200" descr="" />
+			<col name="busi_type" type="varchar" length="100" descr="" />
+		</columns>
+	</table>
+	<table name="imas_result_rule_summary_his" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="rule_id" type="decimal" length="20" descr="" />
+			<col name="pass_count" type="decimal" length="38" descr="" />
+			<col name="fail_count" type="decimal" length="38" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="20" descr="" />
+			<col name="dim1" type="varchar" length="200" descr="" />
+			<col name="dim2" type="varchar" length="200" descr="" />
+			<col name="dim3" type="varchar" length="200" descr="" />
+			<col name="dim4" type="varchar" length="200" descr="" />
+			<col name="dim5" type="varchar" length="200" descr="" />
+			<col name="busi_type" type="varchar" length="100" descr="" />
+		</columns>
+	</table>
+	<table name="imas_job_log" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="jobid" type="varchar" length="50" descr="任务标识" />
+			<col name="begintime" type="varchar" length="25" descr="开始时间" />
+			<col name="endtime" type="varchar" length="25" descr="结束时间" />
+			<col name="useseconds" type="varchar" length="10" descr="耗时" />
+			<col name="execresult" type="varchar" length="4000"
+				descr="执行结果信息" />
+		</columns>
+	</table>
+	<table name="imas_engine_task_flow" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_no" type="decimal" length="5" descr="" />
+			<col name="cmd" type="varchar" length="30" descr="" />
+			<col name="status" type="varchar" length="30" descr="" />
+			<col name="start_tm" type="varchar" length="20" descr="" />
+			<col name="end_tm" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="imas_cr_statistical" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name_en" type="varchar" length="50" descr="表名" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="total_count" type="varchar" length="30" descr="总记录数" />
+			<col name="remark" type="varchar" length="300" descr="备注" />
+			<col name="source_type" type="varchar" length="1" descr="来源类型" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+		</columns>
+	</table>
+	<table name="imas_cr_rule" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="规则RID(引擎用)" />
+			<col name="id" type="decimal" length="38" descr="规则编号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="2000"
+				descr="数据项中文字段名" />
+			<col name="rule_name" type="varchar" length="2000" descr="规则描述" />
+			<col name="rule_source" type="varchar" length="20"
+				descr="规则来源（监管、自定义）" />
+			<col name="rule_sts" type="varchar" length="1" descr="是否启用" />
+			<col name="expr" type="varchar" length="3000" descr="规则表达式" />
+			<col name="constraint_type" type="varchar" length="20"
+				descr="约束类型" />
+			<col name="disp_cd" type="varchar" length="20" descr="展示分类" />
+			<col name="issql" type="varchar" length="1" descr="规则是否是SQL语句" />
+			<col name="problemcode" type="varchar" length="20" descr="问题编号" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否能强制提交"/>
+		</columns>
+	</table>
+
+	<table name="imas_job" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="name" type="varchar" length="30" descr="任务名" />
+			<col name="classname" type="varchar" length="100" descr="类名" />
+			<col name="triggerconf" type="varchar" length="50" descr="参数" />
+			<col name="activeflag" type="varchar" length="1" descr="是否激活" />
+			<col name="triggertype" type="varchar" length="100" descr="调度类型" />
+			<col name="descr" type="varchar" length="1000" descr="备注" />
+		</columns>
+	</table>
+	<table name="imas_filling_process_child" pkname="rid" descr="">
+		<columns>
+			<col name="rpt_org_no" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="100" descr="" />
+			<col name="task_id" type="varchar" length="100" descr="" />
+			<col name="org_no" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="100" descr="" />
+			<col name="tab_name_en" type="varchar" length="100" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="status" type="varchar" length="1" descr="" />
+			<col name="explain" type="varchar" length="1000" descr="" />
+			<col name="remark" type="varchar" length="1000" descr="" />
+			<col name="data_time" type="varchar" length="20" descr="" />
+			<col name="create_at" type="varchar" length="50" descr="创建人" />
+			<col name="dept_no" type="varchar" length="50" descr="所属条线" />
+		</columns>
+	</table>
+	<table name="imas_engine_task" pkname="rid" descr="">
+		<columns>
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="4000" descr="" />
+			<col name="status" type="varchar" length="50" descr="" />
+			<col name="create_tm" type="varchar" length="19" descr="" />
+			<col name="update_tm" type="varchar" length="19" descr="" />
+			<col name="command1" type="varchar" length="2000" descr="" />
+			<col name="command2" type="varchar" length="2500" descr="" />
+			<col name="task_name" type="varchar" length="100" descr="" />
+			<col name="rule_name" type="clob" length="-1" descr="" />
+			<col name="rule_ids" type="clob" length="-1" descr="" />
+			<col name="tab_ids" type="varchar" length="4000" descr="" />
+			<col name="info" type="varchar" length="1000" descr="" />
+			<col name="tab_names" type="varchar" length="4000" descr="" />
+			<col name="task_type" type="varchar" length="15" descr="" />
+			<col name="busi_type" type="varchar" length="1" descr="" />
+			<col name="busi_org_no" type="varchar" length="50" descr="" />
+			<col name="report_type" type="varchar" length="1" descr="" />
+			<col name="create_at" type="varchar" length="50" descr="创建人" />
+		</columns>
+	</table>
+	<table name="imas_engine_log" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="log_level" type="varchar" length="20" descr="" />
+			<col name="log_cont" type="varchar" length="2000" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="log_no" type="decimal" length="38" descr="" />
+		</columns>
+	</table>
+
+
+
+	<table name="imas_engine_cmd_template" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="template_sts" type="varchar" length="1" descr="" />
+			<col name="cmd" type="varchar" length="2500" descr="" />
+			<col name="cmd_type" type="varchar" length="20" descr="" />
+			<col name="last_upd_tmcreate_tm" type="varchar" length="20"
+				descr="" />
+			<col name="last_update_user" type="varchar" length="200" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="create_user" type="varchar" length="200" descr="" />
+			<col name="tem_name" type="varchar" length="200" descr="" />
+		</columns>
+	</table>
+
+
+	<table name="imas_cr_report" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="" />
+			<col name="org_no" type="varchar" length="100" descr="" />
+			<col name="org_name" type="varchar" length="100" descr="" />
+			<col name="report_type" type="varchar" length="20" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="create_tm" type="varchar" length="19" descr="" />
+			<col name="start_tm" type="varchar" length="19" descr="" />
+			<col name="end_tm" type="varchar" length="19" descr="" />
+			<col name="status" type="varchar" length="30" descr="" />
+			<col name="execsql" type="varchar" length="2000" descr="" />
+			<col name="filepath" type="varchar" length="300" descr="" />
+			<col name="filelog" type="varchar" length="2000" descr="" />
+			<col name="datatype" type="varchar" length="10" descr="" />
+			<col name="upload_status" type="varchar" length="30" descr="上传状态(0未上传，1上传成功，2上传失败)" />
+			<col name="upload_msg" type="varchar" length="2000" descr="上传结果信息" />
+			<col name="report_flag" type="varchar" length="5" descr="报送标识" />
+			<col name="report_success_sum" type="varchar" length="50" descr="生成报文总数，生成报文成功时写入" />
+			<col name="upload_count" type="decimal" length="10" descr="上报次数" />
+			<col name="req_301_param" type="varchar" length="2000" descr="301请求参数" />
+			<col name="req_305_param" type="varchar" length="2000" descr="305请求参数" />
+			<col name="req_307_param" type="varchar" length="2000" descr="307请求参数" />
+			<col name="res_307_param" type="varchar" length="2000" descr="307回执参数" />
+			<col name="check_status" type="varchar" length="3" descr="检核状态" />
+			<col name="msgid" type="varchar" length="20" descr="报文序号" />
+		</columns>
+	</table>
+	<table name="imas_cr_col" pkname="rid" descr="">
+		<columns>
+			<col name="is_not_null" type="varchar" length="1"
+				descr="是否不为空(Y,不可为空；N可以为空）" />
+			<col name="is_not_edit" type="varchar" length="1"
+				descr="是否不可修改（Y,不可修改；N,可修改）" />
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="col_name" type="varchar" length="200" descr="" />
+			<col name="col_name_en" type="varchar" length="200" descr="" />
+			<col name="is_pk" type="varchar" length="1" descr="是否主键（引擎用）" />
+			<col name="is_pk1" type="varchar" length="1" descr="是否主键（WEB用）" />
+			<col name="filter_no" type="decimal" length="38" descr="" />
+			<col name="flow_no" type="decimal" length="38" descr="" />
+			<col name="is_export" type="varchar" length="1"
+				descr="是否参与报送/是否参与展示" />
+			<col name="type_name" type="varchar" length="50" descr="" />
+			<col name="data_type" type="varchar" length="10" descr="" />
+			<col name="col_no" type="decimal" length="5" descr="" />
+			<col name="display_config" type="varchar" length="2000" descr="" />
+			<col name="is_limit" type="varchar" length="1" descr="" />
+			<col name="limit_value" type="decimal" length="16" descr="" />
+			<col name="is_indexes" type="varchar" length="1"
+				descr="是否索引（web用）" />
+			<col name="data_length" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+
+
+
+	<table name="imas_filling_reason" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="child_task_id" type="varchar" length="100" descr="" />
+			<col name="type" type="varchar" length="1" descr="" />
+			<col name="reason" type="varchar" length="1000" descr="" />
+			<col name="user_no" type="varchar" length="100" descr="" />
+			<col name="data_time" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="imas_cr_report_log" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="" />
+			<col name="report_rid" type="varchar" length="40" descr="" />
+			<col name="log_level" type="varchar" length="20" descr="" />
+			<col name="log_cont" type="varchar" length="2000" descr="" />
+			<col name="create_tm" type="varchar" length="19" descr="" />
+			<col name="seq" type="decimal" length="10" descr="" />
+		</columns>
+	</table>
+
+	<table name="imas_filling_process" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="100" descr="" />
+			<col name="tab_name" type="varchar" length="100" descr="" />
+			<col name="tab_name_en" type="varchar" length="100" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="status" type="varchar" length="1" descr="" />
+			<col name="explain" type="varchar" length="1000" descr="" />
+			<col name="remark" type="varchar" length="1000" descr="" />
+			<col name="data_time" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="50" descr="" />
+			<col name="create_at" type="varchar" length="50" descr="创建人" />
+			<col name="dept_no" type="varchar" length="50" descr="所属条线" />
+		</columns>
+	</table>
+	<table name="imas_filling_record" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="task_id" type="varchar" length="100" descr="下发任务id" />
+			<col name="tab_name_en" type="varchar" length="100" descr="表名" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="dept_no" type="varchar" length="50" descr="条线" />
+			<col name="count" type="decimal" length="10" descr="当前表当前条线下发次数" />
+			<col name="data_count" type="decimal" length="15" descr="下发总记录数" />
+			<col name="track_task" type="decimal" length="5" descr="未补录任务数" />
+			<col name="all_track_task" type="decimal" length="5" descr="总共需要补录的任务数" />
+			<col name="track_count" type="decimal" length="15" descr="补录数据量" />
+			<col name="for_save_count" type="decimal" length="15" descr="强制保存数据量" />
+			<col name="for_submit_count" type="decimal" length="15" descr="强制提交数据量" />
+			<col name="to_audit_task" type="decimal" length="5" descr="未审核任务数" />
+			<col name="all_audit_task" type="decimal" length="5" descr="总共需要审核任务数" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+
+		</columns>
+	</table>
+	<table name="imas_cr_tab" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="is_common" type="varchar" length="1" descr="" />
+			<col name="tab_type" type="varchar" length="20" descr="" />
+			<col name="tab_no" type="decimal" length="5" descr="" />
+			<col name="ds_name" type="varchar" length="50" descr="" />
+			<col name="datatype" type="varchar" length="10" descr="" />
+			<col name="col_org_no" type="varchar" length="200" descr="" />
+			<col name="col_data_dt" type="varchar" length="200" descr="" />
+			<col name="col_dim1" type="varchar" length="200" descr="" />
+			<col name="col_dim2" type="varchar" length="200" descr="" />
+			<col name="col_dim3" type="varchar" length="200" descr="" />
+			<col name="col_dim4" type="varchar" length="200" descr="" />
+			<col name="col_dim5" type="varchar" length="200" descr="" />
+			<col name="tab_belong" type="varchar" length="10"
+				descr="表归属（业务表/虚拟表/字典表）" />
+			<col name="report_code" type="varchar" length="50" descr="报文标识" />
+			<col name="ds" type="varchar" length="50" descr="数据源" />
+			<col name="condition" type="varchar" length="200" descr="过滤条件" />
+			<col name="is_virtual" type="varchar" length="1" descr="是否虚拟表" />
+			<col name="report_type" type="varchar" length="50"
+				descr="报送频率（月报/季报）" />
+			<col name="execute_sql" type="varchar" length="4000"
+				descr="维护关联字段的sql语句" />
+			<col name="separate_num" type="varchar" length="20" descr=""/>
+		</columns>
+	</table>
+	<table name="imas_cr_status_config" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="status" type="varchar" length="1" descr="状态" />
+			<col name="report_type" type="varchar" length="100" descr="报送类型" />
+			<col name="remark" type="varchar" length="500" descr="备注" />
+			<col name="report_frequency" type="varchar" length="1"
+				descr="报送频率（月报/季报）" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="IMAS_LOCK_DATA" pkname="rid" descr="数据锁定">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="rid" />
+			<col name="tab_name" type="varchar" length="200" descr="表名" />
+			<col name="org_no" type="varchar" length="100" descr="报送机构号" />
+			<col name="org_name" type="varchar" length="100" descr="报送机构名" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="operator" type="varchar" length="100" descr="操作人" />
+			<col name="operator_name" type="varchar" length="100" descr="操作人名称" />
+			<col name="create_tm" type="char" length="19" descr="操作时间" />
+			<col name="status" type="varchar" length="10" descr="状态" />
+		</columns>
+	</table>
+	<table name="imas_cr_report_separate" pkname="rid" descr="利率报备报表分片明细表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="rep_rid" type="varchar" length="50" descr="明细表主键" />
+			<col name="execsql" type="varchar" length="500" descr="执行sql" />
+			<col name="filname" type="varchar" length="200" descr="文件名称" />
+			<col name="msgid" type="varchar" length="20" descr="报文序号" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="seq" type="decimal" length="10" descr="" />
+			<col name="upload_status" type="varchar" length="30" descr="上传状态(0未上传，1上传成功，2上传失败)" />
+			<col name="upload_msg" type="varchar" length="2000" descr="上传结果信息" />
+			<col name="report_flag" type="varchar" length="5" descr="报送标识" />
+			<col name="req_303_param" type="varchar" length="2000" descr="303请求参数" />
+			<col name="req_307_param" type="varchar" length="2000" descr="307请求参数" />
+			<col name="res_307_param" type="varchar" length="2000" descr="307响应参数" />
+		</columns>
+	</table>
+
+	<!--业务表	-->
+	<table name="imas_111_grkhxx" pkname="rid" descr="个人客户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="area_cd" type="varchar" length="6" descr="常住地行政区划代码" />
+			<col name="credit_amt" type="decimal" length="22,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="22,2" descr="已用额度" />
+			<col name="cust_catg" type="varchar" length="1" descr="客户细类" />
+			<col name="farmer_sign" type="varchar" length="1" descr="农户标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+	<table name="imas_111_grkhxx_r" pkname="rid" descr="个人客户信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="area_cd" type="varchar" length="6" descr="常住地行政区划代码" />
+			<col name="credit_amt" type="decimal" length="22,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="22,2" descr="已用额度" />
+			<col name="cust_catg" type="varchar" length="1" descr="客户细类" />
+			<col name="farmer_sign" type="varchar" length="1" descr="农户标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+	<table name="imas_112_dgkhxx" pkname="rid" descr="对公客户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="prin_econ_dept" type="varchar" length="3" descr="国民经济部门分类" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="ent_scale" type="varchar" length="4" descr="企业规模" />
+			<col name="holding_type" type="varchar" length="5" descr="控股类型" />
+			<col name="domestic_overseas_signs" type="varchar" length="1" descr="境内境外标志" />
+			<col name="area_cd" type="varchar" length="6" descr="经营所在地行政区划代码" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="credit_amt" type="decimal" length="22,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="22,2" descr="已用额度" />
+			<col name="ind_cd" type="varchar" length="3" descr="所属行业" />
+			<col name="rural_city_sign" type="varchar" length="1" descr="农村城市标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_112_dgkhxx_r" pkname="rid" descr="对公客户信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="prin_econ_dept" type="varchar" length="3" descr="国民经济部门分类" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="ent_scale" type="varchar" length="4" descr="企业规模" />
+			<col name="holding_type" type="varchar" length="5" descr="控股类型" />
+			<col name="domestic_overseas_signs" type="varchar" length="1" descr="境内境外标志" />
+			<col name="area_cd" type="varchar" length="6" descr="经营所在地行政区划代码" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="credit_amt" type="decimal" length="22,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="22,2" descr="已用额度" />
+			<col name="ind_cd" type="varchar" length="3" descr="所属行业" />
+			<col name="rural_city_sign" type="varchar" length="1" descr="农村城市标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_211_jgfrxx" pkname="rid" descr="金融机构法人信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_name" type="varchar" length="200" descr="金融机构名称" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="fin_org_code" type="varchar" length="14" descr="金融机构编码" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="holding_type" type="varchar" length="5" descr="控股类型" />
+			<col name="ent_scale" type="varchar" length="4" descr="企业规模" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="lead_drpt" type="varchar" length="200" descr="牵头部门" />
+			<col name="lead_contact_person" type="varchar" length="200" descr="牵头部门联系人" />
+			<col name="lead_contact_no" type="varchar" length="30" descr="牵头部门联系电话" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_211_jgfrxx_r" pkname="rid" descr="金融机构法人信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_name" type="varchar" length="200" descr="金融机构名称" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="fin_org_code" type="varchar" length="14" descr="金融机构编码" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="holding_type" type="varchar" length="5" descr="控股类型" />
+			<col name="ent_scale" type="varchar" length="4" descr="企业规模" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="lead_drpt" type="varchar" length="200" descr="牵头部门" />
+			<col name="lead_contact_person" type="varchar" length="200" descr="牵头部门联系人" />
+			<col name="lead_contact_no" type="varchar" length="30" descr="牵头部门联系电话" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_212_jgfzxx" pkname="rid" descr="金融机构分支信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_name" type="varchar" length="200" descr="金融机构名称" />
+			<col name="fin_org_code" type="varchar" length="14" descr="金融机构编码" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="immediate_superior_no" type="varchar" length="30" descr="直属上级机构号" />
+			<col name="immediate_superior_name" type="varchar" length="200" descr="直属上级机构名称" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="org_lvl" type="varchar" length="2" descr="机构级别" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_212_jgfzxx_r" pkname="rid" descr="金融机构分支信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_name" type="varchar" length="200" descr="金融机构名称" />
+			<col name="fin_org_code" type="varchar" length="14" descr="金融机构编码" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="immediate_superior_no" type="varchar" length="30" descr="直属上级机构号" />
+			<col name="immediate_superior_name" type="varchar" length="200" descr="直属上级机构名称" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="org_lvl" type="varchar" length="2" descr="机构级别" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_311_grdkjc" pkname="rid" descr="个人贷款基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="loan_prd_type" type="varchar" length="6" descr="贷款产品类别" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="原始到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="loan_due_type" type="varchar" length="2" descr="贷款期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="loan_ch" type="varchar" length="2" descr="贷款办理渠道" />
+			<col name="consumption_scene" type="varchar" length="1" descr="有无消费场景" />
+			<col name="funded_ratio" type="decimal" length="12,2" descr="出资比例" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_311_grdkjc_r" pkname="rid" descr="个人贷款基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="loan_prd_type" type="varchar" length="6" descr="贷款产品类别" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="原始到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="loan_due_type" type="varchar" length="2" descr="贷款期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="loan_ch" type="varchar" length="2" descr="贷款办理渠道" />
+			<col name="consumption_scene" type="varchar" length="1" descr="有无消费场景" />
+			<col name="funded_ratio" type="decimal" length="12,2" descr="出资比例" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_312_grdkye" pkname="rid" descr="个人贷款余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="贷款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_312_grdkye_r" pkname="rid" descr="个人贷款余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="贷款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_313_grdkfk" pkname="rid" descr="个人贷款放款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_313_grdkfk_r" pkname="rid" descr="个人贷款放款信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_321_dwdkjc" pkname="rid" descr="非同业单位贷款基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="loan_prd_type" type="varchar" length="6" descr="贷款产品类别" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="原始到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="loan_due_type" type="varchar" length="2" descr="贷款期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="loan_ch" type="varchar" length="4" descr="贷款实际投向" />
+			<col name="consumption_scene" type="varchar" length="2" descr="贷款办理渠道" />
+			<col name="funded_ratio" type="decimal" length="12,2" descr="出资比例" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_321_dwdkjc_r" pkname="rid" descr="非同业单位贷款基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="loan_prd_type" type="varchar" length="6" descr="贷款产品类别" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="原始到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="loan_due_type" type="varchar" length="2" descr="贷款期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="loan_ch" type="varchar" length="4" descr="贷款实际投向" />
+			<col name="consumption_scene" type="varchar" length="2" descr="贷款办理渠道" />
+			<col name="funded_ratio" type="decimal" length="12,2" descr="出资比例" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_322_dwdkye" pkname="rid" descr="非同业单位贷款余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="贷款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_322_dwdkye_r" pkname="rid" descr="非同业单位贷款余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="贷款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_323_dwdkfk" pkname="rid" descr="非同业单位贷款放款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_323_dwdkfk_r" pkname="rid" descr="非同业单位贷款放款信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_331_tzywye" pkname="rid" descr="透支业务余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="over_type" type="varchar" length="1" descr="透支业务类型" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="credit_card_over" type="varchar" length="1" descr="是否信用卡透支" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_331_tzywye_r" pkname="rid" descr="透支业务余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="over_type" type="varchar" length="1" descr="透支业务类型" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="credit_card_over" type="varchar" length="1" descr="是否信用卡透支" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_332_tzywjy" pkname="rid" descr="透支业务交易流水表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="trans_type" type="varchar" length="2" descr="交易类型" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bill_no" type="varchar" length="30" descr="所属账单编号" />
+			<col name="tr_due_dt" type="varchar" length="10" descr="交易到期日期" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="stag_mthd" type="varchar" length="3" descr="分期方式" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_332_tzywjy_r" pkname="rid" descr="透支业务交易流水表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="trans_type" type="varchar" length="2" descr="交易类型" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bill_no" type="varchar" length="30" descr="所属账单编号" />
+			<col name="tr_due_dt" type="varchar" length="10" descr="交易到期日期" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="stag_mthd" type="varchar" length="3" descr="分期方式" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_333_tzywzd" pkname="rid" descr="透支业务账单信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="bill_no" type="varchar" length="30" descr="账单编号" />
+			<col name="issue_dt" type="varchar" length="10" descr="出单日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bill_amt" type="decimal" length="22,2" descr="账单总金额" />
+			<col name="pre_bill_amt" type="decimal" length="22,2" descr="本期账单应还款总额" />
+			<col name="stag_amt" type="decimal" length="22,2" descr="分期金额" />
+			<col name="prin_amt" type="decimal" length="22,2" descr="计息本金" />
+			<col name="bill_due_dt" type="varchar" length="10" descr="账单到期日期" />
+			<col name="int_bear_int_rate" type="decimal" length="15,5" descr="计息利率" />
+			<col name="stag_mark" type="varchar" length="1" descr="分期标识" />
+			<col name="total_int" type="decimal" length="22,2" descr="利息总计" />
+			<col name="pre_new_mini_bill_amt" type="decimal" length="22,2" descr="本期新增的最小还款额" />
+			<col name="repay_amt" type="decimal" length="22,2" descr="还款金额" />
+			<col name="overdue_amt" type="decimal" length="22,2" descr="已逾期金额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_333_tzywzd_r" pkname="rid" descr="透支业务账单信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="bill_no" type="varchar" length="30" descr="账单编号" />
+			<col name="issue_dt" type="varchar" length="10" descr="出单日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bill_amt" type="decimal" length="22,2" descr="账单总金额" />
+			<col name="pre_bill_amt" type="decimal" length="22,2" descr="本期账单应还款总额" />
+			<col name="stag_amt" type="decimal" length="22,2" descr="分期金额" />
+			<col name="prin_amt" type="decimal" length="22,2" descr="计息本金" />
+			<col name="bill_due_dt" type="varchar" length="10" descr="账单到期日期" />
+			<col name="int_bear_int_rate" type="decimal" length="15,5" descr="计息利率" />
+			<col name="stag_mark" type="varchar" length="1" descr="分期标识" />
+			<col name="total_int" type="decimal" length="22,2" descr="利息总计" />
+			<col name="pre_new_mini_bill_amt" type="decimal" length="22,2" descr="本期新增的最小还款额" />
+			<col name="repay_amt" type="decimal" length="22,2" descr="还款金额" />
+			<col name="overdue_amt" type="decimal" length="22,2" descr="已逾期金额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_334_tzywfq" pkname="rid" descr="透支业务分期信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="stag_no" type="varchar" length="60" descr="分期付款序号" />
+			<col name="stag_total_no" type="decimal" length="10" descr="总分期期数" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="month_stag_amt" type="decimal" length="22,2" descr="每月分期付款金额" />
+			<col name="stag_principal_amt" type="decimal" length="22,2" descr="分期本金总金额" />
+			<col name="stag_start_dt" type="varchar" length="10" descr="分期开始日期" />
+			<col name="stag_due_dt" type="varchar" length="10" descr="分期最终到期日期" />
+			<col name="installment_int_rate" type="decimal" length="15,5" descr="分期付款利率" />
+			<col name="stag_method" type="varchar" length="3" descr="分期方式" />
+			<col name="int_free_period" type="decimal" length="10" descr="免息期" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+	<table name="imas_334_tzywfq_r" pkname="rid" descr="透支业务分期信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="acct_no" type="varchar" length="100" descr="账号" />
+			<col name="stag_no" type="varchar" length="60" descr="分期付款序号" />
+			<col name="stag_total_no" type="decimal" length="10" descr="总分期期数" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="month_stag_amt" type="decimal" length="22,2" descr="每月分期付款金额" />
+			<col name="stag_principal_amt" type="decimal" length="22,2" descr="分期本金总金额" />
+			<col name="stag_start_dt" type="varchar" length="10" descr="分期开始日期" />
+			<col name="stag_due_dt" type="varchar" length="10" descr="分期最终到期日期" />
+			<col name="installment_int_rate" type="decimal" length="15,5" descr="分期付款利率" />
+			<col name="stag_method" type="varchar" length="3" descr="分期方式" />
+			<col name="int_free_period" type="decimal" length="10" descr="免息期" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_341_wtdkjc" pkname="rid" descr="委托贷款基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="借款人客户号" />
+			<col name="client_cust_no" type="varchar" length="30" descr="委托人客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="原始到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="loan_due_type" type="varchar" length="2" descr="贷款期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="loan_ch" type="varchar" length="4" descr="贷款实际投向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+	<table name="imas_341_wtdkjc_r" pkname="rid" descr="委托贷款基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="借款人客户号" />
+			<col name="client_cust_no" type="varchar" length="30" descr="委托人客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="原始到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="loan_due_type" type="varchar" length="2" descr="贷款期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="loan_ch" type="varchar" length="4" descr="贷款实际投向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_342_wtdkye" pkname="rid" descr="委托贷款余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="借款人客户号" />
+			<col name="client_cust_no" type="varchar" length="30" descr="委托人客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="贷款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_342_wtdkye_r" pkname="rid" descr="委托贷款余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="借款人客户号" />
+			<col name="client_cust_no" type="varchar" length="30" descr="委托人客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="贷款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_343_wtdkfk" pkname="rid" descr="委托贷款放款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="借款人客户号" />
+			<col name="client_cust_no" type="varchar" length="30" descr="委托人客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_343_wtdkfk_r" pkname="rid" descr="委托贷款放款信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编号" />
+			<col name="cust_no" type="varchar" length="30" descr="借款人客户号" />
+			<col name="client_cust_no" type="varchar" length="30" descr="委托人客户号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_411_grckjc" pkname="rid" descr="个人存款基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="dpst_prd_type" type="varchar" length="5" descr="存款产品类别" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="dpst_term_type" type="varchar" length="2" descr="存款期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="guar_rate_ret" type="decimal" length="15,5" descr="保底收益率" />
+			<col name="high_rate_ret" type="decimal" length="15,5" descr="最高收益率" />
+			<col name="acct_ch" type="varchar" length="2" descr="开户渠道" />
+			<col name="off_site_dep_sign" type="varchar" length="1" descr="异地存款标志" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_411_grckjc_r" pkname="rid" descr="个人存款基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="dpst_prd_type" type="varchar" length="5" descr="存款产品类别" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="dpst_term_type" type="varchar" length="2" descr="存款期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="guar_rate_ret" type="decimal" length="15,5" descr="保底收益率" />
+			<col name="high_rate_ret" type="decimal" length="15,5" descr="最高收益率" />
+			<col name="acct_ch" type="varchar" length="2" descr="开户渠道" />
+			<col name="off_site_dep_sign" type="varchar" length="1" descr="异地存款标志" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_412_grckye" pkname="rid" descr="个人存款余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="存款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_412_grckye_r" pkname="rid" descr="个人存款余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="存款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_413_grckfs" pkname="rid" descr="个人存款发生额信息表（不含活期存款、协定存款）">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_413_grckfs_r" pkname="rid" descr="个人存款发生额信息表（不含活期存款、协定存款）-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_421_dwckjc" pkname="rid" descr="非同业单位存款基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="dpst_prd_type" type="varchar" length="5" descr="存款产品类别" />
+			<col name="agr_dpst_type" type="varchar" length="1" descr="协议存款类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="dpst_term_type" type="varchar" length="2" descr="存款期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="guar_rate_ret" type="decimal" length="15,5" descr="保底收益率" />
+			<col name="high_rate_ret" type="decimal" length="15,5" descr="最高收益率" />
+			<col name="acct_ch" type="varchar" length="2" descr="开户渠道" />
+			<col name="off_site_dep_sign" type="varchar" length="1" descr="异地存款标志" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_421_dwckjc_r" pkname="rid" descr="非同业单位存款基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="dpst_prd_type" type="varchar" length="5" descr="存款产品类别" />
+			<col name="agr_dpst_type" type="varchar" length="1" descr="协议存款类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="dpst_term_type" type="varchar" length="2" descr="存款期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="guar_rate_ret" type="decimal" length="15,5" descr="保底收益率" />
+			<col name="high_rate_ret" type="decimal" length="15,5" descr="最高收益率" />
+			<col name="acct_ch" type="varchar" length="2" descr="开户渠道" />
+			<col name="off_site_dep_sign" type="varchar" length="1" descr="异地存款标志" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_422_dwckye" pkname="rid" descr="非同业单位存款余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="存款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_422_dwckye_r" pkname="rid" descr="非同业单位存款余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="存款余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_423_dwckfs" pkname="rid" descr="非同业单位存款发生额信息表（不含活期存款、协定存款）">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_423_dwckfs_r" pkname="rid" descr="非同业单位存款发生额信息表（不含活期存款、协定存款）-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="acct_id" type="varchar" length="100" descr="存款序号" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="size_mark" type="varchar" length="1" descr="大小额标志" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_511_tyckjc" pkname="rid" descr="同业存款基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="stor_type" type="varchar" length="4" descr="存放业务类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="dpst_term_type" type="varchar" length="2" descr="存款期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_511_tyckjc_r" pkname="rid" descr="同业存款基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="stor_type" type="varchar" length="4" descr="存放业务类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="dpst_term_type" type="varchar" length="2" descr="存款期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_512_tyckye" pkname="rid" descr="同业存款余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_512_tyckye_r" pkname="rid" descr="同业存款余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_513_tyckfs" pkname="rid" descr="同业存款余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_513_tyckfs_r" pkname="rid" descr="同业存款余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="acct_no" type="varchar" length="100" descr="存款账户编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_521_tyjdjc" pkname="rid" descr="同业借贷基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="lend_type" type="varchar" length="3" descr="借贷业务类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="borr_term_type" type="varchar" length="2" descr="同业借贷期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="price_base_type" type="varchar" length="4" descr="借贷定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="prin_type" type="varchar" length="2" descr="计息方式" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_521_tyjdjc_r" pkname="rid" descr="同业借贷基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="lend_type" type="varchar" length="3" descr="借贷业务类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="borr_term_type" type="varchar" length="2" descr="同业借贷期限类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="price_base_type" type="varchar" length="4" descr="借贷定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="prin_type" type="varchar" length="2" descr="计息方式" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_522_tyjdye" pkname="rid" descr="同业借贷基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_522_tyjdye_r" pkname="rid" descr="同业借贷基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_523_tyjdfs" pkname="rid" descr="同业借贷发生额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_523_tyjdfs_r" pkname="rid" descr="同业借贷发生额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_531_mrfsjc" pkname="rid" descr="买入返售及卖出回购基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="rpch_type" type="varchar" length="3" descr="回购业务类型" />
+			<col name="subj_type" type="varchar" length="2" descr="标的物类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="rpch_term_type" type="varchar" length="2" descr="回购期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="借贷定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="prin_type" type="varchar" length="2" descr="计息方式" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_531_mrfsjc_r" pkname="rid" descr="买入返售及卖出回购基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="rpch_type" type="varchar" length="3" descr="回购业务类型" />
+			<col name="subj_type" type="varchar" length="2" descr="标的物类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="act_due_dt" type="varchar" length="10" descr="实际终止日期" />
+			<col name="rpch_term_type" type="varchar" length="2" descr="回购期限类型" />
+			<col name="price_base_type" type="varchar" length="4" descr="借贷定价基准类型" />
+			<col name="int_type" type="varchar" length="4" descr="利率类型" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="prin_type" type="varchar" length="2" descr="计息方式" />
+			<col name="int_rate_flct_freq" type="varchar" length="2" descr="利率浮动频率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_532_mrfsye" pkname="rid" descr="买入返售及卖出回购余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_532_mrfsye_r" pkname="rid" descr="买入返售及卖出回购余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_533_mrfsfs" pkname="rid" descr="买入返售及卖出回购发生额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_533_mrfsfs_r" pkname="rid" descr="买入返售及卖出回购发生额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="act_int_rate" type="decimal" length="15,5" descr="实际利率" />
+			<col name="base_int_rate" type="decimal" length="15,5" descr="基准利率" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_611_pjtxjc" pkname="rid" descr="票据贴现及转贴现基础信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="nf_type" type="varchar" length="3" descr="票据融资业务类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="nf_term_type" type="varchar" length="2" descr="票据融资期限类型" />
+			<col name="disc_int_rate" type="decimal" length="15,5" descr="贴现利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_611_pjtxjc_r" pkname="rid" descr="票据贴现及转贴现基础信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="fin_org_type_no" type="varchar" length="3" descr="金融机构类型代码" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="nf_type" type="varchar" length="3" descr="票据融资业务类型" />
+			<col name="start_dt" type="varchar" length="10" descr="起始日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="nf_term_type" type="varchar" length="2" descr="票据融资期限类型" />
+			<col name="disc_int_rate" type="decimal" length="15,5" descr="贴现利率" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_612_pjtxye" pkname="rid" descr="票据贴现及转贴现余额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_612_pjtxye_r" pkname="rid" descr="票据贴现及转贴现余额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="22,2" descr="余额" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_613_pjtxfs" pkname="rid" descr="票据贴现及转贴现发生额信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="disc_int_rate" type="decimal" length="15,5" descr="贴现利率" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_613_pjtxfs_r" pkname="rid" descr="票据贴现及转贴现发生额信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cust_no" type="varchar" length="30" descr="客户号" />
+			<col name="bus_no" type="varchar" length="100" descr="业务编码" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="amt" type="decimal" length="22,2" descr="发生金额" />
+			<col name="disc_int_rate" type="decimal" length="15,5" descr="贴现利率" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_711_ftpdjb" pkname="rid" descr="ftp定价变动明细信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="ftp_type" type="varchar" length="1" descr="ftp业务类型" />
+			<col name="term_type" type="varchar" length="20" descr="期限类型" />
+			<col name="chg_dt" type="varchar" length="10" descr="变动日期" />
+			<col name="ftp_price" type="decimal" length="15,5" descr="ftp价格" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_711_ftpdjb_r" pkname="rid" descr="ftp定价变动明细信息表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="ftp_type" type="varchar" length="60" descr="ftp业务类型" />
+			<col name="term_type" type="varchar" length="20" descr="期限类型" />
+			<col name="chg_dt" type="varchar" length="10" descr="变动日期" />
+			<col name="ftp_price" type="decimal" length="15,5" descr="ftp价格" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_811_lcxctj" pkname="rid" descr="人民币利差息差统计表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="int_rate_sprd" type="decimal" length="15,5" descr="利差" />
+			<col name="int_bear_lblt" type="decimal" length="15,5" descr="付息负债利率" />
+			<col name="int_bear_asst" type="decimal" length="15,5" descr="生息资产利率" />
+			<col name="net_int_sprd" type="decimal" length="15,5" descr="净利差" />
+			<col name="nim" type="decimal" length="12,2" descr="净息差" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+
+	<table name="imas_811_lcxctj_r" pkname="rid" descr="人民币利差息差统计表-结果表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_social_credit_code" type="varchar" length="18" descr="统一社会信用代码" />
+			<col name="int_rate_sprd" type="decimal" length="15,5" descr="利差" />
+			<col name="int_bear_lblt" type="decimal" length="15,5" descr="付息负债利率" />
+			<col name="int_bear_asst" type="decimal" length="15,5" descr="生息资产利率" />
+			<col name="net_int_sprd" type="decimal" length="15,5" descr="净利差" />
+			<col name="nim" type="decimal" length="10,2" descr="净息差" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+			<col name="issued_no" type="varchar" length="20" descr="填报机构" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="task_id" type="varchar" length="100" descr="任务id" />
+			<col name="proc_sts" type="varchar" length="50" descr="数据状态" />
+			<col name="force_sub_sts" type="varchar" length="1" descr="是否是强制保存" />
+			<col name="force_sub_reason" type="varchar" length="200" descr="强制保存原因" />
+			<col name="data_ources" type="varchar" length="2" descr="数据来源" />
+			<col name="data_modify" type="varchar" length="2" descr="数据修改" />
+		</columns>
+	</table>
+
+	<table name="imas_report_window" pkname="rid" descr="利率报备报送窗口表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="sub_state" type="varchar" length="10" descr="窗口状态" />
+			<col name="create_tm" type="varchar" length="20" descr="反馈时间" />
+			<col name="rpt_org_no" type="varchar" length="20" descr="报送机构号" />
+			<col name="finance_org_no"	type="varchar" length="32" descr="金融机构编码"/>
+			<col name="req_308_param" type="varchar" length="2000" descr="308请求参数" />
+			<col name="req_801_param" type="varchar" length="2000" descr="801请求参数" />
+		</columns>
+	</table>
+	
+	<table name="imas_report_receipt" pkname="rid" descr="利率报备回执表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="tab_name" type="varchar" length="200" descr="数据表" />
+			<col name="rece_state" type="varchar" length="2" descr="回执状态" />
+			<col name="create_tm" type="varchar" length="20" descr="反馈时间" />
+			<col name="org_no" type="varchar" length="20" descr="机构号" />
+			<col name="res_state" type="varchar" length="2" descr="人行反馈结果" />
+			<col name="res_remark" type="varchar" length="500" descr="人行反馈说明" />
+			<col name="sub_remark" type="varchar" length="500" descr="强制提交说明" />
+			<col name="appendix" type="varchar" length="200" descr="附件地址" />
+			<col name="zip_state" type="varchar" length="2" descr="解压状态" />
+			<col name="init_state" type="varchar" length="2" descr="初级校验状态" />
+			<col name="format_state" type="varchar" length="2" descr="格式校验状态" />
+			<col name="busi_state" type="varchar" length="2" descr="业务校验状态" />
+			<col name="zip_url" type="varchar" length="200" descr="压缩包路径" />
+			<col name="res_304_param" type="varchar" length="2000" descr="304返回参数" />
+			<col name="res_306_param" type="varchar" length="2000" descr="306返回参数" />
+		</columns>
+	</table>
+
+	<table name="imas_modified_record" pkname="rid" descr="数据修改操作日志表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="tab_name" type="varchar" length="50" descr="表名" />
+			<col name="data_rid" type="varchar" length="50" descr="数据主键" />
+			<col name="source_data" type="varchar" length="4000" descr="修改前数据json" />
+			<col name="modified_data" type="varchar" length="4000" descr="修改后数据json" />
+			<col name="modified_by" type="varchar" length="50" descr="修改人" />
+			<col name="modified_time" type="varchar" length="20" descr="修改时间" />
+			<col name="org_no" type="varchar" length="20" descr="用户所属机构" />
+			<col name="modified_type" type="varchar" length="1" descr="操作类型-1、新增；2、修改；3、删除" />
+			<col name="org_name" type="varchar" length="300" descr="机构名称" />
+			<col name="ope_mod" type="varchar" length="1" descr="操作菜单1、报表数据维护；2、报表填报" />
+		</columns>
+	</table>
+
+	<table name="imas_filling_ope" pkname="rid" descr="数据填报流程操作日志表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="ope_type" type="varchar" length="20" descr="操作类型（下发；撤回；填报提交；审核通过；审核退回；下发解锁；）" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30" descr="报送机构号" />
+			<col name="org_no" type="varchar" length="30" descr="填报机构" />
+			<col name="tab_name" type="varchar" length="200" descr="表名" />
+			<col name="ope_by" type="varchar" length="30" descr="操作人" />
+			<col name="ope_time" type="varchar" length="20" descr="操作时间" />
+			<col name="remark" type="varchar" length="1000" descr="备注" />
+			<col name="dept_no" type="varchar" length="30" descr="条线" />
+		</columns>
+	</table>
+	
+</root>

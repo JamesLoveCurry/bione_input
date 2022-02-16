@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+<table name="yx_poc_dwmx01"  pkname="rid" descr="POC多维模型01">
+<columns>
+  <col name="rid"			type="varchar"   length="50"   descr="主键"/>
+  <col name="code"			type="varchar"   length="50"   descr="工号"/>
+  <col name="name"			type="varchar"   length="50"   descr="姓名"/>
+  <col name="org_no"		type="varchar"   length="30"   descr="机构"/>
+  <col name="data_date"		type="varchar"   length="10"   descr="日期"/>
+  <col name="curry"			type="varchar"   length="20"   descr="币种"/>
+  <col name="sex"			type="varchar"   length="10"   descr="性别"/>
+  <col name="dimtype1"		type="varchar"   length="30"   descr="业务维度1"/>
+  <col name="dimtype2"		type="varchar"   length="30"   descr="业务维度2"/>
+  <col name="amount"		type="decimal"   length="20,6"   descr="金额"/>
+</columns>
+</table>
+
+<table name="yx_poc_fhmx01"  pkname="rid" descr="POC泛化模型01">
+<columns>
+  <col name="rid"			type="varchar"   length="50"   descr="主键"/>
+  <col name="idxcode"		type="varchar"   length="30"   descr="指标编码"/>
+  <col name="code"			type="varchar"   length="50"   descr="工号"/>
+  <col name="name"			type="varchar"   length="50"   descr="姓名"/>
+  <col name="org_no"		type="varchar"   length="30"   descr="机构"/>
+  <col name="data_date"		type="varchar"   length="10"   descr="日期"/>
+  <col name="curry"			type="varchar"   length="20"   descr="币种"/>
+  <col name="sex"			type="varchar"   length="10"   descr="性别"/>
+  <col name="dimtype1"		type="varchar"   length="30"   descr="业务维度1"/>
+  <col name="dimtype2"		type="varchar"   length="30"   descr="业务维度2"/>
+  <col name="amount"		type="decimal"   length="20,6"   descr="金额"/>
+</columns>
+</table>
+
+<table name="yx_poc_zzmx01"  pkname="rid" descr="POC总帐模型01">
+<columns>
+  <col name="rid"			type="varchar"   length="50"   descr="主键"/>
+  <col name="idxcode"		type="varchar"   length="30"   descr="指标编码"/>
+  <col name="code"			type="varchar"   length="50"   descr="工号"/>
+  <col name="name"			type="varchar"   length="50"   descr="姓名"/>
+  <col name="org_no"		type="varchar"   length="30"   descr="机构"/>
+  <col name="data_date"		type="varchar"   length="10"   descr="日期"/>
+  <col name="curry"			type="varchar"   length="20"   descr="币种"/>
+  <col name="sex"			type="varchar"   length="10"   descr="性别"/>
+  <col name="dimtype1"		type="varchar"   length="30"   descr="业务维度1"/>
+  <col name="dimtype2"		type="varchar"   length="30"   descr="业务维度2"/>
+  <col name="amount"		type="decimal"   length="20,6"   descr="金额"/>
+  <col name="amount2"		type="decimal"   length="20,6"   descr="金额2"/>
+  <col name="amount3"		type="decimal"   length="20,6"   descr="金额3"/>
+</columns>
+</table>
+
+<table name="yx_poc_mxmx01"  pkname="rid" descr="POC明细模型01">
+<columns>
+  <col name="rid"			type="varchar"   length="50"   descr="主键"/>
+  <col name="code"			type="varchar"   length="50"   descr="工号"/>
+  <col name="name"			type="varchar"   length="50"   descr="姓名"/>
+  <col name="org_no"		type="varchar"   length="30"   descr="机构"/>
+  <col name="data_date"		type="varchar"   length="10"   descr="日期"/>
+  <col name="curry"			type="varchar"   length="20"   descr="币种"/>
+  <col name="sex"			type="varchar"   length="10"   descr="性别"/>
+  <col name="dimtype1"		type="varchar"   length="30"   descr="业务维度1"/>
+  <col name="dimtype2"		type="varchar"   length="30"   descr="业务维度2"/>
+  <col name="amount"		type="decimal"   length="20,6"   descr="金额"/>
+  <col name="amount2"		type="decimal"   length="20,6"   descr="金额2"/>
+  <col name="amount3"		type="decimal"   length="20,6"   descr="金额3"/>
+</columns>
+</table>
+
+<table name="yx_poc_bbmx01"  pkname="rid" descr="POC报表模型01">
+<columns>
+  <col name="rid"			type="varchar"   length="50"   descr="主键"/>
+  <col name="code"			type="varchar"   length="50"   descr="工号"/>
+  <col name="name"			type="varchar"   length="50"   descr="姓名"/>
+  <col name="org_no"		type="varchar"   length="30"   descr="机构"/>
+  <col name="data_date"		type="varchar"   length="10"   descr="日期"/>
+  <col name="curry"			type="varchar"   length="20"   descr="币种"/>
+  <col name="sex"			type="varchar"   length="10"   descr="性别"/>
+  <col name="dimtype1"		type="varchar"   length="30"   descr="业务维度1"/>
+  <col name="dimtype2"		type="varchar"   length="30"   descr="业务维度2"/>
+  <col name="amount"		type="decimal"   length="20,6"   descr="金额"/>
+  <col name="amount2"		type="decimal"   length="20,6"   descr="金额2"/>
+  <col name="amount3"		type="decimal"   length="20,6"   descr="金额3"/>
+</columns>
+</table>
+
+
+</root>

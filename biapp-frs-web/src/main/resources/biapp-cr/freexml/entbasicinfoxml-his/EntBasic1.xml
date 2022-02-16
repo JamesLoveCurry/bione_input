@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>基本概况</templetname>
+	<fromtable>HEnt_FcsInf</fromtable>
+	<savetable>HEnt_FcsInf</savetable>
+	<pkname>EntCertType,EntCertNum</pkname>
+	<querycontion></querycontion>
+	<autocondition></autocondition>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<autoquery>N</autoquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+	<list_btns>$VIEW</list_btns>
+	<list_issearch></list_issearch>
+	<list_ispagebar>N</list_ispagebar>
+</templet>
+
+<templet_item>
+   <itemkey>EntCertType</itemkey>
+    <itemname>企业身份标识类型</itemname>
+    <itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'EntCertType'"}】</itemdefine>
+    <helptip></helptip>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>EntCertNum</itemkey>
+    <itemname>企业身份标识号码</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>EntScale</itemkey>
+    <itemname>企业规模</itemname>
+    <itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'EntScale'"}】</itemdefine>
+    <helptip></helptip>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>Nationality</itemkey>
+    <itemname>国别</itemname>
+    <itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'Nationality'"}】</itemdefine>
+    <helptip></helptip>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>EstablishDate</itemkey>
+    <itemname>成立日期</itemname>
+    <itemtype>日历</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+     <query_isshow>Y</query_isshow>
+    <query_itemtype>日历区间</query_itemtype>
+    <query_itemdefine>【is8=Y】</query_itemdefine>
+    <query_width>300</query_width>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>BizEndDate</itemkey>
+    <itemname>营业许可证到期日</itemname>
+    <itemtype>日历</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+     <query_isshow>Y</query_isshow>
+    <query_itemtype>日历区间</query_itemtype>
+    <query_itemdefine>【is8=Y】</query_itemdefine>
+    <query_width>300</query_width>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>BizRange</itemkey>
+    <itemname>业务范围</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>EcoIndusCate</itemkey>
+    <itemname>行业分类</itemname>
+    <itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'EcoIndusCate'"}】</itemdefine>
+    <helptip></helptip>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>EcoType</itemkey>
+    <itemname>经济类型</itemname>
+    <itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'EcoType'"}】</itemdefine>
+    <helptip></helptip>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>RegAdd</itemkey>
+    <itemname>登记地址</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>AdmDivOfReg</itemkey>
+    <itemname>登记地行政区划</itemname>
+    <itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'AdmDivOfReg'"}】</itemdefine>
+    <helptip></helptip>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>FcsInfoUpDate</itemkey>
+    <itemname>信息更新日期</itemname>
+    <itemtype>日历</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>IncrementFlag</itemkey>
+    <itemname>增量标记</itemname>
+    <itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'IncrementFlag'"}】</itemdefine>
+    <helptip></helptip>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+</root>

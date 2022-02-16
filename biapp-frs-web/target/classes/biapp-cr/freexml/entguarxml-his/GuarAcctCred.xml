@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>授信额度信息</templetname>
+	<fromtable>HEnt_GuarAcctCred</fromtable>
+	<savetable>HEnt_GuarAcctCred</savetable>
+	<pkname>AcctCode,Mcc</pkname>
+	<querycontion></querycontion>
+	<autocondition></autocondition>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<autoquery>N</autoquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+	<list_btns>$VIEW</list_btns>
+	<list_issearch></list_issearch>
+	<list_ispagebar>N</list_ispagebar>
+</templet>
+
+
+<templet_item>
+   <itemkey>AcctCode</itemkey>
+    <itemname>账户标识码</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>Mcc</itemkey>
+    <itemname>授信协议标识码</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>UpdateDate</itemkey>
+    <itemname>信息更新日期</itemname>
+    <itemtype>日历</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+<templet_item>
+   <itemkey>IncrementFlag</itemkey>
+    <itemname>增量标记</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"SQL","内容":"select normscode, normsnote from ent_codelibrary where datatype = 'IncrementFlag'"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>130,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+</root>

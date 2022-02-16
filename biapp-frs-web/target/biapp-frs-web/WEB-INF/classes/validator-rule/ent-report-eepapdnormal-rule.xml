@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+    <validator id="30079332.0.0" classType="org.pbccrc.archive.collect.messagetools.report.message.ReportEEPAPDNormalRecord" >
+
+         <field  name="IncomeStatementProfitAppropriationBsSgmt" fbTag="IncomeStatementProfitAppropriationBsSgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.IncomeStatementProfitAppropriationBsSgmt" >
+            <rule  id="IncomeStatementProfitAppropriationBsSgmt_NotNull" type="NotNull" errCode="ABD000"  />
+           <field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+            <rule  id="InfRecType_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+            <rule  id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000"   depExp="InfRecType_NotNull"/>
+            <rule id="InfRecType_Equal" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecType_NotEmpty">
+                <property name="data" value="${$context.REC_TYPE}" />
+            </rule>
+            <rule id="InfRecTp_Dict" type="DictManage" errCode="ABE001" depExp="InfRecType_NotEmpty">
+					<property name="dictKey" value="EntInfRecType" />
+				</rule>
+	        </field> 
+	        <field  name="EntName" fbTag="EntName" classType="java.lang.String" >
+	            <rule  id="EntName_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+	            <rule  id="EntName_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntName_NotNull" />
+	            <rule  id="EntName_DataType" type="DataType" errCode="ABE001"  depExp="EntName_NotEmpty" >
+	                <property  name="type" value="ANC..80" />
+	            </rule>
+	        </field> 
+	        <!-- 证件类型判断 -->
+	        <field  name="EntCertType" fbTag="EntCertType" classType="java.lang.String" >
+	            <rule  id="EntCertType_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+	            <rule  id="EntCertType_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertNum_NotNull" />
+	            <rule id="EntCertType_Dict" type="Dict" errCode="ABE001"  depExp="EntCertType_NotEmpty"  scope="local">
+	                <property name="dictKey" value="EntCertType" />
+	            </rule> 
+	        </field> 
+	        <field  name="EntCertNum" fbTag="EntCertNum" classType="java.lang.String" >
+	            <rule  id="EntCertNum_NotNull" type="NotNull" errCode="ABD000"   depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull"/>
+	            <rule  id="EntCertNum_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertNum_NotNull"/>
+	            <rule  id="EntCertNum_DataType" type="DataType" errCode="ABE001"   depExp="EntCertNum_NotEmpty">
+	                <property  name="type" value="ANC..40" />
+	            </rule>
+	             <!-- 根据证件类型，校验不同的证件号 -->
+	             <rule id="EntCertNum_Vali" type="LegCert" errCode="ABE004"  depExp="EntCertNum_DataType"> 
+	               <property name="certType" value="${IncomeStatementProfitAppropriationBsSgmt.EntCertType}"/>
+	            </rule> 
+	        </field> 
+	        <field  name="RptDate" fbTag="RptDate" classType="java.lang.String" >
+	            <rule  id="RptDate_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+	            <rule  id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="RptDate_NotNull"/>
+	            <rule  id="RptDate_DataType" type="DataType" errCode="ABE001"  depExp="RptDate_NotEmpty" >
+	                <property  name="type" value="Date" />
+	            </rule>
+	            <rule  id="RptDate_Range" type="DateRange" errCode="ABE008"  depExp="RptDate_DataType" />
+	            <rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001"  depExp="RptDate_Range">
+	                    <property name="type" value="date" />
+	                    <property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+	            </rule>
+	        </field> 
+	        <field  name="SheetYear" fbTag="SheetYear" classType="java.lang.String" >
+	                <rule  id="SheetYear_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+	                <rule  id="SheetYear_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetYear_NotNull"/>
+	                <rule id="SheetYear_DataType" type="DataType" errCode="ABR001"  depExp="SheetYear_NotEmpty">
+	                        <property name="type" value="Year" />
+	                </rule>
+	                <rule  id="SheetYear_Range" type="DateRange" errCode="ABE008"  depExp="SheetYear_DataType" />
+	        </field> 
+	        <field  name="SheetType" fbTag="SheetType" classType="java.lang.String" >
+	            <rule  id="SheetType_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull"/>
+	            <rule  id="SheetType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="SheetType_NotNull"/>
+	            <rule id="SheetType_Dict" type="Dict" errCode="ABE001"  depExp="SheetType_NotEmpty"  >
+	                <property name="dictKey" value="EntSheetType" />
+	            </rule>
+	        </field> 
+	        <field  name="SheetTypeDivide" fbTag="SheetTypeDivide" classType="java.lang.String" >
+	            <rule  id="SheetTypeDivide_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+	            <rule  id="SheetTypeDivide_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetTypeDivide_NotNull"/>
+	            <rule id="SheetTypeDivide_Dict" type="Dict" errCode="ABE001"  depExp="SheetTypeDivide_NotEmpty"  >
+	                <property name="dictKey" value="EntSheetTypeDivide" />
+	            </rule>
+	        </field>  
+            <field  name="RptDateCode" fbTag="RptDateCode" classType="java.lang.String" >
+                <rule  id="RptDateCode_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+                <rule  id="RptDateCode_NotEmpty" type="NotEmpty" errCode="ABE000"   depExp="RptDateCode_NotNull"/>
+                <rule id="RptDateCode_Dict" type="Dict" errCode="ABE001"  depExp="RptDateCode_NotEmpty">
+                    <property name="dictKey" value="EntSheetRptDateCode" />
+                </rule> 
+            </field> 
+            <field  name="Cimoc" fbTag="Cimoc" classType="java.lang.String" >
+                <rule  id="Cimoc_NotNull" type="NotNull" errCode="ABD000"  depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+                <rule  id="Cimoc_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="Cimoc_NotNull"/>
+                <rule  id="Cimoc_DataType" type="DataType" errCode="ABE001"  depExp="Cimoc_NotEmpty">
+                    <property  name="type" value="AN14" />
+                </rule>
+                <!-- 客户资料维护机构/业务管理机构应在库中存在，且应是数据提供机构的分支机构或数据提供机构本身ABE003 -->
+                <rule  id="Cimoc_FinanVali" type="Organ" errCode="ABE003" fbTag="Cimoc" depExp="Cimoc_DataType" >
+                </rule> 
+            </field> 
+            <field  name="AuditFirmName" fbTag="AuditFirmName" classType="java.lang.String" >
+                <rule  id="AuditFirmName_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+                <rule  id="AuditFirmName_Empty" type="Empty"   depExp="AuditFirmName_NotNull"/>
+                <rule  id="AuditFirmName_NotEmpty" type="NotEmpty"   depExp="AuditFirmName_NotNull"/>
+                <rule id="AuditFirmName_DataType" type="DataType" errCode="ABE001"  depExp="AuditFirmName_NotNull">
+                        <property name="type" value="ANC..80" />
+                </rule>
+            </field> 
+            <field  name="AuditorName" fbTag="AuditorName" classType="java.lang.String" >
+                <rule  id="AuditorName_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+                <rule  id="AuditorName_Empty" type="Empty"   depExp="AuditorName_NotNull"/>
+                <rule  id="AuditorName_NotEmpty" type="NotEmpty"   depExp="AuditorName_NotNull"/>
+                <rule id="AuditorName_DataType" type="DataType" errCode="ABE001"  depExp="AuditorName_NotEmpty">
+                        <property name="type" value="ANC..30" />
+                </rule>
+            </field> 
+            <field  name="AuditTime" fbTag="AuditTime" classType="java.lang.String" >
+                <rule  id="AuditTime_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriationBsSgmt_NotNull" />
+                <rule  id="AuditTime_Empty" type="Empty"   depExp="AuditTime_NotNull"/>
+                <rule  id="AuditTime_NotEmpty" type="NotEmpty"   depExp="AuditTime_NotNull"/>
+                <rule id="AuditTime_DataType" type="DataType" errCode="ABR001"  depExp="AuditTime_NotEmpty">
+                        <property name="type" value="Date" />
+                </rule>
+                <rule  id="AuditTime_Range" type="DateRange" errCode="ABE008"  depExp="AuditTime_DataType" />
+                <rule id="AuditTime_LTfileCreate" type="DateCompare" errCode="ABE007"  depExp="AuditTime_Range">
+                        <property name="type" value="date" />
+                        <property name="endDate" value="${IncomeStatementProfitAppropriationBsSgmt.RptDate}" />
+                </rule>
+            </field>  
+        </field>  
+		
+		<field  name="IncomeStatementProfitAppropriation2002Sgmt" fbTag="IncomeStatementProfitAppropriation2002Sgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.IncomeStatementProfitAppropriation2002Sgmt" >
+			<rule  id="IncomeStatementProfitAppropriation2002Sgmt_NotNullc" type="NotNull" />
+			<rule  id="IncomeStatementProfitAppropriation2002Sgmt_Nullc" type="Null" />
+			<rule  id="IncomeStatementProfitAppropriation2002Sgmt_Null" type="Null" errCode="ABR006" fbTag="0000" fbValue="" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc &amp; IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+			<rule  id="IncomeStatementProfitAppropriation2002Sgmt_NotNull" type="NotNull" errCode="ABR006" fbTag="0000" fbValue="" depExp="IncomeStatementProfitAppropriation2002Sgmt_Nullc &amp;  IncomeStatementProfitAppropriation2007Sgmt_Nullc" />
+			<field  name="MainRevenuefRevenue" fbTag="MainRevenuefRevenue" classType="java.lang.String" >
+				<rule  id="MainRevenuefRevenue_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="MainRevenuefRevenue_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="MainRevenuefRevenue_NotNull" />
+				<rule  id="MainRevenuefRevenue_DataType" type="DataType" errCode="ABE001" depExp="MainRevenuefRevenue_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SalesIncomeOfExportGoodsProducts" fbTag="SalesIncomeOfExportGoodsProducts" classType="java.lang.String" >
+				<rule  id="SalesIncomeOfExportGoodsProducts_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="SalesIncomeOfExportGoodsProducts_NotEmpty" type="NotEmpty" depExp="SalesIncomeOfExportGoodsProducts_NotNull" />
+				<rule  id="SalesIncomeOfExportGoodsProducts_Empty" type="Empty" depExp="SalesIncomeOfExportGoodsProducts_NotNull" />
+				<rule  id="SalesIncomeOfExportGoodsProducts_DataType" type="DataType" errCode="ABE001" depExp="SalesIncomeOfExportGoodsProducts_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SalesIncomeOfImportGoodsProducts" fbTag="SalesIncomeOfImportGoodsProducts" classType="java.lang.String" >
+				<rule  id="SalesIncomeOfImportGoodsProducts_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="SalesIncomeOfImportGoodsProducts_NotEmpty" type="NotEmpty" depExp="SalesIncomeOfImportGoodsProducts_NotNull" />
+				<rule  id="SalesIncomeOfImportGoodsProducts_Empty" type="Empty" depExp="SalesIncomeOfImportGoodsProducts_NotNull" />
+				<rule  id="SalesIncomeOfImportGoodsProducts_DataType" type="DataType" errCode="ABE001" depExp="SalesIncomeOfImportGoodsProducts_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DiscountAndAllowance" fbTag="DiscountAndAllowance" classType="java.lang.String" >
+				<rule  id="DiscountAndAllowance_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="DiscountAndAllowance_NotEmpty" type="NotEmpty" depExp="DiscountAndAllowance_NotNull" />
+				<rule  id="DiscountAndAllowance_Empty" type="Empty" depExp="DiscountAndAllowance_NotNull" />
+				<rule  id="DiscountAndAllowance_DataType" type="DataType" errCode="ABE001" depExp="DiscountAndAllowance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetAmountOfIncomeFromMainBusiness" fbTag="NetAmountOfIncomeFromMainBusiness" classType="java.lang.String" >
+				<rule  id="NetAmountOfIncomeFromMainBusiness_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="NetAmountOfIncomeFromMainBusiness_NotEmpty" type="NotEmpty" depExp="NetAmountOfIncomeFromMainBusiness_NotNull" />
+				<rule  id="NetAmountOfIncomeFromMainBusiness_Empty" type="Empty" depExp="NetAmountOfIncomeFromMainBusiness_NotNull" />
+				<rule  id="NetAmountOfIncomeFromMainBusiness_DataType" type="DataType" errCode="ABE001" depExp="NetAmountOfIncomeFromMainBusiness_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="MainOperatingCost" fbTag="MainOperatingCost" classType="java.lang.String" >
+				<rule  id="MainOperatingCost_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="MainOperatingCost_NotEmpty" type="NotEmpty" depExp="MainOperatingCost_NotNull" />
+				<rule  id="MainOperatingCost_Empty" type="Empty" depExp="MainOperatingCost_NotNull" />
+				<rule  id="MainOperatingCost_DataType" type="DataType" errCode="ABE001" depExp="MainOperatingCost_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SalesIncomeOfExportProducts" fbTag="SalesIncomeOfExportProducts" classType="java.lang.String" >
+				<rule  id="SalesIncomeOfExportProducts_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="SalesIncomeOfExportProducts_NotEmpty" type="NotEmpty" depExp="SalesIncomeOfExportProducts_NotNull" />
+				<rule  id="SalesIncomeOfExportProducts_Empty" type="Empty" depExp="SalesIncomeOfExportProducts_NotNull" />
+				<rule  id="SalesIncomeOfExportProducts_DataType" type="DataType" errCode="ABE001" depExp="SalesIncomeOfExportProducts_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PrincipleBusinessTaxAndExtraCharge" fbTag="PrincipleBusinessTaxAndExtraCharge" classType="java.lang.String" >
+				<rule  id="PrincipleBusinessTaxAndExtraCharge_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="PrincipleBusinessTaxAndExtraCharge_NotEmpty" type="NotEmpty" depExp="PrincipleBusinessTaxAndExtraCharge_NotNull" />
+				<rule  id="PrincipleBusinessTaxAndExtraCharge_Empty" type="Empty" depExp="PrincipleBusinessTaxAndExtraCharge_NotNull" />
+				<rule  id="PrincipleBusinessTaxAndExtraCharge_DataType" type="DataType" errCode="ABE001" depExp="PrincipleBusinessTaxAndExtraCharge_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OperationExpense" fbTag="OperationExpense" classType="java.lang.String" >
+				<rule  id="OperationExpense_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OperationExpense_NotEmpty" type="NotEmpty" depExp="OperationExpense_NotNull" />
+				<rule  id="OperationExpense_Empty" type="Empty" depExp="OperationExpense_NotNull" />
+				<rule  id="OperationExpense_DataType" type="DataType" errCode="ABE001" depExp="OperationExpense_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OthersOperatingCost" fbTag="OthersOperatingCost" classType="java.lang.String" >
+				<rule  id="OthersOperatingCost_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OthersOperatingCost_NotEmpty" type="NotEmpty" depExp="OthersOperatingCost_NotNull" />
+				<rule  id="OthersOperatingCost_Empty" type="Empty" depExp="OthersOperatingCost_NotNull" />
+				<rule  id="OthersOperatingCost_DataType" type="DataType" errCode="ABE001" depExp="OthersOperatingCost_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DeferredIncome" fbTag="DeferredIncome" classType="java.lang.String" >
+				<rule  id="DeferredIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="DeferredIncome_NotEmpty" type="NotEmpty" depExp="DeferredIncome_NotNull" />
+				<rule  id="DeferredIncome_Empty" type="Empty" depExp="DeferredIncome_NotNull" />
+				<rule  id="DeferredIncome_DataType" type="DataType" errCode="ABE001" depExp="DeferredIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IncomeFromSalesAgency" fbTag="IncomeFromSalesAgency" classType="java.lang.String" >
+				<rule  id="IncomeFromSalesAgency_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="IncomeFromSalesAgency_NotEmpty" type="NotEmpty" depExp="IncomeFromSalesAgency_NotNull" />
+				<rule  id="IncomeFromSalesAgency_Empty" type="Empty" depExp="IncomeFromSalesAgency_NotNull" />
+				<rule  id="IncomeFromSalesAgency_DataType" type="DataType" errCode="ABE001" depExp="IncomeFromSalesAgency_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherOperatingIncome" fbTag="OtherOperatingIncome" classType="java.lang.String" >
+				<rule  id="OtherOperatingIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OtherOperatingIncome_NotEmpty" type="NotEmpty" depExp="OtherOperatingIncome_NotNull" />
+				<rule  id="OtherOperatingIncome_Empty" type="Empty" depExp="OtherOperatingIncome_NotNull" />
+				<rule  id="OtherOperatingIncome_DataType" type="DataType" errCode="ABE001" depExp="OtherOperatingIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PrincipleBusinessProfit" fbTag="PrincipleBusinessProfit" classType="java.lang.String" >
+				<rule  id="PrincipleBusinessProfit_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="PrincipleBusinessProfit_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PrincipleBusinessProfit_NotNull" />
+				<rule  id="PrincipleBusinessProfit_DataType" type="DataType" errCode="ABE001" depExp="PrincipleBusinessProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherBusinessProfit" fbTag="OtherBusinessProfit" classType="java.lang.String" >
+				<rule  id="OtherBusinessProfit_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OtherBusinessProfit_NotEmpty" type="NotEmpty" depExp="OtherBusinessProfit_NotNull" />
+				<rule  id="OtherBusinessProfit_Empty" type="Empty" depExp="OtherBusinessProfit_NotNull" />
+				<rule  id="OtherBusinessProfit_DataType" type="DataType" errCode="ABE001" depExp="OtherBusinessProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SellingExpenses" fbTag="SellingExpenses" classType="java.lang.String" >
+				<rule  id="SellingExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="SellingExpenses_NotEmpty" type="NotEmpty" depExp="SellingExpenses_NotNull" />
+				<rule  id="SellingExpenses_Empty" type="Empty" depExp="SellingExpenses_NotNull" />
+				<rule  id="SellingExpenses_DataType" type="DataType" errCode="ABE001" depExp="SellingExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="GeneralAndAdministrativeExpenses" fbTag="GeneralAndAdministrativeExpenses" classType="java.lang.String" >
+				<rule  id="GeneralAndAdministrativeExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="GeneralAndAdministrativeExpenses_NotEmpty" type="NotEmpty" depExp="GeneralAndAdministrativeExpenses_NotNull" />
+				<rule  id="GeneralAndAdministrativeExpenses_Empty" type="Empty" depExp="GeneralAndAdministrativeExpenses_NotNull" />
+				<rule  id="GeneralAndAdministrativeExpenses_DataType" type="DataType" errCode="ABE001" depExp="GeneralAndAdministrativeExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinancialExpenses" fbTag="FinancialExpenses" classType="java.lang.String" >
+				<rule  id="FinancialExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="FinancialExpenses_NotEmpty" type="NotEmpty" depExp="FinancialExpenses_NotNull" />
+				<rule  id="FinancialExpenses_Empty" type="Empty" depExp="FinancialExpenses_NotNull" />
+				<rule  id="FinancialExpenses_DataType" type="DataType" errCode="ABE001" depExp="FinancialExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OthersExpenses" fbTag="OthersExpenses" classType="java.lang.String" >
+				<rule  id="OthersExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OthersExpenses_NotEmpty" type="NotEmpty" depExp="OthersExpenses_NotNull" />
+				<rule  id="OthersExpenses_Empty" type="Empty" depExp="OthersExpenses_NotNull" />
+				<rule  id="OthersExpenses_DataType" type="DataType" errCode="ABE001" depExp="OthersExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OperatingProfits" fbTag="OperatingProfits" classType="java.lang.String" >
+				<rule  id="OperatingProfits_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OperatingProfits_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OperatingProfits_NotNull" />
+				<rule  id="OperatingProfits_DataType" type="DataType" errCode="ABE001" depExp="OperatingProfits_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="InvestmentIncome" fbTag="InvestmentIncome" classType="java.lang.String" >
+				<rule  id="InvestmentIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="InvestmentIncome_NotEmpty" type="NotEmpty" depExp="InvestmentIncome_NotNull" />
+				<rule  id="InvestmentIncome_Empty" type="Empty" depExp="InvestmentIncome_NotNull" />
+				<rule  id="InvestmentIncome_DataType" type="DataType" errCode="ABE001" depExp="InvestmentIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FuturesIncome" fbTag="FuturesIncome" classType="java.lang.String" >
+				<rule  id="FuturesIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="FuturesIncome_NotEmpty" type="NotEmpty" depExp="FuturesIncome_NotNull" />
+				<rule  id="FuturesIncome_Empty" type="Empty" depExp="FuturesIncome_NotNull" />
+				<rule  id="FuturesIncome_DataType" type="DataType" errCode="ABE001" depExp="FuturesIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AllowanceIncome" fbTag="AllowanceIncome" classType="java.lang.String" >
+				<rule  id="AllowanceIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="AllowanceIncome_NotEmpty" type="NotEmpty" depExp="AllowanceIncome_NotNull" />
+				<rule  id="AllowanceIncome_Empty" type="Empty" depExp="AllowanceIncome_NotNull" />
+				<rule  id="AllowanceIncome_DataType" type="DataType" errCode="ABE001" depExp="AllowanceIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AllowanceIncomeBeforeAllowance" fbTag="AllowanceIncomeBeforeAllowance" classType="java.lang.String" >
+				<rule  id="AllowanceIncomeBeforeAllowance_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="AllowanceIncomeBeforeAllowance_NotEmpty" type="NotEmpty" depExp="AllowanceIncomeBeforeAllowance_NotNull" />
+				<rule  id="AllowanceIncomeBeforeAllowance_Empty" type="Empty" depExp="AllowanceIncomeBeforeAllowance_NotNull" />
+				<rule  id="AllowanceIncomeBeforeAllowance_DataType" type="DataType" errCode="ABE001" depExp="AllowanceIncomeBeforeAllowance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonOperatingIncome" fbTag="NonOperatingIncome" classType="java.lang.String" >
+				<rule  id="NonOperatingIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="NonOperatingIncome_NotEmpty" type="NotEmpty" depExp="NonOperatingIncome_NotNull" />
+				<rule  id="NonOperatingIncome_Empty" type="Empty" depExp="NonOperatingIncome_NotNull" />
+				<rule  id="NonOperatingIncome_DataType" type="DataType" errCode="ABE001" depExp="NonOperatingIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetGainOnDisposalOfFixedAssets" fbTag="NetGainOnDisposalOfFixedAssets" classType="java.lang.String" >
+				<rule  id="NetGainOnDisposalOfFixedAssets_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="NetGainOnDisposalOfFixedAssets_NotEmpty" type="NotEmpty" depExp="NetGainOnDisposalOfFixedAssets_NotNull" />
+				<rule  id="NetGainOnDisposalOfFixedAssets_Empty" type="Empty" depExp="NetGainOnDisposalOfFixedAssets_NotNull" />
+				<rule  id="NetGainOnDisposalOfFixedAssets_DataType" type="DataType" errCode="ABE001" depExp="NetGainOnDisposalOfFixedAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IncomeFromNonCurrencyTrade" fbTag="IncomeFromNonCurrencyTrade" classType="java.lang.String" >
+				<rule  id="IncomeFromNonCurrencyTrade_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="IncomeFromNonCurrencyTrade_NotEmpty" type="NotEmpty" depExp="IncomeFromNonCurrencyTrade_NotNull" />
+				<rule  id="IncomeFromNonCurrencyTrade_Empty" type="Empty" depExp="IncomeFromNonCurrencyTrade_NotNull" />
+				<rule  id="IncomeFromNonCurrencyTrade_DataType" type="DataType" errCode="ABE001" depExp="IncomeFromNonCurrencyTrade_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IncomeFromSalesOfIntangibleAssets" fbTag="IncomeFromSalesOfIntangibleAssets" classType="java.lang.String" >
+				<rule  id="IncomeFromSalesOfIntangibleAssets_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="IncomeFromSalesOfIntangibleAssets_NotEmpty" type="NotEmpty" depExp="IncomeFromSalesOfIntangibleAssets_NotNull" />
+				<rule  id="IncomeFromSalesOfIntangibleAssets_Empty" type="Empty" depExp="IncomeFromSalesOfIntangibleAssets_NotNull" />
+				<rule  id="IncomeFromSalesOfIntangibleAssets_DataType" type="DataType" errCode="ABE001" depExp="IncomeFromSalesOfIntangibleAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IncomeFromPenalty" fbTag="IncomeFromPenalty" classType="java.lang.String" >
+				<rule  id="IncomeFromPenalty_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="IncomeFromPenalty_NotEmpty" type="NotEmpty" depExp="IncomeFromPenalty_NotNull" />
+				<rule  id="IncomeFromPenalty_Empty" type="Empty" depExp="IncomeFromPenalty_NotNull" />
+				<rule  id="IncomeFromPenalty_DataType" type="DataType" errCode="ABE001" depExp="IncomeFromPenalty_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OthersIncome" fbTag="OthersIncome" classType="java.lang.String" >
+				<rule  id="OthersIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OthersIncome_NotEmpty" type="NotEmpty" depExp="OthersIncome_NotNull" />
+				<rule  id="OthersIncome_Empty" type="Empty" depExp="OthersIncome_NotNull" />
+				<rule  id="OthersIncome_DataType" type="DataType" errCode="ABE001" depExp="OthersIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CalculatingFromTheContentSalaryBefore" fbTag="CalculatingFromTheContentSalaryBefore" classType="java.lang.String" >
+				<rule  id="CalculatingFromTheContentSalaryBefore_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="CalculatingFromTheContentSalaryBefore_NotEmpty" type="NotEmpty" depExp="CalculatingFromTheContentSalaryBefore_NotNull" />
+				<rule  id="CalculatingFromTheContentSalaryBefore_Empty" type="Empty" depExp="CalculatingFromTheContentSalaryBefore_NotNull" />
+				<rule  id="CalculatingFromTheContentSalaryBefore_DataType" type="DataType" errCode="ABE001" depExp="CalculatingFromTheContentSalaryBefore_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonOperatingExpenses" fbTag="NonOperatingExpenses" classType="java.lang.String" >
+				<rule  id="NonOperatingExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="NonOperatingExpenses_NotEmpty" type="NotEmpty" depExp="NonOperatingExpenses_NotNull" />
+				<rule  id="NonOperatingExpenses_Empty" type="Empty" depExp="NonOperatingExpenses_NotNull" />
+				<rule  id="NonOperatingExpenses_DataType" type="DataType" errCode="ABE001" depExp="NonOperatingExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossFromDisposalOfFixedAssets" fbTag="LossFromDisposalOfFixedAssets" classType="java.lang.String" >
+				<rule  id="LossFromDisposalOfFixedAssets_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="LossFromDisposalOfFixedAssets_NotEmpty" type="NotEmpty" depExp="LossFromDisposalOfFixedAssets_NotNull" />
+				<rule  id="LossFromDisposalOfFixedAssets_Empty" type="Empty" depExp="LossFromDisposalOfFixedAssets_NotNull" />
+				<rule  id="LossFromDisposalOfFixedAssets_DataType" type="DataType" errCode="ABE001" depExp="LossFromDisposalOfFixedAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ExchangeOfNonMonetaryAssetsLoss" fbTag="ExchangeOfNonMonetaryAssetsLoss" classType="java.lang.String" >
+				<rule  id="ExchangeOfNonMonetaryAssetsLoss_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="ExchangeOfNonMonetaryAssetsLoss_NotEmpty" type="NotEmpty" depExp="ExchangeOfNonMonetaryAssetsLoss_NotNull" />
+				<rule  id="ExchangeOfNonMonetaryAssetsLoss_Empty" type="Empty" depExp="ExchangeOfNonMonetaryAssetsLoss_NotNull" />
+				<rule  id="ExchangeOfNonMonetaryAssetsLoss_DataType" type="DataType" errCode="ABE001" depExp="ExchangeOfNonMonetaryAssetsLoss_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossOfLawsuits" fbTag="LossOfLawsuits" classType="java.lang.String" >
+				<rule  id="LossOfLawsuits_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="LossOfLawsuits_NotEmpty" type="NotEmpty" depExp="LossOfLawsuits_NotNull" />
+				<rule  id="LossOfLawsuits_Empty" type="Empty" depExp="LossOfLawsuits_NotNull" />
+				<rule  id="LossOfLawsuits_DataType" type="DataType" errCode="ABE001" depExp="LossOfLawsuits_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PaymentForDonation" fbTag="PaymentForDonation" classType="java.lang.String" >
+				<rule  id="PaymentForDonation_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="PaymentForDonation_NotEmpty" type="NotEmpty" depExp="PaymentForDonation_NotNull" />
+				<rule  id="PaymentForDonation_Empty" type="Empty" depExp="PaymentForDonation_NotNull" />
+				<rule  id="PaymentForDonation_DataType" type="DataType" errCode="ABE001" depExp="PaymentForDonation_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherPayments" fbTag="OtherPayments" classType="java.lang.String" >
+				<rule  id="OtherPayments_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OtherPayments_NotEmpty" type="NotEmpty" depExp="OtherPayments_NotNull" />
+				<rule  id="OtherPayments_Empty" type="Empty" depExp="OtherPayments_NotNull" />
+				<rule  id="OtherPayments_DataType" type="DataType" errCode="ABE001" depExp="OtherPayments_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="BalanceOfContentSalary" fbTag="BalanceOfContentSalary" classType="java.lang.String" >
+				<rule  id="BalanceOfContentSalary_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="BalanceOfContentSalary_NotEmpty" type="NotEmpty" depExp="BalanceOfContentSalary_NotNull" />
+				<rule  id="BalanceOfContentSalary_Empty" type="Empty" depExp="BalanceOfContentSalary_NotNull" />
+				<rule  id="BalanceOfContentSalary_DataType" type="DataType" errCode="ABE001" depExp="BalanceOfContentSalary_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalProfit" fbTag="TotalProfit" classType="java.lang.String" >
+				<rule  id="TotalProfit_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="TotalProfit_NotEmpty" type="NotEmpty" depExp="TotalProfit_NotNull" />
+				<rule  id="TotalProfit_DataType" type="DataType" errCode="ABE001" depExp="TotalProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="Incometax" fbTag="Incometax" classType="java.lang.String" >
+				<rule  id="Incometax_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="Incometax_NotEmpty" type="NotEmpty"  depExp="Incometax_NotNull" />
+				<rule  id="Incometax_Empty" type="Empty" depExp="Incometax_NotNull" />
+				<rule  id="Incometax_DataType" type="DataType" errCode="ABE001" depExp="Incometax_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ImparimentLoss" fbTag="ImparimentLoss" classType="java.lang.String" >
+				<rule  id="ImparimentLoss_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="ImparimentLoss_NotEmpty" type="NotEmpty" depExp="ImparimentLoss_NotNull" />
+				<rule  id="ImparimentLoss_Empty" type="Empty" depExp="ImparimentLoss_NotNull" />
+				<rule  id="ImparimentLoss_DataType" type="DataType" errCode="ABE001" depExp="ImparimentLoss_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="UnrealizedInvestmentLosses" fbTag="UnrealizedInvestmentLosses" classType="java.lang.String" >
+				<rule  id="UnrealizedInvestmentLosses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="UnrealizedInvestmentLosses_NotEmpty" type="NotEmpty" depExp="UnrealizedInvestmentLosses_NotNull" />
+				<rule  id="UnrealizedInvestmentLosses_Empty" type="Empty" depExp="UnrealizedInvestmentLosses_NotNull" />
+				<rule  id="UnrealizedInvestmentLosses_DataType" type="DataType" errCode="ABE001" depExp="UnrealizedInvestmentLosses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetProfit" fbTag="NetProfit" classType="java.lang.String" >
+				<rule  id="NetProfit_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="NetProfit_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NetProfit_NotNull" />
+				<rule  id="NetProfit_DataType" type="DataType" errCode="ABE001" depExp="NetProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitDistributionAtBeginningOfPeriod" fbTag="ProfitDistributionAtBeginningOfPeriod" classType="java.lang.String" >
+				<rule  id="ProfitDistributionAtBeginningOfPeriod_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="ProfitDistributionAtBeginningOfPeriod_NotEmpty" type="NotEmpty" depExp="ProfitDistributionAtBeginningOfPeriod_NotNull" />
+				<rule  id="ProfitDistributionAtBeginningOfPeriod_Empty" type="Empty" depExp="ProfitDistributionAtBeginningOfPeriod_NotNull" />
+				<rule  id="ProfitDistributionAtBeginningOfPeriod_DataType" type="DataType" errCode="ABE001" depExp="ProfitDistributionAtBeginningOfPeriod_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CompensationOfSurplusReserve" fbTag="CompensationOfSurplusReserve" classType="java.lang.String" >
+				<rule  id="CompensationOfSurplusReserve_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="CompensationOfSurplusReserve_NotEmpty" type="NotEmpty" depExp="CompensationOfSurplusReserve_NotNull" />
+				<rule  id="CompensationOfSurplusReserve_Empty" type="Empty" depExp="CompensationOfSurplusReserve_NotNull" />
+				<rule  id="CompensationOfSurplusReserve_DataType" type="DataType" errCode="ABE001" depExp="CompensationOfSurplusReserve_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherAdjustmentFactors" fbTag="OtherAdjustmentFactors" classType="java.lang.String" >
+				<rule  id="OtherAdjustmentFactors_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OtherAdjustmentFactors_NotEmpty" type="NotEmpty" depExp="OtherAdjustmentFactors_NotNull" />
+				<rule  id="OtherAdjustmentFactors_Empty" type="Empty" depExp="OtherAdjustmentFactors_NotNull" />
+				<rule  id="OtherAdjustmentFactors_DataType" type="DataType" errCode="ABE001" depExp="OtherAdjustmentFactors_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitAvailableForDistribution" fbTag="ProfitAvailableForDistribution" classType="java.lang.String" >
+				<rule  id="ProfitAvailableForDistribution_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="ProfitAvailableForDistribution_NotEmpty" type="NotEmpty" depExp="ProfitAvailableForDistribution_NotNull" />
+				<rule  id="ProfitAvailableForDistribution_Empty" type="Empty" depExp="ProfitAvailableForDistribution_NotNull" />
+				<rule  id="ProfitAvailableForDistribution_DataType" type="DataType" errCode="ABE001" depExp="ProfitAvailableForDistribution_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitReservedForASingleItem" fbTag="ProfitReservedForASingleItem" classType="java.lang.String" >
+				<rule  id="ProfitReservedForASingleItem_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="ProfitReservedForASingleItem_NotEmpty" type="NotEmpty" depExp="ProfitReservedForASingleItem_NotNull" />
+				<rule  id="ProfitReservedForASingleItem_Empty" type="Empty" depExp="ProfitReservedForASingleItem_NotNull" />
+				<rule  id="ProfitReservedForASingleItem_DataType" type="DataType" errCode="ABE001" depExp="ProfitReservedForASingleItem_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SupplementaryCurrentCapital" fbTag="SupplementaryCurrentCapital" classType="java.lang.String" >
+				<rule  id="SupplementaryCurrentCapital_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="SupplementaryCurrentCapital_NotEmpty" type="NotEmpty" depExp="SupplementaryCurrentCapital_NotNull" />
+				<rule  id="SupplementaryCurrentCapital_Empty" type="Empty" depExp="SupplementaryCurrentCapital_NotNull" />
+				<rule  id="SupplementaryCurrentCapital_DataType" type="DataType" errCode="ABE001" depExp="SupplementaryCurrentCapital_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AppropriationOfStatutorySurplusReserves" fbTag="AppropriationOfStatutorySurplusReserves" classType="java.lang.String" >
+				<rule  id="AppropriationOfStatutorySurplusReserves_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="AppropriationOfStatutorySurplusReserves_NotEmpty" type="NotEmpty" depExp="AppropriationOfStatutorySurplusReserves_NotNull" />
+				<rule  id="AppropriationOfStatutorySurplusReserves_Empty" type="Empty" depExp="AppropriationOfStatutorySurplusReserves_NotNull" />
+				<rule  id="AppropriationOfStatutorySurplusReserves_DataType" type="DataType" errCode="ABE001" depExp="AppropriationOfStatutorySurplusReserves_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AppropriationOfStatutoryWelfareFund" fbTag="AppropriationOfStatutoryWelfareFund" classType="java.lang.String" >
+				<rule  id="AppropriationOfStatutoryWelfareFund_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="AppropriationOfStatutoryWelfareFund_NotEmpty" type="NotEmpty" depExp="AppropriationOfStatutoryWelfareFund_NotNull" />
+				<rule  id="AppropriationOfStatutoryWelfareFund_Empty" type="Empty" depExp="AppropriationOfStatutoryWelfareFund_NotNull" />
+				<rule  id="AppropriationOfStatutoryWelfareFund_DataType" type="DataType" errCode="ABE001" depExp="AppropriationOfStatutoryWelfareFund_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AppropriationOfStaffIncentiveAndWelfareFund" fbTag="AppropriationOfStaffIncentiveAndWelfareFund" classType="java.lang.String" >
+				<rule  id="AppropriationOfStaffIncentiveAndWelfareFund_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="AppropriationOfStaffIncentiveAndWelfareFund_NotEmpty" type="NotEmpty" depExp="AppropriationOfStaffIncentiveAndWelfareFund_NotNull" />
+				<rule  id="AppropriationOfStaffIncentiveAndWelfareFund_Empty" type="Empty" depExp="AppropriationOfStaffIncentiveAndWelfareFund_NotNull" />
+				<rule  id="AppropriationOfStaffIncentiveAndWelfareFund_DataType" type="DataType" errCode="ABE001" depExp="AppropriationOfStaffIncentiveAndWelfareFund_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AppropriationOfReserveFund" fbTag="AppropriationOfReserveFund" classType="java.lang.String" >
+				<rule  id="AppropriationOfReserveFund_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="AppropriationOfReserveFund_NotEmpty" type="NotEmpty" depExp="AppropriationOfReserveFund_NotNull" />
+				<rule  id="AppropriationOfReserveFund_Empty" type="Empty" depExp="AppropriationOfReserveFund_NotNull" />
+				<rule  id="AppropriationOfReserveFund_DataType" type="DataType" errCode="ABE001" depExp="AppropriationOfReserveFund_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AppropriationOfEnterpriseExpansionFund" fbTag="AppropriationOfEnterpriseExpansionFund" classType="java.lang.String" >
+				<rule  id="AppropriationOfEnterpriseExpansionFund_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="AppropriationOfEnterpriseExpansionFund_NotEmpty" type="NotEmpty" depExp="AppropriationOfEnterpriseExpansionFund_NotNull" />
+				<rule  id="AppropriationOfEnterpriseExpansionFund_Empty" type="Empty" depExp="AppropriationOfEnterpriseExpansionFund_NotNull" />
+				<rule  id="AppropriationOfEnterpriseExpansionFund_DataType" type="DataType" errCode="ABE001" depExp="AppropriationOfEnterpriseExpansionFund_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitsCapitalizadOnReturnOfInvestment" fbTag="ProfitsCapitalizadOnReturnOfInvestment" classType="java.lang.String" >
+				<rule  id="ProfitsCapitalizadOnReturnOfInvestment_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="ProfitsCapitalizadOnReturnOfInvestment_NotEmpty" type="NotEmpty" depExp="ProfitsCapitalizadOnReturnOfInvestment_NotNull" />
+				<rule  id="ProfitsCapitalizadOnReturnOfInvestment_Empty" type="Empty" depExp="ProfitsCapitalizadOnReturnOfInvestment_NotNull" />
+				<rule  id="ProfitsCapitalizadOnReturnOfInvestment_DataType" type="DataType" errCode="ABE001" depExp="ProfitsCapitalizadOnReturnOfInvestment_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="Others" fbTag="Others" classType="java.lang.String" >
+				<rule  id="Others_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="Others_NotEmpty" type="NotEmpty" depExp="Others_NotNull" />
+				<rule  id="Others_Empty" type="Empty" depExp="Others_NotNull" />
+				<rule  id="Others_DataType" type="DataType" errCode="ABE001" depExp="Others_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitAvailableForOwnersDistribution" fbTag="ProfitAvailableForOwnersDistribution" classType="java.lang.String" >
+				<rule  id="ProfitAvailableForOwnersDistribution_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="ProfitAvailableForOwnersDistribution_NotEmpty" type="NotEmpty" depExp="ProfitAvailableForOwnersDistribution_NotNull" />
+				<rule  id="ProfitAvailableForOwnersDistribution_Empty" type="Empty" depExp="ProfitAvailableForOwnersDistribution_NotNull" />
+				<rule  id="ProfitAvailableForOwnersDistribution_DataType" type="DataType" errCode="ABE001" depExp="ProfitAvailableForOwnersDistribution_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PreferredStockDividendsPayable" fbTag="PreferredStockDividendsPayable" classType="java.lang.String" >
+				<rule  id="PreferredStockDividendsPayable_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="PreferredStockDividendsPayable_NotEmpty" type="NotEmpty" depExp="PreferredStockDividendsPayable_NotNull" />
+				<rule  id="PreferredStockDividendsPayable_Empty" type="Empty" depExp="PreferredStockDividendsPayable_NotNull" />
+				<rule  id="PreferredStockDividendsPayable_DataType" type="DataType" errCode="ABE001" depExp="PreferredStockDividendsPayable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="WithdrawalOtherCommonAccumulationFund" fbTag="WithdrawalOtherCommonAccumulationFund" classType="java.lang.String" >
+				<rule  id="WithdrawalOtherCommonAccumulationFund_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="WithdrawalOtherCommonAccumulationFund_NotEmpty" type="NotEmpty" depExp="WithdrawalOtherCommonAccumulationFund_NotNull" />
+				<rule  id="WithdrawalOtherCommonAccumulationFund_Empty" type="Empty" depExp="WithdrawalOtherCommonAccumulationFund_NotNull" />
+				<rule  id="WithdrawalOtherCommonAccumulationFund_DataType" type="DataType" errCode="ABE001" depExp="WithdrawalOtherCommonAccumulationFund_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PayableDividendsOfCommonStock" fbTag="PayableDividendsOfCommonStock" classType="java.lang.String" >
+				<rule  id="PayableDividendsOfCommonStock_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="PayableDividendsOfCommonStock_NotEmpty" type="NotEmpty" depExp="PayableDividendsOfCommonStock_NotNull" />
+				<rule  id="PayableDividendsOfCommonStock_Empty" type="Empty" depExp="PayableDividendsOfCommonStock_NotNull" />
+				<rule  id="PayableDividendsOfCommonStock_DataType" type="DataType" errCode="ABE001" depExp="PayableDividendsOfCommonStock_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock" fbTag="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock" classType="java.lang.String" >
+				<rule  id="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock_NotEmpty" type="NotEmpty" depExp="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock_NotNull" />
+				<rule  id="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock_Empty" type="Empty" depExp="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock_NotNull" />
+				<rule  id="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock_DataType" type="DataType" errCode="ABE001" depExp="TransferFromOrdinarySharesDividendToPaidInCapitalOrStock_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OthersForOwners" fbTag="OthersForOwners" classType="java.lang.String" >
+				<rule  id="OthersForOwners_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="OthersForOwners_NotEmpty" type="NotEmpty" depExp="OthersForOwners_NotNull" />
+				<rule  id="OthersForOwners_Empty" type="Empty" depExp="OthersForOwners_NotNull" />
+				<rule  id="OthersForOwners_DataType" type="DataType" errCode="ABE001" depExp="OthersForOwners_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="UnappropriatedProfit" fbTag="UnappropriatedProfit" classType="java.lang.String" >
+				<rule  id="UnappropriatedProfit_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="UnappropriatedProfit_NotEmpty" type="NotEmpty" depExp="UnappropriatedProfit_NotNull" />
+				<rule  id="UnappropriatedProfit_Empty" type="Empty" depExp="UnappropriatedProfit_NotNull" />
+				<rule  id="UnappropriatedProfit_DataType" type="DataType" errCode="ABE001" depExp="UnappropriatedProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LossCompensatedBeforeTheTax" fbTag="LossCompensatedBeforeTheTax" classType="java.lang.String" >
+				<rule  id="LossCompensatedBeforeTheTax_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2002Sgmt_NotNullc"/>
+				<rule  id="LossCompensatedBeforeTheTax_NotEmpty" type="NotEmpty" depExp="LossCompensatedBeforeTheTax_NotNull" />
+				<rule  id="LossCompensatedBeforeTheTax_Empty" type="Empty" depExp="LossCompensatedBeforeTheTax_NotNull" />
+				<rule  id="LossCompensatedBeforeTheTax_DataType" type="DataType" errCode="ABE001" depExp="LossCompensatedBeforeTheTax_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+		</field> 
+
+		<field  name="IncomeStatementProfitAppropriation2007Sgmt" fbTag="IncomeStatementProfitAppropriation2007Sgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.IncomeStatementProfitAppropriation2007Sgmt" >
+			<rule  id="IncomeStatementProfitAppropriation2007Sgmt_NotNullc" type="NotNull"  />
+			<rule  id="IncomeStatementProfitAppropriation2007Sgmt_Nullc" type="Null" />
+			<field  name="RevenueOfSales" fbTag="RevenueOfSales" classType="java.lang.String" >
+				<rule  id="RevenueOfSales_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="RevenueOfSales_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RevenueOfSales_NotNull" />
+				<rule  id="RevenueOfSales_DataType" type="DataType" errCode="ABE001" depExp="RevenueOfSales_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="CostOfSales" fbTag="CostOfSales" classType="java.lang.String" >
+				<rule  id="CostOfSales_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="CostOfSales_NotEmpty" type="NotEmpty" depExp="CostOfSales_NotNull" />
+				<rule  id="CostOfSales_Empty" type="Empty" depExp="CostOfSales_NotNull" />
+				<rule  id="CostOfSales_DataType" type="DataType" errCode="ABE001" depExp="CostOfSales_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="BusinessAndOtherTaxes" fbTag="BusinessAndOtherTaxes" classType="java.lang.String" >
+				<rule  id="BusinessAndOtherTaxes_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="BusinessAndOtherTaxes_NotEmpty" type="NotEmpty" depExp="BusinessAndOtherTaxes_NotNull" />
+				<rule  id="BusinessAndOtherTaxes_Empty" type="Empty" depExp="BusinessAndOtherTaxes_NotNull" />
+				<rule  id="BusinessAndOtherTaxes_DataType" type="DataType" errCode="ABE001" depExp="BusinessAndOtherTaxes_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SellingExpenses" fbTag="SellingExpenses" classType="java.lang.String" >
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-SellingExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-SellingExpenses_NotEmpty" type="NotEmpty" depExp="IncomeStatementProfitAppropriation2007Sgmt-SellingExpenses_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-SellingExpenses_Empty" type="Empty" depExp="IncomeStatementProfitAppropriation2007Sgmt-SellingExpenses_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-SellingExpenses_DataType" type="DataType" errCode="ABE001" depExp="IncomeStatementProfitAppropriation2007Sgmt-SellingExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="GeneralAndAdministrativeExpenses" fbTag="GeneralAndAdministrativeExpenses" classType="java.lang.String" >
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-GeneralAndAdministrativeExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-GeneralAndAdministrativeExpenses_NotEmpty" type="NotEmpty" depExp="IncomeStatementProfitAppropriation2007Sgmt-GeneralAndAdministrativeExpenses_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-GeneralAndAdministrativeExpenses_Empty" type="Empty" depExp="IncomeStatementProfitAppropriation2007Sgmt-GeneralAndAdministrativeExpenses_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-GeneralAndAdministrativeExpenses_DataType" type="DataType" errCode="ABE001" depExp="IncomeStatementProfitAppropriation2007Sgmt-GeneralAndAdministrativeExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinancialExpense" fbTag="FinancialExpense" classType="java.lang.String" >
+				<rule  id="FinancialExpense_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="FinancialExpense_NotEmpty" type="NotEmpty" depExp="FinancialExpense_NotNull" />
+				<rule  id="FinancialExpense_Empty" type="Empty" depExp="FinancialExpense_NotNull" />
+				<rule  id="FinancialExpense_DataType" type="DataType" errCode="ABE001" depExp="FinancialExpense_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ImpairmentLossOfAssets" fbTag="ImpairmentLossOfAssets" classType="java.lang.String" >
+				<rule  id="ImpairmentLossOfAssets_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="ImpairmentLossOfAssets_NotEmpty" type="NotEmpty" depExp="ImpairmentLossOfAssets_NotNull" />
+				<rule  id="ImpairmentLossOfAssets_Empty" type="Empty" depExp="ImpairmentLossOfAssets_NotNull" />
+				<rule  id="ImpairmentLossOfAssets_DataType" type="DataType" errCode="ABE001" depExp="ImpairmentLossOfAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitOrLossArisingFromChangesInFairValue" fbTag="ProfitOrLossArisingFromChangesInFairValue" classType="java.lang.String" >
+				<rule  id="ProfitOrLossArisingFromChangesInFairValue_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="ProfitOrLossArisingFromChangesInFairValue_NotEmpty" type="NotEmpty" depExp="ProfitOrLossArisingFromChangesInFairValue_NotNull" />
+				<rule  id="ProfitOrLossArisingFromChangesInFairValue_Empty" type="Empty" depExp="ProfitOrLossArisingFromChangesInFairValue_NotNull" />
+				<rule  id="ProfitOrLossArisingFromChangesInFairValue_DataType" type="DataType" errCode="ABE001" depExp="ProfitOrLossArisingFromChangesInFairValue_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="InvestmentIncome" fbTag="InvestmentIncome" classType="java.lang.String" >
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-InvestmentIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-InvestmentIncome_NotEmpty" type="NotEmpty" depExp="IncomeStatementProfitAppropriation2007Sgmt-InvestmentIncome_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-InvestmentIncome_Empty" type="Empty" depExp="IncomeStatementProfitAppropriation2007Sgmt-InvestmentIncome_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-InvestmentIncome_DataType" type="DataType" errCode="ABE001" depExp="IncomeStatementProfitAppropriation2007Sgmt-InvestmentIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise" fbTag="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise" classType="java.lang.String" >
+				<rule  id="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise_NotEmpty" type="NotEmpty" depExp="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise_NotNull" />
+				<rule  id="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise_Empty" type="Empty" depExp="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise_NotNull" />
+				<rule  id="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise_DataType" type="DataType" errCode="ABE001" depExp="InvestmentIncomeFromAffiliatedBusinessAndCooperativeEnterprise_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OperatingProfits" fbTag="OperatingProfits" classType="java.lang.String" >
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-OperatingProfits_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-OperatingProfits_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IncomeStatementProfitAppropriation2007Sgmt-OperatingProfits_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-OperatingProfits_DataType" type="DataType" errCode="ABE001" depExp="IncomeStatementProfitAppropriation2007Sgmt-OperatingProfits_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonOperatingIncome" fbTag="NonOperatingIncome" classType="java.lang.String" >
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingIncome_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingIncome_NotEmpty" type="NotEmpty" depExp="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingIncome_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingIncome_Empty" type="Empty" depExp="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingIncome_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingIncome_DataType" type="DataType" errCode="ABE001" depExp="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingIncome_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonOperatingExpenses" fbTag="NonOperatingExpenses" classType="java.lang.String" >
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingExpenses_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingExpenses_NotEmpty" type="NotEmpty" depExp="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingExpenses_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingExpenses_Empty" type="Empty" depExp="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingExpenses_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingExpenses_DataType" type="DataType" errCode="ABE001" depExp="IncomeStatementProfitAppropriation2007Sgmt-NonOperatingExpenses_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonCurrentAssets" fbTag="NonCurrentAssets" classType="java.lang.String" >
+				<rule  id="NonCurrentAssets_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="NonCurrentAssets_NotEmpty" type="NotEmpty" depExp="NonCurrentAssets_NotNull" />
+				<rule  id="NonCurrentAssets_Empty" type="Empty" depExp="NonCurrentAssets_NotNull" />
+				<rule  id="NonCurrentAssets_DataType" type="DataType" errCode="ABE001" depExp="NonCurrentAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ProfitBeforeTax" fbTag="ProfitBeforeTax" classType="java.lang.String" >
+				<rule  id="ProfitBeforeTax_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="ProfitBeforeTax_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ProfitBeforeTax_NotNull" />
+				<rule  id="ProfitBeforeTax_DataType" type="DataType" errCode="ABE001" depExp="ProfitBeforeTax_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IncomeTaxExpense" fbTag="IncomeTaxExpense" classType="java.lang.String" >
+				<rule  id="IncomeTaxExpense_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeTaxExpense_NotEmpty" type="NotEmpty" depExp="IncomeTaxExpense_NotNull" />
+				<rule  id="IncomeTaxExpense_Empty" type="Empty" depExp="IncomeTaxExpense_NotNull" />
+				<rule  id="IncomeTaxExpense_DataType" type="DataType" errCode="ABE001" depExp="IncomeTaxExpense_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NetProfit" fbTag="NetProfit" classType="java.lang.String" >
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NetProfit_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NetProfit_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IncomeStatementProfitAppropriation2007Sgmt-NetProfit_NotNull" />
+				<rule  id="IncomeStatementProfitAppropriation2007Sgmt-NetProfit_DataType" type="DataType" errCode="ABE001" depExp="IncomeStatementProfitAppropriation2007Sgmt-NetProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="BasicEarningsPerShare" fbTag="BasicEarningsPerShare" classType="java.lang.String" >
+				<rule  id="BasicEarningsPerShare_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="BasicEarningsPerShare_NotEmpty" type="NotEmpty" depExp="BasicEarningsPerShare_NotNull" />
+				<rule  id="BasicEarningsPerShare_Empty" type="Empty" depExp="BasicEarningsPerShare_NotNull" />
+				<rule  id="BasicEarningsPerShare_DataType" type="DataType" errCode="ABE001" depExp="BasicEarningsPerShare_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="DilutedEarningsPerShare" fbTag="DilutedEarningsPerShare" classType="java.lang.String" >
+				<rule  id="DilutedEarningsPerShare_NotNull" type="NotNull" errCode="ABD000" depExp="IncomeStatementProfitAppropriation2007Sgmt_NotNullc"/>
+				<rule  id="DilutedEarningsPerShare_NotEmpty" type="NotEmpty" depExp="DilutedEarningsPerShare_NotNull" />
+				<rule  id="DilutedEarningsPerShare_Empty" type="Empty" depExp="DilutedEarningsPerShare_NotNull" />
+				<rule  id="DilutedEarningsPerShare_DataType" type="DataType" errCode="ABE001" depExp="DilutedEarningsPerShare_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+		</field>
+    </validator>
+</validators>

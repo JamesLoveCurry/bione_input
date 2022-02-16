@@ -1,0 +1,58 @@
+#bottomframe {
+	font-family: Arial;
+	font-size: 9pt;
+	background-color: rgb(232, 232, 232);
+	overflow:hidden;
+}
+
+#tree{
+	background-color: #F1F1F1;
+}
+#topframe{
+	padding:4px 0px 0px 0px;
+	overflow:hidden;
+}
+#topframe div{
+
+}
+.main_left{
+	float:left;
+	overflow:hidden;
+	margin:0px 0px 0px 0px;
+}
+.main_center{
+	float:left;
+	overflow:hidden;
+	margin:0px 10px 0px 10px;
+}
+.main_right{
+	float:right;	
+	overflow:hidden;
+}
+.left_box1{
+	margin:0px 0px 4px 0px;
+}
+.left_box2{
+	margin:0px 0px 4px 0px;
+}
+.left_box3{
+	margin:0px 0px 0px 0px;
+}
+.center_box1{
+	margin:0px 0px 4px 0px;
+}
+.center_box2{
+	margin:0px 0px 0px 0px;
+}
+.right_box1{
+	margin:0px 0px 4px 0px;
+
+}
+.right_box2{
+	margin:0px 0px 4px 0px;
+
+}
+.right_box3{
+	margin:0px 0px 0px 0px;
+
+}

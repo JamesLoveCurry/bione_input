@@ -1,0 +1,26 @@
+.design_all {
+	padding-right: 228px;
+	overflow: hidden;
+}
+
+.design_left {
+	width: 100%;
+	float: left;
+	margin-right: -230px;
+	border-right: #f0f4ff 230px solid;
+}
+
+.design_subdiv {
+	background-color: #FFFFFF;
+	width:100%;
+	border:0px solid #D6D6D6;
+	margin-bottom:1px;
+}
+
+.design_right {
+	width: 230px;
+	float: left;
+	margin-right: -230px;
+	padding: 0px 0px 0px 0px;
+}
+

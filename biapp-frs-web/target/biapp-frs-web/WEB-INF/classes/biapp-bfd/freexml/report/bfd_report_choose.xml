@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>报文下载</templetname>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+	    <itemkey>data_dt</itemkey>
+	    <itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>350</card_width>
+	    <list_isshow>N</list_isshow>
+	    <list_width>100</list_width>
+	    <list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>报送机构号</itemname>
+		<itemtype>自定义参照</itemtype>
+		<comparetype>in</comparetype>
+		<itemdefine>【jsfile=/yujs/bfd/common/bfd_report_orgfilter_dialog.js】【cols=org_no->org_no】【winsize=600*560】</itemdefine>
+		<checkbox>Y</checkbox>
+		<tree_ischeckboxcascade>Y</tree_ischeckboxcascade>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>350</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>90</list_width>
+		<list_align>中</list_align>
+		<query3_isshow>Y</query3_isshow>
+		<query3_iswrap>N</query3_iswrap>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>report_type</itemkey>
+		<itemname>报送频率</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"月报|季报"}</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>350</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>85</list_width>
+		<list_align>中</list_align>
+		<isshow>Y</isshow>
+		<iswrap>Y</iswrap>
+		<itemtype>下拉框</itemtype>
+		<iseditable>N</iseditable>
+		<itemdefine>{"类型":"直接值","内容":"月报|季报"}</itemdefine>
+		<width>200</width>
+	</templet_item>
+
+</root>

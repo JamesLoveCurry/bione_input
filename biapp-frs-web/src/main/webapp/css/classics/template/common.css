@@ -1,0 +1,268 @@
+#pageloading {
+	background: url("../../../images/classics/loading.gif") no-repeat center
+		rgb(255, 255, 255);
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 99999;
+}
+
+html {
+	font-family: "微软雅黑", "宋体", Arial, sans-serif;
+	font-size: 12px;
+	width: 100%;
+	height: 100%;
+	margin: 0 0 0 0;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	background-color: #fcfcfc;
+}
+
+body {
+	font-family: "微软雅黑", "宋体", Arial, sans-serif;
+	font-size: 12px;
+	/*padding-right: 6px;
+	padding-left: 4px;
+	padding-top: 2px;*/
+	padding:0;
+	margin:0;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+a {
+	color: #3c8dbc;
+    text-decoration: none;
+	cursor: pointer;
+}
+
+span.star {
+	color: red;
+	line-height: 25px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+p {
+	line-height: 26px;
+}
+
+p {
+	text-align: left;
+}
+
+span {
+	text-align: left;
+}
+
+b {
+	text-align: left;
+}
+
+p.p1 {
+	line-height: 32px;
+}
+
+.l-clear {
+	clear: both;
+	height: 0;
+	overflow: hidden;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	list-style: none;
+}
+
+.invalid {
+	color: rgb(255, 16, 16);
+	margin-top: 6px;
+	margin-left: 4px;
+}
+
+.jloading {
+	background: rgb(98, 135, 172);
+	top: 40%;
+	left: 45%;
+	color: white;
+	border-bottom-color: rgb(83, 119, 157);
+	border-left-color: rgb(83, 119, 157);
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	filter: alpha(opacity =         70);
+	position: absolute;
+	z-index: 99999;
+	opacity: 0.7;
+}
+
+.chk-icon {
+	background: url("../ligerUI/skins/Aqua/images/controls/checkbox.gif")
+		0px 0px;
+	margin: 4px 20px;
+	width: 13px;
+	height: 13px;
+	line-height: 13px;
+	display: block;
+	cursor: pointer;
+}
+
+.chk-icon-selected {
+	background-position: 0px -13px;
+}
+
+.selhistory {
+	margin-right: 2px;
+}
+
+.mainsearch {
+	margin: auto;
+}
+
+.navline {
+	height: 1px;
+	line-height: 1px;
+	border-bottom-color: #D9D9D9;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	margin: auto;
+}
+
+.searchtitle {
+	margin: auto;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 100%;
+	vertical-align: -moz-middle-with-baseline;
+	}
+
+.searchtitle img {
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
+	position: absolute;
+	left:10px; top: 2px;
+}
+
+.searchtitle span {
+	font-size: 12px;
+	font-weight: normal;
+	color: #666;
+	line-height: 19px;
+}
+
+.searchtitle .togglebtn {
+	font-weight: 700;
+	color : #0b5fff;
+	position: absolute;
+	width: 9px;
+	height: 10px;
+	right: 10px;
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.searchtitle .togglebtn-down {
+	background-position: 0px -10px;
+}
+
+.searchbox {
+	width: 100%;
+	text-align: center;
+	margin: auto;
+	/* margin-bottom: 5px; */
+	border-style: solid;
+	border-width: 1px;
+	border-color: #D6D6D6;
+	background-color: #FCFCFC;
+}
+
+.searchbtn {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 5px;
+}
+
+.btn {
+	margin: auto;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.maingrid {
+	margin: auto;
+}
+
+.l-textarea {
+	margin: 0px;
+	width: 99%;
+	height: 80px;
+}
+
+.content {
+	margin: auto;
+}
+/* ligerui-icons.css锟斤拷BIONE锟斤拷拥锟斤拷锟斤拷锟绞� */
+.l-icon-close3 { background: url('../ligerUI/icons/close.png') no-repeat center; }
+.l-icon-search3 { background: url('../ligerUI/icons/find.png') no-repeat center; }
+.l-icon-refresh2 { background: url('../ligerUI/icons/refresh2.png') no-repeat center; }
+.l-icon-import { background: url('../ligerUI/icons/import.gif') no-repeat center; }
+.l-icon-export { background: url('../ligerUI/icons/export.gif') no-repeat center; }
+.l-icon-download { background: url('../ligerUI/icons/download.gif') no-repeat center; }
+.l-icon-ignore { background: url('../ligerUI/icons/export.gif') no-repeat center; }
+/* ligerui-grid.css锟斤拷BIONE锟斤拷拥锟斤拷锟斤拷锟绞� */
+.l-panel .l-toolbar { background: none; border: 0; }
+.l-panel-topbar { padding: 0; }
+.l-panel-topbarinner { float: right; }
+.l-panel-topbarinner-left { float: left; }
+.l-panel-topbartitle { font-weight: bold; padding: 0; margin: 0; margin-left: 9px; }
+.l-panel-topbartitle-hasicon { padding-left: 24px; position: relative; }
+.l-panel-topbaricon { width: 16px; height: 16px; position: absolute; left: 0px; top: 6px; }
+.l-grid-empty .l-grid-body-inner { width: 100%; }
+.l-grid-hashorizontal .l-grid-body1 .l-jplace { height: 19px; }
+.l-treetoolbar { background: #F1F1F1; height: 26px; }
+.l-treetoolbar-item-right { float: right; margin-top: 3px }
+.l-treemenubar-item-right { float: right; position: relative; }
+.l-treetoolbar-item-right .l-icon, .l-toolbar-item img { position: absolute; left: 2px; top: 2px; display: block; }
+.l-treetoolbar-item { float: left; margin-left: 5px; margin-top: 3px }
+.l-treemenubar-item { float: left; margin-left: 6px; position: relative; }
+.l-treetoolbar-item span { padding-left: 6px; }
+.l-treetoolbar-item .l-icon, .l-toolbar-item img { position: absolute; left: 2px; top: 2px; display: block; }
+.l-treetoolbar-item img { width: 16px; height: 16px; border: 0px; }
+.l-treetoolbar-item-hasicon { padding-right: 10px; }
+.l-treetoolbar-item-onlyicon { padding-right: 0px; }
+/* common.css锟斤拷BIONE锟斤拷拥锟斤拷锟斤拷锟绞� */
+.l-btn { font-size: 12px; display: block; line-height: 29px; overflow: hidden; height: 29px; position: relative; padding-left: 10px; padding-right: 10px; cursor: pointer; text-align: center; text-decoration: none; cursor: pointer; float: left; text-align: center; margin-left: 5px; margin-right: 5px; }
+.l-btn { font-size: 12px; display: block; line-height: 29px; overflow: hidden; height: 29px; position: relative; padding-left: 10px; padding-right: 10px; cursor: pointer; text-align: center; text-decoration: none; cursor: pointer; float: left; text-align: center; margin-left: 5px; margin-right: 5px; }
+.l-btn img { width: 14px; height: 14px; border: 0px; }
+.l-btn-hasicon { padding-left: 15px; }
+/* .l-btn-l { position: absolute; width: 3px; left: 0px; top: 0px; height: 29px; background: #D9D9D9 url(../ligerUI/Gray/images/ui/btn-l.png)
+no-repeat; }
+.l-btn-r { position: absolute; width: 3px; right: 0px; top: 0px; height: 29px; background: #D9D9D9 url(../ligerUI/Gray/images/ui/btn-r.png)
+no-repeat; } */
+/* ligerui-form.css锟斤拷BIONE锟斤拷拥锟斤拷锟斤拷锟绞� */
+.l-star {float :left; color:Red;}
+.l-exclamation{ width:16px; height:16px; overflow:hidden; display:block; background:url('../ligerUI/Aqua/images/common/exclamation.gif') no-repeat;}
+.l-verify-tip-corner-left{ padding:0; margin:0;position:absolute;background:url('../ligerUI/Aqua/images/form/verify-corner-left.gif') no-repeat; width:8px; line-height:9px; height:9px; z-index:10001;overflow:hidden;top:5px;left:159px;}
+.l-verify-tip-content-left{margin:0; position:absolute; left:0px;top:0px;border:1px solid #FFC340; background:#FFFCC7; z-index:10000; padding:4px 8px; width:100px; font-size:12px; }
+#info{background-color: #fff;}
+/*新增*/
+.l-btn {border-radius:5px;background-color:#3c8dbc;color:#fff;}
+.l-grid-span{padding-left: 6px;}
+.l-grid-icon{font-size: 18px;}
+.l-menu-item .l-grid-icon{margin-left:10px;line-height:1.8em}
+.l-btn-hasicon{padding:0 10px}

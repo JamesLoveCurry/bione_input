@@ -1,0 +1,1239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b78e-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="tab_name_en">FSRS_RPT_LOAF</col>
+  <col name="volume"></col>
+  <col name="templetcode">FSRS_RPT_LOAF_CODE1</col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code">LOAF</col>
+  <col name="is_virtual">N</col>
+  <col name="detail_sql">INSERT INTO fsrs_result_standard(rid, reportdate, rulerid, ruletype, customercode, tablename, tablename_en, colname, colvalue, pkcolname, pkvalue, problemcode, problemmsg, result_status)
+SELECT t.rid, ?, r.rid, r.ruletype, d.cust_id, r.tablename, r.tablename_en, r.colname, t.colvalue, 'RID', t.pkvalue, r.problemcode, r.problemmsg, '未发布'
+FROM ${T_TABLE_NAME} t
+INNER JOIN fsrs_rule r ON r.id = t.id
+LEFT JOIN fsrs_rpt_loaf d ON d.rid = t.pkvalue</col>
+  <col name="is_common"></col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">ba5c10e9-5d5b-4cfc-b159-7d590996bf1e</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="tab_name_en">FSRS_RPT_LOAB</col>
+  <col name="volume"></col>
+  <col name="templetcode">FSRS_RPT_LOAB_CODE1</col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code">LOAB</col>
+  <col name="is_virtual">N</col>
+  <col name="detail_sql">INSERT INTO fsrs_result_standard(rid, reportdate, rulerid, ruletype, customercode, tablename, tablename_en, colname, colvalue, pkcolname, pkvalue, problemcode, problemmsg, result_status)
+SELECT t.rid, ?, r.rid, r.ruletype, d.cust_id, r.tablename, r.tablename_en, r.colname, t.colvalue, 'RID', t.pkvalue, r.problemcode, r.problemmsg, '未发布'
+FROM ${T_TABLE_NAME} t
+INNER JOIN fsrs_rule r ON r.id = t.id
+LEFT JOIN fsrs_rpt_loab d ON d.rid = t.pkvalue</col>
+  <col name="is_common"></col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">f3b4e74f-ec3a-4478-afea-7835de67f52b</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="tab_name_en">FSRS_RPT_DEPB</col>
+  <col name="volume"></col>
+  <col name="templetcode">FSRS_RPT_DEPB_CODE1</col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code">DEPB</col>
+  <col name="is_virtual">N</col>
+  <col name="detail_sql">INSERT INTO fsrs_result_standard(rid, reportdate, rulerid, ruletype, customercode, tablename, tablename_en, colname, colvalue, pkcolname, pkvalue, problemcode, problemmsg, result_status)
+SELECT t.rid, ?, r.rid, r.ruletype, d.cust_id, r.tablename, r.tablename_en, r.colname, t.colvalue, 'RID', t.pkvalue, r.problemcode, r.problemmsg, '未发布'
+FROM ${T_TABLE_NAME} t
+INNER JOIN fsrs_rule r ON r.id = t.id
+LEFT JOIN fsrs_rpt_depb d ON d.rid = t.pkvalue</col>
+  <col name="is_common"></col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b78f-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款实际投向</col>
+  <col name="tab_name_en">LOAN_REAL_IND_VIEW</col>
+  <col name="volume"></col>
+  <col name="templetcode"></col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code"></col>
+  <col name="is_virtual">Y</col>
+  <col name="detail_sql"></col>
+  <col name="is_common">Y</col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b790-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">存款产品类别</col>
+  <col name="tab_name_en">DSPT_PROD_TYPE_VIEW</col>
+  <col name="volume"></col>
+  <col name="templetcode"></col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code"></col>
+  <col name="is_virtual">Y</col>
+  <col name="detail_sql"></col>
+  <col name="is_common">Y</col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b791-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款产品类别</col>
+  <col name="tab_name_en">LOAN_PROD_TYPE_VIEW</col>
+  <col name="volume"></col>
+  <col name="templetcode"></col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code"></col>
+  <col name="is_virtual">Y</col>
+  <col name="detail_sql"></col>
+  <col name="is_common">Y</col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b792-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">企业出资人经济成分</col>
+  <col name="tab_name_en">INVEST_COND_VIEW</col>
+  <col name="volume"></col>
+  <col name="templetcode"></col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code"></col>
+  <col name="is_virtual">Y</col>
+  <col name="detail_sql"></col>
+  <col name="is_common">Y</col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b793-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款担保方式</col>
+  <col name="tab_name_en">LOAN_GUAR_TYPE_VIEW</col>
+  <col name="volume"></col>
+  <col name="templetcode"></col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code"></col>
+  <col name="is_virtual">Y</col>
+  <col name="detail_sql"></col>
+  <col name="is_common">Y</col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b794-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">行政区划表</col>
+  <col name="tab_name_en">RPT_STD_AREA_INFO</col>
+  <col name="volume"></col>
+  <col name="templetcode"></col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code"></col>
+  <col name="is_virtual">Y</col>
+  <col name="detail_sql"></col>
+  <col name="is_common">Y</col>
+</record>
+
+<record tabname="fsrs_cr_tab">
+  <col name="rid">14e9b795-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款主体行业类别</col>
+  <col name="tab_name_en">OBJ_IND_VIEW</col>
+  <col name="volume"></col>
+  <col name="templetcode"></col>
+  <col name="ds">frs_new</col>
+  <col name="col_org_no"></col>
+  <col name="col_dept_no"></col>
+  <col name="col_src_sys"></col>
+  <col name="col_dim1"></col>
+  <col name="col_dim2"></col>
+  <col name="col_dim3"></col>
+  <col name="col_data_dt"></col>
+  <col name="report_code"></col>
+  <col name="is_virtual">Y</col>
+  <col name="detail_sql"></col>
+  <col name="is_common">Y</col>
+</record>
+
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">6453de5c-00ce-448b-a459-cfa07763e24f</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">数据日期</col>
+  <col name="col_name_en">STAT_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">6f029bfd-3005-4d53-abbc-dbb354d3e69c</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">金融机构编码</col>
+  <col name="col_name_en">FIN_ORG_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">2</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">4ea20f3b-5827-4675-858b-e6db5e561d66</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">客户类型</col>
+  <col name="col_name_en">CUST_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">3</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">709e35d0-cc51-4e1d-ada6-f29cf89da127</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">借款人代码</col>
+  <col name="col_name_en">LOAN_OBJ_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">4</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">e1e31db0-ad29-468b-9629-d13e3ee631cd</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款主体行业类别</col>
+  <col name="col_name_en">LOAN_OBJ_IND_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">5</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">279bab6e-b3a5-418e-a66d-41130339719f</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">借款人登记注册地编码</col>
+  <col name="col_name_en">LOAN_REG_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">6</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">86ee73cb-71f7-4aac-978e-da345e02c819</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">企业出资人经济成分</col>
+  <col name="col_name_en">ENTER_INVEST_COND</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">7</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">047278ad-3cb2-4589-a2eb-c4b7cd91f739</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">企业规模</col>
+  <col name="col_name_en">ENTER_SCOPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">8</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">afe1b20d-9ee5-4060-9bc5-4f142913ebd5</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款借据编码</col>
+  <col name="col_name_en">DUE_BILL_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">9</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">e923346a-f9d4-4e39-aad0-dd58c719c40e</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">产品类别</col>
+  <col name="col_name_en">PROD_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">10</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">279ca1b7-ccad-4354-9169-b3c799b72b28</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款实际投向</col>
+  <col name="col_name_en">LOAN_REAL_IND_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">11</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">168850ed-ba53-4849-85e5-f10ac7fa480f</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款发放日期</col>
+  <col name="col_name_en">LOAN_ISS_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">12</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">fb2df83d-895a-45f2-a703-649d64cf7877</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款到期日期</col>
+  <col name="col_name_en">LOAN_DUE_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">13</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">3b9f79e6-6c65-44db-bda6-ef11f339354e</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款实际终止日期</col>
+  <col name="col_name_en">LOAN_ACTL_END_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">14</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">d4165231-91e0-4606-b761-a7c87d90595d</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款币种</col>
+  <col name="col_name_en">CURR_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">15</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">bc5e1d06-d60c-4ff4-9c80-622558a884b2</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款发生金额</col>
+  <col name="col_name_en">LOAN_AMT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">16</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">1cfdaf7a-7f53-4aaf-942e-6a4be4d317f4</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">利率是否固定</col>
+  <col name="col_name_en">RATE_FIX_SIGN</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">17</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">e278636a-dca7-49bf-9a47-239b504af97a</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">利率水平</col>
+  <col name="col_name_en">EXEC_RATE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">18</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">f3ee6906-174b-4d01-8510-a2b5ee9593d5</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款担保方式</col>
+  <col name="col_name_en">LOAN_GUAR_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">19</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">eb73381d-42d4-41fe-a6b4-cd112e3ee452</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款状态</col>
+  <col name="col_name_en">LOAN_STS_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">20</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">48e915da-8a06-4fab-8849-11917374f70f</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">贷款发放收回标志</col>
+  <col name="col_name_en">LOAN_RECV_SIGN</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">21</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">224d4f92-a55f-49d0-ac74-502c53ebda98</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">客户编号</col>
+  <col name="col_name_en">CUST_ID</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">22</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">a2f0c9cc-9408-46f4-8e55-3171ab11811d</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">账务机构编号</col>
+  <col name="col_name_en">ORG_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">23</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">4285b8fd-db8b-42d6-bf77-f2267c6b0040</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">科目编号</col>
+  <col name="col_name_en">SUBJECT_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">24</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">24ea4f03-5b58-4860-aa0c-92b3ebac10e3</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">数据日期</col>
+  <col name="col_name_en">STAT_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">931884cf-84cb-4ec9-8e4e-0cbdfad2e758</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">金融机构编码</col>
+  <col name="col_name_en">FIN_ORG_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">2</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">919c2476-12cb-47b1-8c7c-723e1ba32371</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">客户类型</col>
+  <col name="col_name_en">CUST_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">3</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">b7a3a1dc-6f87-4013-80eb-2e7c2a1d7d1b</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">借款人代码</col>
+  <col name="col_name_en">LOAN_OBJ_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">4</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">8d89d232-22f8-4dff-bd94-780ce4636d91</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款主体行业类别</col>
+  <col name="col_name_en">LOAN_OBJ_IND_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">5</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">dd0050b5-9dc6-48e9-afc4-c5c2ebbbbe8d</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">借款人登记注册地编码</col>
+  <col name="col_name_en">LOAN_REG_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">6</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">71925c4f-a6a1-48a4-9e48-ca11eec87159</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">企业出资人经济成分</col>
+  <col name="col_name_en">ENTER_INVEST_COND</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">7</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">d44ef207-5e9e-4c9c-bd7f-dc95d6619ec6</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">企业规模</col>
+  <col name="col_name_en">ENTER_SCOPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">8</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">9c69f8f6-139d-4c13-9a7e-8db96cdaff46</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款借据编码</col>
+  <col name="col_name_en">DUE_BILL_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">9</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">f64201ee-facc-4158-82be-a928e2e53a50</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">产品类别</col>
+  <col name="col_name_en">PROD_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">10</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">951a5497-5127-482c-b8a4-968e5765166e</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款实际投向</col>
+  <col name="col_name_en">LOAN_REAL_IND_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">11</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">334c4057-0b5f-408d-a3f0-69f118e89ad6</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款发放日期</col>
+  <col name="col_name_en">LOAN_ISS_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">12</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">88b406d3-ffff-4bdf-85fc-069373ad54f3</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款到期日期</col>
+  <col name="col_name_en">LOAN_DUE_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">13</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">9f4f99b3-fdca-43a0-9375-0550c187983b</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">展期到期日期</col>
+  <col name="col_name_en">LOAN_EXT_DUE_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">14</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">c4dd5a05-9b14-489a-b380-1ca1ec1cde04</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款币种</col>
+  <col name="col_name_en">CURR_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">15</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">2f83c317-3d3b-4b7e-8dfd-adbcc60fdab5</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款余额</col>
+  <col name="col_name_en">LOAN_BAL</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">16</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">f3fe0c73-7597-432f-8a8b-0abd725f3286</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">利率是否固定</col>
+  <col name="col_name_en">RATE_FIX_SIGN</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">17</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">971fd5c5-64e2-4d82-af8e-d6697885625a</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">利率水平</col>
+  <col name="col_name_en">EXEC_RATE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">18</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">d7c53872-42e4-4277-ba63-84bec33e65e8</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款担保方式</col>
+  <col name="col_name_en">LOAN_GUAR_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">19</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">721a887c-6194-456e-8569-6cd380bb05bc</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款质量</col>
+  <col name="col_name_en">LOAN_QTY_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">20</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">bf332c46-a3d5-407c-b5db-9a5ffa4240e8</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">贷款状态</col>
+  <col name="col_name_en">LOAN_STS_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">21</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">1f0e3424-d31b-4097-a03b-9ceb3c4446d6</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">客户编号</col>
+  <col name="col_name_en">CUST_ID</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">22</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">c2e9b789-1d71-4e04-b23b-4ee965172039</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">账务机构编号</col>
+  <col name="col_name_en">ORG_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">23</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">8896837d-68b8-4bf3-b00a-cb1d9b129c23</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">科目编号</col>
+  <col name="col_name_en">SUBJECT_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">24</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">7a24ec70-8a53-4872-ba55-0baccf0ac302</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">数据日期</col>
+  <col name="col_name_en">STAT_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">d2ec0965-e8b5-4143-b34a-29cfdb6f10d6</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">金融机构编码</col>
+  <col name="col_name_en">FIN_ORG_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">2</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">567a12cd-f55c-43ba-8548-c2c67bc6222f</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">客户类型</col>
+  <col name="col_name_en">CUST_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">3</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">e96563f4-40b3-4f5b-8012-5b63f04e3b2d</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">存款账户代码</col>
+  <col name="col_name_en">ACCT_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">4</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">6bb3d3c9-bc13-46e5-a321-2ab7f3e54657</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">存款协议代码</col>
+  <col name="col_name_en">AGMT_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">5</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">d07a16a6-ad51-4fe7-8daf-1c57334b4653</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">产品类别</col>
+  <col name="col_name_en">PROD_TYPE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">6</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">bb1bd569-e67b-4bf7-b3b8-03c2e1015fe9</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">存款协议起始日</col>
+  <col name="col_name_en">AGMT_START_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">7</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">d01c84bc-7180-4a6b-ad03-2f4b2cb7d0ae</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">存款协议到期日</col>
+  <col name="col_name_en">AGMT_DUE_DT</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">8</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">cb3e2dbc-1394-42ed-a081-6f58e3587bed</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">币种</col>
+  <col name="col_name_en">CURR_CD</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">9</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">49403508-254c-402c-9a20-8096c5ac790b</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">存款余额</col>
+  <col name="col_name_en">DPST_BAL</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">10</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">a8a0adf9-77ea-4659-be10-e2e34f8d17b8</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">利率是否固定</col>
+  <col name="col_name_en">RATE_FIX_SIGN</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">11</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">2b23beea-5ab8-4d13-a27d-b21a5bd7296b</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">利率水平</col>
+  <col name="col_name_en">EXEC_RATE</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">Y</col>
+  <col name="type_name"></col>
+  <col name="col_no">12</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">e9c9c013-8b4b-4b76-adf7-29f1b3e7ec7d</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">客户编号</col>
+  <col name="col_name_en">CUST_ID</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">13</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">3eeb36b6-972f-422e-b1a6-be6705cb6109</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">账务机构编号</col>
+  <col name="col_name_en">ORG_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">14</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">44dac482-9937-49a0-aef2-297e95c557b5</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">科目编号</col>
+  <col name="col_name_en">SUBJECT_NO</col>
+  <col name="is_pk">N</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">15</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">44dac483-9937-49a0-aef2-297e95c557b5</col>
+  <col name="tab_name">存款余额报文</col>
+  <col name="col_name">RID</col>
+  <col name="col_name_en">RID</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">16</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">44dac484-9937-49a0-aef2-297e95c557b5</col>
+  <col name="tab_name">贷款发生额报文</col>
+  <col name="col_name">RID</col>
+  <col name="col_name_en">RID</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">25</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">44dac485-9937-49a0-aef2-297e95c557b5</col>
+  <col name="tab_name">贷款余额报文</col>
+  <col name="col_name">RID</col>
+  <col name="col_name_en">RID</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">25</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">14e9b78f-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款实际投向</col>
+  <col name="col_name">贷款实际投向编码</col>
+  <col name="col_name_en">IND_CODE</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">14e9b790-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">存款产品类别</col>
+  <col name="col_name">存款产品类别编码</col>
+  <col name="col_name_en">PROD_TYPE_CODE</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">14e9b791-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款产品类别</col>
+  <col name="col_name">贷款产品类别编码</col>
+  <col name="col_name_en">PROD_TYPE_CODE</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">14e9b792-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">企业出资人经济成分</col>
+  <col name="col_name">企业出资人经济成分编码</col>
+  <col name="col_name_en">INVEST_COND_CODE</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">14e9b793-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款担保方式</col>
+  <col name="col_name">贷款担保方式编码</col>
+  <col name="col_name_en">LOAN_GUAR_TYPE_CODE</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">14e9b794-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">行政区划表</col>
+  <col name="col_name">行政区划代码</col>
+  <col name="col_name_en">AREA_CD</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+<record tabname="fsrs_cr_col">
+  <col name="rid">14e9b795-4079-4cc0-bc98-bdeddc160cda</col>
+  <col name="tab_name">贷款主体行业类别</col>
+  <col name="col_name">贷款主体行业类别编码</col>
+  <col name="col_name_en">OBJ_IND_CODE</col>
+  <col name="is_pk">Y</col>
+  <col name="filter_no"></col>
+  <col name="flow_no"></col>
+  <col name="is_export">N</col>
+  <col name="type_name"></col>
+  <col name="col_no">1</col>
+  <col name="display_config"></col>
+</record>
+
+
+</root>

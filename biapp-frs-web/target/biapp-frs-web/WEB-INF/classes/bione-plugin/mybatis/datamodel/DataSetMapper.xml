@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.bione.plugin.datamodel.repository.mybatis.RptDataSetDao">
+
+    
+   <select id="sameTableEnNameCheck" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  rpt_sys_module_info    
+		  where   SOURCE_ID  =#{dsId}
+		  and     TABLE_EN_NM  =#{tableEnName}  
+		  <if test="datasetId!=null">
+		     and     SET_ID !=#{datasetId}  
+		  </if>  
+	</select>
+	
+	<select id="getSearchStruct" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"    parameterType="java.util.Map">
+		SELECT 
+		    COL_ID,SET_ID               
+            ,CN_NM,EN_NM                
+            ,DB_TYPE,LEN                  
+            ,PRECISION2,ORDER_NUM            
+            ,IS_NULL,IS_USE               
+            ,IS_PK,IS_QUERY_COL         
+            ,QUERY_LOGIC,DIM_TYPE_NO          
+            ,COL_TYPE
+            ,MEASURE_NO 
+            from  RPT_SYS_MODULE_COL         
+		where   SET_ID =#{setId}  and  IS_QUERY_COL = #{isQueryCol}   order by ORDER_NUM asc
+	</select>
+    
+	<select id="getGridStruct" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"    parameterType="java.util.Map">
+		SELECT 
+		    COL_ID,SET_ID               
+            ,CN_NM,EN_NM                
+            ,DB_TYPE,LEN                  
+            ,PRECISION2,ORDER_NUM            
+            ,IS_NULL,IS_USE               
+            ,IS_PK,IS_QUERY_COL         
+            ,QUERY_LOGIC,DIM_TYPE_NO          
+            ,COL_TYPE
+            ,MEASURE_NO 
+            from  RPT_SYS_MODULE_COL         
+		where   SET_ID =#{setId}  and  IS_USE = #{isUse}   order by ORDER_NUM asc
+	</select>
+	
+	<select id="getCatalogListByUpId" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog"    parameterType="string">
+		SELECT 
+		    CATALOG_ID,UP_ID               
+            ,CATALOG_NM,CATALOG_DESC                
+            from  RPT_SYS_MODULE_CATALOG         
+		where   UP_ID =#{upId}  
+	</select>
+	
+	<select id="catalogNameCanUse" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog"    parameterType="java.util.Map">
+		SELECT 
+		    CATALOG_ID,UP_ID               
+            ,CATALOG_NM,CATALOG_DESC                
+            from  RPT_SYS_MODULE_CATALOG         
+		where   UP_ID =#{upId}  and  CATALOG_NM=#{catalogNm}  
+		<if test="catalogId != null"> and  CATALOG_ID != #{catalogId}</if>
+	</select>
+	
+	<select id="datasetNameCanUse" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo"    parameterType="java.util.Map">
+		 SELECT SET_ID ,CATALOG_ID
+        ,SOURCE_ID,SET_NM,TABLE_EN_NM,REMARK,SET_TYPE   FROM
+        RPT_SYS_MODULE_INFO
+		where     SET_NM=#{setNm}  and  CATALOG_ID = #{catalogId}
+		<if test="setId != null"> and  SET_ID != #{setId}</if>
+	</select>
+	
+	<select id="getCatalogInfo" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog"    parameterType="string">
+		SELECT 
+		    CATALOG_ID,UP_ID               
+            ,CATALOG_NM,CATALOG_DESC                
+            from  RPT_SYS_MODULE_CATALOG         
+		where   CATALOG_ID =#{catalogId}  
+	</select>
+	
+	<select id="getAllCatalogs" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog">
+		SELECT 
+		    CATALOG_ID,UP_ID               
+            ,CATALOG_NM,CATALOG_DESC                
+            from  RPT_SYS_MODULE_CATALOG         
+	</select>
+	
+	<select id="findDataSourceById" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo"    parameterType="string">
+		SELECT 
+		    DS_ID,LOGIC_SYS_NO               
+            ,DRIVER_ID,DS_NAME                
+            ,CONN_URL,CONN_USER                
+            ,CONN_PWD,REMARK                
+            from  BIONE_DS_INFO         
+		where   DS_ID =#{id}  
+	</select>
+	
+	<select id="getDataSources" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo"    parameterType="string">
+		SELECT 
+		    DS_ID,LOGIC_SYS_NO               
+            ,DRIVER_ID,DS_NAME                
+            ,CONN_URL,CONN_USER                
+            ,CONN_PWD,REMARK                
+            from  BIONE_DS_INFO         
+		where   LOGIC_SYS_NO =#{id}  
+	</select>
+	
+	<select id="getAllMeasures" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureInfo" parameterType="java.util.Map">
+		SELECT 
+		    MEASURE_NO           ,
+            MEASURE_NM           ,
+            REMARK               ,
+            CALC_FORMULA         ,
+            MEASURE_TYPE               
+            from  RPT_IDX_MEASURE_INFO 
+            where  1=1 
+            <if  test="measureType!=null">
+                 and       MEASURE_TYPE  =  #{measureType}
+            </if>        
+	</select>
+	
+	<insert id="saveCatalog" parameterType = "com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog">
+        insert into RPT_SYS_MODULE_CATALOG
+        (
+              CATALOG_ID,UP_ID               
+            ,CATALOG_NM,CATALOG_DESC 
+        ) values (
+              #{catalogId},
+              #{upId},
+              #{catalogNm},
+              #{catalogDesc}
+        )
+    </insert>
+    
+	<insert id="saveModuleInfo" parameterType = "com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo">
+        insert into RPT_SYS_MODULE_INFO
+        (
+            SET_ID ,CATALOG_ID,
+            SOURCE_ID,SET_NM,
+            TABLE_EN_NM,REMARK,
+            SET_TYPE,SRC_DATA_FILTER_COND,
+            BUSI_TYPE,DISPLAY_TABLE_NAME,
+            IS_SPLIT,PARENT_SET_ID,
+            SYSTEM_NO
+        ) values (
+              #{setId},#{catalogId},
+              #{sourceId},#{setNm},
+              #{tableEnNm}, #{remark},
+              #{setType},#{srcDataFilterCond},
+              #{busiType},#{displayTableName},
+              #{isSplit},#{parentSetId},
+              #{systemNo}
+        )
+    </insert>
+    
+	<insert id="saveModuleCol" parameterType = "com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol">
+        insert into RPT_SYS_MODULE_COL
+        (
+            COL_ID        ,
+            SET_ID        ,
+            CN_NM         ,
+            EN_NM         ,
+            DB_TYPE       ,
+            LEN           ,
+            PRECISION2     ,
+            ORDER_NUM     ,
+            IS_NULL       ,
+            IS_USE        ,
+            IS_PK         ,
+            IS_QUERY_COL  ,
+            QUERY_LOGIC   ,
+            DIM_TYPE_NO   ,
+            COL_TYPE      ,
+            MEASURE_NO
+        ) values (
+              #{colId},
+              #{setId},
+              #{cnNm},
+              #{enNm},
+              #{dbType},
+              #{len},
+              #{precision2},
+              #{orderNum},
+              #{isNull},
+              #{isUse},
+              #{isPk},
+              #{isQueryCol},
+              #{queryLogic},
+              #{dimTypeNo},
+              #{colType},
+              #{measureNo}
+        )
+    </insert>
+    
+    
+	<update id="updateModuleCol" parameterType = "com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol">
+        update RPT_SYS_MODULE_COL t
+        <set>
+			<if test="setId != null">t.SET_ID=#{setId},</if>
+			<if test="cnNm != null">t.CN_NM=#{cnNm},</if>
+			<if test="enNm != null">t.EN_NM=#{enNm},</if>
+			<if test="dbType != null">t.DB_TYPE=#{dbType},</if>
+			<if test="len != null">t.LEN=#{len},</if>
+			<if test="precision2 != null">t.PRECISION2=#{precision2},</if>
+			<if test="orderNum != null">t.ORDER_NUM=#{orderNum},</if>
+			<if test="isNull != null">t.IS_NULL=#{isNull},</if>
+			<if test="isUse != null">t.IS_USE=#{isUse},</if>
+			<if test="isPk != null">t.IS_PK=#{isPk},</if>
+			<if test="isQueryCol != null">t.IS_QUERY_COL=#{isQueryCol},</if>
+			<if test="queryLogic != null">t.QUERY_LOGIC=#{queryLogic},</if>
+			<if test="dimTypeNo != null">t.DIM_TYPE_NO=#{dimTypeNo},</if>
+			<if test="colType != null">t.COL_TYPE=#{colType},</if>
+			<if test="measureNo != null">t.MEASURE_NO=#{measureNo}</if>
+        </set>    
+        where   t.COL_ID=#{colId}
+    </update>
+    
+    <update id="updateCatalog" parameterType = "com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog">
+        update RPT_SYS_MODULE_CATALOG  set 
+            CATALOG_NM = #{catalogNm},
+            CATALOG_DESC =  #{catalogDesc}
+        where CATALOG_ID = #{catalogId}
+    </update>
+    
+    <update id="updateModuleInfo" parameterType = "com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo">
+        update RPT_SYS_MODULE_INFO  set 
+            CATALOG_ID = #{catalogId},
+            SOURCE_ID =  #{sourceId},
+            SET_NM =  #{setNm},
+            TABLE_EN_NM =  #{tableEnNm},
+            REMARK =  #{remark} ,SET_TYPE = #{setType},SRC_DATA_FILTER_COND = #{srcDataFilterCond}
+        where SET_ID = #{setId}
+    </update>
+    
+    <select id="getModuleInfoListByCatalogIds" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo"   parameterType="java.util.List">
+        SELECT SET_ID ,CATALOG_ID
+        ,SOURCE_ID,SET_NM,TABLE_EN_NM,REMARK,SET_TYPE   FROM
+        RPT_SYS_MODULE_INFO    
+        where   CATALOG_ID in
+        <foreach collection="list" item="item" open="(" separator=","
+                close=")">
+                #{item}
+        </foreach>
+    </select>
+    
+    <select id="getDataSetNamesByParams" resultType="java.lang.String"   parameterType="java.util.Map">
+        SELECT distinct SET_NM
+        FROM
+        RPT_SYS_MODULE_INFO    
+        where   SET_ID in
+        <foreach collection="dsIdList" item="item" open="(" separator=","
+                close=")">
+                #{item}
+        </foreach>
+    </select>
+    
+    <select id="findModuleColsByParams" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"   parameterType="java.util.Map">
+        SELECT 
+            COL_ID        ,
+            SET_ID        ,
+            CN_NM         ,
+            EN_NM         ,
+            DB_TYPE       ,
+            LEN           ,
+            PRECISION2     ,
+            ORDER_NUM     ,
+            IS_NULL       ,
+            IS_USE        ,
+            IS_PK         ,
+            IS_QUERY_COL  ,
+            QUERY_LOGIC   ,
+            DIM_TYPE_NO   ,
+            COL_TYPE      
+            ,MEASURE_NO
+        from   RPT_SYS_MODULE_COL  
+        where   SET_ID  =#{setId}
+        and    EN_NM  in
+        <foreach collection="list" item="item" open="(" separator=","
+                close=")">
+                #{item}
+        </foreach>
+    </select>
+    
+    <select id="findModuleColsByColTypeAndSetId" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"   parameterType="java.util.Map">
+        SELECT 
+            COL_ID        ,
+            SET_ID        ,
+            CN_NM         ,
+            EN_NM         ,
+            DB_TYPE       ,
+            LEN           ,
+            PRECISION2     ,
+            ORDER_NUM     ,
+            IS_NULL       ,
+            IS_USE        ,
+            IS_PK         ,
+            IS_QUERY_COL  ,
+            QUERY_LOGIC   ,
+            DIM_TYPE_NO   ,
+            COL_TYPE      
+            ,MEASURE_NO
+        from   RPT_SYS_MODULE_COL  
+        where   SET_ID  =#{setId}
+        and    COL_TYPE=#{colType}
+    </select>
+    
+    <select id="findModuleColsByColTypeAndSetIds" resultType="com.yusys.bione.plugin.datamodel.vo.RptSysColVO"   parameterType="java.util.Map">
+        SELECT 
+            col.COL_ID,
+            col.SET_ID,
+            col.CN_NM,
+            col.EN_NM,
+            col.DB_TYPE,
+            col.LEN,
+            col.PRECISION2,
+            col.ORDER_NUM,
+            col.IS_NULL,
+            col.IS_USE,
+            col.IS_PK,
+            col.IS_QUERY_COL,
+            col.QUERY_LOGIC,
+            col.DIM_TYPE_NO,
+            col.COL_TYPE,
+            col.MEASURE_NO,
+            info.SET_NM
+        from   RPT_SYS_MODULE_INFO info,RPT_SYS_MODULE_COL col
+        WHERE   1=1 and
+        info.SET_ID=col.SET_ID
+        and info.SET_ID  in  
+        <foreach collection="setIds" item="setId" open="(" separator=","
+                close=")">
+                #{setId}
+        </foreach>
+        and    col.COL_TYPE=#{colType}
+    </select>
+    
+    <select id="getModulesInfosByParams" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo"  parameterType="HashMap">
+        SELECT SET_ID ,CATALOG_ID
+        ,SOURCE_ID,SET_NM,TABLE_EN_NM,REMARK,SET_TYPE   FROM
+        RPT_SYS_MODULE_INFO 
+        WHERE 1=1
+         <if test="catalogIds!=null"> 
+          and 
+        CATALOG_ID in
+	         <foreach collection="catalogIds" item="catalogId" open="(" separator=","
+	                close=")">
+	                #{catalogId}
+	        </foreach>
+        </if>
+        order by RANK_ORDER asc
+    </select>
+    
+    
+    <select id="getModulesInfosWithCondition" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo" parameterType="java.util.Map">
+        SELECT SET_ID ,CATALOG_ID
+        ,SOURCE_ID,SET_NM,TABLE_EN_NM,REMARK,SET_TYPE   FROM
+        RPT_SYS_MODULE_INFO
+        where  1=1  
+        <if test="setNm!=null"> 
+              and    SET_NM  like   #{setNm} 
+        </if>
+        <if test="setType!=null"> 
+             and     SET_TYPE  =#{setType} 
+        </if>
+        order by  SET_ID  asc
+    </select>
+    
+    <select id="findModuleInfoById" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo"  parameterType="string">
+        SELECT SET_ID ,CATALOG_ID
+        ,SOURCE_ID,SET_NM,TABLE_EN_NM,REMARK,SET_TYPE,SRC_DATA_FILTER_COND   FROM
+        RPT_SYS_MODULE_INFO
+        where   SET_ID= #{id}
+    </select>
+    
+    <select id="getDataSetsByParams" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo"  parameterType="java.util.Map">
+        SELECT SET_ID ,CATALOG_ID
+        ,SOURCE_ID,SET_NM,TABLE_EN_NM,REMARK,SET_TYPE   FROM
+        RPT_SYS_MODULE_INFO
+        where 1=1 
+        <if test="sourceId!=null">
+           and SOURCE_ID =#{sourceId}
+        </if>   
+    </select>
+    
+    
+    <delete id="batchDelCatalog" parameterType="java.util.List">
+             delete from RPT_SYS_MODULE_CATALOG where CATALOG_ID   in
+             <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}               
+             </foreach> 
+    </delete>
+    
+    <delete id="batchDelModuleColByColIds" parameterType="java.util.Map">
+             delete from RPT_SYS_MODULE_COL where COL_ID   in
+             <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}               
+             </foreach> 
+    </delete>
+    
+    
+    <delete id="batchDelModuleCols" parameterType="java.util.List">
+             delete from RPT_SYS_MODULE_COL where SET_ID   in
+             <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}               
+             </foreach> 
+    </delete>
+    
+    <delete id="batchDelModuleInfos" parameterType="java.util.List">
+             delete from RPT_SYS_MODULE_INFO where SET_ID   in
+             <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}               
+             </foreach> 
+    </delete>
+    
+    <delete id="batchDelModuleColBySetId" parameterType="string">
+             delete  from  RPT_SYS_MODULE_COL  where SET_ID   =#{id}
+    </delete>
+	
+    <select id="getDatacolsOfDataset" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"  parameterType="string">
+        SELECT 
+            t.COL_ID        ,
+            t.SET_ID        ,
+            t.CN_NM         ,
+            t.EN_NM         ,
+            t.DB_TYPE       ,
+            t.LEN           ,
+            t.PRECISION2     ,
+            t.ORDER_NUM     ,
+            t.IS_NULL       ,
+            t.IS_USE        ,
+            t.IS_PK         ,
+            t.IS_QUERY_COL  ,
+            t.QUERY_LOGIC   ,
+            t.DIM_TYPE_NO   ,
+            t.COL_TYPE      
+            ,t.MEASURE_NO
+        from   RPT_SYS_MODULE_COL t
+        where     t.SET_ID = #{id}   order by  t.ORDER_NUM   asc
+    </select>
+	
+    <select id="getDatacolsByParams" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"  parameterType="HashMap">
+        SELECT 
+            COL_ID        ,
+            SET_ID        ,
+            CN_NM         ,
+            EN_NM         ,
+            DB_TYPE       ,
+            LEN           ,
+            PRECISION2     ,
+            ORDER_NUM     ,
+            IS_NULL       ,
+            IS_USE        ,
+            IS_PK         ,
+            IS_QUERY_COL  ,
+            QUERY_LOGIC   ,
+            DIM_TYPE_NO   ,
+            COL_TYPE      
+            ,MEASURE_NO
+        from   RPT_SYS_MODULE_COL
+    </select>
+    
+    <select id="findDriverInfoById"   resultType="com.yusys.bione.frame.mtool.entity.BioneDriverInfo"   parameterType="string">
+           SELECT 
+            DRIVER_ID           ,
+            DRIVER_NAME         ,
+            DRIVER_TYPE          ,
+            CONN_URL       
+        from   BIONE_DRIVER_INFO
+        where     DRIVER_ID = #{id} 
+    </select>
+    
+    <!--edit by wangyaopeng -->   
+    <select id="getInfoByName" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo" parameterType="HashMap">
+    select a.* from RPT_SYS_MODULE_INFO a where a.SET_NM=#{SET_NM} and a.SOURCE_ID=#{SOURCE_ID}
+    </select>
+    
+    <!-- 导出 -->
+    <select id="getCatalogById" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog"
+	parameterType="HashMap"> 
+	select CATALOG_ID,CATALOG_DESC,CATALOG_NM,UP_ID
+ from 
+	RPT_SYS_MODULE_CATALOG 
+	 where 1=1 
+	 <if test="catalogId != null">
+		 and CATALOG_ID = #{catalogId}</if>
+	 <if test="catalogDesc != null">
+		 and CATALOG_DESC = #{catalogDesc}</if>
+	 <if test="catalogNm != null">
+		 and CATALOG_NM = #{catalogNm}</if>
+	 <if test="upId != null">
+		 and UP_ID = #{upId}</if>
+</select>
+<select id="getRelatedCountByDatasetId" resultType="java.lang.Integer"     parameterType="java.util.Map">
+         select   t1.count_+t2.count_+t3.count_+t4.count_+t5.count_ from   
+         (
+             select  count(*) as  count_ from  rpt_Idx_dim_rel where    ds_id  in
+                  <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+		                   #{item}	             
+			      </foreach>  
+         )t1,(
+             select  count(*)  as  count_  from  rpt_Idx_measure_rel where    ds_id in
+                   <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+		                   #{item}	             
+			       </foreach>  
+         )t2,(
+             select  count(*)  as  count_  from  rpt_mgr_module_rel where    SET_ID in
+                   <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                   </foreach>  
+             
+         )t3,(
+             select  count(*)  as  count_  from  rpt_mgr_module_idx_rel where    SET_ID in
+                   <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                   </foreach>  
+         )t4,(
+             select  count(*)  as  count_  from  rpt_mgr_idx_filter where    SET_ID in
+                   <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                   </foreach>  
+         )t5
+</select>
+<select id="getExportModelInfo" resultType="com.yusys.bione.plugin.wizard.web.vo.DataSetImportVO"
+	parameterType="HashMap"> 
+	SELECT
+    info.SET_ID,
+    info.CATALOG_ID,
+    info.remark,
+    info.SET_NM,
+    info.SOURCE_ID,
+    info.TABLE_EN_NM,
+    info.SET_TYPE,
+    info.BUSI_TYPE,
+    col.CN_NM,
+    col.COL_TYPE,
+    col.DB_TYPE,
+    dim.DIM_TYPE_Nm AS "dimTypeNo",
+    col.EN_NM,
+    col.IS_NULL,
+    col.IS_PK,
+    col.IS_QUERY_COL,
+    col.IS_USE,
+    col.LEN,
+    col.MEASURE_NO,
+    col.ORDER_NUM,
+    col.PRECISION2,
+    col.QUERY_LOGIC,
+    measures.MEASURE_NM
+FROM
+    RPT_SYS_MODULE_COL col
+    left join
+    RPT_SYS_MODULE_INFO info
+    on info.SET_ID = col.SET_ID
+LEFT JOIN
+    Rpt_dim_type_info dim
+ON
+    dim.dim_type_no = col.dim_type_no
+left join
+    RPT_IDX_MEASURE_INFO measures
+on col.MEASURE_NO = measures.MEASURE_NO
+    where 1=1
+	 <if test="dimTypeName != null">
+		 and col.dimTypeName = #{dimTypeName}</if>
+	 <if test="tableEnNm != null">
+		 and info.TABLE_EN_NM = #{tableEnNm}</if>
+	 <if test="colType != null">
+		 and col.COL_TYPE = #{colType}</if>
+	 <if test="dbType != null">
+		 and col.DB_TYPE = #{dbType}</if>
+	 <if test="orderNum != null">
+		 and col.ORDER_NUM = #{orderNum}</if>
+	 <if test="isQueryCol != null">
+		 and col.IS_QUERY_COL = #{isQueryCol}</if>
+	 <if test="sourceId != null">
+		 and info.SOURCE_ID = #{sourceId}</if>
+	 <if test="remark != null">
+		 and info.remark = #{remark}</if>
+	 <if test="isNull != null">
+		 and col.IS_NULL = #{isNull}</if>
+	 <if test="colId != null">
+		 and col.COL_ID = #{colId}</if>
+	 <if test="cnNm != null">
+		 and col.CN_NM = #{cnNm}</if>
+	 <if test="PRECISION2 != null">
+		 and col.PRECISION2 = #{PRECISION2}</if>
+	 <if test="queryLogic != null">
+		 and col.QUERY_LOGIC = #{queryLogic}</if>
+	 <if test="isPk != null">
+		 and col.IS_PK = #{isPk}</if>
+	 <if test="catalogId != null">
+		 and info.CATALOG_ID = #{catalogId}</if>
+	 <if test="setNm != null">
+		 and info.SET_NM = #{setNm}</if>
+	 <if test="setType != null">
+		 and info.SET_TYPE = #{setType}</if>
+	 <if test="srcSysCode != null">
+		 and info.SRC_SYS_CODE = #{srcSysCode}</if>
+	 <if test="len != null">
+		 and col.LEN = #{len}</if>
+	 <if test="enNm != null">
+		 and col.EN_NM = #{enNm}</if>
+	 <if test="measureNo != null">
+		 and col.MEASURE_NO = #{measureNo}</if>
+	 <if test="isUse != null">
+		 and col.IS_USE = #{isUse}</if>
+	 <if test="dimTypeNo != null">
+		 and col.DIM_TYPE_NO = #{dimTypeNo}</if>
+	 <if test="setIds != null">
+		 and info.SET_ID in
+		 <foreach collection="setIds" item="id" open="("
+				separator="," close=")">
+		 	#{id}
+		 </foreach>
+	</if>
+	 <if test="setTypes != null">
+		 and info.SET_TYPE in 
+		  <foreach collection="setTypes" item="id" open="("
+				separator="," close=")">
+		 	#{id}
+		 </foreach>
+	</if>
+	 <if test="measureName != null">
+		 and col.measureName = #{measureName}</if>
+		 order by info.Set_nm,col.cn_nm
+</select>
+
+   <!-- 删除数据模型信息表 -->
+	<delete id="deleteModuleInfo" parameterType="HashMap">
+		<if test="list != null">
+			delete from RPT_SYS_MODULE_INFO
+			where 1=1
+			and
+			<foreach collection="list" index="list" item="list" open="("
+				separator=" or " close=")">
+				(set_id = #{list.setId})
+			</foreach>
+		</if>
+	</delete>
+
+
+<!-- 删除数据模型字段信息表  先删除 -->
+	<delete id="deleteModuleCol" parameterType="HashMap">
+		<if test="list != null">
+			delete from RPT_SYS_MODULE_COL
+			where 1=1
+			and SET_ID in (select set_id
+			from RPT_SYS_MODULE_INFO where 1=1 and
+			<foreach collection="list" index="list" item="list" open="("
+				separator=" or " close=")">
+				(set_id = #{list.setId})
+			</foreach>
+			)
+		</if>
+	</delete>
+<select id="getModuleInfo"  resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo"
+	parameterType="HashMap">
+	select * from RPT_SYS_MODULE_INFO
+	where 1=1
+	<if test="sourceId != null"> and source_Id = #{sourceId}</if>
+</select>
+    
+</mapper> 

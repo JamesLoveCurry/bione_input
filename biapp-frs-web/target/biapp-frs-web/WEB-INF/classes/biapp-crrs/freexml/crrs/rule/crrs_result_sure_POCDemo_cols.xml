@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>所有字段</templetname>
+		<ishavebillquery>N</ishavebillquery>
+		<list_ispagebar>N</list_ispagebar>
+	</templet>
+
+	<templet_item>
+		<itemkey>colname</itemkey>
+		<itemname>字段名</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>colname_cn</itemkey>
+		<itemname>字段中文名</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>colvalue</itemkey>
+		<itemname>字段值</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+	
+</root>

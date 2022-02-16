@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<table name="act_evt_log" pkname="log_nr_" descr="ACT_EVT_LOG">
+<columns>
+  <col name="log_nr_"			type="decimal"   length="19"   descr="log_nr_"/>
+  <col name="type_"			type="nvarchar2"   length="64"   descr="type_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="time_stamp_"			type="timestamp"   length="6"   descr="time_stamp_"/>
+  <col name="user_id_"			type="nvarchar2"   length="255"   descr="user_id_"/>
+  <col name="data_"			type="blob"   length="-1"   descr="data_"/>
+  <col name="lock_owner_"			type="nvarchar2"   length="255"   descr="lock_owner_"/>
+  <col name="lock_time_"			type="timestamp"   length="6"   descr="lock_time_"/>
+  <col name="is_processed_"			type="decimal"   length="3"   descr="is_processed_"/>
+</columns>
+</table>
+
+<table name="act_ge_bytearray" pkname="id_" descr="ACT_GE_BYTEARRAY">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="deployment_id_"			type="nvarchar2"   length="64"   descr="deployment_id_"/>
+  <col name="bytes_"			type="blob"   length="-1"   descr="bytes_"/>
+  <col name="generated_"			type="decimal"   length="1"   descr="generated_"/>
+</columns>
+</table>
+
+<table name="act_ge_property" pkname="name_" descr="ACT_GE_PROPERTY">
+<columns>
+  <col name="name_"			type="nvarchar2"   length="64"   descr="name_"/>
+  <col name="value_"			type="nvarchar2"   length="300"   descr="value_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+</columns>
+</table>
+
+<table name="act_hi_actinst" pkname="id_" descr="ACT_HI_ACTINST">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="act_id_"			type="nvarchar2"   length="255"   descr="act_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="call_proc_inst_id_"			type="nvarchar2"   length="64"   descr="call_proc_inst_id_"/>
+  <col name="act_name_"			type="nvarchar2"   length="255"   descr="act_name_"/>
+  <col name="act_type_"			type="nvarchar2"   length="255"   descr="act_type_"/>
+  <col name="assignee_"			type="nvarchar2"   length="255"   descr="assignee_"/>
+  <col name="start_time_"			type="timestamp"   length="6"   descr="start_time_"/>
+  <col name="end_time_"			type="timestamp"   length="6"   descr="end_time_"/>
+  <col name="duration_"			type="decimal"   length="19"   descr="duration_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+</columns>
+</table>
+
+<table name="act_hi_attachment" pkname="id_" descr="ACT_HI_ATTACHMENT">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="user_id_"			type="nvarchar2"   length="255"   descr="user_id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="description_"			type="nvarchar2"   length="2000"   descr="description_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="url_"			type="nvarchar2"   length="2000"   descr="url_"/>
+  <col name="content_id_"			type="nvarchar2"   length="64"   descr="content_id_"/>
+  <col name="time_"			type="timestamp"   length="6"   descr="time_"/>
+</columns>
+</table>
+
+<table name="act_hi_comment" pkname="id_" descr="ACT_HI_COMMENT">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+  <col name="time_"			type="timestamp"   length="6"   descr="time_"/>
+  <col name="user_id_"			type="nvarchar2"   length="255"   descr="user_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="action_"			type="nvarchar2"   length="255"   descr="action_"/>
+  <col name="message_"			type="nvarchar2"   length="2000"   descr="message_"/>
+  <col name="full_msg_"			type="blob"   length="-1"   descr="full_msg_"/>
+</columns>
+</table>
+
+<table name="act_hi_detail" pkname="id_" descr="ACT_HI_DETAIL">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="act_inst_id_"			type="nvarchar2"   length="64"   descr="act_inst_id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="var_type_"			type="nvarchar2"   length="64"   descr="var_type_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="time_"			type="timestamp"   length="6"   descr="time_"/>
+  <col name="bytearray_id_"			type="nvarchar2"   length="64"   descr="bytearray_id_"/>
+  <col name="double_"			type="decimal"   length="10,10"   descr="double_"/>
+  <col name="long_"			type="decimal"   length="19"   descr="long_"/>
+  <col name="text_"			type="nvarchar2"   length="2000"   descr="text_"/>
+  <col name="text2_"			type="nvarchar2"   length="2000"   descr="text2_"/>
+</columns>
+</table>
+
+<table name="act_hi_identitylink" pkname="id_" descr="ACT_HI_IDENTITYLINK">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="group_id_"			type="nvarchar2"   length="255"   descr="group_id_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+  <col name="user_id_"			type="nvarchar2"   length="255"   descr="user_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+</columns>
+</table>
+
+<table name="act_hi_procinst" pkname="id_" descr="ACT_HI_PROCINST">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="business_key_"			type="nvarchar2"   length="255"   descr="business_key_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="start_time_"			type="timestamp"   length="6"   descr="start_time_"/>
+  <col name="end_time_"			type="timestamp"   length="6"   descr="end_time_"/>
+  <col name="duration_"			type="decimal"   length="19"   descr="duration_"/>
+  <col name="start_user_id_"			type="nvarchar2"   length="255"   descr="start_user_id_"/>
+  <col name="start_act_id_"			type="nvarchar2"   length="255"   descr="start_act_id_"/>
+  <col name="end_act_id_"			type="nvarchar2"   length="255"   descr="end_act_id_"/>
+  <col name="super_process_instance_id_"			type="nvarchar2"   length="64"   descr="super_process_instance_id_"/>
+  <col name="delete_reason_"			type="nvarchar2"   length="2000"   descr="delete_reason_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+</columns>
+</table>
+
+<table name="act_hi_taskinst" pkname="id_" descr="ACT_HI_TASKINST">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="task_def_key_"			type="nvarchar2"   length="255"   descr="task_def_key_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="parent_task_id_"			type="nvarchar2"   length="64"   descr="parent_task_id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="description_"			type="nvarchar2"   length="2000"   descr="description_"/>
+  <col name="owner_"			type="nvarchar2"   length="255"   descr="owner_"/>
+  <col name="assignee_"			type="nvarchar2"   length="255"   descr="assignee_"/>
+  <col name="start_time_"			type="timestamp"   length="6"   descr="start_time_"/>
+  <col name="claim_time_"			type="timestamp"   length="6"   descr="claim_time_"/>
+  <col name="end_time_"			type="timestamp"   length="6"   descr="end_time_"/>
+  <col name="duration_"			type="decimal"   length="19"   descr="duration_"/>
+  <col name="delete_reason_"			type="nvarchar2"   length="2000"   descr="delete_reason_"/>
+  <col name="priority_"			type="decimal"   length="38"   descr="priority_"/>
+  <col name="due_date_"			type="timestamp"   length="6"   descr="due_date_"/>
+  <col name="form_key_"			type="nvarchar2"   length="255"   descr="form_key_"/>
+  <col name="category_"			type="nvarchar2"   length="255"   descr="category_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+</columns>
+</table>
+
+<table name="act_hi_varinst" pkname="id_" descr="ACT_HI_VARINST">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="var_type_"			type="nvarchar2"   length="100"   descr="var_type_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="bytearray_id_"			type="nvarchar2"   length="64"   descr="bytearray_id_"/>
+  <col name="double_"			type="decimal"   length="10,10"   descr="double_"/>
+  <col name="long_"			type="decimal"   length="19"   descr="long_"/>
+  <col name="text_"			type="nvarchar2"   length="2000"   descr="text_"/>
+  <col name="text2_"			type="nvarchar2"   length="2000"   descr="text2_"/>
+  <col name="create_time_"			type="timestamp"   length="6"   descr="create_time_"/>
+  <col name="last_updated_time_"			type="timestamp"   length="6"   descr="last_updated_time_"/>
+</columns>
+</table>
+
+<table name="act_id_group" pkname="id_" descr="ACT_ID_GROUP">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+</columns>
+</table>
+
+<table name="act_id_info" pkname="id_" descr="ACT_ID_INFO">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="user_id_"			type="nvarchar2"   length="64"   descr="user_id_"/>
+  <col name="type_"			type="nvarchar2"   length="64"   descr="type_"/>
+  <col name="key_"			type="nvarchar2"   length="255"   descr="key_"/>
+  <col name="value_"			type="nvarchar2"   length="255"   descr="value_"/>
+  <col name="password_"			type="blob"   length="-1"   descr="password_"/>
+  <col name="parent_id_"			type="nvarchar2"   length="255"   descr="parent_id_"/>
+</columns>
+</table>
+
+<table name="act_id_membership" pkname="group_id_,user_id_" descr="ACT_ID_MEMBERSHIP">
+<columns>
+  <col name="user_id_"			type="nvarchar2"   length="64"   descr="user_id_"/>
+  <col name="group_id_"			type="nvarchar2"   length="64"   descr="group_id_"/>
+</columns>
+</table>
+
+<table name="act_id_user" pkname="id_" descr="ACT_ID_USER">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="first_"			type="nvarchar2"   length="255"   descr="first_"/>
+  <col name="last_"			type="nvarchar2"   length="255"   descr="last_"/>
+  <col name="email_"			type="nvarchar2"   length="255"   descr="email_"/>
+  <col name="pwd_"			type="nvarchar2"   length="255"   descr="pwd_"/>
+  <col name="picture_id_"			type="nvarchar2"   length="64"   descr="picture_id_"/>
+</columns>
+</table>
+
+<table name="act_procdef_info" pkname="id_" descr="ACT_PROCDEF_INFO">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="info_json_id_"			type="nvarchar2"   length="64"   descr="info_json_id_"/>
+</columns>
+</table>
+
+<table name="act_re_deployment" pkname="id_" descr="ACT_RE_DEPLOYMENT">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="category_"			type="nvarchar2"   length="255"   descr="category_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+  <col name="deploy_time_"			type="timestamp"   length="6"   descr="deploy_time_"/>
+</columns>
+</table>
+
+<table name="act_re_model" pkname="id_" descr="ACT_RE_MODEL">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="key_"			type="nvarchar2"   length="255"   descr="key_"/>
+  <col name="category_"			type="nvarchar2"   length="255"   descr="category_"/>
+  <col name="create_time_"			type="timestamp"   length="6"   descr="create_time_"/>
+  <col name="last_update_time_"			type="timestamp"   length="6"   descr="last_update_time_"/>
+  <col name="version_"			type="decimal"   length="38"   descr="version_"/>
+  <col name="meta_info_"			type="nvarchar2"   length="2000"   descr="meta_info_"/>
+  <col name="deployment_id_"			type="nvarchar2"   length="64"   descr="deployment_id_"/>
+  <col name="editor_source_value_id_"			type="nvarchar2"   length="64"   descr="editor_source_value_id_"/>
+  <col name="editor_source_extra_value_id_"			type="nvarchar2"   length="64"   descr="editor_source_extra_value_id_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+</columns>
+</table>
+
+<table name="act_re_procdef" pkname="id_" descr="ACT_RE_PROCDEF">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="category_"			type="nvarchar2"   length="255"   descr="category_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="key_"			type="nvarchar2"   length="255"   descr="key_"/>
+  <col name="version_"			type="decimal"   length="38"   descr="version_"/>
+  <col name="deployment_id_"			type="nvarchar2"   length="64"   descr="deployment_id_"/>
+  <col name="resource_name_"			type="nvarchar2"   length="2000"   descr="resource_name_"/>
+  <col name="dgrm_resource_name_"			type="varchar"   length="4000"   descr="dgrm_resource_name_"/>
+  <col name="description_"			type="nvarchar2"   length="2000"   descr="description_"/>
+  <col name="has_start_form_key_"			type="decimal"   length="1"   descr="has_start_form_key_"/>
+  <col name="has_graphical_notation_"			type="decimal"   length="1"   descr="has_graphical_notation_"/>
+  <col name="suspension_state_"			type="decimal"   length="38"   descr="suspension_state_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+</columns>
+</table>
+
+<table name="act_ru_event_subscr" pkname="id_" descr="ACT_RU_EVENT_SUBSCR">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="event_type_"			type="nvarchar2"   length="255"   descr="event_type_"/>
+  <col name="event_name_"			type="nvarchar2"   length="255"   descr="event_name_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="activity_id_"			type="nvarchar2"   length="64"   descr="activity_id_"/>
+  <col name="configuration_"			type="nvarchar2"   length="255"   descr="configuration_"/>
+  <col name="created_"			type="timestamp"   length="6"   descr="created_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+</columns>
+</table>
+
+<table name="act_ru_execution" pkname="id_" descr="ACT_RU_EXECUTION">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="business_key_"			type="nvarchar2"   length="255"   descr="business_key_"/>
+  <col name="parent_id_"			type="nvarchar2"   length="64"   descr="parent_id_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="super_exec_"			type="nvarchar2"   length="64"   descr="super_exec_"/>
+  <col name="act_id_"			type="nvarchar2"   length="255"   descr="act_id_"/>
+  <col name="is_active_"			type="decimal"   length="1"   descr="is_active_"/>
+  <col name="is_concurrent_"			type="decimal"   length="1"   descr="is_concurrent_"/>
+  <col name="is_scope_"			type="decimal"   length="1"   descr="is_scope_"/>
+  <col name="is_event_scope_"			type="decimal"   length="1"   descr="is_event_scope_"/>
+  <col name="suspension_state_"			type="decimal"   length="38"   descr="suspension_state_"/>
+  <col name="cached_ent_state_"			type="decimal"   length="38"   descr="cached_ent_state_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="lock_time_"			type="timestamp"   length="6"   descr="lock_time_"/>
+</columns>
+</table>
+
+<table name="act_ru_identitylink" pkname="id_" descr="ACT_RU_IDENTITYLINK">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="group_id_"			type="nvarchar2"   length="255"   descr="group_id_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+  <col name="user_id_"			type="nvarchar2"   length="255"   descr="user_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+</columns>
+</table>
+
+<table name="act_ru_job" pkname="id_" descr="ACT_RU_JOB">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+  <col name="lock_exp_time_"			type="timestamp"   length="6"   descr="lock_exp_time_"/>
+  <col name="lock_owner_"			type="nvarchar2"   length="255"   descr="lock_owner_"/>
+  <col name="exclusive_"			type="decimal"   length="1"   descr="exclusive_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="process_instance_id_"			type="nvarchar2"   length="64"   descr="process_instance_id_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="retries_"			type="decimal"   length="38"   descr="retries_"/>
+  <col name="exception_stack_id_"			type="nvarchar2"   length="64"   descr="exception_stack_id_"/>
+  <col name="exception_msg_"			type="nvarchar2"   length="2000"   descr="exception_msg_"/>
+  <col name="duedate_"			type="timestamp"   length="6"   descr="duedate_"/>
+  <col name="repeat_"			type="nvarchar2"   length="255"   descr="repeat_"/>
+  <col name="handler_type_"			type="nvarchar2"   length="255"   descr="handler_type_"/>
+  <col name="handler_cfg_"			type="nvarchar2"   length="2000"   descr="handler_cfg_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+</columns>
+</table>
+
+<table name="act_ru_task" pkname="id_" descr="ACT_RU_TASK">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="proc_def_id_"			type="nvarchar2"   length="64"   descr="proc_def_id_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="parent_task_id_"			type="nvarchar2"   length="64"   descr="parent_task_id_"/>
+  <col name="description_"			type="nvarchar2"   length="2000"   descr="description_"/>
+  <col name="task_def_key_"			type="nvarchar2"   length="255"   descr="task_def_key_"/>
+  <col name="owner_"			type="nvarchar2"   length="255"   descr="owner_"/>
+  <col name="assignee_"			type="nvarchar2"   length="255"   descr="assignee_"/>
+  <col name="delegation_"			type="nvarchar2"   length="64"   descr="delegation_"/>
+  <col name="priority_"			type="decimal"   length="38"   descr="priority_"/>
+  <col name="create_time_"			type="timestamp"   length="6"   descr="create_time_"/>
+  <col name="due_date_"			type="timestamp"   length="6"   descr="due_date_"/>
+  <col name="category_"			type="nvarchar2"   length="255"   descr="category_"/>
+  <col name="suspension_state_"			type="decimal"   length="38"   descr="suspension_state_"/>
+  <col name="tenant_id_"			type="nvarchar2"   length="255"   descr="tenant_id_"/>
+  <col name="form_key_"			type="nvarchar2"   length="255"   descr="form_key_"/>
+</columns>
+</table>
+
+<table name="act_ru_variable" pkname="id_" descr="ACT_RU_VARIABLE">
+<columns>
+  <col name="id_"			type="nvarchar2"   length="64"   descr="id_"/>
+  <col name="rev_"			type="decimal"   length="38"   descr="rev_"/>
+  <col name="type_"			type="nvarchar2"   length="255"   descr="type_"/>
+  <col name="name_"			type="nvarchar2"   length="255"   descr="name_"/>
+  <col name="execution_id_"			type="nvarchar2"   length="64"   descr="execution_id_"/>
+  <col name="proc_inst_id_"			type="nvarchar2"   length="64"   descr="proc_inst_id_"/>
+  <col name="task_id_"			type="nvarchar2"   length="64"   descr="task_id_"/>
+  <col name="bytearray_id_"			type="nvarchar2"   length="64"   descr="bytearray_id_"/>
+  <col name="double_"			type="decimal"   length="10,10"   descr="double_"/>
+  <col name="long_"			type="decimal"   length="19"   descr="long_"/>
+  <col name="text_"			type="nvarchar2"   length="2000"   descr="text_"/>
+  <col name="text2_"			type="nvarchar2"   length="2000"   descr="text2_"/>
+</columns>
+</table>
+
+</root>

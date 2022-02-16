@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.datashow.repository.RptInnerShowMybatisDao">
+
+	<!-- 查询报表的定义来源 -->
+	<select id="getRptDefSrc" resultType="String" parameterType="HashMap">SELECT t.DEF_SRC
+		FROM
+		RPT_MGR_REPORT_INFO t
+		WHERE
+		(t.DEF_ORG = #{defOrg}
+		OR
+		t.DEF_USER = #{defUser}
+		)
+		AND t.RPT_STS='Y'
+		GROUP BY
+		t.DEF_SRC</select>
+	<select id="getRptParamInfo" resultType="String" parameterType="HashMap">SELECT
+		param_template_id
+		FROM
+		RPT_MGR_REPORT_INFO rpt,
+		RPT_DESIGN_QUERY_DIM quer
+		WHERE
+		rpt.rpt_id=#{rptId}
+		AND quer.template_id=rpt.cfg_id
+		AND quer.ver_id=
+		(
+		SELECT
+		MAX(ver_id)
+		FROM
+		RPT_DESIGN_QUERY_DIM quer1
+		WHERE
+		quer1.template_id=quer.template_id)</select>
+		
+	<select id="getCheckOrgInfo" resultType="String" parameterType="HashMap">
+		SELECT
+		rpt.rpt_id
+		FROM
+		rpt_mgr_report_info rpt,
+		rpt_design_source_tabdim dim
+		WHERE
+		rpt.cfg_id=dim.template_id
+		AND dim.dim_type_NO=#{dimTypeNo}
+		AND rpt.rpt_id=#{rptId}
+	</select>
+	
+	<select id="getRptType" resultType="String" parameterType="HashMap">
+		SELECT
+		tmp.template_Type
+		FROM
+		rpt_mgr_report_info rpt,
+		rpt_design_tmp_info tmp
+		WHERE
+		rpt.cfg_id=tmp.template_id
+		AND rpt.rpt_id=#{rptId}
+	</select>
+</mapper>

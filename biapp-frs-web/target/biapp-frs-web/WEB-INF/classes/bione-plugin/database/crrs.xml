@@ -1,0 +1,1196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="crrs_bs_dict_code" pkname="rid" descr="字典参数表">
+		<columns>
+		  <col name="rid"							type="varchar"   length="50"   		descr="主键"/>
+		  <col name="parent_item_code"				type="varchar"   length="50"   		descr="父编码"/>
+		  <col name="parent_item_name"				type="varchar"   length="100"   	descr="父名称"/>
+		  <col name="item_code"						type="varchar"   length="50"   		descr="编码"/>
+		  <col name="item_name"						type="varchar"   length="100"   	descr="名称"/>
+		  <col name="item_order"					type="decimal"   length="16,2"   	descr="排序"/>
+		  <col name="item_desc"						type="varchar"   length="500"   	descr="描述"/>
+		  <col name="is_edited"						type="varchar"   length="1"   		descr="是否编辑"/>
+		  <col name="start_time"					type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"						type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"					type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+
+	<table name="crrs_bs_economics_code" pkname="rid" descr="国民经济行业代码表">
+		<columns>
+		  <col name="rid"							type="varchar"   length="50"   		descr="主键"/>
+		  <col name="indu_code"						type="varchar"   length="50"   		descr="行业编码"/>
+		  <col name="indu_name"						type="varchar"   length="70"   		descr="行业名称"/>
+		  <col name="parent_indu_code"				type="varchar"   length="100"   	descr="父行业编码"/>
+		  <col name="indu_level"					type="varchar"   length="5"   		descr="所属等级"/>
+		  <col name="indu_order"					type="decimal"   length="0"   		descr="排序"/>
+		  <col name="indu_desc"						type="varchar"   length="1000"   	descr="行业描述"/>
+		  <col name="is_edited"						type="varchar"   length="10"   		descr="是否编辑"/>
+		  <col name="start_time"					type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"						type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"					type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+
+	<table name="crrs_bs_staff" pkname="rid" descr="柜员表">
+		<columns>
+		  <col name="rid"			type="varchar"   length="50"   	descr="主键"/>
+		  <col name="gyh"			type="varchar"   length="30"   	descr="柜员号"/>
+		  <col name="gymc"			type="varchar"   length="100"   descr="柜员名称"/>
+		  <col name="gh"			type="varchar"   length="30"   	descr="工号"/>
+		  <col name="nbjgh"			type="varchar"   length="30"   	descr="内部机构号"/>
+		  <col name="sfstgy"		type="varchar"   length="4"   	descr="是否实体柜员"/>
+		  <col name="khjlbz"		type="varchar"   length="4"   	descr="客户经理标志"/>
+		  <col name="gwbh"			type="varchar"   length="60"   	descr="岗位编号"/>
+		  <col name="gwzt"			type="varchar"   length="30"   	descr="柜员状态"/>
+		</columns>
+		</table>
+
+	<table name="crrs_bs_single_warn_code" pkname="rid" descr="单一法人预警信号">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="signal_key"						type="varchar"   length="10"   		descr="预警编号"/>
+		  <col name="parent_signal_code"				type="varchar"   length="5"    		descr="父类预警编号"/>
+		  <col name="parent_signal_name"				type="varchar"   length="100"   	descr="父类预警名称"/>
+		  <col name="signal_code"						type="varchar"   length="6"    		descr="预警编码"/>
+		  <col name="signal_name"						type="varchar"   length="260"  		descr="预警名称"/>
+		  <col name="signal_order"						type="decimal"   length="38"   		descr="排序"/>
+		  <col name="signal_desc"						type="varchar"   length="1000"   	descr="描述"/>
+		  <col name="is_edited"							type="varchar"	 length="5"    		descr="是否编辑"/>
+		  <col name="start_time"						type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"							type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"						type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+
+	<table name="crrs_bs_single_event_code" pkname="rid" descr="单一法人关注事件">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="event_key"							type="varchar"   length="10"   		descr="事件key"/>
+		  <col name="parent_event_code"					type="varchar"   length="5"   		descr="父类事件编码"/>
+		  <col name="parent_event_name"					type="varchar"   length="100"   	descr="父类事件名称"/>
+		  <col name="event_code"						type="varchar"   length="6"   		descr="事件编码"/>
+		  <col name="event_name"						type="varchar"   length="260"   	descr="事件名称"/>
+		  <col name="event_order"						type="decimal"   length="38"   		descr="排序"/>
+		  <col name="event_desc"						type="varchar"   length="1000"   	descr="描述"/>
+		  <col name="is_edited"							type="varchar"   length="5"   		descr="是否编辑"/>
+		  <col name="start_time"						type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"							type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"						type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+
+	<table name="crrs_bs_group_warn_code" pkname="rid" descr="集团预警信号">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="signal_key"						type="varchar"   length="10"   		descr="预警key"/>
+		  <col name="parent_signal_code"				type="char"   	 length="1"   		descr="父类预警编码"/>
+		  <col name="parent_signal_name"				type="varchar"   length="100"   	descr="父类预警名称"/>
+		  <col name="signal_code"						type="varchar"   length="6"   		descr="预警编码"/>
+		  <col name="signal_name"						type="varchar"   length="200"   	descr="预警名称"/>
+		  <col name="signal_order"						type="decimal"   length="38"   		descr="排序"/>
+		  <col name="signal_desc"						type="varchar"   length="1000"   	descr="描述"/>
+		  <col name="is_edited"							type="varchar"   length="5"   		descr="是否编辑"/>
+		  <col name="start_time"						type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"							type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"						type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+
+	<table name="crrs_bs_group_event_code" pkname="rid" descr="集团关注事件">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="event_key"							type="varchar"   length="10"   		descr="事件key"/>
+		  <col name="parent_event_code"					type="char"   	 length="1"   		descr="父类事件编码"/>
+		  <col name="parent_event_name"					type="varchar"   length="100"   	descr="父类事件名称"/>
+		  <col name="event_code"						type="varchar"   length="6"   		descr="事件编码"/>
+		  <col name="event_name"						type="varchar"   length="260"   	descr="事件名称"/>
+		  <col name="event_order"						type="decimal"   length="38"   		descr="排序"/>
+		  <col name="event_desc"						type="varchar"   length="1000"   	descr="描述"/>
+		  <col name="is_edited"							type="varchar"   length="5"   		descr="是否编辑"/>
+		  <col name="start_time"						type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"							type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"						type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+
+	<table name="crrs_bs_pledge_type_code" pkname="rid" descr="押品分类代码表">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="pled_key"							type="varchar"   length="10"   		descr="押品分类key"/>
+		  <col name="parent_pled_code"					type="varchar"   length="5"   		descr="父类押品分类编码"/>
+		  <col name="parent_pled_name"					type="varchar"   length="100"   	descr="父类押品分类名称"/>
+		  <col name="pled_code"							type="varchar"   length="6"   		descr="押品分类编码"/>
+		  <col name="pled_name"							type="varchar"   length="200"   	descr="押品分类名称"/>
+		  <col name="pled_order"						type="decimal"   length="38"   		descr="排序"/>
+		  <col name="pled_desc"							type="varchar"   length="1000"   	descr="描述"/>
+		  <col name="is_edited"							type="varchar"   length="5"   		descr="是否编辑"/>
+		  <col name="start_time"						type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"							type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"						type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+
+	<table name="crrs_bs_credit_level_code" pkname="rid" descr="信用等级代码表">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="rating_code"						type="varchar"   length="50"   		descr="信用等级编码"/>
+		  <col name="rating_name"						type="varchar"   length="100"   	descr="信用等级名称"/>
+		  <col name="rating_num_code"					type="varchar"   length="50"   		descr="信用等级序号编码"/>
+		  <col name="rating_order"						type="decimal"   length="38"   		descr="排序"/>
+		  <col name="rating_desc"						type="varchar"   length="1000"   	descr="描述"/>
+		  <col name="is_edited"							type="varchar"   length="5"   		descr="是否编辑"/>
+		  <col name="start_time"						type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"							type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"						type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_group_group_client" pkname="rid" descr="集团基本情况">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		  <col name="type"						        type="char"   		length="1"      descr="客户分类"	remark="1-集团客户,2-供应链客户"/>
+		  <col name="customer_type"						type="char"   		length="1"      descr="客户类型"	remark="银监会报送类型"/>
+		  <col name="customer_code"						type="varchar"   	length="50"     descr="客户代码/供应链编码"/>
+		  <col name="customer_name"						type="varchar"   	length="100"    descr="客户名称"/>
+		  <col name="registration_number"				type="varchar"   	length="50"   	descr="工商注册编号"/>
+		  <col name="member_number"						type="decimal"   	length="38"   	descr="集团成员数"/>
+		  <col name="credit_type"						type="char"   		length="1"   	descr="授信类型"	remark="1-集团客户授信,2-供应链融资"/>
+		  <col name="general_assets"					type="decimal"   	length="16,2"   descr="资产总额"/>
+		  <col name="total_liabilities"					type="decimal"   	length="16,2"   descr="负债总额"/>
+		  <col name="assets_liabilities_type"			type="varchar"   	length="5"   	descr="资产负债表类型"/>
+		  <col name="assets_liabilities_date"			type="varchar"   	length="10"   	descr="资产负债表日期"/>
+		  <col name="warning_signal"					type="varchar"   	length="50"   	descr="风险预警信号编码"/>
+		  <col name="warning_signal_name"				type="varchar"   	length="3000"   descr="风险预警信号名称"/>
+		  <col name="attention_event"					type="varchar"   	length="50"   	descr="关注事件编码"/>
+		  <col name="attention_event_name"				type="varchar"   	length="3000"   descr="关注事件名称"/>
+		  <col name="credit_rating"						type="varchar"   	length="50"   	descr="信用评级结果"/>
+		  <col name="register_nation"					type="varchar"   	length="50"   	descr="注册国家或地区"/>
+		  <col name="nationality_code"					type="varchar"   	length="10"  	descr="国别代码"/>
+		  <col name="register_address"					type="varchar"   	length="200"   	descr="国内注册地址"/>
+		  <col name="administrative_code"				type="varchar"   	length="6"   	descr="行政区划代码"/>
+		  <col name="register_update_date"				type="varchar"   	length="10"   	descr="更新注册信息日期"/>
+		  <col name="business_address"					type="varchar"   	length="200"   	descr="办公地址"/>
+		  <col name="business_administrative_code"		type="varchar"   	length="6"   	descr="行政区划代码"/>
+		  <col name="business_update_date"				type="varchar"   	length="10"   	descr="更新办公地址日期"/>
+		  <col name="inst_no"							type="varchar"		length="50"		descr="经办机构代码"/>
+		  <col name="inst_name"							type="varchar"		length="200"	descr="经办机构名称"/>
+		  <col name="staff_code"						type="varchar"		length="50"		descr="客户经理柜员号"/>
+		  <col name="staff_name"						type="varchar"		length="100"	descr="客户经理名称"/>
+		  <col name="status"							type="varchar"		length="10"		descr="数据是否锁定（锁定/解锁）"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_group_actualcontroller" pkname="rid" descr="集团实际控制人">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>
+		  <col name="controller_type"					type="varchar"   length="1"   		descr="实际控制人类型"/>
+		  <col name="nationality_code"					type="varchar"   length="10"   		descr="国别代码"/>
+		  <col name="controller_name"					type="varchar"   length="200"   	descr="实际控制人名称"/>
+		  <col name="controller_code"					type="varchar"   length="50"   		descr="实际控制人的客户代码"/>
+		  <col name="paper_type"						type="varchar"   length="5"   		descr="实际控制人证件类型"/>
+		  <col name="paper_code"						type="varchar"   length="20"   		descr="实际控制人证件代码"/>
+		  <col name="register_code"						type="varchar"   length="20"   		descr="登记注册代码"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_group_executives" pkname="rid" descr="集团高管">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>
+		  <col name="executives_id"						type="varchar"   length="50"   		descr="法定代表人、高管及重要关联人编码"/>
+		  <col name="executives_name"					type="varchar"   length="50"   		descr="法定代表人、高管及重要关联人名称"/>
+		  <col name="person_type"						type="varchar"   length="5"   		descr="关系人类型"/>
+		  <col name="nationality_code"					type="varchar"   length="10"   		descr="国别代码"/>
+		  <col name="id_card_no"						type="varchar"   length="50"   		descr="身份证号"/>
+		  <col name="update_dt"						    type="varchar"   length="10"   		descr="更新信息日期"/>
+		  <col name="control_flag"						type="char"   	 length="1"   		descr="实际控制人标识"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_group_ffiliated_groups" pkname="rid" descr="关联集团信息">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>
+		  <col name="group_code"						type="varchar"   length="50"   		descr="关联集团代码"/>
+		  <col name="group_name"						type="varchar"   length="200"   	descr="关联集团名称"/>
+		  <col name="associated_type"					type="char"   	 length="1"   		descr="关联关系类型"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_group_members" pkname="rid" descr="集团成员名单">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>
+		  <col name="nationality_code"					type="varchar"   length="10"   		descr="国别代码"/>
+		  <col name="member_code"						type="varchar"   length="50"   		descr="成员单位的客户代码"/>
+		  <col name="member_name"						type="varchar"   length="200"   	descr="成员单位的名称"/>
+		  <col name="organization_code"					type="varchar"   length="20"   		descr="组织机构代码"/>
+		  <col name="register_code"						type="varchar"   length="20"   		descr="登记注册代码"/>
+		  <col name="member_type"						type="char"   	 length="1"   		descr="成员类型"	remark="1-核心成员,2-一般成员"/>
+		  <col name="parent"							type="char"   	 length="1"   		descr="母公司标识"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_passport" pkname="rid" descr="护照（+护照序号）">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="executives_id"						type="varchar"   	length="50"    	descr="法人代表人、高管及重要关联人编码"/>
+		  <col name="customer_type"						type="char"   		length="1"   	descr="客户类型 "	remark="1-集团 ,2-单一法人"/>
+		  <col name="passport_number"					type="varchar"   	length="50"   	descr="护照号码"/>
+		  <col name="issuing_date"						type="varchar"		length="10"		descr="签发日期"/>
+		  <col name="due_date"							type="varchar"		length="10"		descr="到期日期"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_paper" pkname="rid" descr="其他证件(高管)">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="executives_id"						type="varchar"   	length="50"    	descr="法人代表人、高管及重要关联人编码"/>
+		  <col name="customer_type"						type="char"   		length="1"   	descr="客户类型 "	remark="1-集团 2-单一法人"/>
+		  <col name="paper_type"						type="varchar"   	length="5"     	descr="证件类型"/>
+		  <col name="paper_code"						type="varchar"   	length="50"   	descr="证件号码"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_ent_credit" pkname="rid" descr="授信情况">
+		<columns>
+			<col name="rid" 							type="varchar" 		length="50" 		descr="主键" />
+			<col name="data_dt"							type="varchar"   	length="10"     	descr="数据日期"/>		  
+			<col name="customer_type" 					type="char" 		length="1" 			descr="客户类型" 	remark="监管标识：1-集团客户,2-单一法人客户,3-同业客户" />
+			<col name="customer_code" 					type="varchar" 		length="50" 		descr="客户代码" />
+			<col name="customer_name" 					type="varchar" 		length="100" 		descr="客户名称" />
+			<col name="credit_type" 					type="char" 		length="1" 			descr="授信类型"  remark="系统标识：1-单一法人,2-集团,3-供应链,4-同业" />
+			<col name="nationality_code" 				type="varchar" 		length="10" 		descr="客户国籍代码" />
+			<col name="credit_bank_code" 				type="varchar" 		length="50" 		descr="授信银行代码" />
+			<col name="credit_bank_name" 				type="varchar" 		length="200" 		descr="授信银行名称" />
+			<col name="credit_code" 					type="varchar" 		length="50" 		descr="授信号码" />
+			<col name="credit_limit" 					type="decimal" 		length="16,2" 		descr="授信额度" />
+			<col name="loan_limit" 						type="decimal" 		length="16,2" 		descr="贷款授信额度" />
+			<col name="start_date" 						type="varchar" 		length="10" 		descr="授信起始日期" />
+			<col name="due_date" 						type="varchar" 		length="10" 		descr="授信到期日期" />
+			<col name="loan_balance" 					type="decimal" 		length="16,2" 		descr="贷款余额" />
+			<col name="bond_balance" 					type="decimal" 		length="16,2" 		descr="持有债券余额" />
+			<col name="equitystake_balance" 			type="decimal" 		length="16,2" 		descr="持有股权余额" />
+			<col name="other_onbalance_sheet" 			type="decimal" 		length="16,2" 		descr="其他表内信用风险资产余额" />
+			<col name="offbalance_sheet" 				type="decimal" 		length="16,2" 		descr="表外业务余额" />
+			<col name="balance_of_limit" 				type="decimal" 		length="16,2" 		descr="现有业务余额占用授信额度" />
+			<col name="balance_of_loan_limit" 			type="decimal" 		length="16,2" 		descr="其中：贷款余额占用贷款授信额度" />
+			<col name="usable_credit_limit" 			type="decimal" 		length="16,2" 		descr="尚可使用授信额度" />
+			<col name="usable_loan_limit" 				type="decimal" 		length="16,2" 		descr="其中：尚可使用贷款授信额度" />
+			<col name="related_party_credit_logo" 		type="varchar" 		length="50" 		descr="关联方授信标识" />
+			<col name="inst_no" 						type="varchar" 		length="50" 		descr="经办机构代码" />
+			<col name="inst_name"						type="varchar"		length="200"		descr="经办机构名称"/>
+			<col name="staff_code" 						type="varchar" 		length="50" 		descr="柜员编码" />
+			<col name="staff_name" 						type="varchar" 		length="100" 		descr="柜员名称" />
+		</columns>
+	</table>
+
+	<table name="crrs_ent_group_client" pkname="rid" descr="集团客户授信拆分情况">
+		<columns>
+			<col name="rid" 							type="varchar" 		length="50" 		descr="主键" />
+			<col name="data_dt"							type="varchar"   	length="10"     	descr="数据日期"/>		  
+			<col name="customer_type" 					type="char" 		length="1" 			descr="客户类型" />
+			<col name="customer_code" 					type="varchar" 		length="50" 		descr="客户代码" />
+			<col name="customer_name" 					type="varchar" 		length="100" 		descr="客户名称" />
+			<col name="credit_type" 					type="char" 		length="1" 			descr="授信类型"  remark="1-单一法人,2-集团,3-供应链,4-同业" />
+			<col name="customer_client_code" 			type="varchar" 		length="50" 		descr="成员单位的客户代码" />
+			<col name="customer_client_name" 			type="varchar" 		length="200" 		descr="成员单位的客户名称" />
+			<col name="credit_code" 					type="varchar" 		length="50" 		descr="授信号码" />
+			<col name="credit_limit" 					type="decimal" 		length="16,2" 		descr="授信额度" />
+			<col name="loan_limit" 						type="decimal" 		length="16,2" 		descr="其中：贷款授信额度" />
+			<col name="loan_balance" 					type="decimal" 		length="16,2" 		descr="贷款余额" />
+			<col name="bond_balance" 					type="decimal" 		length="16,2" 		descr="持有债券余额" />
+			<col name="equitystake_balance" 			type="decimal" 		length="16,2" 		descr="持有股权余额" />
+			<col name="other_onbalance_sheet" 			type="decimal" 		length="16,2" 		descr="其他表内信用风险资产余额" />
+			<col name="offbalance_sheet" 				type="decimal" 		length="16,2" 		descr="表外业务余额" />
+			<col name="balance_of_limit" 				type="decimal" 		length="16,2" 		descr="现有业务余额占用授信额度" />
+			<col name="balance_ofloan_limit" 			type="decimal" 		length="16,2" 		descr="其中：贷款余额占用贷款授信额度" />
+			<col name="usable_credit_limit" 			type="decimal" 		length="16,2" 		descr="尚可使用授信额度" />
+			<col name="usable_loan_limit" 				type="decimal" 		length="16,2" 		descr="其中：尚可使用贷款授信额度" />
+		</columns>
+	</table>
+	
+	<table name="crrs_person_personal" pkname="rid" descr="个人基本信息">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		  <col name="customer_code"						type="varchar"   	length="50"    	descr="个人客户号"/>
+		  <col name="customer_name"						type="varchar"   	length="100"   	descr="个人客户名称"/>
+		  <col name="paper_type"						type="varchar"   	length="5"     	descr="有效身份证件类型"/>
+		  <col name="paper_code"						type="varchar"   	length="50"   	descr="证件号码"/>
+		  <col name="other_cert_tp_cd"					type="varchar"   	length="5"      descr="客户其他证件类型"/>
+		  <col name="other_cert_num"					type="varchar"   	length="50"     descr="客户其他证件号码"/>
+		  <col name="cust_address"						type="varchar"   	length="500"    descr="客户住址"/>
+		  <col name="cust_address_area"					type="varchar"   	length="10"     descr="住址行政区划代码"/>
+		  <col name="inst_no"							type="varchar"		length="50"		descr="经办机构代码"/>
+		  <col name="inst_name"							type="varchar"		length="200"	descr="经办机构名称"/>
+		  <col name="staff_code"						type="varchar"		length="50"		descr="客户经理柜员号"/>
+		  <col name="staff_name"						type="varchar"		length="100"	descr="客户经理名称"/>
+		  <col name="status"							type="varchar"		length="10"		descr="数据是否锁定（锁定/解锁）"/>
+		</columns>
+	</table>
+
+	<table name="crrs_person_personal_loan" pkname="rid" descr="个人基本信息-业务信息">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="customer_code"						type="varchar"   	length="50"    	descr="个人客户号"/>
+		  <col name="customer_name"						type="varchar"   	length="100"   	descr="个人客户名称"/>
+		  <col name="bank_code"							type="varchar"   	length="50"     descr="贷款发放行代码"/>
+		  <col name="loan_contract_number"				type="varchar"   	length="50"     descr="贷款合同号"/>
+		  <col name="evidenceofdebt_number"				type="varchar"   	length="50"     descr="借据号"/>
+		  <col name="loan_varieties"					type="char"   		length="1"     	descr="贷款品种"/>
+		  <col name="guarantee_way"						type="char"   		length="1"     	descr="担保方式"/>
+		  <col name="issue_money"						type="decimal"   	length="16,2"   descr="发放金额"/>
+		  <col name="loan_balance"						type="decimal"   	length="16,2"   descr="贷款余额"/>
+		  <col name="issue_date"						type="varchar"   	length="10"     descr="发放日期"/>
+		  <col name="due_date"							type="varchar"   	length="10"     descr="到期日期"/>
+		  <col name="default_amount"					type="decimal"   	length="16,2"   descr="违约金额"/>
+		  <col name="default_days"						type="decimal"   	length="38"     descr="违约天数"/>
+		  <col name="five_classify"						type="char"   		length="1"     	descr="五级分类"/>
+		  <col name="payment_method"					type="char"   		length="1"     	descr="还款方式"/>
+		  <col name="recently_payment_money"			type="decimal"   	length="16,2"   descr="最近一次还款金额"/>
+		  <col name="recently_payment_date"				type="varchar"   	length="10"   	descr="最近一次还款日期"/>
+		  <col name="cust_address"						type="varchar"   	length="500"    descr="客户住址"/>
+		  <col name="cust_address_area"					type="varchar"   	length="10"     descr="住址行政区划代码"/>
+		  <col name="inst_no"							type="varchar"		length="50"		descr="经办机构代码"/>
+		  <col name="inst_name"							type="varchar"		length="200"	descr="经办机构名称"/>
+		  <col name="staff_code"						type="varchar"		length="50"		descr="客户经理柜员号"/>
+		  <col name="staff_name"						type="varchar"		length="100"	descr="客户经理名称"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_person_joint_debtor" pkname="rid" descr="共同债务人">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="customer_code"						type="varchar"   	length="50"    	descr="个人客户号"/>
+		  <col name="customer_name"						type="varchar"   	length="100"   	descr="个人客户名称"/>
+		  <col name="loan_contract_number"				type="varchar"   	length="50"     descr="贷款合同号"/>
+		  <col name="name"								type="varchar"   	length="200"    descr="姓名"/>
+		  <col name="paper_type"						type="varchar"   	length="5"     	descr="证件类型"/>
+		  <col name="paper_code"						type="varchar"   	length="50"   	descr="证件号码"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_person_student_loan" pkname="rid" descr="助学贷款信息">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="customer_code"						type="varchar"   	length="50"    	descr="个人客户号"/>
+		  <col name="customer_name"						type="varchar"   	length="100"   	descr="个人客户名称"/>
+		  <col name="loan_contract_number"				type="varchar"   	length="50"     descr="贷款合同号"/>
+		  <col name="student_number"					type="varchar"   	length="50"     descr="学生证号"/>
+		  <col name="school_name"						type="varchar"   	length="200"    descr="学校名称"/>
+		  <col name="school_address"					type="varchar"   	length="500"    descr="学校地址"/>
+		  <col name="school_administrative_code"		type="varchar"   	length="10"     descr="学校行政区划代码"/>
+		  <col name="family_address"					type="varchar"   	length="500"    descr="贷款时家庭住址"/>
+		  <col name="family_administrative_code"		type="varchar"   	length="10"   	descr="贷款时家庭住址行政区划代码"/>
+		  <col name="student_loan_type"					type="char"   		length="1"     	descr="助学贷款类型"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_person_ent_guaranteed" pkname="rid" descr="个人客户担保信息">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="customer_code"						type="varchar"   	length="50"    	descr="客户代码"/>
+		  <col name="customer_name"						type="varchar"   	length="100"   	descr="客户名称"/>
+		  <col name="paper_type"						type="varchar"   	length="5"     	descr="有效身份证件类型"/>
+		  <col name="paper_code"						type="varchar"   	length="50"   	descr="证件号码"/>
+		  <col name="guaranteed_contract_number"		type="varchar"   	length="50"     descr="担保合同号"/>
+		  <col name="loan_contract_number"				type="varchar"   	length="50"     descr="贷款合同号"/>
+		  <col name="guaranteed_contract_type"			type="char"   		length="1"     	descr="担保合同类型"/>
+		  <col name="collateral_type"					type="varchar"   	length="5"   	descr="押品类型"/>
+		  <col name="collateral_code"					type="varchar"   	length="50"     descr="押品代码"/>
+		  <col name="collateral_name"					type="varchar"   	length="200"    descr="押品名称"/>
+		  <col name="guarantor_name"					type="varchar"   	length="200"    descr="押品权属人（或保证人）名称"/>
+		  <col name="guarantor_type"					type="char"   		length="1"     	descr="押品权属人（或保证人）类型"/>
+		  <col name="guarantor_paper_type"				type="varchar"   	length="5"     	descr="押品权属人（或保证人）证件类型"/>
+		  <col name="guarantor_paper_code"				type="varchar"   	length="50"     descr="押品权属人（或保证人）证件代码"/>
+		  <col name="third_party"						type="char"   		length="1"    	descr="押品权属人是否第三方"/>
+		  <col name="estimated_value"					type="decimal"   	length="16,2"   descr="押品评估价值（或保证金额）"/>
+		  <col name="first_estimated_value_date"		type="varchar"   	length="10"     descr="首次估值日期"/>
+		  <col name="newest_estimated_value_date"		type="varchar"		length="10"		descr="最新估值日期"/>
+		  <col name="estimated_value_due_date"			type="varchar"		length="10"		descr="估值到期日期"/>
+		  <col name="assurance_capability_limit"		type="decimal"   	length="16,2"   descr="保证人保证能力上限"/>
+		  <col name="impawn_rate"						type="decimal"   	length="16,2"   descr="审批抵质押率"/>
+		  <col name="fact_asset_per"					type="decimal"   	length="16,2"   descr="实际抵质押率"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_single_corporation" pkname="rid" descr="单一法人基本情况">
+		<columns>
+			<col name="rid" 							type="varchar" 		length="50" 		descr="主键" />
+		  	<col name="data_dt"							type="varchar"   	length="10"     	descr="数据日期"/>	  
+			<col name="customer_type" 					type="char" 		length="1" 			descr="客户类型" 	remark="2-单一法人"/>	  
+			<col name="customer_code" 					type="varchar" 		length="50" 		descr="客户代码" />
+			<col name="customer_name" 					type="varchar" 		length="100"  		descr="客户名称" />
+			<col name="organization_code" 				type="varchar" 		length="20"  		descr="组织机构代码" />
+			<col name="organization_update_date" 		type="varchar" 		length="10"  		descr="组织机构登记/年检/更新日期" />
+			<col name="register_code" 					type="varchar" 		length="50"  		descr="登记注册代码" />
+			<col name="register_update_date" 			type="varchar" 		length="10"  		descr="登记注册/年检/更新日期" />
+			<col name="register_nation" 				type="varchar" 		length="10"  		descr="注册国家或地区-编码" />
+			<col name="register_nation_name" 			type="varchar" 		length="200"  		descr="注册国家或地区-名称" />
+			<col name="nationality_code" 				type="varchar" 		length="10"  		descr="国别代码" />
+			<col name="register_address" 				type="varchar" 		length="200"  		descr="注册地址" />
+			<col name="administrative_code" 			type="varchar" 		length="10"  		descr="行政区划代码" />
+			<col name="customer_class" 					type="varchar" 		length="5"  		descr="客户类型(A1-大型企业，A2-中型企业，A3-小型企业，A4-微型企业，B-机关，C-事业单位，D-社会团体，E-其他组织机构，F-境外机构)" />
+			<col name="industry_code" 					type="varchar" 		length="50"  		descr="客户所属行业代码" />
+			<col name="loan_cardnumber" 				type="varchar" 		length="50"  		descr="贷款卡号" />
+			<col name="environmental_and_social_risk" 	type="varchar" 		length="50"  		descr="环境和社会风险分类" />
+			<col name="listed_company1" 				type="varchar" 		length="10"  		descr="上市公司标志-国别代码-上市公司代码" />
+			<col name="listed_company2" 				type="varchar" 		length="10"  		descr="上市公司标志-国别代码-上市公司代码" />
+			<col name="listed_company3" 				type="varchar" 		length="50"  		descr="上市公司标志-国别代码-上市公司代码" />
+			<col name="warning_signal" 					type="varchar" 		length="500"  		descr="风险预警信号" />
+			<col name="warning_signal_name" 			type="varchar" 		length="3000" 		descr="风险预警信号名称" />
+			<col name="attention_event" 				type="varchar" 		length="500"  		descr="关注事件" />
+			<col name="attention_event_name" 			type="varchar" 		length="3000" 		descr="关注事件名称" />
+			<col name="credit_rating" 					type="varchar" 		length="10"  		descr="信用评级结果" />
+			<col name="default_probability" 			type="decimal" 		length="16,4" 		descr="违约概率" />
+			<col name="general_assets" 					type="decimal" 		length="16,2"  		descr="资产总额" />
+			<col name="total_liabilities" 				type="decimal" 		length="16,2"  		descr="负债总额" />
+			<col name="pretax_profit" 					type="decimal" 		length="16,2"  		descr="税前利润" />
+			<col name="business_income" 				type="decimal" 		length="16,2"  		descr="主营业务收入" />
+			<col name="inventory" 						type="decimal" 		length="16,2"  		descr="存货" />
+			<col name="accounts_receivable" 			type="decimal" 		length="16,2"  		descr="应收账款" />
+			<col name="other_accounts_receivable" 		type="decimal" 		length="16,2"  		descr="其他应收款" />
+			<col name="total_current_assets" 			type="decimal" 		length="16,2"  		descr="流动资产合计" />
+			<col name="total_current_liabilities" 		type="decimal" 		length="16,2"  		descr="流动负债合计" />
+			<col name="financial_statementtype" 		type="varchar" 		length="5"  		descr="财务报表类型" />
+			<col name="financial_statementdate" 		type="varchar" 		length="10"  		descr="财务报表日期" />
+			<col name="inst_no" 						type="varchar" 		length="50"  		descr="经办机构代码" />
+			<col name="inst_name"						type="varchar"		length="200"		descr="经办机构名称"/>
+			<col name="staff_code" 						type="varchar" 		length="50"  		descr="客户经理柜员号" />
+			<col name="staff_name" 						type="varchar" 		length="100" 		descr="客户经理名称" />
+		  	<col name="status"							type="varchar"		length="10"			descr="数据是否锁定（锁定/解锁）"/>
+		</columns>
+	</table>
+
+	<table name="crrs_single_executives" pkname="rid" descr="单一法人客户法定代表人、高管及重要关联人信息">
+		<columns>
+			<col name="rid" 							type="varchar" 			length="50" 		descr="主键" />
+			<col name="customer_code" 					type="varchar" 			length="60" 		descr="客户编码" />
+			<col name="customer_name" 					type="varchar" 			length="100"  		descr="客户名称" />
+			<col name="executives_id" 					type="varchar" 			length="50" 		descr="法定代表人、高管及重要关联人id"/>
+			<col name="executives_name" 				type="varchar" 			length="200"		descr="姓名" />
+			<col name="person_type" 					type="varchar" 			length="5" 			descr="关系人类型" />
+			<col name="id_card_no" 						type="varchar" 			length="50"			descr="身份证号" />
+			<col name="nationality_code" 				type="varchar" 			length="10" 		descr="国别代码" />
+			<col name="update_dt" 						type="varchar" 			length="10" 		descr="更新信息日期" />
+			<col name="actual_controller" 				type="char" 			length="1" 			descr="实际控制人标识" />
+			<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_single_shareholder_ep" pkname="rid" descr="重要股东信息">
+		<columns>
+			<col name="rid" 							type="varchar" 			length="50" 		descr="主键" />
+			<col name="customer_code" 					type="varchar" 			length="60" 		descr="客户编码" />
+			<col name="customer_name" 					type="varchar" 			length="100" 		descr="客户名称" />
+			<col name="affiliated_type" 				type="varchar" 			length="5" 			descr="关联类型" />
+			<col name="enterprise_name" 				type="varchar" 			length="200"		descr="股东/关联企业名称" />
+			<col name="enterprise_type" 				type="varchar" 			length="5" 			descr="股东/关联企业类型" />
+			<col name="paper_type" 						type="varchar" 			length="5" 			descr="股东/关联企业证件类型" />
+			<col name="paper_code" 						type="varchar" 			length="50" 		descr="股东/关联企业证件代码" />
+			<col name="enterprise_code" 				type="varchar" 			length="50" 		descr="股东/关联企业客户代码" />
+			<col name="register_code" 					type="varchar" 			length="50" 		descr="登记注册代码" />
+			<col name="nationality_code" 				type="varchar" 			length="10" 		descr="国别代码" />
+			<col name="shareholding_ratio" 				type="decimal" 			length="16,2" 		descr="持股比例" />
+			<col name="stockholder_date" 				type="varchar" 			length="10" 		descr="股东结构对应日期" />
+			<col name="update_date" 					type="varchar" 			length="10" 		descr="更新信息日期" />
+			<col name="actual_controller" 				type="char" 			length="1" 			descr="实际控制人标识" />
+			<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_ent_loan" pkname="rid" descr="贷款信息">
+		<columns>
+			<col name="rid" 							type="varchar" 		length="50" 		descr="主键" />
+			<col name="customer_code" 					type="varchar" 		length="50" 		descr="贷款客户代码" />
+			<col name="customer_name" 					type="varchar" 		length="200" 		descr="贷款客户名称" />
+			<col name="loanbank_code" 					type="varchar" 		length="50" 		descr="贷款发放行代码" />
+			<col name="credit_code" 					type="varchar" 		length="50" 		descr="授信号码" />
+			<col name="loan_contract_number" 			type="varchar" 		length="50" 		descr="贷款合同号" />
+			<col name="evidence_of_debt" 				type="varchar" 		length="50"			descr="借据号" />
+			<col name="start_date" 						type="varchar" 		length="10" 		descr="发放日期" />
+			<col name="due_date" 						type="varchar" 		length="10" 		descr="到期日期" />
+			<col name="issue_money" 					type="decimal" 		length="16,2" 		descr="发放金额" />
+			<col name="loan_balance" 					type="decimal" 		length="16,2" 		descr="贷款余额" />
+			<col name="five_classify"		 			type="char" 		length="1" 			descr="五级分类" />
+			<col name="loan_type" 						type="char" 		length="1" 			descr="贷款类型" />
+			<col name="business_type" 					type="char" 		length="1" 			descr="贷款业务种类" />
+			<col name="vocation_code" 					type="varchar" 		length="10" 		descr="投向行业" />
+			<col name="currency_code" 					type="varchar" 		length="10" 		descr="币种代码" />
+			<col name="guarantee_type" 					type="char" 		length="1" 			descr="担保方式" />
+			<col name="principal_balance" 				type="decimal" 		length="16,2" 		descr="欠本余额" />
+			<col name="principal_days" 					type="decimal" 		length="0" 			descr="欠本天数" />
+			<col name="accrual_balance" 				type="decimal" 		length="16,2" 		descr="欠息余额" />
+			<col name="accrual_days" 					type="decimal" 		length="0" 			descr="欠息天数" />
+			<col name="repayment" 						type="decimal" 		length="16,2" 		descr="本期还款" />
+			<col name="principal_repayment_type" 		type="char" 		length="1" 			descr="还本方式" />
+			<col name="accrual_repayment_type" 			type="char" 		length="1" 			descr="还息方式" />
+			<col name="next_principal_repayment_date" 	type="varchar" 		length="10" 		descr="下期还本日期" />
+			<col name="next_principal_repayment_money" 	type="decimal" 		length="16,2" 		descr="下期还本金额" />
+			<col name="next_accrual_repayment_date" 	type="varchar"		length="10" 		descr="下期还息日期" />
+			<col name="next_accrual_repayment_money" 	type="decimal" 		length="16,2" 		descr="下期还息金额" />
+			<col name="loan_issue_type" 				type="char" 		length="1" 			descr="贷款发放类型" />
+			<col name="depreciation_reserves" 			type="decimal" 		length="16,2" 		descr="减值准备" />
+			<col name="industry_type" 					type="char" 		length="1" 			descr="产业结构调整类型" />
+			<col name="industry_transform" 				type="char" 		length="1" 			descr="工业转型升级标识" />
+			<col name="new_industry" 					type="char" 		length="1" 			descr="战略新兴产业类型" />
+			<col name="syndication" 					type="char" 		length="1" 			descr="银团贷款标识" />
+			<col name="payment_method" 					type="char" 		length="1" 			descr="支付方式" />
+			<col name="inst_no" 						type="varchar" 		length="50" 		descr="经办机构代码" />
+			<col name="inst_name"						type="varchar"		length="200"		descr="经办机构名称"/>
+		  	<col name="staff_code"						type="varchar"  	length="50"   		descr="客户经理柜员号"/>
+		  	<col name="staff_name"						type="varchar"   	length="100"   		descr="客户经理名称"/>
+		  	<col name="data_dt"							type="varchar"   	length="10"     	descr="数据日期"/>
+		</columns>
+	</table> 
+	
+	<table name="crrs_ent_offbalance_sa" pkname="rid" descr="表外业务信息">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>
+		  <col name="bank_code"							type="varchar"   length="50"   		descr="承办银行机构代码"/>
+		  <col name="business_type"						type="char"   	 length="1"   		descr="表外业务类型"/>
+		  <col name="credit_code"						type="varchar"   length="50"   		descr="授信号码"/>
+		  <col name="contract_number"					type="varchar"   length="50"   		descr="合同号"/>
+		  <col name="business_number"					type="varchar"   length="50"   		descr="业务号码"/>
+		  <col name="business_balance"					type="decimal"   length="16,2"   	descr="业务余额"/>
+		  <col name="currency_code"						type="varchar"   length="10"   		descr="币种代码"/>
+		  <col name="start_date"						type="varchar"   length="10"   		descr="发生日期"/>
+		  <col name="due_date"							type="varchar"   length="10"   		descr="到期日期"/>
+		  <col name="margin_amount"						type="decimal"   length="16,2"   	descr="保证金金额"/>
+		  <col name="industry_type"						type="char"   	 length="1"   		descr="产业结构调整类型"/>
+		  <col name="industry_transform"				type="char"   	 length="1"   		descr="工业转型升级标识"/>
+		  <col name="new_industry"						type="char"   	 length="1"   		descr="战略新兴产业类型"/>
+		  <col name="inst_no"							type="varchar"   length="50"   		descr="经办机构代码"/>
+		  <col name="inst_name"							type="varchar"	 length="200"		descr="经办机构名称"/>
+		  <col name="staff_code"						type="varchar"   length="50"   		descr="客户经理柜员号"/>
+		  <col name="staff_name"						type="varchar"   length="100"   	descr="客户经理名称"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_ent_guaranteed" pkname="rid" descr="担保信息">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>
+		  <col name="loancontract_number"				type="varchar"   length="50"   		descr="贷款或表外业务合同号"/>
+		  <col name="guaranteed_contract_number"		type="varchar"   length="50"   		descr="担保合同号"/>
+		  <col name="guaranteed_contract_type"			type="char"   	 length="1"   		descr="担保合同类型"/>
+		  <col name="collateral_type"					type="varchar"   length="5"   		descr="押品类型"/>
+		  <col name="collateral_code"					type="varchar"   length="50"   		descr="押品代码"/>
+		  <col name="collateral_name"					type="varchar"   length="200"   	descr="押品名称"/>
+		  <col name="guarantor_type"					type="char"   	 length="1"   		descr="押品权属人（或保证人）类型"/>
+		  <col name="guarantor_name"					type="varchar"   length="200"   	descr="押品权属人（或保证人）名称"/>
+		  <col name="guarantor_paper_type"				type="varchar"   length="5"   		descr="押品权属人（或保证人）证件类型"/>
+		  <col name="guarantor_paper_code"				type="varchar"   length="50"   		descr="押品权属人（或保证人）证件代码"/>
+		  <col name="estimated_value"					type="decimal"   length="16,2"   	descr="押品评估价值（或保证金额）"/>
+		  <col name="third_party"						type="char"   	 length="1"   		descr="押品权属人是否第三方"/>
+		  <col name="first_estimated_value_date"		type="varchar"   length="10"   		descr="首次估值日期"/>
+		  <col name="newest_estimated_value_date"		type="varchar"   length="10"   		descr="最新估值日期"/>
+		  <col name="estimated_value_due_date"			type="varchar"   length="10"   		descr="估值到期日期"/>
+		  <col name="assurance_capability_limit"		type="decimal"   length="16,2"   	descr="保证人保证能力上限"/>
+		  <col name="impawn_rate"						type="decimal"   length="16,2"   	descr="审批抵质押率"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>
+		</columns>
+	</table>
+
+	<table name="crrs_ent_equitystake" pkname="rid" descr="股权信息">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>		  
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>	  
+		  <col name="enterprise_code"					type="varchar"   length="50"   		descr="银行持股企业编码"/>
+		  <col name="enterprise_name"					type="varchar"   length="200"   	descr="银行持股企业名称"/>
+		  <col name="bank_code"							type="varchar"   length="50"   		descr="持有行机构代码"/>
+		  <col name="credit_code"						type="varchar"   length="50"   		descr="授信号码"/>
+		  <col name="book_balance"						type="decimal"   length="16,2"   	descr="账面余额"/>
+		  <col name="inst_no"							type="varchar"   length="50"   		descr="经办机构代码"/>
+		  <col name="inst_name"							type="varchar"	 length="200"		descr="经办机构名称"/>
+		  <col name="staff_code"						type="varchar"   length="50"   		descr="客户经理柜员号"/>
+		  <col name="staff_name"						type="varchar"   length="100"   	descr="客户经理名称"/>
+		</columns>
+	</table>
+
+	<table name="crrs_ent_bond" pkname="rid" descr="债券信息">
+		<columns>
+		  <col name="rid"								type="varchar"   length="50"   		descr="主键"/>
+		  <col name="data_dt"							type="varchar"   length="10"     	descr="数据日期"/>			  
+		  <col name="customer_code"						type="varchar"   length="50"   		descr="客户编码"/>
+		  <col name="customer_name"						type="varchar"   length="100"   	descr="客户名称"/>  
+		  <col name="enterprise_code"					type="varchar"   length="50"   		descr="银行持股企业编码"/>
+		  <col name="enterprise_name"					type="varchar"   length="200"   	descr="银行持股企业名称"/>
+		  <col name="bank_code"							type="varchar"   length="50"   		descr="持有行机构代码"/>
+		  <col name="credit_code"						type="varchar"   length="50"   		descr="授信号码"/>
+		  <col name="bond_code"							type="varchar"   length="50"   		descr="债券代码"/>
+		  <col name="bond_type"							type="char"   	 length="1"   		descr="债券类型"/>
+		  <col name="bond_value"						type="decimal"   length="16,2"   	descr="债券面值"/>
+		  <col name="book_balance"						type="decimal"   length="16,2"   	descr="账面余额"/>
+		  <col name="issuing_date"						type="varchar"   length="10"   		descr="发行日期"/>
+		  <col name="cash_date"							type="varchar"   length="10"   		descr="到期兑付日期"/>
+		  <col name="account_type"						type="char"   	 length="1"   		descr="账户类型"/>
+		  <col name="internal_ratings"					type="varchar"   length="10"   		descr="内部评级"/>
+		  <col name="external_ratings"					type="varchar"   length="10"   		descr="外部评级"/>
+		  <col name="inst_no"							type="varchar"   length="50"   		descr="经办机构代码"/>
+		  <col name="inst_name"							type="varchar"	 length="200"		descr="经办机构名称"/>
+		  <col name="staff_code"						type="varchar"   length="50"   		descr="客户经理柜员号"/>
+		  <col name="staff_name"						type="varchar"   length="100"   	descr="客户经理名称"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_ent_trade_info" pkname="rid" descr="同业客户-基础信息">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>		  
+		  <col name="customer_code"						type="varchar"   	length="50"     descr="客户代码"/>
+		  <col name="customer_name"						type="varchar"   	length="100"    descr="客户名称"/>
+		  <col name="nationality_code"					type="varchar"   	length="10"   	descr="国别代码"/>
+		  <col name="org_code"							type="varchar"   	length="20"   	descr="组织机构代码"/>
+		  <col name="org_code_no_scene"					type="varchar"   	length="17"   	descr="非现场监管统计机构编码"/>
+		  <col name="customer_type"						type="char"   		length="1"   	descr="客户分类"	remark="1-集团客户,2-单一法人客户,3-同业客户"/>
+		  <col name="customer_cd"						type="varchar"   	length="5"   	descr="客户类型"	remark="（1-政策性银行，2-国家开发银行，3-国有商业银行，4-股份制商业银行，5-城市商业银行，6-农村商业银行，7-农村合作银行，8-城市信用合作社，9-农村信用合作社，10-村镇银行，11-农村资金互助社，12-贷款公司，13-外资法人银行，14-外国银行分行，15-企业集团财务公司，16-信托投资公司，17-金融租赁公司，18-汽车金融公司，19-货币经纪公司，20-消费金融公司，21-邮政储蓄银行，22-证券公司，23-基金公司，24-保险公司，25-期货公司，26-金融资产管理公司，27-其他）"/>
+		  <col name="inst_no"							type="varchar"		length="50"		descr="经办机构代码"/>
+		  <col name="inst_name"							type="varchar"		length="200"	descr="经办机构名称"/>
+		  <col name="staff_code"						type="varchar"		length="50"		descr="客户经理柜员号"/>
+		  <col name="staff_name"						type="varchar"		length="100"	descr="客户经理名称"/>
+		  <col name="status"							type="varchar"		length="10"		descr="数据是否锁定（锁定/解锁）"/>
+		</columns>
+	</table>
+
+	<table name="crrs_ent_trade_customers" pkname="rid" descr="同业客户业务明细">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="customer_code"						type="varchar"   	length="50"     descr="客户代码"/>
+		  <col name="customer_name"						type="varchar"   	length="100"    descr="客户名称"/>
+		  <col name="internal_ratings"					type="varchar"   	length="10"   	descr="内部评级"/>
+		  <col name="external_ratings"					type="varchar"   	length="10"   	descr="外部评级"/>
+		  <col name="inter_bank_offered"				type="decimal"   	length="16,2"   descr="拆放同业"/>
+		  <col name="bank_deposit"						type="decimal"   	length="16,2"   descr="存放同业"/>
+		  <col name="bond_repurchase"					type="decimal"   	length="16,2"   descr="债券回购"/>
+		  <col name="stock_collateral"					type="decimal"   	length="16,2"   descr="股票质押贷款"/>
+		  <col name="buying_back"						type="decimal"   	length="16,2"   descr="买入返售资产"/>
+		  <col name="buy_out_turn_discount"				type="decimal"   	length="16,2"   descr="买断式转贴现"/>
+		  <col name="bond_holding"						type="decimal"   	length="16,2"   descr="持有债券"/>
+		  <col name="equity_investment"					type="decimal"   	length="16,2"   descr="股权投资"/>
+		  <col name="trade_paid"						type="decimal"   	length="16,2"   descr="同业代付"/>
+		  <col name="other_onbalance_sheet"				type="decimal"   	length="16,2"   descr="其他表内业务"/>
+		  <col name="selling_back"						type="decimal"   	length="16,2"   descr="卖出回购资产"/>
+		  <col name="irrepealable_commitment"			type="decimal"   	length="16,2"   descr="不可撤销的承诺及或有负债"/>
+		  <col name="other_offbalance_sheet"			type="decimal"   	length="16,2"   descr="其他表外业务"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_report_xml" pkname="rid" descr="生成xml报文">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="data_dt"							type="varchar"   	length="10"     descr="数据日期"/>		  
+		  <col name="report_code"						type="char"   		length="1"     	descr="报文编码"/>		  
+		  <col name="seq"								type="char"   		length="1"     	descr="批次"/>		  
+		  <col name="status"							type="varchar"   	length="50"     descr="报文状态（已创建，生成中，已生成，失败）"/>
+		  <col name="report_url"						type="varchar"   	length="500"    descr="报文生成路径"/>
+		  <col name="start_tm"							type="varchar"   	length="20"    	descr="开始时间"/>
+		  <col name="end_tm"							type="varchar"   	length="20"     descr="结束时间"/>
+		  <col name="filelog" 							type="varchar" 		length="500" 	descr="生成文件的日志内容" />
+		</columns>
+	</table>
+	
+	<table name="crrs_report_xml_config" pkname="rid" descr="crrs_report_xml_config">
+		<columns>
+			<col name="rid" 							type="varchar" 		length="40" 	descr="rid" />
+			<col name="report_code" 					type="varchar" 		length="10" 	descr="报文编码" />
+			<col name="report_name" 					type="varchar" 		length="100" 	descr="报文名称" />
+			<col name="isautojob" 						type="varchar" 		length="1" 		descr="isautojob" />
+			<col name="autojobtrigger" 					type="varchar" 		length="40" 	descr="autojobtrigger" />
+			<col name="seq" 							type="decimal" 		length="5" 		descr="seq" />
+		</columns>
+	</table>
+	
+	<table name="crrs_report_log" pkname="rid" descr="生成xml报文日志">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="report_rid"						type="varchar"   	length="50"     descr="报文编码"/>		  
+		  <col name="log_level"							type="varchar"   	length="10"     descr="日志等级"/>		  
+		  <col name="log_cont"							type="varchar"   	length="500"    descr="日志数量"/>		  
+		  <col name="create_tm"							type="varchar"   	length="20"     descr="创建时间"/>	  
+		  <col name="seq"								type="decimal"   	length="38"     descr="顺序"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_rule" pkname="rid" descr="校验规则">
+		<columns>
+		  <col name="rid"								type="varchar"   	length="50"     descr="主键"/>
+		  <col name="ruletype"							type="varchar"   	length="50"     descr="类型"		remark='确定性校,一致性校验,提示性校验'/>		
+		  <col name="ruletype2"							type="varchar"   	length="50"     descr="类型"		remark='基本类,完整性,唯一性,特殊类'/>
+		  
+		  <col name="problemcode"						type="varchar"   	length="50"    	descr="问题编号"/>
+		  <col name="problemmsg"						type="varchar"   	length="2000"   descr="提示消息"/>
+		   	  		  
+		  <col name="tablename"							type="varchar"   	length="100"    descr="表名"/>	
+		  <col name="tablename_en"						type="varchar"   	length="100"    descr="表名(英文)"/>		  
+		  <col name="colname"							type="varchar"   	length="100"    descr="字段名"/>
+		  <col name="colname_en"						type="varchar"   	length="100"    descr="字段名(英文)"/>
+		  <col name="lable"								type="varchar"   	length="200"    descr="字段说明"/>
+		 
+		  <col name="execmethod"						type="varchar"   	length="50"    	descr="方法名"/>
+		  <col name="param1"							type="varchar"   	length="500"    descr="参数1"/>
+		  <col name="param2"							type="varchar"   	length="500"    descr="参数2"/>
+
+		  <col name="flagone"							type="varchar"   	length="50"    	descr="标记号"/>
+		  <col name="verifytype"						type="varchar"   	length="50"    	descr="验证类型"/>		
+		  <col name="rulelevel"							type="varchar"   	length="10"    	descr="级别"/>
+		  <col name="isopen"							type="char"   		length="1"    	descr="是否启用"  remark="表示是否生效"  />
+		  <col name="id"								type="decimal"   	length="38"     descr="规则ID"/>
+		  <col name="issql"								type="char"   		length="1"      descr="是否SQL检核"/>
+		  <col name="expr"								type="varchar"   	length="1500"   descr="检核表达式"/>
+		  <col name="isremark"							type="char"   		length="1"    	descr=""/>
+		</columns>
+	</table>
+	
+	<table name="crrs_result_sure" pkname="rid" descr="确定性校验结果"  remark="参考银监会表结构,确定性校验产生的结果,精确到明细记录,即某一条记录的主键值都存入">
+		<columns>
+		  <col name="rid"              type="varchar"   length="40"    descr="主键"/>
+		  <col name="reportdate"       type="varchar"   length="10"    descr="报告日期"/>
+		  <col name="rulerid"          type="varchar"   length="40"    descr="校验id"/>
+		  <col name="ruletype"         type="varchar"   length="30"    descr="校验类型"/>
+		  
+		  <col name="customercode"     type="varchar"   length="100"    descr="客户编号"/>
+		  <col name="customername"     type="varchar"   length="200"    descr="客户名称"/>
+		  <col name="flag1"            type="varchar"   length="100"    descr="识别码1"/>
+		  <col name="flag2"            type="varchar"   length="100"    descr="识别码2"/>
+		  <col name="flag3"            type="varchar"   length="100"    descr="识别码3"/>
+		  <col name="tablename"        type="varchar"   length="50"    descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"    descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"    descr="字段名"/>
+		  <col name="colname_en"       type="varchar"   length="100"    descr="字段名(英文)"/>
+		  <col name="colvalue"         type="varchar"   length="300"    descr="字段值"/>
+		  <col name="pkcolname"        type="varchar"   length="30"    descr="主键字段名"/>
+		  <col name="pkvalue"          type="varchar"   length="100"    descr="主键字段值"/>
+		  <col name="problemcode"      type="varchar"   length="30"     descr="校验关系编码"/>
+		  <col name="problemmsg"       type="varchar"   length="2000"   descr="问题提示"/>
+		  <col name="relbankcode"      type="varchar"   length="50"     descr="银行相关机构代码"/>
+		  <col name="relbankname"      type="varchar"   length="200"    descr="银行相关机构名称"/>
+		  <col name="inst_code"        type="varchar"   length="30"    descr="经办机构代码"/>
+		  <col name="inst_name"        type="varchar"   length="200"   descr="经办机构名称"/>
+		  <col name="staff_code"       type="varchar"   length="30"    descr="客户经理柜员号"/>
+		  <col name="staff_name"       type="varchar"   length="30"    descr="客户经理姓名"/>
+		  <col name="business_type"    type="varchar"   length="50"    descr="业务类型"/>
+		  <col name="result_status"    type="varchar"   length="20"     descr="状态"/>
+		  <col name="reason"       	   type="varchar"   length="2000"   descr="退回原因"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_result_warn" pkname="rid" descr="提示性校验结果"  remark="参考银监会表结构,即一致性校验产生的结果,也是精确到明细">
+		<columns>
+		  <col name="rid"              type="varchar"   length="40"    descr="主键"/>
+		  <col name="reportdate"       type="varchar"   length="10"    descr="报告日期"/>
+		  <col name="rulerid"          type="varchar"   length="40"    descr="校验id"/>
+		  <col name="ruletype"         type="varchar"   length="30"    descr="校验类型"/>
+		  <col name="varify_num"       type="decimal"   length="10"    descr="校验次数"/>
+		  <col name="customercode"     type="varchar"   length="100"    descr="客户编号"/>
+		  <col name="customername"     type="varchar"   length="200"    descr="客户名称"/>
+		  <col name="flag1"            type="varchar"   length="100"    descr="识别码1"/>
+		  <col name="flag2"            type="varchar"   length="100"    descr="识别码2"/>
+		  <col name="flag3"            type="varchar"   length="100"    descr="识别码3"/>
+		  <col name="tablename"        type="varchar"   length="45"    descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"    descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"    descr="字段名"/>
+		  <col name="colname_en"       type="varchar"   length="100"    descr="字段名(英文)"/>
+		  <col name="colvalue"         type="varchar"   length="300"    descr="字段值"/>
+		  <col name="pkcolname"        type="varchar"   length="30"    descr="主键字段名"/>
+		  <col name="pkvalue"          type="varchar"   length="100"    descr="主键字段值"/>
+		  <col name="problemcode"      type="varchar"   length="30"     descr="校验关系编码"/>
+		  <col name="problemmsg"       type="varchar"   length="2000"   descr="问题提示"/>
+		  <col name="isremark"         type="char"      length="1"         descr="是否需要银行填写备注"/>
+		  <col name="bank_remark"      type="varchar"   length="300"       descr="银行填写备注"/>
+		  
+		  <col name="submit_bankcode"      type="varchar"   length="50"       descr="报送机构代码"/>
+		  <col name="submit_bankname"      type="varchar"   length="200"      descr="报送机构名称"/>
+		  <col name="submit_adminbankcode" type="varchar"   length="50"       descr="报送机构管辖机构代码"/>
+		  
+		  <col name="check_bankcode"      type="varchar"   length="50"       descr="核实举证银行机构代码"/>
+		  <col name="check_bankname"      type="varchar"   length="200"      descr="核实举证银行机构名称"/>
+		  <col name="check_adminbankcode" type="varchar"   length="50"       descr="核实举证银行机构的监管机构代码"/>
+		  
+		  <col name="isdoubtdata"        type="char"      length="1"         descr="是否为监管机构质疑数据"/>
+		  <col name="cbrc_remark"        type="varchar"   length="300"       descr="监管机构备注"/>
+		  
+		  <col name="bank_checkresult"     type="varchar"   length="50"      descr="银行核实结果"/>
+		  <col name="bank_datamodify"      type="varchar"   length="200"     descr="银行将本批次数据修改为"/>
+		  <col name="data_changeexplain"   type="varchar"   length="30"      descr="银行异常变动说明"/>
+		  <col name="cbrc_suggestion"      type="varchar"   length="300"     descr="监管机构审核意见"/>
+		  <col name="inst_code"        type="varchar"   length="30"    descr="经办机构代码"/>
+		  <col name="inst_name"        type="varchar"   length="200"   descr="经办机构名称"/>
+		  <col name="staff_code"       type="varchar"   length="30"    descr="客户经理柜员号"/>
+		  <col name="staff_name"       type="varchar"   length="30"    descr="客户经理姓名"/>
+		  <col name="business_type"    type="varchar"   length="50"    descr="业务类型"/>
+		  <col name="result_status"    type="varchar"   length="20"     descr="状态"/>
+		  <col name="result_status2"   type="varchar"   length="20"     descr="反馈处理状态"/>
+		  
+		  <col name="remark"   type="varchar"   length="1000"     descr="备注情况"/>
+		  <col name="reason"       	   type="varchar"   length="2000"   descr="退回原因"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_result_consistency" pkname="rid" descr="一致性校验结果"  remark="参考银监会表结构,即一致性校验产生的结果,也是精确到明细">
+		<columns>
+		  <col name="rid"              type="varchar"   length="40"    descr="主键"/>
+		  <col name="reportdate"       type="varchar"   length="10"    descr="报告日期"/>
+		  <col name="rulerid"          type="varchar"   length="40"    descr="校验id"/>
+		  <col name="ruletype"         type="varchar"   length="30"    descr="校验类型"/>
+		  <col name="varify_num"       type="decimal"   length="10"    descr="校验次数"/>
+		  
+		  <col name="customercode"     type="varchar"   length="100"    descr="客户编号"/>
+		  <col name="customername"     type="varchar"   length="200"    descr="客户名称"/>
+		  
+		  <col name="flag1"            type="varchar"   length="100"    descr="识别码1"/>
+		  <col name="flag2"            type="varchar"   length="100"    descr="识别码2"/>
+		  <col name="flag3"            type="varchar"   length="100"    descr="识别码3"/>
+		  
+		  <!-- 表字段相关列 -->
+		  <col name="tablename"        type="varchar"   length="30"     descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"    descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"     descr="字段名"/>
+		  <col name="colname_en"       type="varchar"   length="100"    descr="字段名(英文)"/>
+		  <col name="colvalue"         type="varchar"   length="300"    descr="字段值"/>
+		  <col name="pkcolname"        type="varchar"   length="30"     descr="主键字段名"/>
+		  <col name="pkvalue"          type="varchar"   length="100"    descr="主键字段值"/>
+		  
+		  <col name="problemcode"      type="varchar"   length="30"     descr="校验关系编码"/>
+		  <col name="problemmsg"       type="varchar"   length="2000"   descr="问题提示"/>
+		  
+		  <col name="textconfirmtype"  type="char"   	length="1"    	descr="信息核实类型"/>
+		  
+		  <col name="same_value"       type="varchar"   length="200"    descr="相同信息值"/>
+		  <col name="lastdt_value"     type="varchar"   length="200"    descr="上期字段值"/>
+		  
+		  <col name="relbankcode"      type="varchar"   length="50"     descr="银行相关机构代码"/>
+		  <col name="relbankname"      type="varchar"   length="200"    descr="银行相关机构名称"/>
+
+		  <col name="submit_bankcode"      type="varchar"   length="50"       descr="报送机构代码"  />
+		  <col name="submit_bankname"      type="varchar"   length="200"      descr="报送机构名称"/>
+		  <col name="submit_adminbankcode" type="varchar"   length="50"       descr="报送机构管辖机构代码"/>
+		  
+		  <!-- 银监会反馈(即跨行一致性的反馈) -->
+		  <col name="check_bankcode"       type="varchar"   length="50"       descr="核实举证银行机构代码"  remark=""/>
+		  <col name="check_bankname"       type="varchar"   length="200"      descr="核实举证银行机构名称"/>
+		  <col name="check_adminbankcode"  type="varchar"   length="50"       descr="核实举证银行机构的监管机构代码"/>
+		  
+		  <!-- 银行对银监会反馈结果的核实,核实后会第二次上报 -->
+		  <col name="bank_checkresult"     type="varchar"   length="50"      descr="银行核实结果"/>
+		  <col name="bank_datamodify"      type="varchar"   length="200"     descr="银行将本批次数据修改为"/>
+		  <col name="data_changeexplain"   type="varchar"   length="30"      descr="银行异常变动说明"/>
+		  
+		  <!-- 银监会最终审批结果,即对第二次上报结果的回复 -->
+		  <col name="cbrc_suggestion"      type="varchar"   length="300"     descr="监管机构审核意见"/>
+
+		  <col name="inst_code"        type="varchar"   length="30"     descr="经办机构代码"/>
+		  <col name="inst_name"        type="varchar"   length="200"    descr="经办机构名称"/>
+		  <col name="staff_code"       type="varchar"   length="30"     descr="客户经理柜员号"/>
+		  <col name="staff_name"       type="varchar"   length="30"     descr="客户经理姓名"/>
+		  <col name="business_type"    type="varchar"   length="50"     descr="业务类型"/>
+		  <col name="result_status"    type="varchar"   length="20"     descr="状态"/>
+		  <col name="result_status2"   type="varchar"   length="20"     descr="反馈处理状态"/>
+		  <col name="reason"       	   type="varchar"   length="2000"   descr="退回原因"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_cross_bank_consistency" pkname="rid" descr="跨行一致性信息"  remark="银监会反馈的跨行一致性信息">
+		<columns>
+		  <col name="rid"              			type="varchar"   	length="50"    	descr="主键"/>
+		  <col name="seq"						type="varchar"   	length="10"     descr="批次"/>
+		  <col name="feedback_times"			type="varchar"   	length="5"     	descr="反馈次数"/>
+		  <col name="status"					type="varchar"   	length="5"     	descr="处理状态"/>
+		  <col name="bank_name_cbrc"			type="varchar"   	length="200"    descr="所属机构名称（银监认定）"/>
+		  <col name="bank_name_system"			type="varchar"   	length="200"    descr="所属机构名称（系统认定）"/>
+		  <col name="bank_branch_name_system"	type="varchar"   	length="200"    descr="所属支行（系统认定）"/>
+		  <col name="data_dt"					type="varchar"   	length="10"    	descr="反馈日期"/>
+		  <col name="feedback_people"			type="varchar"   	length="200"    descr="反馈人"/>
+		  <col name="ruletype"         			type="char"   		length="1"    	descr="校验类型"/>
+		  <col name="customercode"     			type="varchar"   	length="100"    descr="客户代码"/>
+		  <col name="customername"     			type="varchar"   	length="200"    descr="客户名称"/>
+		  <col name="flag1"            			type="varchar"   	length="100"    descr="识别码1"/>
+		  <col name="flag2"            			type="varchar"   	length="100"    descr="识别码2"/>
+		  <col name="flag3"            			type="varchar"   	length="100"    descr="识别码3"/>
+		  <col name="rule_relation_code"        type="varchar"   	length="20"    	descr="校验关系编码"/>
+		  <col name="information_check_type"    type="varchar"   	length="300"    descr="信息核实类型"/>
+		  <col name="confirm_column_name"       type="varchar"   	length="50"     descr="需核实字段"/>
+		  <col name="confirm_column_value"      type="varchar"   	length="300"    descr="需核实字段值"/>
+		  <col name="same_value"       			type="varchar"   	length="200"    descr="相同信息值"/>
+		  <col name="conflict_value"			type="varchar"   	length="200"    descr="冲突信息"/>
+		  <col name="lastdt_value"     			type="varchar"   	length="200"    descr="上期字段值"/>
+		  <col name="admin_org_revise_oppion"	type="varchar"   	length="500"    descr="核实举证银行机构的监管机构对应改未改情况的修改意见"/>
+		  <col name="submit_bankcode"      		type="varchar"   	length="50"     descr="报送机构代码"  />
+		  <col name="submit_bankname"      		type="varchar"   	length="200"    descr="报送机构名称"/>
+		  <col name="submit_adminbankcode" 		type="varchar"   	length="50"     descr="报送机构管辖机构代码"/>
+		  <col name="check_bankcode"       		type="varchar"   	length="50"     descr="核实举证银行机构代码"/>
+		  <col name="check_bankname"       		type="varchar"   	length="200"    descr="核实举证银行机构名称"/>
+		  <col name="check_adminbankcode"  		type="varchar"   	length="50"     descr="核实举证银行机构的监管机构代码"/>
+		  <col name="bank_checkresult"     		type="varchar"   	length="50"     descr="银行核实结果"/>
+		  <col name="confirm_value_revise"      type="varchar"   	length="200"    descr="银行将需核实字段值修改为"/>
+		  <col name="same_value_revise"   		type="varchar"   	length="200"    descr="银行将相同信息值修改为"/>
+		  <col name="value_change_date"			type="varchar"   	length="20"    	descr="信息变更时间"/>
+		  <col name="bank_explain"				type="varchar"   	length="500"    descr="银行说明"/>
+		  <col name="org_check_admin_oppion"	type="varchar"   	length="500"    descr="组织举证的监管机构认同意见"/>
+		  <col name="org_check_admin_remark"	type="varchar"   	length="500"    descr="组织举证的监管机构备注"/>
+		  <col name="majorcheck_org_code"		type="varchar"   	length="20"    	descr="主审机构代码"/>
+		  <col name="majorcheck_name"			type="varchar"   	length="200"    descr="主审机构名称"/>
+		  <col name="confirmvalue_revise_oppion"	type="varchar"   	length="500"    descr="主审机构需核实字段值审核意见"/>
+		  <col name="samevalue_revise_oppion"		type="varchar"   	length="500"    descr="主审机构相同信息值审核意见"/>
+		  <col name="majorcheck_remark"			type="varchar"   	length="500"    descr="主审机构备注"/>
+		  <col name="report_material"			type="varchar"   	length="200"    descr="举证材料"/>
+		  <col name="rulerid"          			type="varchar"   	length="50"    	descr="校验id"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_result_log" pkname="rid" descr="日志"  remark="">
+		<columns>
+		  <col name="rid"              type="varchar"   length="40"    		descr="主键"/>
+		  <col name="tabname"          type="varchar"   length="50"    		descr="涉及主表（24张）"/>
+		  <col name="resultids"        type="varchar"   length="2000"   	descr="校验结果的id"/>
+		  <col name="colnames"         type="varchar"   length="2000"    	descr="涉及主表（24张）的列都有哪些"/>
+		  <col name="createper"        type="varchar"   length="50"    		descr="操作人"/>
+		  <col name="createtime"       type="varchar"   length="20"    		descr="操作时间"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_single_summary" pkname="rid" descr="单一法人客户统计">
+		<columns>
+			<col name="rid" 							type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="base_count"						type="decimal"   		length="16,2"     	descr="基本信息条数"/>		  
+			<col name="financial_count" 				type="decimal"   		length="16,2"		descr="财务信息条数" />
+			<col name="executives_count" 				type="decimal"   		length="16,2"  		descr="高管及重要联系人信息条数" />
+			<col name="shareholder_ep_count" 			type="decimal"   		length="16,2" 		descr="股东及重要关联企业信息条数"/>
+			<col name="credit_count" 					type="decimal"   		length="16,2"		descr="授信信息条数" />
+			<col name="loan_sum"	 					type="decimal"   		length="16,2"		descr="贷款余额" />
+			<col name="no_credit_count" 				type="decimal"   		length="16,2" 		descr="未纳入授信业务条数" />
+			<col name="loan_detail_count" 				type="decimal"   		length="16,2" 		descr="贷款明细条数" />
+			<col name="enterprise_bond_count" 			type="decimal"   		length="16,2" 		descr="持有企业债券明细信息条数" />
+			<col name="bond_account_sum" 				type="decimal"   		length="16,2" 		descr="债券账面余额" />
+			<col name="enterprise_equitystake_count" 	type="decimal"   		length="16,2" 		descr="持有企业股权明细信息条数" />
+			<col name="equitystake_account_sum" 		type="decimal"   		length="16,2" 		descr="股权账面余额" />
+			<col name="offbalance_sa_count" 			type="decimal"   		length="16,2" 		descr="表外业务明细信息条数" />
+			<col name="collateral_price" 				type="decimal"   		length="16,2" 		descr="押品评估价值" />
+			<col name="guaranteed_count" 				type="decimal"   		length="16,2" 		descr="担保信息条数" />
+			<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>
+			<col name="summary_type" 					type="varchar"   		length="50" 		descr="统计类型" />
+			<col name="summary_code" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+			<col name="summary_name" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+		</columns>
+	</table>
+
+	<table name="crrs_group_summary" pkname="rid" descr="集团客户统计">
+		<columns>
+			<col name="rid" 							type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="base_count"						type="decimal"   		length="16,2"     	descr="基本信息条数"/>		  
+			<col name="executives_count" 				type="decimal"   		length="16,2"		descr="高管及重要联系人信息条数" />
+			<col name="members_count" 	 				type="decimal"   		length="16,2"  		descr="成员名单信息条数" />
+			<col name="actualcontroller_count" 			type="decimal"   		length="16,2" 		descr="实际控制人信息条数"/>
+			<col name="ffiliated_groups_count" 			type="decimal"   		length="16,2"		descr="关联集团信息条数" />
+			<col name="credit_count"					type="decimal"   		length="16,2"		descr="授信信息条数" />
+			<col name="loan_sum" 						type="decimal"   		length="16,2" 		descr="贷款余额" />
+			<col name="group_client_count" 				type="decimal"   		length="16,2" 		descr="授信拆分信息条数" />
+			<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>
+			<col name="summary_type" 					type="varchar"   		length="50" 		descr="统计类型" />
+			<col name="summary_code" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+			<col name="summary_name" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+		</columns>
+	</table>
+	
+	<table name="crrs_supplychain_summary" pkname="rid" descr="供应链融资客户统计">
+		<columns>
+			<col name="rid" 							type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="base_count"						type="decimal"   		length="16,2"     	descr="基本信息条数"/>		  
+			<col name="members_count" 	 				type="decimal"   		length="16,2"  		descr="成员名单信息条数" />
+			<col name="credit_count"					type="decimal"   		length="16,2"		descr="授信信息条数" />
+			<col name="loan_sum" 						type="decimal"   		length="16,2" 		descr="贷款余额" />
+			<col name="group_client_count" 				type="decimal"   		length="16,2" 		descr="授信拆分信息条数" />
+			<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>
+			<col name="summary_type" 					type="varchar"   		length="50" 		descr="统计类型" />
+			<col name="summary_code" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+			<col name="summary_name" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+		</columns>
+	</table>
+	
+	<table name="crrs_tradeinfo_summary" pkname="rid" descr="同业客户统计">
+		<columns>
+			<col name="rid" 							type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="base_count"						type="decimal"   		length="16,2"     	descr="基本信息条数"/>		  
+			<col name="credit_count"					type="decimal"   		length="16,2"		descr="授信信息条数" />
+			<col name="bank_deposit_count" 	 			type="decimal"   		length="16,2"  		descr="存放同业" />
+			<col name="buying_back_count" 				type="decimal"   		length="16,2" 		descr="买入返售资产" />
+			<col name="buy_out_turn_count" 				type="decimal"   		length="16,2" 		descr="买断式转贴现" />
+			<col name="selling_back_count" 				type="decimal"   		length="16,2" 		descr="卖出回购资产" />
+			<col name="business_detail_count" 			type="decimal"   		length="16,2" 		descr="业务明细信息条数" />
+			<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>
+			<col name="summary_type" 					type="varchar"   		length="50" 		descr="统计类型" />
+			<col name="summary_code" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+			<col name="summary_name" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+		</columns>
+	</table>
+
+	<table name="crrs_personal_summary" pkname="rid" descr="个人客户统计">
+		<columns>
+			<col name="rid" 							type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="base_count"						type="decimal"   		length="16,2"     	descr="基本信息条数"/>	
+		  	<col name="personal_loan_count"				type="decimal"   		length="16,2"     	descr="业务明细信息条数"/>		  
+			<col name="loan_sum"						type="decimal"   		length="16,2"		descr="贷款余额" />
+			<col name="joint_debtor_count" 	 			type="decimal"   		length="16,2"  		descr="共同债务人信息条数" />
+			<col name="student_loan_count" 				type="decimal"   		length="16,2" 		descr="助学贷款专项指标信息条数" />
+			<col name="guaranteed_count" 				type="decimal"   		length="16,2" 		descr="担保信息条数" />
+			<col name="collateral_price" 				type="decimal"   		length="16,2" 		descr="押品评估价值" />
+			<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>
+			<col name="summary_type" 					type="varchar"   		length="50" 		descr="统计类型" />
+			<col name="summary_code" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+			<col name="summary_name" 					type="varchar"   		length="50" 		descr="统计类型的名称" />
+		</columns>
+	</table>
+	
+	<table name="crrs_engine_task_param" pkname="task_id" descr="引擎参数表">
+		<columns>
+			<col name="task_id" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"							type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"							type="varchar"   		length="2000"     	descr="参数值"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_engine_task_param_bak" pkname="rid" descr="引擎参数表">
+		<columns>
+			<col name="rid" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"							type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"							type="varchar"   		length="2000"     	descr="参数值"/>
+		  	<col name="remark"							type="varchar"   		length="500"     	descr="备注"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_engine_task" pkname="task_id" descr="引擎任务表">
+		<columns>
+			<col name="task_id" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>	
+		  	<col name="tab_name"						type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="status"							type="varchar"   		length="30"     	descr="状态"/>
+		  	<col name="create_tm"						type="varchar"   		length="20"     	descr="创建时间"/>
+		  	<col name="update_tm"						type="varchar"   		length="20"     	descr="更新时间"/>
+		  	<col name="command1"						type="varchar"   		length="2000"     	descr="配置命令"/>
+		  	<col name="command2"						type="varchar"   		length="2000"     	descr="展示命令"/>
+		  	<col name="task_name"						type="varchar"   		length="100"     	descr="任务名称"/>
+		  	<col name="rule_name"						type="varchar"   		length="2000"     	descr="规则名称"/>
+		  	<col name="rule_ids"						type="varchar"   		length="4000"     	descr="规则ids"/>
+		  	<col name="tab_ids"							type="varchar"   		length="4000"     	descr="表id"/>
+		  	<col name="info"							type="varchar"   		length="1000"     	descr="信息"/>
+		  	<col name="tab_names"						type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="task_type"						type="varchar"   		length="15"     	descr="任务类型"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_engine_cmd_template" pkname="rid" descr="任务命令模板表">
+		<columns>
+		  <col name="rid"						type="varchar"   length="50"   		descr="主键"/>
+		  <col name="template_sts"				type="varchar"   length="1"   		descr="模板状态"/>
+		  <col name="cmd"						type="varchar"   length="2500"  	descr="命令"/>
+		  <col name="tem_name"					type="varchar"   length="200"   	descr="模板名称"/>
+		  <col name="cmd_type"					type="varchar"   length="20"   		descr="任务类型（规则任务/表任务）"/>
+		  <col name="last_upd_tm"				type="varchar"   length="19"   		descr="最后更新时间"/>
+		  <col name="create_tm"					type="varchar"   length="19"   		descr="创建时间"/>
+		  <col name="last_update_user"			type="varchar"   length="200"   	descr="最后修改人"/>
+		  <col name="creat_user"				type="varchar"   length="200"   	descr="创建人"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_engine_log" pkname="rid" descr="检核日志">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="task_id"			type="varchar"   	length="50"   	descr="检核任务主键"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		  <col name="log_level"			type="varchar"   	length="20"   	descr="日志级别"/>
+		  <col name="log_cont"			type="varchar"   	length="2000"   descr="日志信息"/>
+		  <col name="create_tm"			type="char"   		length="19"   	descr="创建时间"/>
+		  <col name="log_no"			type="decimal"   	length="38"   	descr="日志序号"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_lock_data" pkname="rid" descr="数据锁定">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		  <col name="status"			type="varchar"   	length="10"   	descr="状态"/>
+		  <col name="operator"			type="varchar"   	length="100"   	descr="操作人"/>
+		  <col name="operator_name"		type="varchar"   	length="100"    descr="操作人名称"/>
+		  <col name="create_tm"			type="char"   		length="19"   	descr="操作时间"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_analysis_cfg" pkname="rid" descr="报送统计配置">
+		<columns>
+		  <col name="rid"					type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="index_name"			type="varchar"   	length="100"   	descr="报表名称/指标名称"/>
+		  <col name="index_position"		type="varchar"   	length="100"   	descr="报表序号/指标位置"/>
+		  <col name="index_sql"				type="varchar"   	length="2000"   descr="统计SQL"/>
+		  <col name="index_type"			type="varchar"   	length="10"   	descr="类型：报表记录数/报表指标项"/>
+		  <col name="index_up"				type="decimal"   	length="10"   	descr="阈值范围：上限"/>
+		  <col name="index_down"			type="decimal"   	length="10"   	descr="阈值范围：下限"/>
+		  <col name="order_no"				type="decimal"   	length="10"   	descr="排序序号"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_analysis_data" pkname="rid" descr="报送统计数据">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="index_name"		type="varchar"   	length="100"   	descr="报表名称/指标名称"/>
+		  <col name="index_value"		type="decimal"   	length="16,2"   descr="记录数/指标值（条/万元）"/>
+		  <col name="index_type"		type="varchar"   	length="10"   	descr="类型：报表记录数/报表指标项"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		</columns>
+	</table>
+	
+	<table name="crrs_result_job" pkname="rid" descr="导出校验结果csv任务表">
+		<columns>
+			<col name="rid" 	type="varchar" 	length="50" descr="77777777-7777-7777-7777-777777777777" />
+			<col name="status"	type="varchar"  length="10" descr="状态" remark="初始化、进行中、完成、失败"/>
+		</columns>
+	</table>
+
+	<table name="crrs_job" pkname="rid" descr="自动任务表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="name" type="varchar" length="30" descr="任务名" />
+			<col name="classname" type="varchar" length="100" descr="类名" />
+			<col name="triggerconf" type="varchar" length="50" descr="参数" />
+			<col name="activeflag" type="varchar" length="1" descr="是否激活" />
+			<col name="triggertype" type="varchar" length="100" descr="调度类型" />
+			<col name="descr" type="varchar" length="100" descr="备注" />
+			<col name="seq" type="decimal" length="3,0" descr="执行历史" />
+		</columns>
+	</table>
+
+	<table name="crrs_job_b" pkname="rid" descr="自动任务日志表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="jobid" type="varchar" length="50" descr="jobid" />
+			<col name="begintime" type="varchar" length="25" descr="开始时间" />
+			<col name="endtime" type="varchar" length="25" descr="结束时间" />
+			<col name="useseconds" type="decimal" length="10" descr="耗时" />
+			<col name="execresult" type="varchar" length="4000" descr="执行结果信息" />
+		</columns>
+	</table>
+</root>

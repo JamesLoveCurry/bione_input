@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptmgr.repository.RptMgrServerMybatisDao">
+
+
+	<select id="serverlist"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.ServerListVO">
+		SELECT server.*,adapter.adapter_Nm FROM Rpt_Mgr_Server_Info
+		server, Rpt_Mgr_Adapter adapter where server.adapter_Id =
+		adapter.adapter_Id
+	</select>
+
+	<select id="paramList"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.ServerParamVO"
+		parameterType="String">
+		SELECT
+		RPT_MGR_ADAPTER_PARAM.PARAM_NM,RPT_MGR_PARAM.PARAM_VAL FROM
+		RPT_MGR_ADAPTER_PARAM,RPT_MGR_PARAM
+		where
+		RPT_MGR_PARAM.SERVER_ID=#{serverId} and
+		RPT_MGR_ADAPTER_PARAM.ADAPTER_PARAM_ID=RPT_MGR_PARAM.ADAPTER_PARAM_ID
+	</select>
+	<select id="getServerInfoById"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.ServerListVO">
+		SELECT server.* FROM Rpt_Mgr_Server_Info
+		server where
+		server.server_id =#{serverId}
+	</select>
+	<select id="getParamInfoList"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrParam"
+		parameterType="HashMap">
+		select SERVER_ID as "id.serverId",ADAPTER_PARAM_ID as
+		"id.adapterParamId",PARAM_VAL from
+		RPT_MGR_PARAM
+		where 1=1
+		<if test="rptMgrParamPK != null">
+			<foreach item="id" index="index" collection="rptMgrParamPK"
+				open="and ((" separator=") or (" close="))">
+				SERVER_ID=#{id.serverId} and
+				ADAPTER_PARAM_ID=#{id.adapterParamId}
+			</foreach>
+		</if>
+		<if test="serverId != null">
+			and SERVER_ID = #{serverId}
+		</if>
+		<if test="adapterParamId != null">
+			and ADAPTER_PARAM_ID = #{adapterParamId}
+		</if>
+	</select>
+	<select id="authUserlist"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrAuthUserInfo"
+		parameterType="HashMap">
+		select info.* from
+		RPT_MGR_AUTH_USER_INFO info
+		where 1=1
+		<if test="authId != null">
+			and AUTH_ID = #{authId}
+		</if>
+		<if test="authUserNm != null">
+			and AUTH_USER_NM = #{authUserNm}
+		</if>
+		<if test="authUserPwd != null">
+			and AUTH_USER_PWD = #{authUserPwd}
+		</if>
+		<if test="serverId != null">
+			and SERVER_ID = #{serverId}
+		</if>
+	</select>
+	<select id="adapterParamlist"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrAdapterParam"
+		parameterType="HashMap">
+		select param.* from
+		RPT_MGR_ADAPTER_PARAM param
+		where 1=1
+		<if test="adapterId != null">
+			and ADAPTER_ID = #{adapterId}
+		</if>
+	</select>
+	<select id="getAdapterInfo"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrAdapter"
+		parameterType="HashMap">
+		select adapter.* from
+		RPT_MGR_ADAPTER adapter
+		where 1=1
+		<if test="adapterId != null">
+			and ADAPTER_ID = #{adapterId}
+		</if>
+	</select>
+	<select id="findUsedServerName" resultType="String"
+		parameterType="HashMap">
+		SELECT
+		report.rpt_Nm
+		FROM
+		Rpt_Mgr_Server_Info server,
+		Rpt_Mgr_Report_Info
+		report,
+		RPT_MGR_OUTER_CFG cfg
+		WHERE
+		report.cfg_Id = cfg.cfg_Id
+		AND
+		cfg.server_id=server.server_Id
+		<if test="serverId != null">
+			and server.server_Id = #{serverId}
+		</if>
+	</select>
+
+	<insert id="saveAuthUser"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrAuthUserInfo">
+		insert into
+		RPT_MGR_AUTH_USER_INFO(AUTH_ID,AUTH_USER_NM,AUTH_USER_PWD,SERVER_ID)
+		values(#{authId},#{authUserNm},#{authUserPwd},#{serverId})
+	</insert>
+
+	<insert id="saveParam"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrParam">
+		insert into
+		RPT_MGR_PARAM(SERVER_ID,ADAPTER_PARAM_ID,PARAM_VAL)
+		values(#{id.serverId},#{id.adapterParamId},#{paramVal})
+	</insert>
+
+	<insert id="saveServer"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrServerInfo">
+		insert into
+		RPT_MGR_SERVER_INFO(SERVER_ID,ADAPTER_ID,AUTH_TYPE,CREATE_TIME,SERVER_DESC,SERVER_NM)
+		values(#{serverId},#{adapterId},#{authType},#{createTime},#{serverDesc},#{serverNm})
+	</insert>
+
+	<update id="updateParam"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrParam">
+		update RPT_MGR_PARAM
+		<set>
+			<if test="id.serverId != null">SERVER_ID=#{id.serverId},</if>
+			<if test="id.adapterParamId != null">ADAPTER_PARAM_ID=#{id.adapterParamId},</if>
+			<if test="paramVal != null">PARAM_VAL=#{paramVal}</if>
+		</set>
+		where SERVER_ID=#{id.serverId} and
+		ADAPTER_PARAM_ID=#{id.adapterParamId}
+	</update>
+	<update id="updateServer"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrServerInfo">
+		update RPT_MGR_SERVER_INFO
+		<set>
+			<if test="serverId != null">SERVER_ID=#{serverId},</if>
+			<if test="adapterId != null">ADAPTER_ID=#{adapterId},</if>
+			<if test="authType != null">AUTH_TYPE=#{authType},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			<if test="serverDesc != null">SERVER_DESC=#{serverDesc},</if>
+			<if test="serverNm != null">SERVER_NM=#{serverNm}</if>
+		</set>
+		where SERVER_ID=#{serverId}
+	</update>
+	<update id="updateAuthUser"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrAuthUserInfo">
+		update RPT_MGR_AUTH_USER_INFO
+		<set>
+			<if test="authId != null">AUTH_ID=#{authId},</if>
+			<if test="authUserNm != null">AUTH_USER_NM=#{authUserNm},</if>
+			<if test="authUserPwd != null">AUTH_USER_PWD=#{authUserPwd},</if>
+			<if test="serverId != null">SERVER_ID=#{serverId}</if>
+		</set>
+		where SERVER_ID=#{serverId} and AUTH_ID=#{authId}
+	</update>
+
+
+	<delete id="deleteAuthUserInfo" parameterType="HashMap">
+		delete from
+		RPT_MGR_AUTH_USER_INFO
+		where 1=1
+		<if test="authId != null">
+			and AUTH_ID in
+			<foreach item="authId" index="index" collection="authId"
+				open="(" separator="," close=")">
+				#{authId}
+			</foreach>
+		</if>
+	</delete>
+	<delete id="deleteAuthUserRelInfo" parameterType="HashMap">
+		delete from
+		Rpt_Mgr_Auth_User_Rel
+		where 1=1
+		<if test="authId != null">
+			and AUTH_ID in
+			<foreach item="authId" index="index" collection="authId"
+				open="(" separator="," close=")">
+				#{authId}
+			</foreach>
+		</if>
+	</delete>
+	<delete id="deleteRptMgrParam" parameterType="HashMap">
+		delete from Rpt_Mgr_Param where 1=1
+		<if test="serverId != null">
+			and server_id in
+			<foreach item="serverId" index="index" collection="serverId"
+				open="(" separator="," close=")">
+				#{serverId}
+			</foreach>
+		</if>
+	</delete>
+	<delete id="deleteRptAuthUserRel" parameterType="HashMap">
+		delete from Rpt_Mgr_Auth_User_Rel authUserRel where
+		authUserRel.auth_Id
+		in
+		(
+		select authUserInfo.auth_Id from
+		Rpt_Mgr_Auth_User_Info authUserInfo
+		where 1=1
+		<if test="serverId != null">
+			and authUserInfo.server_id in
+			<foreach item="serverId" index="index" collection="serverId"
+				open="(" separator="," close=")">
+				#{serverId}
+			</foreach>
+		</if>
+		)
+	</delete>
+	<delete id="deleteRptAuthUserInfo" parameterType="HashMap">
+		delete from Rpt_Mgr_Auth_User_Info where 1=1
+		<if test="serverId != null">
+			and server_id in
+			<foreach item="serverId" index="index" collection="serverId"
+				open="(" separator="," close=")">
+				#{serverId}
+			</foreach>
+		</if>
+	</delete>
+	<delete id="deleteRptMgrServerInfo" parameterType="HashMap">
+		delete from Rpt_Mgr_Server_Info server
+		where 1=1
+		<if test="serverId != null">
+			and server_id in
+			<foreach item="serverId" index="index" collection="serverId"
+				open="(" separator="," close=")">
+				#{serverId}
+			</foreach>
+		</if>
+	</delete>
+
+
+</mapper> 

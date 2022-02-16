@@ -1,0 +1,56 @@
+.label-item {
+	height: 26px;
+	float: left;
+	line-height: 26px;
+	border: 1px solid #D4D4D4;
+	color: #4C4C4C;
+	margin: 2px;
+	padding: 0 2px;
+	background-color: #F0F0F0;
+	border-radius: 2px;
+	cursor: default;
+	position: relative;
+}
+
+.label-item.close {
+	padding-right: 12px;
+}
+
+.label-item.check {
+	padding-left: 20px;
+}
+
+.label-item:HOVER {
+	border: 1px solid #C0C0C0;
+}
+
+.label-item .text {
+	float: left;
+	height: 26px;
+}
+
+.label-item.check .icon {
+	background-position: -41px 0px;
+    width: 12px;
+    height: 12px;
+    top: 7px;
+    left: 4px;
+}
+
+.label-item.check.uncheck .icon {
+	background-position: -41px -12px;
+}
+
+.label-item.close .icon {
+	width: 8px;
+	height: 8px;
+	right: 2px;
+    top: 9px;
+    background-position: -18px 0px;
+}
+
+.label-item .icon {
+	background: url(exLabel_icon.png) no-repeat;
+	cursor: pointer;
+	position: absolute;
+}

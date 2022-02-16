@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<table name="qrtz_blob_triggers" pkname="sched_name,trigger_name,trigger_group" descr="QRTZ_BLOB_TRIGGERS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="trigger_name"			type="varchar"   length="200"   descr="trigger_name"/>
+  <col name="trigger_group"			type="varchar"   length="200"   descr="trigger_group"/>
+  <col name="blob_data"			type="blob"   length="-1"   descr="blob_data"/>
+</columns>
+</table>
+
+<table name="qrtz_calendars" pkname="sched_name,calendar_name" descr="QRTZ_CALENDARS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="calendar_name"			type="varchar"   length="200"   descr="calendar_name"/>
+  <col name="calendar"			type="blob"   length="-1"   descr="calendar"/>
+</columns>
+</table>
+
+<table name="qrtz_cron_triggers" pkname="sched_name,trigger_name,trigger_group" descr="QRTZ_CRON_TRIGGERS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="trigger_name"			type="varchar"   length="200"   descr="trigger_name"/>
+  <col name="trigger_group"			type="varchar"   length="200"   descr="trigger_group"/>
+  <col name="cron_expression"			type="varchar"   length="120"   descr="cron_expression"/>
+  <col name="time_zone_id"			type="varchar"   length="80"   descr="time_zone_id"/>
+</columns>
+</table>
+
+<table name="qrtz_fired_triggers" pkname="sched_name,entry_id" descr="QRTZ_FIRED_TRIGGERS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="entry_id"			type="varchar"   length="95"   descr="entry_id"/>
+  <col name="trigger_name"			type="varchar"   length="200"   descr="trigger_name"/>
+  <col name="trigger_group"			type="varchar"   length="200"   descr="trigger_group"/>
+  <col name="instance_name"			type="varchar"   length="200"   descr="instance_name"/>
+  <col name="fired_time"			type="decimal"   length="13"   descr="fired_time"/>
+  <col name="priority"			type="decimal"   length="13"   descr="priority"/>
+  <col name="state"			type="varchar"   length="16"   descr="state"/>
+  <col name="job_name"			type="varchar"   length="200"   descr="job_name"/>
+  <col name="job_group"			type="varchar"   length="200"   descr="job_group"/>
+  <col name="is_nonconcurrent"			type="varchar"   length="1"   descr="is_nonconcurrent"/>
+  <col name="requests_recovery"			type="varchar"   length="1"   descr="requests_recovery"/>
+</columns>
+</table>
+
+<table name="qrtz_job_details" pkname="sched_name,job_name,job_group" descr="QRTZ_JOB_DETAILS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="job_name"			type="varchar"   length="200"   descr="job_name"/>
+  <col name="job_group"			type="varchar"   length="200"   descr="job_group"/>
+  <col name="description"			type="varchar"   length="250"   descr="description"/>
+  <col name="job_class_name"			type="varchar"   length="250"   descr="job_class_name"/>
+  <col name="is_durable"			type="varchar"   length="1"   descr="is_durable"/>
+  <col name="is_nonconcurrent"			type="varchar"   length="1"   descr="is_nonconcurrent"/>
+  <col name="is_update_data"			type="varchar"   length="1"   descr="is_update_data"/>
+  <col name="requests_recovery"			type="varchar"   length="1"   descr="requests_recovery"/>
+  <col name="job_data"			type="blob"   length="-1"   descr="job_data"/>
+  <col name="is_volatile"			type="varchar"   length="1"   descr="is_volatile"/>
+</columns>
+</table>
+
+<table name="qrtz_locks" pkname="sched_name,lock_name" descr="QRTZ_LOCKS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="lock_name"			type="varchar"   length="40"   descr="lock_name"/>
+</columns>
+</table>
+
+<table name="qrtz_paused_trigger_grps" pkname="sched_name,trigger_group" descr="QRTZ_PAUSED_TRIGGER_GRPS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="trigger_group"			type="varchar"   length="200"   descr="trigger_group"/>
+</columns>
+</table>
+
+<table name="qrtz_scheduler_state" pkname="sched_name,instance_name" descr="QRTZ_SCHEDULER_STATE">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="instance_name"			type="varchar"   length="200"   descr="instance_name"/>
+  <col name="last_checkin_time"			type="decimal"   length="13"   descr="last_checkin_time"/>
+  <col name="checkin_interval"			type="decimal"   length="13"   descr="checkin_interval"/>
+</columns>
+</table>
+
+<table name="qrtz_simple_triggers" pkname="sched_name,trigger_name,trigger_group" descr="QRTZ_SIMPLE_TRIGGERS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="trigger_name"			type="varchar"   length="200"   descr="trigger_name"/>
+  <col name="trigger_group"			type="varchar"   length="200"   descr="trigger_group"/>
+  <col name="repeat_count"			type="decimal"   length="7"   descr="repeat_count"/>
+  <col name="repeat_interval"			type="decimal"   length="12"   descr="repeat_interval"/>
+  <col name="times_triggered"			type="decimal"   length="10"   descr="times_triggered"/>
+</columns>
+</table>
+
+<table name="qrtz_simprop_triggers" pkname="sched_name,trigger_name,trigger_group" descr="QRTZ_SIMPROP_TRIGGERS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="trigger_name"			type="varchar"   length="200"   descr="trigger_name"/>
+  <col name="trigger_group"			type="varchar"   length="200"   descr="trigger_group"/>
+  <col name="str_prop_1"			type="varchar"   length="512"   descr="str_prop_1"/>
+  <col name="str_prop_2"			type="varchar"   length="512"   descr="str_prop_2"/>
+  <col name="str_prop_3"			type="varchar"   length="512"   descr="str_prop_3"/>
+  <col name="int_prop_1"			type="decimal"   length="10"   descr="int_prop_1"/>
+  <col name="int_prop_2"			type="decimal"   length="10"   descr="int_prop_2"/>
+  <col name="long_prop_1"			type="decimal"   length="13"   descr="long_prop_1"/>
+  <col name="long_prop_2"			type="decimal"   length="13"   descr="long_prop_2"/>
+  <col name="dec_prop_1"			type="decimal"   length="13,4"   descr="dec_prop_1"/>
+  <col name="dec_prop_2"			type="decimal"   length="13,4"   descr="dec_prop_2"/>
+  <col name="bool_prop_1"			type="varchar"   length="1"   descr="bool_prop_1"/>
+  <col name="bool_prop_2"			type="varchar"   length="1"   descr="bool_prop_2"/>
+</columns>
+</table>
+
+<table name="qrtz_triggers" pkname="sched_name,trigger_name,trigger_group" descr="QRTZ_TRIGGERS">
+<columns>
+  <col name="sched_name"			type="varchar"   length="120"   descr="sched_name"/>
+  <col name="trigger_name"			type="varchar"   length="200"   descr="trigger_name"/>
+  <col name="trigger_group"			type="varchar"   length="200"   descr="trigger_group"/>
+  <col name="job_name"			type="varchar"   length="200"   descr="job_name"/>
+  <col name="job_group"			type="varchar"   length="200"   descr="job_group"/>
+  <col name="description"			type="varchar"   length="250"   descr="description"/>
+  <col name="next_fire_time"			type="decimal"   length="13"   descr="next_fire_time"/>
+  <col name="prev_fire_time"			type="decimal"   length="13"   descr="prev_fire_time"/>
+  <col name="priority"			type="decimal"   length="13"   descr="priority"/>
+  <col name="trigger_state"			type="varchar"   length="16"   descr="trigger_state"/>
+  <col name="trigger_type"			type="varchar"   length="8"   descr="trigger_type"/>
+  <col name="start_time"			type="decimal"   length="15"   descr="start_time"/>
+  <col name="end_time"			type="decimal"   length="15"   descr="end_time"/>
+  <col name="calendar_name"			type="varchar"   length="200"   descr="calendar_name"/>
+  <col name="misfire_instr"			type="decimal"   length="2"   descr="misfire_instr"/>
+  <col name="job_data"			type="blob"   length="-1"   descr="job_data"/>
+</columns>
+</table>
+
+</root>

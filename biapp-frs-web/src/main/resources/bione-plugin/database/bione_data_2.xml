@@ -1,0 +1,4984 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<record tabname="bione_func_info">
+  <col name="func_id">1651fe1842bd4298993e9cb3ba935314</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">关系配置</col>
+  <col name="up_id">cf5cfa3203a042ee90ebb353f2c7e9e5</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-text</col>
+  <col name="nav_path">/idx/tmp/config</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">408efb280a254cdca57bd36763bc125a</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">业务条线管理</col>
+  <col name="up_id">9c14309918eb4b25bd27d461b55ff9bb</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-aligned</col>
+  <col name="nav_path">/rpt/frame/businessline</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f27f7949419e419db1d04d2e55ef7ffa</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">标签检索</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-aligned</col>
+  <col name="nav_path">/bione/label/labelConfig/search</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">46128ae447a44f39a263766df3c2e209</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">指标访问统计</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">de17c4d04a354a38bc760f67f44779da</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">按指标统计</col>
+  <col name="up_id">46128ae447a44f39a263766df3c2e209</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-mergeCell</col>
+  <col name="nav_path">/rpt/frame/access/idx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fba617b6c08a4bda830deea144572c16</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">按用户统计</col>
+  <col name="up_id">46128ae447a44f39a263766df3c2e209</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path">/rpt/frame/access/idx/user</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">509bef9b5a6e4ba9a88193f2bf1c28d9</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">查询机构组管理</col>
+  <col name="up_id">7266fcec29474a0ba298d0f51164b880</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-text</col>
+  <col name="nav_path">/rpt/frame/rptorggrp</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">99fc30e7e5144191959b32d6bf33c0cd</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">我的分享</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">images/classics/menuicons/group.png</col>
+  <col name="nav_path">/rpt/frame/rptmgr/share</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">7266fcec29474a0ba298d0f51164b880</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">查询机构配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">722a9c8fc837419496eb8a03fb01845f</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">查询机构管理</col>
+  <col name="up_id">7266fcec29474a0ba298d0f51164b880</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path">/rpt/frame/rptorg</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">102701674b73471fa000fe0b0be260a0</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">查询机构汇总关系</col>
+  <col name="up_id">7266fcec29474a0ba298d0f51164b880</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/rpt/frame/rptorgsum</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">15fa842e424c42258f54b24b5368fd11</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">维度管理</col>
+  <col name="up_id">9c14309918eb4b25bd27d461b55ff9bb</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-operation-mark</col>
+  <col name="nav_path">/rpt/frame/dimCatalog</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f44efcf142454f14b0325a569df25d71</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">配置信息查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">695a65667b7647149c6d161cc786ee26</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">指标字典查询</col>
+  <col name="up_id">f44efcf142454f14b0325a569df25d71</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-menu</col>
+  <col name="nav_path">/report/frame/idx/preview</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">227a19e9ad1d4277afef69f988d023a1</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">维度字典查询</col>
+  <col name="up_id">f44efcf142454f14b0325a569df25d71</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-detail</col>
+  <col name="nav_path">/rpt/frame/dimCatalog/preview</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">39ddf7333714480d9ae3616e0d627776</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">指标追溯分析</col>
+  <col name="up_id">f44efcf142454f14b0325a569df25d71</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-zhibiao</col>
+  <col name="nav_path">/rpt/frame/idx/idxanalysis</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8076bd4aed6446bf8aa4abd7be3263bf</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">指标补录配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">10</col>
+  <col name="nav_icon">icon-system</col>
+  <col name="nav_path">/rpt/input/idxdatainput</col>
+  <col name="func_sts">0</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9c14309918eb4b25bd27d461b55ff9bb</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">模型配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3ac725d11e6c425b868ddb5bd56b5e00</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">数据源管理</col>
+  <col name="up_id">9c14309918eb4b25bd27d461b55ff9bb</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path">/bione/mtool/datasource</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a017f900600d4398a4a26575df9131a9</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">数据模型管理</col>
+  <col name="up_id">9c14309918eb4b25bd27d461b55ff9bb</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-zhibiao</col>
+  <col name="nav_path">/rpt/frame/dataset</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4ba360951a7e4b1abd55d1dddd2f40b1</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">模型字段转换</col>
+  <col name="up_id">9c14309918eb4b25bd27d461b55ff9bb</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-resize-01</col>
+  <col name="nav_path">/rpt/frame/modelcoltrans</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d33371f6002d</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">授权关系管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-content</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d33e1ab8006b</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">任务配置</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e37531fb0003</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">逻辑系统管理</col>
+  <col name="up_id">4028818739e3702b0139e3745d560001</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path">/bione/admin/logicSys</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e37595a70004</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">授权对象管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e3763bba0006</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">部门管理</col>
+  <col name="up_id">4028818739e3702b0139e37595a70004</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path">/bione/admin/dept</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e3773b29000a</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">授权对象定义</col>
+  <col name="up_id">4028818739e3702b0139e376ae790008</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path">/bione/admin/authObjDef</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e3745d560001</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">系统模块管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e374e0fd0002</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">功能模块管理</col>
+  <col name="up_id">4028818739e3702b0139e3745d560001</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/bione/admin/module</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e376820a0007</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">机构管理</col>
+  <col name="up_id">4028818739e3702b0139e37595a70004</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/bione/admin/org</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e376ae790008</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">授权相关定义</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e375d8da0005</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">用户管理</col>
+  <col name="up_id">4028818739e3702b0139e37595a70004</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-user</col>
+  <col name="nav_path">/bione/admin/user</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e377abd5000b</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">授权资源定义</col>
+  <col name="up_id">4028818739e3702b0139e376ae790008</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-save-01</col>
+  <col name="nav_path">/bione/admin/authResDef</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739e3702b0139e376f5e30009</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">资源操作维护</col>
+  <col name="up_id">4028818739e3702b0139e376ae790008</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-folder</col>
+  <col name="nav_path">/bione/admin/resOper</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">系统管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">938230daa8014effb11e256b9b1c7132</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">用户授权对象关系</col>
+  <col name="up_id">4028818739d3170e0139d33371f6002d</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-delete</col>
+  <col name="nav_path">/bione/admin/authUsrRel</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d335acf20030</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">授权对象用户关系</col>
+  <col name="up_id">4028818739d3170e0139d33371f6002d</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-analyze</col>
+  <col name="nav_path">/bione/admin/authObjUsrRel</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d3362a5f0031</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">授权对象资源分配</col>
+  <col name="up_id">4028818739d3170e0139d33371f6002d</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/bione/admin/auth/manage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d33a31ed004d</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">对象组管理</col>
+  <col name="up_id">4028818739d3170e0139d3312d940028</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-test</col>
+  <col name="nav_path">/bione/admin/authObjgrp</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d33e87ca006c</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">触发器管理</col>
+  <col name="up_id">4028818739d3170e0139d33e1ab8006b</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path">/bione/schedule/trigger</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d33f307e006d</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">系统任务信息</col>
+  <col name="up_id">4028818739d3170e0139d33e1ab8006b</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-folder</col>
+  <col name="nav_path">/bione/schedule/task</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d32f1d420023</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">系统参数信息</col>
+  <col name="up_id">4028818739d3170e0139d32e61540022</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting</col>
+  <col name="nav_path">/bione/variable/param</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">76516b5e6fa44b2e9ade266dfba6f3c7</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">用户属性管理</col>
+  <col name="up_id">4028818739e3702b0139e37595a70004</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path">/bione/admin/userattrgrp</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6057bf01ed794cb3872b76c5a365ab91</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">数据集管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c2a3380ad8404b7cbb03c4e73cb0bd59</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">数据集管理</col>
+  <col name="up_id">6057bf01ed794cb3872b76c5a365ab91</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path">/bione/mtool/dataset</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">db3646cb75b942868f5ade29fe6c16b9</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">密码安全管理</col>
+  <col name="up_id">4028818739e3702b0139e3745d560001</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-setting</col>
+  <col name="nav_path">/bione/admin/pwsec/1/edit</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">850e64bd2d2444208332dc51f5c78a50</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">系统公告</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/bione/msg/announcement</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">31a0025b1bd34a38b1b070fbdecd33e2</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">高级处理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-operation</col>
+  <col name="nav_path">/peculiar/rpt/query</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ac392738e2a3479698ebc2ada5722838</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">UA认证</col>
+  <col name="up_id">1bac79c24be740fe988c65ee903404cb</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-operation</col>
+  <col name="nav_path">/bione/admin/userauth/authUA</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f772210e38784d4596c34e1fe8349e85</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">数据日志查看</col>
+  <col name="up_id">e3ea8fab4aa94e0f9db7099990f9de00</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path">/bione/syslog/opelog</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ec2afc29a1fb4ea89e9be71aeafdee8e</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">East报表配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-storage</col>
+  <col name="nav_path">/frs/eastdesign/cfg</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a3d4859e1c744b07bb37a33c2b0b6616</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">引擎跑数</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">28c5af2aa3824368a9efbf29f5bcd89a</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">平台报表管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-operation</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2d64373324a447f9b1b1975f4e2b77f9</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">公共报表配置</col>
+  <col name="up_id">28c5af2aa3824368a9efbf29f5bcd89a</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-delete-01</col>
+  <col name="nav_path">/report/rpt/rpttmp/platform/rptidx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9dd6f78649ca45ad89edb2833844af58</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">明细模板管理</col>
+  <col name="up_id">28c5af2aa3824368a9efbf29f5bcd89a</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-menu-01</col>
+  <col name="nav_path">/report/frame/detailtmp</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">21b88074076341589c831d8213c97aeb</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">参数模板</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-assets-01</col>
+  <col name="nav_path">/report/frame/param/templates</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ea704f8260bb47f4827319576dd945f1</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">自定义报表管理</col>
+  <col name="up_id">28c5af2aa3824368a9efbf29f5bcd89a</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/report/rpt/rpttmp/custom/rptidx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">09b31e4fe78c4d75aedc4e903a451e84</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">报表分级授权</col>
+  <col name="up_id">4028818739d3170e0139d33371f6002d</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-setting</col>
+  <col name="nav_path">/report/frame/authorize</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6820f852440248da85c30503d6d49562</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">首页模块定制</col>
+  <col name="up_id">90a78da113c44ac890bddb7b1574f50c</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/bione/mainpage/module</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8d6827cec33c4f50a7b0c06471ec6027</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">个人首页定制</col>
+  <col name="up_id">90a78da113c44ac890bddb7b1574f50c</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-analyze-01</col>
+  <col name="nav_path">/bione/mainpage/pdesign</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d14e09d2b5b0449fa92c982beb1674c3</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">公共首页定制</col>
+  <col name="up_id">90a78da113c44ac890bddb7b1574f50c</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/bione/mainpage/design</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f56c3793b2a64cf8819e8386fa5c944f</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">公共首页用户配置</col>
+  <col name="up_id">90a78da113c44ac890bddb7b1574f50c</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-text</col>
+  <col name="nav_path">/bione/mainpage/rel</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e24f950158594ffb9b8ad58a15bbccfb</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">校验方式定义</col>
+  <col name="up_id">4028818739e3702b0139e376ae790008</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/bione/admin/validTypeDef</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e5f481fff79646869df03c96b6cd11d7</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">系统功能使用统计</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-arrow-down-01</col>
+  <col name="nav_path">/bione/syslog/func</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8a600fb8a80b4522bda535eb4113a170</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">用户活跃度统计</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/bione/syslog/login</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">37cc79fce1a14d6e9bd5d0bce9144dd7</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">授权资源日志</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-text</col>
+  <col name="nav_path">/bione/syslog/auth</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">02e490d95f4e461ea6ab5717d20fdaa1</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">授权对象日志</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path">/bione/syslog/obj</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e49fd63598fa40afba8aa7fbe0cb74f4</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">指标跑数</col>
+  <col name="up_id">a3d4859e1c744b07bb37a33c2b0b6616</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/report/frame/enginelog/idx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">58f488b081c84416b8b234db7fc17b9a</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">自动任务管理</col>
+  <col name="up_id">ce53afb323994bc380091e98acfe088b</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/rpt/frame/rptenginetsk</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">34110092319e4db4bd8ba939acee2954</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">数据翻牌</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-assets</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f181e4a3bcdf40d28cf7dafd766480f2</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">报表翻牌</col>
+  <col name="up_id">34110092319e4db4bd8ba939acee2954</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-delete-01</col>
+  <col name="nav_path">/rpt/rpt/draw</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bb3a2ae48fe94f87ad4059808c68d4c8</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">指标分析查询</col>
+  <col name="up_id">a345477a386f4736b44b9da5526e576d</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path">/idx/analysis/show</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">aa351e1e84a54e65ad4e2ab22116a475</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">xchtest</col>
+  <col name="up_id">0</col>
+  <col name="order_no">99</col>
+  <col name="nav_icon">icon-attachment</col>
+  <col name="nav_path">/frs/yuformat?code=001</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bdaeec4b6de6428b915266b7872f9fss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">任务配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting1</col>
+  <col name="nav_path">/frs/rpttsk/publish/busi?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9895431c099b489d9412c4299316f4ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">报表填报</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path">/rpt/frs/rptfill/fillRpt?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a7478cd4c89e493c9df55c8ffff71css</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">报表复核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiIndex?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">024f9a975b124aac8b6a95397ce519ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">报表审核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-message</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiApprIndex?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a850bdd72e0e48f7a5e5c872bb3071ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">申请解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/frs/rptfill/reject/busi?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2fd38318fbb24cd69aedd4eeddfbd3ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">审批解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-password</col>
+  <col name="nav_path">/frs/rptfill/reject/approve?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4de3a8992b704d62a499ac4e852e79ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">强制解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path">/frs/rptfill/reject/force?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8e6e006e166e4d47bea547a51c69d6ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">报表导出</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-excel</col>
+  <col name="nav_path">/rpt/frs/rptexport/index?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">42d5b04248884ce79ad74d777f2285ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">录入追踪</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-resize</col>
+  <col name="nav_path">/rpt/frs/rptfill/entryTracking?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">36926ec3f90d4ceb8fc37ac5c11208ss</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261ddd3c</col>
+  <col name="func_name">任务管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">10</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path">/bione/frs/task/index?orgType=05</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bdaeec4b6de6428b915266b7872f9ddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">任务配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting1</col>
+  <col name="nav_path">/frs/rpttsk/publish/busi?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9895431c099b489d9412c4299316fddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">报表填报</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path">/rpt/frs/rptfill/fillRpt?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a7478cd4c89e493c9df55c8ffff71ddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">报表复核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiIndex?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">024f9a975b124aac8b6a95397ce51ddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">报表审核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-message</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiApprIndex?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a850bdd72e0e48f7a5e5c872bb307ddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">申请解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/frs/rptfill/reject/busi?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2fd38318fbb24cd69aedd4eeddfbdddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">审批解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-password</col>
+  <col name="nav_path">/frs/rptfill/reject/approve?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4de3a8992b704d62a499ac4e852e7ddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">强制解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path">/frs/rptfill/reject/force?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8e6e006e166e4d47bea547a51c69dddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">报表导出</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-excel</col>
+  <col name="nav_path">/rpt/frs/rptexport/index?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">42d5b04248884ce79ad74d777f228ddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">录入追踪</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-resize</col>
+  <col name="nav_path">/rpt/frs/rptfill/entryTracking?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">36926ec3f90d4ceb8fc37ac5c1120ddd</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">任务管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">10</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path">/bione/frs/task/index?orgType=06</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d70394f313004c6789972c9598af8901</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">利率报备</col>
+  <col name="up_id">0</col>
+  <col name="order_no">19</col>
+  <col name="nav_icon">icon-order</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d687a780e7374815a115a82693c9b3b7</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据血缘管理</col>
+  <col name="up_id">8eaa9305d94c4091bd40b088842dc1ef</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-list4</col>
+  <col name="nav_path">/upr/datamapping/web</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">416e4d259a2e4a0fa266333e8fec365e</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">支付报送</col>
+  <col name="up_id">0</col>
+  <col name="order_no">21</col>
+  <col name="nav_icon">icon-refund</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ba40e0479e6749e48818be6d049bf3c7</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据模型配置</col>
+  <col name="up_id">8eaa9305d94c4091bd40b088842dc1ef</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting1</col>
+  <col name="nav_path">/rpt/frame/dataset</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6c461eadc7594a91b809be14a3afe37f</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据血缘展示</col>
+  <col name="up_id">8eaa9305d94c4091bd40b088842dc1ef</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-03</col>
+  <col name="nav_path">/upr/datamappingshow/web</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">71951ed1bbaa4d3d80914a3f2db85ea5</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">LDAP认证</col>
+  <col name="up_id">1bac79c24be740fe988c65ee903404cb</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/bione/admin/userauth/authLDAP</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">1bac79c24be740fe988c65ee903404cb</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">认证信息管理</col>
+  <col name="up_id">4028818739e3702b0139e3745d560001</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-manage</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a5ccf902fa1f4da3898aa1298a17f228</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">岗位管理</col>
+  <col name="up_id">4028818739e3702b0139e37595a70004</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-version</col>
+  <col name="nav_path">/bione/admin/posi</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">aa02ace0a636447595856a67b7b5049d</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">岗位管理</col>
+  <col name="up_id">4028818739d3170e0139d3312d940028</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-version</col>
+  <col name="nav_path">/bione/admin/posi</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d84364def435432890bffd25de982c6d</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">监管制度版本配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-announcement</col>
+  <col name="nav_path">/frs/system/cfg</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">69e8421115ef4388ae427f9d6c70b9db</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">数据模型</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">1a16ac31095e426bbc3387c4454a0907</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">数据处理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4affffe603a14ba18cc0cdc90904b72c</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据系统信息维护</col>
+  <col name="up_id">8eaa9305d94c4091bd40b088842dc1ef</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/upr/systeminfo/web</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3ad93b7ad4734e88a213e1e96d744a5d</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">模型组管理</col>
+  <col name="up_id">8eaa9305d94c4091bd40b088842dc1ef</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-list4</col>
+  <col name="nav_path">/upr/uprTaskManage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">20edf07fb2354e358a5b126a8351e7a7</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据规则配置</col>
+  <col name="up_id">8eaa9305d94c4091bd40b088842dc1ef</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-operation</col>
+  <col name="nav_path">/upr/mapping/rule</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">12053c8e47074346920d77813c4326af</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">明细灵活查询</col>
+  <col name="up_id">a574cbae13d9479b9bade0cb08bcb8fe</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-analyze-02</col>
+  <col name="nav_path">/report/frame/datashow/detail</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">760126d317324e888f0ac55a097937e9</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">检核规则</col>
+  <col name="up_id">a574cbae13d9479b9bade0cb08bcb8fe</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-content</col>
+  <col name="nav_path">/upr/valid/uprRule</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9701e2e097084796aaf92493fafc49d8</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">脱敏规则</col>
+  <col name="up_id">a574cbae13d9479b9bade0cb08bcb8fe</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-text</col>
+  <col name="nav_path">/upr/uprDesCfg</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">731e89e8b5c3488f92e85f417cacac8c</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据调整</col>
+  <col name="up_id">a574cbae13d9479b9bade0cb08bcb8fe</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-setting1</col>
+  <col name="nav_path">/upr/submit</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a5e1568572ee4f5a9b50834da4614482</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">任务监控</col>
+  <col name="up_id">9cbeebbd282a45cabe39edc8de37f9e7</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-circle</col>
+  <col name="nav_path">/upr/engine/task</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d8786cda638a4ae3ba46b9420dcd0b6e</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">补录监控</col>
+  <col name="up_id">9cbeebbd282a45cabe39edc8de37f9e7</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-list4</col>
+  <col name="nav_path">/input/task/monitor</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">aa6dd4d9ecc94b668bcf71a4bb6317c6</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">统计监控</col>
+  <col name="up_id">9cbeebbd282a45cabe39edc8de37f9e7</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-version</col>
+  <col name="nav_path">/upr/stat</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3f355fc23c834303b73ea5f88071f7bd</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">指标分析配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-endorse</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">248b1f12604b4cf7894274202f908c66</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">模板配置</col>
+  <col name="up_id">3f355fc23c834303b73ea5f88071f7bd</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/cabin/analysis/config</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d67b4720dfb2478f8ac37e0ce5536a86</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">关系配置</col>
+  <col name="up_id">3f355fc23c834303b73ea5f88071f7bd</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-customer</col>
+  <col name="nav_path">/idx/tmp/config</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9cbeebbd282a45cabe39edc8de37f9e7</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">控制台</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">658c1fc43d00433aabc794d4f6b8eb97</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">控制台</col>
+  <col name="up_id">0</col>
+  <col name="order_no">88</col>
+  <col name="nav_icon">icon-xg-03</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8ea55d707467410f9667f1b1747b1b73</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">标签管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-analyze-02</col>
+  <col name="nav_path">/bione/label/labelConfig</col>
+  <col name="func_sts">1</col>
+  <col name="remark">标签管理</col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">db3646cb75b942868f5ade29fe6c16b4</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">消息类型管理</col>
+  <col name="up_id">4028818739e3702b0139e3745d560001</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-analyze</col>
+  <col name="nav_path">/bione/msgSendType</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b2f32b800cdf414ba921d63bc20a3ee0</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">数据核对</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-excel</col>
+  <col name="nav_path">/east/rptfill/web/eastrptfill</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ecbecdc8e4cd47d7897026e6599a9169</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">数据复核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-endorse</col>
+  <col name="nav_path">/frs/east/dataReview</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e70073e446d84be5932dbddd704365b8</col>
+  <col name="module_id">ddb018e63ec94f33be3d5fde35b50a5a</col>
+  <col name="func_name">报送数据查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/frs/personal/personalAccount/dataIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e9e930704e0249e6994c61bdc69e385c</col>
+  <col name="module_id">ddb018e63ec94f33be3d5fde35b50a5a</col>
+  <col name="func_name">报送失败数据查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/personal/personalAccount/dataDefeatIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a622d041577b451eba8e051b1eb51ca0</col>
+  <col name="module_id">ddb018e63ec94f33be3d5fde35b50a5a</col>
+  <col name="func_name">逾期数据统计查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-search-03</col>
+  <col name="nav_path">/frs/personal/personalAccount/dataLaterIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9e515e3ce54d471eaa4d6545cc762841</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">反馈管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/frs/east/feedback</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">cd50ced179fe40c58f8a31d52cf1b34e</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">指标信息配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d9c2d3c0fb3749d988275b1254981c9b</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">用户管理</col>
+  <col name="up_id">4028818739d3170e0139d3312d940028</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-user</col>
+  <col name="nav_path">/bione/admin/user</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fb1aadcf879d483989243aad2586fb72</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">指标校验查询</col>
+  <col name="up_id">a345477a386f4736b44b9da5526e576d</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-assets</col>
+  <col name="nav_path">/report/frame/datashow/valid</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">69e4bcabba9d4e2fa1d14026828e2e3c</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">指标管理</col>
+  <col name="up_id">cd50ced179fe40c58f8a31d52cf1b34e</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-password</col>
+  <col name="nav_path">/report/frame/idx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">609976655c374f9ab9c36052976329f2</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">指标库管理</col>
+  <col name="up_id">cd50ced179fe40c58f8a31d52cf1b34e</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path">/frame/idx/bank</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ae478cc14f254a7d9f252ce6b9e8f5f5</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">指标校验管理</col>
+  <col name="up_id">cd50ced179fe40c58f8a31d52cf1b34e</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-folder</col>
+  <col name="nav_path">/report/frame/rptvalid/logic</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">33881e9eb2484368a381020c6d889bd9</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">同业数据管理</col>
+  <col name="up_id">cd50ced179fe40c58f8a31d52cf1b34e</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/report/frame/interbank</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b60550d22f1d4045aa0449c8f849d4a7</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">泛化数据管理</col>
+  <col name="up_id">cd50ced179fe40c58f8a31d52cf1b34e</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-analyze</col>
+  <col name="nav_path">/report/frame/validgroup</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9235cd626bbb40e4a9fc722aaae28871</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">报表修数</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">images/classics/menuicons/pencil.png</col>
+  <col name="nav_path">/rpt/frame/rptsubmit</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">85198ff40fc44b40bb552282302c7612</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">明细补录</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-deposit</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">679eb80168074271841983db89f4c58b</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">报表信息查询</col>
+  <col name="up_id">f44efcf142454f14b0325a569df25d71</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path">/rpt/rpt/rptmgr/view/view</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ab5e1b9117da43e4aca2f9f089e0b6d9</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">East报送</col>
+  <col name="up_id">0</col>
+  <col name="order_no">20</col>
+  <col name="nav_icon">icon-excel</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">0907f92812f045e1903e43b5babcfdf0</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">数据审核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-select</col>
+  <col name="nav_path">/frs/east/datacheck</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b5d7f7e6551946d38b16e3e2a6014238</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">指标管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">90ff954ca7bc462d8756c449c15598db</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">审批解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-selectseat</col>
+  <col name="nav_path">/frs/east/approval</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">97a7157e7c1549acbce72106eea1cfcc</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">系统管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-operation</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">405e8b5fa3444875b3342de004468b9e</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">强制解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-clear</col>
+  <col name="nav_path">/frs/east/rejectforce</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3b22f1e713d647b28944b08758af2252</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">个人账户</col>
+  <col name="up_id">0</col>
+  <col name="order_no">10</col>
+  <col name="nav_icon">icon-my</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d3045acb9a6f4fbe860bf27ad82e9357</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">报表访问统计</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-all</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">236e080779ef4a3dbfe1bddc130b5364</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">按报表统计</col>
+  <col name="up_id">d3045acb9a6f4fbe860bf27ad82e9357</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-save</col>
+  <col name="nav_path">/rpt/frame/access</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a345477a386f4736b44b9da5526e576d</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">数据灵活查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-folder</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">20346a943bf341b1aba52912d1705120</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">指标数据查询</col>
+  <col name="up_id">a345477a386f4736b44b9da5526e576d</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/report/frame/datashow/idx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">17d895649e2b4a1fb1f33a18e9271774</col>
+  <col name="module_id">b83a85a359a24b89a81fbad5426626d8</col>
+  <col name="func_name">按用户统计</col>
+  <col name="up_id">d3045acb9a6f4fbe860bf27ad82e9357</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-user</col>
+  <col name="nav_path">/rpt/frame/accuser</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">76f1bea3e5524117929ac74901275e64</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">明细数据查询</col>
+  <col name="up_id">a345477a386f4736b44b9da5526e576d</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-assets-01</col>
+  <col name="nav_path">/frs/integratedquery/detailsel</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fe4935e9674d474dac5128300982145c</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">报表查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b2e2937683d14f5cba5c9ff28ab02e59</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">报表数据查询</col>
+  <col name="up_id">fe4935e9674d474dac5128300982145c</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-search-03</col>
+  <col name="nav_path">/frs/integratedquery/rptquery</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">1ded46f6b04a4874bc256afa9acbc61f</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">我的收藏</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-care</col>
+  <col name="nav_path">/frs/integratedquery/myrpt/collect</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">50f78fd3dbcb4b75951b2a2c972e64f7</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">公告查看</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">images/classics/menuicons/page_paintbrush.png</col>
+  <col name="nav_path">/bione/msg/announcement/viewIdx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">14a7cd93da154eea8ef8b97b49148500</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">最近访问</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">images/classics/menuicons/clock_play.png</col>
+  <col name="nav_path">/rpt/frame/mainpage/getMoreHistory</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">56e0b0838ca9495ea52de0c100507029</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">我的申请</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">images/classics/menuicons/page_white_gear.png</col>
+  <col name="nav_path">/rpt/rpt/rptmgr/apply</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">10d8d752670345cc9f129c3304af8d8f</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">平台报表查询</col>
+  <col name="up_id">fe4935e9674d474dac5128300982145c</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-excel</col>
+  <col name="nav_path">/rpt/rpt/rptplatshow</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e79f22c5e6804aa3b10e334c1c0a70ae</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">外部报表展现</col>
+  <col name="up_id">fe4935e9674d474dac5128300982145c</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/rpt/rpt/rptoutershow</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fbce535c349a4624a5776e0338eb9168</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">报表复核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-analyze-02</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiIndex?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">1a43c8e2d8eb43d9b0c24ff34695a534</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">报表审核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiApprIndex?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bcb375a6d32a4937b91545d724973c94</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">发布审批</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">images/classics/menuicons/database_lightning.png</col>
+  <col name="nav_path">/rpt/rpt/rptmgr/apply/collate</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ba4555882f734c358878f26505fe4ad4</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">申请解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-message</col>
+  <col name="nav_path">/frs/rptfill/reject/busi?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">1563772e66514090a3aae20747d43546</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">审批解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-bgColor</col>
+  <col name="nav_path">/frs/rptfill/reject/approve?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3f79509a3eac47ef86575b0f85af7227</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">强制解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/frs/rptfill/reject/force?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">08e51fbe224b4372827915e1ca86ad36</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">报文管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-analyze</col>
+  <col name="nav_path">/frs/pbmessage/manager</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">189672f66b4d41e19878394c9f669bc5</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">录入追踪</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/rpt/frs/rptfill/entryTracking?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4827866f12b64743b876da59f5ae0715</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">报文备份</col>
+  <col name="up_id">0</col>
+  <col name="order_no">10</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b6dc3cef2dff4b528becc41ce4cab9f6</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">任务管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">11</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/bione/frs/task/index?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bdaeec4b6de6428b915266b7872f9f7e</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">任务配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting1</col>
+  <col name="nav_path">/frs/rpttsk/publish/busi?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9895431c099b489d9412c4299316f481</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">报表填报</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path">/rpt/frs/rptfill/fillRpt?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">33ea1747eea244f7a4d0f8a00076d28b</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">任务配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-version</col>
+  <col name="nav_path">/frs/rpttsk/publish/busi?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c7a3fed94d6749758fef7343dc4e896d</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">报表填报</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-operation-mark</col>
+  <col name="nav_path">/rpt/frs/rptfill/fillRpt?orgType=03</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a7478cd4c89e493c9df55c8ffff71c68</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">报表复核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiIndex?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">024f9a975b124aac8b6a95397ce51958</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">报表审核</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-message</col>
+  <col name="nav_path">/frs/rptsubmit/submit/busiApprIndex?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4750b25fb3034643bc782eb5862f3851</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">申请解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">11</col>
+  <col name="nav_icon">icon-outting</col>
+  <col name="nav_path">/frs/east/applylock</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a850bdd72e0e48f7a5e5c872bb30718f</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">申请解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/frs/rptfill/reject/busi?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2fd38318fbb24cd69aedd4eeddfbd3c8</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">审批解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-password</col>
+  <col name="nav_path">/frs/rptfill/reject/approve?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4de3a8992b704d62a499ac4e852e7990</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">强制解锁</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path">/frs/rptfill/reject/force?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8e6e006e166e4d47bea547a51c69d657</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">报表导出</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-excel</col>
+  <col name="nav_path">/rpt/frs/rptexport/index?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">42d5b04248884ce79ad74d777f22853b</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">录入追踪</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-resize</col>
+  <col name="nav_path">/rpt/frs/rptfill/entryTracking?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">36926ec3f90d4ceb8fc37ac5c1120831</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">任务管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">10</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path">/bione/frs/task/index?orgType=02</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f69710d25fa44fada537e2d392ad0087</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dc13c</col>
+  <col name="func_name">报表备份</col>
+  <col name="up_id">0</col>
+  <col name="order_no">11</col>
+  <col name="nav_icon">icon-save</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">31d5daca10f449a6b997b998d39d953c</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">人行大集中</col>
+  <col name="up_id">0</col>
+  <col name="order_no">18</col>
+  <col name="nav_icon">icon-deal1</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6789bc9c17ee44af9592007b007fad1b</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">1104监管</col>
+  <col name="up_id">0</col>
+  <col name="order_no">19</col>
+  <col name="nav_icon">icon-idCard</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fa863db3eeaa458a939f4e76bfb93d22</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">通用报表定制</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-add</col>
+  <col name="nav_path">/report/frame/design/cfg/frsindex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">67b7cefb14364e0baaf21d688c46c8d7</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">考核管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">21</col>
+  <col name="nav_icon">icon-customer</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b2bb00eceb194af29b8c685850c9b09e</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">明细数据查询配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path">/frs/submitConfig/detailrpt</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4c191dab5aae4dc6a21f5b30174bc4a8</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">校验设置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-fontColor</col>
+  <col name="nav_path">/report/frame/valid/logic</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">72ee5f4f098340e686a9d8e44375ff6b</col>
+  <col name="module_id">3b6169aa5dfb4292a18df0740570f2b9</col>
+  <col name="func_name">考核监控</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-analyze-02</col>
+  <col name="nav_path">/frs/rptexmaine/control</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">68695456c5324b42a583341542192644</col>
+  <col name="module_id">ddb018e63ec94f33be3d5fde35b50a5a</col>
+  <col name="func_name">督导管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/frs/personal/personalAccount/dataSupervisionIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">0a57b75cb4a245a2a47044e8a595d5e6</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">报表指标查询(旧版)</col>
+  <col name="up_id">a345477a386f4736b44b9da5526e576d</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/frs/integratedquery/rptidxquery/info</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">55c83c32c3a140a1accd2b0ef3c63714</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">用户角色管理</col>
+  <col name="up_id">4028818739d3170e0139d3312d940028</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/bione/admin/authUsrRel</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a9ed7c1f38e9467bbbfceaa6976f05c3</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">角色权限管理</col>
+  <col name="up_id">4028818739d3170e0139d33371f6002d</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-search-03</col>
+  <col name="nav_path">/bione/admin/auth/manage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">248874eb7dc74fc0abb2d53f50c08035</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">报送任务监控</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/frs/rpttsk/monitor</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d1cce857df7246dc860cedf5f147a337</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">变动提醒</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">dd7657842fd34ac48b5d4424a385923b</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">机构变动提醒</col>
+  <col name="up_id">d1cce857df7246dc860cedf5f147a337</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-aligned</col>
+  <col name="nav_path">/bione/frs/orgchange</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">22e002a3b89447f29b8f6395db82567d</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">科目变动提醒</col>
+  <col name="up_id">d1cce857df7246dc860cedf5f147a337</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/bione/frs/itemchange</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">709b8c461ef54568a92aff3616485bd6</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">行政区划信息维护</col>
+  <col name="up_id">4028818739d3170e0139d32e61540022</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search-03</col>
+  <col name="nav_path">/bione/frs/addreginfo</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9aea6526a3c34d0381a9168051886aea</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">业务参数信息维护</col>
+  <col name="up_id">4028818739d3170e0139d32e61540022</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-screening</col>
+  <col name="nav_path">/bione/variable/param</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e3ea8fab4aa94e0f9db7099990f9de00</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">日志查看</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-zhibiao</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9ce2dee44a764e44bf856ea5898f5a18</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">变更提醒</col>
+  <col name="up_id">0</col>
+  <col name="order_no">21</col>
+  <col name="nav_icon">icon-announcement</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">0f2276b8ff474e10b05de268e4d351b3</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">模板设置</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">10</col>
+  <col name="nav_icon">icon-add</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ec3dc57661b745ea8e1f617a817f2eee</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">系统日志查看</col>
+  <col name="up_id">e3ea8fab4aa94e0f9db7099990f9de00</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-save-01</col>
+  <col name="nav_path">/bione/syslog/func</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">93c28430243d4a8d98e4873590123414</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">数据重跑</col>
+  <col name="up_id">a3d4859e1c744b07bb37a33c2b0b6616</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-bgColor</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b3500f98395d4452b61b24cc80cd14af</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">权限查询</col>
+  <col name="up_id">c10918d417ba4d68b82260a0ed2251ed</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-fontColor</col>
+  <col name="nav_path">/frs/idxmanage/indexPrivilege/view</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3e73afe8b15b4feca1d83517ad060265</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">下钻权限</col>
+  <col name="up_id">c10918d417ba4d68b82260a0ed2251ed</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-aligned</col>
+  <col name="nav_path">/frs/idxmanage/indexPrivilege/XMind</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b4eb707a13de426fbe2313f494a3ff9a</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">流程定义与管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">11</col>
+  <col name="nav_icon">icon-setting1</col>
+  <col name="nav_path">/frs/activiti</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ee5f655f0ed045439eaa6720d177fb0e</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">报文配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-system</col>
+  <col name="nav_path">/frs/east/sendmsg</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">75e8c1b0d46d4156b41adbf2d5d8a73d</col>
+  <col name="module_id">ddb018e63ec94f33be3d5fde35b50a5a</col>
+  <col name="func_name">已督导数据查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path">/frs/personal/personalAccount/dataSupervisedIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">94c271a02bae4fb2907560b7d8ede81b</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">外部报表配置</col>
+  <col name="up_id">7641f656b9df42e5aa9c3ecbe8757b2a</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/rpt/rpt/rptmgr/info</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2d93e3b6f86a4d9584603e420f7db642</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">任务配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/frs/rpttsk/easttsk/attrControl</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c0fa721bb26b4891b86d57fafb108150</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">任务跟踪</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-transfer</col>
+  <col name="nav_path">/frs/rpttsk/web/filltrack</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bf489548ace54da7ad1fc799a1cd17f9</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">综合查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a469c598b0cb46cab1b156c9d52acfb9</col>
+  <col name="module_id">2279e1ca0cbc4f359d9711ab4ffa5536</col>
+  <col name="func_name">录入追踪</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-navigation</col>
+  <col name="nav_path">/frs/east/entertrack</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6450fdaddedc436b8d8aa5def674fec9</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">补录表维护</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-data1</col>
+  <col name="nav_path">/rpt/input/table</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">64f693a83772405da86c0cd90cb57c55</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">补录模板定制</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-operation</col>
+  <col name="nav_path">/rpt/input/temple</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8066df47e1f7472bac92234c7290744b</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">补录规则维护</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/rpt/input/rule</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5f226b399f5c45bdbfc1ccb1c5e78d25</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">数据字典</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-detail</col>
+  <col name="nav_path">/rpt/input/library</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5afd40f409964b17b7103c9ed505f7fe</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">数据补录</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path">/rpt/frame/taskcase</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">dce75d711932430da844620c534e6e71</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">补录任务</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/rpt/input/task</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6c39ccf49e5946a5a63b403e4fcc25c9</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">补录任务填报</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path">/rpt/input/taskoper/fillInTaskIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">428c36b508d04a41b3db5bef79d56e43</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">补录任务审批</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-customer</col>
+  <col name="nav_path">/rpt/input/taskoper/approveTaskIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bc4364b2de2c4759812632b2ad4287e3</col>
+  <col name="module_id">bd9fb047ab9c49dcb0cf6f55d4f9460e</col>
+  <col name="func_name">单列表任务监控</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path">/rpt/input/taskoper/monitorTaskIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">cf5cfa3203a042ee90ebb353f2c7e9e5</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">指标分析配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-03</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3a62fa15dadc4518815ce325cff41b8b</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">指标翻牌</col>
+  <col name="up_id">34110092319e4db4bd8ba939acee2954</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/rpt/idx/draw</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d6fe94698634444abc41fee8cffb7ab2</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">引擎相关</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path">/frs/frame/engineRefresh</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">34a6ce6f11bf4c30adc5200167def28e</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">报送配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">20</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ce53afb323994bc380091e98acfe088b</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">引擎管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-save</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">46d3f6a8bcaa47d39a4e8fc1775dc326</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">节点管理</col>
+  <col name="up_id">ce53afb323994bc380091e98acfe088b</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-location</col>
+  <col name="nav_path">/report/frame/engine/log/node</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">055decd34e964ab98825ee3bd42a8bf1</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">任务组管理</col>
+  <col name="up_id">ce53afb323994bc380091e98acfe088b</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-process</col>
+  <col name="nav_path">/report/frame/taskobjrel</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9d2c7f91a91741e6b3b58610adcb187b</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">报表跑数</col>
+  <col name="up_id">a3d4859e1c744b07bb37a33c2b0b6616</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-save</col>
+  <col name="nav_path">/report/frame/enginelog/rpt</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c343cd29e7204034b081cfe18a92623f</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">指标维护</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-setting</col>
+  <col name="nav_path">/report/frame/idx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">57437c6c253e4210a55a238b9696c6cf</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">指标追溯分析</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-zhibiao</col>
+  <col name="nav_path">/rpt/frame/idx/idxanalysis</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">238d313797d542d687e86bf4eb907a82</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">维度管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/rpt/frame/dimCatalog</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5901067f338b4def886edf9295685567</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">模板配置</col>
+  <col name="up_id">cf5cfa3203a042ee90ebb353f2c7e9e5</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-save-01</col>
+  <col name="nav_path">/cabin/analysis/config</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c10918d417ba4d68b82260a0ed2251ed</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">指标权限管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-save</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">7c51288cb172476ab2d8b292e59c207a</col>
+  <col name="module_id">aea8e14c7c654f44b08d1a600a3378b0</col>
+  <col name="func_name">首页</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-storage</col>
+  <col name="nav_path">/bione/mainpage/mainpage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d3a173cb015448ae96ee241352c61a5d</col>
+  <col name="module_id">4edc0b4de82b4885a105844a4c147a8b</col>
+  <col name="func_name">数据模型管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-message</col>
+  <col name="nav_path">/rpt/frame/dataset</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">95d4b1ce0dfa40bf9128df09fa5cfa0d</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">报表权限管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/submitConfig/frsAuthority</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">14e42c881c694c498663cd07314893af</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">监管机构管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-save</col>
+  <col name="nav_path">/frs/systemmanage/orgmanage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">87935d84bb6b40a0994d5c606531c250</col>
+  <col name="module_id">71f941f8c7004db38eb1de4c63bd4caf</col>
+  <col name="func_name">校验组管理</col>
+  <col name="up_id">ce53afb323994bc380091e98acfe088b</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-aligned</col>
+  <col name="nav_path">/report/frame/validgroup</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">90a78da113c44ac890bddb7b1574f50c</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">首页管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-manage</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818f3c70c55e013c70c7f2b40000</col>
+  <col name="module_id">4028818739e3702b0139e373ee8e0000</col>
+  <col name="func_name">服务模块管理</col>
+  <col name="up_id">4028818739e3702b0139e3745d560001</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-aligned</col>
+  <col name="nav_path">/bione/serverinfo</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d32e61540022</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">参数管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d32ffbea0025</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">系统变量管理</col>
+  <col name="up_id">4028818739d3170e0139d32e61540022</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-manage</col>
+  <col name="nav_path">/bione/variable/sysvar</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d3312d940028</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">授权对象管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-version</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">402881e239f7b9ee013a00413c9e00d0</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">角色管理</col>
+  <col name="up_id">4028818739d3170e0139d3312d940028</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/bione/admin/role</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d332814d002a</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">部门管理</col>
+  <col name="up_id">4028818739d3170e0139d3312d940028</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-menu</col>
+  <col name="nav_path">/bione/admin/dept</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4028818739d3170e0139d332dd86002c</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">机构管理</col>
+  <col name="up_id">4028818739d3170e0139d3312d940028</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-bgColor</col>
+  <col name="nav_path">/bione/admin/org</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">7641f656b9df42e5aa9c3ecbe8757b2a</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">外部报表配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-04</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d35ea3d2451748549d128c11c7069a36</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">报表服务器</col>
+  <col name="up_id">7641f656b9df42e5aa9c3ecbe8757b2a</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-text</col>
+  <col name="nav_path">/rpt/rpt/rptmgr/server</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">1063ab7c7ef54ca9b52efc0cf823a68e</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">监管机构汇总维护</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/rpt/frame/rptorgsum</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">cded6fa2e6f244e4af3d89374675ea3e</col>
+  <col name="module_id">279bd3a8e9a64d14942b6612c67a59cd</col>
+  <col name="func_name">报表信息查询</col>
+  <col name="up_id">28c5af2aa3824368a9efbf29f5bcd89a</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-message</col>
+  <col name="nav_path">/frs/integratedquery/rptmesquery/info</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">06831d207820489496ca5fb6a63c3186</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">指标信息查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/report/frame/idx/preview</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ad8501f9f13145c397c2483164540381</col>
+  <col name="module_id">4028818739d3170e0139d3279fc70010</col>
+  <col name="func_name">报表冻结管理</col>
+  <col name="up_id">4028818739d3170e0139d32bab2d0020</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-underline</col>
+  <col name="nav_path">/bione/frs/rptfreeze</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">业务数据梳理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-screen</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c20495ed1e3b43e98d1c454d1cee7e20</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">业务模型(58张表)</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-data1</col>
+  <col name="nav_path">/east/rules/business/tab</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">825dfb59b5e841908795340e62945bc6</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">业务数据血缘</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-meeting</col>
+  <col name="nav_path">/east/business/blood</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c50deb4ffd874cd3bc34e168032d7bfa</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">数据调整补录</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-vip2</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5df77bcb8e0c455fa8fa4d8a82d6a4ed</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">数据调整</col>
+  <col name="up_id">c50deb4ffd874cd3bc34e168032d7bfa</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-information_2</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2aee6a4993b843c68be2d1e4d082463d</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">补录审核</col>
+  <col name="up_id">c50deb4ffd874cd3bc34e168032d7bfa</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-process</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9ad49363f87c4ad2affd95e3f3b0b23a</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">规则明细维护</col>
+  <col name="up_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-list4</col>
+  <col name="nav_path">/east/rules/checkRule</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">68ddbdbdcae04aaa8673b55dc0b75c7e</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">检核结果输出</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-share1</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">aedaea3546624a8ea77e6ec97639e49f</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">检核结果查询</col>
+  <col name="up_id">68ddbdbdcae04aaa8673b55dc0b75c7e</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path">/east/checkresult/query</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ffb9dd7f0deb4a66a1a03633ae7bc02e</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">检核结果分析</col>
+  <col name="up_id">68ddbdbdcae04aaa8673b55dc0b75c7e</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-analyze</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">34546c6919e847d29e70976e74d0cc8e</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">检核引擎监控</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-hint</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">af0b328489824e72a8002d59288b5b28</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">检核任务</col>
+  <col name="up_id">34546c6919e847d29e70976e74d0cc8e</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-menu-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">cf5464605d66402f93d979e9ae8fbf85</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">引擎参数</col>
+  <col name="up_id">34546c6919e847d29e70976e74d0cc8e</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c41394d9cb504de1a91c6658ba5603d6</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">系统参数设置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">10e50e2a33464795b47049d08f95cde8</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">机构</col>
+  <col name="up_id">c41394d9cb504de1a91c6658ba5603d6</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-home_line</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2e7a0a158af54b5a800471e42c77ed0d</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">权限配置</col>
+  <col name="up_id">c41394d9cb504de1a91c6658ba5603d6</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-menu3</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">35626fbd454a4eb089a8e62582016451</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">业务数据血缘-1</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/ruleBlood.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d7ccec696d074ff1988d8ca027f5cee1</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">监管报送</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">822ec2baa9134dd5af4753ecadb73e3d</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">规则分类-1</col>
+  <col name="up_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/ruletype.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9e2973cf27654cc4a43f57a6324fe551</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">规则查询-1</col>
+  <col name="up_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/ruleconfig.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">0249bfb56ba94f74951f20d2a3934f7c</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据录入(个人)</col>
+  <col name="up_id">45cc757e234d485a87d017e806d5fb03</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/collection/InputPersonData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5d16e956c9834cbd8c7c0a9dc4d62f26</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">补录任务填报</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-more_2</col>
+  <col name="nav_path">/rpt/input/taskoper/fillInTaskIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">391856da37b6480daa7b6d040fdc90ce</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数据字典</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-rank</col>
+  <col name="nav_path">/rpt/input/library</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">03fa0bbf431646d3959f09b0f47b2a41</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">引擎命令模板</col>
+  <col name="up_id">4ca010d6255e4b0f8e9374a522ccb159</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/engineCmdTemplate.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">368cbd926fd44511859a4e07c7ce7088</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">引擎日志</col>
+  <col name="up_id">d4cfaf06ed2949f0ada8618bef7bf052</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-list4</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/engine/taskLog.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fdaf45dcee94470bb68624c344b3e496</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">引擎命令模板</col>
+  <col name="up_id">d4cfaf06ed2949f0ada8618bef7bf052</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-order</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/engine/engineCmdTemplate.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ae6fcf01e66441f6b313f55d0c622b9e</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">规则统计</col>
+  <col name="up_id">9a7fa9928b8d45c3801df1e221e4055c</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-zhibiao</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/rulereport.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">806853ab5cc44f61bbdaa9d4df5fb263</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">校验结果发布</col>
+  <col name="up_id">c3cf3c08fc784dfe911d1d7eb2b5ac45</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/datahandle/ValidateResultPublish.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">60b18549b8484b52b17c674dfe47e03b</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">校验结果分发</col>
+  <col name="up_id">c3cf3c08fc784dfe911d1d7eb2b5ac45</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/datahandle/ValidateResultDispatch.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b0f117b1db33415db776cc14c037392e</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">校验结果处理</col>
+  <col name="up_id">c3cf3c08fc784dfe911d1d7eb2b5ac45</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/datahandle/ValidateResultHandle.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3f3b66391db1452c8a74dacb3fd81474</col>
+  <col name="module_id">b2a1ba8134af45f2a583ad16261dtt3c</col>
+  <col name="func_name">报文管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">88</col>
+  <col name="nav_icon">icon-endorse</col>
+  <col name="nav_path">/frs/pisamessage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">eab3a7d7c16b42588f7182f4a2936ed0</col>
+  <col name="module_id">ac279fe74375416b91e24a8c4e8bd6f1</col>
+  <col name="func_name">业务分库管理</col>
+  <col name="up_id">9c14309918eb4b25bd27d461b55ff9bb</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-data1</col>
+  <col name="nav_path">/rpt/frame/businesslib</col>
+  <col name="func_sts">1</col>
+  <col name="remark"> </col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e8d255d4ab564e659be8a15a0ffb223d</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据锁定</col>
+  <col name="up_id">c3cf3c08fc784dfe911d1d7eb2b5ac45</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/datahandle/LockData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fe12decb0fb14329b1eda5eb122188f1</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">监管提示处理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">99</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">73150a2ae4034cc5a360b970819cd6ce</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">处理进度监控</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2b1c39e60f4943738c6f2114f5479248</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">校验结果处理监控</col>
+  <col name="up_id">73150a2ae4034cc5a360b970819cd6ce</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-information_2</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/monitor/ResultHandleProcessMonitor.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">da3a8c4606c248e894aa46358a2c6f23</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">监管提示处理监控</col>
+  <col name="up_id">73150a2ae4034cc5a360b970819cd6ce</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-add1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/monitor/FeedbackHandleProcessMonitor.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4eca1cac02c1427f90c3a44895e1273c</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据分析</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">16aa449dd6c847de8cd7b62d52b56d39</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据总量分析(机构)</col>
+  <col name="up_id">4eca1cac02c1427f90c3a44895e1273c</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/analysis/TotalAnalysisByOrg.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">432fc60c8d2349c595b48aad680b9f24</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据总量分析(跨期)</col>
+  <col name="up_id">4eca1cac02c1427f90c3a44895e1273c</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/analysis/TotalAnalysisByCrossDate.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">38f3c33b54ed43049f36613e46321354</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据差错分析(机构)</col>
+  <col name="up_id">4eca1cac02c1427f90c3a44895e1273c</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/analysis/ErrorAnalysisByOrg.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">91a152c4341a4fe2853dd788e7f86c6f</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据差错分析(跨期)</col>
+  <col name="up_id">4eca1cac02c1427f90c3a44895e1273c</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/analysis/ErrorAnalysisByCrossDate.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3d41468cbff3458bbd544a6864367367</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据处理分析(机构)</col>
+  <col name="up_id">4eca1cac02c1427f90c3a44895e1273c</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/analysis/HandleAnalysisByeOrg.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f59332041b7248b38ff8085820a99e00</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据处理分析(跨期)</col>
+  <col name="up_id">4eca1cac02c1427f90c3a44895e1273c</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/analysis/HandleAnalysisCrossDate.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b11d43e3d17d42e59895c7184e08f806</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">客户信息查询</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">53f375c2b0254169a32082ad52d25d4d</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">单一法人客户</col>
+  <col name="up_id">b11d43e3d17d42e59895c7184e08f806</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/dataquery/QueryCustomerData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2373ee0a68264401bea1877b3325efdd</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">集团客户</col>
+  <col name="up_id">b11d43e3d17d42e59895c7184e08f806</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/dataquery/QueryGroupData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a94d9875d39f40e9971b0ad68211f284</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">供应链融资客户</col>
+  <col name="up_id">b11d43e3d17d42e59895c7184e08f806</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/dataquery/QueryGYLData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e828bc30a4f2496b80ef0cb4fa72375a</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">同业客户</col>
+  <col name="up_id">b11d43e3d17d42e59895c7184e08f806</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/dataquery/QueryTyData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">bb692a021a2547e5af3f607b7aabf8b5</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">个人客户</col>
+  <col name="up_id">b11d43e3d17d42e59895c7184e08f806</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/dataquery/QueryPersonData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4e925a7c5ebc4672ac752fc21809883a</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">报送管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3892b3b415ae471a9287c4f8add08c72</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">报表查看</col>
+  <col name="up_id">4e925a7c5ebc4672ac752fc21809883a</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/report/ReportQuery.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">950df67f2f3d44aa8dd3f2723e6ceecd</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">报文生成</col>
+  <col name="up_id">4e925a7c5ebc4672ac752fc21809883a</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/report/XmlGenerate.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9b6d14b016c94681bc5909fc2af23987</col>
+  <col name="module_id">28d86aa555994a5ea0ec389e1baa6dee</col>
+  <col name="func_name">报表指标查询</col>
+  <col name="up_id">a345477a386f4736b44b9da5526e576d</col>
+  <col name="order_no">33</col>
+  <col name="nav_icon">icon-analyze</col>
+  <col name="nav_path">/report/frame/datashow/rptIdx</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">487faafadd46435e90410dbb74afa640</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报送数据查询(日报)</col>
+  <col name="up_id">f8eb1b9b6949440988ee4467c16f07a3</col>
+  <col name="order_no">99</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/busidataquery_day.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c7455775f63f42f9a0cdec4d726d4930</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据录入(同业)</col>
+  <col name="up_id">45cc757e234d485a87d017e806d5fb03</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/collection/InputTyData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d4cfaf06ed2949f0ada8618bef7bf052</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">引擎管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">00bc6345a7dc4144a586b14b46040016</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">引擎任务</col>
+  <col name="up_id">d4cfaf06ed2949f0ada8618bef7bf052</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-menu-01</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/engine/checkTask2.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">15c9d6d3cfd6496195908a1a97861ef3</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">引擎参数</col>
+  <col name="up_id">d4cfaf06ed2949f0ada8618bef7bf052</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-system</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/engine/taskConfig.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8eaa9305d94c4091bd40b088842dc1ef</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据模型</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-data1</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a574cbae13d9479b9bade0cb08bcb8fe</col>
+  <col name="module_id">866d204d0ca7418eb3dd4ae2004a152c</col>
+  <col name="func_name">数据处理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-analyze</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">33cd939981624b49b4530dd120bfe0c6</col>
+  <col name="module_id">e38a772a3a41400ab848b45819afb13d</col>
+  <col name="func_name">监管机构组配置</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-menu-01</col>
+  <col name="nav_path">/rpt/frame/rptorggrp</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">eabee37b88fd4553b5146698804dfecb</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">报文管理B</col>
+  <col name="up_id">0</col>
+  <col name="order_no">89</col>
+  <col name="nav_icon">icon-process</col>
+  <col name="nav_path">/frs/pbmessage</col>
+  <col name="func_sts">1</col>
+  <col name="remark">中信版本需求报文管理改造</col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报送管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-share</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">226e2e4fe41748028d69a0bdb636f90f</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">首页</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-manage</col>
+  <col name="nav_path">/east/index</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f8f4a03a4f60473e9292ab8dafebab5a</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报送数据查询(月报)</col>
+  <col name="up_id">f8eb1b9b6949440988ee4467c16f07a3</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/busidataquery_month.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ae149602af4343eab7815154f19b1830</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报文任务(总行)</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/superviseReport.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a73b5c9277ae44308da78b6e39aa9510</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报文策略</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-system</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_cr_report_config.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">ed806da42de046e09281139338b3fd58</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报文查询(总行)</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_cr_report_query.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">25b8795a45ef4a7681c7af0a97c59a53</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果部门排名</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-italic</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkresultDepart.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">709e5c3f5ab64327ae281b1f3f820dce</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果字段排名</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-share</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkresultField.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e182897e245b411597c35485642115f6</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果来源系统排名</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-rank</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkresultSrcsys.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9a530c1dcef144daa1dc42d0ee864ad1</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数据质量报告</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-ticket</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_cr_task_PDF.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3648fe107c844a078d6507fac514c20c</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果数据表排名</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-xg-03</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkresultDataInter.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">eda6c3902d964090af09a6b8611ac84f</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果机构排名</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-transfer</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkresultOrg.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c492a37532ab4034a5724107578bb5b1</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">角色管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-my_line</col>
+  <col name="nav_path">/bione/admin/role</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c42ce1f9b3284a88b28449894c505a93</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">用户角色管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-transfer</col>
+  <col name="nav_path">/bione/admin/authUsrRel</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">67691602a0624b9f8549e80045882027</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">触发器管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-version</col>
+  <col name="nav_path">/bione/schedule/trigger</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">0587193a0ee542c39db6f15382657afb</col>
+  <col name="module_id">bdf433965ce64a6a902dac36af0643eb</col>
+  <col name="func_name">报文策略</col>
+  <col name="up_id">296ff2bcee68457e81fe31bafdcbc167</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/fsrs/fsrs_cr_report_config.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">79b1839647e14efb9a3b896140694719</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">监管机构管理</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">9</col>
+  <col name="nav_icon">icon-system</col>
+  <col name="nav_path">/frs/systemmanage/orgmanage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">1c686b2cfd784f2a9e0e0d4e67a12b6a</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据录入(供应链)</col>
+  <col name="up_id">45cc757e234d485a87d017e806d5fb03</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/collection/InputGYLData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b94b206fe2ce4603a01c31c2f1d0596e</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数据质量报告poc</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">999</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/dataqualitypoc.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">30652379d6614f92afa11409719cd9c0</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">业务数据查询-1</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">862ef7ffec854986beec8aa8de504206</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报文任务(分行)</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-xg-03</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/superviseReportFH.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">45cc757e234d485a87d017e806d5fb03</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据采集</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">91a604da8b774ca98d64b0949ec6dcb9</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">金标报送</col>
+  <col name="up_id">0</col>
+  <col name="order_no">20</col>
+  <col name="nav_icon">icon-guide_2</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">262d3b3f8b7f4ca39eb5de0a9c58771a</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据录入(单一法人)</col>
+  <col name="up_id">45cc757e234d485a87d017e806d5fb03</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/collection/InputCustomerData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2355808fcdeb45e184469a41e0b1d57a</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据录入(集团）</col>
+  <col name="up_id">45cc757e234d485a87d017e806d5fb03</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/collection/InputGroupData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c3cf3c08fc784dfe911d1d7eb2b5ac45</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据处理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b91453adabcb42c0bb2aa943ce1567fa</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">数据校验</col>
+  <col name="up_id">c3cf3c08fc784dfe911d1d7eb2b5ac45</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/datahandle/ValidateData.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">37776bef1d754d3e8126b2732337347b</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">校验规则维护</col>
+  <col name="up_id">dae80cdb5343449989cdb13d316aa507</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/datahandle/RuleEdit.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">214187f35d7f4a5a8736ba07a5fb671e</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">报表下载</col>
+  <col name="up_id">4e925a7c5ebc4672ac752fc21809883a</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/report/XmlDownload.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">dae80cdb5343449989cdb13d316aa507</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">校验规则管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">37b3064a97604712ad0b5c7e8147ea5d</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">校验规则查询</col>
+  <col name="up_id">dae80cdb5343449989cdb13d316aa507</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/datahandle/RuleQuery.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">707e329ee54c4cd8b672ac4757875ceb</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">客户风险报送</col>
+  <col name="up_id">0</col>
+  <col name="order_no">20</col>
+  <col name="nav_icon">icon-safe</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2e19d097592f4edcaae615cc087b3a79</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">业务模型(58张表)-1</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/58table.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f8eb1b9b6949440988ee4467c16f07a3</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">业务数据</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-database</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">102e77bcd6a94beea912366bf947b03c</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数据完整性评估表-总行</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_cr_report_eval_ZH.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8b0d94259f44416880b7a2cb87a97b78</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">业务模型</col>
+  <col name="up_id">f8eb1b9b6949440988ee4467c16f07a3</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-data1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/58table.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c50ede1a45214ff98293e0be6c564713</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">全量数据查询</col>
+  <col name="up_id">f8eb1b9b6949440988ee4467c16f07a3</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/busidataquery.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">99a2b3ac062d4314a19aea068da20323</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果统计（校验规则）</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-collect1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkreport.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4c48b2d01155416e9a73c53f66f2caf7</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">补录表维护</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-xg-02</col>
+  <col name="nav_path">/rpt/input/table</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6d49463cb6dc42368977208a72687fc2</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">补录模板定制</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-algin-right</col>
+  <col name="nav_path">/rpt/input/temple</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">962af5da62b04560b6f9810c3dbda184</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">补录任务配置</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-analyze-02</col>
+  <col name="nav_path">/rpt/input/task</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3fb318c6ed8b471ab0555f08c9f1163a</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">规则维护</col>
+  <col name="up_id">9a7fa9928b8d45c3801df1e221e4055c</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/ruleconfig.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c0fd35acf0eb4fd9b780d2339374d442</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果统计（数据表）</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-outting</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkresultofinterface.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">90fbc38ea46540f5bbb33de89ad274f8</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">引擎参数</col>
+  <col name="up_id">4ca010d6255e4b0f8e9374a522ccb159</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-setting1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/taskConfig.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2b2bca8fa13047a38103865f4b1a7401</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">机构管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-home_line</col>
+  <col name="nav_path">/bione/admin/org</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3764d60f52e844adae8a14cb8b1a24f6</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">资源授权管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-menu3</col>
+  <col name="nav_path">/bione/admin/auth/manage</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5e343b7ba0244cc68792310cf1fe5e67</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报文查询(分行)</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_cr_report_FH_query.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">55498e8f7be5477f8d74dfdbd30367cf</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数据完整性评估表-分行</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_cr_report_eval_FH.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">fb77be8897614597a6e1018825b38db1</col>
+  <col name="module_id">bdf433965ce64a6a902dac36af0643eb</col>
+  <col name="func_name">业务数据</col>
+  <col name="up_id">0</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-passport</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果</col>
+  <col name="up_id">0</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-arrow-down</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">060ce6d4011e4ac596ebb299be8aaf7b</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核结果查询</col>
+  <col name="up_id">5ba656e0e02a40dead7ef615006f9d1c</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-navigation</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkquery.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">77cfa70313aa43b6a7e8beb5ee39b8a8</col>
+  <col name="module_id">bdf433965ce64a6a902dac36af0643eb</col>
+  <col name="func_name">数据查询</col>
+  <col name="up_id">fb77be8897614597a6e1018825b38db1</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/fsrs/busidataquery.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">296ff2bcee68457e81fe31bafdcbc167</col>
+  <col name="module_id">bdf433965ce64a6a902dac36af0643eb</col>
+  <col name="func_name">报送管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-collect1</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6e7b634511b948c3a036a777bb8e7bd7</col>
+  <col name="module_id">bdf433965ce64a6a902dac36af0643eb</col>
+  <col name="func_name">业务模型</col>
+  <col name="up_id">fb77be8897614597a6e1018825b38db1</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-data1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/fsrs/3table.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">8dd9b3b00e004486953fb6951fe4e9d5</col>
+  <col name="module_id">bdf433965ce64a6a902dac36af0643eb</col>
+  <col name="func_name">报文任务</col>
+  <col name="up_id">296ff2bcee68457e81fe31bafdcbc167</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-ticket</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/fsrs/superviseReport.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">995fd031a94a4265b02d7413b56666d1</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报送清单（总行）</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-details</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_report_list.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">abff1e3cc0414c04ae88b9ad7f5424cb</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">跨行一致性信息</col>
+  <col name="up_id">fe12decb0fb14329b1eda5eb122188f1</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-exit</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/crossbank/CrossBankConsistency.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">218ac826296246ef9fefbaf1a4909702</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">报送清单（分行）</col>
+  <col name="up_id">c257fab029b04075846fe82ea76d955a</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-details</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/east_report_list_FH.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d4e50a66c20345afb55c173d4009c974</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">East报送A</col>
+  <col name="up_id">0</col>
+  <col name="order_no">80</col>
+  <col name="nav_icon">icon-navigation</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">267bef20392c40468c8924cf6113df63</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">监管报送</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-share1</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b9cd8e2f6dcb4de48c4667566733fae6</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">业务数据查询</col>
+  <col name="up_id">d48b704d931248e594fc952a422348ec</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">842463c106644983a3618b16b8414978</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">补录数据</col>
+  <col name="up_id">c50deb4ffd874cd3bc34e168032d7bfa</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-order</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3f1f08d93c914fe39dcbe041114523e2</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">补录查询</col>
+  <col name="up_id">c50deb4ffd874cd3bc34e168032d7bfa</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">定义检核规则</col>
+  <col name="up_id">0</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e21c8215f3f249789850932c247ec847</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">规则分类</col>
+  <col name="up_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-list1</col>
+  <col name="nav_path">/east/rules/checkRule/type</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">5606605c4b4f41b48b4f6eb8e9d69d32</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">规则查询</col>
+  <col name="up_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-01</col>
+  <col name="nav_path">/east/rules/checkRule/query</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">7d4c535cf8504adeb505e2afce0137c1</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">规则统计</col>
+  <col name="up_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-zhibiao</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/rulereport.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">7426b6a458a743a9947b27d14a25f0e4</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">检核结果统计</col>
+  <col name="up_id">68ddbdbdcae04aaa8673b55dc0b75c7e</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-zhibiao</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkreport.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">6569d85ab490438daa3a333c55a7c731</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">数据质量报告</col>
+  <col name="up_id">68ddbdbdcae04aaa8673b55dc0b75c7e</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-reminder</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c6aac133df2d4a4a9c9374ce5bf2c3f4</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">引擎日志</col>
+  <col name="up_id">34546c6919e847d29e70976e74d0cc8e</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-aligned</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2d2eb05ef7004b91829b5401751a3558</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">人员</col>
+  <col name="up_id">c41394d9cb504de1a91c6658ba5603d6</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-customer</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">63d7609bc28c4686b024ddd4d96c2e59</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">表类型维护</col>
+  <col name="up_id">c41394d9cb504de1a91c6658ba5603d6</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-attachment</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数据补录</col>
+  <col name="up_id">0</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-vip2</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">9a7fa9928b8d45c3801df1e221e4055c</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">检核规则</col>
+  <col name="up_id">0</col>
+  <col name="order_no">4</col>
+  <col name="nav_icon">icon-chartForm</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c961883cb464404e92089d843db54549</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数据源管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-data1</col>
+  <col name="nav_path">/bione/mtool/datasource</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">4ca010d6255e4b0f8e9374a522ccb159</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">引擎管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">5</col>
+  <col name="nav_icon">icon-hint</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">系统管理</col>
+  <col name="up_id">0</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-setting-01</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2888d2b3c91f444e9cb4b241a4071e80</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">补录规则维护</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">3</col>
+  <col name="nav_icon">icon-phoneList</col>
+  <col name="nav_path">/rpt/input/rule</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3a5ba981939a4e27906093c23fbd5c42</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">规则分类</col>
+  <col name="up_id">9a7fa9928b8d45c3801df1e221e4055c</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-menu3</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/ruletype.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">0ee711f10d124ac3aea05806634bb6eb</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">规则查询</col>
+  <col name="up_id">9a7fa9928b8d45c3801df1e221e4055c</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-search-02</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/rulequery.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">2153b7d6557b49e2a7ce1e3e77f190d2</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">行内提示性信息导入和导出</col>
+  <col name="up_id">fe12decb0fb14329b1eda5eb122188f1</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-ticket</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/supervise/WarnResultCBRCFeedbackImport.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">b1fb535692624457b694dab67ea7e5e0</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">系统参数维护</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-more_2</col>
+  <col name="nav_path">/bione/variable/param</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3e67685e8dad46ec8bfc72df90d46b59</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">公告管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">8</col>
+  <col name="nav_icon">icon-order</col>
+  <col name="nav_path">/bione/msg/announcement</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">3ced29565cfc4114a71ec28316f62628</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">行内提示性信息分发</col>
+  <col name="up_id">fe12decb0fb14329b1eda5eb122188f1</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-ticket</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/supervise/WarnResultCBRCFeedbackDispatch.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">668002f6f4f046bdba33561ffa6c9b32</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">引擎任务</col>
+  <col name="up_id">4ca010d6255e4b0f8e9374a522ccb159</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-menu-01</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/checkTask2.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">608d4c444e6f4bea84a68fb71151d32d</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">引擎日志</col>
+  <col name="up_id">4ca010d6255e4b0f8e9374a522ccb159</col>
+  <col name="order_no">1</col>
+  <col name="nav_icon">icon-list4</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/taskLog.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">c143281ba9cb4497a29730f5fa7bfdea</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">用户管理</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">0</col>
+  <col name="nav_icon">icon-customer</col>
+  <col name="nav_path">/bione/admin/user</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">284161d417db43aebe4a54054d36c3be</col>
+  <col name="module_id">fa042d18f6064db0a99eb06e4846f606</col>
+  <col name="func_name">East报送</col>
+  <col name="up_id">0</col>
+  <col name="order_no">82</col>
+  <col name="nav_icon">icon-content</col>
+  <col name="nav_path"></col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">a7f42b18734042eabbd5c54b7813bf2f</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">xch测试</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">99</col>
+  <col name="nav_icon">icon-phone1</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/test.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">be9f8cf88fdb425caeba287871d8399f</col>
+  <col name="module_id">e4e862133dca497ca6e3977337772b69</col>
+  <col name="func_name">行内提示性信息处理</col>
+  <col name="up_id">fe12decb0fb14329b1eda5eb122188f1</col>
+  <col name="order_no">2</col>
+  <col name="nav_icon">icon-ticket</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/crrs/supervise/WarnResultCBRCFeedbackHandle.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">693554b4ab534764944d147257c9201f</col>
+  <col name="module_id">85f1573eb24a47d0899b408e01c294b3</col>
+  <col name="func_name">规则明细维护-1</col>
+  <col name="up_id">d4ba81e1e9644183a8c8ae04163e358d</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/east/ruleconfig.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">e50678e51142470690b51d7769fd647f</col>
+  <col name="module_id">786b2a0abece4f9ea3018830b8d3a91c</col>
+  <col name="func_name">报文管理A</col>
+  <col name="up_id">0</col>
+  <col name="order_no">88</col>
+  <col name="nav_icon">icon-share</col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/pbmanage/pbmanage.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">f3800cd982b34897bec81f63ed86c33d</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">补录任务审批</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">6</col>
+  <col name="nav_icon">icon-resize-01</col>
+  <col name="nav_path">/rpt/input/taskoper/approveTaskIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">d6fb053f73c54e818c09800f9f19547f</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">补录任务监控</col>
+  <col name="up_id">18442bca9ab8479795abe183e71fd956</col>
+  <col name="order_no">7</col>
+  <col name="nav_icon">icon-see</col>
+  <col name="nav_path">/rpt/input/taskoper/monitorTaskIndex</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+<record tabname="bione_func_info">
+  <col name="func_id">0c7e3c4b69cd4f63bd98bf1821c570e8</col>
+  <col name="module_id">332f9005bb7c44c6aa5208b3c3572c63</col>
+  <col name="func_name">数字字典维护</col>
+  <col name="up_id">a6e4ad2b492845bcb11145cd79b2cfbd</col>
+  <col name="order_no">99</col>
+  <col name="nav_icon"></col>
+  <col name="nav_path">/frs/yufreejs?js=/yujs/system/dict.js</col>
+  <col name="func_sts">1</col>
+  <col name="remark"></col>
+</record>
+
+
+</root>

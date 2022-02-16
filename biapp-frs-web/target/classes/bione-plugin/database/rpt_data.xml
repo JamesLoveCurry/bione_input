@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<firstinstall descr="首次安装的表数据">
+		
+		<table name="frs_system_cfg">报表版本</table>
+	</firstinstall>
+
+	<upgrade descr="升级安装的表数据">
+		<table name="rpt_dim_item_info">维度项定义</table>
+	</upgrade>
+
+</root>

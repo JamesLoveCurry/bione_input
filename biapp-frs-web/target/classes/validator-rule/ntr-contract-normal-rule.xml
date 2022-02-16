@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30078952.0.0"
+		classType="org.pbccrc.archive.collect.messagetools.ntrcontract.message.ContractNormalRecord">
+
+		<field name="CtrctBsSgmt" fbTag="CtrctBsSgmt"
+			classType="org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CtrctBsSgmt">
+			<rule id="CtrctBsSgmt_NotNull" type="NotNull" errCode="BCR000" fbValue="" />
+			<field name="InfRecType" fbTag="InfRecType" classType="java.lang.String">
+				<rule id="InfRecType_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="InfRecType_NotNull" />
+				<rule  id="InfRecType_DataType" type="DataType" errCode="ABE001" depExp="InfRecType_NotEmpty" >
+					<property  name="type" value="N3" />
+				</rule>
+				<rule id="InfRecType_EqCtxt" type="Equals" errCode="ABR000"
+					fbTag="0000" fbValue="" depExp="InfRecType_DataType">
+					<property name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field>
+			<field name="ContractCode" fbTag="ContractCode" classType="java.lang.String">
+				<rule id="ContractCode_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="ContractCode_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="ContractCode_NotNull" />
+				<rule id="ContractCode_DataType" type="DataType" errCode="ABE001"
+					depExp="ContractCode_NotEmpty">
+					<property name="type" value="AN..60" />
+				</rule>
+				<!-- 校验前14位与数据机构提供区段码相等 错误码ABE002 -->
+				<rule id="ContractCode_finanOrg" type="FinanOrgan" errCode="ABE002"
+					depExp="ContractCode_DataType" />
+			</field>
+			<field name="RptDate" fbTag="RptDate" classType="java.lang.String">
+				<rule id="RptDate_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="RptDate_NotNull" />
+				<rule id="RptDate_DataType" type="DataType" errCode="ABE001"
+					depExp="RptDate_NotEmpty">
+					<property name="type" value="Date" />
+				</rule>
+				<rule id="RptDate_Range" type="DateRange" errCode="ABE008"
+					depExp="RptDate_DataType" />
+				<rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001"
+					depExp="RptDate_Range">
+					<property name="type" value="date" />
+					<property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+				</rule>
+			</field>
+			<field name="RptDateCode" fbTag="RptDateCode" classType="java.lang.String">
+				<rule id="RptDateCode_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="RptDateCode_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="RptDateCode_NotNull" />
+				<rule id="RptDateCode_Dict" type="Dict" errCode="ABE001"
+					depExp="RptDateCode_NotEmpty">
+					<property name="dictKey" value="ContractRptDateCode" />
+				</rule>
+			</field>
+			<field name="Name" fbTag="Name" classType="java.lang.String">
+				<rule id="Name_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="Name_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="Name_NotNull" />
+				<rule id="Name_DataType" type="DataType" errCode="ABE001"
+					depExp="Name_NotEmpty">
+					<property name="type" value="ANC..30" />
+				</rule>
+			</field>
+			<field name="IDType" fbTag="IDType" classType="java.lang.String">
+				<rule id="IDType_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="IDType_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="IDType_NotNull" />
+				<rule id="IDType_Dict" type="Dict" errCode="ABE001" depExp="IDType_NotEmpty">
+					<property name="dictKey" value="NtrCertType" />
+				</rule>
+			</field>
+			<field name="IDNum" fbTag="IDNum" classType="java.lang.String">
+				<rule id="IDNum_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="IDNum_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="IDNum_NotNull" />
+				<rule id="IDNum_DataType" type="DataType" errCode="ABE001"
+					depExp="IDNum_NotEmpty">
+					<property name="type" value="ANC..20" />
+				</rule>
+			</field>
+			<!-- 校验身份证类型及号码 -->
+			<rule id="IDNum_Vali" type="NtrCert" errCode="ABE004" fbTag="IDNum"
+				fbValue="${CtrctBsSgmt.IDNum}" depExp="IDType_NotEmpty &amp; IDNum_NotEmpty">
+				<property name="certTypeFeild" value="IDType" />
+				<property name="certNumFeild" value="IDNum" />
+			</rule>
+			<field name="MngmtOrgCode" fbTag="MngmtOrgCode" classType="java.lang.String">
+				<rule id="MngmtOrgCode_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctBsSgmt_NotNull" />
+				<rule id="MngmtOrgCode_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="MngmtOrgCode_NotNull" />
+				<rule id="MngmtOrgCode_DataType" type="DataType" errCode="ABE001"
+					depExp="MngmtOrgCode_NotEmpty">
+					<property name="type" value="AN14" />
+				</rule>
+				<rule id="MngmtOrgCode_Organ" type="Organ" errCode="ABE003"
+					depExp="MngmtOrgCode_DataType" />
+			</field>
+		</field>
+
+		<field name="CreditLimSgmt" fbTag="CreditLimSgmt"
+			classType="org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CreditLimSgmt">
+			<rule id="CreditLimSgmt_NotNull" type="NotNull" errCode="BCR000"
+				fbValue="" />
+			<field name="CreditLimType" fbTag="CreditLimType" classType="java.lang.String">
+				<rule id="CreditLimType_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CreditLimSgmt_NotNull" />
+				<rule id="CreditLimType_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="CreditLimType_NotNull" />
+				<rule id="CreditLimType_DataType" type="Dict" errCode="ABE001"
+					depExp="CreditLimType_NotEmpty">
+					<property name="dictKey" value="CreLimType" />
+				</rule>
+			</field>
+			<field name="CreditLim" fbTag="CreditLim" classType="java.lang.String">
+				<rule id="CreditLim_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CreditLimSgmt_NotNull" />
+				<rule id="CreditLim_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="CreditLim_NotNull" />
+				<rule id="CreditLim_DataType" type="DataType" errCode="ABE001"
+					depExp="CreditLim_NotEmpty">
+					<property name="type" value="uInt..15" />
+				</rule>
+			</field>
+			<field name="Cy" fbTag="Cy" classType="java.lang.String">
+				<rule id="Cy_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CreditLimSgmt_NotNull" />
+				<rule id="Cy_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Cy_NotNull" />
+				<rule id="Cy_Dict" type="Dict" errCode="ABE001" depExp="Cy_NotEmpty">
+					<property name="dictKey" value="Cy" />
+				</rule>
+			</field>
+			<field name="LimLoopFlg" fbTag="LimLoopFlg" classType="java.lang.String">
+				<rule id="LimLoopFlg_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CreditLimSgmt_NotNull" />
+				<rule id="LimLoopFlg_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="LimLoopFlg_NotNull" />
+				<rule id="LimLoopFlg_Dict" type="Dict" errCode="ABE001"
+					depExp="LimLoopFlg_NotEmpty">
+					<property name="dictKey" value="LimLoopFlg" />
+				</rule>
+			</field>
+			<field name="ConEffDate" fbTag="ConEffDate" classType="java.lang.String">
+				<rule id="ConEffDate_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CreditLimSgmt_NotNull" />
+				<rule id="ConEffDate_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="ConEffDate_NotNull" />
+				<rule id="ConEffDate_DataType" type="DataType" errCode="ABE001"
+					depExp="ConEffDate_NotEmpty">
+					<property name="type" value="Date" />
+				</rule>
+				<rule id="ConEffDate_Range" type="DateRange" errCode="ABE008"
+					depExp="ConEffDate_DataType" />
+				<rule id="RptDate_DateCompare" type="DateCompare" errCode="ABE007"
+					depExp="ConEffDate_DataType &amp; RptDate_DataType">
+					<property name="type" value="date" />
+					<property name="endDate" value="${CtrctBsSgmt.RptDate}" />
+				</rule>
+			</field>
+			<field name="ConExpDate" fbTag="ConExpDate" classType="java.lang.String">
+				<rule id="ConExpDate_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CreditLimSgmt_NotNull" />
+				<rule id="ConExpDate_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="ConExpDate_NotNull" />
+				<rule id="ConExpDate_DataType" type="DataType" errCode="ABE001"
+					depExp="ConExpDate_NotEmpty">
+					<property name="type" value="Date" />
+				</rule>
+				<rule id="ConExpDate_Range" type="DateRange" errCode="ABE008"
+					depExp="ConExpDate_DataType" />
+				<rule id="ConExpDate_DateCompare" type="DateCompare" errCode="BCE000"
+					fbTag="ConEffDate" fbValue="${CreditLimSgmt.ConEffDate}"
+					depExp="ConEffDate_DataType &amp; ConExpDate_DataType">
+					<property name="type" value="date" />
+					<property name="beginDate" value="${CreditLimSgmt.ConEffDate}" />
+				</rule>
+			</field>
+			<field name="ConStatus" fbTag="ConStatus" classType="java.lang.String">
+				<rule id="ConStatus_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CreditLimSgmt_NotNull" />
+				<rule id="ConStatus_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="ConStatus_NotNull" />
+				<rule id="ConStatus_DataType" type="Dict" errCode="ABE001"
+					depExp="ConStatus_NotEmpty">
+					<property name="dictKey" value="ConStatus" />
+				</rule>
+			</field>
+			<field name="CreditRestCode" fbTag="CreditRestCode" classType="java.lang.String">
+			   <rule id="CreditRestCode_NotNull" type="NotNull" depExp="CreditLimSgmt_NotNull" />
+			   <rule id="CreditRestCode_Null" type="Null" depExp="CreditLimSgmt_NotNull" />
+			   <rule id="CreditRestCode_Apear" type="NotNull" errCode="BCE004" fbTag="0000" fbValue="" depExp="CreditRest_NotNull" />
+				<rule id="CreditRestCode_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="CreditRestCode_Apear" />
+				<rule id="CreditRestCode_DataType" type="DataType" errCode="ABE001"
+					depExp="CreditRestCode_NotEmpty">
+					<property name="type" value="AN..60" />
+				</rule>
+				<!-- 前14为数据提供机构区代码校验 -->
+				<rule  id="CreditRestCode_FinanVali" type="FinanOrgan" errCode="ABE002" depExp="CreditRestCode_DataType" >
+				</rule>
+			
+			</field>
+			<field name="CreditRest" fbTag="CreditRest" classType="java.lang.String">
+			    <rule id="CreditRest_NotNull" type="NotNull" depExp="CreditLimSgmt_NotNull" />
+			    <rule id="CreditRest_Null" type="Null" depExp="CreditLimSgmt_NotNull" />
+				<rule id="CreditRest_Apear" type="NotNull" errCode="BCE004" fbTag="0000" fbValue="" depExp="CreditRestCode_NotNull" />
+				<rule id="CreditRest_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="CreditRest_Apear" />
+				<rule id="CreditRest_DataType" type="DataType" errCode="ABE001"
+					depExp="CreditRest_NotEmpty">
+					<property name="type" value="uInt..15" />
+				</rule>
+			</field>
+		</field>
+
+		<field name="CtrctCertRelSgmt" fbTag="CtrctCertRelSgmt"
+			classType="org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CtrctCertRelSgmt">
+			<rule id="CtrctCertRelSgmt_NotNull" type="NotNull" />
+			<field name="BrerNm" fbTag="BrerNm" classType="java.lang.String">
+				<rule id="BrerNm_NotNull" type="NotNull" errCode="ABD000"
+					depExp="CtrctCertRelSgmt_NotNull" />
+				<rule id="BrerNm_NotEmpty" type="NotEmpty" errCode="ABE000"
+					depExp="BrerNm_NotNull" />
+				<rule id="BrerNm_DataType" type="DataType" errCode="ABE001"
+					depExp="BrerNm_NotEmpty">
+					<property name="type" value="uInt..2" />
+				</rule>
+				<!-- <rule id="BrerNm_GraThan0" type="NumberLimit" errCode="BCE001"
+					depExp="BrerNm_DataType">
+					<property name="startSign" value=">" />
+					<property name="startValue" value="0" />
+				</rule> -->
+			</field>
+			<field name="CtrctCertRels" fbTag="CtrctCertRel" classType="java.util.List">
+				<rule id="CtrctCertRels_NotNull" type="NotNull" depExp="CtrctCertRelSgmt_NotNull" />
+				<rule id="CtrctCertRels_CollectionSize" fbTag="BrerNm"
+					fbValue="${CtrctCertRelSgmt.BrerNm}" type="CollectionSize" errCode="ABE010" >
+					<property name="size" value="${CtrctCertRelSgmt.BrerNm}" />
+				</rule>
+				<rule id="CtrctCertRels_CollectionRepeat" type="CollectionRepeat"
+					errCode="ABE011" fbTag="BrerNm" fbValue="${CtrctCertRelSgmt.BrerNm}"
+					depExp="CtrctCertRels_NotNull">
+					<property name="repeat" value="false" />
+					<property name="beanClass"
+						value="org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CtrctCertRel" />
+					<property name="fieldNames" value="BrerType;CertRelIDType;CertRelIDNum" />
+				</rule>
+				<field name="CtrctCertRel_bean" fbTag="CtrctCertRel"
+					classType="org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CtrctCertRel">
+					<rule id="CtrctCertRel_bean_CertRelIDNum_ntr_Vali" type="NtrCert"
+						errCode="ABE004" fbTag="CertRelIDNum" fbValue="${$this.CertRelIDNum}"
+						depExp="CtrctCertRel_bean-CertRelIDType_Ntr_dict">
+						<property name="certTypeFeild" value="CertRelIDType"></property>
+						<property name="certNumFeild" value="CertRelIDNum" />
+					</rule>
+					<rule id="CtrctCertRel_bean_CertRelIDNum_leg_Vali" type="LegCert"
+						errCode="ABE004" fbTag="CertRelIDNum" fbValue="${$this.CertRelIDNum}"
+						depExp="CtrctCertRel_bean-CertRelIDType_Org_dict">
+						<property name="certTypeFeild" value="CertRelIDType"></property>
+						<property name="certNumFeild" value="CertRelIDNum" />
+					</rule>
+					<rule id="CtrctCertRel_bean_co" fbTag="0000" fbValue="" type="Method"
+						errCode="BCE003">
+						<package>
+							org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CtrctBsSgmt;
+							org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CtrctCertRel;
+							org.pbccrc.archive.collect.messagetools.ntrcontract.message.segment.CtrctCertRelSgmt;
+							org.pbccrc.archive.collect.messagetools.validators.utils.ValueUtil;
+						</package>
+						<method>
+							{
+							CtrctBsSgmt ctrctBsSgmt = record.getCtrctBsSgmt();
+							if
+							(ValueUtil.hasNull(ctrctBsSgmt))
+							return true;
+							String cIdNum =
+							ctrctBsSgmt.getIDNum();
+							String cIdType = ctrctBsSgmt.getIDType();
+							if (ValueUtil.hasNull(ctrctBsSgmt, cIdNum, cIdType)) {
+							return true;
+							}
+							CtrctCertRelSgmt ccSgmt = record.getCtrctCertRelSgmt();
+							if
+							(ccSgmt == null || ccSgmt.getCtrctCertRels() == null ||
+							ccSgmt.getCtrctCertRels().size()==0) {
+							return true;
+							}
+							for(int i=0 ;i
+							&lt; ccSgmt.getCtrctCertRels().size();i++){
+							CtrctCertRel ccR =
+							(CtrctCertRel)ccSgmt.getCtrctCertRels().get(i);
+							if(ccR.getBrerType()==null){
+							return true;
+							}
+							if(ccR.getBrerType().equals("1")){
+							if(ValueUtil.hasNull(ccR.getCertRelIDType(),
+							ccR.getCertRelIDNum())){
+							return true;
+							}
+							if(ccR.getCertRelIDType().equals(cIdType) &amp;&amp;
+							ccR.getCertRelIDNum().equals(cIdNum)){
+							return false;
+							}
+							}
+							}
+							return
+							true;
+							}
+						</method>
+					</rule>
+
+					<field name="BrerType" fbTag="BrerType" classType="java.lang.String">
+						<rule id="BrerType_NotNull" type="NotNull" errCode="ABD000"
+							scope="local" />
+						<rule id="BrerType_NotEmpty" type="NotEmpty" errCode="ABE000"
+							depExp="BrerType_NotNull" scope="local" />
+						<rule id="BrerType_DataType" type="Dict" errCode="ABE001"
+							depExp="BrerType_NotEmpty" scope="local">
+							<property name="dictKey" value="RltRepymtInfoIdType" />
+						</rule>
+
+						<rule id="BrerType_1" type="Equals" depExp="BrerType_NotEmpty"
+							scope="local">
+							<property name="data" value="1" />
+						</rule>
+
+						<rule id="BrerType_2" type="Equals" depExp="BrerType_NotEmpty"
+							scope="local">
+							<property name="data" value="2" />
+						</rule>
+					</field>
+					<field name="CertRelName" fbTag="CertRelName" classType="java.lang.String">
+						<rule id="CtrctCertRel_bean-CertRelName_NotNull" type="NotNull"
+							errCode="ABD000" scope="local" />
+						<rule id="CtrctCertRel_bean-CertRelName_NotEmpty" type="NotEmpty"
+							errCode="ABE000" depExp="CtrctCertRel_bean-CertRelName_NotNull"
+							scope="local" />
+						<rule id="CtrctCertRel_bean-Ent-CertRelName_DataType" type="DataType"
+							errCode="ABE001" depExp="CtrctCertRel_bean-CertRelName_NotEmpty &amp; BrerType_2"
+							scope="local">
+							<property name="type" value="ANC..80" />
+						</rule>
+						<rule id="CtrctCertRel_bean-Ntr-CertRelName_DataType" type="DataType"
+							errCode="ABE001" depExp="CtrctCertRel_bean-CertRelName_NotEmpty &amp; BrerType_1"
+							scope="local">
+							<property name="type" value="ANC..30" />
+						</rule>
+					</field>
+					<field name="CertRelIDType" fbTag="CertRelIDType" classType="java.lang.String">
+						<rule id="CtrctCertRel_bean-CertRelIDType_NotNull" type="NotNull"
+							errCode="ABD000" scope="local" />
+						<rule id="CtrctCertRel_bean-CertRelIDType_NotEmpty" type="NotEmpty"
+							errCode="ABE000" depExp="CtrctCertRel_bean-CertRelIDType_NotNull"
+							scope="local" />
+						<rule id="CtrctCertRel_bean-CertRelIDType_Ntr_dict" type="Dict"
+							errCode="BCE002" fbTag="0000" fbValue=""
+							depExp="CtrctCertRel_bean-CertRelIDType_NotEmpty &amp; BrerType_1"
+							scope="local">
+							<property name="dictKey" value="NtrCertType" />
+						</rule>
+						
+						<!-- 新添加 :共同授信人身份类别为2-组织机构代码时，身份标识类型只能是10-中证码；20-统一社会信用码；30-组织机构代码-->
+						<rule id="CtrctCertRel_bean-CertRelIDType_10;20;30" type="Contains" errCode="BCE002" fbTag="0000"
+						     depExp="CtrctCertRel_bean-CertRelIDType_NotEmpty &amp; BrerType_2" scope="local">
+							<property name="dict" value="10;20;30" />
+						</rule>
+
+						<rule id="CtrctCertRel_bean-CertRelIDType_Org_dict" type="Dict"
+							errCode="BCE002" fbTag="0000" fbValue=""
+							depExp="CtrctCertRel_bean-CertRelIDType_NotEmpty &amp; BrerType_2"
+							scope="local">
+							<property name="dictKey" value="OrgInstCertType" />
+						</rule>
+					</field>
+					<field name="CertRelIDNum" fbTag="CertRelIDNum" classType="java.lang.String">
+						<rule id="CtrctCertRel_bean-CertRelIDNum_NotNull" type="NotNull"
+							errCode="ABD000" scope="local" />
+						<rule id="CtrctCertRel_bean-CertRelIDNum_NotEmpty" type="NotEmpty"
+							errCode="ABE000" depExp="CtrctCertRel_bean-CertRelIDNum_NotNull"
+							scope="local" />
+						<rule id="CtrctCertRel_bean-Ent-CertRelIDNum_DataType" type="DataType"
+							errCode="ABE001" depExp="CtrctCertRel_bean-CertRelIDNum_NotEmpty &amp; BrerType_2"
+							scope="local">
+							<property name="type" value="ANC..40" />
+						</rule>
+						<rule id="CtrctCertRel_bean-Ntr-CertRelIDNum_DataType" type="DataType"
+							errCode="ABE001" depExp="CtrctCertRel_bean-CertRelIDNum_NotEmpty &amp; BrerType_1"
+							scope="local">
+							<property name="type" value="ANC..20" />
+						</rule>
+					</field>
+				</field>
+			</field>
+		</field>
+	</validator>
+</validators>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>确定性校验</templetname>
+		<fromtable>crrs_rule</fromtable>
+		<savetable>crrs_rule</savetable>
+		<pkname>rid</pkname>
+		<autoquery>Y</autoquery>
+		<autocondition><![CDATA[ruletype='确定性校验' and ruletype2='基本类校验' and length(problemmsg)<15 ]]></autocondition>
+		<querycontion><![CDATA[ruletype='确定性校验' and ruletype2='基本类校验' and length(problemmsg)<15 ]]></querycontion>
+		<ishavebillquery>Y</ishavebillquery>
+		<orderbys>problemcode</orderbys>
+		<list_btns></list_btns>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+	</templet>
+
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>problemcode</itemkey>
+		<itemname>问题编号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>problemmsg</itemkey>
+		<itemname>提示消息</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>600*100</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>500</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+</root>

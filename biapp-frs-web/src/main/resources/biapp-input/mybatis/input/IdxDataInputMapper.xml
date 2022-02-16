@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.yusys.biapp.input.index.repository.IdxDataInputDao">
+	<insert id="saveDataInputCatalog"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputCatalog">
+		INSERT INTO
+		RPT_INPUT_CATALOG(CATALOG_ID,CATALOG_TYPE,CATALOG_NM,REMARK,UP_NO)
+		VALUES(#{catalogId},#{catalogType},#{catalogNm},#{remark},#{upNo})
+	</insert>
+
+	<insert id="saveRptInputIdxTemplate"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputIdxTemplate">
+		INSERT INTO RPT_INPUT_IDX_TEMPLATE (TEMPLATE_ID,TEMPLATE_TYPE, TEMPLATE_NM,
+		REMARK,CATALOG_ID,INPUT_TYPE)
+		VALUES ( #{templateId}, #{templateType}, #{templateNm},#{remark},
+		#{catalogId},#{inputType})
+	</insert>
+
+	<insert id="saveRptInputIdxCfgDetail"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputIdxCfgDetail">
+		INSERT INTO RPT_INPUT_IDX_CFG_DETAIL (CFG_ID, INDEX_NO, ORDER_NUM, ORG_MODE,
+		TEMPLATE_ID, CFG_NM,INDEX_NM)
+		VALUES (#{cfgId},#{indexNo},
+		#{orderNum},#{orgMode},#{templateId},#{cfgNm},#{indexNm})
+	</insert>
+
+	<insert id="saveRptInputIdxDimFilter"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputIdxDimFilter">
+		INSERT INTO RPT_INPUT_IDX_DIM_FILTER (CFG_ID, DIM_NO, INDEX_NO, FILTER_MODE,
+		FILTER_VAL,FILTER_EXPLAIN, DIM_NM)
+		VALUES (#{id.cfgId}, #{id.dimNo}, #{id.indexNo}, #{filterMode},
+		#{filterVal},#{filterExplain}, #{dimNm})
+	</insert>
+
+	<insert id="saveRptInputIdxTempResult" parameterType="HashMap">
+		INSERT INTO RPT_INPUT_IDX_TEMP_RESULT (INPUT_DATA_ID,INDEX_NO,DATA_DATE,
+		ORG_NO,CURRENCY,DIM1,DIM2,DIM3,DIM4,DIM5,DIM6,DIM7,DIM8,
+		DIM9,DIM10,INDEX_VAL,TASK_ID,OPER_USER,OPER_TIME,DATA_STS,
+		OPER_OPINION,TASK_INSTANCE_ID,CFG_ID)
+		VALUES(#{inputDataId},#{indexNo},#{dataDate},
+		#{orgNo},#{currency},#{dim1},#{dim2},#{dim3},#{dim4},#{dim5},#{dim6},#{dim7},#{dim8},
+		#{dim9},#{dim10},#{indexVal},#{taskId},#{operUser},#{operTime},#{dataSts},
+		#{operOpinion},#{taskInstanceId},#{cfgId})
+	</insert>
+
+	<insert id="saveRptInputIdxPlanTempResult" parameterType="HashMap">
+		INSERT INTO RPT_INPUT_IDX_PLAN_TEMP_RESULT
+		(INPUT_DATA_ID,INDEX_NO,DATA_DATE,
+		ORG_NO,CURRENCY,DIM1,DIM2,DIM3,DIM4,DIM5,DIM6,DIM7,DIM8,
+		DIM9,DIM10,INDEX_VAL,TASK_ID,OPER_USER,OPER_TIME,DATA_STS,
+		OPER_OPINION,TASK_INSTANCE_ID,CFG_ID)
+		VALUES(#{inputDataId},#{indexNo},#{dataDate},
+		#{orgNo},#{currency},#{dim1},#{dim2},#{dim3},#{dim4},#{dim5},#{dim6},#{dim7},#{dim8},
+		#{dim9},#{dim10},#{indexVal},#{taskId},#{operUser},#{operTime},#{dataSts},
+		#{operOpinion},#{taskInstanceId},#{cfgId})
+	</insert>
+
+	<insert id="saveRptInputIdxCfgOrg"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputIdxCfgOrg">
+		INSERT INTO RPT_INPUT_IDX_CFG_ORG ( ORG_NO, CFG_ID,ORG_NM )
+		VALUES(#{id.orgNo},#{id.cfgId},#{orgNm})
+	</insert>
+
+	<insert id="saveRptIdxResult"
+		parameterType="com.yusys.biapp.input.index.entity.RptIdxResult">
+		INSERT INTO CERR.RPT_IDX_RESULT (     INDEX_NO,    DATA_DATE,    ORG_NO,    CURRENCY,    DIM1,    DIM2,
+    	DIM3,    DIM4,    DIM5,    DIM6,    DIM7,    DIM8,    DIM9,    DIM10,    INDEX_VAL )
+		VALUES(#{id.indexNo},#{id.dataDate},#{id.orgNo},#{id.currency},#{id.dim1},#{id.dim2},
+		#{id.dim3},#{id.dim4},#{id.dim5},#{id.dim6},#{id.dim7},#{id.dim8},#{id.dim9},#{id.dim10},#{indexVal})
+	</insert>
+
+	<insert id="saveRptIdxPlanResult"
+		parameterType="com.yusys.biapp.input.index.entity.RptIdxPlanResult">
+		INSERT INTO CERR.RPT_IDX_PLAN_RESULT (     INDEX_NO,    DATA_DATE,    ORG_NO,    CURRENCY,    DIM1,    DIM2,
+    	DIM3,    DIM4,    DIM5,    DIM6,    DIM7,    DIM8,    DIM9,    DIM10,    INDEX_VAL,PLAN_TYPE )
+		VALUES(#{id.indexNo},#{id.dataDate},#{id.orgNo},#{id.currency},#{id.dim1},#{id.dim2},
+		#{id.dim3},#{id.dim4},#{id.dim5},#{id.dim6},#{id.dim7},#{id.dim8},#{id.dim9},#{id.dim10},#{indexVal},#{id.planType})
+	</insert>
+	
+	<insert id ="saveRptInputIdxUpdlog"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputIdxUpdlog">
+		INSERT INTO RPT_INPUT_IDX_UPDLOG (DATA_DATE,INDEX_ID,
+			UPDATE_DATE,TYPE,UPDATE_USER,ORG_NO)
+    	VALUES (#{id.dataDate},#{id.indexId},#{updateDate},#{type},#{updateUser},#{orgNo})
+	</insert>
+	
+	<insert id="saveRptInputIdxValidate" parameterType="com.yusys.biapp.input.index.entity.RptInputIdxValidate">
+		INSERT INTO RPT_INPUT_IDX_VALIDATE(RULE_ID,RULE_NM,RULE_TYPE,RULE_VAL,SQL_EXPRESSION,SOURCE_ID,SYMBOL,INDEX_NO)
+		VALUES(#{ruleId},#{ruleNm},#{ruleType},#{ruleVal},#{sqlExpression},#{sourceId},#{symbol},#{indexNo})
+	</insert>
+	
+	<insert id="saveRptInputIdxCfgValidate" parameterType="com.yusys.biapp.input.index.entity.RptInputIdxCfgValidate">
+			INSERT INTO RPT_INPUT_IDX_CFG_VALIDATE(CFG_ID,RULE_ID)
+			VALUES(#{id.cfgId},#{id.ruleId})
+	</insert>
+	
+	<update id="updateRptInputIdxValidate"  parameterType="com.yusys.biapp.input.index.entity.RptInputIdxValidate">
+			UPDATE RPT_INPUT_IDX_VALIDATE
+			SET
+			    RULE_NM = #{ruleNm},
+			    RULE_TYPE = #{ruleType},
+			    RULE_VAL = #{ruleVal},
+			    SQL_EXPRESSION =#{sqlExpression},
+			    SOURCE_ID = #{sourceId},
+			    SYMBOL = #{symbol},
+			    INDEX_NO = #{indexNo}
+			WHERE
+			    RULE_ID = #{ruleId}
+	</update>
+	
+	<update id="updateRptInputIdxTemplate"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputIdxTemplate">
+		UPDATE
+		RPT_INPUT_IDX_TEMPLATE
+		<set>
+			<if test=" templateId != null ">
+				TEMPLATE_ID =#{templateId},
+			</if>
+			<if test=" templateType != null ">
+				TEMPLATE_TYPE = #{templateType},
+			</if>
+			<if test=" remark != null ">
+				REMARK = #{remark},
+			</if>
+			<if test=" catalogId != null ">
+				CATALOG_ID = #{catalogId},
+			</if>
+			<if test=" inputType != null ">
+				INPUT_TYPE = #{inputType},
+			</if>
+			<if test=" templateNm != null ">
+				TEMPLATE_NM = #{templateNm}
+			</if>
+		</set>
+		WHERE
+		TEMPLATE_ID = #{templateId}
+	</update>
+
+	<update id="updateDataInputCatalog"
+		parameterType="com.yusys.biapp.input.index.entity.RptInputCatalog">
+		UPDATE RPT_INPUT_CATALOG CLOG
+		<set>
+			<if test=" upNo != null ">
+				CLOG.UP_NO=#{upNo},
+			</if>
+			<if test=" remark != null ">
+				CLOG.REMARK=#{remark},
+			</if>
+			<if test=" catalogType != null ">
+				CLOG.CATALOG_Type=#{catalogType},
+			</if>
+			<if test="catalogNm != null">
+				CLOG.CATALOG_NM=#{catalogNm}
+			</if>
+		</set>
+		WHERE CLOG.CATALOG_ID=#{catalogId}
+	</update>
+
+	<update id="updateRptIdxResult"
+		parameterType="com.yusys.biapp.input.index.entity.RptIdxResult">
+		UPDATE CERR.RPT_IDX_RESULT SET INDEX_VAL =#{indexVal}
+		WHERE	INDEX_NO=#{id.indexNo} AND
+		DATA_DATE=#{id.dataDate} AND		ORG_NO=#{id.orgNo} AND		CURRENCY=#{id.currency} AND		DIM1=#{id.dim1} AND
+		DIM2=#{id.dim2} AND		DIM3=#{id.dim3} AND		DIM4=#{id.dim4} AND		DIM5=#{id.dim5} AND		DIM6=#{id.dim6} AND
+		DIM7=#{id.dim7} AND		DIM8=#{id.dim8} AND		DIM9=#{id.dim9} AND		DIM10=#{id.dim10}	
+	</update>
+
+	<update id="updateRptIdxPlanResult"
+		parameterType="com.yusys.biapp.input.index.entity.RptIdxPlanResult">
+		UPDATE CERR.RPT_IDX_PLAN_RESULT SET INDEX_VAL =#{indexVal}
+		WHERE	INDEX_NO=#{id.indexNo} AND
+		DATA_DATE=#{id.dataDate} AND		ORG_NO=#{id.orgNo} AND		CURRENCY=#{id.currency} AND		DIM1=#{id.dim1} AND
+		DIM2=#{id.dim2} AND		DIM3=#{id.dim3} AND		DIM4=#{id.dim4} AND		DIM5=#{id.dim5} AND		DIM6=#{id.dim6} AND
+		DIM7=#{id.dim7} AND		DIM8=#{id.dim8} AND		DIM9=#{id.dim9} AND		DIM10=#{id.dim10}	
+	</update>
+	
+	<update id="updateRptInputIdxUpdlog"    parameterType="com.yusys.biapp.input.index.entity.RptInputIdxUpdlog">
+		UPDATE RPT_INPUT_IDX_UPDLOG
+		SET
+		    UPDATE_DATE = #{updateDate},
+		    TYPE = #{type},
+		    UPDATE_USER = #{updateUser},
+		    ORG_NO = #{orgNo}
+		WHERE   INDEX_ID = #{id.indexId}
+		AND DATA_DATE = #{id.dataDate}
+	</update>
+	
+	<select id="getDataSourceById" resultType="com.yusys.biapp.input.index.util.vo.DsInfoVO"    parameterType="string">
+			SELECT INFO.DS_ID,INFO.LOGIC_SYS_NO ,DRIVER.DRIVER_NAME,INFO.DS_NAME ,INFO.CONN_URL,
+			    INFO.CONN_USER ,INFO.CONN_PWD,INFO.REMARK
+			FROM
+			    BIONE_DS_INFO INFO,
+			    BIONE_DRIVER_INFO DRIVER
+			WHERE
+			    INFO.DRIVER_ID = DRIVER.DRIVER_ID
+			AND INFO.DS_ID=#{dsId}
+			
+	</select>
+	
+	<select id="getRuleByIndexNo"  parameterType="HashMap" resultType="com.yusys.biapp.input.index.entity.RptInputIdxValidate">
+	
+			SELECT    RULE_ID,    RULE_NM,    RULE_TYPE,    RULE_VAL,    SQL_EXPRESSION,    SOURCE_ID,    SYMBOL,INDEX_NO
+			FROM RPT_INPUT_IDX_VALIDATE WHERE 1=1
+			<if test="  ruleId!=null ">
+				AND RULE_ID=#{ruleId}
+			</if>
+			<if test="  ruleNm !=null ">
+				AND RULE_NM=#{ruleNm}
+			</if>
+			<if test="  indexNo !=null ">
+				AND INDEX_NO=#{indexNo}
+			</if>
+	</select>
+	
+	<select id="getRuleByCfg"  parameterType="HashMap" resultType="com.yusys.biapp.input.index.entity.RptInputIdxValidate">
+			SELECT
+			    VALI.RULE_ID,
+			    VALI.RULE_NM,
+			    VALI.RULE_TYPE,
+			    VALI.RULE_VAL,
+			    VALI.SQL_EXPRESSION,
+			    VALI.SOURCE_ID,
+			    VALI.SYMBOL,
+			    VALI.INDEX_NO
+			FROM
+			    RPT_INPUT_IDX_CFG_VALIDATE CFGVALI,
+			    RPT_INPUT_IDX_VALIDATE VALI
+			WHERE
+			    CFGVALI.RULE_ID=VALI.RULE_ID
+			  AND CFGVALI.CFG_ID=#{cfgId}
+	</select>
+	
+	<select id="getDataInputCatalog"
+		resultType="com.yusys.biapp.input.index.entity.RptInputCatalog"
+		parameterType="HashMap">
+		SELECT CATALOG_ID,CATALOG_TYPE,CATALOG_NM,REMARK,UP_NO FROM
+		RPT_INPUT_CATALOG WHERE 1=1
+		<if test="  parentCatalogId!=null ">
+			AND UP_NO=#{parentCatalogId}
+		</if>
+		<if test="  catalogName!=null ">
+			AND CATALOG_NM=#{catalogName}
+		</if>
+		<if test="  catalogId!=null ">
+			AND CATALOG_ID=#{catalogId}
+		</if>
+	</select>
+
+	<select id="getTemplateInfos"
+		resultType="com.yusys.biapp.input.index.entity.RptInputIdxTemplate"
+		parameterType="HashMap">
+		SELECT T.* FROM RPT_INPUT_IDX_TEMPLATE T WHERE 1=1
+		<if test=" templateId!=null ">
+			AND T.TEMPLATE_ID = #{templateId}
+		</if>
+		<if test=" templateType!=null ">
+			AND T.TEMPLATE_TYPE = #{templateType}
+		</if>
+		<if test=" templateNm!=null ">
+			AND T.TEMPLATE_NM LIKE #{templateNm}
+		</if>
+		<if test=" catalogId!=null ">
+			AND T.CATALOG_ID = #{catalogId}
+		</if>
+	</select>
+
+	<select id="getShowTemplateInfos"
+		resultType="com.yusys.biapp.input.index.web.vo.DataInputTemplateVO"
+		parameterType="HashMap">
+		SELECT *FROM (SELECT DISTINCT TMP.TEMPLATE_ID as templateId,TMP.TEMPLATE_NM as templateNm,TMP.TEMPLATE_TYPE as templateType ,
+			CASE WHEN REL.TASK_ID IS NULL THEN '未下发' WHEN REL.TASK_ID IS NOT NULL THEN '已下发' END as  ralateToTask ,TMP.REMARK
+		FROM RPT_INPUT_IDX_TEMPLATE TMP
+			LEFT JOIN RPT_TSK_EXEOBJ_REL REL ON ( TMP.TEMPLATE_ID = REL.EXE_OBJ_ID AND REL.EXE_OBJ_TYPE='01' )
+			LEFT JOIN RPT_TSK_INS INS ON (INS.TASK_ID = REL.TASK_ID) 
+		WHERE 1=1
+		<if test=" templateId!=null ">
+			AND TMP.TEMPLATE_ID = #{templateId}
+		</if>
+		<if test=" templateType!=null ">
+			AND TMP.TEMPLATE_TYPE = #{templateType}
+		</if>
+		<if test=" templateNm!=null ">
+			AND TMP.TEMPLATE_NM LIKE #{templateNm}
+		</if>
+		<if test=" catalogId!=null ">
+			AND TMP.CATALOG_ID = #{catalogId}
+		</if>
+		ORDER BY TMP.TEMPLATE_NM
+		)
+	</select>
+
+	<select id="getTemplateCount" resultType="java.lang.Integer"
+		parameterType="HashMap">
+		SELECT count(1) FROM RPT_INPUT_IDX_TEMPLATE WHERE 1=1
+		<if test=" templateId!=null ">
+			AND TEMPLATE_ID = #{templateId}
+		</if>
+		<if test=" templateType!=null ">
+			AND TEMPLATE_TYPE = #{templateType}
+		</if>
+		<if test=" templateNm!=null ">
+			AND TEMPLATE_NM LIKE #{templateNm}
+		</if>
+		<if test=" catalogId!=null ">
+			AND CATALOG_ID = #{catalogId}
+		</if>
+	</select>
+
+
+
+	<select id="testSameIndexCatalogNm" parameterType="HashMap"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM RPT_INPUT_CATALOG CATALOG WHERE 1=1
+		<if test="  upNo!=null ">
+			AND CATALOG.UP_NO=#{upNo}
+		</if>
+		<if test="  catalogName!=null ">
+			AND CATALOG.CATALOG_NM=#{catalogName}
+		</if>
+		<if test="  catalogId!=null ">
+			AND CATALOG_ID != #{catalogId}
+		</if>
+	</select>
+
+
+	<select id="testTemplateNm" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM RPT_INPUT_IDX_TEMPLATE T WHERE 1=1
+		<if test="  templateId!=null ">
+			AND T.TEMPLATE_ID != #{templateId}
+		</if>
+		<if test="  templateNm!=null ">
+			AND T.TEMPLATE_NM = #{templateNm}
+		</if>
+		<if test="  catalogId!=null ">
+			AND T.CATALOG_ID = #{catalogId}
+		</if>
+	</select>
+
+	<select id="getRptInputIdxCfgDetailByTemplateId" parameterType="string"
+		resultType="com.yusys.biapp.input.index.web.vo.IdxCfgDetailVO">
+			SELECT
+			    DTL.CFG_ID AS cfgId ,
+			    DTL.INDEX_NO AS  idxNo ,
+			    DTL. ORDER_NUM AS orgNo,
+			    DTL.ORG_MODE   AS orgMode,
+			    DTL.TEMPLATE_ID ,
+			    DTL.CFG_NM AS cfgNm,
+			    DTL.INDEX_NM AS indexNm,
+			    VALI.RULE_ID  AS ruleId ,
+			    VALI.RULE_NM AS ruleNm
+			FROM
+			    RPT_INPUT_IDX_CFG_DETAIL DTL 
+			    LEFT JOIN RPT_INPUT_IDX_CFG_VALIDATE CFGVALI
+			    ON DTL.CFG_ID = CFGVALI.CFG_ID
+			    LEFT JOIN RPT_INPUT_IDX_VALIDATE VALI
+			    ON VALI.RULE_ID = CFGVALI.RULE_ID
+   			WHERE TEMPLATE_ID=#{templateId}
+	</select>
+
+
+
+	<select id="getRptInputIdxDimFilterByCfgId" parameterType="string"
+		resultType="com.yusys.biapp.input.index.entity.RptInputIdxDimFilter">
+		SELECT CFG_ID as "id.cfgId", DIM_NO as "id.dimNo", INDEX_NO
+		as "id.indexNo", FILTER_MODE, FILTER_VAL, FILTER_EXPLAIN ,DIM_NM
+		FROM
+		RPT_INPUT_IDX_DIM_FILTER
+		WHERE CFG_ID=#{cfgId}
+	</select>
+
+
+
+	<select id="getDataInputDim"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo"
+		parameterType="java.util.Map">
+		SELECT DIM_ITEM_NO as "id.dimItemNo",DIM_ITEM_NM
+		,UP_NO,REMARK
+		,DIM_TYPE_NO as "id.dimTypeNo" ,DEF_DEPT,USE_DEPT, BUSI_RULE, BUSI_DEF ,ITEM_STS
+		,START_DATE,END_DATE from RPT_DIM_ITEM_INFO
+		where DIM_TYPE_NO = #{dimTypeNo}
+		<if test="list!=null">
+			AND DIM_ITEM_NO IN
+			<foreach item="item" index="index" collection="list" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getRptInputIdxTempResult" resultType="HashMap"
+		parameterType="HashMap">
+		SELECT
+			   INPUT_DATA_ID as "INPUT_DATA_ID",
+		       INDEX_NO as "INDEX_NO",
+		       DATA_DATE as "DATA_DATE",
+		       ORG_NO as "ORG_NO",
+		       CURRENCY as "CURRENCY",
+		       DIM1 as "DIM1",
+		       DIM2 as "DIM2",
+		       DIM3 as "DIM3",
+		       DIM4 as "DIM4",
+		       DIM5 as "DIM5",
+		       DIM6 as "DIM6",
+		       DIM7 as "DIM7",
+		       DIM8 as "DIM8",
+		       DIM9 as "DIM9",
+		       DIM10 as "DIM10",
+		       INDEX_VAL as "INDEX_VAL",
+		       TASK_ID as "TASK_ID",
+			   OPER_USER as "OPER_USER",
+		       OPER_TIME as "OPER_TIME",
+		       DATA_STS as "DATA_STS",
+		       OPER_OPINION as "OPER_OPINION",
+		       TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+		       CFG_ID as "CFG_ID"
+		FROM RPT_INPUT_IDX_TEMP_RESULT
+		WHERE TASK_INSTANCE_ID = #{taskInstanceId}
+	</select>
+
+	<select id="getRptInputIdxPlanTempResult" resultType="HashMap"
+		parameterType="HashMap">
+		SELECT
+			INPUT_DATA_ID as "INPUT_DATA_ID",
+			INDEX_NO as "INDEX_NO",
+			DATA_DATE as "DATA_DATE",
+			ORG_NO as "ORG_NO",
+			CURRENCY as "CURRENCY",
+			DIM1 as "DIM1",
+			DIM2 as "DIM2",
+			DIM3 as "DIM3",
+			DIM4 as "DIM4",
+			DIM5 as "DIM5",
+			DIM6 as "DIM6",
+			DIM7 as "DIM7",
+			DIM8 as "DIM8",
+			DIM9 as "DIM9",
+			DIM10 as "DIM10",
+			INDEX_VAL as "INDEX_VAL",
+			TASK_ID as "TASK_ID",
+			OPER_USER as "OPER_USER",
+			OPER_TIME as "OPER_TIME",
+			DATA_STS as "DATA_STS",
+			OPER_OPINION as "OPER_OPINION",
+			TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+			CFG_ID as "CFG_ID"
+		FROM RPT_INPUT_IDX_PLAN_TEMP_RESULT
+		WHERE TASK_INSTANCE_ID = #{taskInstanceId}
+	</select>
+
+	<select id="getRptIdxDimRelDefaultMaxVersion" resultType="HashMap"
+		parameterType="string">
+		SELECT DIM1.DIM_NO as "DIM_NO",
+		       STORE_COL as "STORE_COL"
+		FROM RPT_IDX_DIM_REL DIM1,
+		(SELECT MAX(INDEX_VER_ID) AS MAX_VER_ID, INDEX_NO
+		FROM RPT_IDX_DIM_REL
+		WHERE INDEX_NO = #{indexNo}
+		GROUP BY INDEX_NO) DIM2
+		WHERE DIM1.INDEX_NO = DIM2.INDEX_NO
+		AND DIM1.INDEX_VER_ID = DIM2.MAX_VER_ID
+	</select>
+
+	<select id="queryCurNm" resultType="string" parameterType="string">
+		SELECT ITEM.DIM_ITEM_NM AS CURNM
+		FROM RPT_DIM_ITEM_INFO ITEM
+		WHERE
+		ITEM.DIM_TYPE_NO = 'CURRENCY'
+		AND ITEM.DIM_ITEM_NO=#{curNo}
+	</select>
+
+	<select id="getRptInputIdxCfgOrgByCfgId"
+		resultType="com.yusys.biapp.input.index.entity.RptInputIdxCfgOrg"
+		parameterType="string">
+		SELECT ORG_NO as "id.orgNo",CFG_ID as "id.cfgId",ORG_NM FROM
+		RPT_INPUT_IDX_CFG_ORG WHERE CFG_ID=#{cfgId}
+		ORDER BY ORG_NM
+	</select>
+
+	<select id="getRptInputIdxTempResultByTaskInstanceId"
+		resultType="HashMap" parameterType="string">
+		SELECT * FROM RPT_INPUT_IDX_TEMP_RESULT WHERE TASK_INSTANCE_ID =
+		#{taskInstanceId}
+	</select>
+
+	<select id="getRptInputIdxPlanTempResultByTaskInstanceId"
+		resultType="HashMap" parameterType="string">
+		SELECT * FROM RPT_INPUT_IDX_PLAN_TEMP_RESULT WHERE TASK_INSTANCE_ID =
+		#{taskInstanceId}
+	</select>
+
+	<select id="getRptIdxResultByParam" resultType="Integer"
+		parameterType="HashMap">
+		SELECT 1 FROM CERR.RPT_IDX_RESULT 
+		WHERE	INDEX_NO=#{indexNo} AND
+		DATA_DATE=#{dataDate} AND		ORG_NO=#{orgNo} AND		CURRENCY=#{currency} AND		DIM1=#{dim1} AND
+		DIM2=#{dim2} AND		DIM3=#{dim3} AND		DIM4=#{dim4} AND		DIM5=#{dim5} AND		DIM6=#{dim6} AND
+		DIM7=#{dim7} AND		DIM8=#{dim8} AND		DIM9=#{dim9} AND		DIM10=#{dim10}	
+	</select>
+
+
+	<select id="getRptIdxPlanResultByParam" resultType="Integer"
+		parameterType="HashMap">
+		SELECT 1 FROM CERR.RPT_IDX_PLAN_RESULT 
+		WHERE	INDEX_NO=#{indexNo} AND
+		DATA_DATE=#{dataDate} AND		ORG_NO=#{orgNo} AND		CURRENCY=#{currency} AND		DIM1=#{dim1} AND
+		DIM2=#{dim2} AND		DIM3=#{dim3} AND		DIM4=#{dim4} AND		DIM5=#{dim5} AND		DIM6=#{dim6} AND
+		DIM7=#{dim7} AND		DIM8=#{dim8} AND		DIM9=#{dim9} AND		DIM10=#{dim10}	
+	</select>
+	
+	<select id="getRptInputIdxUpdlogCnt"  resultType="Integer" parameterType="HashMap">
+			SELECT COUNT(1) FROM RPT_INPUT_IDX_UPDLOG LOG 
+			WHERE LOG.DATA_DATE=#{dataDate}  AND LOG.INDEX_ID=#{indexNo}
+	</select>
+	
+	<delete id="deleteRptInputIdxValidate"   parameterType="string"   >
+			DELETE FROM RPT_INPUT_IDX_VALIDATE WHERE RULE_ID=#{ruleId}
+	</delete>
+	
+	<delete id="deleteDataInputCatalog" parameterType="java.util.List">
+		DELETE FROM RPT_INPUT_CATALOG CLOG WHERE CLOG.CATALOG_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<delete id="deleteRptInputIdxCfgDetailByTemplateId"
+		parameterType="string">
+		DELETE FROM RPT_INPUT_IDX_CFG_DETAIL DETAIL WHERE
+		DETAIL.TEMPLATE_ID= #{templateId}
+	</delete>
+
+	<delete id="deleteRptInputIdxCfgOrgByTemplateId" parameterType="string">
+		DELETE FROM RPT_INPUT_IDX_CFG_ORG CFGORG WHERE EXISTS (SELECT 1 FROM
+		RPT_INPUT_IDX_CFG_DETAIL DTL WHERE DTL.CFG_ID=CFGORG.CFG_ID AND
+		DTL.TEMPLATE_ID=#{templateId})
+	</delete>
+
+	<delete id="deleteRptInputIdxDimFilterByTemplateId"
+		parameterType="string">
+		SELECT * FROM RPT_INPUT_IDX_DIM_FILTER FL 
+		WHERE  EXISTS (SELECT 1 FROM RPT_INPUT_IDX_CFG_DETAIL DETAIL WHERE DETAIL.CFG_ID =FL.CFG_ID AND DETAIL.TEMPLATE_ID = #{templateId})
+	</delete>
+
+	<delete id="deleteRptInputIdxTemplateByTemplateId"
+		parameterType="string">
+		DELETE FROM RPT_INPUT_IDX_TEMPLATE TEMP WHERE
+		TEMP.TEMPLATE_ID= #{templateId}
+	</delete>
+
+	<delete id="deleteRptInputIdxPlanTempResultByTaskInstanceId"
+		parameterType="string">
+		DELETE FROM RPT_INPUT_IDX_PLAN_TEMP_RESULT TEMP WHERE
+		TEMP.TASK_INSTANCE_ID= #{taskInstanceId}
+	</delete>
+
+	<delete id="deleteRptInputIdxTempResultByTaskInstanceId"
+		parameterType="string">
+		DELETE FROM RPT_INPUT_IDX_TEMP_RESULT TEMP WHERE
+		TEMP.TASK_INSTANCE_ID= #{taskInstanceId}
+	</delete>
+
+	
+	<select id="getSysNo"  parameterType="HashMap" resultType="string">
+		SELECT DS.CONN_USER FROM RPT_SYS_MODULE_INFO INFO,BIONE_DS_INFO DS WHERE INFO.SOURCE_ID = DS.DS_ID 
+		<if test="  setId !=null ">
+			AND  INFO.SET_ID= #{setId}
+		</if>
+		<if test="  tableEnNm !=null ">
+			AND  INFO.TABLE_EN_NM= #{tableEnNm}
+		</if>
+	</select>
+
+</mapper> 

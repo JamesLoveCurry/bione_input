@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<license build-time="Mon Sep 06 15:15:10 CST 2021" validate-code="3AD2FF7FFAFBF37CED598244C725AC67">
+  <element name="contract_code">YTEC-2021-2451-B</element>
+  <element name="customer_name">2021年1104制度升级功能研发</element>
+  <element name="license_code">0000023719</element>
+  <element name="product_code">0000001242</element>
+  <element name="product_name_zh-cn">宇信科技统一监管报送平台系统V3.0</element>
+  <element name="product_name_en-us">Yusys unified Regulatory Reporting Platform</element>
+  <element name="version_major">3</element>
+  <element name="version_sub">0</element>
+  <element name="version_publish">2018</element>
+  <element name="complie_date">2018-02-24</element>
+  <element name="license_type">内部试用许可证</element>
+  <element name="license_start_time">2021-09-30</element>
+  <element name="license_end_time">2022-03-29</element>
+</license>

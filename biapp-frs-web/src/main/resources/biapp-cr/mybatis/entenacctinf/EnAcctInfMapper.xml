@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entenacctinf.repository.EnAcctInfBaseDao">
+<!-- 根据条件查询报表列表 -->
+
+	<select id="genEntAcctbsList"  resultType="com.yusys.cr.entenacctinf.entity.EntAcctbs">
+
+		SELECT
+			*
+		FROM 
+			Ent_Acctbs where incrementflag in ('1','2')
+
+	</select>
+	
+	<select id="genEntAcctbsinf"  resultType="com.yusys.cr.entenacctinf.entity.EntAcctbsinf">
+		SELECT
+			*
+		FROM 
+			Ent_Acctbsinf 
+        where AcctCode =#{sAcctCode} and incrementflag in ('1','2')
+	</select>
+	
+     <select id="genRltrepymtinfList"  resultType="com.yusys.cr.entenacctinf.entity.RltRepymtInf">
+		SELECT
+			*
+		FROM 
+			Ent_Rltrepymtinf 
+        where AcctCode =#{sAcctCode} and incrementflag in ('1','2')
+	</select>
+	
+	 <select id="genCccInfList"  resultType="com.yusys.cr.entenacctinf.entity.CccInf">
+		SELECT
+			*
+		FROM 
+			Ent_Motgacltalctrctinf 
+        where AcctCode =#{sAcctCode} and incrementflag in ('1','2')
+	</select>
+		
+	 <select id="genEntAcctcred"  resultType="com.yusys.cr.entenacctinf.entity.EntAcctcred">
+		SELECT
+			*
+		FROM 
+			Ent_Acctcred 
+        where AcctCode =#{sAcctCode} and incrementflag in ('1','2')
+	 </select>
+	 	
+	 <select id="genEntOrigcreditorinf"  resultType="com.yusys.cr.entenacctinf.entity.EntOrigcreditorinf">
+		SELECT
+			*
+		FROM 
+			Ent_Origcreditorinf 
+        where AcctCode =#{sAcctCode} and incrementflag in ('1','2')
+	 </select>
+	 	
+	 <select id="genEntActlbltyinf"  resultType="com.yusys.cr.entenacctinf.entity.EntActlbltyinf">
+		SELECT
+			*
+		FROM 
+			Ent_Actlbltyinf 
+        where AcctCode =#{sAcctCode} and incrementflag in ('1','2')
+	 </select>
+	 	
+	 <select id="genCagOfTrdInfList"  resultType="com.yusys.cr.entenacctinf.entity.CagOfTrdInf">
+		SELECT
+			*
+		FROM 
+			Ent_Acctspectrstdspn 
+        where AcctCode =#{sAcctCode} and incrementflag in ('1','2')
+	 </select>
+
+    <select id="getHEntAcctbsCount" resultType="java.lang.Integer">
+		SELECT count(*) FROM HEnt_Acctbs t where t.incrementflag = '2'
+	</select>
+	<select id="getHEntAcctBsList" resultType="com.yusys.cr.entenacctinf.entity.EntAcctBsSgmt">
+		SELECT * FROM HEnt_Acctbs t where t.incrementflag = '2'
+	</select>
+	<select id="getHEntAcctBs" resultType="com.yusys.cr.entenacctinf.entity.EntAcctBsSgmtUpt">
+		SELECT * FROM HEnt_Acctbs t where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+
+	<select id="getHEntAcctbsinf" resultType="com.yusys.cr.entenacctinf.entity.EntAcctbsinf">
+		SELECT * FROM HEnt_Acctbsinf where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+
+	<select id="getHRltrepymtinfList" resultType="com.yusys.cr.entenacctinf.entity.RltRepymtInf">
+		SELECT * FROM HEnt_Rltrepymtinf where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHCccInfList" resultType="com.yusys.cr.entenacctinf.entity.CccInf">
+		SELECT * FROM HEnt_Motgacltalctrctinf where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntAcctcred" resultType="com.yusys.cr.entenacctinf.entity.EntAcctcred">
+		SELECT * FROM HEnt_Acctcred where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntOrigcreditorinf" resultType="com.yusys.cr.entenacctinf.entity.EntOrigcreditorinf">
+		SELECT * FROM HEnt_Origcreditorinf where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntActlbltyinf" resultType="com.yusys.cr.entenacctinf.entity.EntActlbltyinf">
+		SELECT * FROM HEnt_Actlbltyinf where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHCagOfTrdInfList" resultType="com.yusys.cr.entenacctinf.entity.CagOfTrdInf">
+		SELECT * FROM HEnt_Acctspectrstdspn where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+
+</mapper> 

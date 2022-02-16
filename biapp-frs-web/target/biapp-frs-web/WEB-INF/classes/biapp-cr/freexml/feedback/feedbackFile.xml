@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>错误明细</templetname>
+		<fromtable>cr_feedback_file</fromtable>
+		<savetable>cr_feedback_file</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">N</autoquery>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<orderbys>FB_ERR_REC_ID</orderbys>
+		<card_btns></card_btns>
+		<card_size>600*600</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ischeckstyle>Y</list_ischeckstyle>
+		<list_ismultisel>Y</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>FB_FILE_NAME</itemkey>
+		<itemname>反馈文件名</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>250</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+<!--	<templet_item>-->
+<!--		<itemkey>MSG_TYPE</itemkey>-->
+<!--		<itemname>信息记录类型</itemname>-->
+<!--		<itemtype>下拉框</itemtype>-->
+<!--		<itemdefine>【{"类型":"直接值","内容":"1/户口簿|2/护照|5/港澳居民来往内地通行证|6/台湾同胞来往内地通行证|8/外国人居留证|9/警官证|A/香港身份证|B/澳门身份证|C/台湾身份证|X/其他证件|10/居民身份证及其他以公民身份证号为标识的证件|20/军人身份证件"}】</itemdefine>-->
+<!--		<issave>Y</issave>-->
+<!--		<ismust>N</ismust>-->
+<!--		<query_isshow>N</query_isshow>-->
+<!--		<card_isshow>Y</card_isshow>-->
+<!--		<card_width>200</card_width>-->
+<!--		<card_iswrap>Y</card_iswrap>-->
+<!--		<list_isshow>Y</list_isshow>-->
+<!--		<list_width>80</list_width>-->
+<!--		<list_align>中</list_align>-->
+<!--	</templet_item>-->
+
+	<templet_item>
+		<itemkey>MSG_TYPE</itemkey>
+		<itemname>信息记录类型</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>80</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>FB_ERR_NUM</itemkey>
+		<itemname>错误记录数</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>80</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>FB_ERR_REC_ID</itemkey>
+		<itemname>出错行号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>80</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>FB_CODE</itemkey>
+		<itemname>错误反馈代码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>300</list_width>
+		<list_align>中</list_align>
+		<list_hrefaction>onLookFilePath</list_hrefaction>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>FB_MSG</itemkey>
+		<itemname>出错位置</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>300</list_width>
+		<list_align>中</list_align>
+		<list_hrefaction>onLookFilePath</list_hrefaction>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>FB_FLAG</itemkey>
+		<itemname>反馈标识</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"直接值","内容":"1/入库成功|2/入库失败|3/部分成功"}】</itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<query_isshow>N</query_isshow>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>80</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+   <templet_item>
+		<itemkey>FB_FILE_TIME</itemkey>
+		<itemname>反馈时间</itemname>
+		<itemtype>日历</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+        <query_itemtype>日历区间</query_itemtype>
+		<query_ismust>N</query_ismust>
+		<query_isshow>N</query_isshow>
+		<query_width>300</query_width>
+	</templet_item>
+
+</root>
+

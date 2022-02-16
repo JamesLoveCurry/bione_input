@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptorg.repository.RptOrgSumRelMybatisDao">
+
+	<!-- 以下是查询用的 -->
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<!-- 机构源节点 -->
+	<select id="findCheck"
+		resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgSumRel"
+		parameterType="HashMap">
+		select ORG_NO as "id.orgNo",UP_ORG_NO as "id.upOrgNo",ORG_TYPE as
+		"id.orgType",SUM_REL_TYPE
+		from
+		RPT_ORG_SUM_REL
+		where 1=1
+		<if test="orgNo != null">
+			and ORG_NO = #{orgNo}</if>
+		<if test="upOrgNo != null">
+			and UP_ORG_NO = #{upOrgNo}</if>
+		<if test="orgType != null">
+			and ORG_TYPE = #{orgType}</if>
+		<if test="sumRelType != null">
+			and SUM_REL_TYPE = #{sumRelType}</if>
+order by ORG_NO asc 
+	</select>
+
+	<select id="findUpNode" resultType="String">
+		SELECT DISTINCT
+		up_org_no
+		FROM
+		RPT_ORG_INFO
+		WHERE
+		org_no IN
+		<foreach collection="list" item="ids" separator=" or org_no IN ">
+			<foreach collection="ids" item="ids" open="(" separator="," close=")">
+				#{ids}
+			</foreach>
+		</foreach>
+
+	</select>
+
+	<select id="findChildNode" resultType="String">
+		SELECT DISTINCT
+		org_no
+		FROM
+		RPT_ORG_INFO
+		WHERE
+		up_org_no IN
+		<foreach collection="list" item="ids" separator=" or org_no IN ">
+			<foreach collection="ids" item="ids" open="(" separator="," close=")">
+				#{ids}
+			</foreach>
+		</foreach>
+
+	</select>
+	
+	<insert id="saveInfo" parameterType="com.yusys.bione.plugin.rptorg.entity.RptOrgSumRel">
+	insert into RPT_ORG_SUM_REL(ORG_NO,UP_ORG_NO,ORG_TYPE,SUM_REL_TYPE)
+		values(#{id.orgNo},#{id.upOrgNo},#{id.orgType},#{sumRelType})
+</insert>
+<delete id="deleteInfo" parameterType="HashMap">
+	delete from RPT_ORG_SUM_REL
+	where 1=1
+	<if test="id.orgNo != null">
+		and ORG_NO=#{id.orgNo} 
+	</if>
+	<if test="id.upOrgNo != null">
+	and UP_ORG_NO=#{id.upOrgNo} 
+	</if>
+	<if test="id.orgType != null">
+	and ORG_TYPE=#{id.orgType} 
+	</if>
+</delete>
+
+ 
+
+</mapper> 

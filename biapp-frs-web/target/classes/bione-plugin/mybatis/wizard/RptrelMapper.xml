@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.bione.plugin.wizard.repository.RptrelDao">
+	<select id="findReportInfo" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		SELECT
+		t.RPT_ID,
+		t.RPT_NM,
+		t.RPT_NUM
+		FROM
+		RPT_MGR_REPORT_INFO t
+		<where>
+			<choose>
+				<when test="rptIds.size() > 0">
+					t.RPT_NUM IN
+					<foreach collection="rptIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="findDatasetInfo" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo">
+		SELECT
+		    t.SET_ID,
+		    t.SET_NM,
+		    t.TABLE_EN_NM
+		FROM
+		    RPT_SYS_MODULE_INFO t
+		<where>
+			<choose>
+				<when test="datasetEnNames.size() > 0">
+					t.TABLE_EN_NM IN
+					<foreach collection="datasetEnNames" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="findDatasetItemInfo" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol">
+		SELECT
+			t.SET_ID,
+		    t.COL_ID,
+		    t.CN_NM,
+		    t.EN_NM,
+		    t.COL_TYPE
+		FROM
+		    RPT_SYS_MODULE_COL t
+		<where>
+			<choose>
+				<when test="dataItemEnNames.size() > 0">
+					t.EN_NM IN
+					<foreach collection="dataItemEnNames" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="findDimInfo" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo">
+		SELECT
+		    t.DIM_TYPE_NO,
+		    t.DIM_TYPE,
+		    t.DIM_TYPE_NM,
+		    t.DIM_TYPE_EN_NM
+		FROM
+		    RPT_DIM_TYPE_INFO t
+		<where>
+			<choose>
+				<when test="dimNames != null and dimNames.size() > 0">
+					t.DIM_TYPE_NM IN
+					<foreach collection="dimNames" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<when test="dimNos != null and dimNos.size() > 0">
+					t.DIM_TYPE_NO IN 
+					<foreach collection="dimNos" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="findDimItem" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo">
+		SELECT
+		    i.DIM_TYPE_NO AS "id.dimTypeNo",
+		    i.DIM_ITEM_NO AS "id.dimItemNo",
+		    i.DIM_ITEM_NM,
+		    t.DIM_TYPE_NM AS "remark"
+		FROM
+		    RPT_DIM_TYPE_INFO t,
+		    RPT_DIM_ITEM_INFO i
+		<where>
+			t.DIM_TYPE_NO = i.DIM_TYPE_NO
+			<if test="dimTypeNm != null">
+				AND t.DIM_TYPE_NM = #{dimTypeNm}
+			</if>
+			<if test="dimTypeNo != null">
+				AND t.DIM_TYPE_NO = #{dimTypeNo}
+			</if>
+			AND
+			<choose>
+				<when test="dimItemNames != null and dimItemNames.size() > 0">
+					i.DIM_ITEM_NM IN
+					<foreach collection="dimItemNames" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<when test="dimItemNos != null and dimItemNos.size() > 0">
+					i.DIM_ITEM_NO IN
+					<foreach collection="dimItemNos" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<when test="dimTypeNms != null and dimTypeNms.size() > 0 and dimTypeNms.get(0).size() > 0">
+					t.DIM_TYPE_NM IN
+					<foreach collection="dimTypeNms" item="dimTypeNms" separator=" OR DIM_TYPE_NM IN ">
+						<foreach collection="dimTypeNms" item="item" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</foreach>
+				</when>
+				<when test="dimTypeNos != null and dimTypeNos.size() > 0 and dimTypeNos.get(0).size() > 0">
+					t.DIM_TYPE_NO IN
+					<foreach collection="dimTypeNos" item="dimTypeNos" separator=" or t.DIM_TYPE_NO IN ">
+						<foreach collection="dimTypeNos" item="item" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</foreach>
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="findDimItemInfo" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo">
+		SELECT
+		    t.DIM_TYPE_NO AS "id.dimTypeNo",
+		    t.DIM_ITEM_NO AS "id.dimItemNo",
+		    t.DIM_ITEM_NM 
+		FROM
+		    RPT_DIM_ITEM_INFO t
+		<where>
+			<choose>
+				<when test="dimItemNames != null and dimItemNames.size() > 0">
+					t.DIM_ITEM_NM IN
+					<foreach collection="dimItemNames" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<when test="dimItemNos != null and dimItemNos.size() > 0">
+					t.DIM_ITEM_NO IN
+					<foreach collection="dimItemNos" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="findIdx" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo">
+		SELECT
+		    t.INDEX_NO AS "id.indexNo"
+		FROM
+		    RPT_IDX_INFO t
+		<where>
+			<choose>
+				<when test="indexNos != null and indexNos.size() > 0">
+					t.INDEX_NO IN
+					<foreach collection="indexNos" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="getExcelVO" parameterType="HashMap" 
+		resultType="com.yusys.bione.plugin.wizard.web.vo.RptrelImportVO">
+		SELECT
+		    rpt.RPT_NUM,
+		    rpt.RPT_NM,
+		    m.SET_NM,
+		    m.TABLE_EN_NM,
+		    c.CN_NM,
+		    c.EN_NM,
+		    c.COL_TYPE,
+		    d2.DIM_TYPE_NM,
+		    i.INDEX_NO,
+		    f.DIM_NO,
+		    f.FILTER_VAL,
+		    d.DIM_TYPE_NM AS "dimNm"
+		FROM
+		    RPT_MGR_MODULE_REL r
+		JOIN
+		    RPT_SYS_MODULE_INFO m
+		ON
+		    r.SET_ID=m.SET_ID
+		LEFT JOIN
+		    RPT_SYS_MODULE_COL c
+		ON
+		    m.SET_ID=c.SET_ID
+		LEFT JOIN
+		    RPT_MGR_MODULE_IDX_REL i
+		ON
+		    r.RPT_ID=i.RPT_ID
+		AND c.COL_ID=i.COL_ID
+		AND r.SET_ID=i.SET_ID
+		LEFT JOIN
+		    RPT_MGR_IDX_FILTER f
+		ON
+		    r.RPT_ID=f.RPT_ID
+		AND r.SET_ID=f.SET_ID
+		AND c.COL_ID=f.COL_ID
+		AND i.INDEX_NO=f.INDEX_NO
+		JOIN
+		    RPT_MGR_REPORT_INFO rpt
+		ON
+		    rpt.RPT_ID=r.RPT_ID
+		LEFT JOIN
+		    RPT_DIM_TYPE_INFO d
+		ON
+		    f.DIM_NO=d.DIM_TYPE_NO
+		LEFT JOIN
+		    RPT_DIM_TYPE_INFO d2
+		ON
+		    c.DIM_TYPE_NO=d2.DIM_TYPE_NO
+		<where>
+			<choose>
+	        	<when test="rptIds != null and rptIds.size() > 0">
+	        		r.RPT_ID IN 
+        			<foreach collection="rptIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+	        	</when>
+	        	<otherwise>
+	        		1=0
+	        	</otherwise>
+	        </choose>
+		</where>
+	</select>
+</mapper>

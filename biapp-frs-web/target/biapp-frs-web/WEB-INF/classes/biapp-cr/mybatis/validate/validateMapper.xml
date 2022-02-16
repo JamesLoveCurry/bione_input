@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.base.validate.repository.ValidateBaseDao">
+<!-- 根据条件查询报表列表 -->
+
+	<select id="saveCheckError"  resultType="com.yusys.cr.base.validate.entity.EntCheckerror">
+
+		INSERT INTO 
+		ENT_CHECKERROR
+		(serialno,errcode,errmsg,financeid,messagetype,occurdate,errfield,recordkey,recordtype)
+		VALUES(#{serialno},#{errcode},#{errmsg},#{financeid},#{messagetype},#{occurdate},#{errfield},#{recordkey},#{recordtype})
+
+	</select>
+	
+	<select id="genCheckErrorList"  resultType="com.yusys.cr.base.validate.entity.EntCheckerror">
+
+		SELECT DISTINCT MESSAGETYPE,RECORDKEY 
+		FROM ENT_CHECKERROR WHERE OCCURDATE = #{occurdate}
+
+	</select>
+	
+	<update id="updateReportData" parameterType="java.lang.String"  statementType="STATEMENT">
+  		update ${tablename} set incrementflag = '5' where ${condition}
+ 	</update>
+ 	
+ 	<select id="genErrorMessageTypeList"  resultType="com.yusys.cr.base.validate.entity.EntCheckerror">
+
+		SELECT DISTINCT MESSAGETYPE 
+		FROM ENT_CHECKERROR WHERE OCCURDATE = #{occurdate}
+
+	</select>
+	
+	<select id="saveFilePath"  resultType="com.yusys.cr.base.validate.entity.Tfilepath">
+
+		INSERT INTO 
+		TFILEPATH
+		(filename,filedate,fileaddr,filetype,filestatus)
+		VALUES(#{filename},#{filedate},#{fileaddr},#{filetype},#{filestatus})
+
+	</select>
+</mapper>

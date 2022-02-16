@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.icrinacctinf.repository.InacctinfBaseDao">
+<!-- 根据条件查询报表列表 -->
+	
+	<resultMap id="IcrAcctBsResult" type="com.yusys.cr.icrinacctinf.entity.IcrAcctBs">
+		<result property="acctcode" column="ACCTCODE"></result>
+		<result property="accttype" column="ACCTTYPE"></result>
+		<result property="idnum" column="IDNUM"></result>
+		<result property="idtype" column="IDTYPE"></result>
+		<result property="infrectype" column="INFRECTYPE"></result>
+		<result property="mngmtorgcode" column="MNGMTORGCODE"></result>
+		<result property="name" column="NAME"></result>
+		<result property="rptdate" column="RPTDATE"></result>
+		<result property="rptdatecode" column="RPTDATECODE"></result>
+	</resultMap>
+
+	<resultMap id="IcrAcctbsinfResult" type="com.yusys.cr.icrinacctinf.entity.IcrAcctbsinf">
+		<result property="acctcredline" column="ACCTCREDLINE"></result>
+		<result property="applybusidist" column="APPLYBUSIDIST"></result>
+		<result property="assettrandflag" column="ASSETTRANDFLAG"></result>
+		<result property="busidtllines" column="BUSIDTLLINES"></result>
+		<result property="busilines" column="BUSILINES"></result>
+		<result property="creditid" column="CREDITID"></result>
+		<result property="cy" column="CY"></result>
+		<result property="duedate" column="DUEDATE"></result>
+		<result property="flag" column="FLAG"></result>
+		<result property="fundsou" column="FUNDSOU"></result>
+		<result property="guarmode" column="GUARMODE"></result>
+		<result property="loanamt" column="LOANAMT"></result>
+		<result property="loanform" column="LOANFORM"></result>
+		<result property="opendate" column="OPENDATE"></result>
+		<result property="othrepyguarway" column="OTHREPYGUARWAY"></result>
+		<result property="repayfreqcy" column="REPAYFREQCY"></result>
+		<result property="repaymode" column="REPAYMODE"></result>
+		<result property="repayprd" column="REPAYPRD"></result>
+	</resultMap>
+
+	<resultMap id="IcrAcctcredResult" type="com.yusys.cr.icrinacctinf.entity.IcrAcctcred">
+		<result property="mcc" column="MCC"></result>
+	</resultMap>
+
+	<resultMap id="IcrMotgacltalctrctinfResult" type="com.yusys.cr.icrinacctinf.entity.IcrMotgacltalctrctinf">
+		<result property="ccnm" column="CCNM"></result>
+	</resultMap>
+
+<!--	<resultMap id="CccInfResult" type="com.yusys.cr.icrinacctinf.entity.CccInf">-->
+<!--		<id property="ccc" column="ccc"></id>-->
+<!--	</resultMap>-->
+
+	<resultMap id="IcrRltrepymtinfSgmtResult" type="com.yusys.cr.icrinacctinf.entity.IcrRltrepymtinfSgmt">
+		<result property="rltrepymtnm" column="RLTREPYMTNM"></result>
+	</resultMap>
+
+<!--	<resultMap id="RltRepymtInfResult" type="com.yusys.cr.icrinacctinf.entity.RltRepymtInf">-->
+<!--		<id property="arlpamt" column="arlpamt"></id>-->
+<!--		<id property="arlpcertnum" column="arlpcertnum"></id>-->
+<!--		<id property="arlpcerttype" column="arlpcerttype"></id>-->
+<!--		<result property="arlpname" column="arlpname"></result>-->
+<!--		<result property="arlptype" column="arlptype"></result>-->
+<!--		<result property="infoidtype" column="infoidtype"></result>-->
+<!--		<result property="maxguarmcc" column="maxguarmcc"></result>-->
+<!--		<result property="wartysign" column="wartysign"></result>-->
+<!--	</resultMap>-->
+
+	<resultMap id="IcrOrigcreditorinfResult" type="com.yusys.cr.icrinacctinf.entity.IcrOrigcreditorinf">
+		<result property="initcredname" column="INITCREDNAME"></result>
+		<result property="initcredorgnm" column="INITCREDORGNM"></result>
+		<result property="initrpysts" column="INITRPYSTS"></result>
+		<result property="origdbtcate" column="ORIGDBTCATE"></result>
+	</resultMap>
+
+	<resultMap id="IcrAcctmthlyblginfResult" type="com.yusys.cr.icrinacctinf.entity.IcrAcctmthlyblginf">
+		<result property="acctbal" column="ACCTBAL7"></result>
+		<result property="acctstatus" column="ACCTSTATUS7"></result>
+		<result property="actrpyamt" column="ACTRPYAMT7"></result>
+		<result property="closedate" column="CLOSEDATE7"></result>
+		<result property="currpyamt" column="CURRPYAMT7"></result>
+		<result property="fivecate" column="FIVECATE7"></result>
+		<result property="fivecateadjdate" column="FIVECATEADJDATE7"></result>
+		<result property="latrpydate" column="LATRPYDATE7"></result>
+		<result property="month" column="MONTH7"></result>
+		<result property="notisubal" column="NOTISUBAL7"></result>
+		<result property="oved3160princ" column="OVED31_60PRINC"></result>
+		<result property="oved6190princ" column="OVED61_90PRINC"></result>
+		<result property="oved91180princ" column="OVED91_180PRINC"></result>
+		<result property="ovedprinc180" column="OVEDPRINC180"></result>
+		<result property="ovedrawbaove180" column="OVEDRAWBAOVE180"></result>
+		<result property="overdprd" column="OVERDPRD7"></result>
+		<result property="overdprinc" column="OVERDPRINC7"></result>
+		<result property="remrepprd" column="REMREPPRD7"></result>
+		<result property="rpyprct" column="RPYPRCT7"></result>
+		<result property="rpystatus" column="RPYSTATUS7"></result>
+		<result property="settdate" column="SETTDATE7"></result>
+		<result property="totoverd" column="TOTOVERD7"></result>
+	</resultMap>
+
+	<resultMap id="IcrSpecprdResult" type="com.yusys.cr.icrinacctinf.entity.IcrSpecprd">
+		<result property="specefctdate" column="SPECEFCTDATE"></result>
+		<result property="specenddate" column="SPECENDDATE"></result>
+		<result property="specline" column="SPECLINE"></result>
+		<result property="usedinstamt" column="USEDINSTAMT"></result>
+	</resultMap>
+
+	<resultMap id="IcrAcctdbtinfResult" type="com.yusys.cr.icrinacctinf.entity.IcrAcctdbtinf">
+		<result property="acctbal" column="ACCTBAL9"></result>
+		<result property="acctstatus" column="ACCTSTATUS9"></result>
+		<result property="closedate" column="CLOSEDATE9"></result>
+		<result property="fivecate" column="FIVECATE9"></result>
+		<result property="fivecateadjdate" column="FIVECATEADJDATE9"></result>
+		<result property="latrpyamt" column="LATRPYAMT9"></result>
+		<result property="latrpydate" column="LATRPYDATE9"></result>
+		<result property="overdprd" column="OVERDPRD9"></result>
+		<result property="remrepprd" column="REMREPPRD9"></result>
+		<result property="rpystatus" column="RPYSTATUS9"></result>
+		<result property="totoverd" column="TOTOVERD9"></result>
+	</resultMap>
+
+	<!--<resultMap id="IcrAcctSpecTrstDspnSgmtResult" type="com.yusys.cr.icrinacctinf.entity.IcrAcctSpecTrstDspnSgmt">
+		<result property="cagoftrdnm" column="CAGOFTRDNM"></result>
+	</resultMap>-->
+
+<!--	<resultMap id="CagOfTrdInfResult" type="com.yusys.cr.icrinacctinf.entity.CagOfTrdInf">-->
+<!--		<id property="trandate" column="trandate"></id>-->
+<!--		<id property="chantrantype" column="chantrantype"></id>-->
+<!--		<id property="detinfo" column="detinfo"></id>-->
+<!--		<id property="duetranmon" column="duetranmon"></id>-->
+<!--		<id property="tranamt" column="tranamt"></id>-->
+<!--	</resultMap>-->
+
+	<resultMap id="InAcctInfResult" type="com.yusys.cr.icrinacctinf.entity.InAcctInf">
+		<id property="acctcode" column="acctcode"></id>
+		<association property="icrAcctBs"  resultMap="IcrAcctBsResult"/>
+		<association property="icrAcctbsinf"  resultMap="IcrAcctbsinfResult"/>
+		<association property="icrAcctcred"  resultMap="IcrAcctcredResult"/>
+<!--		<association property="icrMotgacltalctrctinf"  resultMap="IcrMotgacltalctrctinfResult"/>-->
+<!--		<association property="icrRltrepymtinfSgmt"  resultMap="IcrRltrepymtinfSgmtResult"/>-->
+		<association property="icrOrigcreditorinf"  resultMap="IcrOrigcreditorinfResult"/>
+		<association property="icrAcctmthlyblginf"  resultMap="IcrAcctmthlyblginfResult"/>
+		<association property="icrSpecprd"  resultMap="IcrSpecprdResult"/>
+		<association property="icrAcctdbtinf"  resultMap="IcrAcctdbtinfResult"/>
+<!--		<association property="icrAcctSpecTrstDspnSgmt"  resultMap="IcrAcctSpecTrstDspnSgmtResult"/>-->
+<!--		<collection property="rltrepymtinf"  resultMap="RltRepymtInfResult"/>-->
+<!--		<collection property="cccinf" resultMap="CccInfResult"></collection>-->
+<!--		<collection property="cagOfTrdInf"  resultMap="CagOfTrdInfResult"/>-->
+	</resultMap>
+
+	<select id="getInacctInfList"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctBs">
+		SELECT * FROM ICR_ACCTBS t where 1=1 and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getAcctBsInfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctbsinf">
+		SELECT * FROM ICR_ACCTBSINF t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getAcctcreds" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctcred">
+		SELECT * FROM ICR_ACCTCRED t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getMotgacltalctrctinfSgmts" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.CccInf">
+		SELECT * FROM Icr_MotgaCltalCtrctInf t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getRltrepymtinfSgmts" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.RltRepymtInf">
+		SELECT * FROM Icr_RltRepymtInf t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getOrigcreditorinfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrOrigcreditorinf">
+		SELECT * FROM ICR_ORIGCREDITORINF t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getAcctmthlyblginfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctmthlyblginf">
+		SELECT * FROM ICR_ACCTMTHLYBLGINF t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getSpecprds" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrSpecprd">
+		SELECT * FROM ICR_SPECPRD t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getAcctdbtinfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctdbtinf">
+		SELECT * FROM ICR_ACCTDBTINF t where t.acctcode = #{code} and t.incrementflag in ('1','2') 
+	</select>
+	
+	<select id="getAcctSpecTrstDspnSgmts" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.CagOfTrdInf">
+		<!--  SELECT * FROM ICR_ACCTSPECTRSTDSPN t where t.acctcode = #{code} and t.incrementflag in ('1','2') -->
+		select t.acctcode,
+		       t.chantrantype,
+		       max(t.trandate) as trandate,
+		       sum(t.tranamt) as tranamt,
+		       round(sum(t.duetranmon) / 30.42) as duetranmon,
+		       max(t.detinfo) as detinfo
+		  from Icr_AcctSpecTrstDspn t
+		 where t.acctcode = #{code}
+		   and t.incrementflag in ('1', '2')
+		 group by t.acctcode, t.chantrantype 
+	</select>
+
+	<select id="selectCount" resultType="java.lang.Integer">
+		SELECT count(1) FROM ICR_ACCTBS t where 1=1 and t.incrementflag in ('1','2')
+	</select>
+
+	<select id="getInCtrctInfFromView" resultMap="InAcctInfResult">
+		select * from v_icr_acctbs
+	</select>
+
+	<select id="getMotgacltalctrctinfSgmtList" resultType="com.yusys.cr.icrinacctinf.entity.CccInf">
+		SELECT * FROM Icr_MotgaCltalCtrctInf t where t.incrementflag in ('1','2')
+		<if test="acctcodes != null and acctcodes.size() != 0">
+			and (t.acctcode in
+			<foreach item="acctcodeList"  collection="acctcodes" separator=" or t.acctcode in ">
+				<foreach collection="acctcodeList" item="acctcode" open="("
+						 separator="," close=")">
+					#{acctcode}
+				</foreach>
+			</foreach>)
+		</if>
+	</select>
+
+	<select id="getRltrepymtinfSgmtList" resultType="com.yusys.cr.icrinacctinf.entity.RltRepymtInf">
+		SELECT * FROM Icr_RltRepymtInf t where t.incrementflag in ('1','2')
+		<if test="acctcodes != null and acctcodes.size() != 0">
+			and (t.acctcode in
+			<foreach item="acctcodeList"  collection="acctcodes" separator=" or t.acctcode in ">
+				<foreach collection="acctcodeList" item="acctcode" open="("
+						 separator="," close=")">
+					#{acctcode}
+				</foreach>
+			</foreach>)
+		</if>
+	</select>
+	<select id="getAcctSpecTrstDspnSgmtList" resultType="com.yusys.cr.icrinacctinf.entity.CagOfTrdInf">
+		select t.acctcode,
+			   t.chantrantype,
+			   max(t.trandate) as trandate,
+			   sum(t.tranamt) as tranamt,
+			   round(sum(t.duetranmon) / 30.42) as duetranmon,
+			   max(t.detinfo) as detinfo
+		from Icr_AcctSpecTrstDspn t
+		where t.incrementflag in ('1', '2')
+		<if test="acctcodes != null and acctcodes.size() != 0">
+			and (t.acctcode in
+			<foreach item="acctcodeList"  collection="acctcodes" separator=" or t.acctcode in ">
+				<foreach collection="acctcodeList" item="acctcode" open="("
+						 separator="," close=")">
+					#{acctcode}
+				</foreach>
+			</foreach>)
+		</if>
+		group by t.acctcode, t.chantrantype
+	</select>
+
+	<select id="getHIcrAcctBsList" resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctBsSgmt">
+		SELECT infrectype,acctcode,rptdate,accttype,mdfcSgmtCode FROM HICR_ACCTBS t where t.incrementflag = '2'
+	</select>
+
+	<select id="selectHIcrAcctBsCount" resultType="java.lang.Integer">
+		SELECT count(*) FROM HICR_ACCTBS t where t.incrementflag = '2'
+	</select>
+
+	<select id="getHIcrAcctBs" resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctBsMdfcUpt">
+		SELECT name,idnum,idtype,mngmtorgcode FROM HICR_ACCTBS t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHAcctBsInfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctbsinf">
+		SELECT * FROM HICR_ACCTBSINF t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHAcctcreds" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctcred">
+		SELECT * FROM HICR_ACCTCRED t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHMotgacltalctrctinfSgmts" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.CccInf">
+		SELECT * FROM HIcr_MotgaCltalCtrctInf t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHRltrepymtinfSgmts" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.RltRepymtInf">
+		SELECT * FROM HIcr_RltRepymtInf t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHOrigcreditorinfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrOrigcreditorinf">
+		SELECT * FROM HICR_ORIGCREDITORINF t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHAcctmthlyblginfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctmthlyblginf">
+		SELECT * FROM HICR_ACCTMTHLYBLGINF t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHSpecprds" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrSpecprd">
+		SELECT * FROM HICR_SPECPRD t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHAcctdbtinfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrAcctdbtinf">
+		SELECT * FROM HICR_ACCTDBTINF t where t.acctcode = #{code} and t.incrementflag  = '2'
+	</select>
+
+	<select id="getHAcctSpecTrstDspnSgmts" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.CagOfTrdInf">
+		<!--  SELECT * FROM ICR_ACCTSPECTRSTDSPN t where t.acctcode = #{code} and t.incrementflag in ('1','2') -->
+		select t.acctcode,
+		t.chantrantype,
+		max(t.trandate) as trandate,
+		sum(t.tranamt) as tranamt,
+		round(sum(t.duetranmon) / 30.42) as duetranmon,
+		max(t.detinfo) as detinfo
+		from HIcr_AcctSpecTrstDspn t
+		where t.acctcode = #{code}
+		and t.incrementflag  = '2'
+		group by t.acctcode, t.chantrantype
+	</select>
+
+</mapper> 

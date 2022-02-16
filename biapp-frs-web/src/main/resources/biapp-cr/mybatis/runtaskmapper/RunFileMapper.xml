@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.alljob.repository.TaskRecordDao">
+
+<insert id="addRunTaskRecord"
+		parameterType="HashMap">
+		insert into CR_TASKMONITOR
+		(
+			  tsk_id,
+			  tsk_nm,
+			  data_dt,
+			  scss_flag,
+			  err_msg,
+			  exec_dt,
+			  orig_tm,
+			  end_tm,
+			  exec_tm
+		)
+		values
+		(
+			#{tskid},
+			#{tsknm},
+			#{datadt},
+			#{scssflag},
+			#{errmsg},
+			#{execdt},
+            #{origtm},
+			#{endtm},
+			#{exectm}
+		)
+
+	</insert>
+</mapper> 

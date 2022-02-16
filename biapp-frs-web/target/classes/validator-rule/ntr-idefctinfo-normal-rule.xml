@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30078862.0.0" classType="org.pbccrc.archive.collect.messagetools.ntridentify.msg.IdEfctInfNormalRecord" >
+			<field  name="InfRecType" fbTag="InfRecType"  classType="java.lang.String" >
+				<rule  id="InfRecTp_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="InfRecTp_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecTp_NotNull" />
+				<rule id="InfRecTp_Equal" type="Equals" errCode="ABR000" fbTag="0000" fbValue=""  depExp="InfRecTp_NotEmpty">
+					<property name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field> 
+			<field  name="InfSurcCode" fbTag="InfSurcCode"  classType="java.lang.String" >
+				<rule  id="InfoSorcCd_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="InfoSorcCd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfoSorcCd_NotNull" />
+				<rule  id="InfoSorcCd_DataType" type="DataType" errCode="ABE001" depExp="InfoSorcCd_NotEmpty" >
+					<property  name="type" value="AN..20" />
+				</rule>
+				<rule  id="InfoSorcCd_FinanVali" type="FinanOrgan" errCode="ABE002" depExp="InfoSorcCd_DataType" >
+				</rule>
+			</field> 
+			<field  name="Name" fbTag="Name" classType="java.lang.String" >
+				<rule  id="Name_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="Name_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Name_NotNull" />
+				<rule  id="Name_DataType" type="DataType" errCode="ABE001" depExp="Name_NotEmpty" >
+					<property  name="type" value="ANC..30" />
+				</rule>
+			</field> 
+			<field  name="IDType" fbTag="IDType" classType="java.lang.String" >
+				<rule  id="IDType_NotNull" type="NotNull" errCode="ABD000"  />
+				<rule  id="IDType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDType_NotNull" />
+				<rule id="IDType_Dict" type="Dict" errCode="ABE001" depExp="IDType_NotEmpty" scope="local">
+							<property name="dictKey" value="NtrCertType" />
+				</rule>
+			</field> 
+			<field  name="IDNum" fbTag="IDNum" classType="java.lang.String" >
+				<rule  id="IDNum_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="IDNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDNum_NotNull" />
+				<rule  id="IDNum_DataType" type="DataType" errCode="ABE001" depExp="IDNum_NotEmpty" >
+					<property  name="type" value="ANC..20" />
+				</rule>
+				<!-- 根据证件类型，校验不同的证件号 -->
+				<rule id="IDNum_Vali" type="NtrCert" errCode="ABE004" depExp="IDType_Dict"> 
+				   <property name="certType" value="${IDType}"></property>
+				</rule>
+			</field> 
+			<field  name="IDEfctDate" fbTag="IDEfctDate" classType="java.lang.String" >
+				<rule  id="IdEfctDate_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="IdEfctDate_NotEmpty" type="NotEmpty" depExp="IdEfctDate_NotNull" />
+				<rule  id="IdEfctDate_DataType" type="DataType" errCode="ABE001" depExp="IdEfctDate_NotEmpty" >
+					<property  name="type" value="Date" />
+				</rule>
+				<rule  id="IdEfctDate_Range" type="DateRange" errCode="ABE008"  depExp="IdEfctDate_DataType" />
+				<rule  id="IdEfctDate_Compare" type="DateCompare" errCode="ABE007" depExp="IdEfctDate_Range" >
+					<property  name="endDate" value="${RptDate}" />
+				</rule>
+			</field> 
+			<field  name="IDDueDate" fbTag="IDDueDate" classType="java.lang.String" >
+				<rule  id="IdDueDate_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="IdDueDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IdDueDate_NotNull" />
+				<rule  id="IdDueDate_DataType" type="DataType" errCode="ABE001" depExp="IdDueDate_NotEmpty" >
+					<property  name="type" value="Date" />
+				</rule>
+				<rule  id="IdDueDate_Range" type="DateRange" errCode="ABE008"  depExp="IdDueDate_DataType" />
+			</field>
+			<field  name="IDOrgName" fbTag="IDOrgName" classType="java.lang.String" >
+				<rule  id="IdOrgName_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="IdOrgName_NotEmpty" type="NotEmpty" depExp="IdOrgName_NotNull" />
+				<rule  id="IdOrgName_DataType" type="DataType" errCode="ABE001" depExp="IdOrgName_NotEmpty" >
+					<property  name="type" value="ANC..80" />
+				</rule>
+			</field> 
+			<field  name="IDDist" fbTag="IDDist" classType="java.lang.String" >
+				<rule  id="IdDist_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="IdDist_NotEmpty" type="NotEmpty" depExp="IdDist_NotNull" />
+				<rule id="IdDist_Dict" type="Dict" errCode="ABE001" depExp="IdDist_NotEmpty"  scope="local">
+						<property name="dictKey" value="AdminDistrict" />
+				</rule>
+			</field> 
+			<field  name="Cimoc" fbTag="Cimoc" classType="java.lang.String" >
+				<rule  id="Cimoc_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="Cimoc_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Cimoc_NotNull" />
+				<rule  id="Cimoc_DataType" type="DataType" errCode="ABE001" depExp="Cimoc_NotEmpty" >
+					<property  name="type" value="AN14" />
+				</rule>
+				<!-- 客户资料维护机构/业务管理机构应在库中存在，且应是数据提供机构的分支机构或数据提供机构本身 -->
+				<rule  id="Cimoc_FinanVali" type="Organ" errCode="ABE003" depExp="Cimoc_DataType" ></rule>
+			</field> 
+			<field  name="RptDate" fbTag="RptDate" classType="java.lang.String" >
+				<rule  id="RptDate_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDate_NotNull" />
+				<rule  id="RptDate_DataType" type="DataType" errCode="ABE001" depExp="RptDate_NotEmpty" >
+					<property  name="type" value="Date" />
+				</rule>
+				<rule  id="RptDate_Range" type="DateRange" errCode="ABE008"  depExp="RptDate_DataType" />
+				<rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001" depExp="RptDate_Range">
+						<property name="type" value="date" />
+						<property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+				</rule>
+			</field> 
+	</validator>
+</validators>

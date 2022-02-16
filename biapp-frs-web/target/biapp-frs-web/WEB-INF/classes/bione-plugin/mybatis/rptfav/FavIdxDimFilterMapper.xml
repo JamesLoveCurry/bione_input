@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptfav.repository.FavIdxDimFilterMybatisDao">
+	<select id="list"
+		resultType="com.yusys.bione.plugin.rptfav.entity.RptFavIdxDimFilter"
+		parameterType="HashMap">
+		select DETAIL_ID as "id.detailId",filter.DIM_NO as
+		"id.dimNo",FILTER_MODE,FILTER_VAL,FILTER_EXPLAIN
+		from
+		RPT_FAV_IDX_DIM_FILTER filter
+		where filter.dim_no = dim.dim_Type_No
+		<if test="detailId != null">and DETAIL_ID = #{detailId}</if>
+		<if test="dimNo != null">and DIM_NO = #{dimNo}</if>
+		<if test="filterMode != null">and FILTER_MODE = #{filterMode}</if>
+		<if test="filterVal != null">and FILTER_VAL = #{filterVal}</if>
+	</select>
+	<insert id="save"
+		parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavIdxDimFilter">insert into
+		RPT_FAV_IDX_DIM_FILTER(DETAIL_ID,DIM_NO,FILTER_MODE,FILTER_VAL,FILTER_EXPLAIN)
+		values(#{id.detailId},#{id.dimNo},#{filterMode},#{filterVal},#{filterExplain})</insert>
+	<update id="update"
+		parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavIdxDimFilter">
+		update RPT_FAV_IDX_DIM_FILTER
+		<set>
+			<if test="id.detailId != null">DETAIL_ID=#{id.detailId},</if>
+			<if test="id.dimNo != null">DIM_NO=#{id.dimNo},</if>
+			<if test="filterMode != null">FILTER_MODE=#{filterMode},</if>
+			<if test="filterVal != null">FILTER_VAL=#{filterVal}</if>
+			<if test="filterExplain != null">FILTER_EXPLAIN=#{filterExplain}</if>
+		</set>
+		where 1=1 and DETAIL_ID=#{id.detailId}
+		and DIM_NO=#{id.dimNo}
+	</update>
+	<delete id="delete" parameterType="HashMap">delete from
+		RPT_FAV_IDX_DIM_FILTER
+		where 1=1
+		and DETAIL_ID=#{id.detailId}
+		and
+		DIM_NO=#{id.dimNo}</delete>
+	<select id="getFiltersByInstanceId"
+		resultType="com.yusys.bione.plugin.rptfav.web.vo.FavIdxDimFilterAndName"
+		parameterType="HashMap">
+		select filter.DETAIL_ID as "id.detailId",DIM_NO as
+		"id.dimNo",FILTER_MODE,FILTER_VAL,FILTER_EXPLAIN,dim.DIM_TYPE_NM
+		from
+		RPT_FAV_IDX_DIM_FILTER filter, Rpt_Fav_Idx_Detail detail,
+		Rpt_Dim_type_info dim
+		where detail.detail_id = filter.detail_id and
+		filter.dim_no = dim.dim_type_no
+		<if test="detailId != null">and detail.DETAIL_ID = #{detailId}</if>
+		<if test="dimNo != null">and DIM_NO = #{dimNo}</if>
+		<if test="filterMode != null">and FILTER_MODE = #{filterMode}</if>
+		<if test="filterVal != null">and FILTER_VAL = #{filterVal}</if>
+		<if test="filterExplain != null">and FILTER_EXPLAIN = #{filterExplain}</if>
+		<if test="indexAlias != null">and INDEX_ALIAS = #{indexAlias}</if>
+		<if test="indexNo != null">and INDEX_NO = #{indexNo}</if>
+		<if test="instanceId != null">and INSTANCE_ID = #{instanceId}</if>
+		<if test="orderNum != null">and ORDER_NUM = #{orderNum}</if>
+
+	</select>
+
+	<delete id="deletes" parameterType="HashMap">
+		delete from
+		RPT_FAV_IDX_DIM_FILTER where detail_id in (select detail_id from
+		RPT_FAV_IDX_DETAIL where 1=1 
+		<if test="instanceId != null">
+		and instance_id =  #{instanceId})</if>
+	</delete>
+</mapper>

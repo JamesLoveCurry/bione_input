@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.alljob.repository.AllProDao">
+
+<!-- 征信源表到接口表全部存储过程-->
+
+ <select id="runNtoCRAllProtask"  statementType="CALLABLE">
+	{
+	call NCMIS_CR_MAIN()
+	}
+	</select>
+</mapper>

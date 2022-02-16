@@ -1,0 +1,1498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30078912.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctAlterRecord">
+		<field fbTag="BsSgmt"  name="BsSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.BsSgmt">
+			<rule id="BsSgmt_NotNull" type="NotNull" errCode="ABD000" fbValue="" />
+			<field fbTag="InfRecType"  name="InfRecType" classType="java.lang.String">
+				<rule id="MdfcRecType_NotNull" type="NotNull" errCode="ABD000" depExp="BsSgmt_NotNull" />
+				<rule id="MdfcRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="MdfcRecType_NotNull" />
+				<rule id="MdfcRecType_CtxE" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="MdfcRecType_NotEmpty">
+					<property name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field>
+			<field fbTag="AcctType"  name="AcctType" classType="java.lang.String">
+				<rule id="AcctType_NotNull" type="NotNull" errCode="ABD000" depExp="BsSgmt_NotNull" />
+				<rule id="AcctType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctType_NotNull" />
+				<rule id="AcctType_Dict" type="Dict" errCode="ABE001" depExp="AcctType_NotEmpty">
+					<property name="dictKey" value="NtrDcAcctType" />
+				</rule>
+				<rule id="AcctType_R1R2R3" type="Contains" depExp="AcctType_Dict">
+					<property name="dict" value="R1;R2;R3" />
+				</rule>
+				<rule id="AcctType_D1R4C1" type="Contains" depExp="AcctType_NotEmpty">
+					<property name="dict" value="D1;R4;C1" />
+				</rule>
+				<rule id="AcctType_D1" type="Equals" depExp="AcctType_NotNull">
+					<property name="data" value="D1" />
+				</rule>
+				<rule id="AcctType_D1R1R2R3R4" type="Contains" depExp="AcctType_NotEmpty">
+					<property name="dict" value="D1;R1;R2;R3;R4" />
+				</rule>
+				<rule id="AcctType_D1R1R4" type="Contains" depExp="AcctType_NotEmpty">
+					<property name="dict" value="D1;R1;R4" />
+				</rule>
+				<rule id="AcctType_R1" type="Equals" depExp="AcctType_NotNull">
+					<property name="data" value="R1" />
+				</rule>
+				<rule id="AcctType_R2" type="Equals" depExp="AcctType_NotNull">
+					<property name="data" value="R2" />
+				</rule>
+				<rule id="AcctType_R3" type="Equals" depExp="AcctType_NotNull">
+					<property name="data" value="R3" />
+				</rule>
+				<rule id="AcctType_R4" type="Equals" depExp="AcctType_NotNull">
+					<property name="data" value="R4" />
+				</rule>
+				<rule id="AcctType_D1R1R2R4" type="Contains" depExp="AcctType_NotEmpty">
+					<property name="dict" value="D1;R1;R2;R4" />
+				</rule>
+				<rule id="AcctType_D1R1R3R4C1" type="Contains" depExp="AcctType_NotEmpty">
+					<property name="dict" value="D1;R1;R3;R4;C1" />
+				</rule>
+				<rule id="AcctType_D1R4" type="Contains" depExp="AcctType_NotEmpty">
+					<property name="dict" value="D1;R4" />
+				</rule>
+				<rule id="AcctType_R2R3" type="Contains" depExp="AcctType_NotEmpty">
+					<property name="dict" value="R2;R3" />
+				</rule>
+				<rule id="AcctType_C1" type="Equals" depExp="AcctType_NotNull">
+					<property name="data" value="C1" />
+				</rule>
+				<!-- 上，确认使用的规则 -->
+<!-- 				<rule id="AcctType_R1R3R4" type="Contains" depExp="AcctType_NotNull">
+					<property name="dict" value="R1;R3;R4" />
+				</rule> -->
+			</field>
+			<field fbTag="ModRecCode"  name="ModRecCode" classType="java.lang.String">
+				<rule id="ModRecCode_NotNull" type="NotNull" errCode="ABD000" depExp="BsSgmt_NotNull" />
+				<rule id="ModRecCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ModRecCode_NotNull" />
+				<rule id="ModRecCode_DataType" type="DataType" errCode="ABE001" depExp="ModRecCode_NotEmpty">
+					<property name="type" value="AN..60" />
+				</rule>
+				<rule id="AcctCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="ModRecCode_DataType"/>
+			</field>
+			<field fbTag="RptDate"  name="RptDate" classType="java.lang.String">
+				<rule id="RptDate_NotNull" type="NotNull" errCode="ABD000" depExp="BsSgmt_NotNull" />
+				<rule id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDate_NotNull" />
+				<rule id="RptDate_DataType" type="DataType" errCode="ABE001" depExp="RptDate_NotEmpty">
+					<property name="type" value="Date" />
+				</rule>
+				<rule id="RptDate_Range" type="DateRange" errCode="ABE008" depExp="RptDate_DataType" />
+				<rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001" depExp="RptDate_Range" >
+					<property  name="type" value="date" />
+					<property  name="endDate" value="${$context.FILE_CREATE_DATE}" />
+				</rule>
+			</field>
+			<field fbTag="MdfcSgmtCode"  name="MdfcSgmtCode" classType="java.lang.String">
+				<rule id="MdfcSgmtCode_NotNull" type="NotNull" errCode="ABD000" depExp="BsSgmt_NotNull" />
+				<rule id="MdfcSgmtCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="MdfcSgmtCode_NotNull" />
+				<rule id="MdfcSgmtCode_Dict" type="DictManage" errCode="ABE001" depExp="MdfcSgmtCode_NotEmpty">
+					<property name="dictKey" value="DcAcctSgmMark" />
+				</rule>
+				<rule id="MdfcSgmtCode_B" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="B" />
+				</rule>
+				<rule id="MdfcSgmtCode_C" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="C" />
+				</rule>
+				<rule id="MdfcSgmtCode_D" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="D" />
+				</rule>
+				<rule id="MdfcSgmtCode_E" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="E" />
+				</rule>
+				<rule id="MdfcSgmtCode_F" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="F" />
+				</rule>
+				<rule id="MdfcSgmtCode_G" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="G" />
+				</rule>
+				<rule id="MdfcSgmtCode_H" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="H" />
+				</rule>
+				<rule id="MdfcSgmtCode_I" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="I" />
+				</rule>
+				<rule id="MdfcSgmtCode_J" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="J" />
+				</rule>
+				<rule id="MdfcSgmtCode_K" type="Equals" depExp="MdfcSgmtCode_Dict">
+					<property name="data" value="K" />
+				</rule>
+				
+				<rule id="MCode_EQ_C1" type="NotContains" errCode="BMR005"  fbTag="0000" fbValue="" depExp="AcctType_C1">
+					<property name="dict" value="E;F;H;I" />
+				</rule>
+				<rule id="MCode_NotEQ_C1" type="NotContains" errCode="BMR005"  fbTag="0000" fbValue="" depExp="AcctType_D1R1R2R3R4">
+					<property name="dict" value="G" />
+				</rule>
+				<rule id="MCode_NotEQ_R2" type="NotContains" errCode="BMR005"  fbTag="0000" fbValue="" depExp="AcctType_D1R1R3R4C1">
+					<property name="dict" value="I" />
+				</rule>
+			</field>
+		</field>
+
+		<field fbTag="MdfcSgmt"  name="MdfcSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.MdfcSgmt">
+			<rule id="MdfcSgmt_NotNull" type="NotNull" errCode="ABD000"  fbValue=""/>
+			<field fbTag="AcctBsSgmt"  name="AcctBsSgmt" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctBsSgmt">
+				<rule id="AcctBsSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_B" />
+				<rule id="AcctBsSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_B" />
+				<field name="InfRecType" fbTag="InfRecType" classType="java.lang.String">
+					<rule id="InfRecTp_NotNull" type="Null" errCode="BMR003" fbTag="0000" fbValue="" depExp="AcctBsSgmt_NotNull" />
+					<!-- <rule id="InfRecTp_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecTp_NotNull" />
+					<rule id="InfRecTp_EqCtxtRecTp" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecTp_NotEmpty" >
+						<property  name="data" value="210" />
+					</rule> -->
+				</field>
+				<field fbTag="AcctType"  name="AcctType" classType="java.lang.String">
+					<rule id="ABS-AcctType_NotNull" type="Null" errCode="BMR003" fbTag="0000" fbValue="" depExp="AcctBsSgmt_NotNull" />
+					<!-- <rule id="ABS-AcctType_NotEmpty" type="NotEmpty" errCode="BMR003" depExp="ABS-AcctType_NotNull" />
+					<rule id="ABS-AcctType_Dict" type="Dict" errCode="ABE001" depExp="ABS-AcctType_NotEmpty">
+						<property name="dictKey" value="NtrDcAcctType" />
+					</rule> -->
+				</field>
+				<field fbTag="AcctCode"  name="AcctCode" classType="java.lang.String">
+					<rule id="AcctCode_NotNull" type="Null" errCode="BMR003" fbTag="0000" fbValue="" depExp="AcctBsSgmt_NotNull" />
+					<!-- <rule id="AcctCode_NotEmpty" type="NotEmpty" errCode="BMR003" depExp="AcctCode_NotNull" />
+					<rule id="AcctCode_DataType" type="DataType" errCode="ABE001" depExp="AcctCode_NotEmpty">
+						<property name="type" value="AN..60" />
+					</rule>
+					<rule id="AcctCode_FinanOrgan_BS" type="FinanOrgan" errCode="ABE002" depExp="AcctCode_DataType"/>
+					<rule id="AcctCode_EqAcctCode" type="Equals" errCode="BMR010" fbTag="AcctCode" depExp="AcctCode_DataType &amp; ModRecCode_DataType">
+						<property name="data" value="${BsSgmt.ModRecCode}" />
+					</rule> -->
+				</field>
+				<field fbTag="RptDate"  name="RptDate" classType="java.lang.String">
+					<rule id="AcctBsSgmt-RptDate_NotNull" type="Null" errCode="BMR003" fbTag="0000" fbValue="" depExp="AcctBsSgmt_NotNull" />
+					<!-- <rule id="AcctBsSgmt-RptDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctBsSgmt-RptDate_NotNull" />
+					<rule id="AcctBsSgmt-RptDate_DataType" type="DataType" errCode="ABE001" depExp="AcctBsSgmt-RptDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+					<rule id="AcctBsSgmt-RptDate_Range" type="DateRange" errCode="ABE008" depExp="AcctBsSgmt-RptDate_DataType" />
+					<rule id="AcctBsSgmt-RptDate_LTfileCreate" type="DateCompare" errCode="ABR001" depExp="AcctBsSgmt-RptDate_Range" >
+						<property  name="type" value="date" />
+						<property  name="endDate" value="${$context.FILE_CREATE_DATE}" />
+					</rule>
+					<rule id="AcctBsSgmt-RptDate_EqRptDate" type="Equals" errCode="BMR010" fbTag="RptDate" depExp="AcctBsSgmt-RptDate_Range &amp; RptDate_Range">
+						<property name="data" value="${BsSgmt.RptDate}" />
+					</rule> -->
+				</field>
+				<field fbTag="RptDateCode"  name="RptDateCode" classType="java.lang.String">
+					<rule id="RptDateCode_NotNull" type="Null" errCode="BMR003" fbTag="0000" fbValue="" depExp="AcctBsSgmt_NotNull" />
+					<!-- <rule id="RptDateCode_NotEmpty" type="NotEmpty" errCode="BMR003" depExp="RptDateCode_NotNull" />
+					<rule id="RptDateCode_Dict" type="Dict" errCode="ABE001" depExp="RptDateCode_NotEmpty">
+						<property name="dictKey" value="NtrDcAcctRptDateCode" />
+					</rule> -->
+				</field>
+				<field fbTag="Name"  name="Name" classType="java.lang.String">
+					<rule id="Name_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsSgmt_NotNull" />
+					<rule id="Name_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Name_NotNull" />
+					<rule id="Name_DataType" type="DataType" errCode="ABE001" depExp="Name_NotEmpty">
+						<property name="type" value="ANC..30" />
+					</rule>
+				</field>
+				<field fbTag="IDType"  name="IDType" classType="java.lang.String">
+					<rule id="IDType_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsSgmt_NotNull" />
+					<rule id="IDType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDType_NotNull" />
+					<rule id="IDType_DataType" type="Dict" errCode="ABE001" depExp="IDType_NotEmpty">
+						<property name="dictKey" value="NtrCertType" />
+					</rule>
+				</field>
+				<field fbTag="IDNum"  name="IDNum" classType="java.lang.String">
+					<rule id="IDNum_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsSgmt_NotNull" />
+					<rule id="IDNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDNum_NotNull" />
+					<rule id="IDNum_DataType" type="DataType" errCode="ABE001" depExp="IDNum_NotEmpty">
+						<property name="type" value="ANC..20" />
+					</rule>
+				</field>
+				<rule id="IDNum_NtrCertChecker" type="NtrCert" errCode="ABE004" fbTag="IDNum" fbValue="${$this.IDNum}" depExp="IDNum_NotEmpty &amp; IDType_NotEmpty" >
+					<property name="certTypeFeild" value="IDType"/>
+					<property name="certNumFeild" value="IDNum"/>
+				</rule>
+				<field fbTag="MngmtOrgCode"  name="MngmtOrgCode" classType="java.lang.String">
+					<rule id="AcctMngmtOrgCode_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsSgmt_NotNull" />
+					<rule id="AcctMngmtOrgCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctMngmtOrgCode_NotNull" />
+					<rule id="AcctMngmtOrgCode_DataType" type="DataType" errCode="ABE001" depExp="AcctMngmtOrgCode_NotEmpty">
+						<property name="type" value="AN14" />
+					</rule>
+					<rule id="AcctMngmtOrgCode_Organ" type="Organ" errCode="ABE003" depExp="AcctMngmtOrgCode_DataType" />
+				</field>
+			</field>
+
+			<field fbTag="AcctBsInfSgmt"  name="AcctBsInfSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctBsInfSgmt">
+				<rule id="AcctBsInfSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_C" />
+				<rule id="AcctBsInfSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_C" />
+				<field fbTag="BusiLines"  name="BusiLines" classType="java.lang.String">
+					<rule id="BusiLines_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsInfSgmt_NotNull" />
+					<rule id="BusiLines_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="BusiLines_NotNull" />
+					<rule id="BusiLines_DataType" type="Dict" errCode="ABE001" depExp="BusiLines_NotEmpty">
+						<property name="dictKey" value="CreditBusiLines" />
+					</rule>
+					<rule id="BusiLines_Eq1" type="Equals" depExp="BusiLines_NotNull">
+						<property name="data" value="1" />
+					</rule>
+					<rule id="BusiLines_Eq2" type="Equals" depExp="BusiLines_NotNull">
+						<property name="data" value="2" />
+					</rule>
+					<rule id="BusiLines_Eq2_1" type="Equals" errCode="BLE035" depExp="(AcctType_R2 | AcctType_R3) &amp; BusiLines_DataType">
+						<property name="data" value="2" />
+					</rule>
+					<rule id="BusiLines_Eq3" type="Equals" depExp="BusiLines_NotNull">
+						<property name="data" value="3" />
+					</rule>
+					<rule id="BusiLines_Eq4" type="Equals" depExp="BusiLines_NotNull">
+						<property name="data" value="4" />
+					</rule>
+					<rule id="BusiLines_Eq5" type="Equals" depExp="BusiLines_NotNull">
+						<property name="data" value="5" />
+					</rule>
+					<rule id="BusiLines_Eq6" type="Equals" depExp="BusiLines_DataType">
+						<property name="data" value="6" />
+					</rule>
+					<rule id="BusiLines_Contains56" type="Contains"  errCode="BLE035" depExp="AcctType_C1 &amp; BusiLines_NotEmpty">
+					<property name="dict" value="5;6" />
+				</rule>
+				</field>
+				<field fbTag="BusiDtlLines"  name="BusiDtlLines" classType="java.lang.String">
+					<rule id="BusiDtlLines_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsInfSgmt_NotNull" />
+					<rule id="BusiDtlLines_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="BusiDtlLines_NotNull" />
+					<rule id="BusiDtlLines_DictHichy" type="DictHierarchy" errCode="ABE001" fbTag="0000" fbValue=""  depExp="BusiDtlLines_NotEmpty &amp; BusiLines_DataType">
+						<property name="dictKey" value="CreditBusiLines" />
+						<property name="dictCode" value="${MdfcSgmt.AcctBsInfSgmt.BusiLines}" />
+					</rule>	
+					<rule id="BusiDtlLines_11" type="Equals" depExp="BusiDtlLines_NotNull">
+						<property name="data" value="11" />
+					</rule>
+					<rule id="BusiDtlLines_82" type="Equals" depExp="BusiDtlLines_NotNull">
+						<property name="data" value="82" />
+					</rule>
+				</field>
+				<field fbTag="OpenDate"  name="OpenDate" classType="java.lang.String">
+					<rule id="OpenDate_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsInfSgmt_NotNull" />
+					<rule id="OpenDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OpenDate_NotNull" />
+					<rule id="OpenDate_DataType" type="DataType" errCode="ABE001" depExp="OpenDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+					<rule id="OpenDate_Range" type="DateRange" errCode="ABE008" depExp="OpenDate_DataType" />
+					<!-- 个人借贷账户信息记录的信息报告日期应不早于开户日期 -->
+					<rule id="OpenDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+						depExp="OpenDate_Range &amp; RptDate_Range">
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+				</field>
+				<field fbTag="Cy"  name="Cy" classType="java.lang.String">
+					<rule id="AcctCy_NotNull" type="NotNull" errCode="ABD000" depExp="AcctBsInfSgmt_NotNull" />
+					<rule id="AcctCy_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctCy_NotNull" />
+					<rule id="AcctCy_DataType" type="Dict" errCode="ABE001" depExp="AcctCy_NotEmpty">
+						<property name="dictKey" value="Cy" />
+					</rule>
+				</field>
+				<field fbTag="AcctCredLine"  name="AcctCredLine" classType="java.lang.String">
+					<rule id="AcctCredLine_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_R1R2R3" />
+					<rule id="AcctCredLine_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_R1R2R3" />
+					<rule id="AcctCredLine_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctCredLine_NotNull" />
+					<rule id="AcctCredLine_DataType" type="DataType" errCode="ABE001" depExp="AcctCredLine_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="LoanAmt"  name="LoanAmt" classType="java.lang.String">
+					<rule id="LoanAmt_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_D1R4C1" />
+					<rule id="LoanAmt_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_D1R4C1" />
+					<rule id="LoanAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="LoanAmt_NotNull" />
+					<rule id="LoanAmt_DataType" type="DataType" errCode="ABE001" depExp="LoanAmt_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="Flag"  name="Flag" classType="java.lang.String">
+					<rule id="Flag_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_D1" />
+					<rule id="Flag_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_D1" />
+					<rule id="Flag_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Flag_NotNull" />
+					<rule id="Flag_Dict" type="Dict" errCode="ABE001" depExp="Flag_NotEmpty">
+						<property name="dictKey" value="SubLoan" />
+					</rule>
+					<rule id="Flag_12" type="Contains" depExp="Flag_NotEmpty">
+						<property name="dict" value="1;2" />
+					</rule>
+					<rule id="Flag_0" type="Equals" depExp="Flag_NotNull">
+						<property name="data" value="0" />
+					</rule>
+				</field>
+				<field fbTag="DueDate"  name="DueDate" classType="java.lang.String">
+					<rule id="DueDate_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull  &amp; !AcctType_D1R1R2R3R4" />
+					<rule id="DueDate_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull  &amp; AcctType_D1R1R2R3R4" />
+					<rule id="DueDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DueDate_NotNull" />
+					<rule id="DueDate_DataType" type="DataType" errCode="ABE001" depExp="DueDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+					<rule id="DueDate_Range" type="DateRange" errCode="ABE008" depExp="DueDate_DataType" />
+					<rule id="DueDate_GTOETopenDate" type="DateCompare" errCode="BLE009" fbTag="0000" fbValue=""  depExp="OpenDate_Range &amp; OpenDate_Range">
+					<property name="beginDate" value="${MdfcSgmt.AcctBsInfSgmt.OpenDate}" />
+				</rule>
+				</field>
+				<field fbTag="RepayMode"  name="RepayMode" classType="java.lang.String">
+					<rule id="RepayMode_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_D1R1R4" />
+					<rule id="RepayMode_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_D1R1R4" />
+					<rule id="RepayMode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RepayMode_NotNull" />
+					<rule id="RepayMode_D1_Dict" type="Dict" errCode="ABE001" depExp="RepayMode_NotEmpty &amp; AcctType_D1">
+						<property name="dictKey" value="RepayModeD1" />
+					</rule>
+					<rule id="RepayMode_R1_Dict" type="Dict" errCode="ABE001" depExp="RepayMode_NotEmpty &amp; AcctType_R1">
+						<property name="dictKey" value="RepayModeR1" />
+					</rule>
+					<rule id="RepayMode_R4_Dict" type="Dict" errCode="ABE001" depExp="RepayMode_NotEmpty &amp; AcctType_R4">
+						<property name="dictKey" value="RepayModeR4" />
+					</rule>
+					<rule id="RepayMode_Contains2" type="Contains" depExp="RepayMode_D1_Dict | RepayMode_R4_Dict" >
+						<property name="dict" value="21;22;23;29"/>
+					</rule>
+					<rule id="RepayMode_Eq90" type="Equals" depExp="RepayMode_D1_Dict | RepayMode_R1_Dict | RepayMode_R4_Dict">
+						<property name="data" value="90" />
+					</rule>
+				</field>
+				<field fbTag="RepayFreqcy"  name="RepayFreqcy" classType="java.lang.String">
+					<rule id="RepayFreqcy_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_D1R1R4" />
+					<rule id="RepayFreqcy_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_D1R1R4" />
+					<rule id="RepayFreqcy_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RepayFreqcy_NotNull" />
+					<rule id="RepayFreqcy_Dict" type="Dict" errCode="ABE001" depExp="RepayFreqcy_NotEmpty">
+						<property name="dictKey" value="RepayFreqcy" />
+					</rule>
+<!-- 					<rule id="RepayFreqcy_Eq99" type="Equals" errCode="BLE027" depExp="RepayFreqcy_Dict &amp; RepayMode_Contains2"> -->
+<!-- 						<property name="data" value="99" /> -->
+<!-- 					</rule> -->
+					<rule id="RepayFreqcy_Eq03" type="Equals" errCode="BLE028" depExp="RepayFreqcy_Dict &amp; RepayMode_Eq90">
+						<property name="data" value="03" />
+					</rule>
+				</field>
+				<field fbTag="RepayPrd"  name="RepayPrd" classType="java.lang.String">
+					<rule id="RepayPrd_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_D1R4" />
+					<rule id="RepayPrd_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_D1R4" />
+					<rule id="RepayPrd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RepayPrd_NotNull" />
+					<rule id="RepayPrd_DataType" type="DataType" errCode="ABE001" depExp="RepayPrd_NotEmpty">
+						<property name="type" value="uInt..3" />
+					</rule>
+						<rule id="RepayPrd_Eq0" type="Equals" errCode="BLE038" depExp="RepayPrd_DataType &amp; RepayMode_Contains2">
+						<property name="data" value="0" />
+					</rule>
+				</field>
+				<field fbTag="ApplyBusiDist"  name="ApplyBusiDist" classType="java.lang.String">
+					<rule id="ApplyBusiDist_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_C1" />
+					<rule id="ApplyBusiDist_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_C1" />
+					<rule id="ApplyBusiDist_NotEmpty" type="NotEmpty" depExp="ApplyBusiDist_NotNull" />
+					<rule id="ApplyBusiDist_Dict" type="Dict" errCode="ABE001" depExp="ApplyBusiDist_NotEmpty">
+						<property name="dictKey" value="AdminDistrict" />
+					</rule>
+				</field>
+				<field fbTag="GuarMode"  name="GuarMode" classType="java.lang.String">
+					<rule id="GuarMode_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull  &amp; AcctType_C1" />
+					<rule id="GuarMode_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull  &amp; !AcctType_C1" />
+					<rule id="GuarMode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GuarMode_NotNull" />
+					<rule id="GuarMode_Dict" type="Dict" errCode="ABE001" depExp="GuarMode_NotEmpty">
+						<property name="dictKey" value="NtrDcacctGuarMode" />
+					</rule>
+					<rule id="GuarMode_35" type="Contains" depExp="GuarMode_NotEmpty">
+						<property name="dict" value="3;5" />
+					</rule>
+				</field>
+				<field fbTag="OthRepyGuarWay"  name="OthRepyGuarWay" classType="java.lang.String">
+					<rule id="OthRepyGuarWay_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_C1" />
+					<rule id="OthRepyGuarWay_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_C1" />
+					<rule id="OthRepyGuarWay_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OthRepyGuarWay_NotNull" />
+					<rule id="OthRepyGuarWay_Dict" type="Dict" errCode="ABE001" depExp="OthRepyGuarWay_NotEmpty">
+						<property name="dictKey" value="OthRepyGuarWay" />
+					</rule>
+					<rule id="OthRepyGuarWay_2" type="Equals" depExp="OthRepyGuarWay_NotNull">
+						<property name="data" value="2" />
+					</rule>
+				</field>
+				<field fbTag="AssetTrandFlag"  name="AssetTrandFlag" classType="java.lang.String">
+					<rule id="AssetTrandFlag_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_C1" />
+					<rule id="AssetTrandFlag_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_C1" />
+					<rule id="AssetTrandFlag_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AssetTrandFlag_NotNull" />
+					<rule id="AssetTrandFlag_Dict" type="Dict" errCode="ABE001" depExp="AssetTrandFlag_NotEmpty">
+						<property name="dictKey" value="AssTranFlg" />
+					</rule>
+				</field>
+				<field fbTag="FundSou"  name="FundSou" classType="java.lang.String">
+					<rule id="FundSou_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_C1" />
+					<rule id="FundSou_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_C1" />
+					<rule id="FundSou_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="FundSou_NotNull" />
+					<rule id="FundSou_Dict" type="Dict" errCode="ABE001" depExp="FundSou_NotEmpty">
+						<property name="dictKey" value="FundSou" />
+					</rule>
+				</field>
+				<field fbTag="CreditID"  name="CreditID" classType="java.lang.String">
+					<rule id="CreditID_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_R2R3" />
+					<rule id="CreditID_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_R2R3" />
+					<rule id="CreditID_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CreditID_NotNull" />
+					<rule id="CreditID_DataType" type="DataType" errCode="ABE001" depExp="CreditID_NotEmpty">
+						<property name="type" value="AN4" />
+					</rule>
+					<rule id="CreditID_NotEqNULL" type="NotEquals" depExp="CreditID_DataType">
+						<property name="data" value="NULL" />
+					</rule>
+					<rule id="CreditID_NotEqMULT" type="NotEquals" depExp="CreditID_DataType">
+						<property name="data" value="MULT" />
+					</rule>
+					<rule id="CreditID_DataType_int" type="DataType" errCode="BLE031" depExp="CreditID_NotEqNULL &amp; CreditID_NotEqMULT">
+						<property name="type" value="uInt..4" />
+					</rule>
+				</field>
+				<field fbTag="LoanForm"  name="LoanForm" classType="java.lang.String">
+					<rule id="LoanForm_Null" type="Null" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; AcctType_C1" />
+					<rule id="LoanForm_NotNull" type="NotNull" errCode="BLD000" depExp="AcctBsInfSgmt_NotNull &amp; !AcctType_C1" />
+					<rule id="LoanForm_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="LoanForm_NotNull" />
+					<rule id="LoanForm_Dict" type="Dict" errCode="ABE001" depExp="LoanForm_NotEmpty">
+						<property name="dictKey" value="LoanForm" />
+					</rule>
+				</field>
+				<field fbTag="LoanConCode"  name="LoanConCode" classType="java.lang.String">
+					<rule id="LoanConCode_Null" type="Null" errCode="BLE050" depExp="AcctBsInfSgmt_NotNull &amp; !BusiDtlLines_11" />
+					<rule id="LoanConCode_NotNull" type="NotNull" errCode="BLE050" fbTag="0000" depExp="AcctBsInfSgmt_NotNull &amp; BusiDtlLines_11 " />
+					<rule id="LoanConCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="LoanConCode_NotNull" />
+					<rule id="LoanConCode_DataType" type="DataType" errCode="ABE001" depExp="LoanConCode_NotEmpty" >
+						<property name="type" value="ANC..200" />
+					</rule>
+				</field>
+				<field fbTag="FirstHouLoanFlag"  name="FirstHouLoanFlag" classType="java.lang.String">
+					<rule id="FirstHouLoanFlag_Null" type="Null" errCode="BLE050" depExp="AcctBsInfSgmt_NotNull &amp; !BusiDtlLines_11" />
+					<rule id="FirstHouLoanFlag_NotNull" type="NotNull" errCode="BLE050" fbTag="0000" depExp="AcctBsInfSgmt_NotNull &amp; BusiDtlLines_11 " />
+					<rule id="FirstHouLoanFlag_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="FirstHouLoanFlag_NotNull" />
+					<rule id="FirstHouLoanFlag_Dict" type="Dict" errCode="ABE001" depExp="FirstHouLoanFlag_NotEmpty">
+						<property name="dictKey" value="FirstHouLoanFlag" />
+					</rule>
+				</field>
+			</field>
+
+			<field fbTag="RltRepymtInfSgmt"  name="RltRepymtInfSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.RltRepymtInfSgmt">
+				<rule id="RltRepymtInfSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_D" />
+				<rule id="RltRepymtInfSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_D" />
+
+				<field fbTag="RltRepymtNm"  name="RltRepymtNm" classType="java.lang.String">
+					<rule id="RltRepymtNum_NotNull" type="NotNull" errCode="ABD000" depExp="RltRepymtInfSgmt_NotNull" />
+					<rule id="RltRepymtNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RltRepymtNum_NotNull" />
+					<rule id="RltRepymtNum_DataType" type="DataType" errCode="ABE001" depExp="RltRepymtNum_NotEmpty">
+						<property name="type" value="uInt..2" />
+					</rule>
+					<rule id="RltRepymtNum_GraThan0" type="NumberLimit"  depExp="RltRepymtNum_DataType">
+						<property name="startSign" value=">" />
+						<property name="startValue" value="0" />
+					</rule>
+				</field>
+				<field fbTag="RltRepymtInf"  name="RltRepymtInf" classType="java.util.List">
+					<rule id="RltRepymtInf_NotNull" type="NotNull" errCode="ABD000" depExp="RltRepymtInfSgmt_NotNull &amp; RltRepymtNum_GraThan0" fbValue="" />
+					<rule id="RltRepymtInf_Null" type="Null" errCode="ABE010" depExp="RltRepymtInfSgmt_NotNull &amp; !RltRepymtNum_GraThan0"/>
+					<rule id="RltRepymtInf_CollectionSize" type="CollectionSize" errCode="ABE010" fbTag="RltRepymtNm" fbValue="${MdfcSgmt.RltRepymtInfSgmt.RltRepymtNm}" depExp="RltRepymtInf_NotNull">
+						<property name="size" value="${MdfcSgmt.RltRepymtInfSgmt.RltRepymtNm}" />
+					</rule>
+					<rule id="RltRepymtInf_CollectionRepeat" type="CollectionRepeat" errCode="ABE011" fbValue="${MdfcSgmt.RltRepymtInfSgmt.RltRepymtNm}" depExp="RltRepymtInf_NotNull">
+						<property name="repeat" value="false" />
+						<property name="beanClass" value="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.RltRepymtInf" />
+						<property name="fieldNames" value="InfoIDType;ArlpCertType;ArlpCertNum" />
+					</rule>
+
+					<field fbTag="RltRepymtInf_bean"  name="RltRepymtInf_bean" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.RltRepymtInf">
+						<field fbTag="InfoIDType"  name="InfoIDType" classType="java.lang.String">
+							<rule id="InfoIdType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="InfoIdType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfoIdType_NotNull" scope="local" />
+							<rule id="InfoIdType_Dict" type="Dict" errCode="ABE001" depExp="InfoIdType_NotEmpty" scope="local">
+								<property name="dictKey" value="RltRepymtInfoIdType" />
+							</rule>
+							<rule id="InfoIdType_1" type="Equals" depExp="InfoIdType_NotNull" scope="local">
+								<property name="data" value="1" />
+							</rule>
+							<rule id="InfoIdType_2" type="Equals" depExp="InfoIdType_NotNull" scope="local">
+								<property name="data" value="2" />
+							</rule>
+						</field>
+						<field fbTag="ArlpName"  name="ArlpName" classType="java.lang.String">
+							<rule id="ArlpName_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="ArlpName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ArlpName_NotNull" scope="local" />
+							<rule id="ArlpName_Ent_DataType" type="DataType" errCode="ABE001" depExp="ArlpName_NotEmpty &amp; InfoIdType_2" scope="local">
+							<property name="type" value="ANC..80" />
+							</rule>
+							<rule id="ArlpName_Ntr_DataType" type="DataType" errCode="ABE001" depExp="ArlpName_NotEmpty &amp; InfoIdType_1" scope="local">
+								<property name="type" value="ANC..30" />
+							</rule>
+						</field>
+						<field fbTag="ArlpCertType"  name="ArlpCertType" classType="java.lang.String">
+							<rule id="ArlpCertType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="ArlpCertType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ArlpCertType_NotNull" scope="local" />
+							<rule id="ArlpCertType_Ntr_Dict" type="Dict" errCode="ABE001" depExp="ArlpCertType_NotEmpty &amp; InfoIdType_1"
+								scope="local">
+								<property name="dictKey" value="NtrCertType" />
+							</rule>
+							<rule id="ArlpCertType_Org_Dict" type="Dict" errCode="ABE001" depExp="ArlpCertType_NotEmpty &amp; InfoIdType_2"
+								scope="local">
+								<property name="dictKey" value="OrgInstCertType" />
+							</rule>
+							<rule id="ArlpCertType_Org_102030" type="Contains" errCode="ABE001"  depExp="ArlpCertType_NotEmpty &amp; InfoIdType_2 &amp; ArlpCertType_Org_Dict" 
+								scope="local">
+								<property name="dict" value="10;20;30" />
+							</rule>
+						</field>
+						<field fbTag="ArlpCertNum"  name="ArlpCertNum" classType="java.lang.String">
+							<rule id="ArlpCertNum_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="ArlpCertNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ArlpCertNum_NotNull" scope="local" />
+							<rule id="ArlpCertNum_Ent_DataType" type="DataType" errCode="ABE001" depExp="ArlpCertNum_NotEmpty &amp; InfoIdType_2" scope="local">
+								<property name="type" value="ANC..40" />
+							</rule>
+							<rule id="ArlpCertNum_Ntr_DataType" type="DataType" errCode="ABE001" depExp="ArlpCertNum_NotEmpty &amp; InfoIdType_1" scope="local">
+								<property name="type" value="ANC..20" />
+							</rule>
+						</field>
+						<!-- 根据证件类型，校验不同的证件号xxxx -->
+						<rule id="ArlpCertNum_NtrCert" type="NtrCert" errCode="ABE004" fbTag="ArlpCertNum" fbValue="${$this.ArlpCertNum}"   depExp="ArlpCertType_NotEmpty &amp; ArlpCertNum_Ntr_DataType">
+							<property name="certTypeFeild" value="ArlpCertType" />
+							<property name="certNumFeild" value="ArlpCertNum" />
+						</rule>
+						<rule id="ArlpCertNum_LegCert" type="LegCert" errCode="ABE004" fbTag="ArlpCertNum" fbValue="${$this.ArlpCertNum}"  depExp="ArlpCertType_NotEmpty &amp; ArlpCertNum_Ent_DataType">
+							<property name="certTypeFeild" value="ArlpCertType" />
+							<property name="certNumFeild" value="ArlpCertNum" />
+						</rule>
+						<field fbTag="ArlpType"  name="ArlpType" classType="java.lang.String">
+							<rule id="ArlpType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="ArlpType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ArlpType_NotNull" scope="local" />
+							<rule id="ArlpType_DataType" type="Dict" errCode="ABE001" depExp="ArlpType_NotEmpty" scope="local">
+								<property name="dictKey" value="RltArlpType" />
+							</rule>
+							<rule id="ArlpType_gtjkr1" type="Equals" depExp="ArlpType_NotNull" scope="local">
+								<property name="data" value="1" />
+							</rule>
+							<rule id="ArlpType_bzhr2" type="Equals" depExp="ArlpType_NotNull" scope="local">
+								<property name="data" value="2" />
+							</rule>
+						</field>
+						<field fbTag="ArlpAmt"  name="ArlpAmt" classType="java.lang.String">
+							<rule id="ArlpAmt_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="ArlpAmt_bzhr_NotEmpty" type="NotEmpty" errCode="BLE003" depExp=" ArlpType_bzhr2  &amp; ArlpAmt_NotNull" scope="local" />
+							<rule id="ArlpAmt_bzhr_NotEmpty1" type="NotEmpty" depExp="ArlpAmt_NotNull" scope="local" />
+							<rule id="ArlpAmt_DataType" type="DataType" errCode="ABE001" depExp="ArlpAmt_bzhr_NotEmpty1" scope="local">
+								<property name="type" value="uInt..15" />
+							</rule>
+						</field>
+						<field fbTag="WartySign" name="WartySign" classType="java.lang.String">
+							<rule id="WartySign_NotNull" type="NotNull" scope="local" />
+							<rule id="WartySign_bzhr_NotEmpty" type="NotEmpty"  scope="local" depExp="WartySign_NotNull" />
+							<rule id="WartySign_NotNull_1" type="NotNull" errCode="ABD000" scope="local" depExp="ArlpType_bzhr2"/>
+							<rule id="WartySign_bzhr_NotEmpty_1" type="NotEmpty" errCode="BLE048" depExp=" ArlpType_bzhr2" scope="local" />
+							<rule id="WartySign_DataType" type="Dict" errCode="ABE001" depExp="WartySign_bzhr_NotEmpty" scope="local">
+								<property name="dictKey" value="WartySign" />
+							</rule>
+						</field>
+						<field fbTag="MaxGuarMcc" name="MaxGuarMcc" classType="java.lang.String">
+							<rule id="MaxGuarMcc_NotNull" type="NotNull" scope="local" />
+							<rule id="MaxGuarMcc_bzhr_NotEmpty" type="NotEmpty" depExp="MaxGuarMcc_NotNull" scope="local" />
+							<rule id="MaxGuarMcc_NotNull_1" type="NotNull" errCode="ABD000" scope="local" depExp="ArlpType_bzhr2"/>
+							<rule id="MaxGuarMcc_bzhr_NotEmpty_1" type="NotEmpty" errCode="BLE048" depExp="ArlpType_bzhr2" scope="local" />
+							<rule id="MaxGuarMcc_DataType" type="DataType" errCode="ABE001" depExp="MaxGuarMcc_bzhr_NotEmpty" scope="local">
+								<property name="type" value="AN..60" />
+							</rule>
+							<rule id="MaxGuarMcc_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="MaxGuarMcc_DataType" />
+						</field>
+					</field>
+				</field>
+			</field>
+
+			<field fbTag="MotgaCltalCtrctInfSgmt"  name="MotgaCltalCtrctInfSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.MotgaCltalCtrctInfSgmt">
+				<rule id="MotgaCltalCtrctInfSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_E"/>
+				<rule id="MotgaCltalCtrctInfSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_E"/>
+
+				<field fbTag="CcNm"  name="CcNm" classType="java.lang.String">
+					<rule id="CcNum_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctInfSgmt_NotNull" />
+					<rule id="CcNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CcNum_NotNull" />
+					<rule id="CcNum_DataType" type="DataType" errCode="ABE001" depExp="CcNum_NotEmpty">
+						<property name="type" value="uInt..2" />
+					</rule>
+					<rule id="CcNm_GT0" type="NumberLimit" depExp="CcNum_DataType">
+						<property name="startSign" value=">" />
+						<property name="startValue" value="0" />
+					</rule>
+				</field>
+				<field fbTag="CccInf"  name="CccInf" classType="java.util.List">
+					<rule id="CccInf_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctInfSgmt_NotNull  &amp; CcNm_GT0" fbValue="" />
+					<rule id="CccInf_Null" type="Null" errCode="ABE010" depExp="MotgaCltalCtrctInfSgmt_NotNull &amp; !CcNm_GT0"  fbValue=""/>
+					<rule id="CccInf_CollectionSize" type="CollectionSize" errCode="ABE010" fbTag="CcNm" fbValue="${MdfcSgmt.MotgaCltalCtrctInfSgmt.CcNm}" depExp="CccInf_NotNull">
+						<property name="size" value="${MdfcSgmt.MotgaCltalCtrctInfSgmt.CcNm}" />
+					</rule>
+					<rule id="CccInf_CollectionRepeat" type="CollectionRepeat" errCode="ABE011" fbTag="CcNm" fbValue="${MotgaCltalCtrctInfSgmt.CcNm}"  depExp="CccInf_CollectionSize">
+						<property name="repeat" value="false" /> 
+						<property name="beanClass" value="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.CccInf" />
+						<property name="fieldNames" value="Ccc" />
+					</rule>
+					<field fbTag="CccInf"  name="CccInf_bean" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.CccInf">
+						<field fbTag="Ccc"  name="Ccc" classType="java.lang.String">
+							<rule id="Ccc_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="Ccc_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Ccc_NotNull" scope="local" />
+							<rule id="Ccc_DataType" type="DataType" errCode="ABE001" depExp="Ccc_NotEmpty" scope="local">
+								<property name="type" value="AN..60" />
+							</rule>
+							<rule id="Ccc_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="Ccc_NotEmpty" scope="local"/>
+						</field>
+					</field>
+				</field>
+			</field>
+
+			<field fbTag="AcctCredSgmt"  name="AcctCredSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctCredSgmt">
+				<rule id="AcctCredSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_F" />
+				<rule id="AcctCredSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_F"/>
+				<field fbTag="Mcc"  name="Mcc" classType="java.lang.String">
+					<rule id="Mcc_NotNull" type="NotNull" errCode="ABD000" depExp="AcctCredSgmt_NotNull" />
+					<rule id="Mcc_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Mcc_NotNull" />
+					<rule id="Mcc_DataType" type="DataType" errCode="ABE001" depExp="Mcc_NotEmpty">
+						<property name="type" value="AN..60" />
+					</rule>
+					<rule id="Mcc_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="Mcc_NotEmpty" />
+					<!-- 14位区段码 + 46标识 -->
+				</field>
+			</field>
+
+			<field fbTag="OrigCreditorInfSgmt"  name="OrigCreditorInfSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.OrigCreditorInfSgmt">
+				<rule id="OCIS_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_G" />
+				<rule id="OCIS_Null" type="Null" errCode="BMR001" fbTag="ABR000" fbValue=""  depExp="!MdfcSgmtCode_G" />
+
+				<field fbTag="InitCredName"  name="InitCredName" classType="java.lang.String">
+					<rule id="InitCredName_NotNull" type="NotNull" errCode="ABD000" depExp="OCIS_NotNull" />
+					<rule id="InitCredName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InitCredName_NotNull" />
+					<rule id="InitCredName_DataType" type="DataType" errCode="ABE001" depExp="InitCredName_NotEmpty">
+						<property name="type" value="ANC..80" />
+					</rule>
+				</field>
+				<field fbTag="InitCredOrgNm"  name="InitCredOrgNm" classType="java.lang.String">
+					<rule id="InitCedOrgNm_NotNull" type="NotNull" errCode="ABD000" depExp="OCIS_NotNull" />
+					<rule id="InitCedOrgNm_cNotEmpty" type="NotEmpty"  depExp="InitCedOrgNm_NotNull" />
+					<rule id="InitCedOrgNm_DataType" type="DataType" errCode="ABE001" depExp="InitCedOrgNm_cNotEmpty">
+						<property name="type" value="AN18" />
+					</rule>
+				</field>
+				<field fbTag="OrigDbtCate"  name="OrigDbtCate" classType="java.lang.String">
+					<rule id="OrigDbtCate_NotNull" type="NotNull" errCode="ABD000" depExp="OCIS_NotNull" />
+					<rule id="OrigDbtCate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OrigDbtCate_NotNull" />
+					<rule id="OrigDbtCate_DataType" type="Dict" errCode="ABE001" depExp="OrigDbtCate_NotEmpty">
+						<property name="dictKey" value="OrigDbtCate" />
+					</rule>
+				</field>
+				<field fbTag="InitRpySts"  name="InitRpySts" classType="java.lang.String">
+					<rule id="InitRpySts_NotNull" type="NotNull" errCode="ABD000" depExp="OCIS_NotNull" />
+					<rule id="InitRpySts_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InitRpySts_NotNull" />
+					<rule id="InitRpySts_Dict" type="Dict" errCode="ABE001" depExp="InitRpySts_NotNull">
+						<property name="dictKey" value="InitRpySts" />
+					</rule>
+				</field>
+			</field>
+
+			<field fbTag="AcctMthlyBlgInfSgmt"  name="AcctMthlyBlgInfSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctMthlyBlgInfSgmt">
+				<rule id="AMBIS_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_H"/>
+				<rule id="AMBIS_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_H"/>
+
+				<field fbTag="Month"  name="Month" classType="java.lang.String">
+					<rule id="Month_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="Month_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Month_NotNull" />
+					<rule id="Month_DataType" type="DataType" errCode="ABE001" depExp="Month_NotEmpty">
+						<property name="type" value="Month" />
+					</rule>
+					<rule id="Month_Range" type="DateRange" errCode="ABE008" depExp="Month_DataType" />
+					<rule id="Month_EqRptDate" type="Method" errCode="BLE039" fbTag="RptDate" fbValue="${BsSgmt.RptDate}" depExp="Month_Range &amp; RptDate_Range">
+						<package>
+							java.text.SimpleDateFormat;
+							org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctAlterRecord;
+							org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctMthlyBlgInfSgmt;
+						</package>
+						<method>{
+							/* “信息报告日期”的年和月必须与“月份”保持一致或者相差一个月。 */
+							AcctMthlyBlgInfSgmt sgmt = record.getMdfcSgmt().getAcctMthlyBlgInfSgmt();
+							String rptDate = record.getBsSgmt().getRptDate();
+							if (sgmt != null) {
+								if (sgmt.getMonth() != null &amp;&amp; rptDate != null) {
+									SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+									int m1 = 0;
+									try {
+										Date rd = sdf1.parse(rptDate);
+										Calendar c1 = Calendar.getInstance();
+										c1.setTime(rd);
+										m1 = c1.get(Calendar.YEAR) * 12 + c1.get(Calendar.MONTH);
+									} catch (Exception e){
+									}
+									SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM");
+									int m2 = 0;
+									try {
+										Date mt = sdf2.parse(sgmt.getMonth());
+										Calendar c2 = Calendar.getInstance();
+										c2.setTime(mt);
+										m2 = c2.get(Calendar.YEAR) * 12 + c2.get(Calendar.MONTH);
+									} catch (Exception e){
+									}
+									if (m1 == m2 || m1 == m2-1 || m1 == m2+1)
+										return true;
+								}
+							}
+							return false;
+							}
+						</method>
+					</rule>
+				</field>
+				<field fbTag="SettDate"  name="SettDate" classType="java.lang.String">
+					<rule id="SettDate_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+<!-- 					<rule id="SettDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="SettDate_NotNull &amp; AcctType_D1R1R2R3R4" /> -->
+
+					<rule id="SettDate_NotEmpty" type="NotEmpty" depExp="SettDate_NotNull" />
+					<rule id="SettDate_DataType" type="DataType" errCode="ABE001" depExp="SettDate_NotEmpty">
+						<property name="type" value="Date" />
+						<!-- 结算/应还款日，条件型空值约束，，需明确条件 xxxchxxx -->
+					</rule>
+					<rule id="SettDate_Range" type="DateRange" errCode="ABE008" depExp="SettDate_DataType" />
+<!-- 根据UAT QC1831	<rule id="SettDate_LTOETcloseD" type="DateCompare" errCode="BLE006" depExp="SettDate_Range &amp; CloseDate_DataType"> -->
+<!-- 						<property name="endDate" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.CloseDate}" /> -->
+<!-- 					</rule> -->
+					<rule id="SettDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+						depExp="SettDate_Range &amp; RptDate_Range">
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+					<rule id="SettDate_EqMonth" type="Method" errCode="BLE012" depExp="Month_Range &amp; SettDate_Range">
+					<package>
+						org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctAlterRecord;
+						org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctMthlyBlgInfSgmt;
+					</package>
+					<method>{
+						/* “结算/应还款日” 的年和月必须与“ 月份” 保持一致。 */
+						AcctMthlyBlgInfSgmt sgmt = record.getMdfcSgmt().getAcctMthlyBlgInfSgmt();
+							if (sgmt != null) {
+								if (sgmt.getMonth() != null &amp;&amp; sgmt.getSettDate() != null) {
+									if (sgmt.getMonth().equals(sgmt.getSettDate().substring(0, 7)))
+										return true;
+								}
+							}
+							return false;
+						}
+					</method>
+				</rule>
+
+				</field>
+				<field fbTag="AcctStatus"  name="AcctStatus" classType="java.lang.String">
+					<rule id="AcctStatus_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="AcctStatus_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctStatus_NotNull" />
+					<rule id="AcctStatus_D1_Dict" type="Dict" errCode="ABE001" depExp="AcctStatus_NotEmpty &amp; AcctType_D1">
+						<property name="dictKey" value="AcctStatusD1" />
+					</rule>
+					<rule id="AcctStatus_R1_Dict" type="Dict" errCode="ABE001" depExp="AcctStatus_NotEmpty &amp; AcctType_R1">
+						<property name="dictKey" value="AcctStatusR1" />
+					</rule>
+					<rule id="AcctStatus_R2_Dict" type="Dict" errCode="ABE001" depExp="AcctStatus_NotEmpty &amp; AcctType_R2">
+						<property name="dictKey" value="AcctStatusR2" />
+					</rule>
+					<rule id="AcctStatus_R3_Dict" type="Dict" errCode="ABE001" depExp="AcctStatus_NotEmpty &amp; AcctType_R3">
+						<property name="dictKey" value="AcctStatusR3" />
+					</rule>
+					<rule id="AcctStatus_R4_Dict" type="Dict" errCode="ABE001" depExp="AcctStatus_NotEmpty &amp; AcctType_R4">
+						<property name="dictKey" value="AcctStatusR4" />
+					</rule>
+					<rule id="AcctStatus_Close3-31" type="Contains" depExp="AcctStatus_NotEmpty &amp; (AcctType_D1 | AcctType_R1 | AcctType_R4)">
+						<property name="dict" value="3;31" />
+					</rule>
+					<rule id="AcctStatus_Close4-41" type="Contains" depExp="AcctStatus_NotEmpty &amp; (AcctType_R2|AcctType_R3)">
+						<property name="dict" value="4;41" />
+					</rule>
+					<rule id="AcctStatus_D1R1R4_3" type="Equals" depExp="AcctStatus_NotEmpty &amp; (AcctType_D1 | AcctType_R1 | AcctType_R4)">
+						<property name="data" value="3" />
+					</rule>
+					<rule id="AcctStatus_D1R1R4_31" type="Equals" depExp="AcctStatus_NotEmpty &amp; (AcctType_D1 | AcctType_R1 | AcctType_R4)">
+						<property name="data" value="31" />
+					</rule>
+					<rule id="AcctStatus_R2R3_4" type="Equals" depExp="AcctStatus_NotEmpty &amp; (AcctType_R2|AcctType_R3)">
+						<property name="data" value="4" />
+					</rule>
+					<rule id="AcctStatus_R2R3_41" type="Equals" depExp="AcctStatus_NotEmpty &amp; (AcctType_R2|AcctType_R3)">
+						<property name="data" value="41" />
+					</rule>
+					<rule id="AcctStatus_D1_4142" type="Contains" depExp="AcctStatus_NotEmpty &amp; AcctType_D1">
+						<property name="dict" value="41;42" />
+					</rule>
+					<rule id="AcctStatus_R1_4142" type="Contains" depExp="AcctStatus_NotEmpty &amp; AcctType_R1">
+						<property name="dict" value="41;42" />
+					</rule>
+					<rule id="AcctStatus_R2R3_5152" type="Contains" depExp="AcctStatus_NotEmpty &amp; (AcctType_R2|AcctType_R3)">
+						<property name="dict" value="51;52" />
+					</rule>
+					<rule id="AcctStatus_R4_4142" type="Contains" depExp="AcctStatus_NotEmpty &amp; AcctType_R4">
+						<property name="dict" value="41;42" />
+					</rule>
+					<rule id="AcctStatus_6" type="Equals" depExp="AcctStatus_NotEmpty">
+						<property name="data" value="6" />
+					</rule>
+
+				</field>
+				<field fbTag="AcctBal"  name="AcctBal" classType="java.lang.String">
+					<rule id="AcctBal_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="AcctBal_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctBal_NotNull" />
+					<rule id="AcctBal_DataType" type="DataType" errCode="ABE001" depExp="AcctBal_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+<!-- 					<rule id="AcctBal_NEq0" type="NotEquals" errCode="BLE013"  -->
+<!-- 						depExp="(AcctStatus_D1_4142|AcctStatus_R1_4142|AcctStatus_R2R3_5152|AcctStatus_R4_4142) &amp; AcctBal_DataType"> -->
+<!-- 						<property name="data" value="0" /> -->
+<!-- 					</rule> -->
+					<rule id="AcctBal_Eq0_0" type="Equals" errCode="BLE014" depExp="AcctType_R2R3 &amp; AcctStatus_6 &amp; AcctBal_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="AcctBal_Eq0_1" type="Equals" errCode="BLE026" depExp="(AcctStatus_Close3-31 | AcctStatus_Close4-41) &amp; AcctBal_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="AcctBal_Eq0_2" type="Equals" errCode="BLE023" depExp="AcctType_R3 &amp; RpyStatus_EqXH &amp; AcctBal_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="AcctBal_Gt0" type="NumberLimit" errCode="BLE025" depExp="AcctType_R3 &amp; RpyStatus_Contains1-7 &amp; AcctBal_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule>
+				</field>
+				<field fbTag="PridAcctBal"  name="PridAcctBal" classType="java.lang.String">
+					<rule id="PridAcctBal_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_R2" />
+					<rule id="PridAcctBal_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_R2" />
+					<rule id="PridAcctBal_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PridAcctBal_NotNull" />
+					<rule id="PridAcctBal_DataType" type="DataType" errCode="ABE001" depExp="PridAcctBal_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+					<rule id="PridAcctBal_Eq0" type="Equals" errCode="BLE015" depExp="RpyStatus_EqXH &amp; PridAcctBal_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<!-- <rule id="PridAcctBal_Gt0" type="NumberLimit" errCode="BLE016" depExp="RpyStatus_NotEqXH &amp; PridAcctBal_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule> -->
+				</field>
+				<field fbTag="UsedAmt"  name="UsedAmt" classType="java.lang.String">
+					<rule id="UsedAmt_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_R2" />
+					<rule id="UsedAmt_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_R2" />
+					<rule id="UsedAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="UsedAmt_NotNull" />
+					<rule id="UsedAmt_DataType" type="DataType" errCode="ABE001" depExp="UsedAmt_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="NotIsuBal"  name="NotIsuBal" classType="java.lang.String">
+					<rule id="NotIsuBal_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_R2" />
+					<rule id="NotIsuBal_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_R2" />
+					<rule id="NotIsuBal_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NotIsuBal_NotNull" />
+					<rule id="NotIsuBal_DataType" type="DataType" errCode="ABE001" depExp="NotIsuBal_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="RemRepPrd"  name="RemRepPrd" classType="java.lang.String">
+					<rule id="RemRepPrd_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R2R4" />
+					<rule id="RemRepPrd_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R2R4" />
+					<rule id="RemRepPrd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RemRepPrd_NotNull" />
+					<rule id="RemRepPrd_DataType" type="DataType" errCode="ABE001" depExp="RemRepPrd_NotEmpty">
+						<property name="type" value="uInt..3" />
+					</rule>
+				</field>
+				<field fbTag="FiveCate"  name="FiveCate" classType="java.lang.String">
+					<rule id="FiveCate_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="FiveCate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="FiveCate_NotNull" />
+					<rule id="FiveCate_Dict" type="Dict" errCode="ABE001" depExp="FiveCate_NotEmpty">
+						<property name="dictKey" value="FiveCate" />
+					</rule>
+				</field>
+				<field fbTag="FiveCateAdjDate"  name="FiveCateAdjDate" classType="java.lang.String">
+					<rule id="FiveCADate_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="FiveCADate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="FiveCADate_NotNull" />
+					<rule id="FiveCADate_DataType" type="DataType" errCode="ABE001" depExp="FiveCADate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+					<rule id="FiveCateAdjDate_Range" type="DateRange" errCode="ABE008" depExp="FiveCADate_DataType" />
+<!--根据UAT QC1831	<rule id="FiveCADate_LTOETcloseD" type="DateCompare" errCode="BLE006" depExp="FiveCateAdjDate_Range &amp; CloseDate_DataType"> -->
+<!-- 						<property name="endDate" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.CloseDate}" /> -->
+<!-- 					</rule> -->
+					<!-- 个人借贷账户信息记录的信息报告日期应不早于五级分类认定日期 -->
+					<rule id="FiveCateAdjDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+						depExp="FiveCateAdjDate_Range &amp; RptDate_Range">
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+				</field>
+				<field fbTag="RpyStatus"  name="RpyStatus" classType="java.lang.String">
+					<rule id="RpyStatus_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="RpyStatus_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RpyStatus_NotNull" />
+					<rule id="RpyStatus_D1_Dict" type="Dict" errCode="ABE001" depExp="RpyStatus_NotEmpty &amp; AcctType_D1">
+						<property name="dictKey" value="RpyStatusD1" />
+					</rule>
+					<rule id="RpyStatus_R1_Dict" type="Dict" errCode="ABE001" depExp="RpyStatus_NotEmpty &amp; AcctType_R1">
+						<property name="dictKey" value="RpyStatusR1" />
+					</rule>
+					<rule id="RpyStatus_R2_Dict" type="Dict" errCode="ABE001" depExp="RpyStatus_NotEmpty &amp; AcctType_R2">
+						<property name="dictKey" value="RpyStatusR2" />
+					</rule>
+					<rule id="RpyStatus_R3_Dict" type="Dict" errCode="ABE001" depExp="RpyStatus_NotEmpty &amp; AcctType_R3">
+						<property name="dictKey" value="RpyStatusR3" />
+					</rule>
+					<rule id="RpyStatus_R4_Dict" type="Dict" errCode="ABE001" depExp="RpyStatus_NotEmpty &amp; AcctType_R4">
+						<property name="dictKey" value="RpyStatusR4" />
+					</rule>
+					<rule id="RpyStatus_EqXH" type="Equals" depExp="RpyStatus_NotEmpty">
+						<property name="data" value="*" />
+					</rule>
+					<rule id="RpyStatus_EqXH_R" type="Equals" errCode="BLE014" depExp="AcctStatus_6 &amp; RpyStatus_NotEmpty">
+						<property name="data" value="*" />
+					</rule>
+					<rule id="RpyStatus_NotEqXH" type="NotEquals" depExp="RpyStatus_NotEmpty">
+						<property name="data" value="*" />
+					</rule>
+					<rule id="RpyStatus_EqN" type="Equals" depExp="RpyStatus_NotEmpty">
+						<property name="data" value="N" />
+					</rule>
+					<rule id="RpyStatus_ContainsNM" type="Contains" depExp="RpyStatus_NotEmpty">
+						<property name="dict" value="N;M" />
+					</rule>
+					<!-- <rule id="RpyStatus_NotEqN" type="NotEquals" errCode="BLE024" depExp="AcctType_R3 &amp; RpyStatus_NotEmpty">
+						<property name="data" value="N" />
+					</rule> -->
+					<rule id="RpyStatus_Contains1-7" type="Contains" depExp="RpyStatus_NotEmpty">
+						<property name="dict" value="1;2;3;4;5;6;7" />
+					</rule>
+					<rule id="RpyStatus_EqC" type="Contains" errCode="BLE030" depExp="(AcctStatus_D1R1R4_3|AcctStatus_R2R3_4) &amp; RpyStatus_NotEmpty">
+						<property name="dict" value="C;G" />
+					</rule>
+					<!-- <rule id="RpyStatus_EqG_0" type="Equals" errCode="BLE030" depExp="(AcctStatus_D1R1R4_31|AcctStatus_R2R3_41) &amp; RpyStatus_NotEmpty">
+						<property name="data" value="G" />
+					</rule> -->
+					<!-- <rule id="RpyStatus_EqG_1" type="Equals" errCode="BLE030" 
+					depExp="(AcctStatus_D1_4142|AcctStatus_R1_4142|AcctStatus_R2R3_5152|AcctStatus_R4_4142) &amp; RpyStatus_NotEmpty">
+						<property name="data" value="B" />
+					</rule> -->
+				</field>
+				<field fbTag="RpyPrct"  name="RpyPrct" classType="java.lang.String">
+					<rule id="RpyPrct_NR2_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_R2" />
+					<rule id="RpyPrct_R2_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_R2" />
+					<rule id="RpyPrct_Empty" type="Empty" errCode="BLE002" depExp="RpyPrct_R2_NotNull &amp; RpyStatus_EqXH" />
+					<!-- J去掉errCode="ABE000"  -->
+					<rule id="RpyPrct_NotEmpty" type="NotEmpty" depExp="RpyPrct_R2_NotNull &amp; !RpyStatus_EqXH" />
+					<rule id="RpyPrct_DataType" type="DataType" errCode="ABE001" depExp="RpyPrct_NotEmpty">
+						<property name="type" value="uInt..3" />
+					</rule>
+				</field>
+				<field fbTag="OverdPrd"  name="OverdPrd" classType="java.lang.String">
+					<rule id="OverdPrd_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R2R4" />
+					<rule id="OverdPrd_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R2R4" />
+					<rule id="OverdPrd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OverdPrd_NotNull" />
+					<rule id="OverdPrd_DataType" type="DataType" errCode="ABE001" depExp="OverdPrd_NotEmpty">
+						<property name="type" value="uInt..3" />
+					</rule>
+					<rule id="OverdPrd_Eq0_0" type="Equals" errCode="BLE014" depExp="AcctType_R2R3 &amp; AcctStatus_6 &amp; OverdPrd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="OverdPrd_Eq0_1" type="Equals" errCode="BLE015" depExp="RpyStatus_EqXH &amp; OverdPrd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="OverdPrd_Eq0_2" type="Equals" errCode="BLE017" depExp="RpyStatus_ContainsNM &amp; OverdPrd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="OverdPrd_Gt0" type="NumberLimit" errCode="BLE019" depExp="RpyStatus_Contains1-7 &amp; OverdPrd_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule>
+				</field>
+				<field fbTag="TotOverd"  name="TotOverd" classType="java.lang.String">
+					<rule id="TotOverd_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R2R4" />
+					<rule id="TotOverd_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R2R4" />
+					<rule id="TotOverd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotOverd_NotNull" />
+					<rule id="TotOverd_DataType" type="DataType" errCode="ABE001" depExp="TotOverd_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+					<rule id="TotOverd_NEq0" type="NotEquals" errCode="BLE013" 
+						depExp="(AcctStatus_D1_4142|AcctStatus_R1_4142|AcctStatus_R2R3_5152|AcctStatus_R4_4142) &amp; TotOverd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="TotOverd_Eq0_0" type="Equals" errCode="BLE014" depExp="AcctType_R2R3 &amp; AcctStatus_6 &amp; TotOverd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="TotOverd_Eq0_1" type="Equals" errCode="BLE015" depExp="RpyStatus_EqXH &amp; TotOverd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="TotOverd_Eq0_2" type="Equals" errCode="BLE017" depExp="RpyStatus_ContainsNM &amp; TotOverd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="TotOverd_Gt0" type="NumberLimit" errCode="BLE019" depExp="RpyStatus_Contains1-7 &amp; OverdPrd_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule>
+				</field>
+				<field fbTag="OverdPrinc"  name="OverdPrinc" classType="java.lang.String">
+					<rule id="OverdPrinc_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R4" />
+					<rule id="OverdPrinc_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R4" />
+					<rule id="OverdPrinc_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OverdPrinc_NotNull" />
+					<rule id="OverdPrinc_DataType" type="DataType" errCode="ABE001" depExp="OverdPrinc_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+<!-- 				20180820 zhp QC1491 -->
+<!-- 					<rule id="OverdPrinc_Eq0" type="Equals" errCode="BLE017" depExp="RpyStatus_ContainsNM"> -->
+<!-- 						<property name="data" value="0" /> -->
+<!-- 					</rule> -->
+					<rule id="OverdPrinc_LT_TotOverd" type="NumberLimit" errCode="BLE020" fbTag="0000" fbValue=""  depExp="OverdPrinc_DataType &amp; TotOverd_DataType">
+						<property name="endValue" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.TotOverd}"/>
+						<property name="endSign" value="&lt;="/>
+					</rule>
+				</field>
+				<field fbTag="Oved31_60Princ"  name="Oved31_60Princ" classType="java.lang.String">
+					<rule id="Oved31_60Princ_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R4" />
+					<rule id="Oved31_60Princ_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R4" />
+					<rule id="Oved31_60Princ_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Oved31_60Princ_NotNull" />
+					<rule id="Oved31_60Princ_DataType" type="DataType" errCode="ABE001" depExp="Oved31_60Princ_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="Oved61_90Princ"  name="Oved61_90Princ" classType="java.lang.String">
+					<rule id="Oved61_90Princ_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R4" />
+					<rule id="Oved61_90Princ_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R4" />
+					<rule id="Oved61_90Princ_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Oved61_90Princ_NotNull" />
+					<rule id="Oved61_90Princ_DataType" type="DataType" errCode="ABE001" depExp="Oved61_90Princ_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="Oved91_180Princ"  name="Oved91_180Princ" classType="java.lang.String">
+					<rule id="Oved91_180Princ_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R4" />
+					<rule id="Oved91_180Princ_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R4" />
+					<rule id="Oved91_180Princ_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Oved91_180Princ_NotNull" />
+					<rule id="Oved91_180Princ_DataType" type="DataType" errCode="ABE001" depExp="Oved91_180Princ_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="OvedPrinc180"  name="OvedPrinc180" classType="java.lang.String">
+					<rule id="OvedPrinc180_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R4" />
+					<rule id="OvedPrinc180_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R4" />
+					<rule id="OvedPrinc180_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OvedPrinc180_NotNull" />
+					<rule id="OvedPrinc180_DataType" type="DataType" errCode="ABE001" depExp="OvedPrinc180_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="OvedrawBaOve180"  name="OvedrawBaOve180" classType="java.lang.String">
+					<rule id="OvedrawBaOve180_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_R3" />
+					<rule id="OvedrawBaOve180_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_R3" />
+					<rule id="OvedrawBaOve180_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OvedrawBaOve180_NotNull" />
+					<rule id="OvedrawBaOve180_DataType" type="DataType" errCode="ABE001" depExp="OvedrawBaOve180_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+					<rule id="OvedrawBaOve180_Le_0" type="NumberLimit" errCode="BLE022" depExp="AcctType_R3 &amp; AcctBal_DataType &amp; OvedrawBaOve180_DataType">
+						<property name="endValue" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.AcctBal}"/>
+						<property name="endSign" value="&lt;="/>
+					</rule>
+				</field>
+				<field fbTag="CurRpyAmt"  name="CurRpyAmt" classType="java.lang.String">
+					<rule id="CurRpyAmt_Null" type="Null" errCode="BLD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R2R4" />
+					<rule id="CurRpyAmt_NotNull" type="NotNull" errCode="BLD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R2R4" />
+					<rule id="CurRpyAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CurRpyAmt_NotNull" />
+					<rule id="CurRpyAmt_DataType" type="DataType" errCode="ABE001" depExp="CurRpyAmt_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+					<rule id="CurRpyAmt_Eq0" type="Equals" errCode="BLE015" depExp="RpyStatus_EqXH &amp; CurRpyAmt_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<!-- <rule id="CurRpyAmt_Gt0_0" type="NumberLimit" errCode="BLE016" depExp="RpyStatus_NotEqXH &amp; CurRpyAmt_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule> 
+					<rule id="CurRpyAmt_Gt0_1" type="NumberLimit" errCode="BLE018" depExp="RpyStatus_EqN &amp; CurRpyAmt_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule>-->
+				</field>
+				<field fbTag="ActRpyAmt"  name="ActRpyAmt" classType="java.lang.String">
+					<rule id="ActRpyAmt_Null" type="Null" errCode="ABD000" depExp="AMBIS_NotNull &amp; !AcctType_D1R1R2R3R4" />
+					<rule id="ActRpyAmt_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull &amp; AcctType_D1R1R2R3R4" />
+					<rule id="ActRpyAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ActRpyAmt_NotNull" />
+					<rule id="ActRpyAmt_DataType" type="DataType" errCode="ABE001" depExp="ActRpyAmt_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+					<!-- <rule id="ActRpyAmt_Gt0" type="NumberLimit" errCode="BLE018" depExp="RpyStatus_EqN &amp; ActRpyAmt_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule> -->
+				</field>
+				<field fbTag="LatRpyDate"  name="LatRpyDate" classType="java.lang.String">
+					<rule id="LatRpyDate_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="LatRpyDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="LatRpyDate_NotNull" />
+					<rule id="LatRpyDate_DataType" type="DataType" errCode="ABE001" depExp="LatRpyDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+					<rule id="LatRpyDate_Range" type="DateRange" errCode="ABE008" depExp="LatRpyDate_DataType" />
+<!--根据UAT QC1831		<rule id="LatRpyDate_LTOETcloseD" type="DateCompare" errCode="BLE006" depExp="LatRpyDate_Range &amp; CloseDate_DataType"> -->
+<!-- 						<property name="endDate" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.CloseDate}" /> -->
+<!-- 					</rule> -->
+					<!-- 个人借贷账户信息记录的信息报告日期应不早于最近一次实际还款日期-->
+					<rule id="LatRpyDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+						depExp="LatRpyDate_Range &amp; RptDate_Range">
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+				</field>
+				<field fbTag="CloseDate"  name="CloseDate" classType="java.lang.String">
+					<rule id="CloseDate_NotNull" type="NotNull" errCode="ABD000" depExp="AMBIS_NotNull" />
+					<rule id="CloseDate_Sts3-31_NEmpty" type="NotEmpty" errCode="BLE001"
+						depExp="CloseDate_NotNull &amp; AcctStatus_Close3-31" />
+					<rule id="CloseDate_Sts47_NEmpty" type="NotEmpty" errCode="BLE001"
+						depExp="CloseDate_NotNull &amp; AcctStatus_Close4-41" />
+					<rule id="CloseDate_NEmpty" type="NotEmpty" />
+					<rule id="CloseDate_DataType" type="DataType" errCode="ABE001" depExp="CloseDate_NEmpty">
+						<property name="type" value="Date" />
+					</rule>
+					<rule id="CloseDate_Range" type="DateRange" errCode="ABE008" depExp="CloseDate_DataType" />
+					<!-- 个人借贷账户信息记录的信息报告日期应不早于账户关闭日期（若非空）-->
+					<rule id="CloseDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+						depExp="CloseDate_Range &amp; RptDate_Range">
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+					<!-- 月度表现信息段中如果“账户关闭日期”数据项不为空，则“账户关闭日期”应不早于结算/应还款日、
+						最近一次实际还款日期、五级分类认定日期。-->
+					<rule id="CloseDate_ge_LatRpyDate" type="DateCompare" errCode="BLE011"
+						depExp="CloseDate_Range &amp; LatRpyDate_Range">
+						<property name="beginDate" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.LatRpyDate}" />
+					</rule>
+					<rule id="CloseDate_ge_FiveCateAdjDate" type="DateCompare" errCode="BLE011"
+						depExp="CloseDate_Range &amp; FiveCateAdjDate_Range">
+						<property name="beginDate" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.FiveCateAdjDate}" />
+					</rule>
+					<rule id="CloseDate_ge_SettDate" type="DateCompare" errCode="BLE011"
+						depExp="CloseDate_Range &amp; SettDate_Range">
+						<property name="beginDate" value="${MdfcSgmt.AcctMthlyBlgInfSgmt.SettDate}" />
+					</rule>
+				</field>
+			</field>
+
+			<field fbTag="SpecPrdSgmt"  name="SpecPrdSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.SpecPrdSgmt">
+				<rule id="SpecPrdSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_I" />
+				<rule id="SpecPrdSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_I" />
+
+				<field fbTag="SpecLine"  name="SpecLine" classType="java.lang.String">
+					<rule id="SpecLine_NotNull" type="NotNull" errCode="ABD000" depExp="SpecPrdSgmt_NotNull" />
+					<rule id="SpecLine_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="SpecLine_NotNull" />
+					<rule id="SpecLine_DataType" type="DataType" errCode="ABE001" depExp="SpecLine_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+				</field>
+				<field fbTag="SpecEfctDate"  name="SpecEfctDate" classType="java.lang.String">
+					<rule id="SpecEfctDate_NotNull" type="NotNull" errCode="ABD000" depExp="SpecPrdSgmt_NotNull" />
+					<rule id="SpecEfctDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="SpecEfctDate_NotNull" />
+					<rule id="SpecEfctDate_DataType" type="DataType" errCode="ABE001" depExp="SpecEfctDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+					<rule id="SpecEfctDate_Range" type="DateRange" errCode="ABE008" depExp="SpecEfctDate_DataType" />
+					<rule id="SpecEfctDate_LTT_SpecEndD" type="DateCompare" errCode="BLE007"
+						depExp="SpecEfctDate_Range &amp; SpecEndDate_Range ">
+						<property name="endDate" value="${MdfcSgmt.SpecPrdSgmt.SpecEndDate}" />
+						<property name="eOperation" value="-1" />
+						<!-- 分期额度生效日期小于分期额度到期日期 -->
+					</rule>
+					<!-- 个人借贷账户信息记录的信息报告日期应不早于分期额度生效日期-->
+					<rule id="SpecEfctDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+						depExp="SpecEfctDate_Range &amp; RptDate_Range">
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+				</field>
+				<field fbTag="SpecEndDate"  name="SpecEndDate" classType="java.lang.String">
+					<rule id="SpecEndDate_NotNull" type="NotNull" errCode="ABD000" depExp="SpecPrdSgmt_NotNull" />
+					<rule id="SpecEndDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="SpecEndDate_NotNull" />
+					<rule id="SpecEndDate_DataType" type="DataType" errCode="ABE001" depExp="SpecEndDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+				<rule id="SpecEndDate_Range" type="DateRange" errCode="ABE008" depExp="SpecEndDate_DataType" />
+				</field>
+				<field fbTag="UsedInstAmt"  name="UsedInstAmt" classType="java.lang.String">
+					<rule id="UsedInstAmt_NotNull" type="NotNull" errCode="ABD000" depExp="SpecPrdSgmt_NotNull" />
+					<rule id="UsedInstAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="UsedInstAmt_NotNull" />
+					<rule id="UsedInstAmt_DataType" type="DataType" errCode="ABE001" depExp="UsedInstAmt_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+
+				</field>
+			</field>
+
+			<field fbTag="AcctDbtInfSgmt"  name="AcctDbtInfSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctDbtInfSgmt">
+				<rule id="AcctDbtInfSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_J" />
+				<rule id="AcctDbtInfSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_J" />
+
+				<field fbTag="AcctStatus"  name="AcctStatus" classType="java.lang.String">
+					<rule id="ADIS-AcctStatus_NotNull" type="NotNull" errCode="ABD000" depExp="AcctDbtInfSgmt_NotNull" />
+					<rule id="ADIS-AcctStatus_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-AcctStatus_NotNull" />
+					<rule id="ADIS-AcctStatus_D1_Dict" type="Dict" errCode="ABE001" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_D1">
+						<property name="dictKey" value="AcctStatusD1" />
+					</rule>
+					<rule id="ADIS-AcctStatus_R1_Dict" type="Dict" errCode="ABE001" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_R1">
+						<property name="dictKey" value="AcctStatusR1" />
+					</rule>
+					<rule id="ADIS-AcctStatus_R2_Dict" type="Dict" errCode="ABE001" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_R2">
+						<property name="dictKey" value="AcctStatusR2" />
+					</rule>
+					<rule id="ADIS-AcctStatus_R3_Dict" type="Dict" errCode="ABE001" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_R3">
+						<property name="dictKey" value="AcctStatusR3" />
+					</rule>
+					<rule id="ADIS-AcctStatus_R4_Dict" type="Dict" errCode="ABE001" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_R4">
+						<property name="dictKey" value="AcctStatusR4" />
+					</rule>
+					<rule id="ADIS-AcctStatus_C1_Dict" type="Dict" errCode="ABE001" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_C1">
+						<property name="dictKey" value="AcctStatusC1" />
+					</rule>
+					<rule id="ADIS-AcctStatus_Close3-31" type="Contains" depExp="ADIS-AcctStatus_NotEmpty &amp; (AcctType_D1|AcctType_R1|AcctType_R4)">
+						<property name="dict" value="3;31" />
+					</rule>
+					<rule id="ADIS-AcctStatus_Close4-41" type="Contains" depExp="ADIS-AcctStatus_NotEmpty &amp; (AcctType_R2|AcctType_R3)">
+						<property name="dict" value="4;41;" />
+					</rule>
+					<rule id="ADIS-AcctStatus_Close2" type="Equals" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_C1">
+						<property name="data" value="2" />
+					</rule>
+					<rule id="ADIS-AcctStatus_D1_4142" type="Equals" depExp="ADIS-AcctStatus_NotNull &amp; AcctType_D1">
+						<property name="data" value="41;42" />
+					</rule>
+					<rule id="ADIS-AcctStatus_R1_4142" type="Contains" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_R1">
+						<property name="dict" value="41;42" />
+					</rule>
+					<rule id="ADIS-AcctStatus_R2R3_5152" type="Contains" depExp="ADIS-AcctStatus_NotEmpty &amp; (AcctType_R2|AcctType_R3)">
+						<property name="dict" value="51;52" />
+					</rule>
+					<rule id="ADIS-AcctStatus_R4_4142" type="Contains" depExp="ADIS-AcctStatus_NotEmpty &amp; AcctType_R4">
+						<property name="dict" value="41;42" />
+					</rule>
+					<rule id="ADIS-AcctStatus_6" type="Equals" depExp="ADIS-AcctStatus_NotNull">
+						<property name="data" value="6" />
+					</rule>
+				</field>
+				<field fbTag="AcctBal"  name="AcctBal" classType="java.lang.String">
+					<rule id="ADIS-AcctBal_NotNull" type="NotNull" errCode="ABD000" depExp="AcctDbtInfSgmt_NotNull" />
+					<rule id="ADIS-AcctBal_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-AcctBal_NotNull" />
+					<rule id="ADIS-AcctBal_DataType" type="DataType" errCode="ABE001" depExp="ADIS-AcctBal_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+<!-- 					<rule id="ADIS-AcctBal_NEq0" type="NotEquals" errCode="BLE013"  -->
+<!-- 						depExp="(ADIS-AcctStatus_D1_4142|ADIS-AcctStatus_R1_4142|ADIS-AcctStatus_R2R3_5152|ADIS-AcctStatus_R4_4142) &amp; ADIS-AcctBal_DataType"> -->
+<!-- 						<property name="data" value="0" /> -->
+<!-- 					</rule> -->
+					<rule id="ADIS-AcctBal_Eq0_0" type="Equals" errCode="BLE014"
+						depExp="AcctType_R2R3 &amp; ADIS-AcctStatus_6 &amp; ADIS-AcctBal_DataType">
+						<property name="data" value="0" />
+					</rule>
+<!-- uatQC 2219 					<rule id="ADIS-AcctBal_Eq0_1" type="Equals" errCode="BLE026" depExp="(ADIS-AcctStatus_Close3-31 | ADIS-AcctStatus_Close4-41) &amp; ADIS-AcctBal_DataType"> -->
+<!-- 						<property name="data" value="0" /> -->
+<!-- 					</rule> -->
+					<rule id="ADIS-AcctBal_Eq0_2" type="Equals" errCode="BLE027" depExp="(ADIS-AcctStatus_Close2) &amp; ADIS-AcctBal_DataType">
+						<property name="data" value="0" />
+					</rule>
+<!-- 					<rule id="ADIS-AcctBal_Gt0" type="NumberLimit" errCode="BLE025" depExp="AcctType_R3 &amp; ADIS-RpyStatus_Contains1-7 &amp; ADIS-AcctBal_DataType"> -->
+<!-- 						<property name="startValue" value="0"/> -->
+<!-- 						<property name="startSign" value=">"/> -->
+<!-- 					</rule> -->
+				</field>
+				<field fbTag="FiveCate"  name="FiveCate" classType="java.lang.String">
+					<rule id="ADIS-FiveCate_Null" type="Null" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; !AcctType_D1R1R2R3R4" />
+					<rule id="ADIS-FiveCate_NotNull" type="NotNull" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; AcctType_D1R1R2R3R4" />
+					<rule id="ADIS-FiveCate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-FiveCate_NotNull" />
+					<rule id="ADIS-FiveCate_DataType" type="Dict" errCode="ABE001" depExp="ADIS-FiveCate_NotEmpty">
+						<property name="dictKey" value="FiveCate" />
+					</rule>
+				</field>
+				<field fbTag="FiveCateAdjDate"  name="FiveCateAdjDate" classType="java.lang.String">
+					<rule id="ADIS-FiveCateAdjDate_Null" type="Null" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; !AcctType_D1R1R2R3R4" />
+					<rule id="ADIS-FiveCateAdjDate_NotNull" type="NotNull" errCode="BLD000"
+						depExp="AcctDbtInfSgmt_NotNull &amp; AcctType_D1R1R2R3R4" />
+					<rule id="ADIS-FiveCateAdjDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-FiveCateAdjDate_NotNull" />
+					<rule id="ADIS-FiveCateAdjDate_DataType" type="DataType" errCode="ABE001" depExp="ADIS-FiveCateAdjDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+				<rule id="ADIS-FiveCateAdjDate_Range" type="DateRange" errCode="ABE008" depExp="ADIS-FiveCateAdjDate_DataType" />
+					<!-- 个人借贷账户信息记录的信息报告日期应不早于五级分类认定日期-->
+					<rule id="ADIS-FiveCateAdjDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+						depExp="ADIS-FiveCateAdjDate_Range &amp; RptDate_Range">
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+				</field>
+				<field fbTag="RemRepPrd"  name="RemRepPrd" classType="java.lang.String">
+					<rule id="ADIS-RemRepPrd_Null" type="Null" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; !AcctType_D1R1R2R4" />
+					<rule id="ADIS-RemRepPrd_NotNull" type="NotNull" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; AcctType_D1R1R2R4" />
+					<rule id="ADIS-RemRepPrd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-RemRepPrd_NotNull" />
+					<rule id="ADIS-RemRepPrd_DataType" type="DataType" errCode="ABE001" depExp="ADIS-RemRepPrd_NotEmpty">
+						<property name="type" value="uInt..3" />
+					</rule>
+				</field>
+				<field fbTag="RpyStatus"  name="RpyStatus" classType="java.lang.String">
+					<rule id="ADIS-RpyStatus_Null" type="Null" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; !AcctType_D1R1R2R3R4" />
+					<rule id="ADIS-RpyStatus_NotNull" type="NotNull" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; AcctType_D1R1R2R3R4" />
+					<rule id="ADIS-RpyStatus_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-RpyStatus_NotNull" />
+					<rule id="ADIS-RpyStatus_D1_Dict" type="Dict" errCode="ABE001" depExp="ADIS-RpyStatus_NotEmpty &amp; AcctType_D1">
+						<property name="dictKey" value="RpyStatusD1" />
+					</rule>
+					<rule id="ADIS-RpyStatus_R1_Dict" type="Dict" errCode="ABE001" depExp="ADIS-RpyStatus_NotEmpty &amp; AcctType_R1">
+						<property name="dictKey" value="RpyStatusR1" />
+					</rule>
+					<rule id="ADIS-RpyStatus_R2_Dict" type="Dict" errCode="ABE001" depExp="ADIS-RpyStatus_NotEmpty &amp; AcctType_R2">
+						<property name="dictKey" value="RpyStatusR2" />
+					</rule>
+					<rule id="ADIS-RpyStatus_R3_Dict" type="Dict" errCode="ABE001" depExp="ADIS-RpyStatus_NotEmpty &amp; AcctType_R3">
+						<property name="dictKey" value="RpyStatusR3" />
+					</rule>
+					<rule id="ADIS-RpyStatus_R4_Dict" type="Dict" errCode="ABE001" depExp="ADIS-RpyStatus_NotEmpty &amp; AcctType_R4">
+						<property name="dictKey" value="RpyStatusR4" />
+					</rule>
+					<rule id="ADIS-RpyStatus_EqN" type="Equals" depExp="ADIS-RpyStatus_NotEmpty">
+						<property name="data" value="N" />
+					</rule>
+					<rule id="ADIS-RpyStatus_ContainsNM" type="Contains" depExp="ADIS-RpyStatus_NotEmpty">
+						<property name="dict" value="N;M" />
+					</rule>
+					<!-- <rule id="ADIS-RpyStatus_NotEqN" type="NotEquals" errCode="BLE024" depExp="AcctType_R3 &amp; ADIS-RpyStatus_NotEmpty">
+						<property name="data" value="N" />
+					</rule> -->
+					<rule id="ADIS-RpyStatus_ContainsNMCG" type="Contains" errCode="BLE034" depExp="ADIS-RpyStatus_NotEmpty">
+						<property name="dict" value="N" />
+					</rule>
+				</field>
+				<field fbTag="OverdPrd"  name="OverdPrd" classType="java.lang.String">
+					<rule id="ADIS-OverdPrd_Null" type="Null" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; !AcctType_D1R1R2R4" />
+					<rule id="ADIS-OverdPrd_NotNull" type="NotNull" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; AcctType_D1R1R2R4" />
+					<rule id="ADIS-OverdPrd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-OverdPrd_NotNull" />
+					<rule id="ADIS-OverdPrd_DataType" type="DataType" errCode="ABE001" depExp="ADIS-OverdPrd_NotEmpty">
+						<property name="type" value="uInt..3" />
+					</rule>
+					<rule id="ADIS-OverdPrd_Eq0_0" type="Equals" errCode="BLE014"
+						depExp="AcctType_R2R3 &amp; ADIS-AcctStatus_6 &amp; ADIS-OverdPrd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="ADIS-OverdPrd_Eq0_2" type="Equals" errCode="BLE018"
+						depExp="ADIS-RpyStatus_ContainsNM &amp; ADIS-OverdPrd_DataType">
+						<property name="data" value="0" />
+					</rule>
+				</field>
+				<field fbTag="TotOverd"  name="TotOverd" classType="java.lang.String">
+					<rule id="ADIS-TotOverd_Null" type="Null" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; !AcctType_D1R1R2R4" />
+					<rule id="ADIS-TotOverd_NotNull" type="NotNull" errCode="BLD000" depExp="AcctDbtInfSgmt_NotNull &amp; AcctType_D1R1R2R4" />
+					<rule id="ADIS-TotOverd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-TotOverd_NotNull" />
+					<rule id="ADIS-TotOverd_DataType" type="DataType" errCode="ABE001" depExp="ADIS-TotOverd_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+					<rule id="ADIS-TotOverd_Eq0_0" type="Equals" errCode="BLE014"
+						depExp="AcctType_R2R3 &amp; ADIS-AcctStatus_6 &amp; ADIS-TotOverd_DataType">
+						<property name="data" value="0" />
+					</rule>
+					<rule id="ADIS-TotOverd_Eq0_2" type="Equals" errCode="BLE018"
+						depExp="ADIS-RpyStatus_ContainsNM &amp; ADIS-TotOverd_DataType">
+						<property name="data" value="0" />
+					</rule>
+				</field>
+				<field fbTag="LatRpyAmt"  name="LatRpyAmt" classType="java.lang.String">
+					<rule id="ADIS-LatRpyAmt_NotNull" type="NotNull" errCode="ABD000" depExp="AcctDbtInfSgmt_NotNull" />
+					<rule id="ADIS-LatRpyAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-LatRpyAmt_NotNull" />
+					<rule id="ADIS-LatRpyAmt_DataType" type="DataType" errCode="ABE001" depExp="ADIS-LatRpyAmt_NotEmpty">
+						<property name="type" value="uInt..15" />
+					</rule>
+					<!-- <rule id="ADIS-LatRpyAmt_Gt0" type="NumberLimit" errCode="BLE021" depExp="ADIS-LatRpyAmt_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule> -->
+				</field>
+				<field fbTag="LatRpyDate"  name="LatRpyDate" classType="java.lang.String">
+					<rule id="ADIS-LatRpyDate_NotNull" type="NotNull" errCode="ABD000" depExp="AcctDbtInfSgmt_NotNull" />
+					<rule id="ADIS-LatRpyDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ADIS-LatRpyDate_NotNull" />
+					<rule id="ADIS-LatRpyDate_DataType" type="DataType" errCode="ABE001" depExp="ADIS-LatRpyDate_NotEmpty">
+						<property name="type" value="Date" />
+					</rule>
+				<rule id="ADIS-LatRpyDate_Range" type="DateRange" errCode="ABE008" depExp="ADIS-LatRpyDate_DataType" />
+					<rule id="ADIS-LatRpyDate_EqRptDate" type="Equals" errCode="BLE040"
+						depExp="RptDate_Range &amp; ADIS-LatRpyDate_Range &amp; AcctType_D1R1R2R3R4">
+						<property name="data" value="${BsSgmt.RptDate}" />
+					</rule>
+					
+				</field>
+				<field fbTag="CloseDate"  name="CloseDate" classType="java.lang.String">
+					<rule id="ADIS-CloseDate_NotNull" type="NotNull" errCode="ABD000" depExp="AcctDbtInfSgmt_NotNull" />
+					<rule id="ADIS-CloseDate_Sts3-31_NEmpty" type="NotEmpty" errCode="BLE043"
+						depExp="ADIS-CloseDate_NotNull &amp; ADIS-AcctStatus_Close3-31" />
+					<rule id="ADIS-CloseDate_Sts47_NEmpty" type="NotEmpty" errCode="BLE043"
+						depExp="ADIS-CloseDate_NotNull &amp; ADIS-AcctStatus_Close4-41" />
+					<rule id="ADIS-CloseDate_Sts2_NEmpty" type="NotEmpty" errCode="BLE043"
+						depExp="ADIS-CloseDate_NotNull &amp; ADIS-AcctStatus_Close2" />
+					<rule id="ADIS-CloseDate_NEmpty" type="NotEmpty" />
+					<rule id="ADIS-CloseDate_DataType" type="DataType" errCode="ABE001" depExp="ADIS-CloseDate_NEmpty">
+						<property name="type" value="Date" />
+					</rule>
+				<rule id="ADIS-CloseDate_Range" type="DateRange" errCode="ABE008" depExp="ADIS-CloseDate_DataType" />
+					<!-- 个人借贷账户信息记录的信息报告日期应不早于账户关闭日期（若非空）-->
+					<rule id="ADIS-CloseDate_ge_RptDate_0" type="DateCompare" errCode="ABE007"
+						depExp="ADIS-CloseDate_Range &amp; RptDate_Range" scope="local"  >
+						<property name="endDate" value="${BsSgmt.RptDate}" />
+					</rule>
+					<rule id="ADIS-CloseDate_ge_RptDate_1" type="DateCompare" errCode="BLE042"
+						depExp="ADIS-CloseDate_Range &amp; ADIS-LatRpyDate_Range">
+						<property name="beginDate" value="${MdfcSgmt.AcctDbtInfSgmt.LatRpyDate}" />
+					</rule>
+					<rule id="ADIS-CloseDate_ge_RptDate_2" type="DateCompare" errCode="BLE042"
+						depExp="ADIS-CloseDate_Range &amp; ADIS-FiveCateAdjDate_Range">
+						<property name="beginDate" value="${MdfcSgmt.AcctDbtInfSgmt.FiveCateAdjDate}" />
+					</rule>
+				</field>
+			</field>
+
+			<field fbTag="AcctSpecTrstDspnSgmt"  name="AcctSpecTrstDspnSgmt"  classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.AcctSpecTrstDspnSgmt">
+				<rule id="AcctSpecTrstDspnSgmt_NotNull" type="NotNull" errCode="BMR001" fbTag="0000" fbValue=""  depExp="MdfcSgmtCode_K"/>
+				<rule id="AcctSpecTrstDspnSgmt_Null" type="Null" errCode="ABR000" fbTag="0000" fbValue=""  depExp="!MdfcSgmtCode_K"/>
+
+				<field fbTag="CagOfTrdNm"  name="CagOfTrdNm" classType="java.lang.String">
+					<rule id="CagOfTrdNum_NotNull" type="NotNull" errCode="ABD000" depExp="AcctSpecTrstDspnSgmt_NotNull" />
+					<rule id="CagOfTrdNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CagOfTrdNum_NotNull" />
+					<rule id="CagOfTrdNum_DataType" type="DataType" errCode="ABE001" depExp="CagOfTrdNum_NotEmpty">
+						<property name="type" value="uInt..2" />
+					</rule>
+					<rule id="CagOfTrdNum_Gt0" type="NumberLimit" errCode="BLE046" depExp="CagOfTrdNum_DataType">
+						<property name="startValue" value="0"/>
+						<property name="startSign" value=">"/>
+					</rule>
+				</field>
+				<field fbTag="CagOfTrdInf"  name="CagOfTrdInf" classType="java.util.List">
+					<rule id="CagOfTrdInf_NotNull" type="NotNull" errCode="ABD000" depExp="AcctSpecTrstDspnSgmt_NotNull" />
+					<rule id="CagOfTrdInf_CollectionSize" type="CollectionSize" errCode="ABE010" fbValue="${MdfcSgmt.AcctSpecTrstDspnSgmt.CagOfTrdNm}" depExp="CagOfTrdInf_NotNull">
+						<property name="size" value="${MdfcSgmt.AcctSpecTrstDspnSgmt.CagOfTrdNm}" />
+					</rule>
+					<rule id="CagOfTrdInf_CollectionRepeat" type="CollectionRepeat" errCode="ABE011" fbTag="CagOfTrdNm" depExp="CagOfTrdInf_NotNull">
+					 	<property name="repeat" value="false" />
+					 	<property name="beanClass" value="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.CagOfTrdInf"/>
+					 	<property name="fieldNames" value="ChanTranType;TranDate" />
+					</rule>
+					<field fbTag="CagOfTrdInf_bean"  name="CagOfTrdInf_bean" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.seg.CagOfTrdInf">
+						<field fbTag="ChanTranType"  name="ChanTranType" classType="java.lang.String">
+							<rule id="ChanTranType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="ChanTranType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ChanTranType_NotNull" scope="local" />
+							<rule id="ChanTranType_Dict" type="Dict" errCode="ABE001" depExp="ChanTranType_NotEmpty" scope="local">
+								<property name="dictKey" value="SpecTranType" />
+							</rule>
+						</field>
+						<field fbTag="TranDate"  name="TranDate" classType="java.lang.String">
+							<rule id="TranDate_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="TranDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TranDate_NotNull" scope="local" />
+							<rule id="TranDate_DataType" type="DataType" errCode="ABE001" depExp="TranDate_NotEmpty" scope="local">
+								<property name="type" value="Date" />
+							</rule>
+							<rule id="TranDate_Range" type="DateRange" errCode="ABE008" depExp="TranDate_DataType" scope="local" />	
+							<!-- 个人借贷账户信息记录的信息报告日期应不早于交易日期-->
+							<rule id="TranDate_ge_RptDate" type="DateCompare" errCode="ABE007"
+								depExp="TranDate_Range &amp; RptDate_Range" scope="local" >
+								<property name="endDate" value="${BsSgmt.RptDate}" />
+							</rule>
+						</field>
+						<field fbTag="TranAmt"  name="TranAmt" classType="java.lang.String">
+							<rule id="TranAmt_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="TranAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TranAmt_NotNull" scope="local" />
+							<rule id="TranAmt_DataType" type="DataType" errCode="ABE001" depExp="TranAmt_NotEmpty" scope="local">
+								<property name="type" value="uInt..15" />
+							</rule>
+						</field>
+						<field fbTag="DueTranMon"  name="DueTranMon" classType="java.lang.String">
+							<rule id="DueTranMon_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="DueTranMon_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DueTranMon_NotNull" scope="local" />
+							<rule id="DueTranMon_DataType" type="DataType" errCode="ABE001" depExp="DueTranMon_NotEmpty" scope="local">
+								<property name="type" value="uInt..3" />
+							</rule>
+						</field>
+						<field fbTag="DetInfo"  name="DetInfo" classType="java.lang.String">
+							<rule id="DetInfo_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+							<rule id="DetInfo_NotEmpty" type="NotEmpty" depExp="DetInfo_NotNull" scope="local" />
+							<rule id="DetInfo_DataType" type="DataType" errCode="ABE001" depExp="DetInfo_NotEmpty" scope="local">
+								<property name="type" value="ANC..200" />
+							</rule>
+						</field>
+					</field>
+				</field>
+			</field>
+		</field>
+	</validator>
+</validators>

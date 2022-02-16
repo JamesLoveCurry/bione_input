@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="fsrs_cr_col" pkname="rid" descr="检核字段定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="字段序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="200" descr="中文字段名" />
+			<col name="col_name_en" type="varchar" length="200" descr="英文字段名" />
+			<col name="is_pk" type="char" length="1" descr="是否主键" />
+			<col name="filter_no" type="decimal" length="38" descr="过滤值序号" />
+			<col name="flow_no" type="decimal" length="38" descr="并发Key字段生效流程序号" />
+			<col name="is_export" type="varchar" length="1" descr="是否参与报送" />
+			<col name="type_name" type="varchar" length="50" descr="字段字符类型" />
+			<col name="col_no" type="decimal" length="38" descr="" />
+			<col name="display_config" type="varchar" length="2000" descr="展现的配置文件" />
+			<col name="is_limit" type="varchar" length="1" descr="是否限定额度" />
+			<col name="limit_value" type="decimal" length="16" descr="限制金额（元）" />
+		</columns>
+	</table>
+
+	<table name="fsrs_cr_report" pkname="rid" descr="FSRS_CR_REPORT">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="主键" />
+			<col name="org_no" type="varchar" length="100" descr="机构编号" />
+			<col name="org_name" type="varchar" length="100" descr="机构名称" />
+			<col name="report_type" type="varchar" length="20" descr="报表类型" />
+			<col name="type" type="varchar" length="20" descr="报送目标" remark="人行总行、地方人行" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="tab_name" type="varchar" length="200" descr="表名（中文）" />
+			<col name="tab_name_en" type="varchar" length="200" descr="表名（英文）" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="start_tm" type="varchar" length="19" descr="开始时间" />
+			<col name="end_tm" type="varchar" length="19" descr="结束时间" />
+			<col name="status" type="varchar" length="30" descr="状态" />
+			<col name="execsql" type="varchar" length="500" descr="执行sql语句" />
+			<col name="filepath" type="varchar" length="300" descr="生成文件路径" />
+			<col name="filelog" type="varchar" length="500" descr="生成文件的日志内容" />
+		</columns>
+	</table>
+
+	<table name="fsrs_cr_report_config" pkname="rid" descr="FSRS_CR_REPORT_CONFIG">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="主键" />
+			<col name="org_no" type="varchar" length="100" descr="机构编码" />
+			<col name="org_name" type="varchar" length="100" descr="机构名称" />
+			<col name="report_type" type="varchar" length="20" descr="报表类型" />
+			<col name="tab_names" type="varchar" length="1000" descr="表名" />
+			<col name="isautojob" type="char" length="1" descr="是否自动任务" />
+			<col name="autojobtrigger" type="varchar" length="40"  descr="任务触发器" />
+			<col name="seq" type="decimal" length="5" descr="排序" />
+			<col name="type" type="varchar" length="20" descr="报送目标" remark="人行总行、地方人行" />
+		</columns>
+	</table>
+
+	<table name="fsrs_cr_report_log" pkname="rid" descr="FSRS_CR_REPORT_LOG">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="主键" />
+			<col name="report_rid" type="varchar" length="40" descr="报表编号" />
+			<col name="log_level" type="varchar" length="20" descr="日志级别" />
+			<col name="log_cont" type="varchar" length="2000"  descr="日志数量/异常信息" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+		</columns>
+	</table>
+
+	<table name="fsrs_cr_tab" pkname="rid" descr="检核数据表定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="表序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="tab_name_en" type="varchar" length="200" descr="英文表名" />
+			<col name="is_virtual" type="varchar" length="1" descr="是否虚拟表" />
+			<col name="volume" type="decimal" length="38" descr="数据量" />
+			<col name="templetcode" type="varchar" length="50" descr="模板编码" />
+			<col name="ds" type="varchar" length="50" descr="ds" />
+			<col name="col_org_no" type="varchar" length="200" descr="机构编号中文字段名" />
+			<col name="col_dept_no" type="varchar" length="200" descr="部门编号中文字段名" />
+			<col name="col_src_sys" type="varchar" length="200"  descr="来源系统中文字段名" />
+			<col name="col_dim1" type="varchar" length="200"  descr="其他统计维度中文字段名" />
+			<col name="col_dim2" type="varchar" length="200" descr="其他统计维度中文字段名" />
+			<col name="col_dim3" type="varchar" length="200"  descr="其他统计维度中文字段名" />
+			<col name="col_data_dt" type="varchar" length="200" descr="查询日期字段中文字段名" />
+			<col name="report_code" type="varchar" length="50" descr="数据报文类别" />
+			<col name="detail_sql" type="varchar" length="2000" descr="失败明细入库SQL" />
+			<col name="is_common" type="varchar" length="1" descr="是否公共表" />
+		</columns>
+	</table>
+
+	<table name="fsrs_rpt_depb" pkname="rid" descr="存款余额报文">
+		<columns>
+		  	<col name="rid"	 type="varchar"   length="50"   		descr="主键"/>
+			<col name="stat_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_no" type="varchar" length="14" descr="金融机构编码" />
+			<col name="cust_type" type="char" length="1" descr="客户类型" />
+			<col name="acct_no" type="varchar" length="60" descr="存款帐户代码" />
+			<col name="agmt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="prod_type" type="varchar" length="5" descr="产品类别" />
+			<col name="agmt_start_dt" type="varchar" length="10" descr="存款协议起始日" />
+			<col name="agmt_due_dt" type="varchar" length="10" descr="存款协议到期日" />
+			<col name="curr_cd" type="char" length="3" descr="币种" />
+			<col name="dpst_bal" type="decimal" length="17,2" descr="存款余额" />
+			<col name="rate_fix_sign" type="char" length="4" descr="利率是否固定" />
+			<col name="exec_rate" type="decimal" length="13,5" descr="利率水平" />
+			<col name="cust_id" type="varchar" length="32" descr="客户编号" />
+			<col name="org_no" type="varchar" length="20" descr="账务机构编号" />
+			<col name="subject_no" type="varchar" length="20" descr="科目编号" />
+		</columns>
+	</table>
+
+	<table name="fsrs_rpt_loab" pkname="rid" descr="贷款余额报文">
+		<columns>
+		  	<col name="rid"	 type="varchar"   length="50"   		descr="主键"/>
+			<col name="stat_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_no" type="varchar" length="14" descr="金融机构编码" />
+			<col name="cust_type" type="char" length="1" descr="客户类型" />
+			<col name="loan_obj_no" type="varchar" length="30" descr="借款人代码" />
+			<col name="loan_obj_ind_cd" type="char" length="1" descr="贷款主体行业类别" />
+			<col name="loan_reg_cd" type="char" length="6" descr="借款人登记注册地编码" />
+			<col name="enter_invest_cond" type="varchar" length="5"  descr="企业出资人经济成分" />
+			<col name="enter_scope" type="char" length="4" descr="企业规模" />
+			<col name="due_bill_no" type="varchar" length="35" descr="贷款借据编码" />
+			<col name="prod_type" type="varchar" length="6" descr="产品类别" />
+			<col name="loan_real_ind_cd" type="varchar" length="3" descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="展期到期日期" />
+			<col name="curr_cd" type="char" length="3" descr="贷款币种" />
+			<col name="loan_bal" type="decimal" length="17,2" descr="贷款余额" />
+			<col name="rate_fix_sign" type="char" length="4" descr="利率是否固定" />
+			<col name="exec_rate" type="decimal" length="13,5" descr="利率水平" />
+			<col name="loan_guar_type" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="loan_qty_cd" type="char" length="4" descr="贷款质量" />
+			<col name="loan_sts_cd" type="char" length="4" descr="贷款状态" />
+			<col name="cust_id" type="varchar" length="32" descr="客户编号" />
+			<col name="org_no" type="varchar" length="20" descr="账务机构编号" />
+			<col name="subject_no" type="varchar" length="20" descr="科目编号" />
+		</columns>
+	</table>
+
+	<table name="fsrs_rpt_loaf" pkname="rid" descr="贷款发生额报文">
+		<columns>
+		  	<col name="rid"	 type="varchar"   length="50"   		descr="主键"/>
+			<col name="stat_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="fin_org_no" type="varchar" length="14" descr="金融机构编码" />
+			<col name="cust_type" type="char" length="1" descr="客户类型" />
+			<col name="loan_obj_no" type="varchar" length="30" descr="借款人代码" />
+			<col name="loan_obj_ind_cd" type="char" length="1" descr="贷款主体行业类别" />
+			<col name="loan_reg_cd" type="char" length="6" descr="借款人登记注册地编码" />
+			<col name="enter_invest_cond" type="varchar" length="5" descr="企业出资人经济成分" />
+			<col name="enter_scope" type="char" length="4" descr="企业规模" />
+			<col name="due_bill_no" type="varchar" length="35" descr="贷款借据编码" />
+			<col name="prod_type" type="varchar" length="6" descr="产品类别" />
+			<col name="loan_real_ind_cd" type="varchar" length="3" descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_actl_end_dt" type="varchar" length="10" descr="贷款实际终止日期" />
+			<col name="curr_cd" type="char" length="3" descr="贷款币种" />
+			<col name="loan_amt" type="decimal" length="17,2" descr="贷款发生金额" />
+			<col name="rate_fix_sign" type="char" length="4" descr="利率是否固定" />
+			<col name="exec_rate" type="decimal" length="13,5" descr="利率水平" />
+			<col name="loan_guar_type" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="loan_sts_cd" type="char" length="4" descr="贷款状态" />
+			<col name="loan_recv_sign" type="char" length="1" descr="贷款发放收回标志" />
+			<col name="cust_id" type="varchar" length="32" descr="客户编号" />
+			<col name="org_no" type="varchar" length="20" descr="账务机构编号" />
+			<col name="subject_no" type="varchar" length="20" descr="科目编号" />
+		</columns>
+	</table>
+
+	<table name="fsrs_job" pkname="rid" descr="自动任务表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="name" type="varchar" length="30" descr="任务名" />
+			<col name="classname" type="varchar" length="100" descr="类名" />
+			<col name="triggerconf" type="varchar" length="50" descr="参数" />
+			<col name="activeflag" type="varchar" length="1" descr="是否激活" />
+			<col name="triggertype" type="varchar" length="100" descr="调度类型" />
+			<col name="descr" type="varchar" length="100" descr="备注" />
+			<col name="seq" type="decimal" length="3" descr="执行历史" />
+		</columns>
+	</table>
+
+	<table name="fsrs_job_b" pkname="rid" descr="自动任务日志表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="jobid" type="varchar" length="50" descr="jobid" />
+			<col name="begintime" type="varchar" length="25" descr="开始时间" />
+			<col name="endtime" type="varchar" length="25" descr="结束时间" />
+			<col name="useseconds" type="decimal" length="10" descr="耗时" />
+			<col name="execresult" type="varchar" length="4000" descr="执行结果信息" />
+		</columns>
+	</table>
+	
+	<table name="fsrs_rule" pkname="rid" descr="校验规则">
+		<columns>
+		  <col name="rid"						type="varchar"   	length="50"     descr="主键"/>
+		  <col name="ruletype"					type="varchar"   	length="50"     descr="类型"		remark='规范性校验'/>		
+		  <col name="ruletype2"					type="varchar"   	length="50"     descr="类型"		remark='硬性约束,软性约束'/>
+		  <col name="problemcode"				type="varchar"   	length="50"    	descr="问题编号"/>
+		  <col name="problemmsg"				type="varchar"   	length="2000"   descr="提示消息"/>
+		  <col name="tablename"					type="varchar"   	length="100"    descr="表名"/>	
+		  <col name="tablename_en"				type="varchar"   	length="100"    descr="表名(英文)"/>		  
+		  <col name="colname"					type="varchar"   	length="100"    descr="字段名"/>
+		  <col name="colname_en"				type="varchar"   	length="100"    descr="字段名(英文)"/>
+		  <col name="lable"						type="varchar"   	length="200"    descr="字段说明"/>
+		  <col name="execmethod"				type="varchar"   	length="50"    	descr="方法名"/>
+		  <col name="param1"					type="varchar"   	length="500"    descr="参数1"/>
+		  <col name="param2"					type="varchar"   	length="500"    descr="参数2"/>
+		  <col name="flagone"					type="varchar"   	length="50"    	descr="标记号"/>
+		  <col name="verifytype"				type="varchar"   	length="50"    	descr="验证类型"/>		
+		  <col name="rulelevel"					type="varchar"   	length="10"    	descr="级别"/>
+		  <col name="isopen"					type="char"   		length="1"    	descr="是否启用"  remark="表示是否生效"  />
+		  <col name="id"						type="decimal"   	length="38"     descr="规则ID"/>
+		  <col name="issql"						type="char"   		length="1"      descr="是否SQL检核"/>
+		  <col name="expr"						type="varchar"   	length="1500"   descr="检核表达式"/>
+		  <col name="isremark"					type="char"   		length="1"    	descr=""/>
+		</columns>
+	</table>
+	
+	<table name="fsrs_result_standard" pkname="rid" descr="规范性校验结果" >
+		<columns>
+		  <col name="rid"              type="varchar"   length="40"    	descr="主键"/>
+		  <col name="reportdate"       type="varchar"   length="10"    	descr="数据日期"/>
+		  <col name="rulerid"          type="varchar"   length="50"    descr="校验id"/>
+		  <col name="tablename"        type="varchar"   length="50"    	descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"    descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"    	descr="字段名(中文)"/>
+		  <col name="colname_en"       type="varchar"   length="30"    	descr="字段名(英文)"/>
+		  <col name="colvalue"         type="varchar"   length="300"    descr="字段值"/>
+		  <col name="pkcolname"        type="varchar"   length="30"    descr="主键字段名"/>
+		  <col name="pkvalue"          type="varchar"   length="100"    descr="主键字段值"/>
+		  <col name="problemcode"      type="varchar"   length="30"     descr="问题编号"/>
+		  <col name="problemmsg"       type="varchar"   length="2000"   descr="问题提示"/>
+		  <col name="result_status"    type="varchar"   length="20"     descr="处理状态"/>
+		  <col name="org_no" 		   type="varchar" 	length="100" 	descr="机构编码" />
+		</columns>
+	</table>
+	
+	<table name="fsrs_lock_data" pkname="rid" descr="数据锁定">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		  <col name="status"			type="varchar"   	length="10"   	descr="状态"/>
+		  <col name="operator"			type="varchar"   	length="100"   	descr="操作人"/>
+		  <col name="operator_name"		type="varchar"   	length="100"    descr="操作人名称"/>
+		  <col name="create_tm"			type="char"   		length="19"   	descr="操作时间"/>
+		</columns>
+	</table>
+	
+	<table name="fsrs_engine_task_param" pkname="task_id" descr="引擎参数表">
+		<columns>
+			<col name="task_id" 			type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"				type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"				type="varchar"   		length="2000"     	descr="参数值"/>
+		</columns>
+	</table>
+	
+	<table name="fsrs_engine_task_param_bak" pkname="rid" descr="引擎参数表">
+		<columns>
+			<col name="rid" 				type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"				type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"				type="varchar"   		length="2000"     	descr="参数值"/>
+		  	<col name="remark"				type="varchar"   		length="500"     	descr="备注"/>
+		</columns>
+	</table>
+	
+	<table name="fsrs_engine_task" pkname="task_id" descr="引擎任务表">
+		<columns>
+			<col name="task_id" 				type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="data_dt"					type="varchar"   		length="10"     	descr="数据日期"/>	
+		  	<col name="tab_name"				type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="status"					type="varchar"   		length="30"     	descr="状态"/>
+		  	<col name="create_tm"				type="varchar"   		length="20"     	descr="创建时间"/>
+		  	<col name="update_tm"				type="varchar"   		length="20"     	descr="更新时间"/>
+		  	<col name="command1"				type="varchar"   		length="2000"     	descr="配置命令"/>
+		  	<col name="command2"				type="varchar"   		length="2000"     	descr="展示命令"/>
+		  	<col name="task_name"				type="varchar"   		length="100"     	descr="任务名称"/>
+		  	<col name="rule_name"				type="varchar"   		length="2000"     	descr="规则名称"/>
+		  	<col name="rule_ids"				type="varchar"   		length="4000"     	descr="规则ids"/>
+		  	<col name="tab_ids"					type="varchar"   		length="4000"     	descr="表id"/>
+		  	<col name="info"					type="varchar"   		length="1000"     	descr="信息"/>
+		  	<col name="tab_names"				type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="task_type"				type="varchar"   		length="15"     	descr="任务类型"/>
+		</columns>
+	</table>
+	
+	<table name="fsrs_engine_cmd_template" pkname="rid" descr="任务命令模板表">
+		<columns>
+		  <col name="rid"						type="varchar"   length="50"   		descr="主键"/>
+		  <col name="template_sts"				type="varchar"   length="1"   		descr="模板状态"/>
+		  <col name="cmd"						type="varchar"   length="2500"  	descr="命令"/>
+		  <col name="tem_name"					type="varchar"   length="200"   	descr="模板名称"/>
+		  <col name="cmd_type"					type="varchar"   length="20"   		descr="任务类型（规则任务/表任务）"/>
+		  <col name="last_upd_tm"				type="varchar"   length="19"   		descr="最后更新时间"/>
+		  <col name="create_tm"					type="varchar"   length="19"   		descr="创建时间"/>
+		  <col name="last_update_user"			type="varchar"   length="200"   	descr="最后修改人"/>
+		  <col name="creat_user"				type="varchar"   length="200"   	descr="创建人"/>
+		</columns>
+	</table>
+	
+	<table name="fsrs_engine_log" pkname="rid" descr="检核日志">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="task_id"			type="varchar"   	length="50"   	descr="检核任务主键"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		  <col name="log_level"			type="varchar"   	length="20"   	descr="日志级别"/>
+		  <col name="log_cont"			type="varchar"   	length="2000"   descr="日志信息"/>
+		  <col name="create_tm"			type="char"   		length="19"   	descr="创建时间"/>
+		  <col name="log_no"			type="decimal"   	length="38"   	descr="日志序号"/>
+		</columns>
+	</table>
+
+</root>

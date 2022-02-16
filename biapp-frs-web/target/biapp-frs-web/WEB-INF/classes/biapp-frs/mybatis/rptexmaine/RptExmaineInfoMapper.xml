@@ -1,0 +1,2450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yusys.biapp.frs.peculiar.exmaine.repository.ReportExmaineMybatisDao">
+	
+	<!-- 查询迟漏报列表 -->
+	<select id="queryDelaySubmitList" resultType="HashMap" parameterType="HashMap">
+	select ORG_NO AS "ORG_NO",
+       RPT_ID AS "RPT_ID",
+       RPT_NUM AS "RPT_NUM",
+       RPT_NM AS "RPT_NM",
+       RPT_TYPE AS "RPT_TYPE",
+       RPT_ORG_NM AS "RPT_ORG_NM",
+       RPT_CYCLE AS "RPT_CYCLE",
+       sum(DELAY_COUNT) AS "DELAY_COUNT",
+       sum(error_count) AS "ERROR_COUNT",
+	   sum(rebut_count) AS "REBUT_COUNT"
+  	from (
+		SELECT ORG_NO,
+		       RPT_ID,
+		       RPT_NUM,
+		       RPT_NM,
+		       RPT_TYPE,
+		       RPT_ORG_NM,
+		       RPT_CYCLE,
+		       count(TASK_INSTANCE_ID) DELAY_COUNT,
+		       0 ERROR_COUNT,
+			   0 REBUT_COUNT
+		  FROM (SELECT INS.TASK_ID,
+		               ORG.ORG_NO,
+		               INS.TASK_INSTANCE_ID,
+		               INFO.RPT_ID,
+		               INFO.RPT_NUM,
+		               INFO.RPT_NM,
+		               INFO.BUSI_TYPE RPT_TYPE,
+		               INFO.RPT_CYCLE,
+		               INS.TASK_NM,
+		               ORG.ORG_NM AS RPT_ORG_NM,
+		               '' AS RPT_USER_NM,
+		               NULL AS OPER_DATE,
+		               INS.DATA_DATE,
+		               '01' AS SHOW_TYPE
+		          FROM RPT_FLTSK_INS INS
+		         INNER JOIN RPT_FLTSK_INFO TSKINFO
+		            ON INS.TASK_ID = TSKINFO.TASK_ID
+		         INNER JOIN RPT_MGR_REPORT_INFO INFO
+		            ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		         INNER JOIN RPT_ORG_INFO ORG
+		            ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		           AND ORG.ORG_TYPE = INS.TASK_TYPE
+		         WHERE (((INS.START_TIME +
+		               SUBSTR(TSKINFO.TASK_DEADLINE,
+		                       0,
+		                       INSTR(TSKINFO.TASK_DEADLINE, '-') - 1) +
+		               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 1,
+		                                       2),
+		                                'HOUR') +
+		               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 4,
+		                                       2),
+		                                'MINUTE') &lt; SYSDATE)
+		           AND INS.STS = '0'))
+				<if test="authRptIds != null and  authRptIds.size()>0">
+					and INFO.RPT_ID in
+					<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+						<foreach collection="authRptIdArrays" item="authRptId" open="("
+							separator="," close=")">
+							#{authRptId}
+						</foreach>
+					</foreach>
+				</if>
+		        UNION ALL
+		        SELECT INS.TASK_ID,
+		               ORG.ORG_NO,
+		               INS.TASK_INSTANCE_ID,
+		               INFO.RPT_ID,
+		               INFO.RPT_NUM,
+		               INFO.RPT_NM,
+		               INFO.BUSI_TYPE RPT_TYPE,
+		               INFO.RPT_CYCLE,
+		               INS.TASK_NM,
+		               ORG.ORG_NM AS RPT_ORG_NM,
+		               TGLOG.OPER_USER_NM AS RPT_USER_NM,
+		               TGLOG.OPER_TIME AS OPER_DATE,
+		               INS.DATA_DATE,
+		               '03' AS SHOW_TYPE
+		          FROM RPT_FLTSK_INS INS
+		         INNER JOIN RPT_FLTSK_INFO TSKINFO
+		            ON INS.TASK_ID = TSKINFO.TASK_ID
+		         INNER JOIN RPT_MGR_REPORT_INFO INFO
+		            ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		         INNER JOIN RPT_ORG_INFO ORG
+		            ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		           AND ORG.ORG_TYPE = INS.TASK_TYPE
+		         INNER JOIN (SELECT LG.*
+		                      FROM RPT_OPER_LOG LG
+		                     INNER JOIN (SELECT OLOG.TASK_ID,
+		                                       OLOG.DATA_DATE,
+		                                       OLOG.ORG_NO,
+		                                       OLOG.RPT_ID,
+		                                       MAX(OLOG.OPER_TIME) OPER_TIME
+		                                  FROM RPT_OPER_LOG OLOG
+		                                 WHERE OLOG.LOG_TYPE = '03'
+		                                 GROUP BY OLOG.TASK_ID,
+		                                          OLOG.DATA_DATE,
+		                                          OLOG.ORG_NO,
+		                                          OLOG.RPT_ID) LG1
+		                        ON LG.TASK_ID = LG1.TASK_ID
+		                       AND LG.DATA_DATE = LG1.DATA_DATE
+		                       AND LG.ORG_NO = LG1.ORG_NO
+		                       AND LG.OPER_TIME = LG1.OPER_TIME
+		                       AND LG.LOG_TYPE = '03') TGLOG
+		            ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		               TGLOG.DATA_DATE = INS.DATA_DATE AND
+		               TGLOG.ORG_NO = INS.EXE_OBJ_ID
+		               AND TGLOG.RPT_ID =INS.TASK_OBJ_ID)
+		         WHERE (((INS.START_TIME +
+		               SUBSTR(TSKINFO.TASK_DEADLINE,
+		                       0,
+		                       INSTR(TSKINFO.TASK_DEADLINE, '-') - 1) +
+		               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 1,
+		                                       2),
+		                                'HOUR') +
+		               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 4,
+		                                       2),
+		                                'MINUTE') &lt; TGLOG.OPER_TIME)
+		           AND INS.STS != '0'))
+				<if test="authRptIds != null and  authRptIds.size()>0">
+					and INFO.RPT_ID in
+					<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+						<foreach collection="authRptIdArrays" item="authRptId" open="("
+							separator="," close=")">
+							#{authRptId}
+						</foreach>
+					</foreach>
+				</if>
+		    )
+		    group by ORG_NO,RPT_ID,RPT_NUM,RPT_NM,RPT_TYPE,RPT_ORG_NM,RPT_CYCLE
+		    
+		    UNION ALL
+		    <!-- 错报逻辑 -->
+			select t.ORG_NO,
+			   t.RPT_ID,
+			   t.RPT_NUM,
+			   t.RPT_NM,
+			   t.RPT_TYPE,
+			   t.RPT_ORG_NM,
+			   t.RPT_CYCLE,
+			   0 DELAY_COUNT,
+			   count(t.TASK_INSTANCE_ID) error_count,
+			   0 REBUT_COUNT
+			  from (SELECT count(re.REBUT_ID) errorCount,
+						   I.TASK_INSTANCE_ID,
+						   I.Task_Nm,
+						   I.TASK_TYPE rpt_type,
+						   I.DATA_DATE,
+						   I.EXE_OBJ_ID org_no,
+						   O.ORG_NM rpt_org_nm,
+						   I.TASK_OBJ_ID rpt_id,
+						   rpt.rpt_num,
+						   rpt.RPT_NM,
+						   rpt.rpt_cycle
+					  FROM RPT_FLTSK_REBUT re
+					 INNER JOIN RPT_FLTSK_INS I
+						ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+					 INNER JOIN RPT_MGR_REPORT_INFO rpt
+						ON I.TASK_OBJ_ID = rpt.RPT_ID
+					 INNER JOIN RPT_ORG_INFO O
+						ON I.EXE_OBJ_ID = O.ORG_NO
+					   AND O.ORG_TYPE = I.TASK_TYPE
+					 INNER JOIN BIONE_USER_INFO u
+						ON u.USER_NO = re.APPLY_USER_NO
+					  LEFT JOIN BIONE_USER_INFO uc
+						ON uc.USER_NO = re.COLLATE_USER_NO
+					 where 1 = 1
+					   and i.task_mgr_sts = '1'
+					   and I.LOGIC_DEL_NO = 'N'
+					   <if test="authRptIds != null and  authRptIds.size()>0">
+							and (I.TASK_OBJ_ID in
+							<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+								<foreach collection="authRptIdArrays" item="authRptId" open="("
+									separator="," close=")">
+									#{authRptId}
+								</foreach>
+							</foreach>
+							)
+						</if>
+					 group by I.TASK_INSTANCE_ID,
+							  I.Task_Nm,
+							  I.TASK_TYPE,
+							  I.DATA_DATE,
+							  I.EXE_OBJ_ID,
+							  O.ORG_NM,
+							  I.TASK_OBJ_ID,
+							  rpt.rpt_num,
+							  rpt.RPT_NM,
+							  rpt.rpt_cycle) t
+			 where t.errorCount > 1
+			 group by ORG_NO,RPT_ID,RPT_NUM,RPT_NM,RPT_TYPE,RPT_ORG_NM,RPT_CYCLE
+
+			UNION ALL
+			<!-- 驳回错报逻辑 -->
+			select t.ORG_NO,
+				t.RPT_ID,
+				t.RPT_NUM,
+				t.RPT_NM,
+				t.RPT_TYPE,
+				t.RPT_ORG_NM,
+				t.RPT_CYCLE,
+				0 DELAY_COUNT,
+				0 ERROR_COUNT,
+				count(t.TASK_INSTANCE_ID) REBUT_COUNT
+			from (SELECT count(msg.TASK_INSTANCE_ID) rebutCount,
+					I.TASK_INSTANCE_ID,
+					I.Task_Nm,
+					I.TASK_TYPE rpt_type,
+					I.DATA_DATE,
+					I.EXE_OBJ_ID org_no,
+					O.ORG_NM rpt_org_nm,
+					I.TASK_OBJ_ID rpt_id,
+					rpt.rpt_num,
+					rpt.RPT_NM,
+					rpt.rpt_cycle
+				FROM RPT_FLTSK_INS I
+				INNER JOIN (select aa.task_instance_id,aa.user_id,aa. oper_content
+								from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+								where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+					ON I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+				INNER JOIN RPT_MGR_REPORT_INFO rpt
+					ON I.TASK_OBJ_ID = rpt.RPT_ID
+				INNER JOIN RPT_ORG_INFO O
+					ON I.EXE_OBJ_ID = O.ORG_NO AND O.ORG_TYPE = I.TASK_TYPE
+				INNER JOIN BIONE_USER_INFO u
+					ON u.USER_ID = MSG.USER_ID
+				where 1 = 1
+					and I.sts = '0'
+					and msg.task_instance_id is not null
+					and I.LOGIC_DEL_NO = 'N'
+					<if test="authRptIds != null and  authRptIds.size()>0">
+						and (I.TASK_OBJ_ID in
+						<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+							<foreach collection="authRptIdArrays" item="authRptId" open="("
+									 separator="," close=")">
+								#{authRptId}
+							</foreach>
+						</foreach>
+						)
+					</if>
+				group by I.TASK_INSTANCE_ID,
+					I.Task_Nm,
+					I.TASK_TYPE,
+					I.DATA_DATE,
+					I.EXE_OBJ_ID,
+					O.ORG_NM,
+					I.TASK_OBJ_ID,
+					rpt.rpt_num,
+					rpt.RPT_NM,
+					rpt.rpt_cycle) t
+			where t.rebutCount > 0
+			group by ORG_NO,
+				RPT_ID,
+				RPT_NUM,
+				RPT_NM,
+				RPT_TYPE,
+				RPT_ORG_NM,
+				RPT_CYCLE )
+	    where 1=1
+	    <if test="rptType != null and rptType != ''">
+	    	and rpt_type = #{rptType}
+	    </if>
+	    <if test="rptNum != null and rptNum != ''" >
+	    	and rpt_num = #{rptNum}
+	    </if>
+	    <if test="rptNm != null and rptNm != ''">
+	    	and rpt_nm=#{rptNm}
+	    </if>
+	    <if test="orgNo != null and orgNo != ''">
+	    	and org_no=#{orgNo}
+	    </if>
+	    <if test="orgNos != null and  orgNos.size()>0">
+			and org_no in
+			<foreach collection="orgNos" item="orgNoArrays" separator=" or org_no in ">
+				<foreach collection="orgNoArrays" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+		</if>
+	    <if test="rptCycle != null and rptCycle != ''">
+	    	and rpt_cycle=#{rptCycle}
+	    </if>
+	    group by ORG_NO,RPT_ID,RPT_NUM,RPT_NM,RPT_TYPE,RPT_ORG_NM,RPT_CYCLE
+	</select>
+	<select id="queryDelaySubmitList" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		select tab2.ORG_NO,
+		tab2.RPT_ID,
+		tab2.RPT_NUM,
+		tab2.RPT_NM,
+		tab2.RPT_TYPE,
+		tab2.RPT_ORG_NM,
+		tab2.RPT_CYCLE,
+		sum(tab2.DELAY_COUNT) DELAY_COUNT,
+		sum(tab2.error_count) ERROR_COUNT,
+		sum(tab2.rebut_count) REBUT_COUNT
+		from (
+		SELECT tab1.ORG_NO,
+		tab1.RPT_ID,
+		tab1.RPT_NUM,
+		tab1.RPT_NM,
+		tab1.RPT_TYPE,
+		tab1.RPT_ORG_NM,
+		tab1.RPT_CYCLE,
+		count(tab1.TASK_INSTANCE_ID) DELAY_COUNT,
+		0 ERROR_COUNT,
+		0 REBUT_COUNT
+		FROM (SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		'' AS RPT_USER_NM,
+		NULL AS OPER_DATE,
+		INS.DATA_DATE,
+		'01' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		WHERE (
+		(ADDDATE(ins.start_time, INTERVAL REPLACE(TSKINFO.TASK_DEADLINE,'-',':') DAY_MINUTE) &lt; SYSDATE())
+		AND INS.STS = '0'
+		)
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		UNION ALL
+		SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		TGLOG.OPER_USER_NM AS RPT_USER_NM,
+		TGLOG.OPER_TIME AS OPER_DATE,
+		INS.DATA_DATE,
+		'03' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		INNER JOIN (SELECT LG.*
+		FROM RPT_OPER_LOG LG
+		INNER JOIN (SELECT OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID,
+		MAX(OLOG.OPER_TIME) OPER_TIME
+		FROM RPT_OPER_LOG OLOG
+		WHERE OLOG.LOG_TYPE = '03'
+		GROUP BY OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID) LG1
+		ON LG.TASK_ID = LG1.TASK_ID
+		AND LG.DATA_DATE = LG1.DATA_DATE
+		AND LG.ORG_NO = LG1.ORG_NO
+		AND LG.OPER_TIME = LG1.OPER_TIME
+		AND LG.LOG_TYPE = '03') TGLOG
+		ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		TGLOG.DATA_DATE = INS.DATA_DATE AND
+		TGLOG.ORG_NO = INS.EXE_OBJ_ID
+		AND TGLOG.RPT_ID =INS.TASK_OBJ_ID)
+		WHERE (
+		(ADDDATE(ins.start_time, INTERVAL REPLACE(TSKINFO.TASK_DEADLINE,'-',':') DAY_MINUTE) &lt; TGLOG.OPER_TIME)
+		AND INS.STS != '0'
+		)
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		) tab1
+		group by tab1.ORG_NO,tab1.RPT_ID,tab1.RPT_NUM,tab1.RPT_NM,tab1.RPT_TYPE,tab1.RPT_ORG_NM,tab1.RPT_CYCLE
+
+		UNION ALL
+		<!-- 错报逻辑 -->
+		select t.ORG_NO,
+		t.RPT_ID,
+		t.RPT_NUM,
+		t.RPT_NM,
+		t.RPT_TYPE,
+		t.RPT_ORG_NM,
+		t.RPT_CYCLE,
+		0 DELAY_COUNT,
+		count(t.TASK_INSTANCE_ID) error_count,
+		0 REBUT_COUNT
+		from (SELECT count(re.REBUT_ID) errorCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_REBUT re
+		INNER JOIN RPT_FLTSK_INS I
+		ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_NO = re.APPLY_USER_NO
+		LEFT JOIN BIONE_USER_INFO uc
+		ON uc.USER_NO = re.COLLATE_USER_NO
+		where 1 = 1
+		and i.task_mgr_sts = '1'
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.errorCount > 1
+		group by ORG_NO,RPT_ID,RPT_NUM,RPT_NM,RPT_TYPE,RPT_ORG_NM,RPT_CYCLE
+
+		UNION ALL
+		<!-- 驳回错报逻辑 -->
+		select t.ORG_NO,
+		t.RPT_ID,
+		t.RPT_NUM,
+		t.RPT_NM,
+		t.RPT_TYPE,
+		t.RPT_ORG_NM,
+		t.RPT_CYCLE,
+		0 DELAY_COUNT,
+		0 ERROR_COUNT,
+		count(t.TASK_INSTANCE_ID) REBUT_COUNT
+		from (SELECT count(msg.TASK_INSTANCE_ID) rebutCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_INS I
+		INNER JOIN (select aa.task_instance_id,aa.user_id,aa. oper_content
+		from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+		where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+		ON I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_ID = MSG.USER_ID
+		where 1 = 1
+		and I.sts = '0'
+		and msg.task_instance_id is not null
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.rebutCount > 0
+		group by ORG_NO,
+		RPT_ID,
+		RPT_NUM,
+		RPT_NM,
+		RPT_TYPE,
+		RPT_ORG_NM,
+		RPT_CYCLE ) tab2
+		where 1=1
+		<if test="rptType != null and rptType != ''">
+			and tab2.rpt_type = #{rptType}
+		</if>
+		<if test="rptNum != null and rptNum != ''" >
+			and tab2.rpt_num = #{rptNum}
+		</if>
+		<if test="rptNm != null and rptNm != ''">
+			and tab2.rpt_nm=#{rptNm}
+		</if>
+		<if test="orgNo != null and orgNo != ''">
+			and tab2.org_no=#{orgNo}
+		</if>
+		<if test="orgNos != null and  orgNos.size()>0">
+			and tab2.org_no in
+			<foreach collection="orgNos" item="orgNoArrays" separator=" or org_no in ">
+				<foreach collection="orgNoArrays" item="orgNo" open="("
+						 separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+		</if>
+		<if test="rptCycle != null and rptCycle != ''">
+			and tab2.rpt_cycle=#{rptCycle}
+		</if>
+		group by tab2.ORG_NO,tab2.RPT_ID,tab2.RPT_NUM,tab2.RPT_NM,tab2.RPT_TYPE,tab2.RPT_ORG_NM,tab2.RPT_CYCLE
+	</select>
+
+	<!-- 查询迟漏报列表 -->
+	<select id="queryDelaySubmitList" resultType="HashMap" parameterType="HashMap" databaseId="postgresql">
+		select ORG_NO AS "ORG_NO",
+		RPT_ID AS "RPT_ID",
+		RPT_NUM AS "RPT_NUM",
+		RPT_NM AS "RPT_NM",
+		RPT_TYPE AS "RPT_TYPE",
+		RPT_ORG_NM AS "RPT_ORG_NM",
+		RPT_CYCLE AS "RPT_CYCLE",
+		sum(DELAY_COUNT) AS "DELAY_COUNT",
+		sum(error_count) AS "ERROR_COUNT",
+		sum(rebut_count) AS "REBUT_COUNT"
+		from (
+		SELECT ORG_NO,
+		RPT_ID,
+		RPT_NUM,
+		RPT_NM,
+		RPT_TYPE,
+		RPT_ORG_NM,
+		RPT_CYCLE,
+		count(TASK_INSTANCE_ID) DELAY_COUNT,
+		0 ERROR_COUNT,
+		0 REBUT_COUNT
+		FROM (SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		'' AS RPT_USER_NM,
+		NULL AS OPER_DATE,
+		INS.DATA_DATE,
+		'01' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		WHERE INS.END_TIME &lt; SYSDATE AND INS.STS = '0'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		UNION ALL
+		SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		TGLOG.OPER_USER_NM AS RPT_USER_NM,
+		TGLOG.OPER_TIME AS OPER_DATE,
+		INS.DATA_DATE,
+		'03' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		INNER JOIN (SELECT LG.*
+		FROM RPT_OPER_LOG LG
+		INNER JOIN (SELECT OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID,
+		MAX(OLOG.OPER_TIME) OPER_TIME
+		FROM RPT_OPER_LOG OLOG
+		WHERE OLOG.LOG_TYPE = '03'
+		GROUP BY OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID) LG1
+		ON LG.TASK_ID = LG1.TASK_ID
+		AND LG.DATA_DATE = LG1.DATA_DATE
+		AND LG.ORG_NO = LG1.ORG_NO
+		AND LG.OPER_TIME = LG1.OPER_TIME
+		AND LG.LOG_TYPE = '03') TGLOG
+		ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		TGLOG.DATA_DATE = INS.DATA_DATE AND
+		TGLOG.ORG_NO = INS.EXE_OBJ_ID
+		AND TGLOG.RPT_ID =INS.TASK_OBJ_ID)
+		WHERE INS.END_TIME &lt; TGLOG.OPER_TIME AND INS.STS != '0'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		)
+		group by ORG_NO,RPT_ID,RPT_NUM,RPT_NM,RPT_TYPE,RPT_ORG_NM,RPT_CYCLE
+
+		UNION ALL
+		<!-- 错报逻辑 -->
+		select t.ORG_NO,
+		t.RPT_ID,
+		t.RPT_NUM,
+		t.RPT_NM,
+		t.RPT_TYPE,
+		t.RPT_ORG_NM,
+		t.RPT_CYCLE,
+		0 DELAY_COUNT,
+		count(t.TASK_INSTANCE_ID) error_count,
+		0 REBUT_COUNT
+		from (SELECT count(re.REBUT_ID) errorCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_REBUT re
+		INNER JOIN RPT_FLTSK_INS I
+		ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_NO = re.APPLY_USER_NO
+		LEFT JOIN BIONE_USER_INFO uc
+		ON uc.USER_NO = re.COLLATE_USER_NO
+		where 1 = 1
+		and i.task_mgr_sts = '1'
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.errorCount > 1
+		group by ORG_NO,RPT_ID,RPT_NUM,RPT_NM,RPT_TYPE,RPT_ORG_NM,RPT_CYCLE
+
+		UNION ALL
+		<!-- 驳回错报逻辑 -->
+		select t.ORG_NO,
+		t.RPT_ID,
+		t.RPT_NUM,
+		t.RPT_NM,
+		t.RPT_TYPE,
+		t.RPT_ORG_NM,
+		t.RPT_CYCLE,
+		0 DELAY_COUNT,
+		0 ERROR_COUNT,
+		count(t.TASK_INSTANCE_ID) REBUT_COUNT
+		from (SELECT count(msg.TASK_INSTANCE_ID) rebutCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_INS I
+		INNER JOIN (select aa.task_instance_id,aa.user_id,aa. oper_content
+		from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+		where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+		ON I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_ID = MSG.USER_ID
+		where 1 = 1
+		and I.sts = '0'
+		and msg.task_instance_id is not null
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.rebutCount > 0
+		group by ORG_NO,
+		RPT_ID,
+		RPT_NUM,
+		RPT_NM,
+		RPT_TYPE,
+		RPT_ORG_NM,
+		RPT_CYCLE )
+		where 1=1
+		<if test="rptType != null and rptType != ''">
+			and rpt_type = #{rptType}
+		</if>
+		<if test="rptNum != null and rptNum != ''" >
+			and rpt_num = #{rptNum}
+		</if>
+		<if test="rptNm != null and rptNm != ''">
+			and rpt_nm=#{rptNm}
+		</if>
+		<if test="orgNo != null and orgNo != ''">
+			and org_no=#{orgNo}
+		</if>
+		<if test="orgNos != null and  orgNos.size()>0">
+			and org_no in
+			<foreach collection="orgNos" item="orgNoArrays" separator=" or org_no in ">
+				<foreach collection="orgNoArrays" item="orgNo" open="("
+						 separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+		</if>
+		<if test="rptCycle != null and rptCycle != ''">
+			and rpt_cycle=#{rptCycle}
+		</if>
+		group by ORG_NO,RPT_ID,RPT_NUM,RPT_NM,RPT_TYPE,RPT_ORG_NM,RPT_CYCLE
+	</select>
+	
+	<!-- 根据当前登录人机构，按权限展示数据列表  -->
+	<select id="showElist" parameterType="HashMap"
+	resultType="com.yusys.biapp.frs.peculiar.exmaine.web.vo.RptExmaineInfoVo">
+		SELECT
+		    r.RPT_NM   AS  "RPT_NAME",
+		    e.RPT_ID   AS "RPT_ID,"
+		    e.TASK_DATE AS "TASK_DATE",
+		    e.FILL_ER AS "FILL_ER",
+		    e.ORG_NO AS "ORG_NO",
+		    O.ORG_NM AS "ORG_NAME",
+		    e.ERR_FLAG  AS "ERR_FLAG",
+		    e.LATE_FLAG  AS "LATE_FLAG",
+		    e.TASK_INS_ID as "TASK_INS_ID",
+		    e.ORG_TYPE as "ORG_TYPE"
+		FROM
+		    RPT_EXMAINE_INFO e
+		  LEFT JOIN
+		    RPT_MGR_REPORT_INFO r
+		  ON
+		    e.RPT_ID=r.RPT_NUM
+		  LEFT  JOIN 
+		    RPT_ORG_INFO O
+		  ON 
+		    e.ORG_NO=O.MGR_ORG_NO
+		  AND
+    		e.ORG_TYPE=O.ORG_TYPE
+    	  <if test="uOrgNoList !=null ">
+    	  and  e.ORG_NO in
+        <foreach  collection = "uOrgNoList" index="index" item="item"  open="("  separator="," close=" )">
+                   #{item}               
+        </foreach> 
+        </if>
+	</select>
+	<!-- 获取机构上下级关联字段   NAMESPACE-->
+	<select id="getUOList"  parameterType="HashMap" resultType="String">
+		select  distinct
+        MGR_ORG_NO 
+        from    RPT_ORG_INFO 
+        where ( NAMESPACE like 
+        <if test="uOrgNmpList != null ">
+        <foreach  collection = "uOrgNmpList" index="index" item="item"  open=" "  separator="or NAMESPACE like" close=" ">
+                   #{item}               
+        </foreach> 
+        )
+        </if>
+	</select>
+	
+	<!-- 获取当前机构的NAMESPACE-->
+	<select id="getUONmpList"  parameterType="String" resultType="String">
+		select  distinct
+        NAMESPACE 
+        from    RPT_ORG_INFO 
+        where MGR_ORG_NO = #{userOrgNo}
+	</select>
+	
+	<!-- 获取机构所有下级机构  -->
+	<select id="getEnxExpo"  parameterType="HashMap" 
+		resultType="com.yusys.biapp.frs.peculiar.exmaine.web.vo.RptExmaineInfoVo">
+		SELECT
+		    r.RPT_NM   AS  "RPT_NAME",
+		    e.RPT_ID   AS "RPT_ID",
+		    e.TASK_DATE AS "TASK_DATE",
+		    e.FILL_ER AS "FILL_ER",
+		    e.ORG_NO AS "ORG_NO",
+		    O.ORG_NM AS "ORG_NAME",
+		    e.ERR_FLAG  AS "ERR_FLAG",
+		    e.LATE_FLAG  AS "LATE_FLAG",
+		    e.TASK_INS_ID as "TASK_INS_ID",
+		    e.ORG_TYPE as "ORG_TYPE"
+		FROM
+		    RPT_EXMAINE_INFO e
+		  LEFT JOIN
+		    RPT_MGR_REPORT_INFO r
+		  ON
+		    e.RPT_ID=r.RPT_NUM
+		  LEFT  JOIN 
+		    RPT_ORG_INFO O
+		  ON 
+		    e.ORG_NO=O.MGR_ORG_NO
+		  AND
+    		e.ORG_TYPE=O.ORG_TYPE
+        <if test="uOrgNoList !=null ">
+    	  and  (e.ORG_NO in
+        	<foreach collection="uOrgNoList" item="uOrgNos" separator=" or e.ORG_NO in ">
+				<foreach collection="uOrgNos" item="value" open="("
+					separator="," close=")">
+					#{value}
+				</foreach>
+			</foreach>
+			)
+        </if>
+        where 1=1
+        <if test="rptNum !=null ">
+        and  e.RPT_ID like #{rptNum}
+        </if>
+        <if test="orgNo !=null ">
+        and  e.ORG_NO like #{orgNo}
+        </if>
+        <if test="rptDate !=null ">
+        and  e.TASK_DATE = #{rptDate}
+        </if>
+	</select>
+
+	<insert id="saveForceSubmit" parameterType="HashMap">
+		INSERT INTO RPT_TASK_FORCE_SUBMIT
+		  (TASK_INSTANCE_ID,
+		   RPT_ID,
+		   RPT_NUM,
+		   RPT_NM,
+		   RPT_TYPE,
+		   TASK_NM,
+		   RPT_ORG,
+		   RPT_USER,
+		   RPT_USER_NM,
+		   OPER_DATE,
+		   DATA_DATE)
+		  SELECT INS.TASK_INSTANCE_ID,
+		         INFO.RPT_ID,
+		         INFO.RPT_NUM,
+		         INFO.RPT_NM,
+		         INFO.BUSI_TYPE,
+		         INS.TASK_NM,
+		         INS.EXE_OBJ_ID,
+		         #{currentUserId},
+		         #{currentUserNm},
+		         SYSDATE,
+		         INS.DATA_DATE
+		    FROM RPT_FLTSK_INS INS
+		   INNER JOIN RPT_MGR_REPORT_INFO INFO
+		      ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		   WHERE INS.TASK_INSTANCE_ID IN
+		<foreach collection="taskInsList" item="taskInses" separator=" or INS.TASK_INSTANCE_ID in ">
+			<foreach collection="taskInses" item="value" open="("
+				separator="," close=")">
+				#{value}
+			</foreach>
+		</foreach>
+	</insert>
+
+	<insert id="saveForceSubmit" parameterType="HashMap" databaseId="mysql">
+		INSERT INTO RPT_TASK_FORCE_SUBMIT
+		(TASK_INSTANCE_ID,
+		RPT_ID,
+		RPT_NUM,
+		RPT_NM,
+		RPT_TYPE,
+		TASK_NM,
+		RPT_ORG,
+		RPT_USER,
+		RPT_USER_NM,
+		OPER_DATE,
+		DATA_DATE)
+		SELECT INS.TASK_INSTANCE_ID,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE,
+		INS.TASK_NM,
+		INS.EXE_OBJ_ID,
+		#{currentUserId},
+		#{currentUserNm},
+		SYSDATE(),
+		INS.DATA_DATE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		WHERE INS.TASK_INSTANCE_ID IN
+		<foreach collection="taskInsList" item="taskInses" separator=" or INS.TASK_INSTANCE_ID in ">
+			<foreach collection="taskInses" item="value" open="("
+					 separator="," close=")">
+				#{value}
+			</foreach>
+		</foreach>
+	</insert>
+	
+	<select id="queryDelayDetailList" resultType="HashMap" parameterType="HashMap">
+		SELECT TASK_ID as "TASK_ID",
+	       ORG_NO as "ORG_NO",
+	       TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+	       RPT_ID as "RPT_ID",
+	       RPT_NUM as "RPT_NUM",
+	       RPT_NM as "RPT_NM",
+	       RPT_TYPE as "RPT_TYPE",
+	       TASK_NM as "TASK_NM",
+	       RPT_ORG_NM as "RPT_ORG_NM",
+	       RPT_USER_NM as "RPT_USER_NM",
+	       to_char(OPER_DATE, 'yyyy-MM-dd HH24:mi:ss') as "OPER_DATE",
+	       to_char(END_TIME, 'yyyy-MM-dd HH24:mi:ss') as "END_TIME",
+	       DATA_DATE as "DATA_DATE",
+	       SHOW_TYPE as "SHOW_TYPE",
+	       RPT_CYCLE as "RPT_CYCLE"
+	  FROM (SELECT INS.TASK_ID,
+	               ORG.ORG_NO,
+	               INS.TASK_INSTANCE_ID,
+	               INS.END_TIME,
+	               INFO.RPT_ID,
+	               INFO.RPT_NUM,
+	               INFO.RPT_NM,
+	               INFO.BUSI_TYPE RPT_TYPE,
+	               INFO.RPT_CYCLE,
+	               INS.TASK_NM,
+	               ORG.ORG_NM AS RPT_ORG_NM,
+	               '' AS RPT_USER_NM,
+	               NULL AS OPER_DATE,
+	               INS.DATA_DATE,
+	               '01' AS SHOW_TYPE
+	          FROM RPT_FLTSK_INS INS
+	         INNER JOIN RPT_FLTSK_INFO TSKINFO
+	            ON INS.TASK_ID = TSKINFO.TASK_ID
+	         INNER JOIN RPT_MGR_REPORT_INFO INFO
+	            ON INS.TASK_OBJ_ID = INFO.RPT_ID
+	         INNER JOIN RPT_ORG_INFO ORG
+	            ON ORG.ORG_NO = INS.EXE_OBJ_ID
+	           AND ORG.ORG_TYPE = INS.TASK_TYPE
+	         WHERE (((INS.START_TIME +
+	               SUBSTR(TSKINFO.TASK_DEADLINE,
+	                       0,
+	                       INSTR(TSKINFO.TASK_DEADLINE, '-') - 1) +
+	               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+	                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 1,
+	                                       2),
+	                                'HOUR') +
+	               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+	                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 4,
+	                                       2),
+	                                'MINUTE') &lt; SYSDATE)
+	           AND INS.STS = '0'))<!-- 添加east过期未报分行 -->
+	        UNION ALL
+	        SELECT INS.TASK_ID,
+	               ORG.ORG_NO,
+	               INS.TASK_INSTANCE_ID,
+	               INS.END_TIME,
+	               INFO.RPT_ID,
+	               INFO.RPT_NUM,
+	               INFO.RPT_NM,
+	               INFO.BUSI_TYPE RPT_TYPE,
+	               INFO.RPT_CYCLE,
+	               INS.TASK_NM,
+	               ORG.ORG_NM AS RPT_ORG_NM,
+	               TGLOG.OPER_USER_NM AS RPT_USER_NM,
+	               TGLOG.OPER_TIME AS OPER_DATE,
+	               INS.DATA_DATE,
+	               '03' AS SHOW_TYPE
+	          FROM RPT_FLTSK_INS INS
+	         INNER JOIN RPT_FLTSK_INFO TSKINFO
+	            ON INS.TASK_ID = TSKINFO.TASK_ID
+	         INNER JOIN RPT_MGR_REPORT_INFO INFO
+	            ON INS.TASK_OBJ_ID = INFO.RPT_ID
+	         INNER JOIN RPT_ORG_INFO ORG
+	            ON ORG.ORG_NO = INS.EXE_OBJ_ID
+	           AND ORG.ORG_TYPE = INS.TASK_TYPE
+	         INNER JOIN (SELECT LG.*
+	                      FROM RPT_OPER_LOG LG
+	                     INNER JOIN (SELECT OLOG.TASK_ID,
+	                                       OLOG.DATA_DATE,
+	                                       OLOG.ORG_NO,
+	                                       OLOG.RPT_ID,
+	                                       MAX(OLOG.OPER_TIME) OPER_TIME
+	                                  FROM RPT_OPER_LOG OLOG
+	                                 WHERE OLOG.LOG_TYPE = '03'
+	                                 GROUP BY OLOG.TASK_ID,
+	                                          OLOG.DATA_DATE,
+	                                          OLOG.ORG_NO,
+	                                          OLOG.RPT_ID) LG1
+	                        ON LG.TASK_ID = LG1.TASK_ID
+	                       AND LG.DATA_DATE = LG1.DATA_DATE
+	                       AND LG.ORG_NO = LG1.ORG_NO
+	                       AND LG.OPER_TIME = LG1.OPER_TIME
+	                       AND LG.LOG_TYPE = '03') TGLOG
+	            ON (TGLOG.TASK_ID = INS.TASK_ID AND
+	               TGLOG.DATA_DATE = INS.DATA_DATE AND
+	               TGLOG.ORG_NO = INS.EXE_OBJ_ID
+	               AND TGLOG.RPT_ID =INS.TASK_OBJ_ID)
+	         WHERE (((INS.START_TIME +
+	               SUBSTR(TSKINFO.TASK_DEADLINE,
+	                       0,
+	                       INSTR(TSKINFO.TASK_DEADLINE, '-') - 1) +
+	               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+	                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 1,
+	                                       2),
+	                                'HOUR') +
+	               NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+	                                       INSTR(TSKINFO.TASK_DEADLINE, '-') + 4,
+	                                       2),
+	                                'MINUTE') &lt; TGLOG.OPER_TIME)
+	           AND INS.STS != '0'))
+	    )
+	    where 1=1
+	    <if test="rptType != null">
+	    	and rpt_type=#{rptType}
+	    </if>
+	    <if test="orgNo != null">
+	    	and org_no=#{orgNo}
+	    </if>
+	    <if test="rptId != null">
+	    	and rpt_id=#{rptId}
+	    </if>
+	    <if test="rptCycle != null">
+	    	and rpt_cycle=#{rptCycle}
+	    </if>
+	</select>
+
+	<select id="queryDelayDetailList" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT tab.TASK_ID as "TASK_ID",
+		tab.ORG_NO as "ORG_NO",
+		tab.TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+		tab.RPT_ID as "RPT_ID",
+		tab.RPT_NUM as "RPT_NUM",
+		tab.RPT_NM as "RPT_NM",
+		tab.RPT_TYPE as "RPT_TYPE",
+		tab.TASK_NM as "TASK_NM",
+		tab.RPT_ORG_NM as "RPT_ORG_NM",
+		tab.RPT_USER_NM as "RPT_USER_NM",
+		date_format(tab.OPER_DATE, '%Y-%m-%d %H:%i:%s') as "OPER_DATE",
+		date_format(tab.END_TIME, '%Y-%m-%d %H:%i:%s') as "END_TIME",
+		tab.DATA_DATE as "DATA_DATE",
+		tab.SHOW_TYPE as "SHOW_TYPE",
+		tab.RPT_CYCLE as "RPT_CYCLE"
+		FROM (SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INS.END_TIME,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		'' AS RPT_USER_NM,
+		NULL AS OPER_DATE,
+		INS.DATA_DATE,
+		'01' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		WHERE (
+		(ADDDATE(ins.start_time, INTERVAL REPLACE(TSKINFO.TASK_DEADLINE,'-',':') DAY_MINUTE) &lt; SYSDATE())
+		AND INS.STS = '0'
+		) <!-- 添加east过期未报分行 -->
+		UNION ALL
+		SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INS.END_TIME,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		TGLOG.OPER_USER_NM AS RPT_USER_NM,
+		TGLOG.OPER_TIME AS OPER_DATE,
+		INS.DATA_DATE,
+		'03' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		INNER JOIN (SELECT LG.*
+		FROM RPT_OPER_LOG LG
+		INNER JOIN (SELECT OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID,
+		MAX(OLOG.OPER_TIME) OPER_TIME
+		FROM RPT_OPER_LOG OLOG
+		WHERE OLOG.LOG_TYPE = '03'
+		GROUP BY OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID) LG1
+		ON LG.TASK_ID = LG1.TASK_ID
+		AND LG.DATA_DATE = LG1.DATA_DATE
+		AND LG.ORG_NO = LG1.ORG_NO
+		AND LG.OPER_TIME = LG1.OPER_TIME
+		AND LG.LOG_TYPE = '03') TGLOG
+		ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		TGLOG.DATA_DATE = INS.DATA_DATE AND
+		TGLOG.ORG_NO = INS.EXE_OBJ_ID
+		AND TGLOG.RPT_ID =INS.TASK_OBJ_ID)
+		WHERE (
+		(ADDDATE(ins.start_time, INTERVAL REPLACE(TSKINFO.TASK_DEADLINE,'-',':') DAY_MINUTE) &lt; TGLOG.OPER_TIME)
+		AND INS.STS != '0'
+		)) tab
+		where 1=1
+		<if test="rptType != null">
+			and tab.rpt_type=#{rptType}
+		</if>
+		<if test="orgNo != null">
+			and tab.org_no=#{orgNo}
+		</if>
+		<if test="rptId != null">
+			and tab.rpt_id=#{rptId}
+		</if>
+		<if test="rptCycle != null">
+			and tab.rpt_cycle=#{rptCycle}
+		</if>
+	</select>
+
+	<select id="queryDelayDetailList" resultType="HashMap" parameterType="HashMap" databaseId="postgresql">
+		SELECT TASK_ID as "TASK_ID",
+		ORG_NO as "ORG_NO",
+		TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+		RPT_ID as "RPT_ID",
+		RPT_NUM as "RPT_NUM",
+		RPT_NM as "RPT_NM",
+		RPT_TYPE as "RPT_TYPE",
+		TASK_NM as "TASK_NM",
+		RPT_ORG_NM as "RPT_ORG_NM",
+		RPT_USER_NM as "RPT_USER_NM",
+		to_char(OPER_DATE, 'yyyy-MM-dd HH24:mi:ss') as "OPER_DATE",
+		to_char(END_TIME, 'yyyy-MM-dd HH24:mi:ss') as "END_TIME",
+		DATA_DATE as "DATA_DATE",
+		SHOW_TYPE as "SHOW_TYPE",
+		RPT_CYCLE as "RPT_CYCLE"
+		FROM (SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INS.END_TIME,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		'' AS RPT_USER_NM,
+		NULL AS OPER_DATE,
+		INS.DATA_DATE,
+		'01' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		WHERE
+		INS.END_TIME &lt; SYSDATE AND INS.STS = '0'
+		UNION ALL
+		SELECT INS.TASK_ID,
+		ORG.ORG_NO,
+		INS.TASK_INSTANCE_ID,
+		INS.END_TIME,
+		INFO.RPT_ID,
+		INFO.RPT_NUM,
+		INFO.RPT_NM,
+		INFO.BUSI_TYPE RPT_TYPE,
+		INFO.RPT_CYCLE,
+		INS.TASK_NM,
+		ORG.ORG_NM AS RPT_ORG_NM,
+		TGLOG.OPER_USER_NM AS RPT_USER_NM,
+		TGLOG.OPER_TIME AS OPER_DATE,
+		INS.DATA_DATE,
+		'03' AS SHOW_TYPE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		INNER JOIN (SELECT LG.*
+		FROM RPT_OPER_LOG LG
+		INNER JOIN (SELECT OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID,
+		MAX(OLOG.OPER_TIME) OPER_TIME
+		FROM RPT_OPER_LOG OLOG
+		WHERE OLOG.LOG_TYPE = '03'
+		GROUP BY OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID) LG1
+		ON LG.TASK_ID = LG1.TASK_ID
+		AND LG.DATA_DATE = LG1.DATA_DATE
+		AND LG.ORG_NO = LG1.ORG_NO
+		AND LG.OPER_TIME = LG1.OPER_TIME
+		AND LG.LOG_TYPE = '03') TGLOG
+		ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		TGLOG.DATA_DATE = INS.DATA_DATE AND
+		TGLOG.ORG_NO = INS.EXE_OBJ_ID
+		AND TGLOG.RPT_ID =INS.TASK_OBJ_ID)
+		WHERE
+		INS.END_TIME &lt; TGLOG.OPER_TIME AND INS.STS != '0'
+		)
+		where 1=1
+		<if test="rptType != null">
+			and rpt_type=#{rptType}
+		</if>
+		<if test="orgNo != null">
+			and org_no=#{orgNo}
+		</if>
+		<if test="rptId != null">
+			and rpt_id=#{rptId}
+		</if>
+		<if test="rptCycle != null">
+			and rpt_cycle=#{rptCycle}
+		</if>
+	</select>
+
+	<!--错报明细查询-->
+	<select id="queryErrorDetailList" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			I.TASK_TYPE as "RPT_TYPE",
+			I.DATA_DATE as "DATA_DATE",
+			I.EXE_OBJ_ID as "ORG_NO",
+			O.ORG_NM as "RPT_ORG_NM",
+			I.TASK_OBJ_ID as "RPT_ID",
+			rpt.RPT_NM as "RPT_NM",
+			rpt.RPT_CYCLE as "RPT_CYCLE",
+			rpt.RPT_NUM as "RPT_NUM",
+			re.APPLY_USER_NO as "APPLY_USER_NO",
+			to_char(re.APPLY_TIME, 'yyyy-MM-dd HH24:mi:ss') as "APPLY_TIME",
+			to_char(re.COLLATE_TIME, 'yyyy-MM-dd HH24:mi:ss') as "COLLATE_TIME",
+			re.ERROR_RES as "ERROR_RES",
+			u.USER_NAME as "RPT_USER_NM"
+		FROM
+			RPT_FLTSK_REBUT re
+			INNER JOIN RPT_FLTSK_INS I
+			ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+			INNER JOIN RPT_MGR_REPORT_INFO rpt
+			ON I.TASK_OBJ_ID = rpt.RPT_ID
+			INNER JOIN RPT_ORG_INFO O
+			ON I.EXE_OBJ_ID = O.ORG_NO
+			AND O.ORG_TYPE = I.TASK_TYPE
+			INNER JOIN BIONE_USER_INFO u
+			ON u.USER_NO = re.APPLY_USER_NO
+			where 1 = 1
+			and I.LOGIC_DEL_NO = 'N'
+		    <if test="rptType != null">
+		    	and I.TASK_TYPE=#{rptType}
+		    </if>
+		    <if test="orgNo != null">
+		    	and I.EXE_OBJ_ID=#{orgNo}
+		    </if>
+		    <if test="rptId != null">
+		    	and I.TASK_OBJ_ID=#{rptId}
+		    </if>
+		    <if test="rptCycle != null">
+		    	and rpt.RPT_CYCLE=#{rptCycle}
+		    </if>
+	</select>
+	<select id="queryErrorDetailList" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT
+		I.TASK_TYPE as "RPT_TYPE",
+		I.DATA_DATE as "DATA_DATE",
+		I.EXE_OBJ_ID as "ORG_NO",
+		O.ORG_NM as "RPT_ORG_NM",
+		I.TASK_OBJ_ID as "RPT_ID",
+		rpt.RPT_NM as "RPT_NM",
+		rpt.RPT_CYCLE as "RPT_CYCLE",
+		rpt.RPT_NUM as "RPT_NUM",
+		re.APPLY_USER_NO as "APPLY_USER_NO",
+		date_format(re.APPLY_TIME, '%Y-%m-%d %H:%i:%s') as "APPLY_TIME",
+		date_format(re.COLLATE_TIME, '%Y-%m-%d %H:%i:%s') as "COLLATE_TIME",
+		re.ERROR_RES as "ERROR_RES",
+		u.USER_NAME as "RPT_USER_NM"
+		FROM
+		RPT_FLTSK_REBUT re
+		INNER JOIN RPT_FLTSK_INS I
+		ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_NO = re.APPLY_USER_NO
+		where 1 = 1
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="rptType != null">
+			and I.TASK_TYPE=#{rptType}
+		</if>
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID=#{orgNo}
+		</if>
+		<if test="rptId != null">
+			and I.TASK_OBJ_ID=#{rptId}
+		</if>
+		<if test="rptCycle != null">
+			and rpt.RPT_CYCLE=#{rptCycle}
+		</if>
+	</select>
+	
+	<!-- 报送分工查询 -->
+	<select id="queryDivisionList" parameterType="HashMap" 
+		resultType="com.yusys.biapp.frs.peculiar.exmaine.web.vo.FrsSubmitDivisionVo">
+		select t1.rid,
+		       t1.module_type,
+		       t1.rpt_num,
+		       t1.dept_no,
+		       t1.org_no,
+		       t1.rpt_nm,
+		       t3.org_name,
+		       t4.dept_name
+		  from frs_submit_division t1
+		  left join bione_org_info t3
+		    on t1.org_no = t3.org_no
+		  left join bione_dept_info t4
+		    on t1.dept_no = t4.dept_no
+		 where 1 = 1
+		 <if test="orgNo != null ">
+		 	and t1.org_no = #{orgNo}
+		 </if>
+	</select>
+	
+	<!-- 迟漏报统计图 -->
+	<select id="queryDelayCount" resultType="HashMap" parameterType="HashMap">
+		select 
+	       DATA_DATE as "DATA_DATE",
+	       sum(DELAY_COUNT) as "DELAY_COUNT",
+	       sum(error_count) as "ERROR_COUNT",
+	       sum(rebut_count) as "REBUT_COUNT"
+		  from (SELECT ORG_NO,
+		               DATA_DATE,
+		               count(*) DELAY_COUNT,
+		               0 error_count,
+					   0 rebut_count
+		          FROM (SELECT 
+		                       ORG.ORG_NO,
+		                       INS.DATA_DATE
+		                  FROM RPT_FLTSK_INS INS
+		                 INNER JOIN RPT_FLTSK_INFO TSKINFO
+		                    ON INS.TASK_ID = TSKINFO.TASK_ID
+		                 INNER JOIN RPT_MGR_REPORT_INFO INFO
+		                    ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		                 INNER JOIN RPT_ORG_INFO ORG
+		                    ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		                   AND ORG.ORG_TYPE = INS.TASK_TYPE
+		                 WHERE info.busi_type = #{rptType}
+
+		                 and(((INS.START_TIME +
+		                       SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                 0,
+		                                 INSTR(TSKINFO.TASK_DEADLINE, '-') - 1) +
+		                       NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                                 INSTR(TSKINFO.TASK_DEADLINE,
+		                                                       '-') + 1,
+		                                                 2),
+		                                          'HOUR') +
+		                       NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                                 INSTR(TSKINFO.TASK_DEADLINE,
+		                                                       '-') + 4,
+		                                                 2),
+		                                          'MINUTE') &lt; SYSDATE) AND
+		                       INS.STS = '0'))
+		                        <if test="authRptIds != null and  authRptIds.size()>0">
+								and INFO.RPT_ID in
+								<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+									<foreach collection="authRptIdArrays" item="authRptId" open="("
+										separator="," close=")">
+										#{authRptId}
+									</foreach>
+								</foreach>
+							</if>
+		                UNION ALL
+		                SELECT 
+		                       ORG.ORG_NO,
+		                       
+		                       INS.DATA_DATE
+		                  FROM RPT_FLTSK_INS INS
+		                 INNER JOIN RPT_FLTSK_INFO TSKINFO
+		                    ON INS.TASK_ID = TSKINFO.TASK_ID
+		                 INNER JOIN RPT_MGR_REPORT_INFO INFO
+		                    ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		                 INNER JOIN RPT_ORG_INFO ORG
+		                    ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		                   AND ORG.ORG_TYPE = INS.TASK_TYPE
+		                 INNER JOIN (SELECT LG.*
+		                               FROM RPT_OPER_LOG LG
+		                              INNER JOIN (SELECT OLOG.TASK_ID,
+		                                                OLOG.DATA_DATE,
+		                                                OLOG.ORG_NO,
+		                                                OLOG.RPT_ID,
+		                                                MAX(OLOG.OPER_TIME) OPER_TIME
+		                                           FROM RPT_OPER_LOG OLOG
+		                                          WHERE OLOG.LOG_TYPE = '03'
+		                                          GROUP BY OLOG.TASK_ID,
+		                                                   OLOG.DATA_DATE,
+		                                                   OLOG.ORG_NO,
+		                                                   OLOG.RPT_ID) LG1
+		                                 ON LG.TASK_ID = LG1.TASK_ID
+		                                AND LG.DATA_DATE = LG1.DATA_DATE
+		                                AND LG.ORG_NO = LG1.ORG_NO
+		                                AND LG.OPER_TIME = LG1.OPER_TIME
+		                                AND LG.LOG_TYPE = '03') TGLOG
+		                    ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		                       TGLOG.DATA_DATE = INS.DATA_DATE AND
+		                       TGLOG.ORG_NO = INS.EXE_OBJ_ID AND
+		                       TGLOG.RPT_ID = INS.TASK_OBJ_ID)
+		                 WHERE info.busi_type = #{rptType}
+		                 and
+		                 (((INS.START_TIME +
+		                       SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                 0,
+		                                 INSTR(TSKINFO.TASK_DEADLINE, '-') - 1) +
+		                       NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                                 INSTR(TSKINFO.TASK_DEADLINE,
+		                                                       '-') + 1,
+		                                                 2),
+		                                          'HOUR') +
+		                       NUMTODSINTERVAL(SUBSTR(TSKINFO.TASK_DEADLINE,
+		                                                 INSTR(TSKINFO.TASK_DEADLINE,
+		                                                       '-') + 4,
+		                                                 2),
+		                                          'MINUTE') &lt; TGLOG.OPER_TIME) AND
+		                       INS.STS != '0'))
+		                       <if test="authRptIds != null and  authRptIds.size()>0">
+								and INFO.RPT_ID in
+								<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+									<foreach collection="authRptIdArrays" item="authRptId" open="("
+										separator="," close=")">
+										#{authRptId}
+									</foreach>
+								</foreach>
+							</if>
+							)
+		         group by ORG_NO,
+		                  DATA_DATE
+		        UNION ALL
+		        select t.ORG_NO,
+		               t.DATA_DATE,
+		               0 DELAY_COUNT,
+		               count(*) error_count,
+		               0 rebut_count
+		          from (SELECT count(re.REBUT_ID) errorCount,
+		                       I.TASK_INSTANCE_ID,
+		                       I.Task_Nm,
+		                       I.TASK_TYPE rpt_type,
+		                       I.DATA_DATE,
+		                       I.EXE_OBJ_ID org_no,
+		                       O.ORG_NM rpt_org_nm,
+		                       I.TASK_OBJ_ID rpt_id,
+		                       rpt.rpt_num,
+		                       rpt.RPT_NM,
+		                       rpt.rpt_cycle
+		                  FROM RPT_FLTSK_REBUT re
+		                 INNER JOIN RPT_FLTSK_INS I
+		                    ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		                 INNER JOIN RPT_MGR_REPORT_INFO rpt
+		                    ON I.TASK_OBJ_ID = rpt.RPT_ID
+		                 INNER JOIN RPT_ORG_INFO O
+		                    ON I.EXE_OBJ_ID = O.ORG_NO
+		                   AND O.ORG_TYPE = I.TASK_TYPE
+		                 INNER JOIN BIONE_USER_INFO u
+		                    ON u.USER_NO = re.APPLY_USER_NO
+		                  LEFT JOIN BIONE_USER_INFO uc
+		                    ON uc.USER_NO = re.COLLATE_USER_NO
+		                 where 1 = 1
+		                   and i.task_mgr_sts = '1'
+		                   and I.LOGIC_DEL_NO = 'N'
+		                    <if test="authRptIds != null and  authRptIds.size()>0">
+								and (I.TASK_OBJ_ID in
+								<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+									<foreach collection="authRptIdArrays" item="authRptId" open="("
+										separator="," close=")">
+										#{authRptId}
+									</foreach>
+								</foreach>
+								)
+							</if>
+		                 group by I.TASK_INSTANCE_ID,
+		                          I.Task_Nm,
+		                          I.TASK_TYPE,
+		                          I.DATA_DATE,
+		                          I.EXE_OBJ_ID,
+		                          O.ORG_NM,
+		                          I.TASK_OBJ_ID,
+		                          rpt.rpt_num,
+		                          rpt.RPT_NM,
+		                          rpt.rpt_cycle) t
+		         where t.errorCount > 1
+		         AND t.rpt_type = #{rptType}
+		         group by ORG_NO,DATA_DATE
+				UNION ALL
+				<!-- 驳回错报逻辑 -->
+				select t.ORG_NO,
+					   t.DATA_DATE,
+					   0 DELAY_COUNT,
+					   0 error_count,
+					   count(*) rebut_count
+				from (SELECT count(msg.TASK_INSTANCE_ID) rebutCount,
+					I.TASK_INSTANCE_ID,
+					I.Task_Nm,
+					I.TASK_TYPE rpt_type,
+					I.DATA_DATE,
+					I.EXE_OBJ_ID org_no,
+					O.ORG_NM rpt_org_nm,
+					I.TASK_OBJ_ID rpt_id,
+					rpt.rpt_num,
+					rpt.RPT_NM,
+					rpt.rpt_cycle
+				FROM RPT_FLTSK_INS I
+				INNER JOIN (select aa.task_instance_id,aa.user_id,aa. oper_content
+								from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+								where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+					ON I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+				INNER JOIN RPT_MGR_REPORT_INFO rpt
+					ON I.TASK_OBJ_ID = rpt.RPT_ID
+				INNER JOIN RPT_ORG_INFO O
+					ON I.EXE_OBJ_ID = O.ORG_NO AND O.ORG_TYPE = I.TASK_TYPE
+				INNER JOIN BIONE_USER_INFO u
+					ON u.USER_ID = MSG.USER_ID
+				where 1 = 1
+					and I.sts = '0'
+					and msg.task_instance_id is not null
+					and I.LOGIC_DEL_NO = 'N'
+					<if test="authRptIds != null and  authRptIds.size()>0">
+						and (I.TASK_OBJ_ID in
+						<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+							<foreach collection="authRptIdArrays" item="authRptId" open="("
+									 separator="," close=")">
+								#{authRptId}
+							</foreach>
+						</foreach>
+						)
+					</if>
+				group by I.TASK_INSTANCE_ID,
+					I.Task_Nm,
+					I.TASK_TYPE,
+					I.DATA_DATE,
+					I.EXE_OBJ_ID,
+					O.ORG_NM,
+					I.TASK_OBJ_ID,
+					rpt.rpt_num,
+					rpt.RPT_NM,
+					rpt.rpt_cycle) t
+				where t.rebutCount > 0
+				AND t.rpt_type = #{rptType}
+				group by ORG_NO,DATA_DATE)
+		 where 1 = 1
+		 <if test="orgNo != null ">
+		 	and org_no = #{orgNo}
+		 </if>
+		 <if test="orgNos != null and  orgNos.size()>0">
+			and org_no in
+			<foreach collection="orgNos" item="orgNoArrays" separator=" or org_no in ">
+				<foreach collection="orgNoArrays" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+		</if>
+		 group by DATA_DATE
+		 order by DATA_DATE asc
+	</select>
+	<select id="queryDelayCount" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		select
+		tab.DATA_DATE as "DATA_DATE",
+		sum(tab.DELAY_COUNT) as "DELAY_COUNT",
+		sum(tab.error_count) as "ERROR_COUNT",
+		sum(tab.rebut_count) as "REBUT_COUNT"
+		from (SELECT tab1.ORG_NO,
+		tab1.DATA_DATE,
+		count(*) DELAY_COUNT,
+		0 error_count,
+		0 rebut_count
+		FROM (SELECT
+		ORG.ORG_NO,
+		INS.DATA_DATE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		WHERE info.busi_type = #{rptType}
+		and (
+		(ADDDATE(ins.start_time, INTERVAL REPLACE(TSKINFO.TASK_DEADLINE,'-',':') DAY_MINUTE) &lt; SYSDATE())
+		AND INS.STS = '0'
+		)
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		UNION ALL
+		SELECT
+		ORG.ORG_NO,
+
+		INS.DATA_DATE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		INNER JOIN (SELECT LG.*
+		FROM RPT_OPER_LOG LG
+		INNER JOIN (SELECT OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID,
+		MAX(OLOG.OPER_TIME) OPER_TIME
+		FROM RPT_OPER_LOG OLOG
+		WHERE OLOG.LOG_TYPE = '03'
+		GROUP BY OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID) LG1
+		ON LG.TASK_ID = LG1.TASK_ID
+		AND LG.DATA_DATE = LG1.DATA_DATE
+		AND LG.ORG_NO = LG1.ORG_NO
+		AND LG.OPER_TIME = LG1.OPER_TIME
+		AND LG.LOG_TYPE = '03') TGLOG
+		ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		TGLOG.DATA_DATE = INS.DATA_DATE AND
+		TGLOG.ORG_NO = INS.EXE_OBJ_ID AND
+		TGLOG.RPT_ID = INS.TASK_OBJ_ID)
+		WHERE info.busi_type = #{rptType}
+		and (
+		(ADDDATE(ins.start_time, INTERVAL REPLACE(TSKINFO.TASK_DEADLINE,'-',':') DAY_MINUTE) &lt; TGLOG.OPER_TIME)
+		AND INS.STS != '0'
+		)
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		) tab1
+		group by tab1.ORG_NO,
+		tab1.DATA_DATE
+		UNION ALL
+		select t.ORG_NO,
+		t.DATA_DATE,
+		0 DELAY_COUNT,
+		count(*) error_count,
+		0 rebut_count
+		from (SELECT count(re.REBUT_ID) errorCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_REBUT re
+		INNER JOIN RPT_FLTSK_INS I
+		ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_NO = re.APPLY_USER_NO
+		LEFT JOIN BIONE_USER_INFO uc
+		ON uc.USER_NO = re.COLLATE_USER_NO
+		where 1 = 1
+		and i.task_mgr_sts = '1'
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.errorCount > 1
+		AND t.rpt_type = #{rptType}
+		group by ORG_NO,DATA_DATE
+		UNION ALL
+		<!-- 驳回错报逻辑 -->
+		select t.ORG_NO,
+		t.DATA_DATE,
+		0 DELAY_COUNT,
+		0 error_count,
+		count(*) rebut_count
+		from (SELECT count(msg.TASK_INSTANCE_ID) rebutCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_INS I
+		INNER JOIN (select aa.task_instance_id,aa.user_id,aa. oper_content
+		from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+		where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+		ON I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_ID = MSG.USER_ID
+		where 1 = 1
+		and I.sts = '0'
+		and msg.task_instance_id is not null
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.rebutCount > 0
+		AND t.rpt_type = #{rptType}
+		group by ORG_NO,DATA_DATE) tab
+		where 1 = 1
+		<if test="orgNo != null ">
+			and tab.org_no = #{orgNo}
+		</if>
+		<if test="orgNos != null and  orgNos.size()>0">
+			and tab.org_no in
+			<foreach collection="orgNos" item="orgNoArrays" separator=" or org_no in ">
+				<foreach collection="orgNoArrays" item="orgNo" open="("
+						 separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+		</if>
+		group by tab.DATA_DATE
+		order by tab.DATA_DATE asc
+	</select>
+
+	<select id="queryDelayCount" resultType="HashMap" parameterType="HashMap" databaseId="postgresql">
+		select
+		DATA_DATE as "DATA_DATE",
+		sum(DELAY_COUNT) as "DELAY_COUNT",
+		sum(error_count) as "ERROR_COUNT",
+		sum(rebut_count) as "REBUT_COUNT"
+		from (SELECT ORG_NO,
+		DATA_DATE,
+		count(*) DELAY_COUNT,
+		0 error_count,
+		0 rebut_count
+		FROM (SELECT
+		ORG.ORG_NO,
+		INS.DATA_DATE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		WHERE info.busi_type = #{rptType}
+		and INS.END_TIME &lt; SYSDATE and INS.STS = '0'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		UNION ALL
+		SELECT
+		ORG.ORG_NO,
+
+		INS.DATA_DATE
+		FROM RPT_FLTSK_INS INS
+		INNER JOIN RPT_FLTSK_INFO TSKINFO
+		ON INS.TASK_ID = TSKINFO.TASK_ID
+		INNER JOIN RPT_MGR_REPORT_INFO INFO
+		ON INS.TASK_OBJ_ID = INFO.RPT_ID
+		INNER JOIN RPT_ORG_INFO ORG
+		ON ORG.ORG_NO = INS.EXE_OBJ_ID
+		AND ORG.ORG_TYPE = INS.TASK_TYPE
+		INNER JOIN (SELECT LG.*
+		FROM RPT_OPER_LOG LG
+		INNER JOIN (SELECT OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID,
+		MAX(OLOG.OPER_TIME) OPER_TIME
+		FROM RPT_OPER_LOG OLOG
+		WHERE OLOG.LOG_TYPE = '03'
+		GROUP BY OLOG.TASK_ID,
+		OLOG.DATA_DATE,
+		OLOG.ORG_NO,
+		OLOG.RPT_ID) LG1
+		ON LG.TASK_ID = LG1.TASK_ID
+		AND LG.DATA_DATE = LG1.DATA_DATE
+		AND LG.ORG_NO = LG1.ORG_NO
+		AND LG.OPER_TIME = LG1.OPER_TIME
+		AND LG.LOG_TYPE = '03') TGLOG
+		ON (TGLOG.TASK_ID = INS.TASK_ID AND
+		TGLOG.DATA_DATE = INS.DATA_DATE AND
+		TGLOG.ORG_NO = INS.EXE_OBJ_ID AND
+		TGLOG.RPT_ID = INS.TASK_OBJ_ID)
+		WHERE info.busi_type = #{rptType}
+		and INS.END_TIME &lt; TGLOG.OPER_TIME and INS.STS != '0'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and INFO.RPT_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or INFO.RPT_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		)
+		group by ORG_NO,
+		DATA_DATE
+		UNION ALL
+		select t.ORG_NO,
+		t.DATA_DATE,
+		0 DELAY_COUNT,
+		count(*) error_count,
+		0 rebut_count
+		from (SELECT count(re.REBUT_ID) errorCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_REBUT re
+		INNER JOIN RPT_FLTSK_INS I
+		ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_NO = re.APPLY_USER_NO
+		LEFT JOIN BIONE_USER_INFO uc
+		ON uc.USER_NO = re.COLLATE_USER_NO
+		where 1 = 1
+		and i.task_mgr_sts = '1'
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.errorCount > 1
+		AND t.rpt_type = #{rptType}
+		group by ORG_NO,DATA_DATE
+		UNION ALL
+		<!-- 驳回错报逻辑 -->
+		select t.ORG_NO,
+		t.DATA_DATE,
+		0 DELAY_COUNT,
+		0 error_count,
+		count(*) rebut_count
+		from (SELECT count(msg.TASK_INSTANCE_ID) rebutCount,
+		I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE rpt_type,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID org_no,
+		O.ORG_NM rpt_org_nm,
+		I.TASK_OBJ_ID rpt_id,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle
+		FROM RPT_FLTSK_INS I
+		INNER JOIN (select aa.task_instance_id,aa.user_id,aa. oper_content
+		from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+		where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+		ON I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_ID = MSG.USER_ID
+		where 1 = 1
+		and I.sts = '0'
+		and msg.task_instance_id is not null
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="authRptIds != null and  authRptIds.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach collection="authRptIds" item="authRptIdArrays" separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="authRptIdArrays" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by I.TASK_INSTANCE_ID,
+		I.Task_Nm,
+		I.TASK_TYPE,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM,
+		I.TASK_OBJ_ID,
+		rpt.rpt_num,
+		rpt.RPT_NM,
+		rpt.rpt_cycle) t
+		where t.rebutCount > 0
+		AND t.rpt_type = #{rptType}
+		group by ORG_NO,DATA_DATE)
+		where 1 = 1
+		<if test="orgNo != null ">
+			and org_no = #{orgNo}
+		</if>
+		<if test="orgNos != null and  orgNos.size()>0">
+			and org_no in
+			<foreach collection="orgNos" item="orgNoArrays" separator=" or org_no in ">
+				<foreach collection="orgNoArrays" item="orgNo" open="("
+						 separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+		</if>
+		group by DATA_DATE
+		order by DATA_DATE asc
+	</select>
+	
+	<!-- 错报情况说明管理-->
+	<select id="queryErrorManageList" parameterType="HashMap" 
+		resultType="com.yusys.biapp.frs.peculiar.exmaine.web.vo.FrsErrorManageVo">
+		select t1.rid,
+	           t1.module_type,
+	           t1.task_id,
+	           t1.task_nm,
+	           t1.data_date,
+	           t1.dept_no,
+	           t1.org_no,
+	           t1.error_desc,
+	           t1.error_file,
+	           t1.create_user,
+	           t1.create_time,
+	           t3.org_name,
+	           t4.dept_name
+	      from frs_error_manage t1
+	      left join bione_org_info t3
+	        on t1.org_no = t3.org_no
+	      left join bione_dept_info t4
+	        on t1.dept_no = t4.dept_no
+	     where 1 = 1
+		 <if test="orgNo != null ">
+		 	and t1.org_no = #{orgNo}
+		 </if>
+	</select>
+	
+	<select id="getErrorManageById" parameterType="String" 
+		resultType="com.yusys.biapp.frs.peculiar.exmaine.web.vo.FrsErrorManageVo">
+		select t1.rid,
+	           t1.module_type,
+	           t1.task_id,
+	           t1.task_nm,
+	           t1.data_date,
+	           t1.dept_no,
+	           t1.org_no,
+	           t1.error_desc,
+	           t1.error_file,
+	           t1.create_user,
+	           t1.create_time,
+	           t3.org_name,
+	           t4.dept_name
+	      from frs_error_manage t1
+	      left join bione_org_info t3
+	        on t1.org_no = t3.org_no
+	      left join bione_dept_info t4
+	        on t1.dept_no = t4.dept_no
+	     where 1 = 1
+			and t1.rid = #{_parameter}
+	</select>
+	
+	<select id="getTaskIdByTaskNm" parameterType="HashMap"  resultType="HashMap">
+		select TASK_ID
+	      from rpt_fltsk_info
+	     where 1 = 1
+			and task_nm = #{taskNm}
+			and task_type = #{moduleType}
+	</select>
+	
+	<update id="updateErrorManageByRid" parameterType="HashMap">
+		update 
+			frs_error_manage 
+		set
+		<if test="errorFile != null">
+			error_file = #{errorFile}
+		</if>
+		where 1=1
+		and rid = #{rid}
+	</update>
+	
+	<!-- 报送分工查询 -->
+	<select id="getSubmitDivisionById" parameterType="String" 
+		resultType="com.yusys.biapp.frs.peculiar.exmaine.web.vo.FrsSubmitDivisionVo">
+		select t1.rid,
+		       t1.module_type,
+		       t1.rpt_num,
+		       t1.dept_no,
+		       t1.org_no,
+		       t1.rpt_nm,
+		       t3.org_name,
+		       t4.dept_name
+		  from frs_submit_division t1
+		  left join bione_org_info t3
+		    on t1.org_no = t3.org_no
+		  left join bione_dept_info t4
+		    on t1.dept_no = t4.dept_no
+		 where 1 = 1
+		 and t1.rid = #{_parameter}
+	</select>
+
+	<!--驳回明细查询-->
+	<select id="queryRebutDetailList" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			I.TASK_TYPE as "RPT_TYPE",
+			I.DATA_DATE as "DATA_DATE",
+			I.EXE_OBJ_ID as "ORG_NO",
+			O.ORG_NM AS "RPT_ORG_NM",
+			I.TASK_OBJ_ID as "RPT_ID",
+			rpt.RPT_NM as "RPT_NM",
+			rpt.RPT_CYCLE as "RPT_CYCLE",
+			rpt.RPT_NUM as "RPT_NUM",
+			to_char(msg.oper_date, 'yyyy-MM-dd HH24:mi:ss') as "REBUT_DATE",
+			msg.OPER_CONTENT as "OPER_CONTENT",
+-- 			u.USER_NAME REBUT_USER_NM
+			to_char(rol.oper_time, 'yyyy-MM-dd HH24:mi:ss') as "OPER_DATE",
+			rol.oper_user_nm as "RPT_USER_NM"
+		FROM RPT_FLTSK_INS I
+		INNER JOIN (select aa.task_instance_id,aa.user_id,aa.oper_date,aa. oper_content
+						from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+						where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+			ON msg.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+			ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+			ON I.EXE_OBJ_ID = O.ORG_NO
+			AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+			ON u.USER_ID = MSG.USER_ID
+		INNER JOIN (SELECT t2.task_id,
+						t2.rpt_id,
+						t2.org_no,
+						t2.data_date,
+						t2.module_type,
+						t2.oper_user_nm,
+						t2.oper_time,
+						rownum rownum_
+					FROM RPT_SYS_OPER_LOG t2
+					inner join (SELECT t.task_id,
+									t.rpt_id,
+									t.org_no,
+									t.data_date,
+									t.module_type,
+									max(t.oper_time) oper_time
+								FROM RPT_SYS_OPER_LOG t
+								where t.module_nm = '报表填报'
+									and t.log_type = '03'
+								group by t.task_id,
+									t.rpt_id,
+									t.org_no,
+									t.data_date,
+									t.module_type) t3
+					on t2.module_type = t3.module_type
+						and t2.task_id = t3.task_id
+						and t2.rpt_id = t3.rpt_id
+						and t2.org_no = t3.org_no
+						and t2.data_date = t3.data_date
+						and t2.oper_time = t3.oper_time) rol
+		on I.Task_Type = rol.module_type
+			and I.Task_Id = rol.task_id
+			and i.task_obj_id = rol.rpt_id
+			and i.exe_obj_id = rol.org_no
+			and i.data_date = rol.data_date
+		where 1 = 1
+			and I.LOGIC_DEL_NO = 'N'
+			and i.sts = '0'
+			and msg.task_instance_id is not null
+			<if test="rptType != null">
+				and I.TASK_TYPE=#{rptType}
+			</if>
+			<if test="orgNo != null">
+				and I.EXE_OBJ_ID=#{orgNo}
+			</if>
+			<if test="rptId != null">
+				and I.TASK_OBJ_ID=#{rptId}
+			</if>
+			<if test="rptCycle != null">
+				and rpt.RPT_CYCLE=#{rptCycle}
+			</if>
+	</select>
+
+	<select id="queryRebutDetailList" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT
+		I.TASK_TYPE as "RPT_TYPE",
+		I.DATA_DATE as "DATA_DATE",
+		I.EXE_OBJ_ID as "ORG_NO",
+		O.ORG_NM AS "RPT_ORG_NM",
+		I.TASK_OBJ_ID as "RPT_ID",
+		rpt.RPT_NM as "RPT_NM",
+		rpt.RPT_CYCLE as "RPT_CYCLE",
+		rpt.RPT_NUM as "RPT_NUM",
+		date_format(msg.oper_date, '%Y-%m-%d %H:%i:%s') as "REBUT_DATE",
+		msg.OPER_CONTENT as "OPER_CONTENT",
+		date_format(rol.oper_time, '%Y-%m-%d %H:%i:%s') as "OPER_DATE",
+		rol.oper_user_nm as "RPT_USER_NM"
+		FROM RPT_FLTSK_INS I
+		INNER JOIN (select aa.task_instance_id,aa.user_id,aa.oper_date,aa. oper_content
+		from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+		where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+		ON msg.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_ID = MSG.USER_ID
+		INNER JOIN (SELECT t2.task_id,
+		t2.rpt_id,
+		t2.org_no,
+		t2.data_date,
+		t2.module_type,
+		t2.oper_user_nm,
+		t2.oper_time
+		FROM RPT_SYS_OPER_LOG t2
+		inner join (SELECT t.task_id,
+		t.rpt_id,
+		t.org_no,
+		t.data_date,
+		t.module_type,
+		max(t.oper_time) oper_time
+		FROM RPT_SYS_OPER_LOG t
+		where t.module_nm = '报表填报'
+		and t.log_type = '03'
+		group by t.task_id,
+		t.rpt_id,
+		t.org_no,
+		t.data_date,
+		t.module_type) t3
+		on t2.module_type = t3.module_type
+		and t2.task_id = t3.task_id
+		and t2.rpt_id = t3.rpt_id
+		and t2.org_no = t3.org_no
+		and t2.data_date = t3.data_date
+		and t2.oper_time = t3.oper_time) rol
+		on I.Task_Type = rol.module_type
+		and I.Task_Id = rol.task_id
+		and i.task_obj_id = rol.rpt_id
+		and i.exe_obj_id = rol.org_no
+		and i.data_date = rol.data_date
+		where 1 = 1
+		and I.LOGIC_DEL_NO = 'N'
+		and i.sts = '0'
+		and msg.task_instance_id is not null
+		<if test="rptType != null">
+			and I.TASK_TYPE=#{rptType}
+		</if>
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID=#{orgNo}
+		</if>
+		<if test="rptId != null">
+			and I.TASK_OBJ_ID=#{rptId}
+		</if>
+		<if test="rptCycle != null">
+			and rpt.RPT_CYCLE=#{rptCycle}
+		</if>
+	</select>
+
+	<select id="queryRebutDetailList" resultType="HashMap" parameterType="HashMap" databaseId="postgresql">
+		SELECT
+		I.TASK_TYPE as "RPT_TYPE",
+		I.DATA_DATE as "DATA_DATE",
+		I.EXE_OBJ_ID as "ORG_NO",
+		O.ORG_NM AS "RPT_ORG_NM",
+		I.TASK_OBJ_ID as "RPT_ID",
+		rpt.RPT_NM as "RPT_NM",
+		rpt.RPT_CYCLE as "RPT_CYCLE",
+		rpt.RPT_NUM as "RPT_NUM",
+		to_char(msg.oper_date, 'yyyy-MM-dd HH24:mi:ss') as "REBUT_DATE",
+		msg.OPER_CONTENT as "OPER_CONTENT",
+		to_char(rol.oper_time, 'yyyy-MM-dd HH24:mi:ss') as "OPER_DATE",
+		rol.oper_user_nm as "RPT_USER_NM"
+		FROM RPT_FLTSK_INS I
+		INNER JOIN (select aa.task_instance_id,aa.user_id,aa.oper_date,aa. oper_content
+		from TASK_FILLTAB_MSG aa,(select tt.task_instance_id,max(oper_date) oper_date from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb
+		where aa.task_instance_id = bb.task_instance_id and aa.oper_date = bb.oper_date) msg
+		ON msg.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND O.ORG_TYPE = I.TASK_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_ID = MSG.USER_ID
+		INNER JOIN (SELECT t2.task_id,
+		t2.rpt_id,
+		t2.org_no,
+		t2.data_date,
+		t2.module_type,
+		t2.oper_user_nm,
+		t2.oper_time
+		FROM RPT_SYS_OPER_LOG t2
+		inner join (SELECT t.task_id,
+		t.rpt_id,
+		t.org_no,
+		t.data_date,
+		t.module_type,
+		max(t.oper_time) oper_time
+		FROM RPT_SYS_OPER_LOG t
+		where t.module_nm = '报表填报'
+		and t.log_type = '03'
+		group by t.task_id,
+		t.rpt_id,
+		t.org_no,
+		t.data_date,
+		t.module_type) t3
+		on t2.module_type = t3.module_type
+		and t2.task_id = t3.task_id
+		and t2.rpt_id = t3.rpt_id
+		and t2.org_no = t3.org_no
+		and t2.data_date = t3.data_date
+		and t2.oper_time = t3.oper_time) rol
+		on I.Task_Type = rol.module_type
+		and I.Task_Id = rol.task_id
+		and i.task_obj_id = rol.rpt_id
+		and i.exe_obj_id = rol.org_no
+		and i.data_date = rol.data_date
+		where 1 = 1
+		and I.LOGIC_DEL_NO = 'N'
+		and i.sts = '0'
+		and msg.task_instance_id is not null
+		<if test="rptType != null">
+			and I.TASK_TYPE=#{rptType}
+		</if>
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID=#{orgNo}
+		</if>
+		<if test="rptId != null">
+			and I.TASK_OBJ_ID=#{rptId}
+		</if>
+		<if test="rptCycle != null">
+			and rpt.RPT_CYCLE=#{rptCycle}
+		</if>
+	</select>
+
+</mapper>

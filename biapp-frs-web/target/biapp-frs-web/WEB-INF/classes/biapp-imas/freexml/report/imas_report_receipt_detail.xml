@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>利率报备回执明细表</templetname>
+		<fromtable>imas_report_receipt_detail</fromtable>
+		<savetable>imas_report_receipt_detail</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">N</autoquery>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<orderbys></orderbys>
+		<card_btns></card_btns>
+		<card_size>600*600</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>Y</list_ismultisel>
+	</templet>
+
+
+	<templet_item>
+		<itemkey>detail</itemkey>
+		<itemname>反馈内容</itemname>
+		<itemtype>Label</itemtype>
+		<itemdefine><![CDATA[ <span style="color:#006B9F;font-size:14px">反馈内容如下:<br></span> ]]></itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>750</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+</root>
+

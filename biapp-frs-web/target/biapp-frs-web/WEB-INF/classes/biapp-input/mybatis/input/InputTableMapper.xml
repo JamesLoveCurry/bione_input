@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.biapp.input.inputTable.repository.InputTableMybatisDao">
+
+	<select id="getTableInfoById" parameterType="HashMap"
+		resultType="com.yusys.biapp.input.inputTable.vo.InputTableVO">
+		SELECT t.*,d.DS_NAME AS dataSourceName
+		FROM
+		RPT_INPUT_LIST_TABLE_INFO
+		t,BIONE_DS_INFO d where d.DS_ID = t.DS_ID AND t.TABLE_ID =
+		#{tableId}
+	</select>
+	
+	<select id="getRptInputRewriteTempleInfoByTempId" parameterType="String"  
+		resultType="com.yusys.biapp.input.template.entity.RptInputRewriteTempleInfo">
+		SELECT REWRITE.DS_ID AS "id.dsId",REWRITE.TEMPLE_ID AS "id.templeId",REWRITE.TABLE_NAME,REWRITE.UPDATE_TYPE,TEMP.IS_START
+		FROM RPT_INPUT_REWRITE_TEMPLE_INFO REWRITE ,RPT_INPUT_LST_TEMPLE_INFO TEMP
+		WHERE REWRITE.TEMPLE_ID = TEMP.TEMPLE_ID
+		AND TEMP.IS_START='1'
+		AND REWRITE.TEMPLE_ID = #{templeId}
+	</select>
+	
+	<select id="getRptInputRewriteFieldInfo" parameterType="String"  
+		resultType="com.yusys.biapp.input.template.entity.RptInputRewriteFieldInfo">
+		SELECT DS_ID,TEMPLE_ID,FIELD_ID,FIELD_NAME,UPDATE_FIELD_NAME,IS_ID,FIELD_TYPE,UPDATE_FIELD_TYPE 
+		FROM RPT_INPUT_REWRITE_FIELD_INFO
+		WHERE TEMPLE_ID = #{templeId}
+	</select>
+	
+	<select id="getRptInputListTableInfoByTempId"  parameterType="String"  resultType="HashMap">
+		SELECT DS.CONN_USER as "DBNAME",
+		       TBLINF.TABLE_EN_NAME  as "TABLE_EN_NAME",
+		       DS.DS_ID as "DS_ID"
+		FROM RPT_INPUT_LIST_TABLE_INFO TBLINF ,
+			 RPT_INPUT_LST_TEMPLE_INFO TMPINF,
+             BIONE_DS_INFO DS
+		WHERE TBLINF.TABLE_EN_NAME = TMPINF.TABLE_EN_NAME 
+		AND TBLINF.DS_ID = TMPINF.DS_ID
+		AND TBLINF.DS_ID = DS.DS_ID
+		AND TMPINF.TEMPLE_ID=#{templeId}
+	</select>
+	
+	<select id="getRptInputListTableInfoByTempId"  parameterType="String"  resultType="HashMap" databaseId="mysql">
+		SELECT DS.DBNAME as "DBNAME",
+		       TBLINF.TABLE_EN_NAME as "TABLE_EN_NAME",
+			   DS.DS_ID as "DS_ID"
+		FROM RPT_INPUT_LIST_TABLE_INFO TBLINF ,
+			 RPT_INPUT_LST_TEMPLE_INFO TMPINF,
+             BIONE_DS_INFO DS
+		WHERE TBLINF.TABLE_EN_NAME = TMPINF.TABLE_EN_NAME 
+		AND TBLINF.DS_ID = TMPINF.DS_ID
+		AND TBLINF.DS_ID = DS.DS_ID
+		AND TMPINF.TEMPLE_ID=#{templeId}
+	</select>
+	
+	<select id="getTableInfoByTempleId"  parameterType="String"  resultType="HashMap" >
+		SELECT FIELD_NAME as "FIELD_NAME",
+		       UPDATE_FIELD_NAME as "UPDATE_FIELD_NAME",
+		       IS_ID as "IS_ID"
+		FROM RPT_INPUT_REWRITE_FIELD_INFO WHERE TEMPLE_ID = #{templeId}
+	</select>
+
+	<select id="getRptListDataloadTypeByTableId"  parameterType="String"  resultType="com.yusys.biapp.input.inputTable.entity.RptListDataloadType" >
+		SELECT TYPE_ID,CFG_ID,REMARK,TYPE,TABLE_ID 
+		FROM RPT_LIST_DATALOAD_TYPE 
+		WHERE TABLE_ID = #{tableId}
+	</select>
+
+	<select id="getRptListDataloadTypeByTempId"  parameterType="String"  resultType="com.yusys.biapp.input.task.vo.DataLoadInfoVO" >
+		SELECT TP.CFG_ID,TP.REMARK,TP.TABLE_ID,TP.TYPE,TP.TYPE_ID,TEMPLE.DS_ID FROM  RPT_INPUT_LST_TEMPLE_INFO TEMPLE 
+		INNER JOIN RPT_INPUT_LIST_TABLE_INFO TBL ON TEMPLE.TABLE_EN_NAME=TBL.TABLE_EN_NAME AND TEMPLE.DS_ID = TBL.DS_ID
+		INNER JOIN RPT_LIST_DATALOAD_TYPE TP ON TP.TABLE_ID = TBL.TABLE_ID 
+		WHERE TEMPLE.TEMPLE_ID=#{templeId}
+	</select>
+
+	<select id="getRptListDataloadDataInfoById"  parameterType="String"  resultType="com.yusys.biapp.input.inputTable.entity.RptListDataloadDataInfo" >
+		SELECT CFG_ID,DATA_CONTENT FROM RPT_LIST_DATALOAD_DATA_INFO WHERE CFG_ID = #{cfgId}
+	</select>
+
+	<select id="getRptListDataloadSqlInfoById"  parameterType="String"  resultType="com.yusys.biapp.input.inputTable.entity.RptListDataloadSqlInfo" >
+		SELECT CFG_ID,SQL2,DS_ID FROM RPT_LIST_DATALOAD_SQL_INFO WHERE CFG_ID = #{cfgId}
+	</select>
+	
+	<select id="getRptListDataloadSqlInfoByTaskId"  parameterType="String"  resultType="com.yusys.biapp.input.inputTable.entity.RptListDataloadSqlInfo" >
+		SELECT SQ.SQL2, SQ.DS_ID  ,sq.CFG_ID
+        FROM RPT_TSK_INFO TSK 
+        INNER JOIN RPT_INPUT_LST_TEMPLE_INFO TMP 
+        ON TSK.EXE_OBJ_ID = TMP.TEMPLE_ID 
+        INNER JOIN RPT_INPUT_LIST_TABLE_INFO TAB 
+        ON TAB.TABLE_EN_NAME = TMP.TABLE_EN_NAME 
+        INNER JOIN RPT_LIST_DATALOAD_TYPE SQTP 
+        ON TAB.TABLE_ID = SQTP.TABLE_ID 
+        INNER JOIN RPT_LIST_DATALOAD_SQL_INFO SQ 
+        ON SQ.CFG_ID = SQTP.CFG_ID 
+        WHERE 1=1 
+        AND TSK.TASK_ID = #{taskId}
+	</select>
+	
+	
+	<select id="getRptListDataloadSqlInfoVOById"  parameterType="String"  resultType="HashMap" >
+		SELECT sq.CFG_ID as "CFG_ID",
+		       sq.DS_ID as "DS_ID",
+		       ds.DS_NAME as "DS_NAME"
+		FROM RPT_LIST_DATALOAD_SQL_INFO sq
+		left join bione_ds_info ds
+		on sq.ds_id = ds.ds_id
+		WHERE CFG_ID = #{cfgId}
+	</select>
+
+    <insert id="saveRptListDataloadDataInfo" parameterType="com.yusys.biapp.input.inputTable.entity.RptListDataloadDataInfo">
+		INSERT INTO RPT_LIST_DATALOAD_DATA_INFO(CFG_ID,DATA_CONTENT) VALUES(#{cfgId},#{dataContent})
+	</insert>
+
+	<insert id="saveRptListDataloadSqlInfo" parameterType="com.yusys.biapp.input.inputTable.entity.RptListDataloadSqlInfo">
+		INSERT INTO RPT_LIST_DATALOAD_SQL_INFO(CFG_ID,SQL2,DS_ID) VALUES(#{cfgId},#{sql2},#{dsId})
+	</insert>
+
+	<insert id="saveRptListDataloadType" parameterType="com.yusys.biapp.input.inputTable.entity.RptListDataloadType">
+		INSERT INTO RPT_LIST_DATALOAD_TYPE(TYPE_ID,TYPE,CFG_ID,REMARK,TABLE_ID) VALUES(#{typeId},#{type},#{cfgId},#{remark},#{tableId})
+	</insert>
+	
+	<update id="updateRptListDataloadType" parameterType="com.yusys.biapp.input.inputTable.entity.RptListDataloadType">
+		UPDATE RPT_LIST_DATALOAD_TYPE SET TYPE=#{type},CFG_ID=#{cfgId},REMARK=#{remark},TABLE_ID=#{tableId} WHERE TYPE_ID=#{typeId}
+	</update>
+	
+	<update id="updateRptListDataloadSqlInfo" parameterType="com.yusys.biapp.input.inputTable.entity.RptListDataloadSqlInfo">
+		UPDATE RPT_LIST_DATALOAD_SQL_INFO SET SQL2 = #{sql2} WHERE CFG_ID=#{cfgId}
+	</update>
+	
+	<update id="updateRptListDataloadDataInfo" parameterType="com.yusys.biapp.input.inputTable.entity.RptListDataloadDataInfo">
+		UPDATE RPT_LIST_DATALOAD_DATA_INFO SET DATA_CONTENT = #{dataContent} WHERE CFG_ID=#{cfgId}
+	</update>
+	
+	<delete id="deleteRptListDataloadSqlInfo"   parameterType="String" >
+		DELETE FROM RPT_LIST_DATALOAD_SQL_INFO WHERE CFG_ID=#{cfgId}
+	</delete>
+	
+	<delete id="deleteRptListDataloadDataInfo"   parameterType="String" >
+		DELETE FROM RPT_LIST_DATALOAD_DATA_INFO WHERE CFG_ID=#{cfgId}
+	</delete>
+
+	<select id="queryInputTable" parameterType="HashMap" resultType="HashMap">
+		SELECT DS.DBNAME as "DBNAME",
+			   TBLINF.TABLE_EN_NAME as "TABLE_EN_NAME",
+			   TBLINF.TABLE_CN_NAME as "TABLE_CN_NAME",
+			   DS.DS_ID as "DS_ID",
+			   TMPINF.TEMPLE_ID as "TEMPLATE_ID"
+		FROM RPT_INPUT_LIST_TABLE_INFO TBLINF ,
+			 RPT_INPUT_LST_TEMPLE_INFO TMPINF,
+			 BIONE_DS_INFO DS
+		WHERE TBLINF.TABLE_EN_NAME = TMPINF.TABLE_EN_NAME
+		  AND TBLINF.DS_ID = TMPINF.DS_ID
+		  AND TBLINF.DS_ID = DS.DS_ID
+		<if test="tableName != null">
+			AND TBLINF.TABLE_EN_NAME like #{tableName}
+		</if>
+	</select>
+</mapper> 

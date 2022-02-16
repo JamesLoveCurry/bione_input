@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+<item name="表间逻辑-demo1" descr="本表字段等于另一个表的某字段值">信贷合同号 == 信贷合同表__信贷合同号</item>
+<item name="表间逻辑-demo2" descr="本表字段等于其他几个表的某些字段值"><![CDATA[内部机构号 == 机构信息表__内部机构号 && 银行机构代码 == 机构信息表__银行机构代码 && 金融许可证号 == 机构信息表__金融许可证号]]></item>
+</root>

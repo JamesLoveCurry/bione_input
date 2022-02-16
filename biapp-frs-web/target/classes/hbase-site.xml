@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <!--  <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>192.168.134.154</value>
+    </property> -->
+    
+     <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>192.168.251.158</value>
+    </property>
+   <property>
+        <name>hbase.cluster.distributed</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>zookeeper.znode.parent</name>
+        <value>/hyperbase1</value>
+    </property>
+    <property>
+        <name>hbase.master.port</name>
+        <value>60000</value>
+    </property>
+	<!-- <property>
+        <name>hbase.master.kerberos.principal</name>
+        <value>hbase/_HOST@TDH</value>
+    </property>
+    <property>
+        <name>hbase.regionserver.kerberos.principal</name>
+        <value>hbase/_HOST@TDH</value>
+    </property>
+    <property>
+        <name>hbase.security.authentication</name>
+        <value>kerberos</value>
+    </property> -->
+</configuration>

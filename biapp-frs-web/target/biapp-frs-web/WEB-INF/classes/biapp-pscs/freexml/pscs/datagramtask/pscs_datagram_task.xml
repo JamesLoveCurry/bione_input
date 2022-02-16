@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>支付合规-报文任务</templetname>
+	<fromtable>pscs_datagram_task</fromtable>
+	<savetable>pscs_datagram_task</savetable>
+	<pkname>rid</pkname>
+	<querycontion></querycontion>
+	<autocondition descr="自动查询时的条件"></autocondition>
+	<autoquery descr="是否自动查询数据">Y</autoquery>
+	<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	<orderbys>data_dt desc,org_no,tab_name</orderbys>
+	<card_btns></card_btns>
+	<card_size>600*600</card_size>
+	<card_isdebugborder>N</card_isdebugborder>
+	<list_btns>[icon-p38]创建任务/onCreateReport;[icon-remove]删除任务/onDeleteReport;[icon-p20]启动任务/onStartReport;[icon-p47]zip打包下载/onZipAndDownload;[icon-p47]SEC打包下载/onSecAndDownload;[icon-p58]查看日志/onViewLog;$VIEWTASK;</list_btns>
+	<list_issearch></list_issearch>
+	<list_ispagebar>Y</list_ispagebar>
+	<list_ischeckstyle>Y</list_ischeckstyle>
+	<list_ismultisel>Y</list_ismultisel>
+</templet>
+
+<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<helptip></helptip>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<loadformula></loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<grouptitle></grouptitle>
+		<card_isshow>N</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<list_render></list_render>
+		<query_isshow>N</query_isshow>
+		<query_itemtype></query_itemtype>
+		<query_itemdefine></query_itemdefine>
+		<validateinfo></validateinfo>
+		<showformula></showformula>
+		<defvalue></defvalue>
+	</templet_item>
+
+   <templet_item>
+		<itemkey>data_dt</itemkey>
+		<itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>85</list_width>
+		<list_align>中</list_align>
+        <query_itemtype>日历区间</query_itemtype>
+		<query_ismust>N</query_ismust>
+		<query_isshow>Y</query_isshow>
+		<query_width>300</query_width>
+        <query_itemdefine>【is8=Y】</query_itemdefine>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>机构号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_name</itemkey>
+		<itemname>机构名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>95</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>report_type</itemkey>
+		<itemname>报送频率</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"日报|月报|季报|半年报|年报"}</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>85</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>tab_name</itemkey>
+		<itemname>表名</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>125</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_iswrap>N</query_iswrap>
+		<query_width>60,230</query_width>
+		<query_itemtype>下拉框</query_itemtype>
+		<query_itemdefine>【{"类型":"SQL","内容":"select tab_name id,tab_name name from pscs_cr_tab where is_virtual = 'N' order by tab_type"}】</query_itemdefine>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>tab_name_en</itemkey>
+		<itemname>表名(英文)</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>125</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>create_tm</itemkey>
+		<itemname>创建时间</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>138</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_iswrap>Y</query_iswrap>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>status</itemkey>
+		<itemname>任务状态</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"已创建|生成数据中|生成数据失败|生成报文中|生成报文失败|银监工具校验中|生成报文完成|银监工具校验失败"}</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>start_tm</itemkey>
+		<itemname>任务开始时间</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>135</list_width>
+		<list_align>中</list_align>
+		<query_width>250</query_width>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>end_tm</itemkey>
+		<itemname>任务结束时间</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>135</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>execsql</itemkey>
+		<itemname>实际SQL</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>500</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+    <templet_item>
+		<itemkey>filepath</itemkey>
+		<itemname>报文文件路径</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>500</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>160</list_width>
+		<list_align>中</list_align>
+		<list_hrefaction>onLookFilePath</list_hrefaction>
+		<query_isshow>N</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>filelog</itemkey>
+		<itemname>生成文件结果</itemname>
+		<itemtype>多行文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>500*100</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>300</list_width>
+		<list_align>中</list_align>
+		<list_hrefaction></list_hrefaction>
+		<query_width>250</query_width>
+	</templet_item>
+
+</root>
+

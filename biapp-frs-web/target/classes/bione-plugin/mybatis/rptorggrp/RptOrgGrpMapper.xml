@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yusys.bione.plugin.rptorggrp.repository.RptOrgGrpMybatisDao">
+
+	<select id="getCol" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptorggrp.web.vo.RptGrpVO">
+		select a.*,b.org_no as "isUse",org.org_Name as "createOrgNm" from bione_org_info org ,rpt_org_grp a left join RPT_GRP_AUTH_REL b on  a.grp_id = b.grp_id 
+		<if test="orgNo!=null">
+			and b.ORG_NO=#{orgNo}
+		</if>
+		where 1=1 
+		and org.org_no = a.create_org
+		<if test="orgType!=null">
+			and a.ORG_TYPE=#{orgType}
+		</if>
+		
+		<if test="createOrgs!=null">
+			and (a.create_org in
+			<foreach item="createOrg" index="index" collection="createOrgs"  separator=" or  a.create_org in " >
+				<foreach item="createO" index="index" collection="createOrg" open="(" separator="," close=")">
+					#{createO}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<insert id="saveGroup"
+		parameterType="com.yusys.bione.plugin.rptorggrp.entity.RptOrgGrp">
+		insert into rpt_org_grp
+		(GRP_ID,GRP_NM,ORG_TYPE,CREATE_ORG,REMARK)
+		values(#{grpId},#{grpNm},#{orgType},#{createOrg},#{remark})
+	</insert>
+
+	<update id="editGroup"
+		parameterType="com.yusys.bione.plugin.rptorggrp.entity.RptOrgGrp">
+		update rpt_org_grp
+		<set>
+			<if test="grpNm != null">GRP_NM=#{grpNm},</if>
+			<if test="orgType != null">ORG_TYPE=#{orgType},</if>
+			<if test="remark != null">REMARK=#{remark}</if>
+		</set>
+		where GRP_ID=#{grpId}
+	</update>
+
+	<delete id="delOrg" parameterType="HashMap">
+		delete from rpt_org_grp where GRP_ID in
+		<if test="list!=null">
+			<foreach item="item" index="index" collection="list" open="("
+				separator="," close=")">
+				#{item}</foreach>
+		</if>
+	</delete>
+
+	<select id="getRptById" parameterType="String"
+		resultType="com.yusys.bione.plugin.rptorggrp.entity.RptOrgGrp">
+		select * from rpt_org_grp where GRP_ID=#{groupId}
+	</select>
+	<delete id="delObj" parameterType="String">
+		delete from rpt_grp_org_rel
+		where GRP_ID=#{collectionId}
+	</delete>
+
+	<delete id="delObjs" parameterType="HashMap">
+		delete from rpt_grp_org_rel where 1=1
+		<if test="list!=null">
+			and GRP_ID in
+			<foreach item="item" index="index" collection="list" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	<insert id="saveObj"
+		parameterType="com.yusys.bione.plugin.rptorggrp.entity.RptGrpOrgRel">
+		insert into rpt_grp_org_rel(ORG_NO,ORG_TYPE,GRP_ID)
+		values(#{id.orgNo},#{id.orgType},#{id.grpId})
+	</insert>
+	<select id="searchbyId" parameterType="String" resultType="String">
+		select ORG_NO from rpt_grp_org_rel where
+		GRP_ID=#{GRP_ID}
+	</select>
+	<select id="checkName" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptorggrp.entity.RptOrgGrp">
+		select * from rpt_org_grp where 1=1
+		<if test="collectionName!=null">
+			and GRP_NM=#{collectionName}
+		</if>
+		<if test="id!=null">
+			and GRP_ID!=#{id}
+		</if>
+		<if test="orgno!=null">
+			and CREATE_ORG=#{orgno}
+		</if>
+	</select>
+	<select id="getOrgGrp" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptorggrp.web.vo.RptOrgGrpVO">
+		select b.org_NO as orgNo,b.org_nm as orgNm from
+		RPT_GRP_ORG_REL a
+		,rpt_org_info b where a.ORG_NO=b.ORG_NO and
+		a.GRP_ID=#{grpId} and
+		b.org_type=#{orgType} and b.namespace like
+		#{orgNo}
+
+	</select>
+
+	<select id="getMgrOrgNo" parameterType="HashMap" resultType="String">
+		select ORG_NO from RPT_ORG_INFO where 1=1
+		<if test="mgrOrgNo != null">AND MGR_ORG_NO=#{mgrOrgNo}</if>
+		<if test="orgType != null">AND ORG_TYPE=#{orgType}</if>
+	</select>
+
+	<select id="getUserOrgGrp" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.rptorggrp.web.vo.RptOrgGrpVO">
+		select b.org_NO as orgNo,b.org_nm as orgNm from
+		RPT_GRP_ORG_REL a
+		,rpt_org_info b where a.ORG_NO=b.ORG_NO and
+		a.GRP_ID=#{grpId} and
+		b.org_type=#{orgType} and b.org_No =
+		#{orgNo}
+
+	</select>
+</mapper>

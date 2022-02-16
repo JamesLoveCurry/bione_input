@@ -1,0 +1,48 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot'); /* IE9*/
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff') format('woff'), /* chrome、firefox */
+  url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:1em;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont-disabled{
+	color: gray;
+}
+
+
+.iconfont-lg{
+	font-size:1.333em;
+}
+
+.iconfont-lgm{
+	font-size:1.8em;
+}
+
+.iconfont-marked{
+	color:#0007bb;
+}
+
+.a-selected{
+	color:#0007bb;
+}
+
+.icon-chaxun:before { content: "\f0011"; }
+.icon-iconfonticon3:before { content: "\e60e"; }
+.icon-zhongzhi:before { content: "\e61e"; }
+.icon-excel:before { content: "\e628"; }
+.icon-pdf:before { content: "\e62c"; }
+.icon-dayin:before { content: "\e60f"; }
+.icon-fenyefu:before { content: "\e7b1"; }
+.icon-shoucangweishoucang:before { content: "\e661"; }
+.icon-shoucangyishoucang:before { content: "\e662"; }

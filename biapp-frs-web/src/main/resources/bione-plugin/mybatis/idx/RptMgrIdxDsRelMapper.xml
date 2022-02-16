@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptidx.repository.RptIdxDsRelMybatisDao">
+	<select id="IdxDsRellist"
+		resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxDsRelVO"
+		parameterType="String">
+		SELECT
+		RPT_MGR_REPORT_DATA_ITEM.RPT_ITEM_NM,
+		RPT_MGR_RPTITEM_IDX_REL.RPT_ID,
+		RPT_IDX_INFO.INDEX_NO,
+		RPT_IDX_INFO.INDEX_VER_ID,
+		RPT_IDX_INFO.INDEX_NM,
+		RPT_IDX_INFO.IS_SUM,
+		i.MAX_INDEX_VER_ID,
+		RPT_SYS_MODULE_COL.COL_ID,
+		RPT_SYS_MODULE_COL.EN_NM,
+		RPT_SYS_MODULE_COL.CN_NM,
+		RPT_SYS_MODULE_INFO.SET_ID,
+		RPT_SYS_MODULE_INFO.SET_NM,
+		RPT_IDX_DS_REL.FILTER_FORMULA
+		FROM
+		RPT_MGR_REPORT_DATA_ITEM,
+		RPT_MGR_RPTITEM_IDX_REL
+		LEFT JOIN
+		(
+		SELECT
+		INDEX_NO, MAX(INDEX_VER_ID) as
+		MAX_INDEX_VER_ID
+		FROM
+		RPT_IDX_INFO group
+		by INDEX_NO) i
+		ON
+		i.INDEX_NO=RPT_MGR_RPTITEM_IDX_REL.INDEX_NO
+		LEFT JOIN
+		RPT_IDX_INFO
+		ON
+		RPT_IDX_INFO.INDEX_VER_ID =i.MAX_INDEX_VER_ID
+		AND
+		RPT_IDX_INFO.INDEX_NO
+		=i.INDEX_NO
+		LEFT JOIN
+		RPT_IDX_DS_REL
+		ON
+		RPT_MGR_RPTITEM_IDX_REL.RPT_ID=RPT_IDX_DS_REL.RPT_ID
+		AND
+		RPT_IDX_INFO.INDEX_NO=RPT_IDX_DS_REL.INDEX_NO
+		AND
+		RPT_IDX_INFO.INDEX_VER_ID=RPT_IDX_DS_REL.INDEX_VER_ID
+		LEFT JOIN
+		RPT_SYS_MODULE_COL
+		ON
+		RPT_IDX_DS_REL.COL_ID=RPT_SYS_MODULE_COL.COL_ID
+		AND RPT_IDX_DS_REL.SET_ID=RPT_SYS_MODULE_COL.SET_ID
+		LEFT JOIN
+		RPT_SYS_MODULE_INFO
+		ON
+		RPT_SYS_MODULE_INFO.SET_ID=RPT_SYS_MODULE_COL.SET_ID
+		WHERE
+		1=1
+		AND
+		RPT_MGR_RPTITEM_IDX_REL.RPT_ID = #{rptId}
+		AND
+		RPT_MGR_REPORT_DATA_ITEM.RPT_ITEM_ID=RPT_MGR_RPTITEM_IDX_REL.RPT_ITEM_ID
+		AND RPT_MGR_REPORT_DATA_ITEM.RPT_ID=RPT_MGR_RPTITEM_IDX_REL.RPT_ID
+	</select>
+
+
+	<select id="dimTypeRelList"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"
+		parameterType="String">
+		SELECT DISTINCT
+		dim.DIM_TYPE_NO,
+		dim.CATALOG_ID,
+		dim.DIM_TYPE_DESC,
+		dim.DIM_TYPE_EN_NM,
+		dim.DIM_TYPE_NM,
+		dim.DIM_TYPE,
+		dim.DIM_TYPE_STRUCT
+		FROM
+		RPT_DIM_TYPE_INFO dim,
+		RPT_SYS_MODULE_COL col
+		WHERE
+		1=1
+		AND col.DIM_TYPE_NO=dim.DIM_TYPE_NO
+		AND col.SET_ID=#{setId}
+	</select>
+
+	<select id="getDimFilterByParams"
+		resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxDsRelFilterVO"
+		parameterType="HashMap">
+		select RPT_ID as "id.rptId",INDEX_NO as "id.indexNo",INDEX_VER_ID as
+		"id.indexVerId",SET_ID as "id.setId",COL_ID as "id.colId",DIM_NUM as
+		"id.dimNum",DIM_NUM as
+		"dimNo",FILTER_TYPE,FILTER_VAL,RPT_DIM_TYPE_INFO.DIM_TYPE_NM as
+		"dimNm"
+		from
+		RPT_IDX_DS_DIM_FILTER,
+		RPT_DIM_TYPE_INFO
+		where 1=1
+		AND
+		RPT_IDX_DS_DIM_FILTER.DIM_NUM=RPT_DIM_TYPE_INFO.DIM_TYPE_NO
+		<if test="rptId != null">
+			and RPT_ID = #{rptId}</if>
+		<if test="indexNo != null">
+			and INDEX_NO = #{indexNo}</if>
+		<if test="indexVerId != null">
+			and INDEX_VER_ID = #{indexVerId}</if>
+		<if test="setId != null">
+			and SET_ID = #{setId}</if>
+		<if test="colId != null">
+			and COL_ID = #{colId}</if>
+		<if test="dimNum != null">
+			and DIM_NUM = #{dimNum}</if>
+		<if test="filterType != null">
+			and FILTER_TYPE = #{filterType}</if>
+		<if test="filterVal != null">
+			and FILTER_VAL = #{filterVal}</if>
+
+	</select>
+
+	<select id="getIdxMeasure"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureRel"
+		parameterType="HashMap">
+		select MEASURE_NO as "id.measureNo",INDEX_NO as
+		"id.indexNo",INDEX_VER_ID as "id.indexVerId",DS_ID as
+		"id.dsId",ORDER_NUM,STORE_COL
+		from
+		RPT_IDX_MEASURE_REL
+		where 1=1
+		<if test="measureNo != null">
+			and MEASURE_NO = #{measureNo}</if>
+		<if test="indexNo != null">
+			and INDEX_NO = #{indexNo}</if>
+		<if test="indexVerId != null">
+			and INDEX_VER_ID = #{indexVerId}</if>
+		<if test="dsId != null">
+			and DS_ID = #{dsId}</if>
+		<if test="orderNum != null">
+			and ORDER_NUM = #{orderNum}</if>
+		<if test="storeCol != null">
+			and STORE_COL = #{storeCol}</if>
+	</select>
+
+	<select id="validateSet" resultType="Integer" parameterType="HashMap">
+		select count(*) as num
+		from RPT_SYS_MODULE_COL
+		where
+		RPT_SYS_MODULE_COL.dim_TYPE_No not
+		in (select
+		RPT_IDX_DIM_REL.DIM_NO from
+		RPT_IDX_DIM_REL,
+		(SELECT INDEX_NO,MAX(INDEX_VER_ID) as INDEX_VER_ID from RPT_IDX_INFO
+		GROUP BY INDEX_NO) l
+		where
+		RPT_IDX_DIM_REL.INDEX_NO=#{indexNo}
+		AND
+		l.INDEX_NO =RPT_IDX_DIM_REL.INDEX_NO
+		AND
+		l.INDEX_VER_ID=RPT_IDX_DIM_REL.INDEX_VER_ID
+		)
+		AND
+		RPT_SYS_MODULE_COL.set_id=#{setId}
+		AND
+		RPT_SYS_MODULE_COL.dim_TYPE_No
+		!=''
+		AND
+		RPT_SYS_MODULE_COL.dim_TYPE_No is not NULL
+
+	</select>
+	<insert id="saveRptIdxRel"
+		parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxDsRel">
+		insert into
+		RPT_IDX_DS_REL(RPT_ID,INDEX_NO,INDEX_VER_ID,SET_ID,COL_ID,FILTER_FORMULA)
+		values(#{id.rptId},#{id.indexNo},#{id.indexVerId},#{id.setId},#{id.colId},#{filterFormula})
+	</insert>
+
+	<insert id="saveRptIdxDsFilter"
+		parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxDsDimFilter">
+		insert into
+		RPT_IDX_DS_DIM_FILTER(RPT_ID,INDEX_NO,INDEX_VER_ID,SET_ID,COL_ID,DIM_NUM,FILTER_TYPE,FILTER_VAL)
+		values(#{id.rptId},#{id.indexNo},#{id.indexVerId},#{id.setId},#{id.colId},#{id.dimNum},#{filterType},#{filterVal})
+	</insert>
+
+	<delete id="deleteRptIdxRel" parameterType="String">
+		delete from
+		RPT_IDX_DS_REL
+		where 1=1
+		and RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteRptIdxDsFilter" parameterType="String">
+		delete from
+		RPT_IDX_DS_DIM_FILTER
+		where 1=1
+		and RPT_ID=#{rptId}
+	</delete>
+
+</mapper> 

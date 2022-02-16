@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.personal.repository.PersonalllTaskDao">
+	<select id="getAllPersonalError" resultType="java.lang.Integer" parameterType="String">
+		SELECT count(*) FROM ACB_INDIV_BANK_ACCT_ERROR err WHERE 1=1 AND err.supervision_sign = '否' and OPEN_COMBANK_ORG_ID = #{org}
+	</select>
+	<select id="getOrgGroup" resultType="String">
+		SELECT DISTINCT OPEN_COMBANK_ORG_ID FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否'
+	</select>
+	<select id="getSummitInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalSummit" parameterType="hashMap">
+		<if test='isDownload != null and isDownload == "Y"'>
+			select * from (
+		</if>
+			select su.*,rownum as rn from ACB_INDIV_BANK_ACCT_SUMMIT su where 1=1 
+			<if test="orgNoLikeList != null">
+		        and open_combank_org_id in 
+					(select info.org_no from rpt_org_info info where 1=1 
+		     			<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+                   			info.namespace like #{orgNoLike}
+             			</foreach> 
+             		and info.org_type= #{moduleType}
+             		)
+		    </if>
+		<if test='isDownload != null and isDownload == "Y"'>
+	    	) where rn&lt;=10000
+		</if>
+	</select>
+	<select id="getSummitInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalSummit" parameterType="hashMap" databaseId="mysql">
+		select su.* from ACB_INDIV_BANK_ACCT_SUMMIT su where 1=1
+		<if test="orgNoLikeList != null">
+			and open_combank_org_id in
+			(select info.org_no from rpt_org_info info where 1=1
+			<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+				info.namespace like #{orgNoLike}
+			</foreach>
+			and info.org_type= #{moduleType}
+			)
+		</if>
+		<if test='isDownload != null and isDownload == "Y"'>
+			limit 10000
+		</if>
+	</select>
+	<select id="getErrorInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalError" parameterType="hashMap">
+		<if test='isDownload != null and isDownload == "Y"'>
+	    	select * from (
+		</if>
+			select su.*,rownum as rn from ACB_INDIV_BANK_ACCT_Error su where 1=1 
+			<if test="orgNoLikeList != null">
+		        and open_combank_org_id in 
+					(select info.org_no from rpt_org_info info where 1=1 
+		     			<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+                   			info.namespace like #{orgNoLike}
+             			</foreach> 
+             		and info.org_type= #{moduleType}
+             		)
+		    </if>
+		<if test='isDownload != null and isDownload == "Y"'>
+	    	) where rn&lt;=10000
+		</if>
+		
+	</select>
+	<select id="getErrorInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalError" parameterType="hashMap" databaseId="mysql">
+		select su.* from ACB_INDIV_BANK_ACCT_Error su where 1=1
+		<if test="orgNoLikeList != null">
+			and open_combank_org_id in
+			(select info.org_no from rpt_org_info info where 1=1
+			<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+				info.namespace like #{orgNoLike}
+			</foreach>
+			and info.org_type= #{moduleType}
+			)
+		</if>
+		<if test='isDownload != null and isDownload == "Y"'>
+			limit 10000
+		</if>
+	</select>
+	<select id="getSuperInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalError" parameterType="hashMap">
+		<if test='isDownload != null and isDownload == "Y"'>
+	    	select * from (
+		</if>
+			select tmp.*, rownum as rn
+		    from (select a.statistics_dt,
+		                 a.deposit_name,
+		                 a.deposit_identity_type_cd,
+		                 a.deposit_identity_num,
+		                 a.identity_due_dt,
+		                 a.issue_org_area_cd,
+		                 a.deposit_class_cd,
+		                 a.deposit_country_cd,
+		                 a.deposit_sex_cd,
+		                 a.deposit_post_cd,
+		                 a.deposit_addr,
+		                 a.deposit_tel,
+		                 a.agent_name,
+		                 a.agent_identity_type_cd,
+		                 a.agent_identity_num,
+		                 a.agent_country_cd,
+		                 a.agent_tel,
+		                 a.open_bank_fin_org_cd,
+		                 a.bank_acct_num,
+		                 a.bank_acct_kind_cd,
+		                 a.card_cd,
+		                 a.card_due_dt,
+		                 a.bank_acct_media,
+		                 a.expire_card_dt,
+		                 a.card_stat_cd,
+		                 a.bank_acct_type_cd,
+		                 a.binding_i_acct_num,
+		                 a.binding_i_fin_org_cd,
+		                 a.open_dt,
+		                 a.currency_cd,
+		                 a.army_security_card,
+		                 a.society_security_card,
+		                 a.no_audit_result_desc,
+		                 a.dispose_mode,
+		                 a.info_type_cd,
+		                 a.open_channal_cd,
+		                 a.remark,
+		                 a.column1,
+		                 a.column2,
+		                 a.column3,
+		                 a.column4,
+		                 a.column5,
+		                 a.main_card_cd,
+		                 a.original_bank_acct_num,
+		                 a.cust_id,
+		                 a.open_combank_org_id,
+		                 a.open_card_dt,
+		                 a.open_combank_org_name,
+		                 a.lvl_1_org_id,
+		                 a.error_type,
+		                 a.final_submit_date,
+		                 a.supervision_sign,
+		                 a.supervision_date,
+		                 a.supervisor,
+		                 a.supervision_reasons,
+		                 a.error_days,
+		                 a.isnoticed_message,
+		                 a.isnoticed_email,
+		                 a.last_sendtime_message,
+		                 a.last_sendtime_email,
+		                 a.expire_Dt,
+		                 a.error_Data_Status,
+		                 rank() over(partition by a.bank_acct_num order by (rowid) desc) as maxec
+		            from ACB_INDIV_BANK_ACCT_ERROR a where 1=1
+					<if test='supervisionSign != null and supervisionSign != " "'>
+			             and a.supervision_sign=#{supervisionSign}
+			       </if>
+			       <if test='errorDataStatus != null and errorDataStatus != " "'>
+			             and a.ERROR_DATA_STATUS=#{errorDataStatus}
+			       </if>
+			       <if test="orgNoLikeList != null">
+				    AND EXISTS 
+					(SELECT 1 FROM RPT_ORG_INFO b WHERE b.org_no = a.Open_Combank_Org_Id
+				     	<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+		                   	b.NAMESPACE like #{orgNoLike}
+		             	</foreach> 
+		             and b.org_type= #{moduleType}
+		           	)
+			</if>		 
+		          ) tmp
+		   where maxec = 1	
+		<if test='isDownload != null and isDownload == "Y"'>
+	    	) where rn&lt;=10000
+		</if> 
+	</select>
+	<select id="getSuperInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalError" parameterType="hashMap" databaseId="mysql">
+		SELECT e1.* from (
+		select tmp.*,
+		@rownum := @rownum + 1,
+		IF (
+		@bankAcctNum = tmp.bank_acct_num,
+		@rank :=@rank + 1 ,@rank := 1
+		) AS rn,
+		@bankAcctNum := tmp.bank_acct_num
+		from (
+		select  *  from ACB_INDIV_BANK_ACCT_ERROR a where 1=1
+		<if test='supervisionSign != null and supervisionSign != " "'>
+			and a.supervision_sign=#{supervisionSign}
+		</if>
+		<if test='errorDataStatus != null and errorDataStatus != " "'>
+			and a.ERROR_DATA_STATUS=#{errorDataStatus}
+		</if>
+		<if test="orgNoLikeList != null">
+			AND EXISTS
+			(SELECT 1 FROM RPT_ORG_INFO b WHERE b.org_no = a.Open_Combank_Org_Id
+			<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+				b.NAMESPACE like #{orgNoLike}
+			</foreach>
+			and b.org_type= #{moduleType}
+			)
+		</if>
+		order by rowid desc
+		) tmp, (select @rownum := 0, @bankAcctNum:=null, @rn:=0) a
+		)  e1 where e1.rn = 1
+		<if test='isDownload != null and isDownload == "Y"'>
+			limit 10000
+		</if>
+	</select>
+
+	<update id="updateSupervision" parameterType="hashMap">
+		update ACB_INDIV_BANK_ACCT_ERROR
+	   		set supervision_sign = '是',
+	       	SUPERVISION_DATE =#{supervisionDate},
+	       	SUPERVISOR = #{supervisor},
+	       	SUPERVISION_REASONS = #{operContent}
+ 		where bank_acct_num = #{bank_acct_num}
+	</update> 
+	<select id="getOverDueInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalOverdue" parameterType="hashMap">
+		<if test='isDownload != null and isDownload == "Y"'>
+	    	select * from (
+		</if>
+		select 	due.open_combank_org_name,
+			    due.open_combank_org_id,
+			    due.overdue_date,
+			    count(*) as count,
+			    due.statistics_dt,
+			    due1.coun as finished,
+			    due2.coun as unfinished,
+			    teller.tellerNo,
+				teller.tellerNm
+			from ACB_OVERDUE due
+			left join 
+				(select statistics_dt,
+                    	open_combank_org_id,
+                    	process_state,
+                    	count(*) as coun
+					from ACB_OVERDUE due
+              		where process_state = 'Y'
+              		group by 
+              		(statistics_dt, open_combank_org_id, process_state)) due1
+    		on 
+    		due.statistics_dt = due1.statistics_dt
+   			and due.open_combank_org_id = due1.open_combank_org_id
+  			left join 
+  				(select statistics_dt,
+                    	open_combank_org_id,
+                   		process_state,
+                    	count(*) as coun
+               		from ACB_OVERDUE due
+              		where process_state = 'N'
+              		group by 
+              		(statistics_dt, open_combank_org_id, process_state)) due2
+    		on 
+    		due.statistics_dt = due2.statistics_dt
+   			and due.open_combank_org_id = due2.open_combank_org_id
+  			left join 
+  				(select rel.user_id
+						as tellerNo,
+                    	info.user_name as tellerNm,
+                    	obj_id
+               		from bione_auth_obj_user_rel rel
+               		left join 
+               			bione_user_info info
+                 		on info.user_id = rel.user_id
+              		where rel.user_id in
+                    	(select user_id
+                       		from bione_auth_obj_user_rel rel
+                      		where rel.obj_id = '4c15d92bc11447ec8a6eb9abb1291871')) teller
+    		on 
+    		due.open_combank_org_id = teller.obj_id
+ 		where 1 = 1
+			<if test="orgNoLikeList != null">
+		        and due.open_combank_org_id in 
+					(select info.org_no from rpt_org_info info where 1=1 
+		     			<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+                   			info.namespace like #{orgNoLike}
+             			</foreach> 
+             		and info.org_type= #{moduleType}
+             		)
+		    </if>
+ 		group by (	due.open_combank_org_name, due.open_combank_org_id,
+           			due.overdue_date, due.statistics_dt, due1.coun, due2.coun,
+          			teller.tellerNo, teller.tellerNm)
+		<if test='isDownload != null and isDownload == "Y"'>
+	    	) where rn&lt;=10000
+		</if>
+	</select>
+	<select id="getOverDueInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalOverdue" parameterType="hashMap" databaseId="mysql">
+		select 	due.open_combank_org_name,
+		due.open_combank_org_id,
+		due.overdue_date,
+		count(*) as count,
+		due.statistics_dt,
+		due1.coun as finished,
+		due2.coun as unfinished,
+		teller.tellerNo,
+		teller.tellerNm
+		from ACB_OVERDUE due
+		left join
+		(select statistics_dt,
+		open_combank_org_id,
+		process_state,
+		count(*) as coun
+		from ACB_OVERDUE due
+		where process_state = 'Y'
+		group by
+		(statistics_dt, open_combank_org_id, process_state)) due1
+		on
+		due.statistics_dt = due1.statistics_dt
+		and due.open_combank_org_id = due1.open_combank_org_id
+		left join
+		(select statistics_dt,
+		open_combank_org_id,
+		process_state,
+		count(*) as coun
+		from ACB_OVERDUE due
+		where process_state = 'N'
+		group by
+		(statistics_dt, open_combank_org_id, process_state)) due2
+		on
+		due.statistics_dt = due2.statistics_dt
+		and due.open_combank_org_id = due2.open_combank_org_id
+		left join
+		(select rel.user_id
+		as tellerNo,
+		info.user_name as tellerNm,
+		obj_id
+		from bione_auth_obj_user_rel rel
+		left join
+		bione_user_info info
+		on info.user_id = rel.user_id
+		where rel.user_id in
+		(select user_id
+		from bione_auth_obj_user_rel rel
+		where rel.obj_id = '4c15d92bc11447ec8a6eb9abb1291871')) teller
+		on
+		due.open_combank_org_id = teller.obj_id
+		where 1 = 1
+		<if test="orgNoLikeList != null">
+			and due.open_combank_org_id in
+			(select info.org_no from rpt_org_info info where 1=1
+			<foreach  collection = "orgNoLikeList" index="index" item="orgNoLike"  open=" and ("  separator=" or " close=")">
+				info.namespace like #{orgNoLike}
+			</foreach>
+			and info.org_type= #{moduleType}
+			)
+		</if>
+		group by (	due.open_combank_org_name, due.open_combank_org_id,
+		due.overdue_date, due.statistics_dt, due1.coun, due2.coun,
+		teller.tellerNo, teller.tellerNm)
+		<if test='isDownload != null and isDownload == "Y"'>
+			limit 10000
+		</if>
+	</select>
+	<update id="updateIsNoticedMessage" parameterType="HashMap">
+		UPDATE acb_indiv_bank_acct_error err SET ISNOTICED_MESSAGE = 'Y' WHERE err.BANK_ACCT_NUM = #{bankNum} 
+		<if test="finalSubmitDate != null ">
+		and err.FINAL_SUBMIT_DATE = to_date(#{finalSubmitDate},'yyyy/MM/dd') 
+		</if>
+		<if test="errorType != null">
+		and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<update id="updateIsNoticedMessage" parameterType="HashMap" databaseId="mysql">
+		UPDATE acb_indiv_bank_acct_error err SET ISNOTICED_MESSAGE = 'Y' WHERE err.BANK_ACCT_NUM = #{bankNum}
+		<if test="finalSubmitDate != null ">
+			and err.FINAL_SUBMIT_DATE = date_format(#{finalSubmitDate},'%Y/%m/%d')
+		</if>
+		<if test="errorType != null">
+			and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<update id="updateIsNoticedEmail" parameterType="HashMap">
+		UPDATE acb_indiv_bank_acct_error err SET ISNOTICED_EMAIL = 'Y' WHERE err.BANK_ACCT_NUM = #{bankNum} 
+		<if test="finalSubmitDate != null">
+		and err.FINAL_SUBMIT_DATE = to_date(#{finalSubmitDate},'yyyy/MM/dd') 
+		</if>
+		<if test="errorType != null">
+		and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<update id="updateIsNoticedEmail" parameterType="HashMap" databaseId="mysql">
+		UPDATE acb_indiv_bank_acct_error err SET ISNOTICED_EMAIL = 'Y' WHERE err.BANK_ACCT_NUM = #{bankNum}
+		<if test="finalSubmitDate != null">
+			and err.FINAL_SUBMIT_DATE = date_format(#{finalSubmitDate},'%Y/%m/%d)
+		</if>
+		<if test="errorType != null">
+			and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<update id="updateLastSendTimeEmail" parameterType="HashMap">
+		UPDATE acb_indiv_bank_acct_error err SET err.LAST_SENDTIME_EMAIL = #{LastSendTimeEmail} WHERE err.BANK_ACCT_NUM = #{bankNum} 
+		<if test="finalSubmitDate != null">
+		and err.FINAL_SUBMIT_DATE = to_date(#{finalSubmitDate},'yyyy/MM/dd') 
+		</if>
+		<if test="errorType != null">
+		and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<update id="updateLastSendTimeEmail" parameterType="HashMap" databaseId="mysql">
+		UPDATE acb_indiv_bank_acct_error err SET err.LAST_SENDTIME_EMAIL = #{LastSendTimeEmail} WHERE err.BANK_ACCT_NUM = #{bankNum}
+		<if test="finalSubmitDate != null">
+			and err.FINAL_SUBMIT_DATE = date_format(#{finalSubmitDate},'%Y/%m/%d')
+		</if>
+		<if test="errorType != null">
+			and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<update id="updateLastSendTimeMessage" parameterType="HashMap">
+		UPDATE acb_indiv_bank_acct_error err SET err.LAST_SENDTIME_MESSAGE = #{LastSendTimeMessage} WHERE err.BANK_ACCT_NUM = #{bankNum} 
+		<if test="finalSubmitDate != null">
+		and err.FINAL_SUBMIT_DATE = to_date(#{finalSubmitDate},'yyyy/MM/dd') 
+		</if>
+		<if test="errorType != null">
+		and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<update id="updateLastSendTimeMessage" parameterType="HashMap" databaseId="mysql">
+		UPDATE acb_indiv_bank_acct_error err SET err.LAST_SENDTIME_MESSAGE = #{LastSendTimeMessage} WHERE err.BANK_ACCT_NUM = #{bankNum}
+		<if test="finalSubmitDate != null">
+			and err.FINAL_SUBMIT_DATE = date_format(#{finalSubmitDate},'%Y/%m/%d')
+		</if>
+		<if test="errorType != null">
+			and err.ERROR_TYPE=#{errorType}
+		</if>
+	</update>
+	<select id="groupByErrorType" resultType="String" parameterType="HashMap">
+		SELECT DISTINCT err.error_type FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否' 
+		AND err.open_combank_org_id = #{orgId}
+	 </select>
+	 <select id="groupByInfoTypeCd" resultType="String" parameterType="HashMap">		
+	 	SELECT DISTINCT err.info_type_cd FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否' 
+	 	AND err.error_type= #{errorType} AND err.open_combank_org_id = #{orgId}
+	 </select>
+	<select id="groupByErrorDays" resultType="String" parameterType="HashMap">
+		SELECT DISTINCT to_char(err.error_days) FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否' 
+		AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} 
+		AND err.open_combank_org_id = #{orgId} 
+	</select>
+	<select id="countNeverNoticeEmail" resultType="java.lang.Integer" parameterType="HashMap">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否' 
+		AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days = to_number(#{errDay})
+		AND err.open_combank_org_id = #{orgId}  AND err.isnoticed_email IS NULL
+	</select>
+	<select id="countNeverNoticeEmail" resultType="java.lang.Integer" parameterType="HashMap" databaseId="mysql">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否'
+		 AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days = #{errDay}
+		 AND err.open_combank_org_id = #{orgId}  AND err.isnoticed_email IS NULL
+	</select>
+	<select id="countNeverNoticeMessage" resultType="java.lang.Integer" parameterType="HashMap">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否' 
+		AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days = to_number(#{errDay})
+		AND err.open_combank_org_id = #{orgId}  AND err.isnoticed_message IS NULL
+	</select>
+	<select id="countNeverNoticeMessage" resultType="java.lang.Integer" parameterType="HashMap" databaseId="mysql">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否'
+		 AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days = #{errDay}
+		 AND err.open_combank_org_id = #{orgId}  AND err.isnoticed_message IS NULL
+	</select>
+	<select id="groupLastSendTimeEmail" resultType="HashMap" parameterType="HashMap">
+		SELECT DISTINCT to_char(Last_sendtime_Email,'yyyy-MM-dd HH') AS LAST_SENDTIME_EMAIL
+		FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否' 
+		AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days =to_number(#{errDay})
+		AND err.open_combank_org_id = #{orgId}
+	</select>
+	<select id="groupLastSendTimeEmail" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT DISTINCT date_format(Last_sendtime_Email,'%Y-%m-%d %H') AS LAST_SENDTIME_EMAIL
+		FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否'
+			 AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days = #{errDay}
+			 AND err.open_combank_org_id = #{orgId}
+	</select>
+	<select id="groupLastSendTimeMessage" resultType="HashMap" parameterType="HashMap">
+		SELECT DISTINCT to_char(Last_sendtime_Message,'yyyy-MM-dd HH') AS LAST_SENDTIME_MESSAGE
+		FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否' 
+		AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days = to_number(#{errDay})
+		AND err.open_combank_org_id = #{orgId}
+	</select>
+	<select id="groupLastSendTimeMessage" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT DISTINCT date_format(Last_sendtime_Message,'%Y-%m-%d %H') AS LAST_SENDTIME_MESSAGE
+		FROM acb_indiv_bank_acct_error err WHERE 1=1 AND err.supervision_sign = '否'
+			 AND err.error_type= #{errorType}  AND err.info_type_cd= #{infoType} AND err.error_days = #{errDay}
+			 AND err.open_combank_org_id = #{orgId}
+	</select>
+	<select id="countTemNum" resultType="java.lang.Integer">
+		select count(*) from BANK_ERROR_TEM
+	</select>
+	<delete id="truncateEroTem">
+		truncate table BANK_ERROR_TEM
+	</delete>
+	<insert id="insertEroTemEmail" parameterType="HashMap">
+	  INSERT INTO BANK_ERROR_TEM (TEM_ID,OPEN_COMBANK_ORG_ID,ERROR_TYPE,ERROR_DAYS,INFO_TYPE_CD,NOTICE_TYPE,LAST_SEND_TIME_EMAIL)  VALUES 
+	  ((select sys_guid() from dual connect by rownum &lt; 2),#{orgId},#{errorType},#{errDay},#{infoType},#{noticeType},#{lastSendTimeEmail})  
+	</insert>
+	<insert id="insertEroTemEmail" parameterType="HashMap" databaseId="mysql">
+		INSERT INTO BANK_ERROR_TEM (TEM_ID,OPEN_COMBANK_ORG_ID,ERROR_TYPE,ERROR_DAYS,INFO_TYPE_CD,NOTICE_TYPE,LAST_SEND_TIME_EMAIL)  VALUES
+		(#{temId},#{orgId},#{errorType},#{errDay},#{infoType},#{noticeType},#{lastSendTimeEmail})
+	</insert>
+	<insert id="insertEroTemMessage" parameterType="HashMap">
+	  INSERT INTO BANK_ERROR_TEM (TEM_ID,OPEN_COMBANK_ORG_ID,ERROR_TYPE,ERROR_DAYS,INFO_TYPE_CD,NOTICE_TYPE,LAST_SEND_TIME_Message)  VALUES 
+	  ((select sys_guid() from dual connect by rownum &lt; 2),#{orgId},#{errorType},#{errDay},#{infoType},#{noticeType},#{lastSendTimeMessage})  
+	</insert>
+	<insert id="insertEroTemMessage" parameterType="HashMap" databaseId="mysql">
+		INSERT INTO BANK_ERROR_TEM (TEM_ID,OPEN_COMBANK_ORG_ID,ERROR_TYPE,ERROR_DAYS,INFO_TYPE_CD,NOTICE_TYPE,LAST_SEND_TIME_Message)  VALUES
+		(#{temId},#{orgId},#{errorType},#{errDay},#{infoType},#{noticeType},#{lastSendTimeMessage})
+	</insert>
+	<select id="countPressByOrg" resultType="java.lang.Integer" parameterType="HashMap">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1 
+			AND err.supervision_sign = '否' 
+			AND err.error_type =  #{errorType} 
+			AND err.info_type_cd =  #{infoType} 
+			AND err.open_combank_org_id = #{orgId} 
+			AND err.error_days  &gt;= to_number(#{paramErrorDays})
+	</select>
+	<select id="countPressByOrg" resultType="java.lang.Integer" parameterType="HashMap" databaseId="mysql">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1
+			 AND err.supervision_sign = '否'
+			 AND err.error_type =  #{errorType}
+			 AND err.info_type_cd =  #{infoType}
+			 AND err.open_combank_org_id = #{orgId}
+			 AND err.error_days  &gt;= #{paramErrorDays}
+	</select>
+	<select id="countNeverDone" resultType="java.lang.Integer" parameterType="HashMap">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1 
+			AND err.supervision_sign = '否'
+			AND err.error_data_status = '未修改'
+			AND err.isNoticed_email IS NULL
+			AND err.error_days &lt; to_number(#{paramErrorDays}) 
+			AND err.open_combank_org_id = #{orgId} 
+	</select>
+	<select id="countNeverDone" resultType="java.lang.Integer" parameterType="HashMap" databaseId="mysql">
+		SELECT COUNT(*) FROM acb_indiv_bank_acct_error err WHERE 1=1
+			 AND err.supervision_sign = '否'
+			 AND err.error_data_status = '未修改'
+			 AND err.isNoticed_email IS NULL
+			 AND err.error_days &lt; #{paramErrorDays}
+			 AND err.open_combank_org_id = #{orgId}
+	</select>
+</mapper> 

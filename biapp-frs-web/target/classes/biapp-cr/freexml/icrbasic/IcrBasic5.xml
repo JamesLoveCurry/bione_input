@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>职业信息</templetname>
+	<fromtable>Icr_OctpnInf</fromtable>
+	<savetable>Icr_OctpnInf</savetable>
+	<pkname>IDType,IDNum</pkname>
+	<querycontion></querycontion>
+	<autocondition></autocondition>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<autoquery>N</autoquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+	<list_btns>$INSERT;$UPDATE;$DELETE</list_btns>
+	<list_issearch></list_issearch>
+	<list_ispagebar>N</list_ispagebar>
+</templet>
+
+<templet_item>
+		<itemkey>IDType</itemkey>
+		<itemname>证件类型</itemname>
+		<itemtype>下拉框</itemtype>
+    <itemdefine>【{"类型":"直接值","内容":"1/户口簿|2/护照|5/港澳居民来往内地通行证|6/台湾同胞来往内地通行证|8/外国人居留证|9/警官证|A/香港身份证|B/澳门身份证|C/台湾身份证|X/其他证件|10/居民身份证及其他以公民身份证号为标识的证件|20/军人身份证件"}】</itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<query_isshow>Y</query_isshow>
+		<card_isshow>Y</card_isshow>
+		<card_width>150,400</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>400</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+	<templet_item>
+		<itemkey>IDNum</itemkey>
+		<itemname>证件号码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+	    <query_isshow>Y</query_isshow>
+		<card_isshow>Y</card_isshow>
+		<card_width>150,400</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>170</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+<templet_item>
+     <itemkey>EmpStatus</itemkey>
+    <itemname>就业状况</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"11/国家公务员|13/专业技术人员|17/职员|21/企业管理人员|24/工人|27/农民|31/学生|37/现役军人|51/自由职业者|54/个体经营者|70/无业人员|80/退离休人员|90/其他|99/未知|91/在职"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+     <itemkey>CpnName</itemkey>
+    <itemname>单位名称</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+<templet_item>
+     <itemkey>CpnType</itemkey>
+    <itemname>单位性质</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"10/机关、事业单位|20/国有企业|30/外资企业|40/个体、私营企业|50/其他|99/未知"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+<templet_item>
+    <itemkey>Industry</itemkey>
+    <itemname>单位所属行业</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+     <itemdefine>【{"类型":"直接值","内容":"A/农、林、牧、渔业|B/采矿业|C/制造业|D/电力、热力、燃气及水生产和供应业|E/建筑业|F/批发和零售业|G/交通运输、仓储和邮储业|H/住宿和餐饮业|I/信息传输、软件和信息技术服务|J/金融业|K/房地产业|L/租赁和商务服务业|M/科学研究和技术服务业|N/水利、环境和公共设施管理业|O/居民服务、修理和其他服务业|P/教育|Q/卫生和社区工作|R/文化、体育和娱乐业|S/公共管理、社会保障和社会组织|T/国际组织|Z/未知"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+<templet_item>
+   <itemkey>CpnAddr</itemkey>
+    <itemname>单位详细地址</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>CpnPc</itemkey>
+    <itemname>单位所在地邮编</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>CpnDist</itemkey>
+    <itemname>单位所在地行政区划</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"SQL","内容":"select normscode,normsnote from ent_codelibrary where datatype = 'AdmDivOfReg'"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+   <itemkey>CpnTEL</itemkey>
+    <itemname>单位电话</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+<templet_item>
+   <itemkey>Occupation</itemkey>
+    <itemname>职业</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"0/国际机关、党群组织、企业、事业单位负责人|1/专业技术人员|3/办事人员和有关人员|4/商业、服务业人员|5/农、林、牧、渔、水利业生产人员|6/生产、运输设备操作人员及有关人员|X/军人|Y/不便分类的其他从业人员|Z/未知"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+<templet_item>
+   <itemkey>Title</itemkey>
+    <itemname>职务</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"1/高级领导|2/中级领导|3/一般员工|9/未知"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+<templet_item>
+   <itemkey>TechTitle</itemkey>
+    <itemname>职称</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"1/高级|2/中级|3/初级|9/未知"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+<templet_item>
+   <itemkey>WorkStartDate</itemkey>
+    <itemname>本单位工作起始年份</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+<templet_item>
+   <itemkey>OctpnInfoUpDate</itemkey>
+    <itemname>信息更新日期</itemname>
+    <itemtype>日历</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+<templet_item>
+   <itemkey>Incrementflag</itemkey>
+    <itemname>增量标识</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+<itemdefine>【{"类型":"直接值","内容":"0/不上报|1/新增|2/更新|3/永不上报|4/待处理|5/校验错误|6/反馈错误|7/待更正|8/整笔删除"}】</itemdefine>    
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+<templet_item>
+   <itemkey>Cimoc</itemkey>
+    <itemname>客户资料维护机构代码</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+</root>

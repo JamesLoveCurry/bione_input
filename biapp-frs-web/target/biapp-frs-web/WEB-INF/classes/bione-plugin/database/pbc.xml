@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+<table name="frs_pbc_range_info" pkname="submit_range_no" descr="人行报送地区范围信息表">
+<columns>
+  <col name="submit_range_no"		type="varchar"   length="32"   descr="报送范围标识"/>
+  <col name="ver_id"			type="varchar"   length="32"   descr="版本id"/>
+  <col name="submit_range_code"			type="varchar"   length="32"   descr="报送范围编码"/>
+  <col name="submit_range_nm"			type="varchar"   length="200"  descr="报送范围名称"/>
+  <col name="remark"			type="varchar"   length="500"  descr="备注"/>
+</columns>
+</table>
+
+<table name="frs_pbc_report_code" pkname="report_code_cfg_no" descr="上报编码配置信息表">
+<columns>
+  <col name="report_code_cfg_no"			type="varchar"   length="32"   descr="上报编码配置标识"/>
+  <col name="ver_id"			type="varchar"   length="32"   descr="版本id"/>
+  <col name="rpt_code"			type="varchar"   length="32"  descr="报表编码"/>
+  <col name="pbc_code"			type="varchar"   length="32"   descr="人行编码"/>
+  <col name="sys_index"			type="varchar"   length="32"  descr="系统指标编号"/>
+  <col name="data_attr"			type="varchar"   length="10"   descr="数据属性"/>
+  <col name="currtype"			type="varchar"   length="10"   descr="币种"/>
+  <col name="is_main"			type="varchar"   length="10"   descr="是否法人机构"/>
+  <col name="start_time"		type="date"   	 length="10"   descr="开始时间"/>
+  <col name="end_time"			type="date"      length="10"   descr="结束时间"/>
+  <col name="submit_range_code"	type="varchar"   length="32"   descr="报送范围编码"/>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格编号"/>
+  <col name="cell_nm"			type="varchar"   length="200"   descr="单元格名称"/>
+</columns>
+</table>
+
+<table name="frs_pbc_report_org" pkname="report_org_cfg_no" descr="人行上报机构地区信息表">
+<columns>
+  <col name="report_org_cfg_no"		type="varchar"   length="32"   descr="上报机构配置标识"/>
+  <col name="ver_id"				type="varchar"   length="10"    descr="版本id"/>
+  <col name="rpt_code"				type="varchar"   length="32"   descr="报表编码"/>
+  <col name="org_code"				type="varchar"   length="32"   descr="机构编码"/>
+  <col name="report_org_code"		type="varchar"   length="32"   descr="上报机构编码"/>
+  <col name="finance_code"			type="varchar"   length="32"   descr="人行编码"/>
+  <col name="submit_range_code"		type="varchar"   length="32"   descr="保送范围编码"/>
+</columns>
+</table>
+
+<table name="frs_pbc_task_info" pkname="msgset_no" descr="人行报送任务信息表">
+<columns>
+  <col name="msgset_no"			type="varchar"   length="32"    descr="任务标识"/>
+  <col name="rpt_code"			type="varchar"   length="200"   descr="报表编码"/>
+  <col name="task_nm"			type="varchar"   length="200"    descr="任务名称"/>
+  <col name="freq_type"			type="varchar"   length="10"    descr="频度类型"/>
+  <col name="sort_num"			type="decimal"   length="5"     descr="排序编号"/>
+  <col name="batch_id"			type="decimal"   length="5"     descr="批次号"/>
+</columns>
+</table>
+
+<table name="frs_pbc_msg_his_info" pkname="msg_his_id" descr="报文生成历史信息表">
+<columns>
+  <col name="msg_his_id"		type="varchar"   length="32"    descr="报文历史标识"/>
+  <col name="msgset_no"			type="varchar"   length="32"    descr="任务标识"/>
+  <col name="data_date"			type="varchar"   length="10"   	descr="数据日期"/>
+  <col name="msg_sort_num"		type="decimal"   length="5"    	descr="报文顺序号"/>
+  <col name="msg_path"			type="varchar"   length="500"   descr="报文路径"/>
+  <col name="oper_user"			type="varchar"   length="200"   descr="操作用户"/>
+  <col name="generate_date"		type="varchar"   length="10"    descr="生成日期"/>
+</columns>
+</table>
+
+<table name="frs_pbc_special_code" pkname="pbc_code" descr="人行特殊编码表">
+	<columns>
+	  <col name="pbc_code"			type="varchar"   length="32"    descr="人行编码"/>
+	  <col name="code_desc"			type="varchar"   length="1000"    descr="编码说明"/>
+	</columns>
+</table>
+
+</root>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+    <validator id="30079372.0.0" classType="org.pbccrc.archive.collect.messagetools.report.message.ReportEALDelRecord" >
+
+       <field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+            <rule  id="InfRecType_NotNull" type="NotNull" errCode="ABD000"   />
+            <rule  id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000"   depExp="InfRecType_NotNull"/>
+            <rule id="InfRecType_Equal" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecType_NotEmpty">
+                <property name="data" value="${$context.REC_TYPE}" />
+            </rule>
+            <rule id="InfRecTp_Dict" type="DictManage" errCode="ABE001" depExp="InfRecType_NotEmpty">
+					<property name="dictKey" value="EntInfRecType" />
+			</rule>
+        </field> 
+        <field  name="EntName" fbTag="EntName" classType="java.lang.String" >
+            <rule  id="EntName_NotNull" type="NotNull" errCode="ABD000"   />
+            <rule  id="EntName_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntName_NotNull" />
+            <rule  id="EntName_DataType" type="DataType" errCode="ABE001"  depExp="EntName_NotEmpty" >
+                <property  name="type" value="ANC..80" />
+            </rule>
+        </field> 
+        <!-- 证件类型判断 -->
+        <field  name="EntCertType" fbTag="EntCertType" classType="java.lang.String" >
+            <rule  id="EntCertType_NotNull" type="NotNull" errCode="ABD000"   />
+            <rule  id="EntCertType_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertType_NotNull" />
+            <rule id="EntCertType_Dict" type="Dict" errCode="ABE001"  depExp="EntCertType_NotEmpty"  scope="local">
+                <property name="dictKey" value="EntCertType" />
+            </rule> 
+        </field> 
+        <field  name="EntCertNum" fbTag="EntCertNum" classType="java.lang.String" >
+            <rule  id="EntCertNum_NotNull" type="NotNull" errCode="ABD000"   />
+            <rule  id="EntCertNum_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertNum_NotNull"/>
+            <rule  id="EntCertNum_DataType" type="DataType" errCode="ABE001"   depExp="EntCertNum_NotEmpty">
+                <property  name="type" value="ANC..40" />
+            </rule>
+             <!-- 根据证件类型，校验不同的证件号 -->
+             <rule id="EntCertNum_Vali" type="LegCert" errCode="ABE004"  depExp="EntCertNum_DataType"> 
+               <property name="certType" value="${EntCertType}"/>
+            </rule> 
+        </field> 
+        <field  name="SheetYear" fbTag="SheetYear" classType="java.lang.String" >
+                <rule  id="SheetYear_NotNull" type="NotNull" errCode="ABD000"   />
+                <rule  id="SheetYear_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetYear_NotNull"/>
+                <rule id="SheetYear_DataType" type="DataType" errCode="ABR001"  depExp="SheetYear_NotEmpty">
+                        <property name="type" value="Year" />
+                </rule>
+                <rule  id="SheetYear_Range" type="DateRange" errCode="ABE008"  depExp="SheetYear_DataType" />
+        </field> 
+        <field  name="SheetType" fbTag="SheetType" classType="java.lang.String" >
+            <rule  id="SheetType_NotNull" type="NotNull" errCode="ABD000" />
+            <rule  id="SheetType_NotEmpty" type="NotEmpty" errCode="ABE000" />
+            <rule id="SheetType_Dict" type="Dict" errCode="ABE001"  depExp="SheetType_NotEmpty"  >
+                <property name="dictKey" value="EntSheetType" />
+            </rule>
+        </field> 
+        <field  name="SheetTypeDivide" fbTag="SheetTypeDivide" classType="java.lang.String" >
+            <rule  id="SheetTypeDivide_NotNull" type="NotNull" errCode="ABD000"   />
+            <rule  id="SheetTypeDivide_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetTypeDivide_NotNull"/>
+            <rule id="SheetTypeDivide_Dict" type="Dict" errCode="ABE001"  depExp="SheetTypeDivide_NotEmpty"  >
+                <property name="dictKey" value="EntSheetTypeDivide" />
+            </rule>
+        </field> 
+    </validator>
+</validators>

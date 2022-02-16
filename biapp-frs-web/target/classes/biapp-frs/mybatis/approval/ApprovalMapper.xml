@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.frs.approval.repository.ApprovalDao">
+	<!-- 根据机构获取上一级机构 -->
+	<select id="getUpOrgNoByOrgNO" parameterType="HashMap"
+		resultType="String">
+		SELECT distinct org.UP_ORG_NO
+		FROM
+			RPT_ORG_INFO org
+		WHERE
+		org.ORG_TYPE = '04'
+		<if test="orgNo!=null and orgNo!=''">
+			AND org.org_No = #{orgNo}
+		</if>
+
+	</select>
+
+	<!-- 根据机构获取下一级子级机构 -->
+	<select id="getDownOrgNoByOrgNO" parameterType="HashMap"
+		resultType="com.yusys.biapp.frs.approval.web.vo.ApprovalVo">
+		SELECT
+		distinct org.ORG_NO
+		FROM
+		RPT_ORG_INFO org
+		WHERE
+		org.ORG_TYPE = '04'
+		<if test="upOrgNo!=null and upOrgNo!=''">
+			AND org.UP_ORG_NO = #{upOrgNo}
+		</if>
+
+	</select>
+
+	<!-- 查询上级机构的流程状态 -->
+	<select id="findByTaskInstanceIdAndOrg" parameterType="HashMap"
+		resultType="com.yusys.biapp.frs.approval.entity.ApprovalInfo">
+		select a.*
+			from RPT_FLTSK_INS a
+		where 1=1
+			<if test="taskNm!=null and taskNm!=''">
+				AND a.task_id = #{taskNm}
+			</if>
+			<if test="dataDate!=null and dataDate!=''">
+			AND a.DATA_DATE = #{dataDate}
+			</if>
+		and a.exe_obj_id in (select b.org_no
+		from rpt_org_info b
+		where b.org_no = a.exe_obj_id
+		<if test="orgNo!=null and orgNo!=''">
+			and b.org_no = #{orgNo}
+		</if>
+		)
+		and a.task_obj_id in
+		(select rp.rpt_id
+		from rpt_mgr_report_info rp
+		where rp.rpt_id = a.task_obj_id
+		<if test="rptNm!=null and rptNm!=''">
+			AND rp.rpt_id = #{rptNm}
+		</if>
+		)
+	</select>
+
+
+
+	<!-- 查询下级机构是否申请 -->
+	<select id="checkXjOrgNoIsApplyOrNot" parameterType="HashMap"
+		resultType="com.yusys.biapp.frs.approval.web.vo.ApprovalVo">
+		select r.rebut_id,aa.sts,aa.task_instance_id from RPT_FLTSK_REBUT r ,( select
+			a.task_instance_id,a.sts
+			from RPT_FLTSK_INS a
+		where 1=1
+			<if test="taskNm!=null and taskNm!=''">
+				AND a.task_nm = #{taskNm}
+			</if>
+		and a.exe_obj_id in (select b.org_no
+			from rpt_org_info b
+		where b.org_no = a.exe_obj_id
+			<if test="orgNo!=null and orgNo!=''">
+				and b.org_no = #{orgNo}
+			</if>
+		)
+			and a.task_obj_id in
+			(select rp.rpt_id
+			from rpt_mgr_report_info rp
+		where rp.rpt_id = a.task_obj_id
+			<if test="rptNm!=null and rptNm!=''">
+				AND rp.rpt_nm = #{rptNm}
+			</if>
+		  )
+		)aa
+		where aa.task_instance_id = r.task_instance_id
+	</select>
+	<!-- 审批详情 -->
+	<select id="getApprovalInfoById" parameterType="String"
+		resultType="com.yusys.biapp.frs.approval.entity.ApprovalInfo">
+		SELECT
+		ins.TASK_ID tskId,
+		ins.TASK_NM taskNm,
+		ins.TASK_INSTANCE_ID
+		tskInsId,
+		ins.STS sts,
+		ins.DATA_DATE dataDate,
+		re.STS approvalSts,
+		re.APPLY_USER_NO approvaller,
+		re.COLLATE_TIME approvalDate,
+		re.APPLY_USER_NO rejecter,
+		re.APPLY_TIME rejectDate,
+		re.APPLY_NOD_STS
+		rejectSts,
+		re.REBUT_ID rebutId,
+		re.REBUT_DESC reDesc,
+		re.APPLY_DESC
+		applyDesc,
+		re.COLLATE_USER_NO collateUserNo,
+		mgr.RPT_STS rptSts,
+		mgr.RPT_NM rptNm,
+		tab.ORG_NO orgNo,
+		tab.ORG_NM orgNm
+		FROM
+		RPT_FLTSK_REBUT
+		re
+		LEFT JOIN
+		RPT_FLTSK_INS ins
+		ON
+		ins.TASK_INSTANCE_ID =
+		re.TASK_INSTANCE_ID
+		LEFT JOIN
+		RPT_MGR_REPORT_INFO mgr
+		ON
+		ins.TASK_OBJ_ID =
+		mgr.RPT_ID
+		LEFT JOIN
+		(SELECT
+		org.ORG_NO, org.ORG_NM
+		FROM
+		RPT_ORG_INFO org
+		WHERE
+		org.ORG_TYPE = '04') tab
+		ON
+		ins.EXE_OBJ_ID = tab.ORG_NO
+		where 1 = 1
+		AND ins.TASK_TYPE = '04'
+		AND re.REBUT_ID = #{str}
+		<!-- AND info.TASK_TYPE = '04' -->
+	</select>
+
+	<select id="getInfos" parameterType="HashMap" resultType="String">
+		SELECT
+		info.ROLE_NO
+		FROM
+		BIONE_ROLE_INFO info
+		WHERE
+		info.ROLE_ID IN(
+		SELECT
+		b.OBJ_ID
+		FROM
+		BIONE_AUTH_OBJ_USER_REL b
+		WHERE
+		b.USER_ID = #{userNo}
+		AND
+		b.OBJ_DEF_NO = 'AUTH_OBJ_ROLE'
+		)
+
+	</select>
+
+	<update id="updateAppRebut" parameterType="HashMap">
+		UPDATE
+		RPT_FLTSK_REBUT
+		rfr
+		SET
+		rfr.COLLATE_TIME = #{date},
+		rfr.REBUT_DESC = #{rebutDesc},
+		rfr.STS = #{approvalSts},
+		rfr.COLLATE_USER_NO = #{userNo}
+		WHERE
+		rfr.REBUT_ID = #{rebutId}
+	</update>
+
+	<update id="updateTskSts" parameterType="HashMap">
+		UPDATE
+		RPT_FLTSK_INS ins
+		SET
+		ins.STS = #{sts}
+		WHERE
+		ins.TASK_INSTANCE_ID = #{tid}
+	</update>
+	<select id="getRoleListByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT obj_id FROM BIONE_AUTH_OBJ_USER_REL rel WHERE rel.obj_def_no = 'AUTH_OBJ_ROLE' AND rel.user_id = #{userNo}
+	</select>
+</mapper>

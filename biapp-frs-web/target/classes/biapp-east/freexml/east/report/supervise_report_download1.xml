@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>一键下载</templetname>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>status</itemkey>
+		<itemname>状态</itemname>
+		<itemtype>文本框</itemtype>
+		<card_isshow>N</card_isshow>
+		<card_width>300</card_width>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+	<templet_item>
+		<itemkey>file_name</itemkey>
+		<itemname>文件名</itemname>
+		<itemtype>文本框</itemtype>
+		<card_isshow>N</card_isshow>
+		<card_width>300</card_width>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>
+

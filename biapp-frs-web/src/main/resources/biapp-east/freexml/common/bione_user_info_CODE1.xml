@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+<templet>
+  <templetname>★用户信息表</templetname>
+  <fromtable>bione_user_info</fromtable>
+  <savetable>bione_user_info</savetable>
+  <pkname>rid</pkname>
+  <autoquery>N</autoquery>
+  <autocondition></autocondition>
+  <querycontion></querycontion>
+  <ishavebillquery>Y</ishavebillquery>
+  <list_btns></list_btns>
+  <list_ispagebar>Y</list_ispagebar>
+  <list_ismultisel>N</list_ismultisel>
+  <list_ischeckstyle>N</list_ischeckstyle>
+</templet>
+
+<templet_item>
+  <itemkey>user_id</itemkey>
+  <itemname>用户ID</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>user_no</itemkey>
+  <itemname>用户标识</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>Y</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>Y</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>user_pwd</itemkey>
+  <itemname>用户密码</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>user_name</itemkey>
+  <itemname>用户名称</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>Y</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>Y</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>sex</itemkey>
+  <itemname>性别</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>birthday</itemkey>
+  <itemname>生日</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>email</itemkey>
+  <itemname>邮箱</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>address</itemkey>
+  <itemname>地址</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>postcode</itemkey>
+  <itemname>邮编</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>mobile</itemkey>
+  <itemname>手机号码</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>tel</itemkey>
+  <itemname>电话号码</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>org_no</itemkey>
+  <itemname>机构标识</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>Y</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>dept_no</itemkey>
+  <itemname>部门标识</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>Y</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>user_icon</itemkey>
+  <itemname>用户图标</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>user_sts</itemkey>
+  <itemname>用户状态</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>Y</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>is_builtin</itemkey>
+  <itemname>是否内置</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>remark</itemkey>
+  <itemname>备注</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>last_pwd_update_time</itemkey>
+  <itemname>最后密码修改时间</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>last_update_user</itemkey>
+  <itemname>最后修改人</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>last_update_time</itemkey>
+  <itemname>最后修改时间</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>logic_sys_no</itemkey>
+  <itemname>逻辑系统标识</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>Y</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+  <itemkey>user_agname</itemkey>
+  <itemname>user_agname</itemname>
+  <itemtype>文本框</itemtype>
+  <itemdefine></itemdefine>
+  <issave>Y</issave>
+  <ismust>N</ismust>
+  <card_isshow>Y</card_isshow>
+  <card_width>300</card_width>
+  <card_iswrap>Y</card_iswrap>
+  <list_isshow>N</list_isshow>
+  <list_width>100</list_width>
+  <list_align>中</list_align>
+  <query_isshow>N</query_isshow>
+  <query_width>200</query_width>
+</templet_item>
+
+</root>

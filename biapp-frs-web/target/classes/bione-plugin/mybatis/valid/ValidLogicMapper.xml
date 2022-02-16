@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.bione.plugin.valid.repository.ValidLogicMybatisDao">
+	<select id="indexList"
+		resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextLogic"
+		parameterType="HashMap">
+		select 
+			logic.CHECK_NM,
+			logic.CHECK_ID,
+			logic.END_DATE,
+			logic.START_DATE,
+			logic.EXPRESSION_DESC,
+			logic.FLOAT_VAL,
+			logic.IS_PRE,
+			logic.IS_SELF_DEF,
+			logic.LEFT_EXPRESSION,
+			logic.LOGIC_OPER_TYPE,
+			logic.RIGHT_EXPRESSION,
+			logic.BUSI_EXPLAIN
+		from
+			RPT_VALID_CFGEXT_LOGIC logic
+		left join 
+			RPT_VALID_LOGIC_IDX_REL idxRel
+		on 
+			idxRel.CHECK_ID = logic.CHECK_ID
+		where 1=1
+		<if test="indexNo != null">and idxRel.INDEX_NO = #{indexNo}</if>
+	</select>
+	<select id="list"
+		resultType="com.yusys.bione.plugin.valid.web.vo.CfgextLogicVO"
+		parameterType="HashMap">
+		select 
+			logic.CHECK_ID,
+			logic.END_DATE,
+			logic.START_DATE,
+			logic.EXPRESSION_DESC,
+			logic.FLOAT_VAL,
+			logic.IS_PRE,
+			logic.IS_SELF_DEF,
+			logic.LEFT_EXPRESSION,
+			logic.LOGIC_OPER_TYPE,
+			logic.RIGHT_EXPRESSION,
+			logic.BUSI_EXPLAIN,
+			logic.CHECK_TYPE,
+			logic.CHECK_SRC,
+			logic.EXPRESSION_SHORT_DESC,
+			logic.DATA_UNIT,
+			logic.SERIAL_NUMBER,
+			logic.DATA_PRECISION,
+			logic.IS_ORG_FILTER,
+		    '('||org.check_org||')'||info.org_nm as check_org,
+      		info.org_nm
+		from
+			RPT_VALID_CFGEXT_LOGIC logic
+		left join rpt_valid_logic_org org
+		    on logic.check_id = org.check_id
+		    left join rpt_org_info info
+		    on org.check_org = info.org_no
+		    and info.org_type = #{busiType}
+		<if test="rptTemplateId != null">
+		left join 
+			RPT_VALID_LOGIC_RPT_REL rptRel
+		on 
+			logic.CHECK_ID=rptRel.CHECK_ID
+		</if>
+		<if test="indexNo != null">
+		left join 
+			RPT_VALID_LOGIC_IDX_REL idxRel
+		on 
+			logic.CHECK_ID=idxRel.CHECK_ID
+		</if>
+		where 1=1
+		<if test="rptTemplateId != null">and rptRel.RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+		<if test="logicOperType != null">and logic.LOGIC_OPER_TYPE = #{logicOperType}</if>
+		<if test="startDate != null">and logic.START_DATE &lt; #{startDate}</if>
+		<if test="busiExplain != null">and logic.BUSI_EXPLAIN = #{busiExplain}</if>
+		<if test="checkId != null">and logic.CHECK_ID = #{checkId}</if>
+		<if test="rightExpression != null">and logic.RIGHT_EXPRESSION = #{rightExpression}</if>
+		<if test="leftExpression != null">and logic.LEFT_EXPRESSION = #{leftExpression}</if>
+		<if test="isSelfDef != null">and logic.IS_SELF_DEF = #{isSelfDef}</if>
+		<if test="expressionDesc != null">and logic.EXPRESSION_DESC like #{expressionDesc}</if>
+		<if test="floatVal != null">and logic.FLOAT_VAL = #{floatVal}</if>
+		<if test="endDate != null">and logic.END_DATE = #{endDate}</if>
+		<if test="isPre != null">and logic.IS_PRE = #{isPre}</if>
+		<if test="indexNo != null">and idxRel.INDEX_NO = #{indexNo}</if>
+		<if test="isOrgFilter != null">and logic.is_org_filter = #{isOrgFilter}</if>
+		<if test="checkType != null">and logic.check_type = #{checkType}</if>
+		<if test="checkSrc != null">and logic.check_src = #{checkSrc}</if>
+		<if test="dataDate != null">
+			and logic.start_date &lt;= #{dataDate}
+			and logic.end_date > #{dataDate}
+		</if>
+		<if test="orgNos != null and orgNos.size()>0">
+			and ( org.check_org is null or  
+					(org.check_org in
+					<foreach item="orgNos" index="index" collection="orgNos"
+						separator=" or org.check_org in ">
+						<foreach collection="orgNos" item="orgNo" open="("
+							separator="," close=")">
+							#{orgNo}
+						</foreach>
+					</foreach>)
+				) 
+		</if>
+		order by start_date
+	</select>
+	<select id="listLogic"
+		resultType="com.yusys.bione.plugin.valid.web.vo.CfgextLogicVO"
+		parameterType="HashMap">
+		select 
+			logic.CHECK_NM,
+			logic.CHECK_ID,
+			logic.END_DATE,
+			logic.EXPRESSION_DESC,
+			logic.FLOAT_VAL,
+			logic.IS_PRE,
+			logic.IS_SELF_DEF,
+			logic.LEFT_EXPRESSION,
+			logic.LOGIC_OPER_TYPE,
+			logic.RIGHT_EXPRESSION,
+			logic.BUSI_EXPLAIN,
+			logic.expression_short_desc,
+			logic.START_DATE,<!-- , RIGHT_FORMULA_INDEX, LEFT_FORMULA_INDEX -->
+			logic.IS_ORG_FILTER,
+			logic.ORG_LEVEL,
+			logic.CHECK_TYPE,
+			logic.CHECK_SRC,
+			logic.SERIAL_NUMBER,
+			logic.DATA_UNIT,
+			logic.DATA_PRECISION,
+		    '('||org.check_org||')'||info.org_nm as check_org,
+		    org.check_org as org_no,
+		    info.org_nm as org_nm,
+		    logic.logic_check_cycle
+		from
+			RPT_VALID_CFGEXT_LOGIC logic
+		left join rpt_valid_logic_org org
+		    on logic.check_id = org.check_id
+		left join rpt_org_info info
+			on org.check_org = info.org_no
+		and info.org_type = #{orgType}
+		where 1=1
+		<if test="checkId != null">and logic.CHECK_ID = #{checkId}</if>
+		<if test="endDate != null">and logic.END_DATE = #{endDate}</if>
+		<if test="expressionDesc != null">and logic.EXPRESSION_DESC = #{expressionDesc}</if>
+		<if test="floatVal != null">and logic.FLOAT_VAL = #{floatVal}</if>
+		<if test="isPre != null">and logic.IS_PRE = #{isPre}</if>
+		<if test="isSelfDef != null">and logic.IS_SELF_DEF = #{isSelfDef}</if>
+		<if test="leftExpression != null">and logic.LEFT_EXPRESSION = #{leftExpression}</if>
+		<if test="logicOperType != null">and logic.LOGIC_OPER_TYPE = #{logicOperType}</if>
+		<if test="rightExpression != null">and logic.RIGHT_EXPRESSION = #{rightExpression}</if>
+		<if test="busiExplain != null">and logic.BUSI_EXPLAIN = #{busiExplain}</if>
+		<if test="startDate != null">and logic.START_DATE = #{startDate}</if>
+		<if test="isOrgFilter != null">and logic.is_org_filter = #{isOrgFilter}</if>
+		<if test="orgNos != null and orgNos.size()>0">
+			and ( org.check_org is null or  
+					(org.check_org in
+					<foreach item="orgNos" index="index" collection="orgNos"
+						separator=" or org.check_org in ">
+						<foreach collection="orgNos" item="orgNo" open="("
+							separator="," close=")">
+							#{orgNo}
+						</foreach>
+					</foreach>)
+				) 
+		</if>
+		<if test="tempId != null">
+			and logic.check_id in (
+				select check_id from rpt_valid_logic_rpt_rel where rpt_template_id = #{tempId}
+			)
+		</if>
+	</select>
+	<insert id="insertLogic"
+		parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextLogic">
+		insert into
+		RPT_VALID_CFGEXT_LOGIC(CHECK_ID,END_DATE,EXPRESSION_DESC,FLOAT_VAL,IS_PRE,IS_SELF_DEF,LEFT_EXPRESSION,LOGIC_OPER_TYPE,RIGHT_EXPRESSION,BUSI_EXPLAIN,START_DATE,EXPRESSION_SHORT_DESC,IS_ORG_FILTER,ORG_LEVEL,CHECK_NM,CHECK_TYPE,CHECK_SRC,DEF_USER,SERIAL_NUMBER,DATA_UNIT,DATA_PRECISION,LOGIC_CHECK_CYCLE
+		)
+		values(#{checkId},#{endDate},#{expressionDesc},#{floatVal},#{isPre},#{isSelfDef},#{leftExpression},#{logicOperType},#{rightExpression},#{busiExplain},#{startDate},#{expressionShortDesc},#{isOrgFilter},#{orgLevel},#{checkNm},#{checkType},#{checkSrc},#{defUser},#{serialNumber},#{dataUnit},#{dataPrecision},#{logicCheckCycle}
+		)
+	</insert>
+	<update id="updateLogic"
+		parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextLogic">
+		update RPT_VALID_CFGEXT_LOGIC
+		<set>
+			<if test="checkId != null">CHECK_ID=#{checkId},</if>
+			<if test="endDate != null">END_DATE=#{endDate},</if>
+			<if test="expressionDesc != null">EXPRESSION_DESC=#{expressionDesc},</if>
+			<if test="floatVal != null">FLOAT_VAL=#{floatVal},</if>
+			<if test="isPre != null">IS_PRE=#{isPre},</if>
+			<if test="isSelfDef != null">IS_SELF_DEF=#{isSelfDef},</if>
+			<if test="leftExpression != null">LEFT_EXPRESSION=#{leftExpression},</if>
+			<if test="logicOperType != null">LOGIC_OPER_TYPE=#{logicOperType},</if>
+			<if test="rightExpression != null">RIGHT_EXPRESSION=#{rightExpression},</if>
+			<if test="busiExplain != null">BUSI_EXPLAIN=#{busiExplain},</if>
+			<if test="startDate != null">START_DATE=#{startDate},</if>
+			<if test="expressionShortDesc != null">EXPRESSION_SHORT_DESC=#{expressionShortDesc}</if>
+			<!-- <if test="startDate != null">START_DATE=#{startDate},</if> <if test="leftFormulaIndex 
+				!= null">LEFT_FORMULA_INDEX=#{leftFormulaIndex},</if> <if test="rightFormulaIndex 
+				!= null">RIGHT_FORMULA_INDEX=#{rightFormulaIndex}</if> -->
+
+		</set>
+		where 1=1 and CHECK_ID=#{checkId}
+	</update>
+	<delete id="deleteLogic" parameterType="HashMap">
+		delete from RPT_VALID_CFGEXT_LOGIC
+		where 1=1
+		<if test="checkId != null">and CHECK_ID=#{checkId}</if>
+		<if test="ids != null">
+			and CHECK_ID in
+			<foreach collection="ids" index="index" item="item" open="("
+				separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+	<delete id="deleteLogicDsRel" parameterType="HashMap">
+		delete from RPT_VALID_LOGIC_DS_REL
+		where 1=1
+		<if test="checkId != null">and CHECK_ID=#{checkId}</if>
+		<if test="ids != null">
+			and CHECK_ID in
+			<foreach collection="ids" index="index" item="item" open="("
+				separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+	<select id="selectMapping" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.valid.web.vo.NameAndIdMap">
+		SELECT
+		idxInfo.index_Nm AS index_Nm,
+		report.RPT_NM AS rpt_Nm,
+		report.RPT_ID AS rpt_Id,
+		idx.INDEX_NO AS index_No,
+		tmp.line_id AS
+		line_Id,
+		line.line_nm as line_nm
+		FROM
+		RPT_DESIGN_SOURCE_IDX idx
+		left join
+		RPT_DESIGN_TMP_INFO tmp
+		on idx.TEMPLATE_ID = tmp.TEMPLATE_ID
+		and idx.VER_ID = tmp.VER_ID
+		left join
+		RPT_MGR_REPORT_INFO report
+		on
+		(
+		report.cfg_id = tmp.PARENT_TEMPLATE_ID
+		OR report.cfg_id = tmp.template_id
+		)
+		left join
+		RPT_MGR_FRS_LINE line
+		on line.line_id = tmp.line_id
+		left join
+		RPT_IDX_INFO idxInfo
+		on idx.index_no = idxInfo.index_no
+		where 1 = 1
+		and
+		tmp.ver_end_date = '29991231'
+		and idxInfo.end_date = '29991231'
+		<if test="templateId != null">and tmp.template_id = #{templateId}</if>
+		<if test="extType != null">and report.ext_type = #{extType}</if>
+		<if test="templateTypeList != null">
+			and tmp.template_Type in
+			<foreach collection="templateTypeList" index="index" item="item"
+				open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="rptType != null">and report.rpt_Type = #{rptType}</if>
+		<if test="rptSts != null">and report.rpt_Sts = #{rptSts}</if>
+		<if test="rptNums != null"> 
+			and report.rpt_nm in
+			<foreach collection="rptNums" index="index" item="item"
+				open="(" separator="," close=")">#{item}</foreach>
+		</if>
+	</select>
+	
+	<select id="selectCellNoMapping" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.valid.web.vo.NameAndIdMap">
+		SELECT
+		idx.CELL_NO AS index_Nm,
+		report.RPT_NUM AS rpt_Nm,
+		report.RPT_ID AS rpt_Id,
+		idx.INDEX_NO AS index_No,
+		tmp.line_id AS
+		line_Id,
+		line.line_nm as line_nm
+		FROM
+		RPT_DESIGN_SOURCE_IDX idx
+		left join
+		RPT_DESIGN_TMP_INFO tmp
+		on idx.TEMPLATE_ID = tmp.TEMPLATE_ID
+		and idx.VER_ID = tmp.VER_ID
+		left join
+		RPT_MGR_REPORT_INFO report
+		on
+		(
+		report.cfg_id = tmp.PARENT_TEMPLATE_ID
+		OR report.cfg_id = tmp.template_id
+		)
+		left join
+		RPT_MGR_FRS_LINE line
+		on line.line_id = tmp.line_id
+		left join
+		RPT_IDX_INFO idxInfo
+		on idx.index_no = idxInfo.index_no
+		where 1 = 1
+		and
+		tmp.ver_end_date = '29991231'
+		and idxInfo.end_date = '29991231'
+		<if test="extType != null">and report.ext_type = #{extType}</if>
+		<if test="templateTypeList != null">
+			and tmp.template_Type in
+			<foreach collection="templateTypeList" index="index" item="item"
+				open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="rptType != null">and report.rpt_Type = #{rptType}</if>
+		<if test="rptSts != null">and report.rpt_Sts = #{rptSts}</if>
+	</select>
+	<insert id="insertLogicDsRel"
+		parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicDsRel">insert into
+		RPT_VALID_LOGIC_DS_REL(CHECK_ID,COLUMN_ID,TEMPLATE_ID,FORMULA_TYPE,DIM_FILTER,COLUMN_TYPE)
+		values(#{id.checkId}, #{id.columnId}, #{id.templateId},
+		#{id.formulaType},#{id.dimFilter},#{id.columnType})
+	</insert>
+	<select id="selectBusiNoMapping" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.valid.web.vo.NameAndIdMap">
+		SELECT
+		cell.busi_no AS index_Nm,
+		report.RPT_NUM AS rpt_Nm,
+		report.RPT_ID AS rpt_Id,
+		idx.INDEX_NO AS index_No,
+		tmp.line_id AS
+		line_Id,
+		line.line_nm as line_nm
+		FROM
+		RPT_DESIGN_SOURCE_IDX idx
+		left join
+		RPT_DESIGN_TMP_INFO tmp
+		on idx.TEMPLATE_ID = tmp.TEMPLATE_ID
+		and idx.VER_ID = tmp.VER_ID
+		LEFT JOIN
+		    RPT_DESIGN_CELL_INFO cell
+		ON
+		    idx.cell_no = cell.cell_no
+		AND idx.TEMPLATE_ID = cell.TEMPLATE_ID
+		AND idx.ver_id = cell.ver_id
+		left join 
+		RPT_MGR_REPORT_INFO report
+		on
+		(
+		report.cfg_id = tmp.PARENT_TEMPLATE_ID
+		OR report.cfg_id = tmp.template_id
+		)
+		left join
+		RPT_MGR_FRS_LINE line
+		on line.line_id = tmp.line_id
+		left join
+		RPT_IDX_INFO idxInfo
+		on idx.index_no = idxInfo.index_no
+		where 1 = 1
+		and
+		tmp.ver_end_date = '29991231'
+		and idxInfo.end_date = '29991231'
+		<if test="extType != null">and report.ext_type = #{extType}</if>
+		<if test="templateTypeList != null">
+			and tmp.template_Type in
+			<foreach collection="templateTypeList" index="index" item="item"
+				open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="rptType != null">and report.rpt_Type = #{rptType}</if>
+		<if test="rptSts != null">and report.rpt_Sts = #{rptSts}</if>
+	</select>
+
+	<select id="getLineNm" parameterType="HashMap" resultType="String">
+		select line.line_nm from rpt_design_tmp_info tmp ,rpt_mgr_frs_line
+		line
+		where tmp.line_id = line.line_id
+		<if test="templateId != null"> and tmp.template_id = #{templateId}</if>
+	</select>
+
+	<select id="getRptNm" parameterType="HashMap" resultType="String">
+		select report.rpt_nm from rpt_mgr_report_info report
+		where 1=1
+		<if test="rptId != null">
+			and report.rpt_id = #{rptId}
+		</if>
+	</select>
+
+	<insert id="insertLogicRel"
+		parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicIdxRel">insert into
+		RPT_VALID_LOGIC_IDX_REL(CHECK_ID,INDEX_NO,TEMPLATE_ID,FORMULA_TYPE)
+		values(#{id.checkId}, #{id.indexNo}, #{id.templateId},
+		#{id.formulaType})</insert>
+	<update id="updateLogicRel"
+		parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicIdxRel">
+		update RPT_VALID_LOGIC_IDX_REL
+		<set>
+			<if test="id.checkId != null">CHECK_ID=#{id.checkId},</if>
+			<if test="id.indexNo != null">INDEX_NO=#{id.indexNo},</if>
+			<if test="id.templateId != null">TEMPLATE_ID=#{id.templateId},</if>
+			<if test="id.formulaType != null">FORMULA_TYPE=#{id.formulaType}</if>
+		</set>
+		where 1=1 and CHECK_ID=#{id.checkId} and INDEX_NO =#{id.indexNo} and
+		TEMPLATE_ID =#{id.templateId} and FORMULA_TYPE=#{id.formulaType}
+	</update>
+
+	<delete id="deleteLogicRel" parameterType="HashMap">
+		delete from RPT_VALID_LOGIC_IDX_REL
+		where 1=1
+		<if test="checkId != null">and CHECK_ID=#{checkId}</if>
+		<if test="ids != null">
+			and CHECK_ID in
+			<foreach collection="ids" index="index" item="item" open="("
+				separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+	
+	<delete id="deleteLogicRptRel" parameterType="HashMap">
+		delete from RPT_VALID_LOGIC_RPT_REL
+		where 1=1
+		<if test="checkId != null">and CHECK_ID=#{checkId}</if>
+		<if test="ids != null">
+			and CHECK_ID in
+			<foreach collection="ids" index="index" item="item" open="("
+				separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+	
+	<select id="getAllIdx" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.valid.web.vo.IdxInfoVO">
+		select index_no, src_index_no
+		from rpt_idx_info
+		where end_date = '29991231'
+	</select>
+	
+	<select id="selectDatasetInfo" parameterType="HashMap" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol">
+		SELECT
+		    COL_ID,SET_ID               
+            ,CN_NM,EN_NM                
+            ,DB_TYPE,LEN                  
+            ,PRECISION2,ORDER_NUM            
+            ,IS_NULL,IS_USE               
+            ,IS_PK,IS_QUERY_COL         
+            ,QUERY_LOGIC,col.DIM_TYPE_NO          
+            ,COL_TYPE
+            ,col.MEASURE_NO , dim.dim_type_nm as dim_type_name, measure.measure_nm as measure_Name
+		FROM
+		    rpt_sys_module_col col
+		LEFT JOIN
+		    rpt_dim_type_info dim
+		ON
+		    col.dim_type_no = dim.dim_type_no
+		left join
+		    rpt_idx_measure_info measure
+		    on col.measure_no = measure.measure_no
+		where 1=1
+		<if test="notColType != null">
+			and col.col_type != #{notColType}
+		</if>
+		<if test="setId != null">
+			and set_id = #{setId}
+		</if>
+		order by col.col_type
+	</select>
+	<select id="getValidLogicRptRelCheckIdsByTempLateId" parameterType="string" resultType="string">
+		SELECT t.CHECK_ID FROM rpt_valid_cfgext_logic t left join RPT_VALID_LOGIC_RPT_REL a
+		on t.check_id = a.check_id
+		WHERE a.RPT_TEMPLATE_ID = #{tempId}
+		and t.end_date >= #{endDate}
+		and t.start_date &lt; #{endDate}
+	</select>
+	
+	<delete id="deleteLogicByTmpId" parameterType="HashMap">
+		DELETE FROM RPT_VALID_CFGEXT_LOGIC
+		WHERE CHECK_ID IN
+    	(
+        	SELECT
+            	CHECK_ID
+        	FROM
+            	RPT_VALID_LOGIC_RPT_REL
+        	WHERE
+        		<if test="templateId != null">RPT_TEMPLATE_ID=#{templateId}</if>
+        		<if test="templateId == null">1 = 2</if>
+    	)
+	</delete>
+	
+	<delete id="deleteLogicIdxByTmpId" parameterType="HashMap">
+		DELETE FROM RPT_VALID_LOGIC_IDX_REL
+		WHERE 		
+			<if test="templateId != null">TEMPLATE_ID=#{templateId}</if>
+     		<if test="templateId == null">1 = 2</if>
+	</delete>
+	
+	<delete id="deleteLogicRptByTmpId" parameterType="HashMap">
+		DELETE FROM RPT_VALID_LOGIC_RPT_REL
+		WHERE 		
+			<if test="templateId != null">RPT_TEMPLATE_ID=#{templateId}</if>
+     		<if test="templateId == null">1 = 2</if>
+	</delete>
+	
+	<select id="findCheckIds" parameterType="HashMap" resultType="string">
+		select logic.CHECK_ID from RPT_VALID_CFGEXT_LOGIC logic
+		<if test="templateId != null">
+		left join
+			RPT_VALID_LOGIC_RPT_REL rptRel 
+		on rptRel.CHECK_ID = logic.CHECK_ID
+		</if>
+		<if test="idxNo != null">
+		left join
+			RPT_VALID_LOGIC_IDX_REL idxRel
+		on idxRel.CHECK_ID = logic.CHECK_ID
+		</if>
+		where 1=1 
+		<if test="endDate != null">
+			and logic.END_DATE = #{endDate}
+		</if>
+		<if test="startDate != null">
+			and logic.START_DATE = #{startDate}
+		</if>
+		<if test="templateId != null">
+			and rptRel.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="idxNo != null">
+			and idxRel.INDEX_NO = #{idxNo}
+		</if>
+	</select>
+	
+	<select id="getNameAndNo" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.valid.web.vo.NameAndIdMap">
+		SELECT
+			idxInfo.index_nm AS index_Nm,
+			report.rpt_nm AS rpt_Nm,
+			idxInfo.index_no AS index_No,
+			tmp.line_id AS line_Id,
+			line.line_nm AS line_Nm
+		FROM
+			RPT_IDX_INFO idxInfo
+		left join
+			RPT_DESIGN_TMP_INFO tmp
+		on idxInfo.template_id = tmp.template_id
+		and idxInfo.index_ver_id = tmp.ver_id
+		left join
+			RPT_MGR_REPORT_INFO report
+		on
+		(
+		report.cfg_id = tmp.parent_template_id
+		OR report.cfg_id = tmp.template_id
+		)
+		left join
+			RPT_MGR_FRS_LINE line
+		on line.line_id = tmp.line_id
+		where 1 = 1
+		<choose>
+			<when test="endDate != null">
+				and tmp.ver_start_date &lt; #{endDate}
+				and tmp.ver_end_date >= #{endDate}
+			</when>
+			<otherwise>
+	        	and tmp.ver_start_date &lt; '29991231'
+				and tmp.ver_end_date >= '29991231'
+	    	</otherwise>
+    	</choose>
+		and idxInfo.is_rpt_index = 'Y'
+		<if test="idxNos != null">
+			and idxInfo.index_no in
+			<foreach collection="idxNos" index="index" item="item"
+				open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="rptSts != null">and report.rpt_Sts = #{rptSts}</if>
+		<if test="rptNm != null">and report.rpt_nm = #{rptNm}</if>
+		<if test="rptIndexNo != null">and idxInfo.index_no = #{rptIndexNo}</if>
+		<!-- <if test="rptNms != null">
+			and report.rpt_nm in
+			<foreach collection="rptNms" index="index" item="items"
+				open="(" separator="," close=")">#{items}</foreach>
+		</if> -->
+	</select>
+	<select id="findLogicByIdxNo" resultType="int" parameterType="HashMap">
+		select count(*) from RPT_VALID_LOGIC_IDX_REL logic
+		left join 
+			 RPT_VALID_CFGEXT_LOGIC cfgext 
+		on 
+			logic.CHECK_ID = cfgext.CHECK_ID
+		where 1 = 1
+		<if test="idxNo != null">
+			and logic.INDEX_NO = #{idxNo}
+		</if>
+	</select>
+	
+	<insert id="insertRptValidLogicOrg"
+		parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicOrg">
+		insert into
+		RPT_VALID_LOGIC_ORG(CHECK_ID,CHECK_ORG,TEMPLATE_ID,START_DATE,END_DATE)
+		values(#{checkId},#{checkOrg},#{templateId},#{startDate},#{endDate})
+	</insert>
+
+	<insert id="batchInsertRptValidLogicOrg" parameterType="map" useGeneratedKeys="false">
+		insert ALL
+		<foreach item="item" index="index" collection="list">
+			into RPT_VALID_LOGIC_ORG (CHECK_ID,CHECK_ORG,TEMPLATE_ID,START_DATE,END_DATE)
+			values (
+				#{item.checkId,jdbcType=VARCHAR},
+				#{item.checkOrg,jdbcType=VARCHAR},
+				#{item.templateId,jdbcType=VARCHAR},
+				#{item.startDate,jdbcType=VARCHAR},
+				#{item.endDate,jdbcType=VARCHAR}
+			)
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+
+	<insert id="batchInsertRptValidLogicOrg" parameterType="map" databaseId="mysql">
+		insert into RPT_VALID_LOGIC_ORG (CHECK_ID,CHECK_ORG,TEMPLATE_ID,START_DATE,END_DATE)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.checkId,jdbcType=VARCHAR},
+			#{item.checkOrg,jdbcType=VARCHAR},
+			#{item.templateId,jdbcType=VARCHAR},
+			#{item.startDate,jdbcType=VARCHAR},
+			#{item.endDate,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="batchInsertRptValidLogicOrg" parameterType="map" databaseId="postgresql">
+		insert into RPT_VALID_LOGIC_ORG (CHECK_ID,CHECK_ORG,TEMPLATE_ID,START_DATE,END_DATE)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.checkId,jdbcType=VARCHAR},
+			#{item.checkOrg,jdbcType=VARCHAR},
+			#{item.templateId,jdbcType=VARCHAR},
+			#{item.startDate,jdbcType=VARCHAR},
+			#{item.endDate,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<delete id="deleteRptValidLogicOrg" parameterType="HashMap">
+		delete from RPT_VALID_LOGIC_ORG
+		where 1=1
+		<if test="checkId != null">
+			and check_id = #{checkId}
+		</if>
+		<if test="checkOrg != null">
+			and check_org = #{checkOrg}
+		</if>
+		<if test="ids != null">
+			and CHECK_ID in
+			<foreach collection="ids" index="index" item="item" open="("
+				separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+
+	<select id="getNameAndCellNo" parameterType="HashMap"
+			resultType="com.yusys.bione.plugin.valid.web.vo.NameAndIdMap">
+		SELECT
+		idxInfo.index_nm AS index_Nm,
+		report.rpt_nm AS rpt_Nm,
+		report.rpt_num AS rpt_Num,
+		idxInfo.index_no AS index_No,
+		tmp.line_id AS line_Id,
+		line.line_nm AS line_Nm,
+		source.cell_no AS cell_No
+		FROM RPT_IDX_INFO idxInfo
+		left join rpt_design_source_idx source
+		on idxInfo.index_no = source.index_no
+		and idxInfo.template_id = source.template_id
+		and idxInfo.index_ver_id = source.ver_id
+		left join
+		RPT_DESIGN_TMP_INFO tmp
+		on idxInfo.template_id = tmp.template_id
+		and idxInfo.index_ver_id = tmp.ver_id
+		left join
+		RPT_MGR_REPORT_INFO report
+		on
+		(
+		report.cfg_id = tmp.parent_template_id
+		OR report.cfg_id = tmp.template_id
+		)
+		left join
+		RPT_MGR_FRS_LINE line
+		on line.line_id = tmp.line_id
+		where 1 = 1
+		<choose>
+		  	<when test="endDate != null">
+				and tmp.ver_start_date &lt; #{endDate}
+				and tmp.ver_end_date >= #{endDate}
+			</when>
+			<otherwise>
+				and tmp.ver_start_date &lt; '29991231'
+				and tmp.ver_end_date >= '29991231'
+			</otherwise>
+		</choose>
+		<if test="idxNos != null">
+			and idxInfo.index_no in
+			<foreach collection="idxNos" index="index" item="item"
+					 open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="rptSts != null">and report.rpt_Sts = #{rptSts}</if>
+		<if test="rptNm != null">and report.rpt_nm = #{rptNm}</if>
+		<if test="rptIndexNo != null">and idxInfo.index_no = #{rptIndexNo}</if>
+		<if test="rptNum != null">and report.rpt_num = #{rptNum}</if>
+	</select>
+</mapper>

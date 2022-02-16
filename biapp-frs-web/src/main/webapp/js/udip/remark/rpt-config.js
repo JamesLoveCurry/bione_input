@@ -1,0 +1,16 @@
+window.RptConfigRemark={
+	global:{
+		//RIDE主页
+		rideHome:'RIDE主页不能为空。',
+		//认证源
+		jAppId:'认证源不能为空。',
+		//逻辑系统
+		jSystemId:'逻辑系统不能为空。',
+		//外部链接标识
+		jOutsideSys:'外部链接标识不能为空。',
+		//跳转URL
+		jDefaultUrl:'URL不能为空。',
+		//权限控制项
+		jRptItemId:'请输入权限控制项。'
+	}
+};

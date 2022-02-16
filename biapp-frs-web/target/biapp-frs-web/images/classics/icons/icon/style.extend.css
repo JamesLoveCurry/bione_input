@@ -1,0 +1,48 @@
+.icon-modify:before {
+  content: "\e9c3";
+}
+
+.icon-config:before {
+  content: "\e9a0";
+}
+
+.icon-start:before {
+  content: "\e934";
+}
+
+.icon-import:before {
+  content: "\e915";
+  
+}
+
+.icon-export:before {
+  content: "\e903";
+}
+
+.icon-search3:before {
+ content: "\e9a3";
+}
+
+.icon-store:before {
+  content: "\e982";
+}
+
+.icon-refresh2:before {
+  content: "\e9c9";
+}
+
+.icon-view:before {
+  content: "\e976";
+}
+
+.icon-link:before {
+  content: "\e902";
+}
+
+.icon-memeber:before {
+  content: "\e9ca";
+}
+
+.icon-lock:before {
+  content: "\e96e";
+}

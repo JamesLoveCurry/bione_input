@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.yusys.biapp.frs.rpttsk.repository.EastTskPublishDAO">
+	<!--根据报表ID查询报表报送主体  -->
+	<select id="getSubmitMain" resultType="java.lang.String">
+		select ext.submit_main 
+		from  RPT_MGR_FRS_EXT ext
+		where ext.rpt_id = #{rptId}
+	</select>
+	
+	<!-- 新增监管任务与任务对象关系 -->
+	<insert id="saveTskObjRel" parameterType="com.yusys.biapp.frs.rpttsk.entity.RptFltskTskobjRel">
+		INSERT
+		INTO
+			RPT_FLTSK_TSKOBJ_REL
+			(
+				TASK_ID ,
+				TASK_OBJ_ID,
+				TASK_OBJ_TYPE,
+				STS_LIST,
+				SUBMIT_MAIN
+			)
+		VALUES
+			(
+				#{id.taskId},
+				#{id.taskObjId},
+				#{taskObjType},
+				#{stsList},
+				#{submitMain}
+			)
+	</insert>
+	
+	<!-- 查询任务对象list -->
+	<select id="getTskobjList"
+		resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskTskobjRel" parameterType="HashMap">
+		SELECT
+			TASK_ID AS "id.taskId",
+			TASK_OBJ_ID AS "id.taskObjId",
+			TASK_OBJ_TYPE,
+			STS_LIST,
+			SUBMIT_MAIN
+		FROM
+			RPT_FLTSK_TSKOBJ_REL
+		WHERE
+			1=1
+		<if test="taskId!=null">
+			AND TASK_ID = #{taskId}
+		</if>
+		<if test="tskObjType!=null">
+			AND TASK_OBJ_TYPE = #{tskObjType}
+		</if>
+		<if test="tskobjs!=null">
+			TASK_OBJ_ID IN
+			<foreach collection="tskobjs" item="taskobjIds" open="(" separator=","
+				close=")">
+				#{taskobjIds}
+			</foreach>
+		</if>
+	</select>
+	
+	<!--根据报表ID查询报表报送主体  -->
+	<select id="getSubmitMainList" resultType="HashMap">
+		select
+		ext.rpt_id as "rptId"
+		,ext.submit_main as "submitMain"
+		from  RPT_MGR_FRS_EXT ext
+		where 1=1
+		<if test="tskobjs!=null">
+			AND ext.RPT_ID IN
+			<foreach collection="tskobjs" item="taskobjIds" open="(" separator=","
+				close=")">
+				#{taskobjIds}
+			</foreach>
+		</if>
+	</select>
+	
+	
+	<select id="getRptOrgList" resultType="String">
+		select org.org_no as orgNo
+		from rpt_org_info org
+		where 1=1
+		and org.org_type = '04'
+		and org.org_level like #{orgLevel}
+		order by org_no
+	</select>
+	<!-- 保存实例流程节点配置 -->
+	<insert id="saveListStateInfo" parameterType="com.yusys.biapp.frs.rpttsk.entity.EastTaskListStateInfo">
+		insert into
+			EAST_TASK_LISTSTATE_INFO
+			(
+				STS_ID,
+				TASK_ID,
+				TASK_INSTANCE_ID,
+				RPT_ID,
+				STS_VAL_DESC,
+				CURR_STS_VAL,
+				NEXT_STS_VAL,
+				OLD_STS_VAL,
+				TASK_TIME,
+				TASK_ADD_USER,
+				DATA_DATE
+			)
+			values
+			(
+				#{stsId},
+				#{taskId},
+				#{taskInstanceId},
+				#{rptId},
+				#{stsValDesc},
+				#{currStsVal},
+				#{nextStsVal},
+				#{oldStsVal},
+				#{taskTime},
+				#{taskAddUser},
+				#{dataDate}
+			)
+	</insert>
+	
+	<!-- 查询任务实例状态信息 -->
+	<select id="getTskInsStateInfo" resultType="com.yusys.biapp.frs.rpttsk.entity.EastTaskListStateInfo" 
+		parameterType="String">
+		SELECT
+			*
+		FROM
+			EAST_TASK_LISTSTATE_INFO
+		WHERE
+			TASK_INSTANCE_ID = #{tskInsId}
+	</select>
+	
+	<!-- 批量查询查询任务实例状态信息 -->
+	<select id="getTskInsStateInfos" resultType="com.yusys.biapp.frs.rpttsk.entity.EastTaskListStateInfo" 
+		parameterType="HashMap">
+		SELECT
+			*
+		FROM
+			EAST_TASK_LISTSTATE_INFO info
+		WHERE 
+			( info.task_instance_id in
+		      	<foreach item="taskInsIds" index="index" collection="taskInstanceIds"
+		        	separator=" or info.task_instance_id in ">
+		        		<foreach collection="taskInsIds" item="taskInstanceId" open="("
+								separator="," close=")">
+								#{taskInstanceId}
+						</foreach>
+				</foreach>
+				)
+	</select>
+	
+	<!-- 更新任务实例状态信息 -->
+	<update id="updateTskInsStateInfo"
+		parameterType="com.yusys.biapp.frs.rpttsk.entity.EastTaskListStateInfo">
+		update EAST_TASK_LISTSTATE_INFO
+		<set>
+			CURR_STS_VAL = #{currStsVal},
+			NEXT_STS_VAL = #{nextStsVal},
+			OLD_STS_VAL = #{oldStsVal}
+		</set>
+		where STS_ID = #{stsId}
+	</update>
+	
+	<!-- 更新任务实例状态 -->
+	<update id="updateTskInsSts"
+		parameterType="com.yusys.biapp.frs.rpttsk.entity.RptFltskIns">
+		update RPT_FLTSK_INS
+		<set>
+			STS = #{sts}
+		</set>
+		where TASK_INSTANCE_ID = #{taskInstanceId}
+	</update>
+	
+	<!-- 获取任务实例 -->
+	<select id="getTskInsById" resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskIns" 
+		parameterType="String">
+		SELECT
+			*
+		FROM
+			RPT_FLTSK_INS
+		WHERE
+			TASK_INSTANCE_ID = #{tskInsId}
+	</select>
+	
+	<!-- 获取下发报表 -->
+	<select id="getPublishTskobjs" resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskTskobjRel" parameterType="HashMap">
+		select 
+		rel.task_obj_id,
+		rel.sts_list,
+		rel.submit_main 
+		from rpt_fltsk_tskobj_rel rel
+		where rel.task_id=#{taskId}
+		and rel.task_obj_type = '04'
+	</select>
+	
+	<select id="getTaskInfo" resultType="com.yusys.biapp.frs.rpttsk.web.vo.EastTskInfoVO" parameterType="String">
+		select tsk.*,ext.task_deadline_head,ext.task_deadline_sub
+	    from rpt_fltsk_info tsk,EAST_RPT_FLTSK_EXT ext
+	    where tsk.task_type = '04'
+	    and tsk.task_id = ext.task_id
+	    and tsk.task_id = #{taskId}
+	</select>
+
+	<!-- 根据任务ID删除实例流程配置 -->
+	<delete id="deleteTaskListStateInfoByTaskId" parameterType="HashMap">
+		DELETE
+		FROM
+			EAST_TASK_LISTSTATE_INFO info
+		WHERE 1=1 
+		<if test="taskId!=null">
+			AND info.TASK_ID = #{taskId}
+		</if>
+		<if test="dataDate!=null">
+			AND info.DATA_DATE = #{dataDate}
+		</if>
+		<if test="insIds!=null">
+			AND TASK_INSTANCE_ID IN
+			<foreach collection="insIds" item="insIds" open="(" separator=","
+				close=")">
+				#{insIds}
+			</foreach>
+		</if>
+	</delete>
+	
+	<!-- 保存任务填报期限信息 -->
+	<insert id="saveTskExt" parameterType="com.yusys.biapp.frs.rpttsk.entity.EastRptFltskExt">
+		insert into EAST_RPT_FLTSK_EXT
+			(
+				TASK_ID,
+				TASK_DEADLINE_HEAD,
+				TASK_DEADLINE_SUB
+			)
+			values
+			(
+				#{taskId},
+				#{taskDeadLineHead},
+				#{taskDeadLineSub}
+			)
+	</insert>
+	
+	<!-- 修改任务填报期限信息 -->
+	<update id="updateTskExt" parameterType="com.yusys.biapp.frs.rpttsk.entity.EastRptFltskExt">
+		UPDATE
+			EAST_RPT_FLTSK_EXT
+		SET
+			TASK_DEADLINE_HEAD = #{taskDeadLineHead},
+			TASK_DEADLINE_SUB = #{taskDeadLineSub}
+		WHERE
+			TASK_ID = #{taskId}
+	</update>
+	
+	<!-- 根据taskId获取任务填报期限 -->
+	<select id="getTskExt" parameterType="String" resultType="com.yusys.biapp.frs.rpttsk.entity.EastRptFltskExt">
+		select * 
+		from EAST_RPT_FLTSK_EXT ext
+		where ext.task_id=#{taskId}
+	</select>
+	
+	<!-- 根据任务ID删除任务期限信息 -->
+	<delete id="deleteTaskExtByTaskId" parameterType="HashMap">
+		DELETE
+		FROM
+			EAST_RPT_FLTSK_EXT ext
+		WHERE 1=1 
+		<if test="taskId!=null">
+			AND ext.TASK_ID = #{taskId}
+		</if>
+	</delete>
+	
+	<!-- 生成实例  -->
+	<insert id="saveTskIns" parameterType="com.yusys.biapp.frs.rpttsk.entity.RptFltskIns">
+		INSERT
+		INTO
+			RPT_FLTSK_INS
+			(
+				TASK_INSTANCE_ID,
+				DATA_DATE,
+				END_TIME,
+				EXE_OBJ_ID,
+				START_TIME,
+				sts,
+				IS_UPT,
+				IS_CHECK,
+				TASK_ID,
+				TASK_NM,
+				TASK_NODE_INSTANCE_ID,
+				TASK_OBJ_ID,
+				TASK_TYPE,
+				UP_TASK_INSTANCE_ID,
+				LOGIC_DEL_NO,
+				LINE_ID,
+				TASK_MGR_STS
+			)
+		VALUES
+		(
+			#{taskInstanceId},
+			#{dataDate},
+			#{endTime},
+			#{exeObjId},
+			#{startTime},
+			#{sts},
+			#{isUpt},
+			#{isCheck},
+			#{taskId},
+			#{taskNm},
+			#{taskNodeInstanceId},
+			#{taskObjId},
+			#{taskType},
+			#{upTaskInstanceId},
+			#{logicDelNo},
+			#{lineId},
+			'1'
+		)
+	</insert>
+	
+	<update id="changeTaskNmForInsUpdate" parameterType="HashMap">
+		update RPT_FLTSK_INS
+		<set>
+			TASK_NM = #{taskNm}
+		</set>
+		where TASK_ID = #{taskId}
+		AND TASK_TYPE = '04'
+	</update>
+	
+	<select id="getTaskNmList"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO"
+		parameterType="HashMap">
+		SELECT
+			distinct i.TASK_ID,i.TASK_NM as TASK_NAME
+		FROM
+			RPT_FLTSK_INFO i
+		where 1=1
+		AND i.UP_TASK_ID is null
+		AND i.LOGIC_DEL_NO ='N'
+		<if test="taskType!=null">
+			and i.task_type = #{taskType}
+		</if>
+		
+		<!-- 权限过滤 -->
+	
+		<if test="exeObjIds!=null">
+			AND EXISTS
+			   (
+			       SELECT
+			           e.task_id
+			       FROM
+			           RPT_FLTSK_EXEOBJ_REL e
+			       WHERE 
+			       	   e.task_id=i.task_id
+			           and (
+						<foreach collection="exeObjIds" item="items" open="(" separator=")or("
+										close=")">
+							e.EXE_OBJ_ID IN 
+							(
+								select distinct(org.org_no) from RPT_ORG_INFO org where 1=1 
+										and
+										(org.ORG_TYPE = #{items.orgType}
+											 and (
+												<foreach collection="items.orgLike" item="orgLike" open="" separator="or"
+													close="">
+													org.NAMESPACE like #{orgLike}
+												</foreach>
+											))
+					    	)
+					    	and e.exe_obj_type=#{items.orgType}
+					    	</foreach>
+					    	)
+			    )
+			
+		</if>
+		<if test="taskObjIds!=null">
+			AND EXISTS
+			    (
+			        SELECT
+			            t.task_id
+			        FROM
+			            RPT_FLTSK_TSKOBJ_REL t
+			        WHERE
+			            t.task_id=i.task_id 
+			        AND t.task_obj_id IN 
+			        <foreach item="taskObjIds"  collection="taskObjIds" separator=" or t.task_obj_id in ">
+							<foreach collection="taskObjIds" item="taskObjIds" open="("
+								separator="," close=")">
+								#{taskObjIds}
+							</foreach>
+					</foreach>
+			    )
+		</if>
+	</select>
+	
+	<select id="getBioneRoleList" parameterType="HashMap" resultType="com.yusys.bione.frame.authobj.entity.BioneRoleInfo">
+		SELECT 
+			ROLE_NO as roleNo, ROLE_NAME as roleName
+		FROM 
+			BIONE_ROLE_INFO 
+		WHERE 
+			ROLE_ID IN (
+				SELECT 
+					OBJ_ID 
+				FROM 
+					BIONE_AUTH_OBJ_USER_REL 
+				WHERE OBJ_DEF_NO='AUTH_OBJ_ROLE' AND USER_ID=#{userId}
+				) AND ROLE_TYPE_JG=#{roleTypeJg}
+	</select>
+	
+	<select id="getTaskInstanceId" parameterType="HashMap" resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		
+	SELECT I.TASK_ID AS taskId,
+		   I.TASK_NM AS taskName,
+           I.TASK_OBJ_ID AS taskObjId,
+           R.RPT_NM AS TASKOBJNAME,
+           I.UP_TASK_INSTANCE_ID AS uptaskinstanceId,
+           I.TASK_TYPE AS taskType
+      FROM RPT_FLTSK_INS I
+      INNER JOIN RPT_MGR_REPORT_INFO R
+      ON I.TASK_OBJ_ID = R.RPT_ID
+      WHERE 1=1
+      <if test="taskId !=null ">
+        and I.TASK_ID = #{taskId}
+      </if>
+      <if test="tsktype != null">
+        and I.TASK_TYPE = #{tsktype}
+      </if>
+      <if test="uptaskinsid != null">
+        and i.UP_TASK_INSTANCE_ID = #{uptaskinsid}
+      </if>
+      <if test="taskObjId != null">
+        AND (I.TASK_OBJ_ID in
+        <foreach item="taskObjIds" index="index" collection="taskObjId"
+          separator=" or I.task_Obj_Id in ">
+          <foreach collection="taskObjIds" item="taskObjId" open="("
+            separator="," close=")">
+            #{taskObjId}
+          </foreach>
+        </foreach>
+        )
+      </if>
+      <if test="exeObjId != null">
+        AND (
+        <foreach collection="exeObjId" item="items" open="("
+          separator=")or(" close=")">
+          I.EXE_OBJ_ID IN
+          (
+          select distinct(org.org_no) from RPT_ORG_INFO org
+          where 1=1
+          and
+          (org.ORG_TYPE = #{items.orgType}
+          and (
+          <foreach collection="items.orgLike" item="orgLike" open=""
+            separator="or" close="">
+            org.NAMESPACE like #{orgLike}
+          </foreach>
+          ))
+          )
+          AND I.task_type=#{items.orgType}
+        </foreach>
+        )
+      </if>
+      AND I.LOGIC_DEL_NO = 'N'
+      GROUP BY
+        I.TASK_ID,
+        I.TASK_NM,
+        I.TASK_OBJ_ID,
+        R.RPT_NM,
+        I.UP_TASK_INSTANCE_ID,
+        I.TASK_TYPE
+	</select>
+	
+	<select id="getUserOrg" parameterType="String" resultType="String">
+		SELECT OBJ_ID as orgno FROM BIONE_AUTH_OBJ_USER_REL 
+		WHERE USER_ID=#{userId} 
+		AND OBJ_DEF_NO='AUTH_OBJ_ORG'
+	</select>
+	
+	<select id="getResIdListOfUser" parameterType="HashMap" resultType="String">
+		SELECT 
+			RPT_ID FROM RPT_MGR_REPORT_INFO 
+		WHERE rpt_id IN (
+			SELECT 
+				DISTINCT RES_ID 
+			FROM BIONE_AUTH_OBJ_RES_REL 
+			WHERE OBJ_ID IN(
+     			SELECT 
+     				OBJ_ID 
+     			FROM 
+     				BIONE_AUTH_OBJ_USER_REL 
+     					WHERE 1=1 
+     					<if test="userId != null">
+     						AND USER_ID=#{userId}
+     					</if>
+     					AND OBJ_DEF_NO='AUTH_OBJ_ROLE'  
+					)
+		)
+	</select>
+	
+	<select id="getRptFltskIns" parameterType="HashMap" resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskIns">
+		SELECT 
+       		TASK_INSTANCE_ID AS taskInstanceId ,
+       		TASK_ID AS taskId,
+       		TASK_NM AS taskNm,
+       		START_TIME AS startTime,
+       		END_TIME AS endTime,
+       		STS,IS_UPT AS isUpt,
+       		IS_CHECK AS isCheck,
+       		TASK_NODE_INSTANCE_ID AS taskNodeInstanceId,
+       		DATA_DATE AS dataDate,
+       		EXE_OBJ_ID AS exeObjId,
+       		TASK_OBJ_ID AS taskObjId,
+       		UP_TASK_INSTANCE_ID AS upTaskInstanceId,
+       		TASK_TYPE AS taskType,
+       		LOGIC_DEL_NO AS logicDelNo,
+       		TASK_MGR_STS AS taskMgrSts
+  		FROM 
+       		RPT_FLTSK_INS 
+ 		WHERE 1=1
+ 		<if test="taskId != null">
+ 			AND TASK_ID=#{taskId}
+ 		</if>
+	</select>
+	<select id="getTaskIdByNm" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT 
+			TASK_ID AS taskId
+		FROM 
+			RPT_FLTSK_INFO
+		WHERE TASK_NM=#{taskNm}
+	</select>
+</mapper>

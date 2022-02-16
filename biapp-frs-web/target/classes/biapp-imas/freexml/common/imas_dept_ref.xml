@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>模型配置</templetname>
+		<fromtable>bione_dept_info</fromtable>
+		<savetable>bione_dept_info</savetable>
+		<pkname>rid</pkname>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys>dept_no</orderbys>
+		<card_btns></card_btns>
+		<card_size>800*560</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>Y</list_ischeckstyle>
+		<list_ismultisel>Y</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>dept_no</itemkey>
+		<itemname>条线代码</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<loadformula></loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<isonlyone>Y</isonlyone>
+		<grouptitle></grouptitle>
+		<card_isshow>Y</card_isshow>
+		<card_width>350</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+		<list_render></list_render>
+		<query_isshow>Y</query_isshow>
+		<query_width>180</query_width>
+		<validateinfo></validateinfo>
+		<showformula></showformula>
+		<defvalue></defvalue>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>dept_name</itemkey>
+		<itemname>条线名称</itemname>
+		<itemtype>文本框</itemtype>
+		<helptip></helptip>
+		<itemdefine></itemdefine>
+		<loadformula></loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<isonlyone>Y</isonlyone>
+		<formatvalidate></formatvalidate>
+		<grouptitle></grouptitle>
+		<card_isshow>Y</card_isshow>
+		<card_width>350</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+		<list_render></list_render>
+		<query_isshow>Y</query_isshow>
+		<query_itemtype></query_itemtype>
+		<query_width>180</query_width>
+		<validateinfo></validateinfo>
+		<showformula></showformula>
+		<defvalue></defvalue>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>所属机构</itemname>
+		<itemtype>文本框</itemtype>
+		<loadformula>【type=SQL】【SQL=select org_name from bione_org_info where org_no=${org_no}】</loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<seq>5</seq>
+		<grouptitle></grouptitle>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<list_render></list_render>
+		<query_isshow>N</query_isshow>
+		<query_itemtype></query_itemtype>
+		<query_itemdefine></query_itemdefine>
+		<validateinfo></validateinfo>
+		<showformula></showformula>
+		<defvalue></defvalue>
+	</templet_item>
+	
+</root>
+
+

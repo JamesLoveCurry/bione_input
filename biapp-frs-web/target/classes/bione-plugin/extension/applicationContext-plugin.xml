@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd"
+	default-lazy-init="true">
+
+	<description>统一报表平台扩展配置</description>
+	
+	<bean id="propertiesReader"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:bione-plugin/extension/report-server.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 初始化数据结构 -->
+	<jdbc:initialize-database data-source="BioneDataSource" enabled="${database.init}" ignore-failures="ALL">
+		<jdbc:script location="classpath:bione-plugin/sql/rpt/${database.type}/schema.sql" />
+	</jdbc:initialize-database>
+	<jdbc:initialize-database data-source="BioneDataSource" enabled="${database.init}" ignore-failures="ALL">
+		<jdbc:script location="classpath:bione-plugin/sql/rpt/${database.type}/import-data.sql" />
+	</jdbc:initialize-database>
+</beans>

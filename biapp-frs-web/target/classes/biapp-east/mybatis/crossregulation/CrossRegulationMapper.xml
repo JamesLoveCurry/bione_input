@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper
+	namespace="com.yusys.east.crossregulation.repository.CrossRegulationMybatisDao">
+
+	<!--查询跨监管校验信息表-->
+	<select id="queryRptExcelDir" resultType="java.util.Map">
+		select RPT_TASK_ID as "rptTaskId",
+		RPT_TYPE as "rptType",
+		RPT_NAME as "rptName",
+		ORG_NO as "orgNo",
+		RPT_DATE as "rptDate",
+		UPDATE_TIME as "updateTime"
+		from RPT_EXCEL_DIR
+		where 1 = 1
+		<if test="rptName != null and rptName != ''">
+			and RPT_NAME = #{rptName}
+		</if>
+		<if test="orgNo != null and orgNo != ''">
+			and ORG_NO = #{orgNo}
+		</if>
+		<if test="rptDate != null and rptDate != ''">
+			and RPT_DATE = #{rptDate}
+		</if>
+	</select>
+
+	<!--修改跨监管校验信息表-->
+	<update id="updateRptExcelDirByPrimary">
+		update RPT_EXCEL_DIR set
+								 RPT_TYPE = #{rptType, jdbcType=VARCHAR},
+								 RPT_NAME = #{rptName, jdbcType=VARCHAR},
+								 ORG_NO = #{orgNo, jdbcType=VARCHAR},
+								 RPT_DATE = #{rptDate, jdbcType=VARCHAR},
+								 UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+		where RPT_TASK_ID = #{rptTaskId, jdbcType=VARCHAR}
+	</update>
+
+	<!--保存跨监管校验信息表-->
+	<insert id="insertRptExcelDir">
+		insert into RPT_EXCEL_DIR(RPT_TASK_ID,RPT_TYPE,RPT_NAME,ORG_NO,RPT_DATE,UPDATE_TIME)
+		values(
+				  #{rptTaskId, jdbcType=VARCHAR},
+				  #{rptType, jdbcType=VARCHAR},
+				  #{rptName, jdbcType=VARCHAR},
+				  #{orgNo, jdbcType=VARCHAR},
+				  #{rptDate, jdbcType=VARCHAR},
+				  #{updateTime, jdbcType=TIMESTAMP}
+			  )
+	</insert>
+
+	<!--删除rptExcelData-->
+	<delete id="deleteRptExcelData">
+		delete from RPT_EXCEL_DATA where rpt_task_id = #{rptTaskId}
+	</delete>
+
+	<!--保存rptExcelData-->
+	<insert id="insertRptExcelData" parameterType="map" useGeneratedKeys="false">
+		insert ALL
+		<foreach item="item" index="index" collection="list">
+			into RPT_EXCEL_DATA(rpt_task_id,cell_no,cell_value) values(
+			#{item.rptTaskId, jdbcType=VARCHAR},
+			#{item.cellNo, jdbcType=VARCHAR},
+			#{item.cellValue, jdbcType=VARCHAR}
+			)
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+
+</mapper> 

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.bione.plugin.mainpage.repository.RptMainpageMybatisDao">
+	<!-- 获取系统用户布局 -->
+	<select id="getLayoutByUser"
+		resultType="com.yusys.bione.plugin.mainpage.web.vo.RptMainpageVO"
+		parameterType="HashMap">
+		SELECT
+		d.DESIGN_ID,
+		l.LAYOUT_ID,
+		l.CSS_PATH
+		FROM
+		BIONE_MP_DESIGN_INFO d ,
+		BIONE_MP_LAYOUT_INFO l
+		WHERE
+		d.LAYOUT_ID=l.LAYOUT_ID
+		AND d.LOGIC_SYS_NO =
+		l.LOGIC_SYS_NO
+		<if test="userId!=null">
+			AND d.USER_ID=#{userId}
+		</if>
+		<if test="logicSysNo!=null">
+			AND d.LOGIC_SYS_NO=#{logicSysNo}
+		</if>
+	</select>
+	<!-- 获取布局明细 -->
+	<select id="getDetailById"
+		resultType="com.yusys.bione.frame.mainpage.web.vo.MpDetailInfoVO"
+		parameterType="String">
+		SELECT
+		d.POS_NO,
+		d.IS_DISPLAY_LABEL,
+		m.MODULE_NAME,
+		m.LABEL_PATH,
+		m.MODULE_PATH
+		FROM
+		BIONE_MP_DESIGN_DETAIL d ,
+		BIONE_MP_MODULE_INFO m
+		WHERE
+		d.MODULE_ID = m.MODULE_ID
+		AND
+		d.DESIGN_ID=#{designId}
+	</select>
+	
+	<!-- 报表访问历史 -->
+	<select id="getReportHistory"
+		resultType="com.yusys.bione.plugin.mainpage.web.vo.ReportHistoryVO"
+		parameterType="HashMap">
+		SELECT
+		r.rpt_nm,
+		h.HIS_ID,
+		h.RPT_ID,
+		h.ACCESS_DATE,
+		h.ACCESS_TIME,
+		h.ACCESS_IP,
+		h.USER_ID
+		FROM
+		RPT_MGR_REPORT_INFO r,
+		RPT_MGR_REPORT_HIS h,
+		(
+		SELECT
+		hi.RPT_ID,
+		MAX( hi.ACCESS_TIME) AS max_accesstime
+		FROM
+		RPT_MGR_REPORT_HIS hi
+		WHERE 1=1
+		<if test="rptId!=null">
+			AND hi.rpt_Id=#{rptId}
+		</if>
+		<if test="userId!=null">
+			AND hi.USER_ID=#{userId}
+		</if>
+		<if test="startAccess!=null">
+			AND hi.ACCESS_DATE>=#{startAccess}
+		</if>
+		<if test="endAccess!=null">
+			AND hi.ACCESS_DATE &lt;=#{endAccess}
+		</if>
+		GROUP BY
+		hi.rpt_id) t1
+		WHERE
+		r.rpt_id=h.rpt_id
+		and
+		r.rpt_id=t1.rpt_id
+		and
+		h.ACCESS_TIME=max_accesstime
+
+	</select>
+	
+	<!-- 报表访问历史 -->
+	<select id="getReportList"
+		resultType="com.yusys.bione.plugin.mainpage.web.vo.ReportHistoryVO"
+		parameterType="HashMap">
+		SELECT
+		r.rpt_nm,
+		h.HIS_ID,
+		h.RPT_ID,
+		h.ACCESS_DATE,
+		h.ACCESS_TIME,
+		h.ACCESS_IP,
+		h.USER_ID
+		FROM
+		RPT_MGR_REPORT_INFO r,
+		RPT_MGR_REPORT_HIS h
+		WHERE
+		r.rpt_id=h.rpt_id
+		<if test="rptId!=null">
+			AND h.rpt_Id=#{rptId}
+		</if>
+		<if test="userId!=null">
+			AND h.USER_ID=#{userId}
+		</if>
+		<if test="startAccess!=null">
+			AND h.ACCESS_DATE>=#{startAccess}
+		</if>
+		<if test="endAccess!=null">
+			AND h.ACCESS_DATE &lt;=#{endAccess}
+		</if>
+
+	</select>
+</mapper> 

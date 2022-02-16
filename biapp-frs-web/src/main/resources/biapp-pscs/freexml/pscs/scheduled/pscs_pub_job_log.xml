@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+	<templet>
+		<templetname>支付合规-自动任务日志表</templetname>
+		<fromtable>pscs_job_log</fromtable>
+		<savetable>pscs_job_log</savetable>
+		<pkname>rid</pkname>
+		<autoquery>N</autoquery>
+		<autocondition></autocondition>
+		<querycontion></querycontion>
+		<ishavebillquery>N</ishavebillquery>
+		<list_btns></list_btns>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ismultisel>N</list_ismultisel>
+		<list_ischeckstyle>N</list_ischeckstyle>
+	</templet>
+
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>ID</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>jobid</itemkey>
+		<itemname>字段类型</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>begintime</itemkey>
+		<itemname>开始时间</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>180</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>endtime</itemkey>
+		<itemname>结束时间</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>180</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>useseconds</itemkey>
+		<itemname>耗时</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>160</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>execresult</itemkey>
+		<itemname>执行结果</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>450</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+</root>

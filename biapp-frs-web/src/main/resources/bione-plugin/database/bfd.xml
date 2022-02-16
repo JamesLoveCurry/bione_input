@@ -1,0 +1,3123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="bfd_result_tab_summary" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="pass_count" type="decimal" length="38" descr="" />
+			<col name="fail_count" type="decimal" length="38" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="20" descr="" />
+			<col name="dim1" type="varchar" length="200" descr="" />
+			<col name="dim2" type="varchar" length="200" descr="" />
+			<col name="dim3" type="varchar" length="200" descr="" />
+			<col name="dim4" type="varchar" length="200" descr="" />
+			<col name="dim5" type="varchar" length="200" descr="" />
+			<col name="busi_type" type="varchar" length="100" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_result_rule_summary" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="rule_id" type="decimal" length="20" descr="" />
+			<col name="pass_count" type="decimal" length="38" descr="" />
+			<col name="fail_count" type="decimal" length="38" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="20" descr="" />
+			<col name="dim1" type="varchar" length="200" descr="" />
+			<col name="dim2" type="varchar" length="200" descr="" />
+			<col name="dim3" type="varchar" length="200" descr="" />
+			<col name="dim4" type="varchar" length="200" descr="" />
+			<col name="dim5" type="varchar" length="200" descr="" />
+			<col name="busi_type" type="varchar" length="100" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_job_log" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="jobid" type="varchar" length="50" descr="任务标识" />
+			<col name="begintime" type="varchar" length="25" descr="开始时间" />
+			<col name="endtime" type="varchar" length="25" descr="结束时间" />
+			<col name="useseconds" type="varchar" length="10" descr="耗时" />
+			<col name="execresult" type="varchar" length="4000"
+				descr="执行结果信息" />
+		</columns>
+	</table>
+	<table name="bfd_engine_task_flow" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_no" type="decimal" length="5" descr="" />
+			<col name="cmd" type="varchar" length="30" descr="" />
+			<col name="status" type="varchar" length="30" descr="" />
+			<col name="start_tm" type="varchar" length="20" descr="" />
+			<col name="end_tm" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_rule" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="规则RID(引擎用)" />
+			<col name="id" type="decimal" length="38" descr="规则编号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="2000"
+				descr="数据项中文字段名" />
+			<col name="rule_name" type="varchar" length="2000" descr="规则描述" />
+			<col name="rule_source" type="varchar" length="20"
+				descr="规则来源（监管、自定义）" />
+			<col name="rule_sts" type="varchar" length="1" descr="是否启用" />
+			<col name="expr" type="varchar" length="3000" descr="规则表达式" />
+			<col name="constraint_type" type="varchar" length="20"
+				descr="约束类型" />
+			<col name="disp_cd" type="varchar" length="20" descr="展示分类" />
+			<col name="issql" type="varchar" length="1" descr="规则是否是SQL语句" />
+			<col name="problemcode" type="varchar" length="20" descr="问题编号" />
+		</columns>
+	</table>
+	<table name="bfd_204_gqtzfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="stock_no" type="varchar" length="100" descr="凭证编码" />
+			<col name="stock_type" type="varchar" length="1" descr="股权类型" />
+			<col name="cust_catg" type="varchar" length="6" descr="机构类型" />
+			<col name="cust_card_no" type="varchar" length="60"
+				descr="机构证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="交易金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="交易金额折人民币" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_203_clzqfx_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="cd_time" type="decimal" length="3" descr="续发次数" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bond_term_val" type="decimal" length="20,2"
+				descr="期末债券面值" />
+			<col name="bond_term_cny_val" type="decimal" length="20,2"
+				descr="期末债券面值折人民币" />
+			<col name="bond_term_fair_val" type="decimal" length="20,2"
+				descr="期末债券余额" />
+			<col name="bond_term_cny_fair_val" type="decimal" length="20,2"
+				descr="期末债券余额折人民币" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="pay_int_mode" type="varchar" length="2" descr="付息方式" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_202_tyckfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="biz_type" type="varchar" length="4" descr="业务类型" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手证件类型" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10" descr="协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="交易金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="交易金额折人民币" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="tr_acct_no" type="varchar" length="60" descr="交易账户号" />
+			<col name="tr_acct_open_org_no" type="varchar" length="30"
+				descr="交易账户开户行号" />
+			<col name="tr_opp_acct_no" type="varchar" length="60"
+				descr="交易对手账户号" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_201_dbhtxx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="guar_cntr_no" type="varchar" length="100"
+				descr="担保合同编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="被担保合同编码" />
+			<col name="guar_cntr_type" type="varchar" length="2"
+				descr="担保合同类型" />
+			<col name="trans_type" type="varchar" length="2" descr="交易类型" />
+			<col name="guar_start_dt" type="varchar" length="10"
+				descr="担保合同起始日期" />
+			<col name="guar_due_dt" type="varchar" length="10"
+				descr="担保合同到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="guar_amt" type="decimal" length="20,2" descr="担保合同金额" />
+			<col name="guar_cny_amt" type="decimal" length="20,2"
+				descr="担保合同金额折人民币" />
+			<col name="pldg_rate" type="decimal" length="9,5" descr="抵质押率" />
+			<col name="guar_id_type" type="varchar" length="3"
+				descr="担保人证件类型" />
+			<col name="guar_id_no" type="varchar" length="60" descr="担保人证件代码" />
+			<col name="guar_econ_dept" type="varchar" length="3"
+				descr="担保人国民经济部门" />
+			<col name="guar_ind_cd" type="varchar" length="3" descr="担保人行业" />
+			<col name="guar_area_cd" type="varchar" length="6"
+				descr="担保人地区代码" />
+			<col name="guar_ent_scale" type="varchar" length="4"
+				descr="担保人企业规模" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_guar_id_no" type="varchar" length="60"
+				descr="担保人证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_201_cltyjd" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手代码类别" />
+			<col name="cntr_no" type="varchar" length="100" descr="合同编码" />
+			<col name="asst_lblt_type" type="varchar" length="4"
+				descr="资产负债类型" />
+			<col name="prd_type" type="varchar" length="4" descr="产品类别" />
+			<col name="cntr_start_dt" type="varchar" length="10"
+				descr="合同起始日期" />
+			<col name="cntr_due_dt" type="varchar" length="10" descr="合同到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="合同余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="合同余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="int_calc_mode" type="varchar" length="3" descr="计息方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_102_tykhxx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="name" type="varchar" length="200" descr="客户名称" />
+			<col name="cust_fin_no" type="varchar" length="60" descr="客户代码" />
+			<col name="cust_fin_org_no" type="varchar" length="60"
+				descr="客户金融机构编码" />
+			<col name="cust_no" type="varchar" length="60" descr="客户内部编码" />
+			<col name="base_acct_no" type="varchar" length="60"
+				descr="基本存款账号" />
+			<col name="base_acct_org_name" type="varchar" length="200"
+				descr="基本账户开户行名称" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="cust_catg" type="varchar" length="6" descr="客户类别" />
+			<col name="estb_dt" type="varchar" length="10" descr="成立日期" />
+			<col name="rela_mark" type="varchar" length="1" descr="是否关联方" />
+			<col name="econ_type" type="varchar" length="5" descr="客户经济成分" />
+			<col name="prin_econ_dept" type="varchar" length="3"
+				descr="客户国民经济部门" />
+			<col name="ccr_lvl_num" type="decimal" length="3"
+				descr="客户信用级别总等级数" />
+			<col name="ccr_lvl" type="decimal" length="3" descr="客户信用评级" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_101_jgfrlr" pkname="rid" descr="">
+		<columns>
+			<col name="idx_20202003" type="decimal" length="20,2"
+				descr="资产总计" />
+			<col name="idx_20202004" type="decimal" length="20,2"
+				descr="负债总计" />
+			<col name="idx_20202005" type="decimal" length="20,2"
+				descr="所有者权益合计" />
+			<col name="idx_20202006" type="decimal" length="20,2"
+				descr="生息资产" />
+			<col name="idx_20202007" type="decimal" length="20,2"
+				descr="付息负债" />
+			<col name="idx_20202008" type="decimal" length="20,2"
+				descr="流动性资产" />
+			<col name="idx_20202009" type="decimal" length="20,2"
+				descr="流动性负债" />
+			<col name="idx_20202010" type="decimal" length="20,2"
+				descr="正常类贷款" />
+			<col name="idx_20202011" type="decimal" length="20,2"
+				descr="关注类贷款" />
+			<col name="idx_20202012" type="decimal" length="20,2"
+				descr="次级类贷款" />
+			<col name="idx_20202013" type="decimal" length="20,2"
+				descr="可疑类贷款" />
+			<col name="idx_20202014" type="decimal" length="20,2"
+				descr="损失类贷款" />
+			<col name="idx_20202015" type="decimal" length="20,2"
+				descr="逾期贷款" />
+			<col name="idx_20202016" type="decimal" length="20,2"
+				descr="逾期90天以上贷款" />
+			<col name="idx_20202017" type="decimal" length="20,2"
+				descr="贷款减值准备" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30" descr="报送机构号" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="idx_20201003" type="varchar" length="20"
+				descr="金融机构编码" />
+			<col name="idx_20202001" type="decimal" length="20" descr="各项存款" />
+			<col name="idx_20202002" type="decimal" length="20,2"
+				descr="各项贷款" />
+		</columns>
+	</table>
+	<table name="bfd_101_jgfrjb_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="idx_20201001" type="varchar" length="200"
+				descr="金融机构名称" />
+			<col name="idx_20201002" type="varchar" length="20"
+				descr="金融机构代码" />
+			<col name="idx_20201003" type="varchar" length="20"
+				descr="金融机构编码" />
+			<col name="idx_20201004" type="varchar" length="3" descr="机构类别" />
+			<col name="idx_20201005" type="varchar" length="200" descr="注册地址" />
+			<col name="idx_20201006" type="varchar" length="6" descr="地区代码" />
+			<col name="idx_20201007" type="decimal" length="20,2"
+				descr="注册资本" />
+			<col name="idx_20201008" type="varchar" length="10" descr="成立日期" />
+			<col name="idx_20201009" type="varchar" length="200" descr="联系人" />
+			<col name="idx_20201010" type="varchar" length="30" descr="联系电话" />
+			<col name="idx_20201011" type="varchar" length="2" descr="经营状态" />
+			<col name="idx_20201012" type="varchar" length="5" descr="经济成分" />
+			<col name="idx_20201013" type="varchar" length="4" descr="企业规模" />
+			<col name="idx_20201014" type="varchar" length="1000"
+				descr="实际控制人名称" />
+			<col name="idx_20201015" type="varchar" length="400"
+				descr="实际控制人证件类型" />
+			<col name="idx_20201016" type="varchar" length="60"
+				descr="实际控制人代码" />
+			<col name="idx_20201017" type="decimal" length="10" descr="从业人员数" />
+			<col name="idx_20201018" type="varchar" length="60"
+				descr="第一大股东代码" />
+			<col name="idx_20201019" type="varchar" length="60"
+				descr="第二大股东代码" />
+			<col name="idx_20201020" type="varchar" length="60"
+				descr="第三大股东代码" />
+			<col name="idx_20201021" type="varchar" length="60"
+				descr="第四大股东代码" />
+			<col name="idx_20201022" type="varchar" length="60"
+				descr="第五大股东代码" />
+			<col name="idx_20201023" type="varchar" length="60"
+				descr="第六大股东代码" />
+			<col name="idx_20201024" type="varchar" length="60"
+				descr="第七大股东代码" />
+			<col name="idx_20201025" type="varchar" length="60"
+				descr="第八大股东代码" />
+			<col name="idx_20201026" type="varchar" length="60"
+				descr="第九大股东代码" />
+			<col name="idx_20201027" type="varchar" length="60"
+				descr="第十大股东代码" />
+			<col name="idx_20201028" type="decimal" length="10,5"
+				descr="第一大股东持股比例" />
+			<col name="idx_20201029" type="decimal" length="10,5"
+				descr="第二大股东持股比例" />
+			<col name="idx_20201030" type="decimal" length="10,5"
+				descr="第三大股东持股比例" />
+			<col name="idx_20201031" type="decimal" length="10,5"
+				descr="第四大股东持股比例" />
+			<col name="idx_20201032" type="decimal" length="10,5"
+				descr="第五大股东持股比例" />
+			<col name="idx_20201033" type="decimal" length="10,5"
+				descr="第六大股东持股比例" />
+			<col name="idx_20201034" type="decimal" length="10,5"
+				descr="第七大股东持股比例" />
+			<col name="idx_20201035" type="decimal" length="10,5"
+				descr="第八大股东持股比例" />
+			<col name="idx_20201036" type="decimal" length="10,5"
+				descr="第九大股东持股比例" />
+			<col name="idx_20201037" type="decimal" length="10,5"
+				descr="第十大股东持股比例" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_101_jgfrjb" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="idx_20201001" type="varchar" length="200"
+				descr="金融机构名称" />
+			<col name="idx_20201002" type="varchar" length="20"
+				descr="金融机构代码" />
+			<col name="idx_20201003" type="varchar" length="20"
+				descr="金融机构编码" />
+			<col name="idx_20201004" type="varchar" length="3" descr="机构类别" />
+			<col name="idx_20201005" type="varchar" length="200" descr="注册地址" />
+			<col name="idx_20201006" type="varchar" length="6" descr="地区代码" />
+			<col name="idx_20201007" type="decimal" length="20,2"
+				descr="注册资本" />
+			<col name="idx_20201008" type="varchar" length="10" descr="成立日期" />
+			<col name="idx_20201009" type="varchar" length="200" descr="联系人" />
+			<col name="idx_20201010" type="varchar" length="30" descr="联系电话" />
+			<col name="idx_20201011" type="varchar" length="2" descr="经营状态" />
+			<col name="idx_20201012" type="varchar" length="5" descr="经济成分" />
+			<col name="idx_20201013" type="varchar" length="4" descr="企业规模" />
+			<col name="idx_20201014" type="varchar" length="1000"
+				descr="实际控制人名称" />
+			<col name="idx_20201015" type="varchar" length="400"
+				descr="实际控制人证件类型" />
+			<col name="idx_20201016" type="varchar" length="60"
+				descr="实际控制人代码" />
+			<col name="idx_20201017" type="decimal" length="10" descr="从业人员数" />
+			<col name="idx_20201018" type="varchar" length="60"
+				descr="第一大股东代码" />
+			<col name="idx_20201019" type="varchar" length="60"
+				descr="第二大股东代码" />
+			<col name="idx_20201020" type="varchar" length="60"
+				descr="第三大股东代码" />
+			<col name="idx_20201021" type="varchar" length="60"
+				descr="第四大股东代码" />
+			<col name="idx_20201022" type="varchar" length="60"
+				descr="第五大股东代码" />
+			<col name="idx_20201023" type="varchar" length="60"
+				descr="第六大股东代码" />
+			<col name="idx_20201024" type="varchar" length="60"
+				descr="第七大股东代码" />
+			<col name="idx_20201025" type="varchar" length="60"
+				descr="第八大股东代码" />
+			<col name="idx_20201026" type="varchar" length="60"
+				descr="第九大股东代码" />
+			<col name="idx_20201027" type="varchar" length="60"
+				descr="第十大股东代码" />
+			<col name="idx_20201028" type="decimal" length="10,5"
+				descr="第一大股东持股比例" />
+			<col name="idx_20201029" type="decimal" length="10,5"
+				descr="第二大股东持股比例" />
+			<col name="idx_20201030" type="decimal" length="10,5"
+				descr="第三大股东持股比例" />
+			<col name="idx_20201031" type="decimal" length="10,5"
+				descr="第四大股东持股比例" />
+			<col name="idx_20201032" type="decimal" length="10,5"
+				descr="第五大股东持股比例" />
+			<col name="idx_20201033" type="decimal" length="10,5"
+				descr="第六大股东持股比例" />
+			<col name="idx_20201034" type="decimal" length="10,5"
+				descr="第七大股东持股比例" />
+			<col name="idx_20201035" type="decimal" length="10,5"
+				descr="第八大股东持股比例" />
+			<col name="idx_20201036" type="decimal" length="10,5"
+				descr="第九大股东持股比例" />
+			<col name="idx_20201037" type="decimal" length="10,5"
+				descr="第十大股东持股比例" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_job" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="name" type="varchar" length="30" descr="任务名" />
+			<col name="classname" type="varchar" length="100" descr="类名" />
+			<col name="triggerconf" type="varchar" length="50" descr="参数" />
+			<col name="activeflag" type="varchar" length="1" descr="是否激活" />
+			<col name="triggertype" type="varchar" length="100" descr="调度类型" />
+			<col name="descr" type="varchar" length="1000" descr="备注" />
+		</columns>
+	</table>
+	<table name="bfd_filling_process_child" pkname="rid" descr="">
+		<columns>
+			<col name="rpt_org_no" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="task_id" type="varchar" length="100" descr="" />
+			<col name="org_no" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="100" descr="" />
+			<col name="tab_name_en" type="varchar" length="100" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="status" type="varchar" length="1" descr="" />
+			<col name="explain" type="varchar" length="1000" descr="" />
+			<col name="remark" type="varchar" length="1000" descr="" />
+			<col name="data_time" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_engine_task" pkname="rid" descr="">
+		<columns>
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="4000" descr="" />
+			<col name="status" type="varchar" length="50" descr="" />
+			<col name="create_tm" type="varchar" length="19" descr="" />
+			<col name="update_tm" type="varchar" length="19" descr="" />
+			<col name="command1" type="varchar" length="2000" descr="" />
+			<col name="command2" type="varchar" length="2000" descr="" />
+			<col name="task_name" type="varchar" length="100" descr="" />
+			<col name="rule_name" type="varchar" length="2000" descr="" />
+			<col name="rule_ids" type="varchar" length="4000" descr="" />
+			<col name="tab_ids" type="varchar" length="4000" descr="" />
+			<col name="info" type="varchar" length="1000" descr="" />
+			<col name="tab_names" type="varchar" length="4000" descr="" />
+			<col name="task_type" type="varchar" length="15" descr="" />
+			<col name="busi_type" type="varchar" length="1" descr="" />
+			<col name="busi_org_no" type="varchar" length="50" descr="" />
+			<col name="report_type" type="varchar" length="1" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_engine_log" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="log_level" type="varchar" length="20" descr="" />
+			<col name="log_cont" type="varchar" length="2000" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="log_no" type="decimal" length="38" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_col_20200825_1" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="col_name" type="varchar" length="200" descr="" />
+			<col name="col_name_en" type="varchar" length="200" descr="" />
+			<col name="is_pk" type="varchar" length="1" descr="是否主键（引擎用）" />
+			<col name="is_pk1" type="varchar" length="1" descr="是否主键（WEB用）" />
+			<col name="filter_no" type="decimal" length="38" descr="" />
+			<col name="flow_no" type="decimal" length="38" descr="" />
+			<col name="is_export" type="varchar" length="1"
+				descr="是否参与报送/是否参与展示" />
+			<col name="type_name" type="varchar" length="50" descr="" />
+			<col name="data_type" type="varchar" length="10" descr="" />
+			<col name="col_no" type="decimal" length="5" descr="" />
+			<col name="display_config" type="varchar" length="2000" descr="" />
+			<col name="is_limit" type="varchar" length="1" descr="" />
+			<col name="limit_value" type="decimal" length="16" descr="" />
+			<col name="is_indexes" type="varchar" length="1"
+				descr="是否索引（web用）" />
+			<col name="data_length" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_col_20200819" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="col_name" type="varchar" length="200" descr="" />
+			<col name="col_name_en" type="varchar" length="200" descr="" />
+			<col name="is_pk" type="varchar" length="1" descr="" />
+			<col name="is_pk1" type="varchar" length="1" descr="" />
+			<col name="filter_no" type="decimal" length="38" descr="" />
+			<col name="flow_no" type="decimal" length="38" descr="" />
+			<col name="is_export" type="varchar" length="1" descr="" />
+			<col name="type_name" type="varchar" length="50" descr="" />
+			<col name="data_type" type="varchar" length="10" descr="" />
+			<col name="col_no" type="decimal" length="5" descr="" />
+			<col name="display_config" type="varchar" length="2000" descr="" />
+			<col name="is_limit" type="varchar" length="1" descr="" />
+			<col name="limit_value" type="decimal" length="16" descr="" />
+			<col name="is_indexes" type="varchar" length="1" descr="" />
+			<col name="data_length" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_wtdkfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="委托贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="委托贷款合同编码" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10"
+				descr="委托贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10"
+				descr="委托贷款到期日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="委托贷款发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2"
+				descr="委托贷款发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="ser_fee_cny_amt" type="decimal" length="20,2"
+				descr="手续费金额折人民币" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="client_econ_dept" type="varchar" length="3"
+				descr="委托人国民经济部门" />
+			<col name="client_id_type" type="varchar" length="3"
+				descr="委托人证件类型" />
+			<col name="client_id_no" type="varchar" length="60"
+				descr="委托人证件代码" />
+			<col name="client_ind_cd" type="varchar" length="3" descr="委托人行业" />
+			<col name="client_area_cd" type="varchar" length="6"
+				descr="委托人地区代码" />
+			<col name="client_econ_type" type="varchar" length="5"
+				descr="委托人经济成分" />
+			<col name="client_ent_scale" type="varchar" length="4"
+				descr="委托人企业规模" />
+			<col name="rls_mark" type="varchar" length="1" descr="发放/收回标识" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+			<col name="orig_client_id_no" type="varchar" length="60"
+				descr="委托人证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_201_grdkfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_act_end_dt" type="varchar" length="10"
+				descr="贷款实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="贷款发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2"
+				descr="贷款发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="as_prd_no" type="varchar" length="400"
+				descr="资产证券化产品代码" />
+			<col name="loan_regroup_mode" type="varchar" length="2"
+				descr="贷款重组方式" />
+			<col name="rls_mark" type="varchar" length="1" descr="发放/收回标识" />
+			<col name="tr_no" type="varchar" length="60" descr="流水号" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_201_dbwxx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="guar_cntr_no" type="varchar" length="100"
+				descr="担保合同编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="被担保合同编码" />
+			<col name="colt_no" type="varchar" length="100" descr="担保物编码" />
+			<col name="colt_type" type="varchar" length="3" descr="担保物类别" />
+			<col name="colt_card_no" type="varchar" length="500" descr="权证编号" />
+			<col name="first_mark" type="varchar" length="1" descr="是否第一顺位" />
+			<col name="eval_mode" type="varchar" length="2" descr="评估方式" />
+			<col name="eval_method" type="varchar" length="2" descr="评估方法" />
+			<col name="eval_val" type="decimal" length="20,2" descr="评估价值" />
+			<col name="eval_base_dt" type="varchar" length="10" descr="评估基准日" />
+			<col name="book_amt" type="decimal" length="20,2" descr="担保物票面价值" />
+			<col name="prc_amt" type="decimal" length="20,2" descr="优先受偿权数额" />
+			<col name="val_cycle" type="varchar" length="2" descr="估值周期" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_201_clzxdk_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="pbo_loan_mark" type="varchar" length="1"
+				descr="是否个体工商户贷款" />
+			<col name="mbo_loan_mark" type="varchar" length="1"
+				descr="是否小微企业主贷款" />
+			<col name="agr_loan_mark" type="varchar" length="1"
+				descr="是否涉农贷款" />
+			<col name="agr_loan_type" type="varchar" length="3"
+				descr="涉农贷款类型" />
+			<col name="tpr_loan_mark" type="varchar" length="1"
+				descr="是否精准扶贫贷款" />
+			<col name="bcp_loan_mark" type="varchar" length="1"
+				descr="是否建档立卡贫困人口贷款" />
+			<col name="lgfp_loan_mark" type="varchar" length="1"
+				descr="是否地方政府融资平台贷款" />
+			<col name="lgfp_loan_type" type="varchar" length="2"
+				descr="地方融资平台按法律性质分类类型" />
+			<col name="lgfp_mf_type" type="varchar" length="2"
+				descr="地方融资平台按隶属关系分类类型" />
+			<col name="lgfp_dsf_src_type" type="varchar" length="2"
+				descr="地方融资平台偿债资金来源分类" />
+			<col name="ghp_loan_mark" type="varchar" length="1"
+				descr="是否保障性安居工程贷款" />
+			<col name="ghp_loan_type" type="varchar" length="4"
+				descr="保障性安居工程贷款类型" />
+			<col name="green_loan_mark" type="varchar" length="1"
+				descr="是否绿色贷款" />
+			<col name="vg_loan_mark" type="varchar" length="1"
+				descr="是否创业担保贷款" />
+			<col name="vg_loan_type" type="varchar" length="3"
+				descr="创业担保贷款类型" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_cltyjd_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手代码类别" />
+			<col name="cntr_no" type="varchar" length="100" descr="合同编码" />
+			<col name="asst_lblt_type" type="varchar" length="4"
+				descr="资产负债类型" />
+			<col name="prd_type" type="varchar" length="4" descr="产品类别" />
+			<col name="cntr_start_dt" type="varchar" length="10"
+				descr="合同起始日期" />
+			<col name="cntr_due_dt" type="varchar" length="10" descr="合同到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="合同余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="合同余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="int_calc_mode" type="varchar" length="3" descr="计息方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_cldwdk_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10"
+				descr="贷款展期到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="贷款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="贷款余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_aq" type="varchar" length="4" descr="贷款质量" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="overdue_type" type="varchar" length="2" descr="逾期类型" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_102_grkhxx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="country" type="varchar" length="2" descr="国籍" />
+			<col name="nation" type="varchar" length="2" descr="民族" />
+			<col name="gender" type="varchar" length="2" descr="性别" />
+			<col name="max_edu" type="varchar" length="2" descr="最高学历" />
+			<col name="birthday_dt" type="varchar" length="10" descr="出生日期" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="indv_y_incm_amt" type="decimal" length="20,2"
+				descr="个人年收入" />
+			<col name="home_y_incm_amt" type="decimal" length="20,2"
+				descr="家庭年收入" />
+			<col name="mrtl_sts" type="varchar" length="3" descr="婚姻情况" />
+			<col name="rela_mark" type="varchar" length="1" descr="是否关联方" />
+			<col name="credit_amt" type="decimal" length="20,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="20,2"
+				descr="已用额度" />
+			<col name="indv_cust_mark" type="varchar" length="10"
+				descr="个人客户身份标识" />
+			<col name="biz_lic_no" type="varchar" length="400"
+				descr="个体工商户营业执照代码" />
+			<col name="ent_scc_no" type="varchar" length="400"
+				descr="小微企业社会信用代码" />
+			<col name="ccr_lvl_num" type="decimal" length="3"
+				descr="客户信用级别总等级数" />
+			<col name="ccr_lvl" type="decimal" length="3" descr="客户信用评级" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="客户证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_result_data" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="rulerid" type="varchar" length="50" descr="" />
+			<col name="tablename" type="varchar" length="50" descr="" />
+			<col name="tablename_en" type="varchar" length="30" descr="" />
+			<col name="colname" type="varchar" length="30" descr="" />
+			<col name="colname_en" type="varchar" length="30" descr="" />
+			<col name="colvalue" type="varchar" length="300" descr="" />
+			<col name="pkcolname" type="varchar" length="30" descr="" />
+			<col name="pkvalue" type="varchar" length="100" descr="" />
+			<col name="problemcode" type="varchar" length="30" descr="" />
+			<col name="problemmsg" type="varchar" length="2000" descr="" />
+			<col name="org_no" type="varchar" length="30" descr="" />
+			<col name="org_name" type="varchar" length="200" descr="" />
+			<col name="result_status" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_engine_cmd_template" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="template_sts" type="varchar" length="1" descr="" />
+			<col name="cmd" type="varchar" length="2500" descr="" />
+			<col name="cmd_type" type="varchar" length="20" descr="" />
+			<col name="last_upd_tmcreate_tm" type="varchar" length="20"
+				descr="" />
+			<col name="last_update_user" type="varchar" length="200" descr="" />
+			<col name="create_tm" type="varchar" length="20" descr="" />
+			<col name="create_user" type="varchar" length="200" descr="" />
+			<col name="tem_name" type="varchar" length="200" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_col_20200819_2" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="col_name" type="varchar" length="200" descr="" />
+			<col name="col_name_en" type="varchar" length="200" descr="" />
+			<col name="is_pk" type="varchar" length="1" descr="" />
+			<col name="is_pk1" type="varchar" length="1" descr="" />
+			<col name="filter_no" type="decimal" length="38" descr="" />
+			<col name="flow_no" type="decimal" length="38" descr="" />
+			<col name="is_export" type="varchar" length="1" descr="" />
+			<col name="type_name" type="varchar" length="50" descr="" />
+			<col name="data_type" type="varchar" length="10" descr="" />
+			<col name="col_no" type="decimal" length="5" descr="" />
+			<col name="display_config" type="varchar" length="2000" descr="" />
+			<col name="is_limit" type="varchar" length="1" descr="" />
+			<col name="limit_value" type="decimal" length="16" descr="" />
+			<col name="is_indexes" type="varchar" length="1" descr="" />
+			<col name="data_length" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_203_clzqtz" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="债券余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="债券余额折人民币" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="iss_id_no" type="varchar" length="60" descr="发行人证件代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="iss_ind_cd" type="varchar" length="1" descr="发行人行业" />
+			<col name="iss_ent_scale" type="varchar" length="4"
+				descr="发行人企业规模" />
+			<col name="iss_econ_type" type="varchar" length="3"
+				descr="发行人经济成分" />
+			<col name="econ_dept" type="varchar" length="3" descr="发行人国民经济部门" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_202_clgrck_r" pkname="rid" descr="">
+		<columns>
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="存款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="存款余额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="dpst_rsrv_mode" type="varchar" length="4"
+				descr="缴存准备金方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="客户证件代码（脱敏前）" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+		</columns>
+	</table>
+	<table name="bfd_202_clgrck" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="存款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="存款余额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="dpst_rsrv_mode" type="varchar" length="4"
+				descr="缴存准备金方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="客户证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_201_grdkfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_act_end_dt" type="varchar" length="10"
+				descr="贷款实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="贷款发生金额" />
+			<col name="cny_bal" type="decimal" length="20,2"
+				descr="贷款发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="as_prd_no" type="varchar" length="400"
+				descr="资产证券化产品代码" />
+			<col name="loan_regroup_mode" type="varchar" length="2"
+				descr="贷款重组方式" />
+			<col name="rls_mark" type="varchar" length="1" descr="发放/收回标识" />
+			<col name="tr_no" type="varchar" length="60" descr="流水号" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_201_dwdkfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="as_prd_no" type="varchar" length="400"
+				descr="资产证券化产品代码" />
+			<col name="loan_regroup_mode" type="varchar" length="2"
+				descr="贷款重组方式" />
+			<col name="rls_mark" type="varchar" length="1" descr="发放/收回标识" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="2030" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_act_end_dt" type="varchar" length="10"
+				descr="贷款实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="贷款发生金额" />
+			<col name="cny_bal" type="decimal" length="20,2"
+				descr="贷款发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+		</columns>
+	</table>
+	<table name="bfd_idx_config" pkname="rid" descr="">
+		<columns>
+			<col name="tab_name_en" type="varchar" length="50" descr="" />
+			<col name="data_attribute" type="varchar" length="1" descr="" />
+			<col name="curr" type="varchar" length="10" descr="" />
+			<col name="volunm" type="varchar" length="1" descr="" />
+			<col name="type" type="varchar" length="1" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_report" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="" />
+			<col name="org_no" type="varchar" length="100" descr="" />
+			<col name="org_name" type="varchar" length="100" descr="" />
+			<col name="report_type" type="varchar" length="20" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="create_tm" type="varchar" length="19" descr="" />
+			<col name="start_tm" type="varchar" length="19" descr="" />
+			<col name="end_tm" type="varchar" length="19" descr="" />
+			<col name="status" type="varchar" length="30" descr="" />
+			<col name="execsql" type="varchar" length="2000" descr="" />
+			<col name="filepath" type="varchar" length="300" descr="" />
+			<col name="filelog" type="varchar" length="500" descr="" />
+			<col name="datatype" type="varchar" length="10" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_col" pkname="rid" descr="">
+		<columns>
+			<col name="is_not_null" type="varchar" length="1"
+				descr="是否不为空(Y,不可为空；N可以为空）" />
+			<col name="is_not_edit" type="varchar" length="1"
+				descr="是否不可修改（Y,不可修改；N,可修改）" />
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="col_name" type="varchar" length="200" descr="" />
+			<col name="col_name_en" type="varchar" length="200" descr="" />
+			<col name="is_pk" type="varchar" length="1" descr="是否主键（引擎用）" />
+			<col name="is_pk1" type="varchar" length="1" descr="是否主键（WEB用）" />
+			<col name="filter_no" type="decimal" length="38" descr="" />
+			<col name="flow_no" type="decimal" length="38" descr="" />
+			<col name="is_export" type="varchar" length="1"
+				descr="是否参与报送/是否参与展示" />
+			<col name="type_name" type="varchar" length="50" descr="" />
+			<col name="data_type" type="varchar" length="10" descr="" />
+			<col name="col_no" type="decimal" length="5" descr="" />
+			<col name="display_config" type="varchar" length="2000" descr="" />
+			<col name="is_limit" type="varchar" length="1" descr="" />
+			<col name="limit_value" type="decimal" length="16" descr="" />
+			<col name="is_indexes" type="varchar" length="1"
+				descr="是否索引（web用）" />
+			<col name="data_length" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_203_zqfxfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="cd_time" type="decimal" length="3" descr="续发次数" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bond_val" type="decimal" length="20,2"
+				descr="发行/兑付债券面值" />
+			<col name="bond_cny_val" type="decimal" length="20,2"
+				descr="发行/兑付债券面值折人民币" />
+			<col name="bond_amt" type="decimal" length="20,2"
+				descr="发行/兑付债券金额" />
+			<col name="bond_cny_amt" type="decimal" length="20,2"
+				descr="发行/兑付债券金额折人民币" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="iss_pmt_mark" type="varchar" length="1"
+				descr="发行/兑付标识" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+		</columns>
+	</table>
+	<table name="bfd_202_grckfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="agrt_act_end_dt" type="varchar" length="10"
+				descr="存款协议实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="发生金额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="cash_mark" type="varchar" length="1" descr="现金转账标识" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="客户证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_202_dwckfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="reg_addr" type="varchar" length="400" descr="客户注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="agrt_act_end_dt" type="varchar" length="10"
+				descr="存款协议实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="存款币种" />
+			<col name="amt" type="decimal" length="20,2" descr="存款发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2"
+				descr="存款发生金额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="cash_mark" type="varchar" length="1" descr="现金转账标识" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_dwdkfs_bak" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="fin_org_no" type="varchar" length="18" descr="" />
+			<col name="org_no" type="varchar" length="2030" descr="" />
+			<col name="fin_org_area_cd" type="varchar" length="6" descr="" />
+			<col name="id_type" type="varchar" length="3" descr="" />
+			<col name="id_no" type="varchar" length="60" descr="" />
+			<col name="econ_dept" type="varchar" length="3" descr="" />
+			<col name="ind_cd" type="varchar" length="3" descr="" />
+			<col name="area_cd" type="varchar" length="6" descr="" />
+			<col name="econ_type" type="varchar" length="5" descr="" />
+			<col name="ent_scale" type="varchar" length="4" descr="" />
+			<col name="loan_no" type="varchar" length="100" descr="" />
+			<col name="cntr_no" type="varchar" length="100" descr="" />
+			<col name="loan_prd_type" type="varchar" length="6" descr="" />
+			<col name="loan_act_ind_cd" type="varchar" length="4" descr="" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="" />
+			<col name="loan_act_end_dt" type="varchar" length="10" descr="" />
+			<col name="curr_cd" type="varchar" length="3" descr="" />
+			<col name="amt" type="decimal" length="20,2" descr="" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="" />
+			<col name="fixed_int_mark" type="varchar" length="4" descr="" />
+			<col name="int_rate" type="decimal" length="10,5" descr="" />
+			<col name="price_base_type" type="varchar" length="4" descr="" />
+			<col name="base_int_rate" type="decimal" length="10,5" descr="" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5" descr="" />
+			<col name="int_reprice_dt" type="varchar" length="10" descr="" />
+			<col name="guar_mode" type="varchar" length="3" descr="" />
+			<col name="first_loan_mark" type="varchar" length="1" descr="" />
+			<col name="loan_sts" type="varchar" length="4" descr="" />
+			<col name="as_prd_no" type="varchar" length="400" descr="" />
+			<col name="loan_regroup_mode" type="varchar" length="2" descr="" />
+			<col name="rls_mark" type="varchar" length="1" descr="" />
+			<col name="tr_no" type="varchar" length="60" descr="" />
+			<col name="loan_use" type="varchar" length="1000" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="rpt_org_no" type="varchar" length="30" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_dbwxx_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="guar_cntr_no" type="varchar" length="100"
+				descr="担保合同编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="被担保合同编码" />
+			<col name="colt_no" type="varchar" length="100" descr="担保物编码" />
+			<col name="colt_type" type="varchar" length="3" descr="担保物类别" />
+			<col name="colt_card_no" type="varchar" length="500" descr="权证编号" />
+			<col name="first_mark" type="varchar" length="1" descr="是否第一顺位" />
+			<col name="eval_mode" type="varchar" length="2" descr="评估方式" />
+			<col name="eval_method" type="varchar" length="2" descr="评估方法" />
+			<col name="eval_val" type="decimal" length="20,2" descr="评估价值" />
+			<col name="eval_base_dt" type="varchar" length="10" descr="评估基准日" />
+			<col name="book_amt" type="decimal" length="20,2" descr="担保物票面价值" />
+			<col name="prc_amt" type="decimal" length="20,2" descr="优先受偿权数额" />
+			<col name="val_cycle" type="varchar" length="2" descr="估值周期" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_col_20200819_3" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="col_name" type="varchar" length="200" descr="" />
+			<col name="col_name_en" type="varchar" length="200" descr="" />
+			<col name="is_pk" type="varchar" length="1" descr="" />
+			<col name="is_pk1" type="varchar" length="1" descr="" />
+			<col name="filter_no" type="decimal" length="38" descr="" />
+			<col name="flow_no" type="decimal" length="38" descr="" />
+			<col name="is_export" type="varchar" length="1" descr="" />
+			<col name="type_name" type="varchar" length="50" descr="" />
+			<col name="data_type" type="varchar" length="10" descr="" />
+			<col name="col_no" type="decimal" length="5" descr="" />
+			<col name="display_config" type="varchar" length="2000" descr="" />
+			<col name="is_limit" type="varchar" length="1" descr="" />
+			<col name="limit_value" type="decimal" length="16" descr="" />
+			<col name="is_indexes" type="varchar" length="1" descr="" />
+			<col name="data_length" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_check_result_djz" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="机构号" />
+			<col name="index_code" type="varchar" length="50" descr="指标编号" />
+			<col name="index_name" type="varchar" length="200" descr="指标名称" />
+			<col name="index_value" type="decimal" length="20,2" descr="指标值" />
+			<col name="bfd_value" type="decimal" length="20,2" descr="金棕汇总值" />
+			<col name="diff_value" type="decimal" length="20,2" descr="差值" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="report_no" type="varchar" length="20" descr="报表编号" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_203_zqtzfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="iss_id_no" type="varchar" length="60" descr="发行人证件代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="iss_ind_cd" type="varchar" length="1" descr="发行人行业" />
+			<col name="iss_ent_scale" type="varchar" length="4"
+				descr="发行人企业规模" />
+			<col name="iss_econ_type" type="varchar" length="3"
+				descr="发行人经济成分" />
+			<col name="econ_dept" type="varchar" length="3" descr="发行人国民经济部门" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="amt" type="decimal" length="20,2" descr="成交金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="成交金额折人民币" />
+			<col name="buy_sell_mark" type="varchar" length="1"
+				descr="买入/卖出标志" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_203_clzqtz_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="债券余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="债券余额折人民币" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="iss_id_no" type="varchar" length="60" descr="发行人证件代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="iss_ind_cd" type="varchar" length="1" descr="发行人行业" />
+			<col name="iss_ent_scale" type="varchar" length="4"
+				descr="发行人企业规模" />
+			<col name="iss_econ_type" type="varchar" length="3"
+				descr="发行人经济成分" />
+			<col name="econ_dept" type="varchar" length="3" descr="发行人国民经济部门" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_tyjdfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="amt" type="decimal" length="20,2" descr="发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="1"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="int_calc_mode" type="varchar" length="3" descr="计息方式" />
+			<col name="sttl_mark" type="varchar" length="1" descr="发生/结清标识" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手代码类别" />
+			<col name="cntr_no" type="varchar" length="100" descr="合同编码" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="asst_lblt_type" type="varchar" length="4"
+				descr="资产负债类型" />
+			<col name="prd_type" type="varchar" length="4" descr="产品类别" />
+			<col name="cntr_start_dt" type="varchar" length="10"
+				descr="合同起始日期" />
+			<col name="cntr_due_dt" type="varchar" length="10" descr="合同到期日期" />
+			<col name="agrt_act_end_dt" type="varchar" length="10"
+				descr="合同实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+		</columns>
+	</table>
+	<table name="bfd_201_tyjdfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手代码类别" />
+			<col name="cntr_no" type="varchar" length="100" descr="合同编码" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="asst_lblt_type" type="varchar" length="4"
+				descr="资产负债类型" />
+			<col name="prd_type" type="varchar" length="4" descr="产品类别" />
+			<col name="cntr_start_dt" type="varchar" length="10"
+				descr="合同起始日期" />
+			<col name="cntr_due_dt" type="varchar" length="10" descr="合同到期日期" />
+			<col name="agrt_act_end_dt" type="varchar" length="10"
+				descr="合同实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="1"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="int_calc_mode" type="varchar" length="3" descr="计息方式" />
+			<col name="sttl_mark" type="varchar" length="1" descr="发生/结清标识" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_filling_reason" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="child_task_id" type="varchar" length="100" descr="" />
+			<col name="type" type="varchar" length="1" descr="" />
+			<col name="reason" type="varchar" length="1000" descr="" />
+			<col name="user_no" type="varchar" length="100" descr="" />
+			<col name="data_time" type="varchar" length="20" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_report_log" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="" />
+			<col name="report_rid" type="varchar" length="40" descr="" />
+			<col name="log_level" type="varchar" length="20" descr="" />
+			<col name="log_cont" type="varchar" length="2000" descr="" />
+			<col name="create_tm" type="varchar" length="19" descr="" />
+			<col name="seq" type="decimal" length="10" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_204_clgqtz_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="stock_no" type="varchar" length="100" descr="凭证编码" />
+			<col name="stock_type" type="varchar" length="1" descr="股权类型" />
+			<col name="cust_catg" type="varchar" length="6" descr="机构类型" />
+			<col name="cust_card_no" type="varchar" length="60"
+				descr="机构证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="term_val" type="decimal" length="20,2" descr="投资余额" />
+			<col name="term_cny_val" type="decimal" length="20,2"
+				descr="投资余额折人民币" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_203_clzqfx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="cd_time" type="decimal" length="3" descr="续发次数" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bond_term_val" type="decimal" length="20,2"
+				descr="期末债券面值" />
+			<col name="bond_term_cny_val" type="decimal" length="20,2"
+				descr="期末债券面值折人民币" />
+			<col name="bond_term_fair_val" type="decimal" length="20,2"
+				descr="期末债券余额" />
+			<col name="bond_term_cny_fair_val" type="decimal" length="20,2"
+				descr="期末债券余额折人民币" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="pay_int_mode" type="varchar" length="2" descr="付息方式" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_202_tyckfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="biz_type" type="varchar" length="4" descr="业务类型" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手证件类型" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10" descr="协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="交易金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="交易金额折人民币" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="tr_acct_no" type="varchar" length="60" descr="交易账户号" />
+			<col name="tr_acct_open_org_no" type="varchar" length="30"
+				descr="交易账户开户行号" />
+			<col name="tr_opp_acct_no" type="varchar" length="60"
+				descr="交易对手账户号" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_wtdkfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="委托贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="委托贷款合同编码" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10"
+				descr="委托贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10"
+				descr="委托贷款到期日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="委托贷款发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2"
+				descr="委托贷款发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="ser_fee_cny_amt" type="decimal" length="20,2"
+				descr="手续费金额折人民币" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="client_econ_dept" type="varchar" length="3"
+				descr="委托人国民经济部门" />
+			<col name="client_id_type" type="varchar" length="3"
+				descr="委托人证件类型" />
+			<col name="client_id_no" type="varchar" length="60"
+				descr="委托人证件代码" />
+			<col name="client_ind_cd" type="varchar" length="3" descr="委托人行业" />
+			<col name="client_area_cd" type="varchar" length="6"
+				descr="委托人地区代码" />
+			<col name="client_econ_type" type="varchar" length="5"
+				descr="委托人经济成分" />
+			<col name="client_ent_scale" type="varchar" length="4"
+				descr="委托人企业规模" />
+			<col name="rls_mark" type="varchar" length="1" descr="发放/收回标识" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+			<col name="orig_client_id_no" type="varchar" length="60"
+				descr="委托人证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_201_dwdkfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="2030" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_act_end_dt" type="varchar" length="10"
+				descr="贷款实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="贷款发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2"
+				descr="贷款发生金额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="as_prd_no" type="varchar" length="400"
+				descr="资产证券化产品代码" />
+			<col name="loan_regroup_mode" type="varchar" length="2"
+				descr="贷款重组方式" />
+			<col name="rls_mark" type="varchar" length="1" descr="发放/收回标识" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_201_dbhtxx_r" pkname="rid" descr="">
+		<columns>
+			<col name="pldg_rate" type="decimal" length="10,2" descr="抵质押率" />
+			<col name="guar_id_type" type="varchar" length="3"
+				descr="担保人证件类型" />
+			<col name="guar_id_no" type="varchar" length="60" descr="担保人证件代码" />
+			<col name="guar_econ_dept" type="varchar" length="3"
+				descr="担保人国民经济部门" />
+			<col name="guar_ind_cd" type="varchar" length="3" descr="担保人行业" />
+			<col name="guar_area_cd" type="varchar" length="6"
+				descr="担保人地区代码" />
+			<col name="guar_ent_scale" type="varchar" length="4"
+				descr="担保人企业规模" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_guar_id_no" type="varchar" length="60"
+				descr="担保人证件代码（脱敏前）" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="guar_cntr_no" type="varchar" length="100"
+				descr="担保合同编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="被担保合同编码" />
+			<col name="guar_cntr_type" type="varchar" length="2"
+				descr="担保合同类型" />
+			<col name="trans_type" type="varchar" length="2" descr="交易类型" />
+			<col name="guar_start_dt" type="varchar" length="10"
+				descr="担保合同起始日期" />
+			<col name="guar_due_dt" type="varchar" length="10"
+				descr="担保合同到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="guar_amt" type="decimal" length="20,2" descr="担保合同金额" />
+			<col name="guar_cny_amt" type="decimal" length="20,2"
+				descr="担保合同金额折人民币" />
+		</columns>
+	</table>
+	<table name="bfd_201_dbhtxx_bak" pkname="rid" descr="">
+		<columns>
+			<col name="guar_cntr_no" type="varchar" length="100" descr="" />
+			<col name="cntr_no" type="varchar" length="100" descr="" />
+			<col name="guar_cntr_type" type="varchar" length="2" descr="" />
+			<col name="trans_type" type="varchar" length="2" descr="" />
+			<col name="guar_start_dt" type="varchar" length="10" descr="" />
+			<col name="guar_due_dt" type="varchar" length="10" descr="" />
+			<col name="curr_cd" type="varchar" length="3" descr="" />
+			<col name="guar_amt" type="decimal" length="20,2" descr="" />
+			<col name="guar_cny_amt" type="decimal" length="20,2" descr="" />
+			<col name="pldg_rate" type="decimal" length="9,5" descr="" />
+			<col name="guar_id_type" type="varchar" length="3" descr="" />
+			<col name="guar_id_no" type="varchar" length="60" descr="" />
+			<col name="guar_econ_dept" type="varchar" length="3" descr="" />
+			<col name="guar_ind_cd" type="varchar" length="3" descr="" />
+			<col name="guar_area_cd" type="varchar" length="6" descr="" />
+			<col name="guar_ent_scale" type="varchar" length="4" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="rpt_org_no" type="varchar" length="30" descr="" />
+			<col name="orig_guar_id_no" type="varchar" length="60" descr="" />
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="fin_org_no" type="varchar" length="18" descr="" />
+			<col name="org_no" type="varchar" length="30" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_clwtdk_r" pkname="rid" descr="">
+		<columns>
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="委托贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="委托贷款合同编码" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10"
+				descr="委托贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10"
+				descr="委托贷款到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10"
+				descr="委托贷款展期到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="委托贷款余额" />
+			<col name="cny_bal" type="decimal" length="20,2"
+				descr="委托贷款余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="ser_fee_cny_amt" type="decimal" length="20,2"
+				descr="手续费金额折人民币" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="loan_aq" type="varchar" length="4" descr="贷款质量" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="client_econ_dept" type="varchar" length="3"
+				descr="委托人国民经济部门" />
+			<col name="client_id_type" type="varchar" length="3"
+				descr="委托人证件类型" />
+			<col name="client_id_no" type="varchar" length="60"
+				descr="委托人证件代码" />
+			<col name="client_ind_cd" type="varchar" length="3" descr="委托人行业" />
+			<col name="client_area_cd" type="varchar" length="6"
+				descr="委托人地区代码" />
+			<col name="client_econ_type" type="varchar" length="5"
+				descr="委托人经济成分" />
+			<col name="client_ent_scale" type="varchar" length="4"
+				descr="委托人企业规模" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+			<col name="orig_client_id_no" type="varchar" length="60"
+				descr="委托人证件代码（脱敏前）" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+		</columns>
+	</table>
+	<table name="bfd_201_clgrdk_r" pkname="rid" descr="">
+		<columns>
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10"
+				descr="贷款展期到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="贷款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="贷款余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_aq" type="varchar" length="4" descr="贷款质量" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="overdue_type" type="varchar" length="2" descr="逾期类型" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+		</columns>
+	</table>
+	<table name="bfd_201_cldwdk_bak" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="fin_org_no" type="varchar" length="18" descr="" />
+			<col name="org_no" type="varchar" length="30" descr="" />
+			<col name="fin_org_area_cd" type="varchar" length="6" descr="" />
+			<col name="id_type" type="varchar" length="3" descr="" />
+			<col name="id_no" type="varchar" length="60" descr="" />
+			<col name="econ_dept" type="varchar" length="3" descr="" />
+			<col name="ind_cd" type="varchar" length="3" descr="" />
+			<col name="area_cd" type="varchar" length="6" descr="" />
+			<col name="econ_type" type="varchar" length="5" descr="" />
+			<col name="ent_scale" type="varchar" length="4" descr="" />
+			<col name="loan_no" type="varchar" length="100" descr="" />
+			<col name="cntr_no" type="varchar" length="100" descr="" />
+			<col name="loan_prd_type" type="varchar" length="6" descr="" />
+			<col name="loan_act_ind_cd" type="varchar" length="4" descr="" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="" />
+			<col name="loan_ext_due_dt" type="varchar" length="10" descr="" />
+			<col name="curr_cd" type="varchar" length="3" descr="" />
+			<col name="bal" type="decimal" length="20,2" descr="" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="" />
+			<col name="fixed_int_mark" type="varchar" length="4" descr="" />
+			<col name="int_rate" type="decimal" length="10,5" descr="" />
+			<col name="price_base_type" type="varchar" length="4" descr="" />
+			<col name="base_int_rate" type="decimal" length="10,5" descr="" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5" descr="" />
+			<col name="int_reprice_dt" type="varchar" length="10" descr="" />
+			<col name="guar_mode" type="varchar" length="3" descr="" />
+			<col name="first_loan_mark" type="varchar" length="1" descr="" />
+			<col name="loan_aq" type="varchar" length="4" descr="" />
+			<col name="loan_sts" type="varchar" length="4" descr="" />
+			<col name="overdue_type" type="varchar" length="2" descr="" />
+			<col name="loan_use" type="varchar" length="1000" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="rpt_org_no" type="varchar" length="30" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_102_ftykhx_bak" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="fin_org_no" type="varchar" length="18" descr="" />
+			<col name="name" type="varchar" length="200" descr="" />
+			<col name="id_type" type="varchar" length="3" descr="" />
+			<col name="id_no" type="varchar" length="60" descr="" />
+			<col name="base_acct_no" type="varchar" length="60" descr="" />
+			<col name="base_acct_org_name" type="varchar" length="200"
+				descr="" />
+			<col name="mgr_scope" type="varchar" length="1000" descr="" />
+			<col name="reg_amt" type="decimal" length="20,2" descr="" />
+			<col name="paid_in_amt" type="decimal" length="20,2" descr="" />
+			<col name="tot_asst_amt" type="decimal" length="20,2" descr="" />
+			<col name="oper_rev_amt" type="decimal" length="20,2" descr="" />
+			<col name="ee_num" type="decimal" length="10" descr="" />
+			<col name="pub_com_mark" type="varchar" length="1" descr="" />
+			<col name="first_loan_dt" type="varchar" length="10" descr="" />
+			<col name="reg_addr" type="varchar" length="400" descr="" />
+			<col name="area_cd" type="varchar" length="6" descr="" />
+			<col name="mgt_sts" type="varchar" length="2" descr="" />
+			<col name="estb_dt" type="varchar" length="10" descr="" />
+			<col name="ind_cd" type="varchar" length="3" descr="" />
+			<col name="ent_scale" type="varchar" length="4" descr="" />
+			<col name="econ_type" type="varchar" length="5" descr="" />
+			<col name="prin_econ_dept" type="varchar" length="3" descr="" />
+			<col name="credit_amt" type="decimal" length="20,2" descr="" />
+			<col name="use_credit_amt" type="decimal" length="20,2" descr="" />
+			<col name="rela_mark" type="varchar" length="1" descr="" />
+			<col name="act_ctrl_id_type" type="varchar" length="60" descr="" />
+			<col name="act_ctrl_id_no" type="varchar" length="400" descr="" />
+			<col name="ccr_lvl_num" type="decimal" length="3" descr="" />
+			<col name="ccr_lvl" type="decimal" length="3" descr="" />
+			<col name="org_no" type="varchar" length="20" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="rpt_org_no" type="varchar" length="30" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_101_jrjgfz_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_name" type="varchar" length="200"
+				descr="金融机构名称" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="fin_org_code" type="varchar" length="14"
+				descr="金融机构编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="lic_no" type="varchar" length="30" descr="许可证号" />
+			<col name="pay_org_no" type="varchar" length="30" descr="支付行号" />
+			<col name="org_lvl" type="varchar" length="2" descr="机构级别" />
+			<col name="p_mgr_org_name" type="varchar" length="200"
+				descr="直属上级管理机构名称" />
+			<col name="p_mgr_fin_org_code" type="varchar" length="14"
+				descr="直属上级管理机构金融机构编码" />
+			<col name="p_mgr_org_no" type="varchar" length="30"
+				descr="直属上级管理机构内部机构号" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="estb_dt" type="varchar" length="10" descr="成立时间" />
+			<col name="mgt_sts" type="varchar" length="2" descr="营业状态" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_101_jrjgfz" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_name" type="varchar" length="200"
+				descr="金融机构名称" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="fin_org_code" type="varchar" length="14"
+				descr="金融机构编码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="lic_no" type="varchar" length="30" descr="许可证号" />
+			<col name="pay_org_no" type="varchar" length="30" descr="支付行号" />
+			<col name="org_lvl" type="varchar" length="2" descr="机构级别" />
+			<col name="p_mgr_org_name" type="varchar" length="200"
+				descr="直属上级管理机构名称" />
+			<col name="p_mgr_fin_org_code" type="varchar" length="14"
+				descr="直属上级管理机构金融机构编码" />
+			<col name="p_mgr_org_no" type="varchar" length="30"
+				descr="直属上级管理机构内部机构号" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="estb_dt" type="varchar" length="10" descr="成立时间" />
+			<col name="mgt_sts" type="varchar" length="2" descr="营业状态" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_101_jgfrzf_r" pkname="rid" descr="">
+		<columns>
+			<col name="idx_20203016" type="decimal" length="20,2"
+				descr="手续费及佣金收入" />
+			<col name="idx_20203017" type="decimal" length="20,2"
+				descr="手续费及佣金支出" />
+			<col name="idx_20203018" type="decimal" length="20,2"
+				descr="租赁收益" />
+			<col name="idx_20203019" type="decimal" length="20,2"
+				descr="投资收益" />
+			<col name="idx_20203020" type="decimal" length="20,2"
+				descr="债券投资收益" />
+			<col name="idx_20203021" type="decimal" length="20,2"
+				descr="股权投资收益" />
+			<col name="idx_20203022" type="decimal" length="20,2"
+				descr="其他投资收益" />
+			<col name="idx_20203023" type="decimal" length="20,2"
+				descr="公允价值变动收益" />
+			<col name="idx_20203024" type="decimal" length="20,2"
+				descr="汇兑净收益" />
+			<col name="idx_20203025" type="decimal" length="20,2"
+				descr="资产处置收益" />
+			<col name="idx_20203026" type="decimal" length="20,2"
+				descr="其他业务收入" />
+			<col name="idx_20203027" type="decimal" length="20,2"
+				descr="营业支出" />
+			<col name="idx_20203028" type="decimal" length="20,2"
+				descr="业务及管理费" />
+			<col name="idx_20203029" type="decimal" length="20,2"
+				descr="其中:职工工资" />
+			<col name="idx_20203030" type="decimal" length="20,2" descr="福利费" />
+			<col name="idx_20203031" type="decimal" length="20,2"
+				descr="住房公积金和住房补贴" />
+			<col name="idx_20203032" type="decimal" length="20,2"
+				descr="税金及附加" />
+			<col name="idx_20203033" type="decimal" length="20,2"
+				descr="资产减值损失" />
+			<col name="idx_20203034" type="decimal" length="20,2"
+				descr="其他业务支出" />
+			<col name="idx_20203035" type="decimal" length="20,2"
+				descr="营业利润" />
+			<col name="idx_20203036" type="decimal" length="20,2"
+				descr="营业外收入（加）" />
+			<col name="idx_20203037" type="decimal" length="20,2"
+				descr="营业外支出（减）" />
+			<col name="idx_20203038" type="decimal" length="20,2"
+				descr="利润总额" />
+			<col name="idx_20203039" type="decimal" length="20,2"
+				descr="所得税（减）" />
+			<col name="idx_20203040" type="decimal" length="20,2" descr="净利润" />
+			<col name="idx_20203041" type="decimal" length="20,2"
+				descr="年度损益调整（加）" />
+			<col name="idx_20203042" type="decimal" length="20,2"
+				descr="留存利润" />
+			<col name="idx_20203043" type="decimal" length="20,2"
+				descr="未分配利润" />
+			<col name="idx_20203044" type="decimal" length="20,2"
+				descr="应纳增值税" />
+			<col name="idx_20203045" type="decimal" length="20,2"
+				descr="核心一级资本净额" />
+			<col name="idx_20203046" type="decimal" length="20,2"
+				descr="一级资本净额" />
+			<col name="idx_20203047" type="decimal" length="20,2"
+				descr="资本净额" />
+			<col name="idx_20203048" type="decimal" length="20,2"
+				descr="应用资本底线及校准后的风险加权资产合计" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="idx_20201003" type="varchar" length="18"
+				descr="金融机构编码" />
+			<col name="idx_20203001" type="decimal" length="20,2"
+				descr="营业收入" />
+			<col name="idx_20203002" type="decimal" length="20,2"
+				descr="利息净收入" />
+			<col name="idx_20203003" type="decimal" length="20,2"
+				descr="利息收入" />
+			<col name="idx_20203004" type="decimal" length="20,2"
+				descr="金融机构往来利息收入" />
+			<col name="idx_20203005" type="decimal" length="20,2"
+				descr="其中：系统内往来利息收入" />
+			<col name="idx_20203006" type="decimal" length="20,2"
+				descr="各项贷款利息收入" />
+			<col name="idx_20203007" type="decimal" length="20,2"
+				descr="债券利息收入" />
+			<col name="idx_20203008" type="decimal" length="20,2"
+				descr="其他利息收入" />
+			<col name="idx_20203009" type="decimal" length="20,2"
+				descr="利息支出" />
+			<col name="idx_20203010" type="decimal" length="20,2"
+				descr="金融机构往来利息支出" />
+			<col name="idx_20203011" type="decimal" length="20,2"
+				descr="其中：系统内往来利息支出" />
+			<col name="idx_20203012" type="decimal" length="20,2"
+				descr="各项存款利息支出" />
+			<col name="idx_20203013" type="decimal" length="20,2"
+				descr="债券利息支出" />
+			<col name="idx_20203014" type="decimal" length="20,2"
+				descr="其他利息支出" />
+			<col name="idx_20203015" type="decimal" length="20,2"
+				descr="手续费及佣金净收入" />
+		</columns>
+	</table>
+	<table name="bfd_filling_process" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="100" descr="" />
+			<col name="tab_name_en" type="varchar" length="100" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="status" type="varchar" length="1" descr="" />
+			<col name="explain" type="varchar" length="1000" descr="" />
+			<col name="remark" type="varchar" length="1000" descr="" />
+			<col name="data_time" type="varchar" length="20" descr="" />
+			<col name="org_no" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_cr_tab" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="tab_name" type="varchar" length="200" descr="" />
+			<col name="tab_name_en" type="varchar" length="200" descr="" />
+			<col name="is_common" type="varchar" length="1" descr="" />
+			<col name="tab_type" type="varchar" length="20" descr="" />
+			<col name="tab_no" type="decimal" length="5" descr="" />
+			<col name="ds_name" type="varchar" length="50" descr="" />
+			<col name="datatype" type="varchar" length="10" descr="" />
+			<col name="col_org_no" type="varchar" length="200" descr="" />
+			<col name="col_data_dt" type="varchar" length="200" descr="" />
+			<col name="col_dim1" type="varchar" length="200" descr="" />
+			<col name="col_dim2" type="varchar" length="200" descr="" />
+			<col name="col_dim3" type="varchar" length="200" descr="" />
+			<col name="col_dim4" type="varchar" length="200" descr="" />
+			<col name="col_dim5" type="varchar" length="200" descr="" />
+			<col name="tab_belong" type="varchar" length="10"
+				descr="表归属（业务表/虚拟表/字典表）" />
+			<col name="report_code" type="varchar" length="50" descr="报文标识" />
+			<col name="ds" type="varchar" length="50" descr="数据源" />
+			<col name="condition" type="varchar" length="200" descr="过滤条件" />
+			<col name="is_virtual" type="varchar" length="1" descr="是否虚拟表" />
+			<col name="report_type" type="varchar" length="50"
+				descr="报送频率（月报/季报）" />
+			<col name="execute_sql" type="varchar" length="4000"
+				descr="维护关联字段的sql语句" />
+		</columns>
+	</table>
+	<table name="bfd_204_spvfsx_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="spv_type" type="varchar" length="2" descr="特定目的载体类型" />
+			<col name="amp_no" type="varchar" length="30" descr="资管产品统计编码" />
+			<col name="spv_no" type="varchar" length="30" descr="特定目的载体代码" />
+			<col name="iss_org_no" type="varchar" length="60" descr="发行人代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="oper_mode" type="varchar" length="2" descr="运行方式" />
+			<col name="sub_dt" type="varchar" length="10" descr="认购日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="交易金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="交易金额折人民币" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_204_spvfsx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="spv_type" type="varchar" length="2" descr="特定目的载体类型" />
+			<col name="amp_no" type="varchar" length="30" descr="资管产品统计编码" />
+			<col name="spv_no" type="varchar" length="30" descr="特定目的载体代码" />
+			<col name="iss_org_no" type="varchar" length="60" descr="发行人代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="oper_mode" type="varchar" length="2" descr="运行方式" />
+			<col name="sub_dt" type="varchar" length="10" descr="认购日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="交易金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="交易金额折人民币" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_204_gqtzfs_r" pkname="rid" descr="">
+		<columns>
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="stock_no" type="varchar" length="100" descr="凭证编码" />
+			<col name="stock_type" type="varchar" length="1" descr="股权类型" />
+			<col name="cust_catg" type="varchar" length="6" descr="机构类型" />
+			<col name="cust_card_no" type="varchar" length="60"
+				descr="机构证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="交易金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="交易金额折人民币" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+		</columns>
+	</table>
+	<table name="bfd_203_zqfxfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="cd_time" type="decimal" length="3" descr="续发次数" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bond_val" type="decimal" length="20,2"
+				descr="发行/兑付债券面值" />
+			<col name="bond_cny_val" type="decimal" length="20,2"
+				descr="发行/兑付债券面值折人民币" />
+			<col name="bond_amt" type="decimal" length="20,2"
+				descr="发行/兑付债券金额" />
+			<col name="bond_cny_amt" type="decimal" length="20,2"
+				descr="发行/兑付债券金额折人民币" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="iss_pmt_mark" type="varchar" length="1"
+				descr="发行/兑付标识" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_202_dwckfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="reg_addr" type="varchar" length="400" descr="客户注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="agrt_act_end_dt" type="varchar" length="10"
+				descr="存款协议实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="存款币种" />
+			<col name="amt" type="decimal" length="20,2" descr="存款发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2"
+				descr="存款发生金额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="cash_mark" type="varchar" length="1" descr="现金转账标识" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_202_cltyck" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="biz_type" type="varchar" length="4" descr="业务类型" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手证件类型" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10" descr="协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="存款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="存款余额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="dpst_rsrv_mode" type="varchar" length="4"
+				descr="缴存准备金方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_201_clzxdk" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="pbo_loan_mark" type="varchar" length="1"
+				descr="是否个体工商户贷款" />
+			<col name="mbo_loan_mark" type="varchar" length="1"
+				descr="是否小微企业主贷款" />
+			<col name="agr_loan_mark" type="varchar" length="1"
+				descr="是否涉农贷款" />
+			<col name="agr_loan_type" type="varchar" length="3"
+				descr="涉农贷款类型" />
+			<col name="tpr_loan_mark" type="varchar" length="1"
+				descr="是否精准扶贫贷款" />
+			<col name="bcp_loan_mark" type="varchar" length="1"
+				descr="是否建档立卡贫困人口贷款" />
+			<col name="lgfp_loan_mark" type="varchar" length="1"
+				descr="是否地方政府融资平台贷款" />
+			<col name="lgfp_loan_type" type="varchar" length="2"
+				descr="地方融资平台按法律性质分类类型" />
+			<col name="lgfp_mf_type" type="varchar" length="2"
+				descr="地方融资平台按隶属关系分类类型" />
+			<col name="lgfp_dsf_src_type" type="varchar" length="2"
+				descr="地方融资平台偿债资金来源分类" />
+			<col name="ghp_loan_mark" type="varchar" length="1"
+				descr="是否保障性安居工程贷款" />
+			<col name="ghp_loan_type" type="varchar" length="4"
+				descr="保障性安居工程贷款类型" />
+			<col name="green_loan_mark" type="varchar" length="1"
+				descr="是否绿色贷款" />
+			<col name="vg_loan_mark" type="varchar" length="1"
+				descr="是否创业担保贷款" />
+			<col name="vg_loan_type" type="varchar" length="3"
+				descr="创业担保贷款类型" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_201_cldwdk" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10"
+				descr="贷款展期到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="贷款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="贷款余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_aq" type="varchar" length="4" descr="贷款质量" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="overdue_type" type="varchar" length="2" descr="逾期类型" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_102_tykhxx_r" pkname="rid" descr="">
+		<columns>
+			<col name="ccr_lvl_num" type="decimal" length="3"
+				descr="客户信用级别总等级数" />
+			<col name="ccr_lvl" type="decimal" length="3" descr="客户信用评级" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="name" type="varchar" length="200" descr="客户名称" />
+			<col name="cust_fin_no" type="varchar" length="60" descr="客户代码" />
+			<col name="cust_fin_org_no" type="varchar" length="60"
+				descr="客户金融机构编码" />
+			<col name="cust_no" type="varchar" length="60" descr="客户内部编码" />
+			<col name="base_acct_no" type="varchar" length="60"
+				descr="基本存款账号" />
+			<col name="base_acct_org_name" type="varchar" length="200"
+				descr="基本账户开户行名称" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="cust_catg" type="varchar" length="6" descr="客户类别" />
+			<col name="estb_dt" type="varchar" length="10" descr="成立日期" />
+			<col name="rela_mark" type="varchar" length="1" descr="是否关联方" />
+			<col name="econ_type" type="varchar" length="5" descr="客户经济成分" />
+			<col name="prin_econ_dept" type="varchar" length="3"
+				descr="客户国民经济部门" />
+		</columns>
+	</table>
+	<table name="bfd_102_grkhxx_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="country" type="varchar" length="2" descr="国籍" />
+			<col name="nation" type="varchar" length="2" descr="民族" />
+			<col name="gender" type="varchar" length="2" descr="性别" />
+			<col name="max_edu" type="varchar" length="2" descr="最高学历" />
+			<col name="birthday_dt" type="varchar" length="10" descr="出生日期" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="indv_y_incm_amt" type="decimal" length="20,2"
+				descr="个人年收入" />
+			<col name="home_y_incm_amt" type="decimal" length="20,2"
+				descr="家庭年收入" />
+			<col name="mrtl_sts" type="varchar" length="3" descr="婚姻情况" />
+			<col name="rela_mark" type="varchar" length="1" descr="是否关联方" />
+			<col name="credit_amt" type="decimal" length="20,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="20,2"
+				descr="已用额度" />
+			<col name="indv_cust_mark" type="varchar" length="10"
+				descr="个人客户身份标识" />
+			<col name="biz_lic_no" type="varchar" length="400"
+				descr="个体工商户营业执照代码" />
+			<col name="ent_scc_no" type="varchar" length="400"
+				descr="小微企业社会信用代码" />
+			<col name="ccr_lvl_num" type="decimal" length="3"
+				descr="客户信用级别总等级数" />
+			<col name="ccr_lvl" type="decimal" length="3" descr="客户信用评级" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="客户证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_102_ftykhx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="name" type="varchar" length="200" descr="客户名称" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="base_acct_no" type="varchar" length="60"
+				descr="基本存款账号" />
+			<col name="base_acct_org_name" type="varchar" length="200"
+				descr="基本账户开户行名称" />
+			<col name="mgr_scope" type="varchar" length="1000" descr="经营范围" />
+			<col name="reg_amt" type="decimal" length="20,2" descr="注册资本" />
+			<col name="paid_in_amt" type="decimal" length="20,2" descr="实收资本" />
+			<col name="tot_asst_amt" type="decimal" length="20,2" descr="总资产" />
+			<col name="oper_rev_amt" type="decimal" length="20,2"
+				descr="营业收入" />
+			<col name="ee_num" type="decimal" length="10" descr="从业人员数" />
+			<col name="pub_com_mark" type="varchar" length="1" descr="是否上市公司" />
+			<col name="first_loan_dt" type="varchar" length="10"
+				descr="首次建立信贷关系日期" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="mgt_sts" type="varchar" length="2" descr="经营状态" />
+			<col name="estb_dt" type="varchar" length="10" descr="成立日期" />
+			<col name="ind_cd" type="varchar" length="3" descr="所属行业" />
+			<col name="ent_scale" type="varchar" length="4" descr="企业规模" />
+			<col name="econ_type" type="varchar" length="5" descr="客户经济成分" />
+			<col name="prin_econ_dept" type="varchar" length="3"
+				descr="客户国民经济部门" />
+			<col name="credit_amt" type="decimal" length="20,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="20,2"
+				descr="已用额度" />
+			<col name="rela_mark" type="varchar" length="1" descr="是否关联方" />
+			<col name="act_ctrl_id_type" type="varchar" length="60"
+				descr="实际控制人证件类型" />
+			<col name="act_ctrl_id_no" type="varchar" length="400"
+				descr="实际控制人证件代码" />
+			<col name="ccr_lvl_num" type="decimal" length="3"
+				descr="客户信用级别总等级数" />
+			<col name="ccr_lvl" type="decimal" length="3" descr="客户信用评级" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_101_jgfrlr_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="idx_20201003" type="varchar" length="20"
+				descr="金融机构编码" />
+			<col name="idx_20202001" type="decimal" length="20" descr="各项存款" />
+			<col name="idx_20202002" type="decimal" length="20,2"
+				descr="各项贷款" />
+			<col name="idx_20202003" type="decimal" length="20,2"
+				descr="资产总计" />
+			<col name="idx_20202004" type="decimal" length="20,2"
+				descr="负债总计" />
+			<col name="idx_20202005" type="decimal" length="20,2"
+				descr="所有者权益合计" />
+			<col name="idx_20202006" type="decimal" length="20,2"
+				descr="生息资产" />
+			<col name="idx_20202007" type="decimal" length="20,2"
+				descr="付息负债" />
+			<col name="idx_20202008" type="decimal" length="20,2"
+				descr="流动性资产" />
+			<col name="idx_20202009" type="decimal" length="20,2"
+				descr="流动性负债" />
+			<col name="idx_20202010" type="decimal" length="20,2"
+				descr="正常类贷款" />
+			<col name="idx_20202011" type="decimal" length="20,2"
+				descr="关注类贷款" />
+			<col name="idx_20202012" type="decimal" length="20,2"
+				descr="次级类贷款" />
+			<col name="idx_20202013" type="decimal" length="20,2"
+				descr="可疑类贷款" />
+			<col name="idx_20202014" type="decimal" length="20,2"
+				descr="损失类贷款" />
+			<col name="idx_20202015" type="decimal" length="20,2"
+				descr="逾期贷款" />
+			<col name="idx_20202016" type="decimal" length="20,2"
+				descr="逾期90天以上贷款" />
+			<col name="idx_20202017" type="decimal" length="20,2"
+				descr="贷款减值准备" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+		</columns>
+	</table>
+	<table name="bfd_cr_status_config" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="status" type="varchar" length="1" descr="状态" />
+			<col name="report_type" type="varchar" length="100" descr="报送类型" />
+			<col name="remark" type="varchar" length="500" descr="备注" />
+			<col name="report_frequency" type="varchar" length="1"
+				descr="报送频率（月报/季报）" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_204_spvtzx_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="spv_type" type="varchar" length="2" descr="特定目的载体类型" />
+			<col name="amp_no" type="varchar" length="30" descr="资管产品统计编码" />
+			<col name="spv_no" type="varchar" length="30" descr="特定目的载体代码" />
+			<col name="iss_org_no" type="varchar" length="60" descr="发行人代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="oper_mode" type="varchar" length="2" descr="运行方式" />
+			<col name="sub_dt" type="varchar" length="10" descr="认购日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="投资余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="投资余额折人民币" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_204_spvtzx" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="spv_type" type="varchar" length="2" descr="特定目的载体类型" />
+			<col name="amp_no" type="varchar" length="30" descr="资管产品统计编码" />
+			<col name="spv_no" type="varchar" length="30" descr="特定目的载体代码" />
+			<col name="iss_org_no" type="varchar" length="60" descr="发行人代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="oper_mode" type="varchar" length="2" descr="运行方式" />
+			<col name="sub_dt" type="varchar" length="10" descr="认购日期" />
+			<col name="due_dt" type="varchar" length="10" descr="到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="投资余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="投资余额折人民币" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_204_clgqtz" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="stock_no" type="varchar" length="100" descr="凭证编码" />
+			<col name="stock_type" type="varchar" length="1" descr="股权类型" />
+			<col name="cust_catg" type="varchar" length="6" descr="机构类型" />
+			<col name="cust_card_no" type="varchar" length="60"
+				descr="机构证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="term_val" type="decimal" length="20,2" descr="投资余额" />
+			<col name="term_cny_val" type="decimal" length="20,2"
+				descr="投资余额折人民币" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_203_zqtzfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="bond_no" type="varchar" length="60" descr="债券代码" />
+			<col name="bond_trust_org" type="varchar" length="3"
+				descr="债券总托管机构" />
+			<col name="bond_type" type="varchar" length="6" descr="债券品种" />
+			<col name="bond_credit_lvl" type="varchar" length="3"
+				descr="债券信用级别" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="reg_dt" type="varchar" length="10" descr="债权债务登记日" />
+			<col name="int_begin_dt" type="varchar" length="10" descr="起息日" />
+			<col name="pmt_dt" type="varchar" length="10" descr="兑付日期" />
+			<col name="bill_rate" type="decimal" length="10,5" descr="票面利率" />
+			<col name="iss_id_no" type="varchar" length="60" descr="发行人证件代码" />
+			<col name="iss_area_cd" type="varchar" length="6" descr="发行人地区代码" />
+			<col name="iss_ind_cd" type="varchar" length="1" descr="发行人行业" />
+			<col name="iss_ent_scale" type="varchar" length="4"
+				descr="发行人企业规模" />
+			<col name="iss_econ_type" type="varchar" length="3"
+				descr="发行人经济成分" />
+			<col name="econ_dept" type="varchar" length="3" descr="发行人国民经济部门" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="amt" type="decimal" length="20,2" descr="成交金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="成交金额折人民币" />
+			<col name="buy_sell_mark" type="varchar" length="1"
+				descr="买入/卖出标志" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+	<table name="bfd_202_grckfs" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="agrt_act_end_dt" type="varchar" length="10"
+				descr="存款协议实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="amt" type="decimal" length="20,2" descr="发生金额" />
+			<col name="cny_amt" type="decimal" length="20,2" descr="发生金额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="tr_dt" type="varchar" length="10" descr="交易日期" />
+			<col name="tr_no" type="varchar" length="60" descr="交易流水号" />
+			<col name="tr_dir" type="varchar" length="1" descr="交易方向" />
+			<col name="tr_ch" type="varchar" length="2" descr="交易渠道" />
+			<col name="cash_mark" type="varchar" length="1" descr="现金转账标识" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="客户证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_202_ftydwc_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="存款金额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="存款余额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="dpst_rsrv_mode" type="varchar" length="4"
+				descr="缴存准备金方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_202_ftydwc" pkname="rid" descr="">
+		<columns>
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="客户地区代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="dpst_prd_type" type="varchar" length="5"
+				descr="存款产品类别" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="存款协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10"
+				descr="存款协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="存款金额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="存款余额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="dpst_rsrv_mode" type="varchar" length="4"
+				descr="缴存准备金方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+		</columns>
+	</table>
+	<table name="bfd_202_cltyck_r" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="biz_type" type="varchar" length="4" descr="业务类型" />
+			<col name="opp_cust_type" type="varchar" length="3"
+				descr="交易对手证件类型" />
+			<col name="opp_cust_no" type="varchar" length="60" descr="交易对手代码" />
+			<col name="acct_no" type="varchar" length="60" descr="存款账户编码" />
+			<col name="agrt_no" type="varchar" length="60" descr="存款协议代码" />
+			<col name="agrt_start_dt" type="varchar" length="10"
+				descr="协议起始日期" />
+			<col name="agrt_due_dt" type="varchar" length="10" descr="协议到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="存款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="存款余额折人民币" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="dpst_rsrv_mode" type="varchar" length="4"
+				descr="缴存准备金方式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_dbwxx_bak" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="" />
+			<col name="fin_org_no" type="varchar" length="18" descr="" />
+			<col name="org_no" type="varchar" length="30" descr="" />
+			<col name="guar_cntr_no" type="varchar" length="100" descr="" />
+			<col name="cntr_no" type="varchar" length="100" descr="" />
+			<col name="colt_no" type="varchar" length="100" descr="" />
+			<col name="colt_type" type="varchar" length="3" descr="" />
+			<col name="colt_card_no" type="varchar" length="500" descr="" />
+			<col name="first_mark" type="varchar" length="1" descr="" />
+			<col name="eval_mode" type="varchar" length="2" descr="" />
+			<col name="eval_method" type="varchar" length="2" descr="" />
+			<col name="eval_val" type="decimal" length="20,2" descr="" />
+			<col name="eval_base_dt" type="varchar" length="10" descr="" />
+			<col name="book_amt" type="decimal" length="20,2" descr="" />
+			<col name="prc_amt" type="decimal" length="20,2" descr="" />
+			<col name="val_cycle" type="varchar" length="2" descr="" />
+			<col name="data_dt" type="varchar" length="10" descr="" />
+			<col name="rpt_org_no" type="varchar" length="30" descr="" />
+		</columns>
+	</table>
+	<table name="bfd_201_clwtdk" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="econ_dept" type="varchar" length="3" descr="借款人国民经济部门" />
+			<col name="ind_cd" type="varchar" length="3" descr="借款人行业" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="econ_type" type="varchar" length="5" descr="借款人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="借款人企业规模" />
+			<col name="loan_no" type="varchar" length="100" descr="委托贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="委托贷款合同编码" />
+			<col name="loan_act_ind_cd" type="varchar" length="4"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10"
+				descr="委托贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10"
+				descr="委托贷款到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10"
+				descr="委托贷款展期到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="委托贷款余额" />
+			<col name="cny_bal" type="decimal" length="20,2"
+				descr="委托贷款余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="ser_fee_cny_amt" type="decimal" length="20,2"
+				descr="手续费金额折人民币" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="loan_aq" type="varchar" length="4" descr="贷款质量" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="client_econ_dept" type="varchar" length="3"
+				descr="委托人国民经济部门" />
+			<col name="client_id_type" type="varchar" length="3"
+				descr="委托人证件类型" />
+			<col name="client_id_no" type="varchar" length="60"
+				descr="委托人证件代码" />
+			<col name="client_ind_cd" type="varchar" length="3" descr="委托人行业" />
+			<col name="client_area_cd" type="varchar" length="6"
+				descr="委托人地区代码" />
+			<col name="client_econ_type" type="varchar" length="5"
+				descr="委托人经济成分" />
+			<col name="client_ent_scale" type="varchar" length="4"
+				descr="委托人企业规模" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+			<col name="orig_client_id_no" type="varchar" length="60"
+				descr="委托人证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_201_clgrdk" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="fin_org_area_cd" type="varchar" length="6"
+				descr="金融机构地区代码" />
+			<col name="id_type" type="varchar" length="3" descr="借款人证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="借款人证件代码" />
+			<col name="area_cd" type="varchar" length="6" descr="借款人地区代码" />
+			<col name="loan_no" type="varchar" length="100" descr="贷款借据编码" />
+			<col name="cntr_no" type="varchar" length="100" descr="贷款合同编码" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_due_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_ext_due_dt" type="varchar" length="10"
+				descr="贷款展期到期日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="bal" type="decimal" length="20,2" descr="贷款余额" />
+			<col name="cny_bal" type="decimal" length="20,2" descr="贷款余额折人民币" />
+			<col name="fixed_int_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="10,5" descr="利率水平" />
+			<col name="price_base_type" type="varchar" length="4"
+				descr="贷款定价基准类型" />
+			<col name="base_int_rate" type="decimal" length="10,5"
+				descr="基准利率" />
+			<col name="loan_fin_sup_mode" type="varchar" length="5"
+				descr="贷款财政扶持方式" />
+			<col name="int_reprice_dt" type="varchar" length="10"
+				descr="贷款利率重新定价日" />
+			<col name="guar_mode" type="varchar" length="3" descr="贷款担保方式" />
+			<col name="first_loan_mark" type="varchar" length="1"
+				descr="是否首次贷款" />
+			<col name="loan_aq" type="varchar" length="4" descr="贷款质量" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="overdue_type" type="varchar" length="2" descr="逾期类型" />
+			<col name="loan_use" type="varchar" length="1000" descr="贷款用途" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="orig_id_no" type="varchar" length="60"
+				descr="借款人证件代码（脱敏前）" />
+		</columns>
+	</table>
+	<table name="bfd_102_ftykhx_r" pkname="rid" descr="">
+		<columns>
+			<col name="base_acct_org_name" type="varchar" length="200"
+				descr="基本账户开户行名称" />
+			<col name="mgr_scope" type="varchar" length="1000" descr="经营范围" />
+			<col name="reg_amt" type="decimal" length="20,2" descr="注册资本" />
+			<col name="paid_in_amt" type="decimal" length="20,2" descr="实收资本" />
+			<col name="tot_asst_amt" type="decimal" length="20,2" descr="总资产" />
+			<col name="oper_rev_amt" type="decimal" length="20,2"
+				descr="营业收入" />
+			<col name="ee_num" type="decimal" length="10" descr="从业人员数" />
+			<col name="pub_com_mark" type="varchar" length="1" descr="是否上市公司" />
+			<col name="first_loan_dt" type="varchar" length="10"
+				descr="首次建立信贷关系日期" />
+			<col name="reg_addr" type="varchar" length="400" descr="注册地址" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="mgt_sts" type="varchar" length="2" descr="经营状态" />
+			<col name="estb_dt" type="varchar" length="10" descr="成立日期" />
+			<col name="ind_cd" type="varchar" length="3" descr="所属行业" />
+			<col name="ent_scale" type="varchar" length="4" descr="企业规模" />
+			<col name="econ_type" type="varchar" length="5" descr="客户经济成分" />
+			<col name="prin_econ_dept" type="varchar" length="3"
+				descr="客户国民经济部门" />
+			<col name="credit_amt" type="decimal" length="20,2" descr="授信额度" />
+			<col name="use_credit_amt" type="decimal" length="20,2"
+				descr="已用额度" />
+			<col name="rela_mark" type="varchar" length="1" descr="是否关联方" />
+			<col name="act_ctrl_id_type" type="varchar" length="60"
+				descr="实际控制人证件类型" />
+			<col name="act_ctrl_id_no" type="varchar" length="400"
+				descr="实际控制人证件代码" />
+			<col name="ccr_lvl_num" type="decimal" length="3"
+				descr="客户信用级别总等级数" />
+			<col name="ccr_lvl" type="decimal" length="3" descr="客户信用评级" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+			<col name="task_id" type="varchar" length="50" descr="" />
+			<col name="proc_sts" type="varchar" length="50" descr="" />
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="fin_org_no" type="varchar" length="18" descr="金融机构代码" />
+			<col name="name" type="varchar" length="200" descr="客户名称" />
+			<col name="id_type" type="varchar" length="3" descr="客户证件类型" />
+			<col name="id_no" type="varchar" length="60" descr="客户证件代码" />
+			<col name="base_acct_no" type="varchar" length="60"
+				descr="基本存款账号" />
+		</columns>
+	</table>
+	<table name="bfd_101_jgfrzf" pkname="rid" descr="">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="idx_20201003" type="varchar" length="18"
+				descr="金融机构编码" />
+			<col name="idx_20203001" type="decimal" length="20,2"
+				descr="营业收入" />
+			<col name="idx_20203002" type="decimal" length="20,2"
+				descr="利息净收入" />
+			<col name="idx_20203003" type="decimal" length="20,2"
+				descr="利息收入" />
+			<col name="idx_20203004" type="decimal" length="20,2"
+				descr="金融机构往来利息收入" />
+			<col name="idx_20203005" type="decimal" length="20,2"
+				descr="其中：系统内往来利息收入" />
+			<col name="idx_20203006" type="decimal" length="20,2"
+				descr="各项贷款利息收入" />
+			<col name="idx_20203007" type="decimal" length="20,2"
+				descr="债券利息收入" />
+			<col name="idx_20203008" type="decimal" length="20,2"
+				descr="其他利息收入" />
+			<col name="idx_20203009" type="decimal" length="20,2"
+				descr="利息支出" />
+			<col name="idx_20203010" type="decimal" length="20,2"
+				descr="金融机构往来利息支出" />
+			<col name="idx_20203011" type="decimal" length="20,2"
+				descr="其中：系统内往来利息支出" />
+			<col name="idx_20203012" type="decimal" length="20,2"
+				descr="各项存款利息支出" />
+			<col name="idx_20203013" type="decimal" length="20,2"
+				descr="债券利息支出" />
+			<col name="idx_20203014" type="decimal" length="20,2"
+				descr="其他利息支出" />
+			<col name="idx_20203015" type="decimal" length="20,2"
+				descr="手续费及佣金净收入" />
+			<col name="idx_20203016" type="decimal" length="20,2"
+				descr="手续费及佣金收入" />
+			<col name="idx_20203017" type="decimal" length="20,2"
+				descr="手续费及佣金支出" />
+			<col name="idx_20203018" type="decimal" length="20,2"
+				descr="租赁收益" />
+			<col name="idx_20203019" type="decimal" length="20,2"
+				descr="投资收益" />
+			<col name="idx_20203020" type="decimal" length="20,2"
+				descr="债券投资收益" />
+			<col name="idx_20203021" type="decimal" length="20,2"
+				descr="股权投资收益" />
+			<col name="idx_20203022" type="decimal" length="20,2"
+				descr="其他投资收益" />
+			<col name="idx_20203023" type="decimal" length="20,2"
+				descr="公允价值变动收益" />
+			<col name="idx_20203024" type="decimal" length="20,2"
+				descr="汇兑净收益" />
+			<col name="idx_20203025" type="decimal" length="20,2"
+				descr="资产处置收益" />
+			<col name="idx_20203026" type="decimal" length="20,2"
+				descr="其他业务收入" />
+			<col name="idx_20203027" type="decimal" length="20,2"
+				descr="营业支出" />
+			<col name="idx_20203028" type="decimal" length="20,2"
+				descr="业务及管理费" />
+			<col name="idx_20203029" type="decimal" length="20,2"
+				descr="其中:职工工资" />
+			<col name="idx_20203030" type="decimal" length="20,2" descr="福利费" />
+			<col name="idx_20203031" type="decimal" length="20,2"
+				descr="住房公积金和住房补贴" />
+			<col name="idx_20203032" type="decimal" length="20,2"
+				descr="税金及附加" />
+			<col name="idx_20203033" type="decimal" length="20,2"
+				descr="资产减值损失" />
+			<col name="idx_20203034" type="decimal" length="20,2"
+				descr="其他业务支出" />
+			<col name="idx_20203035" type="decimal" length="20,2"
+				descr="营业利润" />
+			<col name="idx_20203036" type="decimal" length="20,2"
+				descr="营业外收入（加）" />
+			<col name="idx_20203037" type="decimal" length="20,2"
+				descr="营业外支出（减）" />
+			<col name="idx_20203038" type="decimal" length="20,2"
+				descr="利润总额" />
+			<col name="idx_20203039" type="decimal" length="20,2"
+				descr="所得税（减）" />
+			<col name="idx_20203040" type="decimal" length="20,2" descr="净利润" />
+			<col name="idx_20203041" type="decimal" length="20,2"
+				descr="年度损益调整（加）" />
+			<col name="idx_20203042" type="decimal" length="20,2"
+				descr="留存利润" />
+			<col name="idx_20203043" type="decimal" length="20,2"
+				descr="未分配利润" />
+			<col name="idx_20203044" type="decimal" length="20,2"
+				descr="应纳增值税" />
+			<col name="idx_20203045" type="decimal" length="20,2"
+				descr="核心一级资本净额" />
+			<col name="idx_20203046" type="decimal" length="20,2"
+				descr="一级资本净额" />
+			<col name="idx_20203047" type="decimal" length="20,2"
+				descr="资本净额" />
+			<col name="idx_20203048" type="decimal" length="20,2"
+				descr="应用资本底线及校准后的风险加权资产合计" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="org_no" type="varchar" length="30" descr="内部机构号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="rpt_org_no" type="varchar" length="30"
+				descr="报送机构号（法人内部机构号）" />
+		</columns>
+	</table>
+</root>

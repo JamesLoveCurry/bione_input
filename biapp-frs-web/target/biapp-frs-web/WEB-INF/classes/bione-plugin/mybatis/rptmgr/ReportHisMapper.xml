@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptmgr.repository.ReportHisMybatisDao">
+	<select id="list" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportHis"
+		parameterType="HashMap">
+			select HIS_ID,RPT_ID,ACCESS_DATE,ACCESS_TIME,ACCESS_IP,USER_ID
+			from
+			RPT_MGR_REPORT_HIS
+			where 1=1
+			<if test="hisId != null">and HIS_ID = #{hisId}</if>
+			<if test="rptId != null">and RPT_ID = #{rptId}</if>
+			<if test="accessDate != null">and ACCESS_DATE = #{accessDate}</if>
+			<if test="accessTime != null">and ACCESS_TIME = #{accessTime}</if>
+			<if test="accessIp != null">and ACCESS_IP = #{accessIp}</if>
+			<if test="userId != null">and USER_ID = #{userId}</if>
+		</select>
+		<insert id="save" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportHis">
+			insert into RPT_MGR_REPORT_HIS(HIS_ID,RPT_ID,ACCESS_DATE,ACCESS_TIME,ACCESS_IP,USER_ID)
+				values(#{hisId},#{rptId},#{accessDate},#{accessTime},#{accessIp},#{userId})</insert>
+		<update id="update" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportHis">
+			update RPT_MGR_REPORT_HIS
+			<set>
+				<if test="hisId != null">HIS_ID=#{hisId},</if>
+				<if test="rptId != null">RPT_ID=#{rptId},</if>
+				<if test="accessDate != null">ACCESS_DATE=#{accessDate},</if>
+				<if test="accessTime != null">ACCESS_TIME=#{accessTime},</if>
+				<if test="accessIp != null">ACCESS_IP=#{accessIp},</if>
+				<if test="userId != null">USER_ID=#{userId}</if>
+			</set>
+			where 1=1 and HIS_ID=#{hisId}
+		</update>
+		<delete id="delete" parameterType="HashMap">delete from RPT_MGR_REPORT_HIS
+			where 1=1
+			and HIS_ID=#{hisId}</delete>
+
+</mapper> 

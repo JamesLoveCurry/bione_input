@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entFinancialInf.repository.IEntFinancialDao">
+
+	<select id="getBsBaseSgmt"
+		resultType="com.yusys.cr.entFinancialInf.entity.BalanceSheetBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ENT_BALANCESHEET2002
+	where 1=1 and incrementflag in ('1', '2') 
+	</select>
+	
+	<select id="getBsBaseSgmt2007"
+		resultType="com.yusys.cr.entFinancialInf.entity.BalanceSheetBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ENT_BALANCESHEET2007
+	where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getBs2002"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntBalanceSheet2002"
+		parameterType="HashMap"
+		>
+	select * from ENT_BALANCESHEET2002
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide}
+		and incrementflag in ('1', '2')
+	</select>
+
+	<select id="getBs2007"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntBalanceSheet2007"
+		parameterType="HashMap"
+		>
+	select * from ENT_BALANCESHEET2007
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide}
+	</select>
+	
+	<select id="getEiBsSgmt"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntIncomeBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ENT_INCOME2002
+	where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getEiBsSgmt2007"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntIncomeBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ENT_INCOME2007
+	where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getEi2002"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntIncome2002"
+		parameterType="HashMap"
+		>
+	select * from ENT_INCOME2002
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide} 
+		and incrementflag in ('1', '2')
+	</select>
+
+	<select id="getEi2007"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntIncome2007"
+		parameterType="HashMap"
+		>
+	select * from ENT_INCOME2007
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide}
+		and incrementflag in ('1', '2')
+	</select>
+
+	<select id="getCfBsSgmt"
+		resultType="com.yusys.cr.entFinancialInf.entity.CashFlowsBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ENT_CASHFLOWS2002
+	where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getCfBsSgmt2007"
+		resultType="com.yusys.cr.entFinancialInf.entity.CashFlowsBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ENT_CASHFLOWS2007
+	where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getCf2002"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntCashflows2002"
+		parameterType="HashMap"
+		>
+	select * from ENT_CASHFLOWS2002
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide}
+		and incrementflag in ('1', '2')
+	</select>
+
+	<select id="getCf2007"
+		resultType="com.yusys.cr.entFinancialInf.entity.EntCashflows2007"
+		parameterType="HashMap"
+		>
+	select * from ENT_CASHFLOWS2007
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide}
+		and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getIbsBsSgmt"
+		resultType="com.yusys.cr.entFinancialInf.entity.InstitutionBalanceSheetBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ent_institutionbalancesheet
+	where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getInstitutionBsSgmet"
+		resultType="com.yusys.cr.entFinancialInf.entity.InstitutionBalanceSheetSgmt"
+		parameterType="HashMap"
+		>
+	select * from ent_institutionbalancesheet
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide}
+		and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getIncomeAndExpStateBsSgmt"
+		resultType="com.yusys.cr.entFinancialInf.entity.IncomeAndExpenseStatementBsSgmt"
+		>
+	select infrectype, entname, auditfirmname, auditorname, audittime, cimoc, rptdate, rptdatecode, 
+		ENTCERTTYPE, ENTCERTNUM, SHEETYEAR, SHEETTYPE, SHEETTYPEDIVIDE from ent_incomeandexpensestatement
+	where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getIncomeAndExpStateSgmt"
+		resultType="com.yusys.cr.entFinancialInf.entity.IncomeAndExpenseStatementSgmt"
+		parameterType="HashMap"
+		>
+	select * from ent_incomeandexpensestatement
+	where 1=1
+	and ENTCERTTYPE = #{entcerttype} 
+		and ENTCERTNUM = #{entcertnum} 
+		and SHEETYEAR = #{sheetyear} 
+		and SHEETTYPE = #{sheettype} 
+		and SHEETTYPEDIVIDE = #{sheettypedivide}
+		and incrementflag in ('1', '2')
+	</select>
+</mapper>

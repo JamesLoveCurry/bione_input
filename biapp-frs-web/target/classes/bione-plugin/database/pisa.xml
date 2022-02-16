@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+
+<table name="frs_pisa_idx_info" pkname="pisa_idx_id" descr="pisa报送指标信息表">
+<columns>
+  <col name="pisa_idx_id"		type="varchar"   length="32"   descr="保送指标编号"/>
+  <col name="idx_code"			type="varchar"   length="32"   descr="指标代码"/>
+  <col name="dim_code"			type="varchar"   length="32"   descr="纬度代码"/>
+  <col name="idx_nm"			type="varchar"   length="200"  descr="指标名称"/>
+  <col name="dim_nm"			type="varchar"   length="200"  descr="纬度名称" />
+  <col name="data_type"			type="varchar"   length="10"   descr="数据类型"/>
+  <col name="is_org_submit"		type="varchar"   length="10"   descr="是否按机构报送"/>
+  <col name="belong_addr"		type="varchar"   length="10"   descr="地区类型"/>
+  <col name="submit_freq"		type="varchar"   length="10"   descr="报送频度"/>
+  <col name="rpt_num"			type="varchar"   length="32"   descr="报表编号"/>
+  <col name="val1_cell_num"		type="varchar"   length="32"   descr="值1单元格编号"/>
+  <col name="val2_cell_num"		type="varchar"   length="32"   descr="值2单元格编号"/>
+  <col name="val1_index_no"		type="varchar"   length="32"   descr="值1指标编号"/>
+  <col name="val2_index_no"		type="varchar"   length="32"   descr="值2指标编号"/>
+  <col name="remark"			type="varchar"   length="500"  descr="备注"/>
+</columns>
+</table>
+
+<table name="frs_pisa_flow_info" pkname="flow_id" descr="pisa报送流量流向信息表">
+<columns>
+  <col name="flow_id"			type="varchar"   length="32"   descr="流量id"/>
+  <col name="out_code"			type="varchar"   length="32"   descr="流出代码"/>
+  <col name="out_nm"			type="varchar"   length="200"  descr="流出名称"/>
+  <col name="in_code"			type="varchar"   length="32"   descr="流入代码"/>
+  <col name="in_nm"			    type="varchar"   length="200"  descr="流入名称"/>
+  <col name="rpt_num"			type="varchar"   length="32"   descr="报表编号"/>
+  <col name="amount_cell_num"	type="varchar"   length="32"   descr="笔数单元格编号"/>
+  <col name="bal_cell_num"		type="varchar"   length="32"   descr="金额单元格编号"/>
+  <col name="flow_type"			type="varchar"   length="10"   descr="流量类型"/>
+  <col name="remark"			type="varchar"   length="500"  descr="备注"/>
+</columns>
+</table>
+
+<table name="frs_pisa_area_info" pkname="area_code" descr="pisa行政地区信息表">
+<columns>
+  <col name="area_code"			type="varchar"   length="100"   descr="地区代码"/>
+  <col name="area_type"			type="varchar"   length="10"    descr="地区类型"/>
+  <col name="belong_org"		type="varchar"   length="100"   descr="所属机构代码"/>
+  <col name="up_area_code"		type="varchar"   length="100"   descr="上级地区代码"/>
+  <col name="frs_org_num"		type="varchar"   length="100"   descr="行内机构编号"/>
+  <col name="namespace"			type="varchar"   length="500"   descr="命名空间"/>
+</columns>
+</table>
+
+<table name="frs_pisa_task_info" pkname="task_no" descr="pisa报送任务信息表">
+<columns>
+  <col name="task_no"			type="varchar"   length="32"    descr="任务标识"/>
+  <col name="task_nm"			type="varchar"   length="200"   descr="任务名称"/>
+  <col name="task_freq"			type="varchar"   length="10"    descr="任务频度"/>
+  <col name="generate_date"		type="varchar"   length="10"    descr="生成日期"/>
+  <col name="massage_path"		type="varchar"   length="500"   descr="报送文件路径"/>
+  <col name="upt_date"			type="varchar"   length="20"    descr="修改日期"/>
+  <col name="sort_num"			type="decimal"   length="5"     descr="排序编号"/>
+  <col name="batch_id"			type="decimal"   length="5"     descr="批次号"/>
+</columns>
+</table>
+
+
+
+</root>

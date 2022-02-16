@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30079312.0.0" classType="org.pbccrc.archive.collect.messagetools.entguacct.msg.GuacctDelAllRecord" >
+			<field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+				<rule  id="DelRecType_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="DelRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecType_NotNull" />
+<!-- 				<rule id="recType_Dict" type="DictManage" errCode="ABE001" depExp="DelRecType_NotEmpty"> -->
+<!-- 					<property name="dictKey" value="InfRecType" /> -->
+<!-- 				</rule> -->
+				<rule id="DelRecType_EqCtxt" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="DelRecType_NotEmpty" >
+					<property  name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field> 
+			<field  name="DelRecCode" fbTag="DelRecCode" classType="java.lang.String" >
+				<rule  id="DelRecCode_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="DelRecCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecCode_NotNull" />
+				<rule  id="DelRecCode_DataType" type="DataType" errCode="ABE001" depExp="DelRecCode_NotEmpty" >
+					<property  name="type" value="AN..60" />
+				</rule>
+				<rule id="DelRecCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="DelRecCode_DataType"/>
+			</field> 
+	</validator>
+</validators>

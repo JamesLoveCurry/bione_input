@@ -1,0 +1,48 @@
+#left {
+	float: left;
+	width: 32%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6;
+}
+#center {
+	float: left;
+	width: 32%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6;
+	margin-left: 1.25%;
+}
+
+#center .ztree {
+	background-color: #F1F1F1;
+}
+
+#right {
+	width: 32%;
+	float: left;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6;
+	margin-left: 1.25%;
+}
+
+#right .ztree {
+	background-color: #F1F1F1;
+}
+
+#all {
+	width: 100%;
+	position: relative;
+}
+
+#bottom {
+	margin:0 auto;
+	overflow: hidden;
+	position: relative;
+	margin-top: 4px;
+}
+
+#leftTree {
+	background-color: #F1F1F1;
+}

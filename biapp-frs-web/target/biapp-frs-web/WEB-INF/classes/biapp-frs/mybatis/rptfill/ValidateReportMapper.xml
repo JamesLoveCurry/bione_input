@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.datavaild.repository.ValidateReportDao">
+	<!-- 获取指标类报送任务类型 -->
+	<select id="getIdxTaskType" parameterType="string" resultType="map">
+		SELECT t.param_value as "id",
+		       t.param_name as "text"
+		  FROM bione_param_info t
+		 where t.param_type_no = #{_parameter}
+		 order by t.order_no
+	</select>
+	
+	<!-- 获取任务列表 -->
+	<select id="getTaskList" parameterType="map" resultType="map">
+		SELECT t.task_id as "TASK_ID",
+		       t.task_nm as "TASK_NM",
+		       t.data_date as "DATA_DATE",
+		       t.exe_obj_id as "EXE_OBJ_ID",
+		       t2.org_nm as "ORG_NM",
+		       t.task_type as "TASK_TYPE",
+		       t3.param_name as "PARAM_NAME"
+		  FROM rpt_fltsk_ins t
+		  left join rpt_org_info t2
+		    on t.exe_obj_id = t2.org_no
+		   and t.task_type = t2.org_type
+		  left join bione_param_info t3
+		    on t.task_type = t3.param_value
+		   and t3.param_type_no = 'idxTaskType'
+		   where 1=1
+		   <if test="orgList != null">
+		   	and t.exe_obj_id in
+				<foreach item="orgs"  collection="orgList" separator=" or t.exe_obj_id in ">
+					<foreach collection="orgs" item="org" open="("
+						separator="," close=")">
+						#{org}
+					</foreach>
+				</foreach>
+		   </if>
+		 group by t.task_id,
+		          t.task_nm,
+		          t.data_date,
+		          t.exe_obj_id,
+		          t2.org_nm,
+		          t.task_type,
+		          t3.param_name
+		 order by t.data_date desc, t.exe_obj_id asc
+	</select>
+	
+	<!-- 获取报告总览数据 -->
+	<select id="getValidReportPartOne" parameterType="map" resultType="map">
+		SELECT nvl(count(t2.rpt_id), 0) as "RPTCOUNT",
+		       nvl(sum(a.validtotal), 0) as "VALIDCOUNT",
+		       nvl(sum(b.defaultcount), 0) as "DEFAULTCOUNT",
+		       (case when nvl(sum(b.defaultcount), 0) = 0 then 0
+		         else round(nvl(sum(b.defaultcount), 0) / nvl(sum(a.validtotal), 0), 4) end) as "DEFAULTRATE",
+		       nvl(sum(d.warnCount), 0) as "WARNCOUNT",
+		       nvl(sum(c.warnDefaultcount), 0) as "WARNDEFAULTCOUNT",
+		       (case when nvl(sum(c.warnDefaultcount), 0) = 0 then 0
+		         else round(nvl(sum(c.warnDefaultcount), 0) / nvl(sum(d.warnCount), 0), 4) end) as "WARNDEFAULTRATE"
+		  FROM rpt_fltsk_ins t
+		 inner join rpt_mgr_report_info t2--报表信息
+		    on t.task_obj_id = t2.rpt_id
+		  left join (select t3.rpt_template_id, count(t3.check_id) validtotal
+		               from rpt_valid_logic_rpt_rel t3
+		               left join rpt_valid_cfgext_logic t4
+		                 on t3.check_id = t4.check_id
+		              group by t3.rpt_template_id) a --校验总数
+		    on t2.cfg_id = a.rpt_template_id
+		  left join (SELECT t5.rpt_template_id,
+		                    t5.data_date,
+		                    t5.org_no,
+		                    count(*) defaultcount
+		               FROM rpt_valid_result_logic t5
+		              where t5.is_pass = 'N'
+		              group by t5.rpt_template_id, t5.data_date, t5.org_no) b --校验未通过数
+		    on t2.cfg_id = b.rpt_template_id
+		   and t.data_date = b.data_date
+		   and t.exe_obj_id = b.org_no
+		  left join (SELECT t6.rpt_template_id,
+						    t6.data_date,
+					        t6.org_no,
+					        count(*) warnDefaultCount
+					   FROM rpt_valid_result_warn t6
+					  where t6.is_pass = '1'
+					  group by t6.rpt_template_id, t6.data_date, t6.org_no) c --预警校验未通过数
+		    on t2.cfg_id = c.rpt_template_id
+		   and t.data_date = c.data_date
+		   and t.exe_obj_id = c.org_no
+		  left join (SELECT t7.rpt_template_id, 
+                   			count(*) warnCount
+              		   FROM rpt_valid_cfgext_warn t7
+          			   group by t7.rpt_template_id) d --预警校验总数
+		    on t2.cfg_id = d.rpt_template_id
+		 where t.task_id = #{taskId}
+		   and t.data_date = #{dataDate}
+		   and t.exe_obj_id = #{orgNo}
+	</select>
+	<select id="getValidReportPartOne" parameterType="map" resultType="map" databaseId="mysql">
+		SELECT IFNULL(count(t2.rpt_id), 0) as "RPTCOUNT",
+			   IFNULL(sum(a.validtotal), 0) as "VALIDCOUNT",
+			   IFNULL(sum(b.defaultcount), 0) as "DEFAULTCOUNT",
+			   (case when IFNULL(sum(b.defaultcount), 0) = 0 then 0
+					 else round(IFNULL(sum(b.defaultcount), 0) / IFNULL(sum(a.validtotal), 0), 4) end) as "DEFAULTRATE",
+			   IFNULL(sum(d.warnCount), 0) as "WARNCOUNT",
+			   IFNULL(sum(c.warnDefaultcount), 0) as "WARNDEFAULTCOUNT",
+			   (case when IFNULL(sum(c.warnDefaultcount), 0) = 0 then 0
+					 else round(IFNULL(sum(c.warnDefaultcount), 0) / IFNULL(sum(d.warnCount), 0), 4) end) as "WARNDEFAULTRATE"
+		FROM rpt_fltsk_ins t
+				 inner join rpt_mgr_report_info t2
+							on t.task_obj_id = t2.rpt_id
+				 left join (select t3.rpt_template_id, count(t3.check_id) validtotal
+							from rpt_valid_logic_rpt_rel t3
+									 left join rpt_valid_cfgext_logic t4
+											   on t3.check_id = t4.check_id
+							group by t3.rpt_template_id) a
+						   on t2.cfg_id = a.rpt_template_id
+				 left join (SELECT t5.rpt_template_id,
+								   t5.data_date,
+								   t5.org_no,
+								   count(*) defaultcount
+							FROM rpt_valid_result_logic t5
+							where t5.is_pass = 'N'
+							group by t5.rpt_template_id, t5.data_date, t5.org_no) b
+						   on t2.cfg_id = b.rpt_template_id
+							   and t.data_date = b.data_date
+							   and t.exe_obj_id = b.org_no
+				 left join (SELECT t6.rpt_template_id,
+								   t6.data_date,
+								   t6.org_no,
+								   count(*) warnDefaultCount
+							FROM rpt_valid_result_warn t6
+							where t6.is_pass = '1'
+							group by t6.rpt_template_id, t6.data_date, t6.org_no) c
+						   on t2.cfg_id = c.rpt_template_id
+							   and t.data_date = c.data_date
+							   and t.exe_obj_id = c.org_no
+				 left join (SELECT t7.rpt_template_id,
+								   count(*) warnCount
+							FROM rpt_valid_cfgext_warn t7
+							group by t7.rpt_template_id) d
+						   on t2.cfg_id = d.rpt_template_id
+		where t.task_id = #{taskId}
+		  and t.data_date = #{dataDate}
+		  and t.exe_obj_id = #{orgNo}
+	</select>
+	
+	<!-- 获取报表校验数据 -->
+	<select id="getRptValidList" parameterType="map" resultType="map">
+		SELECT t2.rpt_id as "RPT_ID",
+		       t2.rpt_nm as "RPT_NM",
+		       t.task_instance_id as "TASK_INSTANCE_ID",
+		       t2.cfg_id as "CFG_ID",
+		       nvl(t6.check_sts, '00') as "CHECK_STS",
+		       nvl(t9.check_sts, '00') as "WARN_CHECK_STS",
+		       nvl(a.validtotal, 0) as "VALIDCOUNT",
+		       nvl(b.inDefaultCount, 0) as "INDEFAULTCOUNT",
+		       nvl(b.outDefaultCount, 0) as "OUTDEFAULTCOUNT",
+		       (case
+		         when nvl(a.validtotal, 0) = 0 then
+		          0
+		         else
+		          round((nvl(b.inDefaultCount, 0) + nvl(b.outDefaultCount, 0)) /
+		                nvl(a.validtotal, 0),
+		                4)
+		       end) as "DEFAULTRATE",
+		       nvl(d.warnCount, 0) as "WARNCOUNT",
+		       nvl(c.warnDefaultCount, 0) as "WARNDEFAULTCOUNT",
+		       (case
+		         when nvl(d.warnCount, 0) = 0 then
+		          0
+		         else
+		          round(nvl(c.warnDefaultCount, 0) / nvl(d.warnCount, 0), 4)
+		       end) as "WARNDEFAULTRATE"
+		  FROM rpt_fltsk_ins t
+		 inner join rpt_mgr_report_info t2
+		    on t.task_obj_id = t2.rpt_id
+		  left join (select t3.rpt_template_id, count(t3.check_id) validtotal
+		               from rpt_valid_logic_rpt_rel t3
+		               left join rpt_valid_cfgext_logic t4
+		                 on t3.check_id = t4.check_id
+		              group by t3.rpt_template_id) a
+		    on t2.cfg_id = a.rpt_template_id
+		  left join (SELECT t5.rpt_template_id,
+		                    t5.data_date,
+		                    t5.org_no,
+		                    sum(case
+		                          when t7.check_type = '01' then
+		                           1
+		                        end) inDefaultCount,
+		                    sum(case
+		                          when t7.check_type = '02' then
+		                           1
+		                        end) outDefaultCount
+		               FROM rpt_valid_result_logic t5
+		               left join rpt_valid_cfgext_logic t7
+		                 on t5.check_id = t7.check_id
+		              where t5.is_pass = 'N'
+		              group by t5.rpt_template_id, t5.data_date, t5.org_no) b
+		    on t2.cfg_id = b.rpt_template_id
+		   and t.data_date = b.data_date
+		   and t.exe_obj_id = b.org_no
+		  left join rpt_engine_check_sts t6
+		    on t2.cfg_id = t6.rpt_template_id
+		   and t.data_date = t6.data_date
+		   and t.exe_obj_id = t6.org_no
+		   and t6.check_type = '01'
+		  left join rpt_engine_check_sts t9
+		    on t2.cfg_id = t9.rpt_template_id
+		   and t.data_date = t9.data_date
+		   and t.exe_obj_id = t9.org_no
+		   and t9.check_type = '02'
+		  left join (SELECT t7.rpt_template_id, count(*) warnCount
+		               FROM rpt_valid_cfgext_warn t7
+		              group by t7.rpt_template_id) d --预警校验总数
+		    on t2.cfg_id = d.rpt_template_id
+		  left join (SELECT t8.rpt_template_id,
+		                    t8.data_date,
+		                    t8.org_no,
+		                    count(*) warnDefaultCount
+		               FROM rpt_valid_result_warn t8
+		              where t8.is_pass = '1'
+		              group by t8.rpt_template_id, t8.data_date, t8.org_no) c --预警校验未通过数
+		    on t2.cfg_id = c.rpt_template_id
+		   and t.data_date = c.data_date
+		   and t.exe_obj_id = c.org_no
+		 where t.task_id = #{taskId}
+		   and t.data_date = #{dataDate}
+		   and t.exe_obj_id = #{orgNo}
+		   <if test="conditionSql != null">
+		   	${conditionSql}
+		   </if>
+	</select>
+	<select id="getRptValidList" parameterType="map" resultType="map" databaseId="mysql">
+		SELECT t2.rpt_id as "RPT_ID",
+		t2.rpt_nm as "RPT_NM",
+		t.task_instance_id as "TASK_INSTANCE_ID",
+		t2.cfg_id as "CFG_ID",
+		IFNULL(t6.check_sts, '00') as "CHECK_STS",
+		IFNULL(t9.check_sts, '00') as "WARN_CHECK_STS",
+		IFNULL(a.validtotal, 0) as "VALIDCOUNT",
+		IFNULL(b.inDefaultCount, 0) as "INDEFAULTCOUNT",
+		IFNULL(b.outDefaultCount, 0) as "OUTDEFAULTCOUNT",
+		(case
+		when IFNULL(a.validtotal, 0) = 0 then
+		0
+		else
+		round((IFNULL(b.inDefaultCount, 0) + IFNULL(b.outDefaultCount, 0)) /
+		IFNULL(a.validtotal, 0),
+		4)
+		end) as "DEFAULTRATE",
+		IFNULL(d.warnCount, 0) as "WARNCOUNT",
+		IFNULL(c.warnDefaultCount, 0) as "WARNDEFAULTCOUNT",
+		(case
+		when IFNULL(d.warnCount, 0) = 0 then
+		0
+		else
+		round(IFNULL(c.warnDefaultCount, 0) / IFNULL(d.warnCount, 0), 4)
+		end) as "WARNDEFAULTRATE"
+		FROM rpt_fltsk_ins t
+		inner join rpt_mgr_report_info t2
+		on t.task_obj_id = t2.rpt_id
+		left join (select t3.rpt_template_id, count(t3.check_id) validtotal
+		from rpt_valid_logic_rpt_rel t3
+		left join rpt_valid_cfgext_logic t4
+		on t3.check_id = t4.check_id
+		group by t3.rpt_template_id) a
+		on t2.cfg_id = a.rpt_template_id
+		left join (SELECT t5.rpt_template_id,
+		t5.data_date,
+		t5.org_no,
+		sum(case
+		when t7.check_type = '01' then
+		1
+		end) inDefaultCount,
+		sum(case
+		when t7.check_type = '02' then
+		1
+		end) outDefaultCount
+		FROM rpt_valid_result_logic t5
+		left join rpt_valid_cfgext_logic t7
+		on t5.check_id = t7.check_id
+		where t5.is_pass = 'N'
+		group by t5.rpt_template_id, t5.data_date, t5.org_no) b
+		on t2.cfg_id = b.rpt_template_id
+		and t.data_date = b.data_date
+		and t.exe_obj_id = b.org_no
+		left join rpt_engine_check_sts t6
+		on t2.cfg_id = t6.rpt_template_id
+		and t.data_date = t6.data_date
+		and t.exe_obj_id = t6.org_no
+		and t6.check_type = '01'
+		left join rpt_engine_check_sts t9
+		on t2.cfg_id = t9.rpt_template_id
+		and t.data_date = t9.data_date
+		and t.exe_obj_id = t9.org_no
+		and t9.check_type = '02'
+		left join (SELECT t7.rpt_template_id, count(*) warnCount
+		FROM rpt_valid_cfgext_warn t7
+		group by t7.rpt_template_id) d
+		on t2.cfg_id = d.rpt_template_id
+		left join (SELECT t8.rpt_template_id,
+		t8.data_date,
+		t8.org_no,
+		count(*) warnDefaultCount
+		FROM rpt_valid_result_warn t8
+		where t8.is_pass = '1'
+		group by t8.rpt_template_id, t8.data_date, t8.org_no) c
+		on t2.cfg_id = c.rpt_template_id
+		and t.data_date = c.data_date
+		and t.exe_obj_id = c.org_no
+		where t.task_id = #{taskId}
+		and t.data_date = #{dataDate}
+		and t.exe_obj_id = #{orgNo}
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+	</select>
+	
+	<!-- 获取当前机构近一年的未通过数据 -->
+	<select id="getValidChartsList" parameterType="map" resultType="map">
+		SELECT t2.rpt_id as "RPT_ID",
+		       t1.data_date as "DATADATE",
+		       nvl(a.inDefaultCount,0) as "INDEFAULTCOUNT",
+		       nvl(a.outDefaultCount,0) as "OUTDEFAULTCOUNT",
+		       nvl(b.warnDefaultCount,0) as "WARNDEFAULTCOUNT"
+		  FROM rpt_fltsk_ins t1
+		  left join rpt_mgr_report_info t2
+		    on t1.task_obj_id = t2.rpt_id
+		  left join (SELECT t.rpt_template_id,
+		                    t.data_date,
+		                    t.org_no,
+		                    sum(case when t3.check_type = '01' then 1  end) inDefaultCount,
+		                    sum(case when t3.check_type = '02' then 1 end) outDefaultCount
+		               FROM rpt_valid_result_logic t
+		               left join rpt_valid_cfgext_logic t3
+		                 on t3.check_id = t.check_id
+		              where t.is_pass = 'N'
+		              and t.org_no = #{orgNo}
+		              group by t.rpt_template_id,
+		                    t.data_date,
+		                    t.org_no) a
+		    on a.rpt_template_id = t2.cfg_id
+		   and t1.data_date = a.data_date
+		   and t1.exe_obj_id = a.org_no
+		 left join (SELECT t4.rpt_template_id,
+		                    t4.data_date,
+		                    t4.org_no,
+		                    count(*) warnDefaultCount
+		               FROM rpt_valid_result_warn t4
+		              where t4.is_pass = '1'
+		              and t4.org_no = #{orgNo}
+		              group by t4.rpt_template_id,
+		                    t4.data_date,
+		                    t4.org_no) b
+		    on b.rpt_template_id = t2.cfg_id
+		   and t1.data_date = b.data_date
+		   and t1.exe_obj_id = b.org_no
+		 where t1.exe_obj_id = #{orgNo}
+		   and t1.task_id = #{taskId}   
+		   and t1.data_date between to_char(ADD_MONTHS(to_date(#{dataDate}, 'yyyyMMdd'), -12), 'yyyyMMdd') and #{dataDate}
+		   <if test="rptId != null">
+		   		and t2.rpt_id = #{rptId}
+		   </if>
+		order by t1.data_date asc
+	</select>
+	<select id="getValidChartsList" parameterType="map" resultType="map" databaseId="mysql">
+		SELECT t2.rpt_id as "RPT_ID",
+		t1.data_date as "DATADATE",
+		IFNULL(a.inDefaultCount,0) as "INDEFAULTCOUNT",
+		IFNULL(a.outDefaultCount,0) as "OUTDEFAULTCOUNT",
+		IFNULL(b.warnDefaultCount,0) as "WARNDEFAULTCOUNT"
+		FROM rpt_fltsk_ins t1
+		left join rpt_mgr_report_info t2
+		on t1.task_obj_id = t2.rpt_id
+		left join (SELECT t.rpt_template_id,
+		t.data_date,
+		t.org_no,
+		sum(case when t3.check_type = '01' then 1  end) inDefaultCount,
+		sum(case when t3.check_type = '02' then 1 end) outDefaultCount
+		FROM rpt_valid_result_logic t
+		left join rpt_valid_cfgext_logic t3
+		on t3.check_id = t.check_id
+		where t.is_pass = 'N'
+		and t.org_no = #{orgNo}
+		group by t.rpt_template_id,
+		t.data_date,
+		t.org_no) a
+		on a.rpt_template_id = t2.cfg_id
+		and t1.data_date = a.data_date
+		and t1.exe_obj_id = a.org_no
+		left join (SELECT t4.rpt_template_id,
+		t4.data_date,
+		t4.org_no,
+		count(*) warnDefaultCount
+		FROM rpt_valid_result_warn t4
+		where t4.is_pass = '1'
+		and t4.org_no = #{orgNo}
+		group by t4.rpt_template_id,
+		t4.data_date,
+		t4.org_no) b
+		on b.rpt_template_id = t2.cfg_id
+		and t1.data_date = b.data_date
+		and t1.exe_obj_id = b.org_no
+		where t1.exe_obj_id = #{orgNo}
+		and t1.task_id = #{taskId}
+		and t1.data_date between
+		date_format(date_sub(date_format(${dataDate}, '%Y%m%d'),INTERVAL 12 MONTH), '%Y%m%d')
+		and #{dataDate}
+		<if test="rptId != null">
+			and t2.rpt_id = #{rptId}
+		</if>
+		order by t1.data_date asc
+	</select>
+</mapper>

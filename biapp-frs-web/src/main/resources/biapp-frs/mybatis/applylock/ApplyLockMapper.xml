@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.applylock.repository.ApplyLockDao">
+	<!-- 查找角色 -->
+	<select id="getObjId" parameterType="HashMap" resultType="String">
+		SELECT 
+			ROLE_NO 
+		FROM 
+			BIONE_AUTH_OBJ_USER_REL   rel,
+			BIONE_ROLE_INFO           info
+		WHERE 
+			rel.OBJ_DEF_NO = 'AUTH_OBJ_ROLE'  
+		AND 
+			info.ROLE_ID = rel.OBJ_ID
+		AND 
+			rel.USER_ID = #{userNo}
+	</select>
+	<!-- 查找任务实例 -->
+	<select id="findByTaskInstanceIdAndSts"
+		resultType="com.yusys.biapp.frs.rptfill.entity.RptFltskRebut">
+	SELECT
+		TASK_INSTANCE_ID,
+		APPLY_USER_NO,
+		APPLY_TIME,
+		COLLATE_USER_NO,
+		COLLATE_TIME,
+		APPLY_DESC,
+		REBUT_DESC,
+		STS
+	FROM
+		RPT_FLTSK_REBUT
+	where 1 = 1
+		<if test="taskInstanceId != null">
+			and TASK_INSTANCE_ID = #{taskInstanceId}
+		</if>
+		<if test="rebutId != null">
+			and REBUT_ID = #{rebutId}
+		</if>
+		<if test="stsList != null">
+			and STS in
+			<foreach item="stsindex" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsindex}
+			</foreach>
+		</if>
+		<if test="sts != null">
+			and STS = #{sts}
+		</if>
+	</select>
+	<!-- 保存申请解锁的数据 -->
+	<insert id="saveApplyData"
+		parameterType="com.yusys.biapp.frs.rptfill.entity.RptFltskRebut">
+	INSERT
+		INTO
+	RPT_FLTSK_REBUT
+		(
+		REBUT_ID,
+		TASK_INSTANCE_ID,
+		APPLY_USER_NO,
+		APPLY_TIME,
+		COLLATE_USER_NO,
+		COLLATE_TIME,
+		APPLY_DESC,
+		REBUT_DESC,
+		STS,
+		APPLY_NOD_STS
+		)
+	VALUES
+		(
+		#{rebutId},
+		#{taskInstanceId},
+		#{applyUserNo},
+		#{applyTime},
+		#{collateUserNo},
+		#{collateTime},
+		#{applyDesc},
+		#{rebutDesc},
+		#{sts},
+		#{applyNodSts}
+		)
+	</insert>
+
+	<!-- 申请解锁查看 -->
+	<select id="queryReject"
+		resultType="com.yusys.biapp.frs.applylock.web.vo.ApplyLockVo"
+		parameterType="HashMap">
+		SELECT
+	        ins.TASK_NM                  taskNm,
+	        ins.TASK_INSTANCE_ID         taskInstanceId, 
+	        ins.DATA_DATE                dataDate,
+	        ins.TASK_TYPE                taskType,
+	        to_char(ins.END_TIME,'yyyy-mm-dd')                 endTime,
+	        mgr.RPT_NM                   rptNm,
+	        mgr.RPT_ID                   rptId,
+	        tab.ORG_NO                   orgNo,
+	        tab.ORG_NM                   orgNm,
+			re.STS                       sts,
+	        re.COLLATE_USER_NO           collateUserNo,
+	        re.COLLATE_TIME              collateTime,
+	        re.APPLY_TIME                applyTime,
+	        re.APPLY_NOD_STS             applyNodSts,
+	        re.REBUT_ID                  rebutId
+	  	FROM 
+      		RPT_FLTSK_REBUT re 
+    	LEFT JOIN 
+        	RPT_FLTSK_INS ins
+    	ON 
+    		ins.TASK_INSTANCE_ID = re.TASK_INSTANCE_ID
+    	LEFT JOIN
+        	RPT_MGR_REPORT_INFO mgr
+   		ON
+        	ins.TASK_OBJ_ID = mgr.RPT_ID
+    	LEFT JOIN 
+      		(SELECT 
+      			org.ORG_NO,  org.ORG_NM
+         	FROM 
+         		RPT_ORG_INFO org
+         	WHERE 
+         		org.ORG_TYPE = '04') tab
+    	ON 
+        	ins.EXE_OBJ_ID = tab.ORG_NO
+    	where 1 = 1 
+        	AND ins.TASK_TYPE = '04' 
+      		AND re.STS IN ('0','1','2')
+		<if test="taskNm!=null and taskNm!=''">
+			AND taskId = #{taskNm}
+		</if>
+		<if test="rptNm!=null and rptNm!=''">
+			AND ins.TASK_OBJ_ID = #{rptNm}
+		</if>
+		<if test="orgNm!=null and orgNm!=''">
+			AND orgNo = #{orgNm}
+		</if>
+		<if test="approvalSts!=null and approvalSts!=''">
+			AND re.STS = #{sts}
+		</if>
+		<if test="dataDate!=null and dataDate!=''">
+			AND ins.DATA_DATE = #{dataDate}
+		</if>
+		<!-- 用户只能查看自己申请的记录 -->
+		<if test="applyUserNo!=null and applyUserNo!=''">
+			AND	re.APPLY_USER_NO = #{applyUserNo}
+		</if>
+		<if test="exeObjId != null">
+			and (
+			ins.EXE_OBJ_ID IN
+			<foreach collection="exeObjId" item="items" open="("
+				separator=") or ins.EXE_OBJ_ID IN (" close=")">
+					select distinct(o.org_no) from RPT_ORG_INFO o
+					where 1=1
+					and
+						o.ORG_TYPE = #{items.orgType}
+					and 
+						<foreach collection="items.orgLike" item="orgLike" open=""
+							separator=" or " close="">
+							o.org_no = #{orgLike}
+						</foreach>
+			</foreach>
+			)
+		</if>
+		
+		<if test="taskObjId != null">
+			and ins.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or ins.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+	<select id="queryReject"
+			resultType="com.yusys.biapp.frs.applylock.web.vo.ApplyLockVo"
+			parameterType="HashMap" databaseId="mysql">
+		SELECT
+		ins.TASK_NM                  taskNm,
+		ins.TASK_INSTANCE_ID         taskInstanceId,
+		ins.DATA_DATE                dataDate,
+		ins.TASK_TYPE                taskType,
+		date_format(ins.END_TIME, '%Y-%m-%d') endTime,
+		mgr.RPT_NM                   rptNm,
+		mgr.RPT_ID                   rptId,
+		tab.ORG_NO                   orgNo,
+		tab.ORG_NM                   orgNm,
+		re.STS                       sts,
+		re.COLLATE_USER_NO           collateUserNo,
+		re.COLLATE_TIME              collateTime,
+		re.APPLY_TIME                applyTime,
+		re.APPLY_NOD_STS             applyNodSts,
+		re.REBUT_ID                  rebutId
+		FROM
+		RPT_FLTSK_REBUT re
+		LEFT JOIN
+		RPT_FLTSK_INS ins
+		ON
+		ins.TASK_INSTANCE_ID = re.TASK_INSTANCE_ID
+		LEFT JOIN
+		RPT_MGR_REPORT_INFO mgr
+		ON
+		ins.TASK_OBJ_ID = mgr.RPT_ID
+		LEFT JOIN
+		(SELECT
+		org.ORG_NO,  org.ORG_NM
+		FROM
+		RPT_ORG_INFO org
+		WHERE
+		org.ORG_TYPE = '04') tab
+		ON
+		ins.EXE_OBJ_ID = tab.ORG_NO
+		where 1 = 1
+		AND ins.TASK_TYPE = '04'
+		AND re.STS IN ('0','1','2')
+		<if test="taskNm!=null and taskNm!=''">
+			AND taskId = #{taskNm}
+		</if>
+		<if test="rptNm!=null and rptNm!=''">
+			AND ins.TASK_OBJ_ID = #{rptNm}
+		</if>
+		<if test="orgNm!=null and orgNm!=''">
+			AND orgNo = #{orgNm}
+		</if>
+		<if test="approvalSts!=null and approvalSts!=''">
+			AND re.STS = #{sts}
+		</if>
+		<if test="dataDate!=null and dataDate!=''">
+			AND ins.DATA_DATE = #{dataDate}
+		</if>
+		<!-- 用户只能查看自己申请的记录 -->
+		<if test="applyUserNo!=null and applyUserNo!=''">
+			AND	re.APPLY_USER_NO = #{applyUserNo}
+		</if>
+		<if test="exeObjId != null">
+			and (
+			ins.EXE_OBJ_ID IN
+			<foreach collection="exeObjId" item="items" open="("
+					 separator=") or ins.EXE_OBJ_ID IN (" close=")">
+				select distinct(o.org_no) from RPT_ORG_INFO o
+				where 1=1
+				and
+				o.ORG_TYPE = #{items.orgType}
+				and
+				<foreach collection="items.orgLike" item="orgLike" open=""
+						 separator=" or " close="">
+					o.org_no = #{orgLike}
+				</foreach>
+			</foreach>
+			)
+		</if>
+
+		<if test="taskObjId != null">
+			and ins.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+					 separator=" or ins.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+						 separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getApplyDescById"
+		resultType="com.yusys.biapp.frs.applylock.web.vo.ApplyLockVo"
+		parameterType="java.util.Map">
+		SELECT
+	        ins.TASK_NM                  taskNm,
+	        ins.DATA_DATE                dataDate,
+	        ins.END_TIME                 endTime,
+	        mgr.RPT_NM                   rptNm,
+	        mgr.RPT_ID                   rptId,
+	        tab.ORG_NO                   orgNo,
+	        tab.ORG_NM                   orgNm,
+			re.STS                       sts,
+	        re.COLLATE_USER_NO           collateUserNo,
+	        re.COLLATE_TIME              collateTime,
+	        re.APPLY_TIME                applyTime,
+	        re.APPLY_DESC                applyDesc,
+	        re.REBUT_DESC				 rebutDesc
+	  	FROM 
+      		RPT_FLTSK_REBUT re 
+    	LEFT JOIN 
+        	RPT_FLTSK_INS ins
+    	ON 
+    		ins.TASK_INSTANCE_ID = re.TASK_INSTANCE_ID
+    	LEFT JOIN
+        	RPT_MGR_REPORT_INFO mgr
+   		ON
+        	ins.TASK_OBJ_ID = mgr.RPT_ID
+    	LEFT JOIN 
+      		(SELECT 
+      			org.ORG_NO,  org.ORG_NM
+         	FROM 
+         		RPT_ORG_INFO org
+         	WHERE 
+         		org.ORG_TYPE = '04') tab
+    	ON 
+        	ins.EXE_OBJ_ID = tab.ORG_NO
+    	where 1 = 1 
+      
+		<if test="rebutId!=null and rebutId!=''">
+		AND	re.REBUT_ID = #{rebutId}
+		</if>
+	</select>	
+	
+	<!-- 二次查看申请 --><!-- 1104上的east暂定 -->
+	<select id="queryRejectChild"
+		resultType="com.yusys.biapp.frs.applylock.web.vo.ApplyLockVo"
+		parameterType="HashMap">
+		SELECT 
+			A.TASK_ID,
+			F.REBUT_ID rebutId,
+			F.REBUT_ID rebutId,
+			F.APPLY_TIME
+			applyDate,
+			F.COLLATE_USER_NO applyUser,
+			F.COLLATE_TIME apprDate,
+			F.APPLY_DESC applyDesc,
+			F.REBUT_DESC rebutDesc,
+			F.STS apprSts,
+			A.TASK_NM
+			taskNm,
+			A.TASK_STS taskSts,
+			B.TASK_INSTANCE_ID taskInstanceId,
+			B.START_TIME startTime,
+			B.END_TIME
+			endTime,
+			B.STS sts,
+			B.DATA_DATE
+			dataDate,
+			C.RPT_ID rptId,
+			C.RPT_NM rptNm,
+			C.RPT_TYPE rptType,
+			B.EXE_OBJ_ID orgNo,
+			E.ORG_NM orgNm,
+			E.ORG_LEVEL orgLevel
+		FROM
+			RPT_FLTSK_INFO A,
+			RPT_FLTSK_INS B,
+			RPT_MGR_REPORT_INFO C,
+			RPT_FLTSK_REBUT F,
+		(SELECT
+			D.ORG_NO, D.ORG_TYPE, D.ORG_NM, D.ORG_LEVEL
+		FROM 
+			RPT_ORG_INFO D
+		WHERE
+			D.ORG_TYPE = '04') E
+		WHERE 
+			A.TASK_ID = B.TASK_ID(+)
+		AND B.TASK_OBJ_ID = C.RPT_ID(+)
+		AND B.EXE_OBJ_ID =
+		E.ORG_NO(+)
+		AND B.TASK_INSTANCE_ID= F.TASK_INSTANCE_ID
+		AND A.TASK_TYPE = '04'
+		<!-- AND B.Sts in ('A2','B2','C2') -->
+		<!-- 报表权限 -->
+		<if test="rptList != null">
+			and B.TASK_OBJ_ID in
+			<foreach item="rptIds" index="index" collection="rptList"
+				separator=" or B.task_Obj_Id in ">
+				<foreach collection="rptIds" item="rptId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+		<if test="child != null">
+			and B.UP_TASK_INSTANCE_ID is not null
+			<!-- and I.UP_TASK_INSTANCE_ID != '' -->
+		</if>
+		<!--机构权限 -->
+		<if test="orgNo != null">
+			and (
+			<foreach collection="orgNo" item="items" open="(" separator=")or("
+				close=")">
+				B.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				<!-- and I.task_type=#{items.orgType} -->
+			</foreach>
+			)
+		</if>
+		<if test="sts != null">
+			and B.STS = #{sts}
+		</if>
+		<!-- 申请解锁 -->
+		<if test="stsList != null">
+			and B.STS in ('A3','B3','C3','A2','B2','C2','A1','B1','C1')
+		</if>
+
+		<if test="task_id !=null">
+			and a.task_Id = #{taskId}
+		</if>
+		<if test="taskNm !=null">
+			and a.task_Nm = #{taskNm}
+		</if>
+		<if test="rptNm !=null">
+			and a.rpt_Nm = #{rptNm}
+		</if>
+		<if test="orgNm !=null">
+			and a.org_Nm = #{orgNm}
+		</if>
+		<if test="rptSts !=null">
+			and b.Sts = #{rptSts}
+		</if>
+		<if test="baseCheckRsSts !=null">
+			and a.baseCheckRsSts = #{baseCheckRsSts}
+		</if>
+		<if test="relevanceRsSts !=null">
+			and a.relevanceRsSts = #{relevanceRsSts}
+		</if>
+		<if test="specialRsSts !=null">
+			and a.specialRsSts = #{specialRsSts}
+		</if>
+		and B.LOGIC_DEL_NO = 'N'
+	</select>
+
+	<!-- 搜索任务下拉框 -->
+	<select id="queryUniqueTaskListByOrgNo"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select 
+			distinct ins.TASK_ID,ins.TASK_NM as TASK_NAME
+		from 
+			RPT_FLTSK_INS ins
+		where 1 = 1
+			and ins.task_mgr_sts='1'		<!-- 过滤掉已结束的任务 -->
+			and ins.UP_TASK_INSTANCE_ID is null
+		<if test="sts != null">
+			and ins.STS = #{sts}
+		</if>
+		<if test="taskType != null">
+			and ins.TASK_TYPE = #{taskType}
+		</if>
+		<!-- end 方娟 -->
+		and ins.LOGIC_DEL_NO = 'N'
+		ORDER BY ins.TASK_NM
+	</select>
+
+	<!-- 根据id获取报表信息 -->
+	<select id="queryEastUniqueRptListByTaskIdAndExeObj" 
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO"
+		parameterType="HashMap">
+	select 
+		distinct I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjName,
+		RPT.RPT_NUM
+	from
+		RPT_FLTSK_INS I
+	INNER JOIN 
+		RPT_MGR_REPORT_INFO rpt
+	ON 
+		rpt.RPT_ID = I.TASK_OBJ_ID
+	where 1 = 1
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<if test="rptId != null">
+			and rpt.rpt_Id = #{rpotId}
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="exeObjOrg != null">
+			and (
+			<foreach collection="exeObjOrg" item="items" open="("
+				separator=")or(" close=")">
+				I.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and I.task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+		<if test="exeObjUser != null">
+			and I.EXE_OBJ_ID in
+			<foreach collection="exeObjUser" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+		</if>
+		<!-- edit end -->
+		<!-- add by fangjuan 20150106 -->
+		<!-- 此参数前台传过，但是sql里面没有接受，和许广源确认，二次任务不需要报表权限 -->
+		<if test="taskObjId != null"> 
+			and (I.TASK_OBJ_ID in 
+			<foreach item="taskObjId" 
+				index="index" collection="taskObjId" separator=" or I.task_Obj_Id in " > 
+					#{taskObjId} 
+			</foreach> 
+			)
+			</if>
+		<if test="dataDate != null and dataDate.length() > 0">
+			and I.data_date = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		ORDER BY rpt.RPT_NM
+		<!-- ORDER BY RPT.RPT_NUM -->
+	</select>
+
+	<!-- 撤销申请 -->
+	<delete id="backApply">
+		DELETE
+			FROM
+		RPT_FLTSK_REBUT
+			WHERE
+		REBUT_ID IN
+		<foreach collection="array" item="rebutId" index="index" open="("
+			separator="," close=")">
+			#{rebutId}
+		</foreach>
+	</delete>
+
+	<!-- 通过获取的roleNo获取状态findApplyUserRoleByUserNo -->
+	<select id="findApplyUserRoleByUserNo" parameterType="hashMap"
+		resultType="java.lang.String">
+		select 
+			ins2.role_no
+		from 
+			bione_role_info ins2,
+			(select 
+				rel.obj_id
+			from
+				bione_role_info ins, Bione_Auth_Obj_User_Rel rel
+			where 1=1
+			<if test="userNo != null and userNo != ''">
+				and rel.user_id = #{userNo}
+			</if>
+				and ins.role_id = rel.obj_id) a
+		where 
+			ins2.role_id = a.obj_id
+
+	</select>
+	
+	<select id="getTskInsSts" parameterType="HashMap"
+		resultType="java.lang.String">
+		SELECT 
+			CURR_STS_VAL
+		FROM 
+			EAST_TASK_LISTSTATE_INFO
+		WHERE 
+			TASK_INSTANCE_ID = #{taskInsId}
+	</select>
+	
+	<!-- 流程全部状态 -->
+	<select id="getToBackSts" parameterType="String"
+		resultType="com.yusys.biapp.frs.rpttsk.entity.EastTaskListStateInfo">
+		SELECT 
+			*
+		FROM 
+			EAST_TASK_LISTSTATE_INFO 
+		WHERE 1=1
+			<if test="insId != null and insId != ''">
+				and TASK_INSTANCE_ID = #{insId}
+			</if>
+			
+	</select>
+	
+	<!--查找申请人信息 -->
+	<select id="findApplyUserByUserNo" parameterType="hashMap"
+		resultType="com.yusys.biapp.frs.applylock.web.vo.ApplyLockVo">
+		select
+			ins2.role_no roleNo,Buser.User_Id userId,Buser.User_Name applyUser
+		from 
+			BIONE_ROLE_INFO ins2,BIONE_USER_INFO Buser,
+			(select
+			rel.obj_id
+			from BIONE_ROLE_INFO ins, Bione_Auth_Obj_User_Rel rel
+			where
+			1=1
+			<if test="userNo != null and userNo != ''">
+				and rel.user_id = #{userNo}
+				and Buser.user_id= #{userNo}
+			</if>
+		and ins.role_id = rel.obj_id) a
+		where 
+			ins2.role_id = a.obj_id
+
+	</select>
+</mapper>

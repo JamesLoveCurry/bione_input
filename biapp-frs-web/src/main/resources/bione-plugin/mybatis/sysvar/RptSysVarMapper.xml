@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptsys.repository.RptSysVarMybatisDao">
+	<select id="getSysVarByParams"
+		resultType="com.yusys.bione.plugin.rptsys.entity.RptSysVarInfo"
+		parameterType="HashMap">
+		select VAR_ID,remark,DEF_TYPE,VAR_NM,VAR_NO,VAR_VAL,SOURCE_ID,VAR_TYPE
+		from
+		RPT_SYS_VAR_INFO
+		where 1=1
+		<if test="varId != null">
+			and VAR_ID = #{varId}</if>
+		<if test="remark != null">
+			and remark = #{remark}</if>
+		<if test="defType != null">
+			and DEF_TYPE = #{defType}</if>
+		<if test="varNm != null">
+			and VAR_NM = #{varNm}</if>
+		<if test="varNo != null">
+			and VAR_NO = #{varNo}</if>
+		<if test="varVal != null">
+			and VAR_VAL = #{varVal}</if>
+		<if test="sourceId != null">
+			and SOURCE_ID = #{sourceId}</if>
+		<if test="varType != null">
+			and VAR_TYPE = #{varType}</if>
+	</select>
+
+	<select id="getSysVarVoByParams"
+		resultType="com.yusys.bione.plugin.rptsys.web.vo.RptSysVarInfoVO"
+		parameterType="HashMap">
+		select
+		RPT_SYS_VAR_INFO.VAR_ID,RPT_SYS_VAR_INFO.remark,RPT_SYS_VAR_INFO.DEF_TYPE,RPT_SYS_VAR_INFO.VAR_NM,RPT_SYS_VAR_INFO.VAR_NO,RPT_SYS_VAR_INFO.VAR_VAL,RPT_SYS_VAR_INFO.SOURCE_ID,RPT_SYS_VAR_INFO.VAR_TYPE,BIONE_DS_INFO.DS_NAME
+		as sourceNm
+		from
+		RPT_SYS_VAR_INFO
+		LEFT JOIN
+		BIONE_DS_INFO
+		ON
+		RPT_SYS_VAR_INFO.SOURCE_ID=BIONE_DS_INFO.DS_ID
+		where 1=1
+		<if test="varId != null">
+			and VAR_ID = #{varId}</if>
+		<if test="remark != null">
+			and remark = #{remark}</if>
+		<if test="defType != null">
+			and DEF_TYPE = #{defType}</if>
+		<if test="varNm != null">
+			and VAR_NM = #{varNm}</if>
+		<if test="varNo != null">
+			and VAR_NO = #{varNo}</if>
+		<if test="varVal != null">
+			and VAR_VAL = #{varVal}</if>
+		<if test="sourceId != null">
+			and SOURCE_ID = #{sourceId}</if>
+		<if test="varType != null">
+			and VAR_TYPE = #{varType}</if>
+	</select>
+
+	<insert id="saveSysVarInfo"
+		parameterType="com.yusys.bione.plugin.rptsys.entity.RptSysVarInfo">
+		insert into
+		RPT_SYS_VAR_INFO(VAR_ID,remark,DEF_TYPE,VAR_NM,VAR_NO,VAR_VAL,SOURCE_ID,VAR_TYPE)
+		values(#{varId},#{remark},#{defType},#{varNm},#{varNo},#{varVal},#{sourceId},#{varType})
+	</insert>
+
+	<update id="updateSysVarInfo"
+		parameterType="com.yusys.bione.plugin.rptsys.entity.RptSysVarInfo">
+		update RPT_SYS_VAR_INFO
+		<set>
+			<if test="varId != null">VAR_ID=#{varId},</if>
+			<if test="remark != null">remark=#{remark},</if>
+			<if test="defType != null">DEF_TYPE=#{defType},</if>
+			<if test="varNm != null">VAR_NM=#{varNm},</if>
+			<if test="varNo != null">VAR_NO=#{varNo},</if>
+			<if test="varVal != null">VAR_VAL=#{varVal},</if>
+			<if test="sourceId != null">SOURCE_ID=#{sourceId},</if>
+			<if test="varType != null">VAR_TYPE=#{varType}</if>
+		</set>
+		where 1=1 and VAR_ID=#{varId}
+	</update>
+
+	<delete id="deleteSysVarInfo">
+		delete from RPT_SYS_VAR_INFO
+		where 1=1
+		and VAR_ID in
+		<foreach collection="list" item="ids" open="(" separator=","
+			close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+</mapper> 

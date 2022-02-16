@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>企业-报送统计</templetname>
+	<fromtable>CR_Entp_Sbmsn_Stat</fromtable>
+	<savetable>CR_Entp_Sbmsn_Stat</savetable>
+	<pkname>Rpt_Dt</pkname>
+	<querycontion></querycontion>
+	<autocondition></autocondition>
+	<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	<autoquery>Y</autoquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+	<list_btns></list_btns>
+	<list_ispagebar>Y</list_ispagebar>
+	<list_issearch></list_issearch>
+
+
+
+</templet>
+
+<templet_item>
+     <itemkey>Rpt_Dt</itemkey>
+    <itemname>上报日期</itemname>
+    <itemtype>文本框</itemtype>
+<itemdefine></itemdefine>
+    
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <query_isshow>Y</query_isshow>
+    <query_itemtype>日历区间</query_itemtype>
+    <query_itemdefine>【is8=Y】</query_itemdefine>
+</templet_item>
+
+<templet_item>
+     <itemkey>Rpt_Nbr</itemkey>
+    <itemname>上报笔数</itemname>
+    <itemtype>文本框</itemtype>   
+<itemdefine></itemdefine>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>  
+  <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>200</list_width>
+    <list_align>中</list_align>
+    <search_isshow>N</search_isshow>
+    <query_isshow>N</query_isshow>
+   
+</templet_item>
+
+
+
+
+<templet_item>
+    <itemkey>Cls_Nbr</itemkey>
+    <itemname>结清笔数</itemname>
+    <itemtype>文本框</itemtype>   
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+<!--     <isonlyone>Y</isonlyone> -->
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <search_isshow>N</search_isshow>
+</templet_item>
+
+<templet_item>
+    <itemkey>Not_Cls_Nbr</itemkey>
+    <itemname>未结清笔数</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>   
+ <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>200</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <query_isshow></query_isshow>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+     <itemkey>Ovdue_Nbr</itemkey>
+    <itemname>逾期笔数</itemname>
+    <itemtype>文本框</itemtype>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>   
+ <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <search_isshow>N</search_isshow>
+</templet_item>
+
+
+
+
+
+
+
+</root>

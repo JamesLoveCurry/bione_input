@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.frame.authres.repository.MenuTemplateDao">
+	<select id="getMenuTemplateList" resultType="com.yusys.bione.frame.authres.entity.BioneMenuTemplateInfo">
+		select * from bione_menu_template_info where func_type = #{funcType} and up_id = #{upId}
+	</select>
+	<select id="getOrgType" resultType="com.yusys.bione.frame.variable.entity.BioneParamInfo">
+		select * from bione_param_info where logic_sys_no = #{logicSysNo} and param_type_no = #{paramTypeNo} order by order_no
+	</select>
+
+	<insert id="batchInsertFunc" parameterType="com.yusys.bione.frame.authres.entity.BioneFuncInfo" useGeneratedKeys="false">
+		insert ALL
+		<foreach item="item" index="index" collection="list">
+			into BIONE_FUNC_INFO (FUNC_ID,FUNC_NAME,FUNC_STS,MODULE_ID,NAV_ICON,NAV_PATH,REMARK,UP_ID,ORDER_NO)
+			values (
+			#{item.funcId,jdbcType=VARCHAR},
+			#{item.funcName,jdbcType=VARCHAR},
+			#{item.funcSts,jdbcType=VARCHAR},
+			#{item.moduleId,jdbcType=NUMERIC},
+			#{item.navIcon,jdbcType=VARCHAR},
+			#{item.navPath,jdbcType=VARCHAR},
+			#{item.remark,jdbcType=VARCHAR},
+			#{item.upId,jdbcType=VARCHAR},
+			#{item.orderNo}
+			)
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+
+	<insert id="batchInsertFunc" parameterType="com.yusys.bione.frame.authres.entity.BioneFuncInfo" databaseId="mysql">
+		insert into BIONE_FUNC_INFO (FUNC_ID,FUNC_NAME,FUNC_STS,MODULE_ID,NAV_ICON,NAV_PATH,REMARK,UP_ID,ORDER_NO)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.funcId,jdbcType=VARCHAR},
+			#{item.funcName,jdbcType=VARCHAR},
+			#{item.funcSts,jdbcType=VARCHAR},
+			#{item.moduleId,jdbcType=NUMERIC},
+			#{item.navIcon,jdbcType=VARCHAR},
+			#{item.navPath,jdbcType=VARCHAR},
+			#{item.remark,jdbcType=VARCHAR},
+			#{item.upId,jdbcType=VARCHAR},
+			#{item.orderNo}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertModule">
+		insert into BIONE_MODULE_INFO(MODULE_ID,MODULE_NAME,MODULE_NO,remark)
+		values(
+		       #{moduleId},
+		       #{moduleName},
+		       #{moduleNo},
+		       #{remark}
+			  )
+	</insert>
+</mapper>

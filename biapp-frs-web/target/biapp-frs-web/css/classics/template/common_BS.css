@@ -1,0 +1,31 @@
+/*
+* 用于应用BootStrap样式时，部分样式保留原非BootStrap时的兼容性
+* create by wj at 20181023
+*/
+.searchbox {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 2px;
+    /*border-style: solid;*/
+    /*border-width: 0px;*/
+    /*border-color: #D6D6D6;*/
+   /*  background-color: #FCFCFC; */
+}
+
+.jloading {
+	background: rgb(98, 135, 172);
+	top: 40%;
+	left: 45%;
+	color: white;
+	border-bottom-color: rgb(83, 119, 157);
+	border-left-color: rgb(83, 119, 157);
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	filter: alpha(opacity =         70);
+	position: absolute;
+	z-index: 99999;
+	opacity: 0.7;
+}

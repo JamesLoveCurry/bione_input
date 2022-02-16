@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptidx.repository.IdxFormulaMybatisDao">
+	<select id="list" resultType="com.yusys.bione.plugin.rptidx.web.vo.IdxFormulaAndSrcIdxVO"
+	parameterType="HashMap"> 
+	select RPT_IDX_INFO.SRC_INDEX_NO,RPT_IDX_FORMULA_INFO.INDEX_NO as "id.indexNo",RPT_IDX_FORMULA_INFO.INDEX_VER_ID as "id.indexVerId",
+		RPT_IDX_FORMULA_INFO.FORMULA_CONTENT,RPT_IDX_FORMULA_INFO.FORMULA_DESC,RPT_IDX_FORMULA_INFO.FORMULA_TYPE,RPT_IDX_FORMULA_INFO.REMARK
+	 	from  RPT_IDX_INFO,RPT_IDX_FORMULA_INFO 
+	 where 1=1 
+ 		and RPT_IDX_INFO.INDEX_VER_ID=RPT_IDX_FORMULA_INFO.INDEX_VER_ID
+ 		and RPT_IDX_INFO.INDEX_NO=RPT_IDX_FORMULA_INFO.INDEX_NO
+ 	<if test="id != null">
+ 	<if test="id.indexVerId != null">
+		 and RPT_IDX_INFO.INDEX_VER_ID = #{id.indexVerId}</if>
+	<if test="id.indexNo != null">
+		 and RPT_IDX_INFO.INDEX_NO = #{id.indexNo}</if>
+	</if>
+	 <if test="remark != null">
+		 and RPT_IDX_INFO.REMARK = #{remark}</if>
+	 <if test="dataPrecision != null">
+		 and RPT_IDX_INFO.DATA_PRECISION = #{dataPrecision}</if>
+	 <if test="srcIndexNo != null">
+		 and RPT_IDX_INFO.SRC_INDEX_NO = #{srcIndexNo}</if>
+	 <if test="lastUptTime != null">
+		 and RPT_IDX_INFO.LAST_UPT_TIME = #{lastUptTime}</if>
+	 <if test="rptId != null">
+		 and RPT_IDX_INFO.RPT_ID = #{rptId}</if>
+	 <if test="endDate != null">
+		 and RPT_IDX_INFO.END_DATE = #{endDate}</if>
+	 <if test="indexSts != null">
+		 and RPT_IDX_INFO.INDEX_STS = #{indexSts}</if>
+	 <if test="indexType != null">
+		 and RPT_IDX_INFO.INDEX_TYPE = #{indexType}</if>
+	 <if test="formulaDesc != null">
+		 and RPT_IDX_FORMULA_INFO.FORMULA_DESC = #{formulaDesc}</if>
+	 <if test="indexCatalogNo != null">
+		 and RPT_IDX_INFO.INDEX_CATALOG_NO = #{indexCatalogNo}</if>
+	 <if test="startDate != null">
+		 and RPT_IDX_INFO.START_DATE = #{startDate}</if>
+	 <if test="formulaContent != null">
+		 and RPT_IDX_FORMULA_INFO.FORMULA_CONTENT = #{formulaContent}</if>
+	 <if test="formulaType != null">
+		 and RPT_IDX_FORMULA_INFO.FORMULA_TYPE = #{formulaType}</if>
+	 <if test="calcCycle != null">
+		 and RPT_IDX_INFO.CALC_CYCLE = #{calcCycle}</if>
+	 <if test="dataUnit != null">
+		 and RPT_IDX_INFO.DATA_UNIT = #{dataUnit}</if>
+	 <if test="isSum != null">
+		 and RPT_IDX_INFO.IS_SUM = #{isSum}</if>
+	 <if test="srcSourceId != null">
+		 and RPT_IDX_INFO.SRC_SOURCE_ID = #{srcSourceId}</if>
+	 <if test="dataLen != null">
+		 and RPT_IDX_INFO.DATA_LEN = #{dataLen}</if>
+	 <if test="lastUptUser != null">
+		 and RPT_IDX_INFO.LAST_UPT_USER = #{lastUptUser}</if>
+	 <if test="dataType != null">
+		 and RPT_IDX_INFO.DATA_TYPE = #{dataType}</if>
+	 <if test="indexNm != null">
+		 and RPT_IDX_INFO.INDEX_NM = #{indexNm}</if>
+
+</select>
+<select id="getAll" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo"
+	parameterType="HashMap"> 
+	select INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",FORMULA_CONTENT,FORMULA_DESC,FORMULA_TYPE,
+ from 
+	RPT_IDX_FORMULA_INFO 
+	 where 1=1 
+	 <if test="indexNo != null">
+		 and INDEX_NO = #{indexNo}</if>
+	 <if test="indexVerId != null">
+		 and INDEX_VER_ID = #{indexVerId}</if>
+	 <if test="formulaContent != null">
+		 and FORMULA_CONTENT = #{formulaContent}</if>
+	 <if test="formulaDesc != null">
+		 and FORMULA_DESC = #{formulaDesc}</if>
+	 <if test="formulaType != null">
+		 and FORMULA_TYPE = #{formulaType}</if>
+	 <if test="remark != null">
+		 and  = #{remark}</if>
+
+</select>
+	<insert id="saveFormula" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo">insert into RPT_IDX_FORMULA_INFO(INDEX_NO,INDEX_VER_ID,FORMULA_CONTENT,FORMULA_DESC,FORMULA_TYPE,)
+		values(#{id.indexNo},#{id.indexVerId},#{formulaContent},#{formulaDesc},#{formulaType},#{remark})</insert>
+	<update id="updateFormula" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo">
+		update RPT_IDX_FORMULA_INFO
+		<set>
+			<if test="id.indexNo != null">INDEX_NO=#{id.indexNo},</if>
+			<if test="id.indexVerId != null">INDEX_VER_ID=#{id.indexVerId},</if>
+			<if test="formulaContent != null">FORMULA_CONTENT=#{formulaContent},</if>
+			<if test="formulaDesc != null">FORMULA_DESC=#{formulaDesc},</if>
+			<if test="formulaType != null">FORMULA_TYPE=#{formulaType},</if>
+			<if test="remark != null">=#{remark}</if>
+		</set>
+		where 1=1 and INDEX_NO=#{id.indexNo}
+		and INDEX_VER_ID=#{id.indexVerId}
+	</update>
+	<delete id="deleteFormula" parameterType="HashMap">delete from RPT_IDX_FORMULA_INFO
+		where 1=1
+		and INDEX_NO=#{id.indexNo}
+		and INDEX_VER_ID=#{id.indexVerId}</delete>
+
+
+</mapper> 

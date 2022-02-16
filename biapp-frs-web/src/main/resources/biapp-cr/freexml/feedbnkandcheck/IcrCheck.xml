@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>个人校验错误表</templetname>
+	<fromtable>Icr_CHECKERROR</fromtable>
+	<savetable>Icr_CHECKERROR</savetable>
+	<pkname>Serialno</pkname>
+	<querycontion></querycontion>
+	<autocondition></autocondition>
+	<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	<autoquery>Y</autoquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+	<list_btns>$INSERT;$UPDATE;$DELETE</list_btns>
+	<list_issearch></list_issearch>
+	<list_ispagebar>Y</list_ispagebar>
+</templet>
+
+<templet_item>
+     <itemkey>Serialno</itemkey>
+    <itemname>序列号</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	<query_isshow>Y</query_isshow>
+</templet_item>
+<templet_item>
+     <itemkey>errcode</itemkey>
+    <itemname>规则编码</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	<query_isshow>Y</query_isshow>
+</templet_item>
+<templet_item>
+     <itemkey>errmsg</itemkey>
+    <itemname>错误信息</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	 
+</templet_item>
+<templet_item>
+     <itemkey>messagetype</itemkey>
+    <itemname>信息记录类型</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	 
+</templet_item>
+<templet_item>
+     <itemkey>recordtype</itemkey>
+    <itemname>信息段类型</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	 
+</templet_item>
+<templet_item>
+     <itemkey>occurdate</itemkey>
+    <itemname>错误日期</itemname>
+    <itemtype>日历</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	 
+</templet_item>
+<templet_item>
+     <itemkey>errfield</itemkey>
+    <itemname>错误数据项</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	 
+</templet_item>
+
+<templet_item>
+     <itemkey>financeid</itemkey>
+    <itemname>金融机构编码</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	 
+</templet_item>
+<templet_item>
+     <itemkey>recordkey</itemkey>
+    <itemname>记录主键</itemname>
+    <itemtype>文本框</itemtype>
+	<itemdefine></itemdefine>
+    <editformula>N</editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+	 
+</templet_item>
+</root>

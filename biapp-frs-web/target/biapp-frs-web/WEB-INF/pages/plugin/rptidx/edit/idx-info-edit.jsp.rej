@@ -1,0 +1,11 @@
+diff a/biapp-frs-web/src/main/webapp/WEB-INF/pages/plugin/rptidx/edit/idx-info-edit.jsp b/biapp-frs-web/src/main/webapp/WEB-INF/pages/plugin/rptidx/edit/idx-info-edit.jsp	(rejected hunks)
+@@ -12,9 +12,6 @@
+ </c:choose>
+ <head>
+ <style type="text/css">
+-#navtab {
+-	height: 90%;
+-}
+ #navtab iframe {
+ 	border: none;
+     width: 100%;

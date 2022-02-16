@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+<templet>
+<templetname>汇总型校验</templetname>
+<fromtable>east_cr_rule_aggr</fromtable>
+<savetable>east_cr_rule_aggr</savetable>
+<pkname>id</pkname>
+<querycontion/>
+<autocondition descr="自动查询时的条件"/>
+<autoquery descr="是否自动查询数据">N</autoquery>
+<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+<orderbys/>
+<card_btns/>
+<card_size>600*650</card_size>
+<card_isdebugborder>N</card_isdebugborder>
+<list_btns>明细/detail</list_btns>
+<list_issearch/>
+<list_ispagebar>N</list_ispagebar>
+<list_ischeckstyle>N</list_ischeckstyle>
+</templet>
+
+<templet_item>
+    <itemkey>id</itemkey>
+    <itemname>规则编号</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <defaultformula></defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <isonlyone>Y</isonlyone>
+    <formatvalidate></formatvalidate>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue>SELECT NVL(max(ID),0)+1 from east_cr_rule_aggr</defvalue>
+</templet_item>
+
+
+<templet_item>
+    <itemkey>relative</itemkey>
+    <itemname>最大相对误差</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>grp_col_name</itemkey>
+    <itemname>总表分组中文字段名</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>120,300</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>300</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>expr</itemkey>
+    <itemname>汇总计算表达式</itemname>
+    <itemtype>多行文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>90,300*220</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>200</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+</root>

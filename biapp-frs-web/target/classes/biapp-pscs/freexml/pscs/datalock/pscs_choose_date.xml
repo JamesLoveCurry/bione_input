@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>选择日期</templetname>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>data_dt</itemkey>
+		<itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>280</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>type</itemkey>
+		<itemname>频度</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"1/按日|2/按月"}</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>280</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>
+

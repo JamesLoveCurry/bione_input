@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+    <view name="V_IMAS_RESULT_RULE_SUMMARY" descr="V_IMAS_RESULT_RULE_SUMMARY">
+        CREATE OR REPLACE VIEW V_IMAS_RESULT_RULE_SUMMARY AS
+        SELECT
+        s.data_dt,
+        s.rule_id,
+        r.rule_name,
+        s.tab_name,
+        b.tab_name_en,
+        r.col_name,
+        r.disp_cd,
+        s.pass_count+s.fail_count sum_count,
+        s.fail_count,
+        case when s.pass_count+s.fail_count=0 then '' else
+        to_char(ROUND(s.fail_count/(s.pass_count+s.fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+        s.create_tm,
+        s.rid,
+        s.org_no,
+        r.rule_source,
+        s.busi_type
+        FROM
+        imas_result_rule_summary s
+        LEFT JOIN
+        imas_cr_rule r
+        ON
+        s.rule_id = r.id
+        LEFT JOIN
+        imas_cr_tab b
+        ON
+        s.tab_name = b.tab_name
+    </view>
+
+    <view name="V_IMAS_RESULT_TAB_ORG_SUMMARY" descr="V_IMAS_RESULT_TAB_ORG_SUMMARY">
+        CREATE OR REPLACE VIEW V_IMAS_RESULT_TAB_ORG_SUMMARY AS
+        SELECT
+        org.org_no,
+        org.org_nm,
+        pass_count + fail_count sum_count,
+        fail_count,
+        CASE
+        WHEN pass_count + fail_count = 0 THEN
+        ''
+        ELSE
+        TO_CHAR (
+        ROUND (
+        fail_count / (pass_count + fail_count),
+        4
+        ) * 100,
+        'FM999990.00'
+        ) || '%'
+        END AS fail_rate,
+        data_dt,
+        tab_name,
+        busi_type
+        FROM
+        (
+        SELECT
+        org_no,
+        SUM (pass_count) pass_count,
+        SUM (fail_count) fail_count,
+        data_dt,
+        tab_name,
+        busi_type
+        FROM
+        imas_result_tab_summary
+        GROUP BY
+        org_no,
+        data_dt,
+        tab_name,
+        busi_type
+        ORDER BY
+        data_dt DESC,
+        fail_count DESC
+        ) SUMMARY
+        LEFT JOIN
+        rpt_org_info org
+        ON
+        SUMMARY.org_no = org.org_no
+        AND org.org_type = 'IMAS'
+        ORDER BY
+        data_dt DESC,
+        fail_count DESC
+    </view>
+
+    <view name="V_IMAS_RESULT_TAB_SUMMARY" descr="V_IMAS_RESULT_TAB_SUMMARY">
+        CREATE OR REPLACE VIEW V_IMAS_RESULT_TAB_SUMMARY AS
+        SELECT
+        tab_name,
+        tab_name_en,
+        sum(pass_count)+sum(fail_count) sum_count,
+        sum(fail_count) fail_count,
+        case when sum(pass_count)+sum(fail_count)=0 then '' else
+        to_char(ROUND(sum(fail_count)/(sum(pass_count)+sum(fail_count)),4)*100,'FM999990.00')||'%' end AS fail_rate,
+        data_dt,
+        org_no,
+        busi_type
+        FROM
+        (
+        SELECT
+        a.tab_name,
+        b.tab_name_en,
+        SUM(a.pass_count) pass_count,
+        SUM(a.fail_count) fail_count,
+        a.data_dt,
+        a.org_no,
+        a.busi_type
+        FROM
+        imas_result_tab_summary a,imas_cr_tab b
+        WHERE
+        a.tab_name = b.tab_name
+        GROUP BY
+        a.tab_name,
+        b.tab_name_en,
+        a.data_dt,
+        a.org_no,
+        a.busi_type) summary
+        GROUP BY
+        org_no,
+        tab_name,
+        tab_name_en,
+        data_dt,
+        busi_type
+        ORDER BY
+        data_dt desc,
+        fail_count DESC
+    </view>
+
+
+    <view name="V_IMAS_DATA_SUMMARY" descr="V_IMAS_DATA_SUMMARY">
+        create view V_IMAS_DATA_SUMMARY as
+        SELECT b.RPT_ORG_NO || a.TAB_NAME_EN || b.DATA_DT                                AS rid,
+        a.tab_name                                                                AS tab_name,
+        a.tab_name_en                                                             AS tab_name_en,
+        b.rpt_org_no                                                              AS rpt_org_no,
+        b.data_dt                                                                 AS data_dt,
+        (CASE WHEN b.etl_count IS NULL THEN 0 ELSE b.etl_count END)               AS etl_count,--etl加工
+        (CASE WHEN b.entry_count IS NULL THEN 0 ELSE b.entry_count END)           AS entry_count,--前台录入
+        (CASE WHEN b.total_count IS NULL THEN 0 ELSE b.total_count END)           AS total_count,--总数据量
+        (CASE WHEN b.update_count IS NULL THEN 0 ELSE b.update_count END)         AS update_count,--修改数据量
+        (CASE
+        WHEN m.count IS NULL THEN (CASE WHEN k.DATA_DT IS NULL THEN 0 ELSE 1 END)
+        ELSE m.count + 1 END)                                                AS check_times,--校验次数
+        (CASE
+        WHEN g.exec_rule_num IS NULL OR
+        (CASE WHEN m.count IS NULL THEN (CASE WHEN k.DATA_DT IS NULL THEN 0 ELSE 1 END) ELSE m.count + 1 END) =
+        0 THEN 0
+        ELSE g.exec_rule_num END)                                            AS exec_rule_num,--执行规则
+        (CASE WHEN n.count IS NULL THEN 0 ELSE n.count END)                       AS trigger_rule,--触发规则
+        (CASE
+        WHEN l.FAIL_COUNT IS NULL THEN (CASE WHEN k.FAIL_COUNT IS NULL THEN 0 ELSE k.FAIL_COUNT END)
+        ELSE l.FAIL_COUNT END)                                               AS first_check_num,--首次校验可疑数据量
+        (CASE WHEN k.FAIL_COUNT IS NULL THEN 0 ELSE k.FAIL_COUNT END)             AS latest_check_num,--最新校验可疑数据量
+        (CASE WHEN h.DATA_COUNT IS NULL THEN 0 ELSE h.DATA_COUNT END)             AS distributed_num,--下发数据量
+        (CASE WHEN h.TRACK_COUNT IS NULL THEN 0 ELSE h.TRACK_COUNT END)           AS add_data_num,--补录数据
+        (CASE WHEN h.FOR_SAVE_COUNT IS NULL THEN 0 ELSE h.FOR_SAVE_COUNT END)     AS force_preserve,--强制保存
+        (CASE WHEN h.FOR_SUBMIT_COUNT IS NULL THEN 0 ELSE h.FOR_SUBMIT_COUNT END) AS add_force_sub_num,--补录强制提交
+        (CASE
+        WHEN h.TRACK_TASK IS NULL OR h.ALL_TRACK_TASK IS NULL THEN '0/0'
+        ELSE h.TRACK_TASK || '/' || h.ALL_TRACK_TASK END)                    AS add_tast_num,--补录任务数
+        (CASE
+        WHEN h.TO_AUDIT_TASK IS NULL OR h.ALL_AUDIT_TASK IS NULL THEN '0/0'
+        ELSE h.TO_AUDIT_TASK || '/' || h.ALL_AUDIT_TASK END)                 AS examine,--审核
+        c.STATUS                                                                  AS lock_status,--是否加锁
+        (CASE WHEN p.seq IS NULL THEN 0 ELSE p.seq END)                           AS msg_pri_num,--报文片数
+        (CASE
+        WHEN j.REPORT_SUCCESS_SUM IS NULL THEN 0
+        ELSE to_number(j.REPORT_SUCCESS_SUM) END)                            AS msg_data_num,--报文数据量
+        (CASE WHEN j.UPLOAD_COUNT IS NULL THEN 0 ELSE j.UPLOAD_COUNT END)         AS msg_sub_times,--报送次数
+        j.upload_status                                                           AS pbc_force_sub,--人行强制提交
+        1                                                                         AS MSG_FORCE_STATUS,--强制提交状态
+        o.RES_STATE                                                               AS receipt, --回执
+        nvl(h.TRACK_TASK, 0)                                                      as track_task,
+        nvl(h.ALL_TRACK_TASK, 0)                                                  as all_track_task,
+        nvl(h.TO_AUDIT_TASK, 0)                                                   as to_audit_task,
+        nvl(h.ALL_AUDIT_TASK, 0)                                                  as all_audit_task
+        FROM imas_cr_tab a
+        left join (
+        SELECT tab_name_en,
+        data_dt,
+        rpt_org_no,
+        sum(CASE WHEN source_type = '1' AND total_count IS NOT NULL THEN total_count ELSE '0' END) AS etl_count,
+        sum(CASE
+        WHEN source_type IN ('2', '3') AND total_count IS NOT NULL THEN total_count
+        ELSE '0' END)                                                                      AS entry_count,
+        sum(CASE WHEN source_type = '5' AND total_count IS NOT NULL THEN total_count ELSE '0' END) AS update_count,
+        sum(CASE
+        WHEN source_type IN ('1', '2', '3') AND total_count IS NOT NULL THEN total_count
+        ELSE '0' END)                                                                      AS total_count
+        FROM imas_cr_statistical
+        GROUP BY tab_name_en,
+        data_dt,
+        rpt_org_no
+        ) b
+        ON
+        a.tab_name_en = b.tab_name_en
+        left join
+        imas_lock_data c
+        ON a.TAB_NAME = c.TAB_NAME AND b.data_dt = c.data_dt and c.org_no = b.rpt_org_no
+        left join (
+        SELECT tab_name,
+        data_dt,
+        sum(fail_count) AS fail_count,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )           AS rpt_org_no
+        FROM IMAS_RESULT_TAB_SUMMARY
+        GROUP BY tab_name,
+        data_dt,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )) k ON a.TAB_NAME = k.TAB_NAME
+        AND b.data_dt = k.data_dt
+        AND b.rpt_org_no = k.rpt_org_no
+        left join (
+        SELECT tab_name,
+        data_dt,
+        count(1) AS count,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )    AS rpt_org_no
+        FROM IMAS_RESULT_TAB_SUMMARY_HIS
+        GROUP BY tab_name,
+        data_dt,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )) m ON a.TAB_NAME = m.TAB_NAME
+        AND b.data_dt = m.data_dt
+        AND b.rpt_org_no = m.rpt_org_no
+        left join (SELECT tab_name, count(*) AS exec_rule_num FROM imas_cr_rule GROUP BY tab_name) g
+        ON a.TAB_NAME = g.TAB_NAME
+        left join (
+        SELECT tab_name,
+        data_dt,
+        sum(1) AS count,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )  AS rpt_org_no
+        FROM IMAS_RESULT_RULE_SUMMARY
+        WHERE fail_count > 0
+        GROUP BY tab_name,
+        data_dt,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )) n ON a.TAB_NAME = n.TAB_NAME
+        AND b.data_dt = n.data_dt
+        AND b.rpt_org_no = n.rpt_org_no
+        left join (
+        SELECT tab_name,
+        data_dt,
+        sum(FAIL_COUNT) AS FAIL_COUNT,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )           AS rpt_org_no
+        FROM IMAS_RESULT_TAB_SUMMARY_HIS
+        WHERE (
+        tab_name,
+        data_dt,
+        create_tm,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )) IN (
+        SELECT tab_name,
+        data_dt,
+        min(create_tm) AS create_tm,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )
+        FROM IMAS_RESULT_TAB_SUMMARY_HIS
+        GROUP BY tab_name,
+        data_dt,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )
+        )
+        GROUP BY tab_name,
+        data_dt,
+        SUBSTR(
+        BUSI_TYPE,
+        INSTR(BUSI_TYPE, '_', 1, 1) + 1,
+        INSTR(BUSI_TYPE, '_', 1, 2) - INSTR(BUSI_TYPE, '_', 1, 1) - 1
+        )) l ON a.TAB_NAME = l.TAB_NAME
+        AND b.data_dt = l.data_dt and b.rpt_org_no = l.rpt_org_no
+        left join (
+        SELECT tab_name_en,
+        data_dt,
+        rpt_org_no,
+        sum(data_count)       AS DATA_COUNT,
+        sum(TRACK_TASK)       AS TRACK_TASK,
+        sum(ALL_TRACK_TASK)   AS ALL_TRACK_TASK,
+        sum(TRACK_COUNT)      AS TRACK_COUNT,
+        sum(FOR_SAVE_COUNT)   AS FOR_SAVE_COUNT,
+        sum(FOR_SUBMIT_COUNT) AS FOR_SUBMIT_COUNT,
+        sum(TO_AUDIT_TASK)    AS TO_AUDIT_TASK,
+        sum(ALL_AUDIT_TASK)   AS ALL_AUDIT_TASK
+        FROM IMAS_FILLING_RECORD
+        WHERE (tab_name_en, data_dt, dept_no, count, rpt_org_no) IN
+        (SELECT tab_name_en, data_dt, dept_no, max(count), rpt_org_no
+        FROM IMAS_FILLING_RECORD
+        GROUP BY tab_name_en, data_dt, dept_no, rpt_org_no)
+        GROUP BY tab_name_en,
+        data_dt,
+        rpt_org_no
+        ) h ON a.TAB_NAME_en = h.TAB_NAME_en
+        AND b.data_dt = h.data_dt
+        AND b.rpt_org_no = h.rpt_org_no
+        left join (
+        SELECT *
+        FROM imas_cr_report
+        WHERE (org_no, data_dt, tab_name, end_tm) IN (SELECT org_no, data_dt, tab_name, max(end_tm)
+        FROM imas_cr_report
+        WHERE end_tm IS NOT NULL
+        GROUP BY org_no, data_dt, tab_name)) j
+        ON a.TAB_NAME_en = j.TAB_NAME_en
+        AND b.data_dt = j.data_dt
+        AND b.rpt_org_no = j.org_no
+        left join (
+        SELECT *
+        FROM IMAS_REPORT_RECEIPT
+        WHERE (tab_name, data_dt, ORG_NO, CREATE_tm) IN (SELECT tab_name, data_dt, ORG_NO, max(CREATE_tm)
+        FROM IMAS_REPORT_RECEIPT
+        WHERE CREATE_tm IS NOT NULL
+        GROUP BY tab_name, data_dt, ORG_NO)) o ON a.TAB_NAME = o.TAB_NAME
+        AND b.data_dt = o.data_dt
+        AND b.rpt_org_no = o.org_no
+        left join (SELECT rep_rid, max(seq) AS seq FROM IMAS_CR_REPORT_SEPARATE GROUP BY rep_rid) p
+        ON j.rid = p.rep_rid
+        WHERE a.tab_name_en LIKE 'IMAS_%'
+        ORDER BY a.tab_name_en
+    </view>
+
+    <view name="V_IMAS_AREA_INFO" descr="V_IMAS_AREA_INFO">
+        select
+        t.area_cd,
+        t.area_name,
+        t.area_lvl,
+        t.p_area_cd,
+        t.order_no
+        from
+        rpt_std_area_info t
+        where
+        t.area_cd not in ('710000','810000','820000','999999','100000')
+        order by order_no
+    </view>
+
+    <view name="V_IMAS_RPT_SUMMARY" descr="V_IMAS_RPT_SUMMARY">
+        create view V_IMAS_RPT_SUMMARY as
+        SELECT sys_guid() as rid,
+        rpt_org_no,
+        data_dt,
+        SUM(TOTAL_COUNT) AS TOTAL_COUNT,
+        SUM(update_count) AS UPDATE_COUNT,
+        SUM(exec_rule_num) AS EXEC_RULE_NUM,
+        SUM(trigger_rule) AS TRIGGER_RULE,
+        SUM(FIRST_CHECK_NUM) AS FIRST_CHECK_NUM,
+        SUM(nvl(TO_AUDIT_TASK, 0)) as to_audit_task,
+        SUM(nvl(ALL_TRACK_TASK, 0)) as all_track_task,
+        SUM(LATEST_CHECK_NUM) AS LATEST_CHECK_NUM,
+        SUM(DISTRIBUTED_NUM) AS DISTRIBUTED_NUM,
+        SUM(add_data_num) + SUM(force_preserve) + sum(add_force_sub_num) AS ADD_DATA_NUM,
+        SUM(msg_data_num) AS MSG_DATA_NUM,
+        (SELECT COUNT(1)
+        FROM IMAS_CR_REPORT R
+        WHERE R.DATA_DT = DATA_DT
+        AND R.ORG_NO = RPT_ORG_NO
+        AND R.UPLOAD_STATUS NOT IN ('0', '2', '3')) AS UPLOAD_TABLE,
+        '36' AS ALL_TABLE,
+        SUM(
+        CASE
+        WHEN RECEIPT = '1' THEN
+        1
+        ELSE
+        0
+        END
+        ) AS RECEIPT,
+        SUM(
+        CASE
+        WHEN RECEIPT = '0' THEN
+        1
+        ELSE
+        0
+        END
+        ) AS ERROR_RECEIPT,
+        SUM(
+        CASE
+        WHEN pbc_force_sub = '4' THEN
+        1
+        ELSE
+        0
+        END
+        ) AS pbc_force_sub
+        FROM V_IMAS_DATA_SUMMARY
+        GROUP BY rpt_org_no,
+        data_dt
+    </view>
+</root>
+

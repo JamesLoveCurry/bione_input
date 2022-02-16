@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.bione.plugin.datashow.repository.IdxShowMybatisDao">
+	
+	<select id="getCurrentDate"
+		resultType="com.yusys.bione.plugin.datashow.web.vo.CerrWorkDateVO"
+		parameterType="HashMap">
+		SELECT * FROM
+		cerr.cerr_ump_b_workdate where 1 = 1
+		<if test="dataItemNum != null">
+			and FLW_NM = #{dataItemNum}
+		</if>
+		order by FLW_NM desc
+	</select>
+	
+	<select id="getIdxBaseInfo" resultType="com.yusys.bione.plugin.datashow.web.vo.IdxBaseInfoVO" parameterType="HashMap">
+		SELECT
+		    t1.INDEX_NO     AS indexNo,
+		    t1.INDEX_VER_ID AS indexVerId,
+		    t1.INDEX_NM     AS indexNm,
+		    t1.INDEX_TYPE   AS indexType,
+		    t1.START_DATE   AS startDate,
+		    t1.END_DATE     AS endDate,
+		    t1.CALC_CYCLE   AS calcCycle,
+		    t1.DATA_TYPE    AS dataType,
+		    t1.INDEX_STS    AS indexSts,
+		    t2.BUSI_RULE    AS serviceRule,
+		    t2.BUSI_DEF     AS serviceDef,
+		    t2.DEF_DEPT     AS defDept,
+		    t2.USE_DEPT     AS useDept,
+		    t1.IS_SUM 		as isSum,
+		    t1.DATA_PRECISION as dataPrecision,
+		    t1.REMARK
+		FROM
+		    RPT_IDX_INFO t1
+		LEFT JOIN
+		    RPT_IDX_BUSI_EXT t2
+		ON
+		    t1.INDEX_NO = t2.INDEX_NO
+		AND t1.INDEX_VER_ID = t2.INDEX_VER_ID
+		<where>
+			<if test='idxNo != null'>
+				AND t1.INDEX_NO=#{idxNo}
+			</if>
+			<if test='verId != null'>
+				AND t1.INDEX_VER_ID=#{verId}
+			</if>
+		</where>
+	</select>
+	<select id="findIdxDim" resultType="com.yusys.bione.plugin.datashow.web.vo.IdxDimInfoVO" parameterType="HashMap">
+		SELECT DISTINCT
+		    t3.DIM_TYPE_NO     AS dimTypeNo,
+		    t2.DIM_NO          AS dimNo,
+		    t2.DS_ID           AS dsId,
+		    t2.DIM_TYPE        AS dimType,
+		    t2.STORE_COL       AS storeCol,
+		    t2.ORDER_NUM       AS orderNum,
+		    t3.CATALOG_ID      AS catalogId,
+		    t3.DIM_TYPE_NM     AS dimTypeNm,
+		    t3.DIM_TYPE_EN_NM  AS dimTypeEnNm,
+		    t3.DIM_TYPE_DESC   AS dimTypeDesc,
+		    t3.DIM_TYPE_STRUCT AS dimTypeStruct
+		FROM
+		    RPT_IDX_INFO t1
+		JOIN
+		    RPT_IDX_DIM_REL t2
+		ON
+		    t1.INDEX_NO = t2.INDEX_NO
+		AND t1.INDEX_VER_ID = t2.INDEX_VER_ID
+		JOIN
+		    RPT_DIM_TYPE_INFO t3
+		ON
+		    t2.DIM_NO = t3.DIM_TYPE_NO
+		<where>
+			<if test='idxNo != null'>
+				AND t1.INDEX_NO=#{idxNo}
+			</if>
+			<if test='verId != null'>
+				AND t1.INDEX_VER_ID=#{verId}
+			</if>
+			<if test="excludeDimType != null">
+				and t2.Dim_type != #{excludeDimType}
+			</if>
+		</where>
+	</select>
+	<select id="findDimTypeByIdx" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo" parameterType="HashMap">
+		SELECT
+		    t2.DIM_TYPE_NO     AS dimTypeNo,
+		    t2.CATALOG_ID      AS catalogId,
+		    t2.DIM_TYPE        AS dimType,
+		    t2.DIM_TYPE_NM     AS dimTypeNm,
+		    t2.DIM_TYPE_EN_NM  AS dimTypeEnNm,
+		    t2.DIM_TYPE_DESC   AS dimTypeDesc,
+		    t2.DIM_TYPE_STRUCT AS dimTypeStruct
+		FROM
+		    RPT_IDX_DIM_REL t1
+		LEFT JOIN
+		    RPT_DIM_TYPE_INFO t2
+		ON
+		    t1.DIM_NO = t2.DIM_TYPE_NO
+		WHERE
+		    t1.INDEX_NO=#{idxNo}
+		AND t1.INDEX_VER_ID=#{verId}
+	</select>
+	<select id="findDimItemByDimTypeNo" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo" parameterType="String">
+		SELECT
+		    DIM_ITEM_NO AS "id.dimItemNo",
+		    DIM_TYPE_NO AS "id.dimTypeNo",
+		    DIM_ITEM_NM AS dimItemNm,
+		    UP_NO       AS upNo,
+		    REMARK      AS remark
+		FROM
+		    RPT_DIM_ITEM_INFO
+		WHERE
+    		DIM_TYPE_NO=#{dimTypeNo}
+	</select>
+	<select id="findDimItemBy"></select>
+	<select id="findStoreIdxInfo" resultType="com.yusys.bione.plugin.datashow.web.vo.FavIdxDetailInfoVO" parameterType="String">
+		SELECT
+		    *
+		FROM
+		    RPT_FAV_IDX_DETAIL t
+		LEFT JOIN
+		    RPT_IDX_INFO i
+		ON
+		    t.INDEX_NO = i.INDEX_NO
+		left join 
+			RPT_IDX_MEASURE_INFO m
+		on
+			t.MEASURE_NO = m.MEASURE_NO
+		WHERE
+			i.end_date = '29991231'
+		    and t.INSTANCE_ID=#{instanceId}
+		ORDER BY
+		    t.ORDER_NUM
+	</select>
+	<select id="getOrgSimpleInfo" resultType="com.yusys.bione.plugin.datashow.web.vo.RptOrgInfoVO" parameterType="HashMap">
+		SELECT
+		    t.ORG_NO,
+		    t.ORG_NM
+		FROM
+		    RPT_ORG_INFO t,
+		    BIONE_ORG_INFO i
+		WHERE
+		    t.ORG_NO = i.ORG_NO
+		AND i.LOGIC_SYS_NO = #{logicSysNo}
+		AND t.ORG_NO = #{orgNo}
+		AND t.ORG_TYPE='01'
+	</select>
+	<select id="getUserIdxDefSrc" resultType="String" parameterType="HashMap">
+		SELECT
+		    t.DEF_SRC
+		FROM
+		    RPT_IDX_INFO t
+		WHERE 1=1
+		<if test="orgNo!=null and userNo!=null">
+		 AND 
+		 (t.DEF_ORG = #{orgNo}
+			OR (
+		        t.DEF_USER = #{userNo}
+		    	OR  t.DEF_USER IS NULL
+		    )
+		 )
+		</if>
+		   
+		AND t.INDEX_STS &lt;&gt; 'N'
+		GROUP BY
+		    t.DEF_SRC
+	</select>
+	<select id="findIdxInfoBySrc" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo" parameterType="HashMap">
+		SELECT
+		    t.INDEX_NO as "id.indexNo",
+		    t.INDEX_VER_ID as "id.indexVerId",
+		    t.INDEX_CATALOG_NO,
+		    t.INDEX_NM
+		FROM
+		    RPT_IDX_INFO t
+		<where>
+		    t.DEF_SRC=#{defSrc}
+		    AND t.INDEX_CATALOG_NO=#{upNo}
+		    AND t.INDEX_STS &lt;&gt; 'N'
+		    <if test="defOrg != null">
+				AND t.DEF_ORG=#{defOrg}
+		    </if>
+		    <if test="defUser != null">
+				AND t.DEF_USER=#{defUser}
+		    </if>
+		    <if test="indexNm">
+		    	AND t.INDEX_NM LIKE #{indexNm}
+		    </if>
+		</where>
+	</select>
+	<select id="findIdxCataInfoBySrc" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxCatalog" parameterType="HashMap">
+		SELECT
+		    t.INDEX_CATALOG_NO,
+		    t.INDEX_CATALOG_NM
+		FROM
+		    RPT_IDX_CATALOG t
+		<where>
+		    t.DEF_SRC=#{defSrc}
+		    AND t.UP_NO=#{upNo}
+		    <if test="defOrg != null">
+				AND t.DEF_ORG=#{defOrg}
+		    </if>
+		    <if test="defUser != null">
+				AND t.DEF_USER=#{defUser}
+		    </if>
+		</where>
+	</select>
+	<select id="findLimitIdxCataInfoBySrc" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxCatalog">
+		SELECT
+		    t.INDEX_CATALOG_NO,
+		    t.INDEX_CATALOG_NM,
+		    t.UP_NO,
+		    COUNT(i.INDEX_CATALOG_NO) AS remark
+		FROM
+		    (
+		        SELECT
+		            t.INDEX_CATALOG_NO,
+		            t.INDEX_CATALOG_NM,
+		            t.UP_NO
+		        FROM
+		            RPT_IDX_CATALOG t
+		        <where>
+		        	t.DEF_SRC=#{defSrc}
+		            <if test="defOrg != null">
+						AND t.DEF_ORG=#{defOrg}
+				    </if>
+				    <if test="defUser != null">
+						AND t.DEF_USER=#{defUser}
+				    </if>
+		        </where>
+			    ) t
+		LEFT JOIN
+		    (
+		        SELECT
+		            t.INDEX_CATALOG_NO
+		        FROM
+		            RPT_IDX_INFO t
+		        <where>
+		        	t.DEF_SRC=#{defSrc}
+		        	AND t.INDEX_STS &lt;&gt; 'N'
+		            <if test="defOrg != null">
+						AND t.DEF_ORG=#{defOrg}
+				    </if>
+				    <if test="defUser != null">
+						AND t.DEF_USER=#{defUser}
+				    </if>
+			        <if test="indexNm">
+				    	AND t.INDEX_NM LIKE #{indexNm}
+				    </if>
+		        </where>
+		     ) i
+		ON
+		    t.INDEX_CATALOG_NO = i.INDEX_CATALOG_NO
+		GROUP BY
+		    t.INDEX_CATALOG_NO,
+		    t.INDEX_CATALOG_NM,
+		    t.UP_NO
+	</select>
+</mapper>

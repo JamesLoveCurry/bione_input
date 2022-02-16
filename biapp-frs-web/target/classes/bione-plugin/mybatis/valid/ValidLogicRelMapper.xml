@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.valid.repository.ValidLogicRelMybatisDao">
+	<insert id="saveRel" parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicRptRel">
+		insert into RPT_VALID_LOGIC_RPT_REL(RPT_TEMPLATE_ID,CHECK_ID)
+		values(#{id.rptTemplateId},#{id.checkId})</insert>
+	<update id="updateRel" parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicRptRel">
+		update RPT_VALID_LOGIC_RPT_REL
+		<set>
+			<if test="id.rptTemplateId != null">RPT_TEMPLATE_ID=#{id.rptTemplateId},</if>
+			<if test="id.checkId != null">CHECK_ID=#{id.checkId}</if>
+		</set>
+		where 1=1 and RPT_TEMPLATE_ID=#{id.rptTemplateId}
+		and CHECK_ID=#{id.checkId}
+	</update>
+	<delete id="deleteRel" parameterType="HashMap">
+			delete from RPT_VALID_LOGIC_RPT_REL where 1=1
+			<if test="id != null">
+				<if test="id.rptTemplateId != null">and RPT_TEMPLATE_ID=#{id.rptTemplateId}</if>
+				<if test="id.checkId != null">and CHECK_ID=#{id.checkId}</if>
+			</if>
+			<if test="ids != null">
+				<foreach item="id" index="index" collection="ids" open="and ("
+				separator=") or (" close=")">RPT_TEMPLATE_ID=#{id.rptTemplateId} and CHECK_ID=#{id.checkId}</foreach>
+			</if>
+			<if test="checkId != null">and CHECK_ID=#{checkId}</if>
+		</delete>
+</mapper> 

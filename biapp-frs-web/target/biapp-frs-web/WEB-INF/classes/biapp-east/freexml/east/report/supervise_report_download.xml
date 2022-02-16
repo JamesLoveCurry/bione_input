@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>一键下载</templetname>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<list_ispagebar>N</list_ispagebar>
+	<list_ischeckstyle>N</list_ischeckstyle>
+	<list_ismultisel>N</list_ismultisel>
+</templet>
+
+<templet_item>
+    <itemkey>data_dt</itemkey>
+    <itemname>采集日期</itemname>
+	<itemtype>日历</itemtype>
+	<ismust>Y</ismust>
+	<card_isshow>Y</card_isshow>
+	<card_width>300</card_width>
+    <list_isshow>N</list_isshow>
+    <list_width>100</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+	<templet_item>
+		<itemkey>create_type</itemkey>
+		<itemname>生成类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"直接值","内容":"1/法人|2/归属地"}】</itemdefine><!-- {"类型":"直接值","内容":"日报|月报"} -->
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>90</list_width>
+		<list_align>中</list_align>
+		<!-- <list_colorformula>【colors=日报/#A6FFA6;月报/#FFBBFF】</list_colorformula> -->
+		<query_isshow>Y</query_isshow>
+		<query_width>250</query_width>
+		<query3_isshow>Y</query3_isshow>
+		<query3_iswrap>N</query3_iswrap>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>报送机构</itemname>
+		<itemtype>树型参照</itemtype>
+		<itemdefine>【templetcode=/biapp-east/freexml/common/east_rpt_org_info_comm_filter.xml】【cols=org_no->org_no;org_nm->org_name】【winsize=400*560】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_itemtype>自定义参照</query_itemtype>
+		<query_comparetype>in</query_comparetype>
+		<query_itemdefine>【jsfile=/yujs/east/common/east_comm_orgfilter_dialog1.js】【cols=org_no->org_no】【winsize=600*560】</query_itemdefine>
+		<checkbox>Y</checkbox>
+		<tree_ischeckboxcascade>Y</tree_ischeckboxcascade>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>addr</itemkey>
+		<itemname>归属地</itemname>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"SELECT ITEM ID,ITEM||'/'||ITEM_NAME NAME FROM RPT_STD_CODE_INFO WHERE RPT_TYPE='04' AND CODE_TYPE='EAST_ADDR' ORDER BY ORDER_NO"}】</itemdefine>
+		<card_isshow>Y</card_isshow>
+		<card_iswrap>Y</card_iswrap>
+		<card_width>300</card_width>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_iswrap>Y</query_iswrap>
+		<query_width>300</query_width>
+		<query_itemtype></query_itemtype>
+		<query_itemdefine></query_itemdefine>
+		<checkbox>N</checkbox>
+		<tree_ischeckboxcascade>N</tree_ischeckboxcascade>
+	</templet_item>
+
+</root>
+

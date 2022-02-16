@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.valid.repository.ValidWarnMybatisDao">
+	<select id="listWarn" resultType="com.yusys.bione.plugin.valid.web.vo.ValidCfgextWarnVO"
+	parameterType="HashMap">
+		select 	warn.CHECK_ID as "checkId",
+				warn.RPT_TEMPLATE_ID as "rptTemplateId",
+				warn.INDEX_NO as "indexNo",
+				warn.COMPARE_TYPE as "compareType",
+				warn.COMPARE_VAL_TYPE as "compareValType",
+				warn.RANGE_TYPE as "rangeType",
+				warn.start_date as "startDate",
+				warn.end_date as "endDate",
+				warn.remark as "remark",
+				warn.unit as "unit",
+				warn.is_frs as "isFrs",
+				CHECK_NM as "checkNm",
+				idx.index_nm as "indexNm",
+				l.level_num as "levelNum",
+				l.level_nm as "levelNm",
+				l.level_type as "levelType",
+				l.minus_range_val as "minusRangeVal",
+				l.postive_range_val as "postiveRangeVal",
+				l.remind_color as "remindColor",
+				l.is_pass_cond as "isPassCond"
+		from RPT_VALID_CFGEXT_WARN warn, 
+			 rpt_idx_info idx,
+			 rpt_valid_warn_level l
+		where warn.index_no = idx.index_no 
+			and warn.start_date = idx.start_date
+          	and warn.end_date = idx.end_date
+	     	and warn.check_id = l.check_id
+		<if test="checkNm != null">and warn.CHECK_NM = #{checkNm}</if>
+		<if test="checkId != null">and warn.CHECK_ID = #{checkId}</if>
+		<if test="compareValType != null">and warn.COMPARE_VAL_TYPE = #{compareValType}</if>
+		<if test="rangeType != null">and warn.RANGE_TYPE = #{rangeType}</if>
+		<if test="remark != null">and warn.remark = #{remark}</if>
+		<if test="rptTemplateId != null">and warn.RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+		<if test="unit != null">and warn.unit = #{unit}</if>
+		<if test="indexNo != null">and idx.INDEX_NO = #{indexNo}</if>
+		<if test="indexNm != null">and idx.index_nm like '%#{indexNm}%'</if>
+		<if test="compareType != null">and warn.compare_type = #{compareType}</if>
+		<if test="isFrs != null">and warn.isFrs = #{isFrs}</if>
+		<if test="endDate != null">
+			and warn.end_date = #{endDate}
+			and idx.end_date = #{endDate}
+		</if>
+		<if test="startDate != null">and warn.START_DATE &lt; #{startDate}</if>
+		<if test="dataDate != null">
+			and warn.start_date &lt;= #{dataDate}
+			and warn.end_date > #{dataDate}
+		</if>
+	</select>
+	<insert id="saveWarn" parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextWarn">insert into RPT_VALID_CFGEXT_WARN(CHECK_NM,CHECK_ID,COMPARE_VAL_TYPE,RANGE_TYPE,remark,RPT_TEMPLATE_ID,unit,INDEX_NO,START_DATE,END_DATE)
+		values(#{checkNm},#{checkId},#{compareValType},#{rangeType},#{remark},#{rptTemplateId},#{unit},#{indexNo},#{startDate},#{endDate})</insert>
+	<update id="updateWarn" parameterType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextWarn">
+		update RPT_VALID_CFGEXT_WARN
+		<set>
+			<if test="checkNm != null">CHECK_NM=#{checkNm},</if>
+			<if test="checkId != null">CHECK_ID=#{checkId},</if>
+			<if test="compareValType != null">COMPARE_VAL_TYPE=#{compareValType},</if>
+			<if test="rangeType != null">RANGE_TYPE=#{rangeType},</if>
+			<if test="remark != null">remark=#{remark},</if>
+			<if test="rptTemplateId != null">RPT_TEMPLATE_ID=#{rptTemplateId},</if>
+			<if test="unit != null">unit=#{unit},</if>
+			<if test="startDate != null">start_date=#{startDate},</if>
+			<if test="endDate != null">end_date=#{endDate},</if>
+			<if test="indexNo != null">INDEX_NO=#{indexNo}</if>
+		</set>
+		where 1=1 and CHECK_ID=#{checkId}
+	</update>
+	<delete id="deleteWarn" parameterType="HashMap">
+		delete from RPT_VALID_CFGEXT_WARN
+		where 1=1
+		<if test="checkId != null">and CHECK_ID=#{checkId}</if>
+		<if test="ids != null">and CHECK_ID in 
+			<foreach  collection = "ids" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach></if>
+		</delete>
+	
+
+	<select id="getTmpInfo" parameterType="HashMap" resultType="String">
+		select ver_start_date from RPT_DESIGN_TMP_INFO where 1=1
+		<if test="templateId != null">and template_id = #{templateId}</if>
+		<if test="endDate != null">and ver_end_Date = #{endDate}</if>
+	</select>
+	
+	<select id="getCellInfo" parameterType="HashMap"  resultType="String">
+		select cell_no from rpt_design_source_idx where ver_id = 
+			(select max(ver_id) from rpt_design_source_idx where template_id=#{templateId})
+		and template_id = #{templateId} and index_no = #{indexNo}</select>
+		
+	<select id="findCheckIds" parameterType="HashMap" resultType="string">
+		select CHECK_ID from RPT_VALID_CFGEXT_WARN  
+		where 1=1 
+		<if test="templateId != null">
+			and RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="endDate != null">
+			and END_DATE = #{endDate}
+		</if>
+		<if test="idxNo != null">
+			and INDEX_NO = #{idxNo}
+		</if>
+	</select>
+	<select id="findWarnByIdxNo" resultType="int" parameterType="HashMap">
+		select count(*) from RPT_VALID_CFGEXT_WARN warn
+		where 1 = 1
+		<if test="idxNo != null">
+			and warn.INDEX_NO = #{idxNo}
+		</if>
+	</select>
+
+	<select id="getCfgextWarnList" resultType="com.yusys.bione.plugin.valid.web.vo.CfgextWarnVO">
+		SELECT * FROM RPT_VALID_CFGEXT_WARN t1
+		    LEFT JOIN rpt_valid_warn_level t2 ON t1.check_id = t2.check_id
+		where 1=1
+		<if test="checkId != null">and t1.CHECK_ID = #{checkId}</if>
+		<if test="ids != null">and t1.CHECK_ID in
+			<foreach  collection = "ids" index="index" item="item"  open="("  separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="templateId != null">and t1.RPT_TEMPLATE_ID = #{templateId}</if>
+		<if test="startDate != null">and t1.START_DATE = #{startDate}</if>
+		<if test="endDate != null">and t1.END_DATE = #{endDate}</if>
+		<if test="endDate != null">and t1.END_DATE = #{endDate}</if>
+	</select>
+</mapper> 

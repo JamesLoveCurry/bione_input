@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+<table name="bione_org_info" pkname="org_id" descr="★机构信息表" bgcolor="#FFCEFF">
+<columns>
+  <col name="org_id"			type="varchar"   length="32"   descr="机构ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="org_name"			type="varchar"   length="100"   descr="机构名称"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="org_sts"			type="varchar"   length="1"   descr="机构状态"/>
+  <col name="namespace"			type="varchar"   length="500"   descr="命名空间"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+  <col name="att_sts"			type="varchar"   length="10"   descr="att状态"/>
+</columns>
+</table>
+
+<table name="bione_user_info" pkname="user_id" descr="★用户信息表"  bgcolor="#FFCEFF">
+<columns>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="user_no"			type="varchar"   length="32"   descr="用户标识"/>
+  <col name="user_pwd"			type="varchar"   length="100"   descr="用户密码"/>
+  <col name="user_name"			type="varchar"   length="100"   descr="用户名称"/>
+  <col name="sex"			type="varchar"   length="10"   descr="性别"/>
+  <col name="birthday"			type="varchar"   length="10"   descr="生日"/>
+  <col name="email"			type="varchar"   length="100"   descr="邮箱"/>
+  <col name="address"			type="varchar"   length="500"   descr="地址"/>
+  <col name="postcode"			type="varchar"   length="10"   descr="邮编"/>
+  <col name="mobile"			type="varchar"   length="20"   descr="手机号码"/>
+  <col name="tel"			type="varchar"   length="20"   descr="电话号码"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="dept_no"			type="varchar"   length="32"   descr="部门标识"/>
+  <col name="user_icon"			type="varchar"   length="500"   descr="用户图标"/>
+  <col name="user_sts"			type="varchar"   length="1"   descr="用户状态"/>
+  <col name="is_builtin"			type="varchar"   length="1"   descr="是否内置"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_pwd_update_time"			type="timestamp"   length="6"   descr="最后密码修改时间"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="user_agname"			type="varchar"   length="100"   descr="客户经理柜员号"/>
+  <col name="is_manager"			type="varchar"   length="1"   descr="是否管理者"/>
+  <col name="id_card"			type="varchar"   length="50"   descr="身份证号"/>
+</columns>
+</table>
+
+<table name="bione_menu_info" pkname="menu_id" descr="菜单信息表"  bgcolor="#FFCEFF">
+<columns>
+  <col name="menu_id"			type="varchar"   length="32"   descr="菜单ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="menu_name"			type="varchar"   length="100"   descr="菜单名称"/>
+  <col name="up_id"			type="varchar"   length="32"   descr="上级ID"/>
+  <col name="func_id"			type="varchar"   length="32"   descr="功能ID"/>
+  <col name="index_sts"			type="varchar"   length="1"   descr="首页状态"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="顺序编号"/>
+</columns>
+</table>
+
+<table name="bione_user_lock_info" pkname="logic_sys_no,user_id" descr="用户锁定信息">
+<columns>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="user_ip"			type="varchar"   length="50"   descr="用户IP"/>
+  <col name="error_times"			type="decimal"   length="12"   descr="错误次数"/>
+  <col name="lock_sts"			type="varchar"   length="1"   descr="锁定状态"/>
+  <col name="lock_time"			type="timestamp"   length="6"   descr="锁定时间"/>
+</columns>
+</table>
+
+
+<table name="bione_module_info" pkname="module_id" descr="功能模块信息表">
+<columns>
+  <col name="module_id"			type="varchar"   length="32"   descr="模块ID"/>
+  <col name="module_no"			type="varchar"   length="32"   descr="模块标识"/>
+  <col name="module_name"			type="varchar"   length="100"   descr="模块名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+<table name="bione_role_info" pkname="role_id" descr="角色信息表">
+<columns>
+  <col name="role_id"			type="varchar"   length="32"   descr="角色ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="role_no"			type="varchar"   length="32"   descr="角色标识"/>
+  <col name="role_name"			type="varchar"   length="100"   descr="角色名称"/>
+  <col name="role_type"			type="varchar"   length="10"   descr="角色类型"/>
+  <col name="role_sts"			type="varchar"   length="1"   descr="角色状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+  <col name="role_type_jg"			type="varchar"   length="10"   descr="角色所属报送业务标识"/>
+</columns>
+</table>
+
+<table name="bione_role_info_ext" pkname="code" descr="null">
+<columns>
+  <col name="code"			type="varchar"   length="10"   descr="业务角色码值"/>
+  <col name="code_desc"			type="varchar"   length="30"   descr="业务角色名称"/>
+</columns>
+</table>
+
+<table name="bione_dept_info" pkname="dept_id" descr="部门信息表">
+<columns>
+  <col name="dept_id"			type="varchar"   length="32"   descr="部门ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="dept_no"			type="varchar"   length="32"   descr="部门标识"/>
+  <col name="dept_name"			type="varchar"   length="100"   descr="部门名称"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="dept_sts"			type="varchar"   length="1"   descr="部门状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+</columns>
+</table>
+
+<table name="bione_driver_info" pkname="driver_id" descr="驱动类信息表" bgcolor="#AAFFFF">
+<columns>
+  <col name="driver_id"			type="varchar"   length="32"   descr="驱动ID"/>
+  <col name="driver_type"			type="varchar"   length="100"   descr="驱动类型"/>
+  <col name="driver_name"			type="varchar"   length="100"   descr="驱动名称"/>
+  <col name="conn_url"			type="varchar"   length="500"   descr="连接URL"/>
+  <col name="validation_query"			type="varchar"   length="200"   descr="测试连接sql"/>
+</columns>
+</table>
+
+<table name="bione_ds_info" pkname="ds_id" descr="★数据源信息表"  bgcolor="#AAFFFF">
+<columns>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="driver_id"			type="varchar"   length="32"   descr="驱动ID"/>
+  <col name="ds_name"			type="varchar"   length="100"   descr="数据源名称"/>
+  <col name="conn_url"			type="varchar"   length="500"   descr="连接URL"/>
+  <col name="conn_user"			type="varchar"   length="100"   descr="连接用户"/>
+  <col name="conn_pwd"			type="varchar"   length="100"   descr="连接密码"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="host"			type="varchar"   length="50"   descr="主机"/>
+  <col name="port"			type="varchar"   length="5"   descr="端口"/>
+  <col name="dbname"			type="varchar"   length="100"   descr="数据库名"/>
+  <col name="schema2"			type="varchar"   length="100"   descr="数据库架构名"   remark="以前叫schema,但在MySQL中违反关键字,故改名" />
+</columns>
+</table>
+
+<table name="bione_dataset_info" pkname="dataset_id" descr="bione数据集">
+<columns>
+  <col name="dataset_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="ds_type"			type="varchar"   length="10"   descr="数据源类型"/>
+  <col name="dataset_name"			type="varchar"   length="100"   descr="数据集名称"/>
+  <col name="t_ename"			type="varchar"   length="100"   descr="表英文名"/>
+  <col name="query_sql"			type="varchar"   length="1000"   descr="查询SQL"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+<table name="bione_logic_sys_info" pkname="logic_sys_id" descr="逻辑系统信息表" bgcolor="#FFFFA4">
+<columns>
+  <col name="logic_sys_id"			type="varchar"   length="32"   descr="逻辑系统ID"/>
+  <col name="auth_src_id"			type="varchar"   length="32"   descr="认证源ID"/>
+  <col name="auth_type_no"			type="varchar"   length="32"   descr="认证方式标识"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="logic_sys_name"			type="varchar"   length="100"   descr="逻辑系统名称"/>
+  <col name="logic_sys_icon"			type="varchar"   length="500"   descr="逻辑系统图标"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="logic_sys_sts"			type="varchar"   length="1"   descr="逻辑系统状态"/>
+  <col name="is_builtin"			type="varchar"   length="1"   descr="是否内置"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+  <col name="system_version"			type="varchar"   length="200"   descr="系统版本"/>
+  <col name="cn_copyright"			type="varchar"   length="200"   descr="中文版权"/>
+  <col name="en_copyright"			type="varchar"   length="200"   descr="英文版权"/>
+  <col name="logic_sys_type"			type="varchar"   length="10"   descr="逻辑系统类型"/>
+  <col name="visit_url"			type="varchar"   length="500"   descr="访问URL"/>
+  <col name="auth_url"			type="varchar"   length="500"   descr="认证URL"/>
+</columns>
+</table>
+
+<table name="bione_admin_user_info" pkname="logic_sys_id,user_id" descr="逻辑系统管理员信息表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="logic_sys_id"			type="varchar"   length="32"   descr="逻辑系统ID"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="user_sts"			type="varchar"   length="1"   descr="用户状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+</columns>
+</table>
+
+
+<table name="bione_func_info" pkname="func_id" descr="功能信息表" bgcolor="#FFFFA4">
+<columns>
+  <col name="func_id"			type="varchar"   length="32"   descr="功能ID"/>
+  <col name="module_id"			type="varchar"   length="32"   descr="模块ID"/>
+  <col name="func_name"			type="varchar"   length="100"   descr="功能名称"/>
+  <col name="up_id"			type="varchar"   length="32"   descr="上级ID"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="nav_icon"			type="varchar"   length="100"   descr="导航图标"/>
+  <col name="nav_path"			type="varchar"   length="200"   descr="导航路径"/>
+  <col name="func_sts"			type="varchar"   length="1"   descr="功能状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_auth_info" pkname="auth_type_no" descr="认证信息表" bgcolor="#FFFFA4">
+<columns>
+  <col name="auth_type_no"			type="varchar"   length="32"   descr="认证方式标识"/>
+  <col name="auth_type_name"			type="varchar"   length="100"   descr="认证方式名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+  <col name="is_builtin"			type="varchar"   length="1"   descr="是否内置"/>
+  <col name="is_sso"			type="varchar"   length="1"   descr="是否单点"/>
+</columns>
+</table>
+
+<table name="bione_auth_info_cas" pkname="auth_src_id" descr="CAS认证源信息" bgcolor="#FFFFA4">
+<columns>
+  <col name="auth_src_id"			type="varchar"   length="32"   descr="认证源ID"/>
+  <col name="auth_type_no"			type="varchar"   length="32"   descr="认证方式标识"/>
+  <col name="ip_address"			type="varchar"   length="50"   descr="IP地址"/>
+  <col name="server_port"			type="varchar"   length="5"   descr="服务端口"/>
+  <col name="server_name"			type="varchar"   length="100"   descr="服务名称"/>
+  <col name="server_protocol"			type="varchar"   length="10"   descr="服务协议"/>
+  <col name="auth_src_name"			type="varchar"   length="100"   descr="认证源名称"/>
+</columns>
+</table>
+
+<table name="bione_auth_info_ldap" pkname="auth_src_id" descr="LDAP认证源信息" bgcolor="#FFFFA4">
+<columns>
+  <col name="auth_src_id"			type="varchar"   length="32"   descr="认证源ID"/>
+  <col name="auth_type_no"			type="varchar"   length="32"   descr="认证方式标识"/>
+  <col name="ip_address"			type="varchar"   length="50"   descr="IP地址"/>
+  <col name="server_port"			type="varchar"   length="5"   descr="服务端口"/>
+  <col name="base_name"			type="varchar"   length="100"   descr="基准名称"/>
+  <col name="base_pwd"			type="varchar"   length="100"   descr="基准密码"/>
+  <col name="user_find_attr"			type="varchar"   length="32"   descr="用户查找属性"/>
+  <col name="userdn_template"			type="varchar"   length="100"   descr="用户DN模版"/>
+  <col name="auth_src_name"			type="varchar"   length="100"   descr="认证源名称"/>
+</columns>
+</table>
+
+<table name="bione_auth_info_ua" pkname="auth_src_id" descr="UA认证源信息" bgcolor="#FFFFA4">
+<columns>
+  <col name="auth_src_id"			type="varchar"   length="32"   descr="认证源ID"/>
+  <col name="auth_type_no"			type="varchar"   length="32"   descr="认证方式标识"/>
+  <col name="auth_system_no"			type="varchar"   length="32"   descr="认证系统标识"/>
+  <col name="ip_address"			type="varchar"   length="50"   descr="IP地址"/>
+  <col name="server_port"			type="varchar"   length="5"   descr="服务端口"/>
+  <col name="auth_src_name"			type="varchar"   length="100"   descr="认证源名称"/>
+</columns>
+</table>
+
+<table name="bione_auth_objgrp_info" pkname="objgrp_id" descr="授权对象组信息表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="objgrp_id"			type="varchar"   length="32"   descr="对象组ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="objgrp_no"			type="varchar"   length="32"   descr="对象组标识"/>
+  <col name="objgrp_name"			type="varchar"   length="100"   descr="对象组名称"/>
+  <col name="objgrp_sts"			type="varchar"   length="1"   descr="对象组状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+</columns>
+</table>
+
+<table name="bione_auth_objgrp_obj_rel" pkname="logic_sys_no,obj_def_no,objgrp_id,obj_id"  descr="授权对象组与授权对象关系表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="对象定义标识"/>
+  <col name="objgrp_id"			type="varchar"   length="32"   descr="对象组ID"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+</columns>
+</table>
+
+<table name="bione_auth_obj_def" pkname="obj_def_no" descr="授权对象定义表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="对象定义标识"/>
+  <col name="obj_def_name"			type="varchar"   length="100"   descr="对象定义名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+  <col name="is_builtin"			type="varchar"   length="1"   descr="是否内置"/>
+  <col name="obj_def_order"			type="decimal"   length="12"   descr="授权对象顺序"/>
+</columns>
+</table>
+
+<table name="bione_auth_obj_res_rel" pkname="logic_sys_no,obj_def_no,res_def_no,permission_type,obj_id,res_id,permission_id" descr="授权对象与资源关系表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="对象定义标识"/>
+  <col name="res_def_no"			type="varchar"   length="32"   descr="资源定义标识"/>
+  <col name="permission_type"			type="varchar"   length="10"   descr="许可类型"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+  <col name="res_id"			type="varchar"   length="32"   descr="资源ID"/>
+  <col name="permission_id"			type="varchar"   length="32"   descr="许可ID"/>
+  <col name="res_type"			type="varchar"   length="10"   descr="资源类型"/>
+</columns>
+</table>
+
+<table name="bione_auth_obj_sys_rel" pkname="obj_def_no,logic_sys_no" descr="授权对象与逻辑系统关系表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="对象定义标识"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+</columns>
+</table>
+
+<table name="bione_auth_obj_user_rel" pkname="logic_sys_no,obj_def_no,obj_id,user_id" descr="授权对象与用户关系表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="对象定义标识"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+</columns>
+</table>
+
+<table name="bione_auth_res_def" pkname="res_def_no" descr="授权资源定义表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="res_def_no"			type="varchar"   length="32"   descr="资源定义标识"/>
+  <col name="res_name"			type="varchar"   length="100"   descr="资源名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+  <col name="is_builtin"			type="varchar"   length="1"   descr="是否内置"/>
+  <col name="res_def_order"			type="decimal"   length="12"   descr="资源授权顺序"/>
+</columns>
+</table>
+
+<table name="bione_auth_res_sys_rel" pkname="res_def_no,logic_sys_no" descr="授权资源与逻辑系统关系表"  bgcolor="#FFFFA4">
+<columns>
+  <col name="res_def_no"			type="varchar"   length="32"   descr="资源定义标识"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+</columns>
+</table>
+
+<table name="bione_data_rule_cond" pkname="data_rule_cond_id" descr="数据规则条件信息表">
+<columns>
+  <col name="data_rule_cond_id"			type="varchar"   length="32"   descr="数据规则条件ID"/>
+  <col name="data_rule_no"			type="varchar"   length="32"   descr="数据规则标识"/>
+  <col name="rule_item_no"			type="varchar"   length="32"   descr="规则项标识"/>
+  <col name="cond_no"			type="varchar"   length="32"   descr="条件标识"/>
+  <col name="cond_name"			type="varchar"   length="100"   descr="条件名称"/>
+  <col name="sql_script"			type="varchar"   length="1000"   descr="SQL语句"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_data_rule_info" pkname="data_rule_id" descr="数据规则信息表">
+<columns>
+  <col name="data_rule_id"			type="varchar"   length="32"   descr="数据规则ID"/>
+  <col name="res_def_no"			type="varchar"   length="32"   descr="资源定义标识"/>
+  <col name="res_no"			type="varchar"   length="32"   descr="资源标识"/>
+  <col name="data_rule_no"			type="varchar"   length="32"   descr="数据规则标识"/>
+  <col name="data_rule_name"			type="varchar"   length="100"   descr="数据规则名称"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+  <col name="method_name"			type="varchar"   length="100"   descr="方法名称"/>
+  <col name="filter_script"			type="varchar"   length="1000"   descr="过滤语句"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_data_rule_item" pkname="data_rule_item_id" descr="数据规则项信息表">
+<columns>
+  <col name="data_rule_item_id"			type="varchar"   length="32"   descr="数据规则项ID"/>
+  <col name="data_rule_no"			type="varchar"   length="32"   descr="数据规则标识"/>
+  <col name="rule_item_no"			type="varchar"   length="32"   descr="规则项标识"/>
+  <col name="rule_item_name"			type="varchar"   length="100"   descr="规则项名称"/>
+  <col name="operator"			type="varchar"   length="10"   descr="运算符"/>
+  <col name="is_allow_auth"			type="varchar"   length="1"   descr="是否允许授权"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+<table name="bione_export_entity" pkname="entity_id" descr="逻辑系统导出实体表">
+<columns>
+  <col name="entity_id"			type="varchar"   length="32"   descr="实体ID"/>
+  <col name="entity_name"			type="varchar"   length="100"   descr="实体名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+<table name="bione_label_info" pkname="label_id" descr="标签信息表">
+<columns>
+  <col name="label_id"			type="varchar"   length="32"   descr="标签ID"/>
+  <col name="label_name"			type="varchar"   length="100"   descr="标签名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="up_id"			type="varchar"   length="32"   descr="up_id"/>
+  <col name="label_obj_id"			type="varchar"   length="32"   descr="标签对象ID"/>
+</columns>
+</table>
+
+<table name="bione_label_obj_info" pkname="label_obj_id" descr="标签对象表">
+<columns>
+  <col name="label_obj_id"			type="varchar"   length="32"   descr="标签对象ID"/>
+  <col name="label_obj_no"			type="varchar"   length="32"   descr="标签对象标识"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="label_obj_name"			type="varchar"   length="100"   descr="标签对象名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_label_obj_rel" pkname="label_id,label_obj_id,obj_id,rpt_id" descr="对象与标签关系表">
+<columns>
+  <col name="label_id"			type="varchar"   length="32"   descr="标签ID"/>
+  <col name="label_obj_id"			type="varchar"   length="32"   descr="标签对象ID"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+</columns>
+</table>
+
+
+<table name="bione_log_attach_rel" pkname="attach_id,msg_id" descr="消息与附件关系">
+<columns>
+  <col name="attach_id"			type="varchar"   length="32"   descr="附件ID"/>
+  <col name="msg_id"			type="varchar"   length="32"   descr="消息ID"/>
+</columns>
+</table>
+
+<table name="bione_log_auth_detail" pkname="log_id,res_def_no,res_id" descr="授权操作明细">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志ID"/>
+  <col name="res_def_no"			type="varchar"   length="32"   descr="资源定义标识"/>
+  <col name="res_id"			type="varchar"   length="32"   descr="资源ID"/>
+</columns>
+</table>
+
+<table name="bione_log_auth_info" pkname="log_id" descr="授权操作日志">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志ID"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作人"/>
+  <col name="oper_time"			type="timestamp"   length="6"   descr="操作时间"/>
+  <col name="auth_obj_no"			type="varchar"   length="32"   descr="授权对象标识"/>
+  <col name="auth_obj_id"			type="varchar"   length="32"   descr="授权对象ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+</columns>
+</table>
+
+<table name="bione_log_func" pkname="log_id" descr="系统功能访问日志">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志ID"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="occur_time"			type="timestamp"   length="6"   descr="发生时间"/>
+  <col name="occur_date"			type="varchar"   length="8"   descr="发生日期"/>
+  <col name="menu_id"			type="varchar"   length="32"   descr="菜单ID"/>
+  <col name="login_ip"			type="varchar"   length="50"   descr="登录IP"/>
+  <col name="log_type"			type="varchar"   length="10"   descr="日志类型"/>
+</columns>
+</table>
+
+<table name="bione_log_login" pkname="log_id" descr="系统登录情况日志">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志ID"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="login_time"			type="decimal"   length="18"   descr="登录时间"/>
+  <col name="logout_time"			type="decimal"   length="18"   descr="登出时间"/>
+  <col name="login_date"			type="varchar"   length="8"   descr="登录日期"/>
+  <col name="login_ip"			type="varchar"   length="50"   descr="登录IP"/>
+  <col name="session_id"			type="varchar"   length="100"   descr="会话ID"/>
+</columns>
+</table>
+
+
+<table name="bione_mp_design_detail" pkname="detail_id" descr="首页定制内容表"  bgcolor="#BFFFFF">
+<columns>
+  <col name="detail_id"			type="varchar"   length="32"   descr="内容ID"/>
+  <col name="design_id"			type="varchar"   length="32"   descr="定制ID"/>
+  <col name="module_id"			type="varchar"   length="32"   descr="模块ID"/>
+  <col name="pos_no"			type="decimal"   length="18"   descr="位置编号"/>
+  <col name="is_display_label"			type="varchar"   length="1"   descr="是否显示标签"/>
+</columns>
+</table>
+
+<table name="bione_mp_design_func" pkname="design_id" descr="null"  bgcolor="#BFFFFF">
+<columns>
+  <col name="design_id"			type="varchar"   length="32"   descr="定制ID"/>
+  <col name="design_nm"			type="varchar"   length="200"   descr="定制名称"/>
+  <col name="layout_id"			type="varchar"   length="32"   descr="布局ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="is_default"			type="varchar"   length="1"   descr="是否默认"/>
+</columns>
+</table>
+
+<table name="bione_mp_design_info" pkname="design_id" descr="首页定制信息表"  bgcolor="#BFFFFF">
+<columns>
+  <col name="design_id"			type="varchar"   length="32"   descr="定制ID"/>
+  <col name="layout_id"			type="varchar"   length="32"   descr="布局ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+</columns>
+</table>
+
+<table name="bione_mp_design_rel" pkname="design_id,user_id" descr="null"  bgcolor="#BFFFFF">
+<columns>
+  <col name="design_id"			type="varchar"   length="32"   descr="定制ID"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户id"/>
+</columns>
+</table>
+
+<table name="bione_mp_layout_info" pkname="layout_id" descr="首页布局信息表"  bgcolor="#BFFFFF">
+<columns>
+  <col name="layout_id"			type="varchar"   length="32"   descr="布局ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="layout_name"			type="varchar"   length="100"   descr="布局名称"/>
+  <col name="pic_path"			type="varchar"   length="100"   descr="缩略图路径"/>
+  <col name="css_path"			type="varchar"   length="100"   descr="样式表路径"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_mp_module_info" pkname="module_id" descr="首页模块信息表"  bgcolor="#BFFFFF">
+<columns>
+  <col name="module_id"			type="varchar"   length="32"   descr="模块ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="module_name"			type="varchar"   length="100"   descr="模块名称"/>
+  <col name="pic_path"			type="varchar"   length="100"   descr="缩略图路径"/>
+  <col name="label_path"			type="varchar"   length="100"   descr="标签路径"/>
+  <col name="module_path"			type="varchar"   length="100"   descr="模块路径"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="module_type"			type="varchar"   length="4"   descr="模块类型,01:poc演示图表,02:sql图表,03:报文引擎,11:sql表格,12:报表,99:自定义"/>
+  <col name="chart_type"			type="varchar"   length="4"   descr="图标类型,01:折线图,02:柱状图,03:饼图"/>
+  <col name="module_define"			type="varchar"   length="500"   descr="模块定义:json串或sql"/>
+</columns>
+</table>
+
+<table name="bione_msg_attach_info" pkname="attach_id" descr="附件信息">
+<columns>
+  <col name="attach_id"			type="varchar"   length="32"   descr="附件ID"/>
+  <col name="attach_sts"			type="varchar"   length="1"   descr="附件状态"/>
+  <col name="attach_type"			type="varchar"   length="10"   descr="附件类型"/>
+  <col name="attach_name"			type="varchar"   length="100"   descr="附件名称"/>
+  <col name="attach_path"			type="varchar"   length="500"   descr="附件路径"/>
+  <col name="attach_size"			type="decimal"   length="12"   descr="附件大小"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="attach_content"			type="blob"   length="-1"   descr="附件内容"/>
+</columns>
+</table>
+
+<table name="bione_msg_attach_rel" pkname="attach_id,msg_id" descr="消息与附件关系">
+<columns>
+  <col name="attach_id"			type="varchar"   length="32"   descr="附件ID"/>
+  <col name="msg_id"			type="varchar"   length="32"   descr="消息ID"/>
+</columns>
+</table>
+
+<table name="bione_msg_auth_obj_rel" pkname="obj_id,logic_sys_no,announcement_id" descr="公告与授权对象关系">
+<columns>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="announcement_id"			type="varchar"   length="32"   descr="公告ID"/>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="对象定义标识"/>
+</columns>
+</table>
+
+<table name="bione_msg_log" pkname="msg_id" descr="消息日志">
+<columns>
+  <col name="msg_id"			type="varchar"   length="32"   descr="消息ID"/>
+  <col name="send_type_no"			type="varchar"   length="32"   descr="发送类型标识"/>
+  <col name="msg_detail"			type="clob"   length="-1"   descr="消息内容"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="msg_title"			type="varchar"   length="100"   descr="消息标题"/>
+  <col name="send_time"			type="timestamp"   length="6"   descr="发送时间"/>
+  <col name="send_user"			type="varchar"   length="100"   descr="发送人"/>
+  <col name="msg_mode"			type="varchar"   length="10"   descr="消息模式"/>
+  <col name="receive_address"			type="varchar"   length="500"   descr="接收地址"/>
+  <col name="view_sts"			type="varchar"   length="1"   descr="查看状态"/>
+  <col name="view_time"			type="timestamp"   length="6"   descr="查看时间"/>
+  <col name="receive_user"			type="varchar"   length="100"   descr="接收人"/>
+  <col name="msg_type"			type="varchar"   length="100"   descr="消息类型"/>
+  <col name="send_sts"			type="varchar"   length="1"   descr="发送状态"/>
+</columns>
+</table>
+
+<table name="bione_msg_notice_info" pkname="announcement_id" descr="公告信息"  bgcolor="#FFB0B0">
+<columns>
+  <col name="announcement_id"			type="varchar"   length="32"   descr="公告ID"/>
+  <col name="announcement_detail"			type="clob"   length="-1"   descr="公告内容"/>
+  <col name="announcement_sts"			type="varchar"   length="1"   descr="公告状态"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+  <col name="last_update_user"			type="varchar"   length="32"   descr="最后修改人"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="announcement_title"			type="varchar"   length="100"   descr="公告标题"/>
+  <col name="effective__date"			type="timestamp"   length="6"   descr="生效日期"/>
+  <col name="expire_date"			type="timestamp"   length="6"   descr="失效日期"/>
+  <col name="announcement_type"			type="varchar"   length="10"   descr="公告类型"/>
+  <col name="create_user"			type="varchar"   length="32"   descr="创建用户"/>
+</columns>
+</table>
+
+<table name="bione_msg_send_type" pkname="send_type_no" descr="消息发送类型">
+<columns>
+  <col name="send_type_no"			type="varchar"   length="32"   descr="发送类型标识"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+  <col name="send_type_name"			type="varchar"   length="100"   descr="发送类型名称"/>
+</columns>
+</table>
+
+<table name="bione_msg_user_rel" pkname="user_id,logic_sys_no,msg_id" descr="用户与平台消息关系">
+<columns>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="msg_id"			type="varchar"   length="32"   descr="消息ID"/>
+</columns>
+</table>
+
+<table name="bione_msg_user_state" pkname="user_id,logic_sys_no" descr="用户平台消息状态">
+<columns>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="msg_sts"			type="varchar"   length="1"   descr="消息状态"/>
+  <col name="push_sts"			type="varchar"   length="1"   descr="推送状态"/>
+</columns>
+</table>
+
+
+<table name="bione_param_info" pkname="param_id" descr="参数信息表"  bgcolor="#FFB0B0">
+<columns>
+  <col name="param_id"			type="varchar"   length="32"   descr="参数ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="param_type_no"			type="varchar"   length="32"   descr="参数类型标识"/>
+  <col name="param_value"			type="varchar"   length="500"   descr="参数值"/>
+  <col name="param_name"			type="varchar"   length="500"   descr="参数名称"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_param_type_info" pkname="param_type_id" descr="参数类型信息表">
+<columns>
+  <col name="param_type_id"			type="varchar"   length="32"   descr="参数类型ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="param_type_no"			type="varchar"   length="32"   descr="参数类型标识"/>
+  <col name="param_type_name"			type="varchar"   length="500"   descr="参数类型名称"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_posi_info" pkname="posi_id" descr="岗位信息表">
+<columns>
+  <col name="posi_id"			type="varchar"   length="32"   descr="岗位ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="posi_no"			type="varchar"   length="32"   descr="岗位标识"/>
+  <col name="posi_name"			type="varchar"   length="100"   descr="岗位名称"/>
+  <col name="posi_sts"			type="varchar"   length="1"   descr="岗位状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_update_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+</columns>
+</table>
+
+<table name="bione_pwd_his" pkname="id" descr="密码修改历史">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="old_pwd"			type="varchar"   length="100"   descr="原密码"/>
+  <col name="new_pwd"			type="varchar"   length="100"   descr="新密码"/>
+  <col name="update_time"			type="timestamp"   length="6"   descr="修改时间"/>
+</columns>
+</table>
+
+<table name="bione_pwd_security_cfg" pkname="id" descr="密码安全配置">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="ID"/>
+  <col name="enable_sts"			type="varchar"   length="1"   descr="启用状态"/>
+  <col name="valid_time"			type="decimal"   length="12"   descr="有效时间"/>
+  <col name="min_length"			type="varchar"   length="10"   descr="最小长度"/>
+  <col name="max_length"			type="varchar"   length="10"   descr="最大长度"/>
+  <col name="max_error_times"			type="decimal"   length="12"   descr="最大错误次数"/>
+  <col name="lock_type"			type="varchar"   length="10"   descr="锁定方式"/>
+  <col name="lock_time"			type="decimal"   length="12"   descr="锁定时间"/>
+  <col name="inc_uppercase"			type="varchar"   length="1"   descr="包含大写字母"/>
+  <col name="inc_lowercase"			type="varchar"   length="1"   descr="包含小写字母"/>
+  <col name="inc_num"			type="varchar"   length="1"   descr="包含数字"/>
+  <col name="inc_special"			type="varchar"   length="1"   descr="包含特殊符号"/>
+  <col name="diff_recent_his"			type="decimal"   length="12"   descr="异于最近历史"/>
+  <col name="last_update_user"			type="varchar"   length="32"   descr="最后修改人"/>
+  <col name="last_update_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+  <col name="is_first"			type="varchar"   length="1"   descr="是否首次登陆改密"/>
+</columns>
+</table>
+
+<table name="bione_res_oper_info" pkname="oper_id" descr="资源操作信息表">
+<columns>
+  <col name="oper_id"			type="varchar"   length="32"   descr="操作ID"/>
+  <col name="res_def_no"			type="varchar"   length="32"   descr="资源定义标识"/>
+  <col name="res_no"			type="varchar"   length="32"   descr="资源标识"/>
+  <col name="oper_no"			type="varchar"   length="100"   descr="操作标识"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="oper_name"			type="varchar"   length="100"   descr="操作名称"/>
+  <col name="visit_url"			type="varchar"   length="100"   descr="访问URL"/>
+  <col name="method_name"			type="varchar"   length="100"   descr="方法名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_server_info" pkname="server_id" descr="服务模块信息表">
+<columns>
+  <col name="server_id"			type="varchar"   length="32"   descr="服务ID"/>
+  <col name="server_no"			type="varchar"   length="32"   descr="服务标识"/>
+  <col name="server_name"			type="varchar"   length="100"   descr="服务名称"/>
+  <col name="server_ip"			type="varchar"   length="50"   descr="服务IP"/>
+  <col name="server_port"			type="varchar"   length="50"   descr="服务端口"/>
+  <col name="server_path"			type="varchar"   length="100"   descr="服务路径"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_sys_var_info" pkname="var_id" descr="系统变量信息表"  bgcolor="#FFB0B0">
+<columns>
+  <col name="var_id"			type="varchar"   length="32"   descr="变量ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="var_no"			type="varchar"   length="32"   descr="变量标识"/>
+  <col name="var_name"			type="varchar"   length="100"   descr="变量名称"/>
+  <col name="var_value"			type="varchar"   length="500"   descr="变量值"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="var_type"			type="varchar"   length="10"   descr="变量类型"/>
+</columns>
+</table>
+
+<table name="bione_tag_info" pkname="tag_id" descr="标记信息表">
+<columns>
+  <col name="tag_id"			type="varchar"   length="32"   descr="标记ID"/>
+  <col name="tag_name"			type="varchar"   length="100"   descr="标记名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_tag_rel_info" pkname="tag_id,tag_obj_id,obj_id,user_id" descr="对象与标记关系表">
+<columns>
+  <col name="tag_id"			type="varchar"   length="32"   descr="标记ID"/>
+  <col name="tag_obj_id"			type="varchar"   length="32"   descr="标记对象ID"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="create_time"			type="date"   length="0"   descr="创建时间"/>
+</columns>
+</table>
+
+<table name="bione_task_info" pkname="task_id" descr="系统任务信息表"  bgcolor="#FFB0B0">
+<columns>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="task_name"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="task_type"			type="varchar"   length="10"   descr="任务类型"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+  <col name="trigger_id"			type="varchar"   length="32"   descr="触发器ID"/>
+  <col name="task_sts"			type="varchar"   length="10"   descr="任务状态"/>
+  <col name="create_time"			type="timestamp"   length="6"   descr="创建时间"/>
+</columns>
+</table>
+
+<table name="bione_trigger_info" pkname="trigger_id" descr="触发器信息表"  bgcolor="#FFB0B0">
+<columns>
+  <col name="trigger_id"			type="varchar"   length="32"   descr="触发器ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="trigger_name"			type="varchar"   length="100"   descr="触发器名称"/>
+  <col name="cron"			type="varchar"   length="500"   descr="克隆表达式"/>
+  <col name="def_type"			type="varchar"   length="10"   descr="定义类型"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+  <col name="exec_freq"			type="varchar"   length="10"   descr="执行频率"/>
+  <col name="exec_type"			type="varchar"   length="10"   descr="执行方式"/>
+  <col name="exec_time"			type="varchar"   length="10"   descr="执行时间"/>
+  <col name="space_unit"			type="varchar"   length="10"   descr="间隔单位"/>
+  <col name="space_time"			type="varchar"   length="10"   descr="间隔时间"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="bione_user_attr" pkname="attr_id" descr="用户信息属性表">
+<columns>
+  <col name="attr_id"			type="varchar"   length="32"   descr="属性ID"/>
+  <col name="field_name"			type="varchar"   length="100"   descr="字段名称"/>
+  <col name="attr_sts"			type="varchar"   length="1"   descr="属性状态"/>
+  <col name="is_ext"			type="varchar"   length="1"   descr="是否扩展"/>
+  <col name="field_length"			type="varchar"   length="10"   descr="字段长度"/>
+  <col name="is_allow_update"			type="varchar"   length="1"   descr="是否允许修改"/>
+  <col name="is_allow_null"			type="varchar"   length="1"   descr="是否允许空值"/>
+  <col name="check_rule_type"			type="varchar"   length="10"   descr="校验规则类型"/>
+  <col name="grp_id"			type="varchar"   length="32"   descr="分组ID"/>
+  <col name="label_name"			type="varchar"   length="100"   descr="标签名称"/>
+  <col name="label_width"			type="decimal"   length="12"   descr="标签宽度"/>
+  <col name="label_align"			type="varchar"   length="10"   descr="标签对齐"/>
+  <col name="element_type"			type="varchar"   length="10"   descr="组件类型"/>
+  <col name="element_align"			type="varchar"   length="10"   descr="组件对齐"/>
+  <col name="element_width"			type="decimal"   length="12"   descr="组件宽度"/>
+  <col name="is_newline"			type="varchar"   length="1"   descr="是否换行"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="comb_ds"			type="varchar"   length="500"   descr="下拉框数据源"/>
+  <col name="is_readonly"			type="varchar"   length="1"   descr="是否只读"/>
+  <col name="init_value"			type="varchar"   length="500"   descr="初始化值"/>
+</columns>
+</table>
+
+<table name="bione_user_attr_grp" pkname="grp_id" descr="用户信息属性分组表">
+<columns>
+  <col name="grp_id"			type="varchar"   length="32"   descr="分组ID"/>
+  <col name="grp_name"			type="varchar"   length="100"   descr="分组名称"/>
+  <col name="grp_icon"			type="varchar"   length="100"   descr="分组图标"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="顺序编号"/>
+</columns>
+</table>
+
+<table name="bione_user_attr_val" pkname="user_id,attr_id" descr="用户信息扩展表">
+<columns>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="attr_id"			type="varchar"   length="32"   descr="属性ID"/>
+  <col name="attr_value"			type="varchar"   length="500"   descr="属性值"/>
+</columns>
+</table>
+
+<table name="bione_user_auth_obj_rel" pkname="auth_type_no,auth_obj_no" descr="认证与授权对象关系">
+<columns>
+  <col name="auth_type_no"			type="varchar"   length="32"   descr="认证方式标识"/>
+  <col name="auth_obj_no"			type="varchar"   length="32"   descr="授权对象标识"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+</columns>
+</table>
+
+<table name="bione_user_auth_res_rel" pkname="auth_type_no,res_def_no" descr="认证与授权资源关系">
+<columns>
+  <col name="auth_type_no"			type="varchar"   length="32"   descr="认证方式标识"/>
+  <col name="res_def_no"			type="varchar"   length="32"   descr="资源定义标识"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+</columns>
+</table>
+
+
+<table name="bione_valid_type_def" pkname="obj_def_no" descr="校验类型定义表">
+<columns>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="类型定义标识"/>
+  <col name="obj_def_name"			type="varchar"   length="100"   descr="类型定义名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="bean_name"			type="varchar"   length="100"   descr="实现类名称"/>
+  <col name="obj_def_order"			type="decimal"   length="12"   descr="排序字段"/>
+</columns>
+</table>
+
+<table name="bione_valid_type_sys_rel" pkname="obj_def_no,logic_sys_no" descr="授权对象与逻辑系统关系表">
+<columns>
+  <col name="obj_def_no"			type="varchar"   length="32"   descr="对象定义标识"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+</columns>
+</table>
+
+<table name="bione_menu_template_info" pkname="func_id" descr="菜单模板信息表">
+  <columns>
+    <col name="func_type"			type="varchar"   length="10"   descr="功能类型"/>
+    <col name="func_id"			type="varchar"   length="32"   descr="功能id"/>
+    <col name="func_name"			type="varchar"   length="100"   descr="功能名称"/>
+    <col name="up_id"			type="varchar"   length="32"   descr="父功能id"/>
+    <col name="nav_icon"			type="varchar"   length="100"   descr="导航图标"/>
+    <col name="nav_path"			type="varchar"   length="100"   descr="导航路径"/>
+    <col name="func_sts"			type="varchar"   length="2"   descr="功能状态"/>
+    <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+    <col name="order_no"			type="varchar"   length="2"   descr="排序"/>
+  </columns>
+</table>
+
+<table name="BIONE_FUNC_METHODURL_INFO" pkname="RID" descr="菜单模块功能URL信息表">
+  <columns>
+    <col name="RID"			type="varchar"   length="32"   descr="主键ID"/>
+    <col name="func_id"			type="varchar"   length="32"   descr="功能id"/>
+    <col name="func_name"			type="varchar"   length="200"   descr="功能名称"/>
+    <col name="nav_path"			type="varchar"   length="200"   descr="导航路径"/>
+    <col name="MENU_ID"			type="varchar"   length="32"   descr="对应菜单ID"/>
+    <col name="METHOD_URL"			type="varchar"   length="200"   descr="功能URL"/>
+    <col name="METHOD_NAME"			type="varchar"   length="200"   descr="功能名称"/>
+    <col name="METHOD_STS"			type="varchar"   length="5"   descr="功能状态"/>
+    <col name="remark"			type="varchar"   length="300"   descr="备注"/>
+  </columns>
+</table>
+
+  <table name="bione_org_grp" pkname="grp_id" descr="机构分组信息">
+    <columns>
+      <col name="grp_id"			type="varchar"   length="32"   descr="分组ID"/>
+      <col name="grp_nm"			type="varchar"   length="100"   descr="分组名称"/>
+      <col name="create_org"			type="varchar"   length="32"   descr="创建机构"/>
+      <col name="create_time"			type="timestamp"   length="6"   descr="创建时间"/>
+      <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+    </columns>
+  </table>
+
+  <table name="bione_grp_org_rel" pkname="org_no,grp_id" descr="机构分组与机构关系">
+    <columns>
+      <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+      <col name="grp_id"			type="varchar"   length="32"   descr="分组ID"/>
+    </columns>
+  </table>
+</root>

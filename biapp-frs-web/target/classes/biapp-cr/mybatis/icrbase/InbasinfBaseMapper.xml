@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.icrinbasinf.repository.InbasinfBaseDao">
+<!-- 根据条件查询报表列表 -->
+	<resultMap id="IcrBsResult" type="com.yusys.cr.icrinbasinf.entity.IcrBs">
+		<id property="idnum" column="IDNUM" />
+		<result property="infrectype" column="INFRECTYPE" />
+		<result property="name" column="NAME" />
+		<result property="idtype" column="IDTYPE" />
+		<result property="infSurcCode" column="INFSURCCODE" />
+		<result property="rptdate" column="RPTDATE" />
+		<result property="rptdatecode" column="RPTDATECODE" />
+		<result property="cimoc" column="CIMOC" />
+		<result property="customerType" column="CUSTOMERTYPE" />
+	</resultMap>
+
+	<resultMap id="IcrFcsInfResult" type="com.yusys.cr.icrinbasinf.entity.IcrFcsInf">
+		<result property="sex" column="SEX" />
+		<result property="dob" column="DOB" />
+		<result property="nation" column="NATION" />
+		<result property="houseAdd" column="HOUSEADD" />
+		<result property="hhDist" column="HHDIST" />
+		<result property="cellPhone" column="CELLPHONE" />
+		<result property="email" column="EMAIL" />
+		<result property="fcsInfoUpDate" column="FCSINFOUPDATE" />
+	</resultMap>
+
+	<resultMap id="IcrSpsInfResult" type="com.yusys.cr.icrinbasinf.entity.IcrSpsInf">
+		<result property="mariStatus" column="MARISTATUS" />
+		<result property="spoName" column="SPONAME" />
+		<result property="spoIDType" column="SPOIDTYPE" />
+		<result property="spoIDNum" column="SPOIDNUM" />
+		<result property="spoTel" column="SPOTEL" />
+		<result property="spsCmpyNm" column="SPSCMPYNM" />
+		<result property="spsInfoUpDate" column="SPSINFOUPDATE" />
+	</resultMap>
+
+	<resultMap id="IcrEduInfResult" type="com.yusys.cr.icrinbasinf.entity.IcrEduInf">
+		<result property="eduLevel" column="EDULEVEL" />
+		<result property="acaDegree" column="ACADEGREE" />
+		<result property="eduInfoUpDate" column="EDUINFOUPDATE" />
+	</resultMap>
+
+	<resultMap id="IcrOctpnInfResult" type="com.yusys.cr.icrinbasinf.entity.IcrOctpnInf">
+		<result property="empStatus" column="EMPSTATUS" />
+		<result property="cpnName" column="CPNNAME" />
+		<result property="cpnType" column="CPNTYPE" />
+		<result property="industry" column="INDUSTRY" />
+		<result property="cpnAddr" column="CPNADDR" />
+		<result property="cpnPc" column="CPNPC" />
+		<result property="cpnDist" column="CPNDIST" />
+		<result property="cpnTEL" column="CPNTEL" />
+		<result property="occupation" column="OCCUPATION" />
+		<result property="title" column="TITLE" />
+		<result property="techTitle" column="TECHTITLE" />
+		<result property="workStartDate" column="WORKSTARTDATE" />
+		<result property="octpnInfoUpDate" column="OCTPNINFOUPDATE" />
+	</resultMap>
+
+	<resultMap id="IcrRedncInfResult" type="com.yusys.cr.icrinbasinf.entity.IcrRedncInf">
+		<result property="resiStatus" column="RESISTATUS" />
+		<result property="resiAddr" column="RESIADDR" />
+		<result property="resiPc" column="RESIPC" />
+		<result property="resiDist" column="RESIDIST" />
+		<result property="homeTel" column="HOMETEL" />
+		<result property="resiInfoUpDate" column="RESIINFOUPDATE" />
+	</resultMap>
+
+	<resultMap id="IcrMlgInfResult" type="com.yusys.cr.icrinbasinf.entity.IcrMlgInf">
+		<result property="mailAddr" column="MAILADDR" />
+		<result property="mailPC" column="MAILPC" />
+		<result property="mailDist" column="MAILDIST" />
+		<result property="mlgInfoUpDate" column="MLGINFOUPDATE" />
+	</resultMap>
+
+	<resultMap id="IcrIncInfResult" type="com.yusys.cr.icrinbasinf.entity.IcrIncInf">
+		<result property="annlInc" column="ANNLINC" />
+		<result property="taxIncome" column="TAXINCOME" />
+		<result property="incInfoUpDate" column="INCINFOUPDATE" />
+	</resultMap>
+
+	<resultMap id="IcrIdResult" type="com.yusys.cr.icrinbasinf.entity.IcrId">
+		<result property="idInfoUpDate" column="IDINFOUPDATE" />
+		<result property="idnm" column="IDNM" />
+<!--		<collection property="idRec" resultMap="IDRecResult"/>-->
+<!--		<collection property="idRec" column="idRec" foreignColumn="idnum" ofType="com.yusys.cr.icrinbasinf.entity.IDRec">-->
+<!--			<id property="othIDNum" column="OTHIDNUM" />-->
+<!--			<result property="alias" column="ALIAS" />-->
+<!--			<result property="othIDType" column="OTHIDTYPE" />-->
+<!--		</collection>-->
+	</resultMap>
+
+	<resultMap id="IDRecResult" type="com.yusys.cr.icrinbasinf.entity.IDRec">
+		<id property="othIDNum" column="OTHIDNUM" />
+		<result property="alias" column="ALIAS" />
+		<result property="othIDType" column="OTHIDTYPE" />
+	</resultMap>
+
+	<resultMap id="InBasInfResult" type="com.yusys.cr.icrinbasinf.entity.InBasInf">
+		<id property="idnum" column="IDNUM"></id>
+		<id property="idType" column="IDTYPE"></id>
+		<result property="inBasInf" column="INBASINF"></result>
+		<association property="icrBs"  resultMap="IcrBsResult"/>
+		<association property="icrFcsInf"  resultMap="IcrFcsInfResult"/>
+		<association property="icrSpsInf"  resultMap="IcrSpsInfResult"/>
+		<association property="icrEduInf"  resultMap="IcrEduInfResult"/>
+		<association property="icrOctpnInf"  resultMap="IcrOctpnInfResult"/>
+		<association property="icrRedncInf"  resultMap="IcrRedncInfResult"/>
+		<association property="icrMlgInf"  resultMap="IcrMlgInfResult"/>
+		<association property="icrIncInf"  resultMap="IcrIncInfResult"/>
+		<association property="icrId"  resultMap="IcrIdResult"/>
+		<collection property="idRec" resultMap="IDRecResult"></collection>
+	</resultMap>
+
+	<select id="getInBasInfListFromView" resultMap="InBasInfResult">
+		select infrectype,
+			   name,
+			   idtype,
+			   idnum,
+			   infSurcCode,
+			   rptdate,
+			   rptdatecode,
+			   cimoc,
+			   customerType,
+			   sex,
+			   dob,
+			   nation,
+			   houseAdd,
+			   hhDist,
+			   cellPhone,
+			   email,
+			   fcsInfoUpDate,
+			   mariStatus,
+			   spoName,
+			   spoIDType,
+			   spoIDNum,
+			   spoTel,
+			   spsCmpyNm,
+			   spsInfoUpDate,
+			   eduLevel,
+			   acaDegree,
+			   eduInfoUpDate,
+			   empStatus,
+			   cpnName,
+			   cpnType,
+			   industry,
+			   cpnAddr,
+			   cpnPc,
+			   cpnDist,
+			   cpnTEL,
+			   occupation,
+			   title,
+			   techTitle,
+			   workStartDate,
+			   octpnInfoUpDate,
+			   ResiStatus,
+			   resiAddr,
+			   resiPc,
+			   resiDist,
+			   homeTel,
+			   ResiInfoUpDate,
+			   mailAddr,
+			   mailPC,
+			   mailDist,
+			   mlgInfoUpDate,
+			   annlInc,
+			   taxIncome,
+			   incInfoUpDate,
+			   idnm,
+			   idInfoUpDate,
+			   alias,
+			   othIDType,
+			   othIDNum
+		from v_icr_bs
+	</select>
+</mapper>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.feedback.repository.TFilePathMapper">
+
+    <resultMap id="BaseResultMap" type="com.yusys.cr.feedback.entity.CrFeedbackSum">
+        <id column="RID" jdbcType="VARCHAR" property="rid" />
+        <result column="SM_FILE_NAME" jdbcType="VARCHAR" property="smFileName" />
+        <result column="SM_FILE_HEAD" jdbcType="VARCHAR" property="smFileHead" />
+        <result column="SM_FILE_PATH" jdbcType="VARCHAR" property="smFilePath" />
+        <result column="SM_FILE_NO" jdbcType="VARCHAR" property="smFileNo" />
+        <result column="FB_FILE_NAME" jdbcType="VARCHAR" property="fbFileName" />
+        <result column="FB_FILE_HEAD" jdbcType="VARCHAR" property="fbFileHead" />
+        <result column="FB_FILE_TIME" jdbcType="VARCHAR" property="fbFileTime" />
+        <result column="FILE_SIZE" jdbcType="VARCHAR" property="fileSize" />
+        <result column="DOWNLOAD_STATE" jdbcType="VARCHAR" property="downloadState" />
+        <result column="DOWNLOAD_TIME" jdbcType="VARCHAR" property="downloadTime" />
+        <result column="MSG_TYPE" jdbcType="VARCHAR" property="msgType" />
+        <result column="ISFEEDBACK" jdbcType="VARCHAR" property="isfeedback" />
+        <result column="ISFILEERROR" jdbcType="VARCHAR" property="isfileerror" />
+        <result column="SUMCOUNTS" jdbcType="VARCHAR" property="sumcounts" />
+        <result column="SUCCESSCOUNTS" jdbcType="VARCHAR" property="successcounts" />
+        <result column="FAILCOUNTS" jdbcType="VARCHAR" property="failcounts" />
+        <result column="ISSENDSUCC" jdbcType="VARCHAR" property="issendsucc" />
+        <result column="SUCCESSRATE" jdbcType="VARCHAR" property="successrate" />
+        <result column="FAILRATE" jdbcType="VARCHAR" property="failrate" />
+        <result column="OPE_USER" jdbcType="VARCHAR" property="opeUser" />
+        <result column="OPE_TIME" jdbcType="VARCHAR" property="opeTime" />
+        <result column="SUBMISSION_LOG" jdbcType="VARCHAR" property="submissionLog" />
+        <result column="SUBMISSION_TIME" jdbcType="VARCHAR" property="submissionTime" />
+        <result column="SM_REPORT_TABLE" jdbcType="VARCHAR" property="smReportTable" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        RID,SM_FILE_NAME,SM_FILE_HEAD,SM_FILE_PATH,SM_FILE_NO,FB_FILE_NAME,FB_FILE_HEAD,FB_FILE_TIME,FILE_SIZE,DOWNLOAD_STATE,DOWNLOAD_TIME,MSG_TYPE,ISFEEDBACK,ISFILEERROR,SUMCOUNTS,SUCCESSCOUNTS,FAILCOUNTS,ISSENDSUCC,SUCCESSRATE,FAILRATE,OPE_USER,OPE_TIME,SUBMISSION_LOG,SUBMISSION_TIME,SM_REPORT_TABLE
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="saveFeedbackSum" parameterType="com.yusys.cr.feedback.entity.CrFeedbackSum">
+        insert into CR_FEEDBACK_SUM (RID,SM_FILE_NAME,SM_FILE_HEAD,SM_FILE_PATH,SM_FILE_NO,FB_FILE_NAME,FB_FILE_HEAD,FB_FILE_TIME,FILE_SIZE,DOWNLOAD_STATE,DOWNLOAD_TIME,MSG_TYPE,ISFEEDBACK,ISFILEERROR,SUMCOUNTS,SUCCESSCOUNTS,FAILCOUNTS,ISSENDSUCC,SUCCESSRATE,FAILRATE,OPE_USER,OPE_TIME,SUBMISSION_LOG,SUBMISSION_TIME,SM_REPORT_TABLE,FILE_PATH)
+        values (
+                   #{rid,jdbcType=VARCHAR},
+                   #{smFileName,jdbcType=VARCHAR},
+                   #{smFileHead,jdbcType=VARCHAR},
+                   #{smFilePath,jdbcType=VARCHAR},
+                   #{smFileNo,jdbcType=VARCHAR},
+                   #{fbFileName,jdbcType=VARCHAR},
+                   #{fbFileHead,jdbcType=VARCHAR},
+                   #{fbFileTime,jdbcType=VARCHAR},
+                   #{fileSize,jdbcType=VARCHAR},
+                   #{downloadState,jdbcType=VARCHAR},
+                   #{downloadTime,jdbcType=VARCHAR},
+                   #{msgType,jdbcType=VARCHAR},
+                   #{isfeedback,jdbcType=VARCHAR},
+                   #{isfileerror,jdbcType=VARCHAR},
+                   #{sumcounts,jdbcType=VARCHAR},
+                   #{successcounts,jdbcType=VARCHAR},
+                   #{failcounts,jdbcType=VARCHAR},
+                   #{issendsucc,jdbcType=VARCHAR},
+                   #{successrate,jdbcType=VARCHAR},
+                   #{failrate,jdbcType=VARCHAR},
+                   #{opeUser,jdbcType=VARCHAR},
+                   #{opeTime,jdbcType=VARCHAR},
+                   #{submissionLog,jdbcType=VARCHAR},
+                   #{submissionTime,jdbcType=VARCHAR},
+                   #{smReportTable,jdbcType=VARCHAR},
+                   #{filePath,jdbcType=VARCHAR}
+               )
+    </insert>
+
+
+    <!-- 插入 -->
+    <insert id="saveFeedbackFile" parameterType="com.yusys.cr.feedback.entity.CrFeedbackFile">
+        insert into CR_FEEDBACK_FILE (RID,FB_FILE_NAME,FB_SUCC_NUM,FB_ERR_REC_ID,FB_ERR_NUM,FB_CODE,FB_MSG,FB_FLAG,FB_FILE_TIME,SM_FILE_NAME,MSG_TYPE,RPT_DATE,PRIMARY_KEY1,PRIMARY_KEY2,PRIMARY_KEY3)
+        values (
+                   #{rid,jdbcType=VARCHAR},
+                   #{fbFileName,jdbcType=VARCHAR},
+                   #{fbSuccNum,jdbcType=VARCHAR},
+                   #{fbErrRecId,jdbcType=VARCHAR},
+                   #{fbErrNum,jdbcType=VARCHAR},
+                   #{fbCode,jdbcType=VARCHAR},
+                   #{fbMsg,jdbcType=VARCHAR},
+                   #{fbFlag,jdbcType=VARCHAR},
+                   #{fbFileTime,jdbcType=VARCHAR},
+                   #{smFileName,jdbcType=VARCHAR},
+                   #{msgType,jdbcType=VARCHAR},
+                   #{rptDate,jdbcType=VARCHAR},
+                   #{primaryKey1,jdbcType=VARCHAR},
+                   #{primaryKey2,jdbcType=VARCHAR},
+                   #{primaryKey3,jdbcType=VARCHAR}
+               )
+    </insert>
+
+    <insert id="saveFeedbackFiles" parameterType="map" useGeneratedKeys="false">
+        insert ALL
+        <foreach item="item" index="index" collection="list">
+            into CR_FEEDBACK_FILE (RID,FB_FILE_NAME,FB_SUCC_NUM,FB_ERR_REC_ID,FB_ERR_NUM,FB_CODE,FB_MSG,FB_FLAG,FB_FILE_TIME,SM_FILE_NAME,MSG_TYPE)
+            values (
+                #{item.rid,jdbcType=VARCHAR},
+                #{item.fbFileName,jdbcType=VARCHAR},
+                #{item.fbSuccNum,jdbcType=VARCHAR},
+                #{item.fbErrRecId,jdbcType=NUMERIC},
+                #{item.fbErrNum,jdbcType=VARCHAR},
+                #{item.fbCode,jdbcType=VARCHAR},
+                #{item.fbMsg,jdbcType=VARCHAR},
+                #{item.fbFlag,jdbcType=VARCHAR},
+                #{item.fbFileTime,jdbcType=VARCHAR},
+                #{item.smFileName,jdbcType=VARCHAR},
+                #{item.msgType,jdbcType=VARCHAR}
+            )
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+
+    <insert id="saveFeedbackFiles" parameterType="map" databaseId="mysql">
+        insert into CR_FEEDBACK_FILE (RID,FB_FILE_NAME,FB_SUCC_NUM,FB_ERR_REC_ID,FB_ERR_NUM,FB_CODE,FB_MSG,FB_FLAG,FB_FILE_TIME,SM_FILE_NAME,MSG_TYPE,RPT_DATE,PRIMARY_KEY1,PRIMARY_KEY2,PRIMARY_KEY3)
+        values
+        <foreach collection="feedbackFiles" item="item" separator=",">
+            (
+                #{rid,jdbcType=VARCHAR},
+                #{fbFileName,jdbcType=VARCHAR},
+                #{fbSuccNum,jdbcType=VARCHAR},
+                #{fbErrRecId,jdbcType=NUMERIC},
+                #{fbErrNum,jdbcType=VARCHAR},
+                #{fbCode,jdbcType=VARCHAR},
+                #{fbMsg,jdbcType=VARCHAR},
+                #{fbFlag,jdbcType=VARCHAR},
+                #{fbFileTime,jdbcType=VARCHAR},
+                #{smFileName,jdbcType=VARCHAR},
+                #{msgType,jdbcType=VARCHAR},
+                #{rptDate,jdbcType=VARCHAR},
+                #{primaryKey1,jdbcType=VARCHAR},
+                #{primaryKey2,jdbcType=VARCHAR},
+                #{primaryKey3,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateErrFlag">
+        update ${tableName} set INCREMENTFLAG = '5' where incrementflag in('1','2')
+        and ${key1} = #{value1}
+        <if test="key2 != null and key2 != ''">
+            and ${key2} = #{value2}
+        </if>
+        <if test="key3 != null and key3 != ''">
+            and ${key3} = #{value3}
+        </if>
+        <if test="key4 != null and key4 != ''">
+            and ${key4} = #{value4}
+        </if>
+        <if test="key5 != null and key5 != ''">
+            and ${key5} = #{value5}
+        </if>
+        <if test="key6 != null and key6 != ''">
+            and ${key6} = #{value6}
+        </if>
+        <if test="key7 != null and key7 != ''">
+            and ${key7} = #{value7}
+        </if>
+    </update>
+
+    <select id="selectFeedbackSum" resultType="com.yusys.cr.feedback.entity.CrFeedbackSum">
+        select RID,SM_FILE_NAME,SM_FILE_HEAD,SM_FILE_PATH,SM_FILE_NO,FB_FILE_NAME,FB_FILE_HEAD,FB_FILE_TIME,FILE_SIZE,DOWNLOAD_STATE,DOWNLOAD_TIME,MSG_TYPE,ISFEEDBACK,ISFILEERROR,SUMCOUNTS,SUCCESSCOUNTS,FAILCOUNTS,ISSENDSUCC,SUCCESSRATE,FAILRATE,OPE_USER,OPE_TIME,SUBMISSION_LOG,SUBMISSION_TIME,SM_REPORT_TABLE,FILE_PATH
+        from CR_FEEDBACK_SUM where 1=1
+        <if test="fbFileName != null and fbFileName != ''">
+            and FB_FILE_NAME = #{fbFileName}
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+<!--    <service  xmlns="http://xfire.codehaus.org/config/1.0">-->
+
+<!--        <name>biapp</name>-->
+<!--        &lt;!&ndash;<serviceClass>com.yusys.bione.frame.user.service.IHellowService</serviceClass>&ndash;&gt;-->
+<!--        <serviceClass>cn.com.crc.esb.sysncuser.webservice.ISyncUserWebService</serviceClass>-->
+<!--        <serviceClass>cn.com.crc.esb.sysncuser.webservice.SyncUser</serviceClass>-->
+
+<!--        <implementationClass>-->
+<!--            com.yusys.bione.frame.user.service.SyncUserWebServiceImpl-->
+<!--        </implementationClass>-->
+<!--        <style>wrapped</style>-->
+<!--        <use>literal</use>-->
+<!--        <scope>application</scope>-->
+<!--    </service>-->
+
+</beans>

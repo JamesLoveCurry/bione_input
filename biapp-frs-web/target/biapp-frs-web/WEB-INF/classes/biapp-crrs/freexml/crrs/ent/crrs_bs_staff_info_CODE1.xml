@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>柜员表</templetname>
+		<fromtable>crrs_bs_staff</fromtable>
+		<savetable>crrs_bs_staff</savetable>
+		<pkname>rid</pkname>
+		<querycontion>Class:com.yusys.crrs.rulevalidate.service.ValidateQueryCondition2</querycontion>
+		<autocondition descr="自动查询时的条件">Class:com.yusys.crrs.rulevalidate.service.ValidateQueryCondition2</autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys>gyh</orderbys>
+		<autoquery>Y</autoquery>
+		<card_btns></card_btns>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+	</templet>
+
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<helptip></helptip>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>gyh</itemkey>
+		<itemname>柜员号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+    	<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>gymc</itemkey>
+		<itemname>柜员名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>gh</itemkey>
+		<itemname>工号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+    	<query_isshow>Y</query_isshow>
+    	<query_width>200</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>nbjgh</itemkey>
+		<itemname>内部机构号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>sfstgy</itemkey>
+		<itemname>是否实体柜员</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>khjlbz</itemkey>
+		<itemname>客户经理标志</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>gwbh</itemkey>
+		<itemname>岗位编号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>gwzt</itemkey>
+		<itemname>柜员状态</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>

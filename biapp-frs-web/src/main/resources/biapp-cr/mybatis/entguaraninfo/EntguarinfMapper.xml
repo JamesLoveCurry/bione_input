@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entguarinf.repository.EntGuarInfDao">
+<!-- 根据条件查询报表列表 -->
+<!--企业担保信息记录基础段  -->
+	<select id="getEntGuaracctbList"  resultType="com.yusys.cr.entguarinf.entity.EntGuaracctb">
+
+		SELECT
+			ei.*
+		FROM 
+			ENT_GUARACCTBS ei
+		where 1=1 and ei.incrementflag in('1','2')
+	</select>
+<!--企业担保基本信息  -->	
+<select id="getEntGuaracctbsinf"  resultType="com.yusys.cr.entguarinf.entity.EntGuaracctbsinf">
+
+		SELECT
+			ei.*
+		FROM 
+			ENT_GUARACCTBSINF ei
+		where 1=1  and ei.ACCTCODE = #{acctcode} 
+		and ei.incrementflag in('1','2')
+	</select>
+	
+	
+	
+<!--获取相关责任人信息  -->	
+		<select id="getEntRltrepymtinfList"  resultType="com.yusys.cr.entguarinf.entity.EntRltrepymtinf">
+
+		SELECT
+			ei.*
+		FROM 
+			ENT_RLTREPYMTINF ei 
+		where 1=1 and ei.ACCTCODE = #{acctcode}  and ei.incrementflag in('1','2')
+	</select>
+	
+	
+<!--获取抵质押物信息 -->	
+		<select id="getEntGuarmotgacltalctrctinfList"  resultType="com.yusys.cr.entguarinf.entity.EntGuarmotgacltalctrctinf">
+
+		SELECT
+			ei.*
+		FROM 
+			ENT_GUARMOTGACLTALCTRCTINF ei
+		where 1=1 and ei.ACCTCODE = #{acctcode}  and ei.incrementflag in('1','2')
+	</select>
+	
+	<!--授信额度信息段 -->	
+		<select id="getEntGuaracctcred"  resultType="com.yusys.cr.entguarinf.entity.EntGuaracctcred">
+
+		SELECT
+			ei.*
+		FROM 
+			ENT_GUARACCTCRED ei
+		where 1=1 and ei.ACCTCODE = #{acctcode}  and ei.incrementflag in('1','2')
+	</select>
+
+<!--在保责任信息段	-->	
+		<select id="getEntGuarrltrepymtinf"  resultType="com.yusys.cr.entguarinf.entity.EntGuarrltrepymtinf">
+
+		SELECT
+			ei.*
+		FROM 
+			ENT_GUARRLTREPYMTINF ei
+		where 1=1  and ei.ACCTCODE = #{acctcode}  and ei.incrementflag in('1','2')
+	</select>
+
+    <select id="getHEntGuaracctbsCount" resultType="java.lang.Integer">
+		SELECT count(*) FROM HENT_GUARACCTBS t where t.incrementflag = '2'
+	</select>
+
+	<select id="getHEntGuaracctbsList" resultType="com.yusys.cr.entguarinf.entity.EntGuarAcctBsSgmt">
+		SELECT * FROM HENT_GUARACCTBS t where t.incrementflag = '2'
+	</select>
+
+	<select id="getHEntGuaracctbs" resultType="com.yusys.cr.entguarinf.entity.EntGuarAcctBsSgmtUpt">
+		SELECT * FROM HENT_GUARACCTBS t where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntGuaracctbsinf" resultType="com.yusys.cr.entguarinf.entity.EntGuaracctbsinf">
+		SELECT * FROM HENT_GUARACCTBSINF t where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntGuarrltrepymtinf" resultType="com.yusys.cr.entguarinf.entity.EntGuarrltrepymtinf">
+		SELECT * FROM HENT_GUARRLTREPYMTINF t where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntRltrepymtinfList" resultType="com.yusys.cr.entguarinf.entity.RltRepymtInf">
+		SELECT * FROM HENT_RLTREPYMTINF t where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntGuarmotgacltalctrctinfList" resultType="com.yusys.cr.entguarinf.entity.CccInf">
+		SELECT * FROM HENT_GUARMOTGACLTALCTRCTINF t where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+	<select id="getHEntGuaracctcred" resultType="com.yusys.cr.entguarinf.entity.EntGuaracctcred">
+		SELECT * FROM HENT_GUARACCTCRED t where t.incrementflag = '2' and t.acctcode = #{acctcode}
+	</select>
+
+</mapper> 

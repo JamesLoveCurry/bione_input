@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="frs_wmp_cr_tab" pkname="rid" descr="检核数据表定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="表序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="tab_name_en" type="varchar" length="200" descr="英文表名" />
+			<col name="is_virtual" type="varchar" length="1" descr="是否虚拟表" />
+			<col name="volume" type="decimal" length="38" descr="数据量" />
+			<col name="templetcode" type="varchar" length="50" descr="模板编码" />
+			<col name="ds" type="varchar" length="50" descr="ds" />
+			<col name="col_org_no" type="varchar" length="200"
+				descr="机构编号中文字段名" />
+			<col name="col_dept_no" type="varchar" length="200"
+				descr="部门编号中文字段名" />
+			<col name="col_src_sys" type="varchar" length="200"
+				descr="来源系统中文字段名" />
+			<col name="col_dim1" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim2" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim3" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_data_dt" type="varchar" length="200"
+				descr="查询日期字段中文字段名" />
+			<col name="report_code" type="varchar" length="50" descr="数据报文类别" />
+			<col name="detail_sql" type="varchar" length="2000"
+				descr="失败明细入库SQL" />
+			<col name="is_common" type="varchar" length="1" descr="是否公共表" />
+			<col name="tab_type" type="varchar" length="30" descr="报表类型" />
+			<col name="condition" type="varchar" length="200" descr="状态" />
+		</columns>
+	</table>
+	<table name="frs_wmp_cr_col" pkname="rid" descr="检核字段定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="字段序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="200" descr="中文字段名" />
+			<col name="col_name_en" type="varchar" length="200" descr="英文字段名" />
+			<col name="is_pk" type="char" length="1" descr="是否主键" />
+			<col name="filter_no" type="decimal" length="38" descr="过滤值序号" />
+			<col name="flow_no" type="decimal" length="38"
+				descr="并发Key字段生效流程序号" />
+			<col name="is_export" type="varchar" length="1" descr="是否参与报送" />
+			<col name="type_name" type="varchar" length="50" descr="字段字符类型" />
+			<col name="col_no" type="decimal" length="38" descr="" />
+			<col name="display_config" type="varchar" length="2000"
+				descr="展现的配置文件" />
+			<col name="is_limit" type="varchar" length="1" descr="是否限定额度" />
+			<col name="limit_value" type="decimal" length="16"
+				descr="限制金额（元）" />
+		</columns>
+	</table>
+	<table name="frs_wmp_lock_data" pkname="rid" descr="数据锁定">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="ID" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="status" type="varchar" length="10" descr="状态" />
+			<col name="operator" type="varchar" length="100" descr="操作人" />
+			<col name="operator_name" type="varchar" length="100"
+				descr="操作人名称" />
+			<col name="create_tm" type="char" length="19" descr="操作时间" />
+		</columns>
+	</table>
+	<table name="frs_wmp_filling_process" pkname="rid"
+		descr="填报流程-任务主表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="org_no" type="varchar" length="50" descr="归属机构" />
+			<col name="tab_name" type="varchar" length="100" descr="表名-中文" />
+			<col name="tab_name_en" type="varchar" length="100" descr="表名-英文" />
+			<col name="data_dt" type="varchar" length="10" descr="填报日期" />
+			<col name="status" type="varchar" length="1"
+				descr="状态(0初始化 1处理中2撤回3完成)" />
+			<col name="explain" type="varchar" length="1000" descr="下发说明" />
+			<col name="data_time" type="varchar" length="20" descr="创建时间" />
+			<col name="remark" type="varchar" length="1000" descr="备注" />
+		</columns>
+	</table>
+
+	<table name="frs_wmp_filling_process_child" pkname="rid"
+		descr="填报流程-任务子表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="task_id" type="varchar" length="100" descr="任务主表rid" />
+			<col name="org_no" type="varchar" length="50" descr="机构编码" />
+			<col name="tab_name" type="varchar" length="100" descr="表名-中文" />
+			<col name="tab_name_en" type="varchar" length="100" descr="表名-英文" />
+			<col name="data_dt" type="varchar" length="10" descr="填报日期" />
+			<col name="status" type="varchar" length="1"
+				descr="状态(0分发1待审核2退回3完成)" />
+			<col name="explain" type="varchar" length="1000" descr="下发说明" />
+			<col name="data_time" type="varchar" length="20" descr="创建时间" />
+			<col name="remark" type="varchar" length="1000" descr="备注" />
+		</columns>
+	</table>
+
+	<table name="frs_wmp_filling_reason" pkname="rid"
+		descr="填报流程-任务表-提交/退回原因记录">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="child_task_id" type="varchar" length="100"
+				descr="子任务id" />
+			<col name="type" type="varchar" length="1" descr="类型：1提交原因2退回原因" />
+			<col name="reason" type="varchar" length="1000" descr="原因" />
+			<col name="user_no" type="varchar" length="100" descr="用户" />
+			<col name="data_time" type="varchar" length="20" descr="时间" />
+		</columns>
+	</table>
+	<table name="frs_wmp_cr_report" pkname="rid"
+		descr="frs_wmp_cr_report">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="org_no" type="varchar" length="100" descr="org_no" />
+			<col name="org_name" type="varchar" length="100" descr="org_name" />
+			<col name="report_type" type="varchar" length="20"
+				descr="report_type" />
+			<col name="data_dt" type="varchar" length="10" descr="data_dt" />
+			<col name="tab_name" type="varchar" length="200" descr="tab_name" />
+			<col name="tab_name_en" type="varchar" length="200"
+				descr="tab_name_en" />
+			<col name="create_tm" type="varchar" length="19"
+				descr="create_tm" />
+			<col name="start_tm" type="varchar" length="19" descr="start_tm" />
+			<col name="end_tm" type="varchar" length="19" descr="end_tm" />
+			<col name="status" type="varchar" length="30" descr="status" />
+			<col name="execsql" type="varchar" length="500" descr="execsql" />
+			<col name="filepath" type="varchar" length="300" descr="filepath" />
+			<col name="filelog" type="varchar" length="500" descr="生成文件的日志内容" />
+		</columns>
+	</table>
+	<table name="frs_wmp_cr_report_config" pkname="rid"
+		descr="frs_wmp_cr_report_config">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="org_no" type="varchar" length="100" descr="org_no" />
+			<col name="org_name" type="varchar" length="100" descr="org_name" />
+			<col name="report_type" type="varchar" length="20"
+				descr="report_type" />
+			<col name="tab_names" type="varchar" length="1000"
+				descr="tab_names" />
+			<col name="isautojob" type="varchar" length="1" descr="isautojob" />
+			<col name="autojobtrigger" type="varchar" length="40"
+				descr="autojobtrigger" />
+			<col name="seq" type="decimal" length="5" descr="seq" />
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_ppb1" pkname="rid" descr="资产池基本信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="AP_CODE" type="varchar" length="14" descr="资产池代码" />
+			<col name="ISS_ORG_CODE" type="varchar" length="6" descr="发起机构代码" />
+			<col name="AP_NAME" type="varchar" length="120" descr="资产池名称" />
+			<col name="AP_START_DT" type="varchar" length="10"
+				descr="资产池起始日期" />
+			<col name="DATA_DT" type="varchar" length="10" descr="数据日期" />
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_pib1" pkname="rid" descr="产品基本信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="iss_org_code" type="varchar" length="6" descr="发起机构代码" />
+			<col name="prd_kind" type="varchar" length="1" descr="产品种类" />
+			<col name="prd_name" type="varchar" length="120" descr="产品名称" />
+			<col name="prd_brand" type="varchar" length="120" descr="产品品牌" />
+			<col name="prd_per_time" type="varchar" length="4" descr="产品期次" />
+			<col name="inner_prd_code" type="varchar" length="60"
+				descr="发起机构内部产品代码" />
+			<col name="colt_mode" type="varchar" length="1" descr="募集方式" />
+			<col name="mgt_mode" type="varchar" length="1" descr="管理方式" />
+			<col name="oper_mode" type="varchar" length="1" descr="运行方式" />
+			<col name="prd_type" type="varchar" length="3" descr="产品类型" />
+			<col name="biz_mode" type="varchar" length="1" descr="业务模式" />
+			<col name="incm_guar_mark" type="varchar" length="1"
+				descr="收益保障标识" />
+			<col name="prin_guar_mark" type="varchar" length="1"
+				descr="本金保障标识" />
+			<col name="exp_max_yld_rate" type="decimal" length="8"
+				descr="预计客户最高收益率" />
+			<col name="exp_min_yld_rate" type="decimal" length="8"
+				descr="预计客户最低收益率" />
+			<col name="colt_begin_dt" type="varchar" length="10"
+				descr="募集起始日期" />
+			<col name="colt_end_dt" type="varchar" length="10" descr="募集结束日期" />
+			<col name="iss_ahead_term_mark" type="varchar" length="1"
+				descr="发行机构提前终止权标识" />
+			<col name="cust_rdm_mark" type="varchar" length="1"
+				descr="客户赎回权标识" />
+			<col name="prd_ce_mark" type="varchar" length="1" descr="产品增信标识" />
+			<col name="in_trsp_org_code" type="varchar" length="6"
+				descr="境内托管机构代码" />
+			<col name="out_trsp_org_cnty" type="varchar" length="3"
+				descr="境外托管机构国别" />
+			<col name="out_trsp_org_name" type="varchar" length="120"
+				descr="境外托管机构名称" />
+			<col name="prd_begin_dt" type="varchar" length="10"
+				descr="产品起始日期" />
+			<col name="prd_end_dt" type="varchar" length="10"
+				descr="产品预计终止日期" />
+			<col name="ap_code" type="varchar" length="14" descr="产品对应资产池代码" />
+			<col name="trsp_type" type="varchar" length="1" descr="受托职责" />
+			<col name="coop_mode" type="varchar" length="2" descr="合作模式" />
+			<col name="class_prd_mark" type="varchar" length="1"
+				descr="分级产品标识" />
+			<col name="earn_xfer_mark" type="varchar" length="1"
+				descr="收益权转让产品标识" />
+			<col name="prd_iss_org_type" type="varchar" length="1"
+				descr="理财产品发起机构标识" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_pib101" pkname="rid" descr="产品信息-币种信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="curr_type" type="varchar" length="1" descr="币种种类" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种代码" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_pib102" pkname="rid" descr="产品信息-客户类型">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="cust_type" type="varchar" length="1" descr="客户类型" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_pib103" pkname="rid" descr="产品信息-增信机构类型">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="prd_ce_org_type" type="varchar" length="1"
+				descr="增信机构类型" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_pib104" pkname="rid" descr="产品信息-增信形式">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="prd_ce_mode" type="varchar" length="1" descr="增信形式" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_pib2" pkname="rid" descr="产品起始募集信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="cust_type" type="varchar" length="1" descr="客户类型" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种代码" />
+			<col name="init_colt_amt" type="decimal" length="17,2"
+				descr="起始募集金额" />
+			<col name="init_colt_cny_amt" type="decimal" length="17,2"
+				descr="起始募集金额折人民币" />
+			<col name="init_colt_lot" type="decimal" length="15"
+				descr="起始募集份额" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+		</columns>
+	</table>
+
+	<table name="wmp_ppi_pie1" pkname="rid" descr="产品终止信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="prd_act_end_dt" type="varchar" length="10"
+				descr="产品实际终止日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种代码" />
+			<col name="iss_act_incm_amt" type="decimal" length="17,2"
+				descr="发行机构实现收入" />
+			<col name="iss_act_incm_cny_amt" type="decimal" length="17,2"
+				descr="发行机构实现收入折人民币" />
+			<col name="cust_earn_amt" type="decimal" length="17,2"
+				descr="兑付客户收益" />
+			<col name="cust_earn_cny_amt" type="decimal" length="17,2"
+				descr="兑付客户收益折人民币" />
+			<col name="cust_earn_rate" type="decimal" length="7,5"
+				descr="兑付客户收益率" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="ap_code" type="varchar" length="14" descr="资产池代码" />
+			<col name="ap_end_dt" type="varchar" length="10" descr="资产池终止日期" />
+		</columns>
+	</table>
+
+	<table name="wmp_pcd_pcd1" pkname="rid" descr="产品资金募集信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="trans_dt" type="varchar" length="10" descr="日期" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="cust_type" type="varchar" length="1" descr="客户类型" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种代码" />
+			<col name="cur_buy_amt" type="decimal" length="17,2"
+				descr="当期申购金额" />
+			<col name="cur_buy_cny_amt" type="decimal" length="17,2"
+				descr="当期申购金额折人民币" />
+			<col name="cur_buy_lot" type="decimal" length="15" descr="当期申购份额" />
+			<col name="cur_rdm_amt" type="decimal" length="17,2"
+				descr="当期兑付/赎回金额" />
+			<col name="cur_rdm_cny_amt" type="decimal" length="17,2"
+				descr="当期兑付/赎回金额折人民币" />
+			<col name="cur_rdm_lot" type="decimal" length="15"
+				descr="当期兑付/赎回份额" />
+			<col name="end_prd_amt" type="decimal" length="17,2"
+				descr="期末产品金额" />
+			<col name="end_prd_cny_amt" type="decimal" length="17,2"
+				descr="期末产品金额折人民币" />
+			<col name="end_prd_lot" type="decimal" length="15" descr="期末产品份额" />
+			<col name="net_end_amt" type="decimal" length="8,5"
+				descr="净值型产品期末净值" />
+			<col name="net_end_cny_amt" type="decimal" length="8,5"
+				descr="净值型产品期末净值折人民币" />
+			<col name="net_end_sum_amt" type="decimal" length="8,5"
+				descr="净值型产品期末累计净值" />
+			<col name="net_end_sum_cny_amt" type="decimal" length="8,5"
+				descr="净值型产品期末累计净值折人民币" />
+			<col name="open_exp_max_yld_rate" type="decimal" length="8,5"
+				descr="开放式非净值型产品预期最高收益率" />
+			<col name="open_exp_min_yld_rate" type="decimal" length="8,5"
+				descr="开放式非净值型产品预期低高收益率" />
+		</columns>
+	</table>
+
+	<table name="wmp_pvd_pvd1" pkname="rid" descr="资产负债信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="trans_dt" type="varchar" length="10" descr="日期" />
+			<col name="ap_code" type="varchar" length="14" descr="资产池代码" />
+			<col name="data_type" type="varchar" length="5" descr="数据种类" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种代码" />
+			<col name="end_val" type="decimal" length="17,2" descr="期末余额" />
+			<col name="end_cny_val" type="decimal" length="17,2"
+				descr="期末余额折人民币" />
+		</columns>
+	</table>
+
+	<table name="wmp_pvd_pvd2" pkname="rid" descr="贷款明细信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="trans_dt" type="varchar" length="10" descr="日期" />
+			<col name="ap_code" type="varchar" length="14" descr="资产池代码" />
+			<col name="loan_type" type="varchar" length="1" descr="贷款种类" />
+			<col name="loan_org_code" type="varchar" length="6"
+				descr="贷款转让方机构代码" />
+			<col name="loan_orig_org_code" type="varchar" length="6"
+				descr="贷款合同原始发放机构代码" />
+			<col name="loan_orig_org_area" type="varchar" length="6"
+				descr="贷款合同原始发放机构所在地代码" />
+			<col name="brwr_type" type="varchar" length="1" descr="借款人类型" />
+			<col name="area_cd" type="varchar" length="6" descr="地区代码" />
+			<col name="brwr_code" type="varchar" length="30" descr="借款人代码" />
+			<col name="indus_cd" type="varchar" length="1" descr="行业信息" />
+			<col name="ent_econ_type" type="varchar" length="5"
+				descr="企业出资人经济成分" />
+			<col name="ent_scale" type="varchar" length="4" descr="企业规模" />
+			<col name="loan_iou_no" type="varchar" length="35" descr="贷款借据编号" />
+			<col name="loan_prd_type" type="varchar" length="6"
+				descr="贷款产品类别" />
+			<col name="loan_act_invest" type="varchar" length="3"
+				descr="贷款实际投向" />
+			<col name="loan_iss_dt" type="varchar" length="10" descr="贷款发放日期" />
+			<col name="loan_end_dt" type="varchar" length="10" descr="贷款到期日期" />
+			<col name="loan_ext_end_dt" type="varchar" length="10"
+				descr="贷款展期到期日期" />
+			<col name="rate_fixed_mark" type="varchar" length="4"
+				descr="利率是否固定" />
+			<col name="int_rate" type="decimal" length="17,2" descr="利率水平" />
+			<col name="loan_guar_type" type="varchar" length="3"
+				descr="贷款担保方式" />
+			<col name="loan_qa_type" type="varchar" length="4" descr="贷款质量" />
+			<col name="loan_sts" type="varchar" length="4" descr="贷款状态" />
+			<col name="loan_xfer_dct_rate" type="decimal" length="17,2"
+				descr="贷款转让折扣率" />
+			<col name="orig_curr_cd" type="varchar" length="3"
+				descr="原始合同币种代码" />
+			<col name="orig_amt" type="decimal" length="17,2" descr="原始合同金额" />
+			<col name="orig_cny_amt" type="decimal" length="17,2"
+				descr="原始合同金额折人民币" />
+			<col name="loan_val_curr_cd" type="varchar" length="3"
+				descr="贷款余额币种代码" />
+			<col name="loan_val" type="decimal" length="17,2" descr="贷款余额" />
+			<col name="loan_cny_val" type="decimal" length="17,2"
+				descr="贷款余额折人民币" />
+		</columns>
+	</table>
+
+	<table name="wmp_pvd_pvd3" pkname="rid" descr="投资明细信息">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="主键" />
+			<col name="trans_dt" type="varchar" length="10" descr="日期" />
+			<col name="ap_code" type="varchar" length="14" descr="资产池代码" />
+			<col name="equity_type" type="varchar" length="5" descr="股权种类" />
+			<col name="iss_org_code" type="varchar" length="6"
+				descr="产品发起机构编码" />
+			<col name="prd_code" type="varchar" length="15" descr="产品代码" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种代码" />
+			<col name="prd_amt" type="decimal" length="17,2" descr="产品金额" />
+			<col name="prd_cny_amt" type="decimal" length="17,2"
+				descr="产品金额折人民币" />
+		</columns>
+	</table>
+</root>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.valid.repository.ValidOrgMergeMybatisDao">
+	<!-- 列表查询 -->
+	<select id="listOrgMerge" resultType="com.yusys.bione.plugin.valid.web.vo.CfgextOrgMergeVO" 
+	parameterType="HashMap">
+		SELECT t.check_id,
+		       t.sum_index_no,
+		       t.sum_template_id,
+		       t.branch_index_no,
+		       t.branch_template_id,
+		       t.check_desc,
+		       t.start_date,
+		       t.end_date,
+		       t2.rpt_nm sumRptNm,
+		       t3.rpt_nm branchRptNm
+		  FROM rpt_valid_cfgext_orgmerge t
+		  left join rpt_mgr_report_info t2
+		    on t.sum_template_id = t2.cfg_id
+		  left join rpt_mgr_report_info t3
+		    on t.branch_template_id = t3.cfg_id
+		where 1=1
+			<if test="checkId != null">and t.check_id = #{checkId}</if>
+			<if test="sumTemplateId != null">and t.sum_template_id = #{sumTemplateId}</if>
+			<if test="endDate != null">
+				and t.end_date = #{endDate}
+			</if>
+			<if test="startDate != null">and t.START_DATE &lt; #{startDate}</if>
+			<if test="dataDate != null">
+				and t.start_date &lt;= #{dataDate}
+				and t.end_date > #{dataDate}
+			</if>
+			<if test="checkIds != null and checkIds.size() > 0">
+				and t.check_id in 
+				<foreach  collection = "checkIds" index="index" item="item"  open="("  separator="," close=")">
+	            	#{item}	             
+		        </foreach>
+	    	</if>
+	</select>
+	
+    <!-- 删除公式 -->
+	<delete id="delete" parameterType="HashMap">
+		delete from rpt_valid_cfgext_orgmerge
+		<where>
+			<if test="ids != null and ids.size() > 0">
+				and check_id in 
+				<foreach  collection = "ids" index="index" item="item"  open="("  separator="," close=")">
+	            	#{item}	             
+		        </foreach>
+	    	</if>
+		</where>
+	</delete>
+</mapper> 

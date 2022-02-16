@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+	<templet>
+		<templetname>报文信息</templetname>
+		<fromtable>crrs_bs_dict_code</fromtable>
+		<savetable>crrs_bs_dict_code</savetable>
+		<pkname>rid</pkname>
+		<querycontion>parent_item_code = 'A01041'</querycontion>
+		<autocondition descr="自动查询时的条件">parent_item_code = 'A01041'</autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<orderbys>item_order</orderbys>
+		<card_btns></card_btns>
+		<card_size>900*560</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch>N</list_issearch>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>item_code</itemkey>
+		<itemname>编码</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>110,300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>80</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>200</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>item_name</itemkey>
+		<itemname>报文名称</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>110,300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>250</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>item_desc</itemkey>
+		<itemname>报文描述</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>110,300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>400</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>250</query_width>
+	</templet_item>
+	
+</root>

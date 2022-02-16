@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.rpttsk.repository.RptTskPublishChildMybatisDao">
+
+	<!-- 获取所有条线信息 -->
+	<select id="findFrsLineAll" resultType="com.yusys.bione.plugin.frsorg.entity.RptMgrFrsLine">
+		select * from RPT_MGR_FRS_LINE
+	</select>
+	
+	<!-- 获取监管机构信息 -->
+	<select id="searchFrsOrgInfo" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo" parameterType="HashMap">
+		select org.org_no as "id.orgNo", org.org_type as "id.orgType", org.org_nm from RPT_ORG_INFO org where org.org_type = #{orgType}
+		<if test="orgNoList != null and orgNoList.size() > 0">
+				and org.org_no in
+				(
+						    select distinct(org.org_no) from RPT_ORG_INFO org where 1=1 
+							and
+							<foreach collection="orgNoList" item="items" open="(" separator="or"
+								close=")">
+								 (org.ORG_TYPE = #{items.orgType}
+								 and (
+									<foreach collection="items.orgLike" item="orgLike" open="" separator="or"
+										close="">
+										org.NAMESPACE like #{orgLike}
+									</foreach>
+								))
+							</foreach>
+			    )
+		</if> 
+	</select>
+
+	<!-- 查询已配置条线的用户信息 -->
+	<select id="searchConfigedFillUsr" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    usr.user_id, cfg.fillrpt_A_user_id, cfg.fillrpt_B_user_id, usr.user_name
+		FROM
+		    bione_user_info usr
+		INNER JOIN
+		    rpt_mgr_frs_linefill_cfg cfg
+		ON
+		    usr.user_id = cfg.fillrpt_A_user_id
+		OR  usr.user_id = cfg.fillrpt_B_user_id
+		<where>
+			<if test="lineId != null and lineId.length() > 0"> and cfg.line_id = #{lineId}</if>
+			<if test="orgNo != null and orgNo.length() > 0"> and cfg.org_id = #{orgNo}</if>
+			<if test="orgType != null and orgType.length() > 0"> and cfg.org_type = #{orgType}</if>
+			<if test="orgList != null">
+				AND cfg.org_id IN
+				(
+						select distinct(org.org_no) from RPT_ORG_INFO org where 1=1 
+							and
+							<foreach collection="orgList" item="items" open="(" separator="or"
+								close=")">
+								 (org.ORG_TYPE = #{items.orgType}
+								 and (
+									<foreach collection="items.orgLike" item="orgLike" open="" separator="or"
+										close="">
+										org.NAMESPACE like #{orgLike}
+									</foreach>
+								))
+							</foreach>
+			    )
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询未配置条线的用户信息 -->
+	<select id="searchUnConfigedFillUsr" resultType="com.yusys.bione.frame.user.entity.BioneUserInfo" parameterType="HashMap">
+		SELECT
+		    *
+		FROM
+		    bione_user_info usr
+		WHERE
+			1 = 1
+		<if test="orgNo != null and orgNo.length() > 0"> and usr.org_no = #{orgNo}</if>
+		<if test="userIdList != null and userIdList.size() > 0"> 
+			AND usr.user_id not IN
+			<foreach collection="userIdList" index="index" item="item"  open="("  separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="orgNoList != null and orgNoList.size() > 0"> 
+			AND usr.org_no IN
+			<foreach collection = "orgNoList" index="index" item="item"  open="("  separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	
+	<!-- 获取机构下的任务信息 -->
+	<select id="searchTaskList" resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskInfo" parameterType="HashMap">
+		SELECT
+		    inf.*
+		FROM
+		    RPT_FLTSK_EXEOBJ_REL rel
+		INNER JOIN
+		    RPT_FLTSK_INFO inf
+		ON
+		    rel.task_id = inf.task_id
+		WHERE
+		    rel.exe_obj_type = #{orgType}
+		AND rel.exe_obj_id = #{orgNo}
+		<if test="orgNoList != null">
+				and (
+				<foreach collection="orgNoList" item="items" open="(" separator=")or("
+								close=")">
+					rel.EXE_OBJ_ID IN 
+					(
+						select distinct(org.org_no) from RPT_ORG_INFO org where 1=1 
+								and
+								(org.ORG_TYPE = #{items.orgType}
+									 and (
+										<foreach collection="items.orgLike" item="orgLike" open="" separator="or"
+											close="">
+											org.NAMESPACE like #{orgLike}
+										</foreach>
+									))
+			    	)
+			    	and rel.exe_obj_type=#{items.orgType}
+			    	</foreach>
+			    	)
+			</if>
+	</select>
+	
+	<!-- 获取任务下的报表信息 -->
+	<select id="searchRptList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo" parameterType="HashMap">
+		SELECT DISTINCT
+		    rpt.rpt_id, rpt.rpt_nm
+		FROM
+		    RPT_FLTSK_EXEOBJ_REL rel
+		INNER JOIN
+		    RPT_FLTSK_TSKOBJ_REL oel
+		ON
+		    rel.task_id = oel.task_id
+		AND rel.exe_obj_type = oel.task_obj_type
+		AND rel.exe_obj_type = #{orgType}
+		AND rel.exe_obj_id = #{orgNo}
+		<if test="orgNoList != null and orgNoList.size() > 0">
+				and (
+				<foreach collection="orgNoList" item="items" open="(" separator=")or("
+								close=")">
+					rel.EXE_OBJ_ID IN 
+					(
+						select distinct(org.org_no) from RPT_ORG_INFO org where 1=1 
+								and
+								(org.ORG_TYPE = #{items.orgType}
+									 and (
+										<foreach collection="items.orgLike" item="orgLike" open="" separator="or"
+											close="">
+											org.NAMESPACE like #{orgLike}
+										</foreach>
+									))
+			    	)
+			    	and rel.exe_obj_type=#{items.orgType}
+			    	</foreach>
+			    	)
+			</if>
+		<if test="taskObjId != null and taskObjId.size() > 0">
+		  and (
+			    oel.task_obj_id in
+				<foreach item="taskObjId"  collection="taskObjId" separator=" or oel.task_obj_id in ">
+					<foreach collection="taskObjId" item="taskObjId" open="("
+						separator="," close=")">
+						#{taskObjId}
+					</foreach>
+				</foreach>
+		  )
+		</if>
+		INNER JOIN
+		    rpt_mgr_report_info rpt
+		ON
+		    rpt.rpt_id = oel.task_obj_id
+		where 1 = 1 order by rpt.rpt_nm
+	</select>
+	
+	<!-- 获取报表任务配置 -->
+	<select id="searchRptCfgList" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsSecreleaseCfg">
+		select cfg.org_id as "id.orgId", cfg.org_type as "id.orgType", cfg.task_id as "id.taskId", cfg.rpt_id as "id.rptId"
+		from RPT_MGR_FRS_SECRELEASE_CFG cfg where cfg.org_id = #{orgNo} and cfg.org_type = #{orgType} and cfg.task_id = #{taskId}
+	</select>
+	
+	<!-- 增加新的条线填报配置信息 -->
+	<insert id="saveFrsLineConfig" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsLinefillCfg">
+		INSERT INTO rpt_mgr_frs_linefill_cfg ( line_id, rpt_id, org_id, org_type, fillrpt_a_user_id, fillrpt_b_user_id )
+			VALUES ( #{id.lineId}, #{id.rptId}, #{id.orgId}, #{id.orgType}, #{fillrptAUserId}, #{fillrptBUserId} )
+	</insert>
+	
+	<!-- 删除旧的条线填报配置信息 -->
+	<delete id="deleteFrsLineConfig" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsLinefillCfg">
+		DELETE
+		FROM
+		    rpt_mgr_frs_linefill_cfg cfg
+		WHERE
+		    cfg.line_id = #{id.lineId}
+		AND cfg.org_id = #{id.orgId}
+		AND cfg.org_type = #{id.orgType}
+    </delete>
+    
+    <!-- 增加新的报表二次下发配置信息 -->
+    <insert id="saveFrsSecreleaseConfig" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsSecreleaseCfg">
+    	INSERT INTO RPT_MGR_FRS_SECRELEASE_CFG ( org_id, rpt_id, task_id, org_type )
+		    VALUES ( #{id.orgId}, #{id.rptId}, #{id.taskId}, #{id.orgType} )
+    </insert>
+    
+    <!-- 删除旧的报表二次下发配置信息 -->
+    <delete id="deleteFrsSecreleaseConfig" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsSecreleaseCfg">
+    	DELETE
+		FROM
+		    RPT_MGR_FRS_SECRELEASE_CFG cfg
+		WHERE
+		    cfg.org_id = #{id.orgId}
+		AND cfg.task_id = #{id.taskId}
+		AND org_type = #{id.orgType}
+    </delete>
+	<!-- =================================gf==================================== -->
+	<select id="getChildTaskList" resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptTskInfoVO" parameterType="HashMap">
+		SELECT
+		    TASK_ID,
+		    UP_TASK_ID,
+		    TASK_DEF_ID,
+		    TASK_NM,
+		    SUM_MODE,
+		    EFFECT_DATE,
+		    TASK_FREQ,
+		    TASK_STS,
+		    TASK_TYPE,
+		    EXE_OBJ_TYPE,
+		    CHECK_STS,
+		    TASK_DEADLINE,
+		    TRIGGER_TYPE,
+		    TRIGGER_ID,
+		    UP_EXE_OBJ_ID,
+		    IS_PRE,
+		    DATE_OFFSET_AMOUNT,
+		    INVALID_DATE,
+		    IS_RELY_DATA,
+		    LOGIC_DEL_NO
+		FROM
+		    RPT_FLTSK_INFO
+		where LOGIC_DEL_NO='N'
+			AND  UP_EXE_OBJ_ID=#{orgNo}
+			AND EXE_OBJ_TYPE=#{orgType}
+		<if test="upTaskId!=null">
+			AND UP_TASK_ID=#{upTaskId}
+		</if>
+	</select>
+	 
+	 <!-- 获取报表二次下发配置 -->
+	 <select id="getFrsSecreleaseCfg" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsSecreleaseCfg" parameterType="HashMap">
+	 	SELECT
+		    ORG_ID as "id.orgId",
+		    RPT_ID as "id.rptId",
+		    ORG_TYPE as "id.orgType",
+		    TASK_ID as "id.taskId"
+		FROM
+		    RPT_MGR_FRS_SECRELEASE_CFG
+		WHERE 1=1
+			<if test="orgId!=null">
+				AND ORG_ID=#{orgId}
+			</if>
+		    <if test="orgType!=null">
+		    	AND ORG_TYPE=#{orgType}
+		    </if>
+	 </select>
+	 <!-- 二次下发条线配置 报表条线过滤-->
+	 <select id="getLinefillCfg" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsLinefillCfg" parameterType="HashMap">
+	 	SELECT
+		    ORG_ID as "id.orgId",
+		    RPT_ID as "id.rptId",
+		    LINE_ID as "id.lineId",
+		    ORG_TYPE as "id.orgType",
+		    FILLRPT_A_USER_ID,
+		    FILLRPT_B_USER_ID
+		FROM
+		    RPT_MGR_FRS_LINEFILL_CFG
+		WHERE
+		    1=1
+		    <if test="orgId!=null">
+				AND ORG_ID=#{orgId}
+			</if>
+		    <if test="orgType!=null">
+		    	AND ORG_TYPE=#{orgType}
+		    </if>
+		    <if test="lines!=null">
+		    	AND LINE_ID IN
+		    	<foreach collection="lines" item="lines" open="(" separator=","
+							close=")">
+					#{lines}
+				</foreach>
+		    </if>
+		    <!-- <if test="rptId!=null">
+		    	AND RPT_ID=#{rptId}
+		    </if> -->
+	 </select>
+	<!-- 获取模板版本号 -->
+	<select id="getTempVer" resultType="com.yusys.bione.plugin.design.entity.RptDesignTmpInfo" parameterType="HashMap">
+		SELECT
+		    t.TEMPLATE_ID AS "id.templateId",
+		    t.VER_ID      AS "id.verId",
+		    t.VER_END_DATE,
+		    t.VER_START_DATE,
+		    t.TEMPLATE_CONTENTJSON,
+		    t.TEMPLATE_NM,
+		    t.REMARK,
+		    t.IS_UPT,
+		    t.TEMPLATE_TYPE,
+		    t.LINE_ID
+		FROM
+		    RPT_DESIGN_TMP_INFO t
+		WHERE
+		     t.PARENT_TEMPLATE_ID in
+		    (
+		        SELECT
+		            r.CFG_ID
+		        FROM
+		            RPT_MGR_REPORT_INFO r
+		        WHERE
+		            r.RPT_ID =#{rptId}
+		     )
+		AND t.VER_START_DATE &lt;=#{dataDate}
+		AND t.VER_END_DATE >#{dataDate}
+	
+	</select>
+	<!-- 报表的条线权限 -->
+	<select id="getRptLine" resultType="String" parameterType="HashMap">
+		SELECT DISTINCT
+		    BUSI_LINE_ID
+		FROM
+		    RPT_DESIGN_CELLLINE_REL
+		WHERE
+		    TEMPLATE_ID=#{templateId}
+		AND VER_ID=#{verId}
+	</select>
+	<!-- 二次任务获取监管机构 -->
+	<select id="getChildFrsOrg" resultType="HashMap" parameterType="HashMap" >
+	SELECT
+	    ORG_NO,
+	    ORG_TYPE,
+	    UP_ORG_NO,
+	    MGR_ORG_NO,
+	    FINANCE_ORG_NO,
+	    ORG_NM,
+	    ORG_SUM_TYPE
+	FROM
+	    RPT_ORG_INFO
+	WHERE 1=1
+		<if test="orgType!=null">
+		 AND ORG_TYPE=#{orgType}
+		</if>
+		<if test="mgrOrgNo!=null" >
+			AND MGR_ORG_NO=#{mgrOrgNo}
+		</if>
+		<if test="orgSumType!=null">
+			AND ORG_SUM_TYPE=#{orgSumType}
+		</if>
+	</select>
+	<select id="getInnerOrg" resultType="com.yusys.bione.frame.authobj.entity.BioneOrgInfo">
+		SELECT
+		    ORG_ID,
+		    LOGIC_SYS_NO,
+		    ORG_NO,
+		    ORG_NAME,
+		    UP_NO,
+		    ORG_STS,
+		    REMARK,
+		    LAST_UPDATE_USER,
+		    LAST_UPDATE_TIME
+		FROM
+		    BIONE_ORG_INFO
+		WHERE
+		    1=1
+		<if test="orgSts!=null">
+			AND ORG_STS=#{orgSts}
+		</if>
+		<if test="upNo!=null">
+			AND UP_NO=#{upNo}
+		</if>
+		<if test="orgNo!=null">
+			AND org_NO=#{orgNo}
+		</if>
+	</select>
+</mapper> 

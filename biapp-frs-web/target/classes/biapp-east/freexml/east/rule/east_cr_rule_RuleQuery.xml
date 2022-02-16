@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>校验规则</templetname>
+	<fromtable>east_cr_rule</fromtable>
+	<savetable>east_cr_rule</savetable>
+	<pkname>id</pkname>
+	<querycontion></querycontion>
+	<autocondition descr="自动查询时的条件"></autocondition>
+	<autoquery descr="是否自动查询数据">Y</autoquery>
+	<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+	<list_btns></list_btns>
+	<list_issearch>Y</list_issearch>
+	<list_ispagebar>Y</list_ispagebar>
+</templet>
+
+<templet_item>
+    <itemkey>id</itemkey>
+    <itemname>主键</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>rule_name</itemkey>
+    <itemname>规则名称</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>300</list_width>
+    <list_align>左</list_align>
+    <list_render></list_render>
+    <list_hrefaction>onView</list_hrefaction>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+    
+    <query3_isshow>Y</query3_isshow>
+    <query3_iswrap>N</query3_iswrap>
+    
+    <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>type_cd</itemkey>
+    <itemname>校验类型</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"SQL","内容":"select type_name id,type_name name from east_cr_rule_type"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>Y</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+    
+    <query3_isshow>Y</query3_isshow>
+    <query3_iswrap>N</query3_iswrap>
+    
+    <query_width>250</query_width>
+</templet_item>
+
+
+<templet_item>
+    <itemkey>disp_cd</itemkey>
+    <itemname>展示分类</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"常规校验|记录数校验|总分核对|跨监管一致性"}】</itemdefine>
+    <defaultformula></defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>300</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>100</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>tab_name</itemkey>
+    <itemname>表名</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"SQL","内容":"select tab_name id,tab_name name from east_cr_tab where is_virtual = 'N' order by tab_no"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>180</list_width>
+    <list_align>左</list_align>
+    <list_render></list_render>
+    <query_isshow>Y</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    
+    <defvalue></defvalue>
+    <query3_isshow>Y</query3_isshow>
+    <query3_iswrap>N</query3_iswrap>
+    
+    <query_width>280</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>col_name</itemkey>
+    <itemname>字段名</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>左</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>weight</itemkey>
+    <itemname>权重</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>{"类型":"直接值","内容":"1/普通|2/一般|3/重要|4/非常重要"}</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+    
+    <query3_isshow>Y</query3_isshow>
+    <query3_iswrap>Y</query3_iswrap>
+    
+    <query_width>200</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>create_tm</itemkey>
+    <itemname>创建时间</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>update_tm</itemkey>
+    <itemname>最后修改时间</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>update_user</itemkey>
+    <itemname>修改人</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>rule_sts</itemkey>
+    <itemname>是否启用</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>70</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <query3_isshow>Y</query3_isshow>
+    <query3_iswrap>N</query3_iswrap>
+    
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>eff_dt</itemkey>
+    <itemname>生效日期</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>exp_dt</itemkey>
+    <itemname>失效日期</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>cond</itemkey>
+    <itemname>前置条件</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>左</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>remark</itemkey>
+    <itemname>备注</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+</root>
+

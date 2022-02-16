@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30079052.0.0" classType="org.pbccrc.archive.collect.messagetools.collateral.msg.CollateralNormalRecord">
+		<field name="MotgaCltalCtrctBsSgmt" fbTag="MotgaCltalCtrctBsSgmt"
+			classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.MotgaCltalCtrctBsSgmt">
+			<rule id="MotgaCltalCtrctBsSgmt_NotNull" type="NotNull" errCode="BPR000" fbValue="" />
+
+			<field name="InfRecTp" fbTag="InfRecType" classType="java.lang.String">
+				<rule id="InfRecTp_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="InfRecTp_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecTp_NotNull" />
+				<rule id="InfRecTp_Dict" type="DictManage" errCode="ABE001" depExp="InfRecTp_NotEmpty">
+					<property name="dictKey" value="InfRecType" />
+				</rule>
+				<rule id="InfRecTp_EqCtxt" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecTp_Dict" >
+					<property  name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field>
+			<field name="RptDateCode" fbTag="RptDateCode" classType="java.lang.String">
+				<rule id="RptDateCode_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="RptDateCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDateCode_NotNull" />
+				<rule id="RptDateCode_Dict" type="Dict" errCode="ABE001" depExp="RptDateCode_NotEmpty">
+					<property name="dictKey" value="CollateralRptDateCode" />
+				</rule>
+			</field>
+			<field name="Ccc" fbTag="CcCode" classType="java.lang.String">
+				<rule id="Ccc_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="Ccc_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Ccc_NotNull" />
+				<rule id="Ccc_DataType" type="DataType" errCode="ABE001" depExp="Ccc_NotEmpty">
+					<property name="type" value="AN..60" />
+				</rule>
+				<rule id="Ccc_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="Ccc_DataType" />
+			</field>
+			<field name="RptDate" fbTag="RptDate" classType="java.lang.String">
+				<rule id="RptDate_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDate_NotNull" />
+				<rule id="RptDate_DataType" type="DataType" errCode="ABE008" depExp="RptDate_NotEmpty">
+					<property name="type" value="Date" />
+				</rule>
+				<rule id="RptDate_Range" type="DateRange" errCode="ABE008" depExp="RptDate_DataType" />
+				<rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001" depExp="RptDate_Range" >
+					<property  name="type" value="date" />
+					<property  name="endDate" value="${$context.FILE_CREATE_DATE}" />
+				</rule>
+			</field>
+			<field name="InfoIdType" fbTag="InfoIDType" classType="java.lang.String">
+				<rule id="InfoIdType_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="InfoIdType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfoIdType_NotNull" />
+				<rule id="InfoIdType_Dict" type="Dict" errCode="ABE001" depExp="InfoIdType_NotEmpty">
+					<property name="dictKey" value="RltRepymtInfoIdType" />
+				</rule>
+				<rule id="InfoIdType_1" type="Equals" depExp="InfoIdType_Dict">
+					<property name="data" value="1" />
+				</rule>
+				<rule id="InfoIdType_2" type="Equals" depExp="InfoIdType_Dict">
+					<property name="data" value="2" />
+				</rule>
+			</field>
+			<field name="GuarName" fbTag="Name" classType="java.lang.String">
+				<rule id="GuarName_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="GuarName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GuarName_NotNull" />
+				<rule id="GuarName_Ent_DataType" type="DataType" errCode="ABE001" depExp="GuarName_NotEmpty &amp; InfoIdType_2">
+					<property name="type" value="ANC..80" />
+				</rule>
+				<rule id="GuarName_Ntr_DataType" type="DataType" errCode="ABE001" depExp="GuarName_NotEmpty &amp; InfoIdType_1">
+					<property name="type" value="ANC..30" />
+				</rule>
+			</field>
+			<field name="GuarCertType" fbTag="CertType" classType="java.lang.String">
+				<rule id="GuarCertType_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="GuarCertType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GuarCertType_NotNull" />
+				<rule id="GuarCertType_InfoIdType_1_Dict" type="Dict" errCode="BPE000" depExp="GuarCertType_NotEmpty &amp; InfoIdType_1"
+					fbTag="0000" fbValue="">
+					<property name="dictKey" value="NtrCertType" />
+				</rule>
+				<rule id="GuarCertType_InfoIdType_2_Dict" type="Contains" errCode="BPE000" depExp="GuarCertType_NotEmpty &amp; InfoIdType_2"
+					fbTag="0000" fbValue="">
+					<property name="dict" value="10;20;30" />
+				</rule>
+			</field>
+			<field name="GuarCertNum" fbTag="CertNum" classType="java.lang.String">
+				<rule id="GuarCertNum_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="GuarCertNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GuarCertNum_NotNull" />
+				<rule id="GuarCertNum_DataType_Ent" type="DataType" errCode="ABE001" depExp="GuarCertNum_NotEmpty &amp; InfoIdType_2">
+					<property name="type" value="ANC..40" />
+				</rule>
+				<rule id="GuarCertNum_DataType_Ntr" type="DataType" errCode="ABE001" depExp="GuarCertNum_NotEmpty &amp; InfoIdType_1">
+					<property name="type" value="ANC..20" />
+				</rule>
+			</field>
+			<field name="AcctMngmtOrgCode" fbTag="MngmtOrgCode" classType="java.lang.String">
+				<rule id="AcctMngmtOrgCode_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalCtrctBsSgmt_NotNull" />
+				<rule id="AcctMngmtOrgCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctMngmtOrgCode_NotNull" />
+				<rule id="AcctMngmtOrgCode_DataType" type="DataType" errCode="ABE001" depExp="AcctMngmtOrgCode_NotEmpty">
+					<property name="type" value="AN14" />
+				</rule>
+				<rule id="AcctMngmtOrgCode_Organ" type="Organ" errCode="ABE003" depExp="AcctMngmtOrgCode_DataType" />
+			</field>
+			<rule id="GuarCertNum_Cert_NTR" type="NtrCert" fbTag="CertNum" fbValue="${MotgaCltalCtrctBsSgmt.GuarCertNum}"
+				errCode="ABE004" depExp="GuarCertNum_DataType_Ntr &amp; GuarCertType_InfoIdType_1_Dict">
+				<property name="certTypeFeild" value="GuarCertType" />
+				<property name="certNumFeild" value="GuarCertNum" />
+			</rule>
+			<rule id="GuarCertNum_Cert_ENT" type="LegCert" fbTag="CertNum" fbValue="${MotgaCltalCtrctBsSgmt.GuarCertNum}"
+				errCode="ABE004" depExp="GuarCertNum_DataType_Ent &amp; GuarCertType_InfoIdType_2_Dict">
+				<property name="certTypeFeild" value="GuarCertType" />
+				<property name="certNumFeild" value="GuarCertNum" />
+			</rule>
+		</field>
+
+		<field name="MotgaCltalBsInfSgmt" fbTag="MotgaCltalBsInfSgmt"
+			classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.MotgaCltalBsInfSgmt">
+			<rule id="MotgaCltalBsInfSgmt_NotNull" type="NotNull" errCode="BPR000" fbValue="" />
+			<field name="GuarType" fbTag="GuarType" classType="java.lang.String">
+				<rule id="GuarType_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalBsInfSgmt_NotNull" />
+				<rule id="GuarType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GuarType_NotNull" />
+				<rule id="GuarType_Dict" type="Dict" errCode="ABE001" depExp="GuarType_NotEmpty">
+					<property name="dictKey" value="CcType" />
+				</rule>
+				<rule id="GuarType_1" type="Equals" depExp="GuarType_Dict">
+					<property name="data" value="1" />
+				</rule>
+				<rule id="GuarType_2" type="Equals" depExp="GuarType_Dict">
+					<property name="data" value="2" />
+				</rule>
+			</field>
+			<field name="MaxGuar" fbTag="MaxGuar" classType="java.lang.String">
+				<rule id="MaxGuar_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalBsInfSgmt_NotNull" />
+				<rule id="MaxGuar_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="MaxGuar_NotNull" />
+				<rule id="MaxGuar_Dict" type="Dict" errCode="ABE001" depExp="MaxGuar_NotEmpty">
+					<property name="dictKey" value="MaxGuarFlg" />
+				</rule>
+			</field>
+			<field name="Cy" fbTag="Cy" classType="java.lang.String">
+				<rule id="Cy_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalBsInfSgmt_NotNull" />
+				<rule id="Cy_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Cy_NotNull" />
+				<rule id="Cy_Dict" type="Dict" errCode="ABE001" depExp="Cy_NotEmpty">
+					<property name="dictKey" value="Cy" />
+				</rule>
+			</field>
+			<field name="CcAmt" fbTag="CcAmt" classType="java.lang.String">
+				<rule id="CcAmt_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalBsInfSgmt_NotNull"/>
+				<rule id="CcAmt_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CcAmt_NotNull" />
+				<rule id="CcAmt_DataType" type="DataType" errCode="ABE001" depExp="CcAmt_NotEmpty">
+					<property name="type" value="uInt..15" />
+				</rule>
+			</field>
+			<field name="CcValDate" fbTag="CcValDate" classType="java.lang.String">
+				<rule id="CcValDate_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalBsInfSgmt_NotNull" />
+				<rule id="CcValDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CcValDate_NotNull" />
+				<rule id="CcValDate_DataType" type="DataType" errCode="ABE008" depExp="CcValDate_NotEmpty">
+					<property name="type" value="Date" />
+				</rule>
+				<rule id="CcValDate_Range" type="DateRange" errCode="ABE008" depExp="CcValDate_DataType" />
+				<rule id="CcValDate_EarlierExpDate" type="DateCompare" fbTag="0000" fbValue="" errCode="BPE001"
+					depExp="CcValDate_Range &amp; CcExpDate_Range">
+					<property name="endDate" value="${MotgaCltalBsInfSgmt.CcExpDate}" />
+				</rule>
+				<rule id="CcValDate_EarlierRptDate" type="DateCompare" errCode="ABE007" depExp="CcValDate_Range &amp; RptDate_Range">
+					<property name="endDate" value="${MotgaCltalCtrctBsSgmt.RptDate}" />
+				</rule>
+			</field>
+			<field name="CcExpDate" fbTag="CcExpDate" classType="java.lang.String">
+				<rule id="CcExpDate_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalBsInfSgmt_NotNull" />
+				<rule id="CcExpDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CcExpDate_NotNull" />
+				<rule id="CcExpDate_DataType" type="DataType" errCode="ABE008" depExp="CcExpDate_NotEmpty">
+					<property name="type" value="Date" />
+				</rule>
+				<rule id="CcExpDate_Range" type="DateRange" errCode="ABE008" depExp="CcExpDate_DataType" />
+			</field>
+			<field name="CcStatus" fbTag="CcStatus" classType="java.lang.String">
+				<rule id="CcStatus_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaCltalBsInfSgmt_NotNull" />
+				<rule id="CcStatus_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CcStatus_NotNull" />
+				<rule id="CcStatus_Dict" type="Dict" errCode="ABE001" depExp="CcStatus_NotEmpty">
+					<property name="dictKey" value="CcStatus" />
+				</rule>
+			</field>
+		</field>
+
+		<field name="MotgaProptInfSgmt" fbTag="MotgaProptInfSgmt"
+			classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.MotgaProptInfSgmt">
+			<rule id="MotgaProptInfSgmt_NotNull" type="NotNull"/>
+			<rule id="MotgaProptInfSgmtCheck" type="Method" errCode="BPR001" fbTag="MotgaProptInfSgmt" fbValue="" depExp="GuarType_1">
+				<package>
+						org.pbccrc.archive.collect.messagetools.collateral.msg.CollateralNormalRecord;
+					</package>
+					<method>
+						{
+							if (record.getMotgaProptInfSgmt() != null &amp;&amp; record.getCltalInfSgmt() == null) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					</method>
+				</rule>
+			<field name="PleNum" fbTag="PleNm" classType="java.lang.String">
+				<rule id="PleNum_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaProptInfSgmt_NotNull" />
+				<rule id="PleNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PleNum_NotNull" />
+				<rule id="PleNum_DataType" type="DataType" errCode="ABE001" depExp="PleNum_NotEmpty">
+					<property name="type" value="uInt..4" />
+				</rule>
+				<rule id="PleNum_GraThan0" type="NumberLimit" errCode="BPE005" depExp="PleNum_DataType">
+					<property name="startSign" value=">" />
+					<property name="startValue" value="0" />
+				</rule>
+			</field>
+			<field name="PleInf" fbTag="PleInf" classType="java.util.List">
+				<rule id="PleInf_NotNull" type="NotNull" errCode="ABD000" depExp="MotgaProptInfSgmt_NotNull" />
+				<rule id="PleInf_CollectionSize" type="CollectionSize" fbTag="PleNm" fbValue="${MotgaProptInfSgmt.PleNum}"
+					errCode="ABE010" depExp="PleInf_NotNull">
+					<property name="size" value="${MotgaProptInfSgmt.PleNum}" />
+				</rule>
+				<rule id="PleInf_CollectionRepeat" type="CollectionRepeat" errCode="ABE011" depExp="PleInf_CollectionSize"
+					fbTag="PleNm" fbValue="${MotgaProptInfSgmt.PleNum}">
+					<property name="repeat" value="false" />
+					<property name="beanClass" value="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.PleInf" />
+					<property name="fieldNames" value="PleType;MotgaProptIdTp;PleCertId" />
+				</rule>
+				<field name="PleInf_bean" fbTag="0000" classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.PleInf">
+					<rule id="PleorCertNum_Cert_Ntr" type="NtrCert" fbTag="PleorCertNum" fbValue="${$this.PleorCertNum}" 
+						errCode="ABE004" depExp="PleorCertNum_DataType &amp; PleorCertType_InfoIdType_1_Dict">
+						<property name="certTypeFeild" value="PleorCertType" />
+						<property name="certNumFeild" value="PleorCertNum" />
+					</rule>
+					<rule id="PleorCertNum_Cert_Leg" type="LegCert" fbTag="PleorCertNum" fbValue="${$this.PleorCertNum}" 
+						errCode="ABE004" depExp="PleorCertNum_DataType &amp; PleorCertType_InfoIdType_2_Dict">
+						<property name="certTypeFeild" value="PleorCertType" />
+						<property name="certNumFeild" value="PleorCertNum" />
+					</rule>
+					<field name="PleType" fbTag="PleType" classType="java.lang.String">
+						<rule id="PleType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PleType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PleType_NotNull" scope="local" />
+						<rule id="PleType_Dict" type="Dict" errCode="ABE001" depExp="PleType_NotEmpty">
+							<property name="dictKey" value="PleType" />
+						</rule>
+					</field>
+					<field name="PleValue" fbTag="PleValue" classType="java.lang.String">
+						<rule id="PleValue_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PleValue_NotEmpty" type="NotEmpty" depExp="PleValue_NotNull" scope="local" />
+						<rule id="PleValue_DataType" type="DataType" errCode="ABE001" depExp="PleValue_NotEmpty" scope="local">
+							<property name="type" value="uInt..15" />
+						</rule>
+					</field>
+					<field name="ValCy" fbTag="PleCy" classType="java.lang.String">
+						<rule id="Ple_ValCy_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="Ple_ValCy_NotEmpty" type="NotEmpty" depExp="Ple_ValCy_NotNull" scope="local"/>
+						<rule id="Ple_ValCy_Dict" type="Dict" errCode="ABE001" depExp="Ple_ValCy_NotEmpty" scope="local">
+							<property name="dictKey" value="Cy" />
+						</rule>
+					</field>
+					<field name="ValOrgType" fbTag="ValOrgType" classType="java.lang.String">
+						<rule id="ValOrgType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="ValOrgType_NotEmpty" type="NotEmpty" depExp="ValOrgType_NotNull" scope="local" />
+						<rule id="ValOrgType_Dict" type="Dict" errCode="ABE001" depExp="ValOrgType_NotEmpty">
+							<property name="dictKey" value="ValOrgType" />
+						</rule>
+					</field>
+					<field name="ValDate" fbTag="ValDate" classType="java.lang.String">
+						<rule id="ValDate_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="ValDate_NotEmpty" type="NotEmpty" depExp="ValDate_NotNull" scope="local" />
+						<rule id="ValDate_DataType" type="DataType" errCode="ABE008" depExp="ValDate_NotEmpty" scope="local">
+							<property name="type" value="Date" />
+						</rule>
+						<rule id="ValDate_Range" type="DateRange" errCode="ABE008" depExp="ValDate_DataType" scope="local"/>
+						<rule id="ValDate_EarlierRptDate" type="DateCompare" errCode="ABE007" depExp="ValDate_Range &amp; RptDate_Range">
+							<property name="endDate" value="${MotgaCltalCtrctBsSgmt.RptDate}" />
+						</rule>
+					</field>
+					<field name="MotgaProptIdTp" fbTag="MotgaProptIDType" classType="java.lang.String">
+						<rule id="MotgaProptIdTp_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="MotgaProptIdTp_NotEmpty" type="NotEmpty" depExp="MotgaProptIdTp_NotNull" scope="local" />
+						<rule id="MotgaProptIdTp_Dict" type="Dict" errCode="ABE001" depExp="MotgaProptIdTp_NotEmpty">
+							<property name="dictKey" value="MotgaProptIdTp" />
+						</rule>
+					</field>
+					<field name="PleCertId" fbTag="PleCertID" classType="java.lang.String">
+						<rule id="PleCertId_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PleCertId_NotEmpty" type="NotEmpty" depExp="PleCertId_NotNull" scope="local" />
+						<rule id="PleCertId_DataType" type="DataType" errCode="ABE001" depExp="PleCertId_NotEmpty" scope="local">
+							<property name="type" value="ANC..40" />
+						</rule>
+					</field>
+					<field name="PleDistr" fbTag="PleDistr" classType="java.lang.String">
+						<rule id="PleDistr_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PleDistr_NotEmpty" type="NotEmpty" depExp="PleDistr_NotNull" scope="local" />
+						<rule id="PleDistr_Dict" type="Dict" errCode="ABE001" depExp="PleDistr_NotEmpty">
+							<property name="dictKey" value="AdminDistrict" />
+						</rule>
+					</field>
+
+					<field name="PleDesc" fbTag="PleDesc" classType="java.lang.String">
+						<rule id="PleDesc_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PleDesc_NotEmpty" type="NotEmpty" depExp="PleDesc_NotNull" scope="local" />
+						<rule id="PleDesc_DataType" type="DataType" errCode="ABE001" depExp="PleDesc_NotEmpty" scope="local">
+							<property name="type" value="ANC..200" />
+						</rule>
+					</field>
+					<field name="PledgorType" fbTag="PledgorType" classType="java.lang.String">
+						<rule id="PledgorType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PledgorType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PledgorType_NotNull" scope="local" />
+						<rule id="PledgorType-InfoIdType_Dict" type="Dict" errCode="ABE001" depExp="PledgorType_NotEmpty" scope="local">
+							<property name="dictKey" value="RltRepymtInfoIdType" />
+						</rule>
+						<rule id="PledgorType-InfoIdType_1" type="Equals" depExp="PledgorType-InfoIdType_Dict" scope="local">
+							<property name="data" value="1" />
+						</rule>
+						<rule id="PledgorType-InfoIdType_2" type="Equals" depExp="PledgorType-InfoIdType_Dict" scope="local">
+							<property name="data" value="2" />
+						</rule>
+					</field>
+					<field name="PledgorName" fbTag="PledgorName" classType="java.lang.String">
+						<rule id="PledgorName_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PledgorName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PledgorName_NotNull" scope="local" />
+						<rule id="PledgorName_Ent_DataType" type="DataType" errCode="ABE001" depExp="PledgorName_NotEmpty &amp; PledgorType-InfoIdType_2" scope="local">
+							<property name="type" value="ANC..80" />
+						</rule>
+						<rule id="PledgorName_Ntr_DataType" type="DataType" errCode="ABE001" depExp="PledgorName_NotEmpty &amp; PledgorType-InfoIdType_1" scope="local">
+							<property name="type" value="ANC..30" />
+						</rule>
+					</field>
+					<field name="PleorCertType" fbTag="PleorCertType" classType="java.lang.String">
+						<rule id="PleorCertType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PleorCertType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PleorCertType_NotNull" scope="local" />
+						<rule id="PleorCertType_InfoIdType_1_Dict" type="Dict" fbTag="0000" fbValue="" errCode="ABE001"
+							depExp="PleorCertType_NotEmpty &amp; PledgorType-InfoIdType_1" scope="local">
+							<property name="dictKey" value="NtrCertType" />
+						</rule>
+						<rule id="PleorCertType_InfoIdType_2_Dict" type="Dict" fbTag="0000" fbValue="" errCode="ABE001"
+							depExp="PleorCertType_NotEmpty &amp; PledgorType-InfoIdType_2" scope="local">
+							<property name="dictKey" value="OrgInstCertType" />
+						</rule>
+					</field>
+					<field name="PleorCertNum" fbTag="PleorCertNum" classType="java.lang.String">
+						<rule id="PleorCertNum_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PleorCertNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PleorCertNum_NotNull" scope="local" />
+						<rule id="PleorCertNum_DataType" type="DataType" errCode="ABE001" depExp="PleorCertNum_NotEmpty" scope="local">
+							<property name="type" value="ANC..40" />
+						</rule>
+
+					</field>
+
+				</field>
+			</field>
+		</field>
+
+		<field name="CltalInfSgmt" fbTag="CltalInfSgmt" classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.CltalInfSgmt">
+		<rule id="CltalInfSgmt_NotNull" type="NotNull"/>
+			<rule id="CltalInfSgmtCheck" type="Method" errCode="BPR001" fbTag="CltalInfSgmt" fbValue="" depExp="GuarType_2">
+					<package>
+						org.pbccrc.archive.collect.messagetools.collateral.msg.CollateralNormalRecord;
+					</package>
+					<method>
+						{
+							if (record.getMotgaProptInfSgmt() == null &amp;&amp; record.getCltalInfSgmt() != null) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					</method>
+				</rule>
+			<field name="ImpNum" fbTag="ImpNm" classType="java.lang.String">
+				<rule id="ImpNum_NotNull" type="NotNull" errCode="ABD000" depExp="CltalInfSgmt_NotNull" />
+				<rule id="ImpNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ImpNum_NotNull" />
+				<rule id="ImpNum_DataType" type="DataType" errCode="ABE001" depExp="ImpNum_NotEmpty">
+					<property name="type" value="uInt..2" />
+				</rule>
+				<rule id="ImpNum_GraThan0" type="NumberLimit" errCode="BPE007" depExp="ImpNum_DataType">
+					<property name="startSign" value=">" />
+					<property name="startValue" value="0" />
+				</rule>
+			</field>
+			<field name="ImpInf" fbTag="ImpInf" classType="java.util.List">
+				<rule id="ImpInf_NotNull" type="NotNull" errCode="ABD000" depExp="CltalInfSgmt_NotNull" />
+				<rule id="ImpInf_CollectionSize" type="CollectionSize" fbTag="ImpNm" fbValue="${CltalInfSgmt.ImpNum}" errCode="ABE010"
+					depExp="ImpInf_NotNull">
+					<property name="size" value="${CltalInfSgmt.ImpNum}" />
+				</rule>
+				<rule id="ImpInf_CollectionRepeat" type="CollectionRepeat" errCode="ABE011" depExp="ImpInf_CollectionSize"
+					fbTag="ImpNm" fbValue="${CltalInfSgmt.ImpNum}">
+					<property name="repeat" value="false" />
+					<property name="beanClass" value="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.ImpInf" />
+					<property name="fieldNames" value="ImpType;Ippc;PawnName;PawnCertType;PawnCertNum" />
+				</rule>
+				<field name="ImpInf_bean" fbTag="0000" classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.ImpInf">
+					<rule id="PawnCertNum_Cert_Ntr" type="NtrCert" errCode="ABE004" fbTag="PawnCertNum" fbValue="${$this.PawnCertNum}"
+						depExp="PawnCertNum_DataType &amp; PawnCertType_InfoIdType_1_Dict">
+						<property name="certTypeFeild" value="PawnCertType" />
+						<property name="certNumFeild" value="PawnCertNum" />
+					</rule>
+					<rule id="PawnCertNum_Cert_Leg" type="LegCert" errCode="ABE004" fbTag="PawnCertNum" fbValue="${$this.PawnCertNum}"
+						depExp="PawnCertNum_DataType &amp; PawnCertType_InfoIdType_2_Dict">
+						<property name="certTypeFeild" value="PawnCertType" />
+						<property name="certNumFeild" value="PawnCertNum" />
+					</rule>
+					<field name="ImpType" fbTag="ImpType" classType="java.lang.String">
+						<rule id="ImpType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="ImpType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ImpType_NotNull" scope="local" />
+						<rule id="ImpType_Dict" type="Dict" errCode="ABE001" depExp="ImpType_NotEmpty" scope="local">
+							<property name="dictKey" value="ImpType" />
+						</rule>
+					</field>
+					<field name="ImpVal" fbTag="ImpVal" classType="java.lang.String">
+						<rule id="ImpVal_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="ImpVal_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ImpVal_NotNull" scope="local" />
+						<rule id="ImpVal_DataType" type="DataType" errCode="ABE001" depExp="ImpVal_NotEmpty" scope="local">
+							<property name="type" value="uInt..15" />
+						</rule>
+					</field>
+					<field name="ValCy" fbTag="ImpCy" classType="java.lang.String">
+						<rule id="Imp_ValCy_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="Imp_ValCy_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Imp_ValCy_NotNull" scope="local"/>
+						<rule id="Imp_ValCy_Dict" type="Dict" errCode="ABE001" depExp="Imp_ValCy_NotEmpty" scope="local">
+							<property name="dictKey" value="Cy" />
+						</rule>
+					</field>
+					<field name="Ippc" fbTag="Ippc" classType="java.lang.String">
+						<rule id="Ippc_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="Ippc_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Ippc_NotNull" scope="local" />
+						<rule id="Ippc-InfoIdType_Dict" type="Dict" errCode="ABE001" depExp="Ippc_NotEmpty" scope="local">
+							<property name="dictKey" value="RltRepymtInfoIdType" />
+						</rule>
+						<rule id="Ippc-InfoIdType_1" type="Equals" depExp="Ippc-InfoIdType_Dict" scope="local">
+							<property name="data" value="1" />
+						</rule>
+						<rule id="Ippc-InfoIdType_2" type="Equals" depExp="Ippc-InfoIdType_Dict" scope="local">
+							<property name="data" value="2" />
+						</rule>
+					</field>
+					<field name="PawnName" fbTag="PawnName" classType="java.lang.String">
+						<rule id="PawnName_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PawnName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PawnName_NotNull" scope="local" />
+						<rule id="PawnName_DataType" type="DataType" errCode="ABE001" depExp="PawnName_NotEmpty" scope="local">
+							<property name="type" value="ANC..80" />
+						</rule>
+					</field>
+					<field name="PawnCertType" fbTag="PawnCertType" classType="java.lang.String">
+						<rule id="PawnCertType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PawnCertType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PawnCertType_NotNull" scope="local" />
+						<rule id="PawnCertType_InfoIdType_1_Dict" type="Dict" errCode="ABE001" fbTag="0000" fbValue=""
+							depExp="PawnCertType_NotEmpty &amp; Ippc-InfoIdType_1" scope="local">
+							<property name="dictKey" value="NtrCertType" />
+						</rule>
+						<rule id="PawnCertType_InfoIdType_2_Dict" type="Dict" errCode="ABE001" fbTag="0000" fbValue=""
+							depExp="PawnCertType_NotEmpty &amp; Ippc-InfoIdType_2" scope="local">
+							<property name="dictKey" value="OrgInstCertType" />
+						</rule>
+					</field>
+					<field name="PawnCertNum" fbTag="PawnCertNum" classType="java.lang.String">
+						<rule id="PawnCertNum_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="PawnCertNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="PawnCertNum_NotNull" scope="local" />
+						<rule id="PawnCertNum_DataType" type="DataType" errCode="ABE001" depExp="PawnCertNum_NotEmpty" scope="local">
+							<property name="type" value="ANC..40" />
+						</rule>
+					</field>
+				</field>
+			</field>
+		</field>
+
+		<field name="ComRecInfSgmt" fbTag="ComRecInfSgmt" classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.ComRecInfSgmt">
+			<rule id="ComRecInfSgmt_NotNull" type="NotNull" />
+			<field name="GrtdNum" fbTag="GrtdNm" classType="java.lang.String">
+				<rule id="GrtdNum_NotNull" type="NotNull" errCode="ABD000" depExp="ComRecInfSgmt_NotNull" />
+				<rule id="GrtdNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GrtdNum_NotNull" />
+				<rule id="GrtdNum_DataType" type="DataType" errCode="ABE001" depExp="GrtdNum_NotEmpty">
+					<property name="type" value="uInt..2" />
+				</rule>
+				<rule id="GrtdNum_GraThan0" type="NumberLimit" errCode="BPE003" depExp="GrtdNum_DataType">
+					<property name="startSign" value=">" />
+					<property name="startValue" value="0" />
+				</rule>
+			</field>
+			<field name="OtrRec" fbTag="OtrRec" classType="java.util.List">
+				<rule id="OtrRec_NotNull" type="NotNull" depExp="ComRecInfSgmt_NotNull" />
+				<rule id="OtrRec_NotNull_ERR" type="NotNull" errCode="ABD000" depExp="ComRecInfSgmt_NotNull" />
+				<rule id="OtrRec_CollectionSize" type="CollectionSize" fbTag="GrtdNm" fbValue="${ComRecInfSgmt.GrtdNum}"
+					errCode="ABE010" depExp="OtrRec_NotNull">
+					<property name="size" value="${ComRecInfSgmt.GrtdNum}" />
+				</rule>
+				<rule id="OtrRec_CollectionRepeat" type="CollectionRepeat" errCode="ABE011" depExp="OtrRec_CollectionSize"
+					fbTag="GrtdNm" fbValue="${ComRecInfSgmt.GrtdNum}">
+					<property name="repeat" value="false" />
+					<property name="beanClass" value="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.OtrRec" />
+					<property name="fieldNames" value="GuarCertType;GuarCertNum;InfoIdType" />
+				</rule>
+				<field name="OtrRec_bean" fbTag="0000" classType="org.pbccrc.archive.collect.messagetools.collateral.msg.seg.OtrRec">
+					<rule id="MotgaCltalCtrctBsSgmt-GuarCertNum_Cert_Ntr" fbTag="GuarCertNum" fbValue="${$this.GuarCertNum}" type="NtrCert"
+						errCode="ABE004" depExp="MotgaCltalCtrctBsSgmt-GuarCertNum_DataType_Ntr &amp; MotgaCltalCtrctBsSgmt-GuarCertType_InfoIdType_1_Dict"
+						>
+						<property name="certTypeFeild" value="GuarCertType" />
+						<property name="certNumFeild" value="GuarCertNum" />
+					</rule>
+					<rule id="MotgaCltalCtrctBsSgmt-GuarCertNum_Cert_Leg" fbTag="GuarCertNum" fbValue="${$this.GuarCertNum}" type="LegCert"
+						errCode="ABE004" depExp="MotgaCltalCtrctBsSgmt-GuarCertNum_DataType_Ent &amp; MotgaCltalCtrctBsSgmt-GuarCertType_InfoIdType_2_Dict"
+						>
+						<property name="certTypeFeild" value="GuarCertType" />
+						<property name="certNumFeild" value="GuarCertNum" />
+					</rule>
+					<field name="InfoIdType" fbTag="InfoIDType" classType="java.lang.String">
+						<rule id="MotgaCltalCtrctBsSgmt-InfoIdType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-InfoIdType_NotEmpty" type="NotEmpty" errCode="ABE000"
+							depExp="MotgaCltalCtrctBsSgmt-InfoIdType_NotNull" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-InfoIdType_Dict" type="Dict" errCode="ABE001"
+							depExp="MotgaCltalCtrctBsSgmt-InfoIdType_NotEmpty" scope="local">
+							<property name="dictKey" value="RltRepymtInfoIdType" />
+						</rule>
+						<rule id="MotgaCltalCtrctBsSgmt-InfoIdType_1" type="Equals" depExp="MotgaCltalCtrctBsSgmt-InfoIdType_Dict"
+							scope="local">
+							<property name="data" value="1" />
+						</rule>
+						<rule id="MotgaCltalCtrctBsSgmt-InfoIdType_2" type="Equals" depExp="MotgaCltalCtrctBsSgmt-InfoIdType_Dict"
+							scope="local">
+							<property name="data" value="2" />
+						</rule>
+					</field>
+					<field name="GuarName" fbTag="GuarName" classType="java.lang.String">
+						<rule id="MotgaCltalCtrctBsSgmt-GuarName_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-GuarName_NotEmpty" type="NotEmpty" errCode="ABE000"
+							depExp="MotgaCltalCtrctBsSgmt-GuarName_NotNull" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-ent-GuarName_DataType" type="DataType" errCode="ABE001"
+							depExp="MotgaCltalCtrctBsSgmt-GuarName_NotEmpty &amp; MotgaCltalCtrctBsSgmt-InfoIdType_2" scope="local">
+							<property name="type" value="ANC..80" />
+						</rule>
+						<rule id="MotgaCltalCtrctBsSgmt-ntr-GuarName_DataType" type="DataType" errCode="ABE001"
+							depExp="MotgaCltalCtrctBsSgmt-GuarName_NotEmpty &amp; MotgaCltalCtrctBsSgmt-InfoIdType_1" scope="local">
+							<property name="type" value="ANC..30" />
+						</rule>
+					</field>
+					<field name="GuarCertType" fbTag="GuarCertType" classType="java.lang.String">
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertType_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertType_NotEmpty" type="NotEmpty" errCode="ABE000"
+							depExp="MotgaCltalCtrctBsSgmt-GuarCertType_NotNull" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertType_InfoIdType_1_Dict" type="Dict" errCode="BPE002"
+							depExp="MotgaCltalCtrctBsSgmt-GuarCertType_NotEmpty &amp; MotgaCltalCtrctBsSgmt-InfoIdType_1" scope="local"
+							fbTag="0000" fbValue="">
+							<property name="dictKey" value="NtrCertType" />
+						</rule>
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertType_InfoIdType_2_Dict" type="Contains" errCode="BPE002"
+							depExp="MotgaCltalCtrctBsSgmt-GuarCertType_NotEmpty &amp; MotgaCltalCtrctBsSgmt-InfoIdType_2" scope="local"
+							fbTag="0000" fbValue="">
+							<property name="dict" value="10;20;30" />
+						</rule>
+					</field>
+					<field name="GuarCertNum" fbTag="GuarCertNum" classType="java.lang.String">
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertNum_NotNull" type="NotNull" errCode="ABD000" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertNum_NotEmpty" type="NotEmpty" errCode="ABE000"
+							depExp="MotgaCltalCtrctBsSgmt-GuarCertNum_NotNull" scope="local" />
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertNum_DataType_Ent" type="DataType" errCode="ABE001"
+							depExp="MotgaCltalCtrctBsSgmt-GuarCertNum_NotEmpty &amp; MotgaCltalCtrctBsSgmt-InfoIdType_2" scope="local">
+							<property name="type" value="ANC..40" />
+						</rule>
+						<rule id="MotgaCltalCtrctBsSgmt-GuarCertNum_DataType_Ntr" type="DataType" errCode="ABE001"
+							depExp="MotgaCltalCtrctBsSgmt-GuarCertNum_NotEmpty &amp; MotgaCltalCtrctBsSgmt-InfoIdType_1" scope="local">
+							<property name="type" value="ANC..20" />
+						</rule>
+					</field>
+				</field>
+				<rule id="BsSgmtAndComRecInfSgmt" type="Method" errCode="BPE008" fbTag="0000" fbValue="" depExp="ComRecInfSgmt_NotNull &amp; GuarCertType_NotEmpty">
+					<package>
+						org.pbccrc.archive.collect.messagetools.collateral.msg.CollateralNormalRecord;
+						org.pbccrc.archive.collect.messagetools.collateral.msg.seg.OtrRec;
+						org.pbccrc.archive.collect.messagetools.collateral.msg.seg.ComRecInfSgmt;
+					</package>
+					<method>
+						{
+						if(ValueUtil.isNull(record.getMotgaCltalCtrctBsSgmt())){
+								return true;
+						}
+						String idNum = record.getMotgaCltalCtrctBsSgmt().getGuarCertNum();
+						String idType =
+						record.getMotgaCltalCtrctBsSgmt().getGuarCertType();
+						String infoIdType = record.getMotgaCltalCtrctBsSgmt().getInfoIdType();
+						ComRecInfSgmt idSgmt =
+						record.getComRecInfSgmt();
+						if (idSgmt == null || idSgmt.getOtrRec() == null) {
+						return true;
+						}
+						for (int i = 0; i &lt;
+						idSgmt.getOtrRec().size(); i++) {
+						OtrRec subIdRec = (OtrRec)idSgmt.getOtrRec().get(i);
+						if
+						(idNum.equals(subIdRec.getGuarCertNum()) &amp;&amp; idType.equals(subIdRec.getGuarCertType())
+						&amp;&amp; infoIdType.equals(subIdRec.getInfoIdType())) {
+						return false;
+						}
+						}
+						return true;
+						}
+					</method>
+				</rule>
+			</field>
+		</field>
+	</validator>
+</validators>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.biapp.frs.rpttsk.repository.RptTskMonitorMybatisDao">
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<!-- 获取监管任务列表 -->
+	<select id="getInsGenerateStsList"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFltskInsGenerateStsVO"
+		parameterType="HashMap">
+		SELECT
+		s.Task_id,
+		i.task_NM,
+		i.task_Type,
+		s.data_Date,
+		s.pre_sts,
+		s.Generate_sts,
+		s.Generate_Time
+		FROM
+		RPT_FLTSK_INS_GENERATE_STS s,
+		(
+		SELECT DISTINCT
+		e.task_id,
+		e.data_date,
+		e.task_NM,
+		e.task_Type
+		FROM
+		RPT_FLTSK_INS e
+		WHERE
+		1=1
+		<if test="exeObjId != null">
+				and (
+				<foreach collection="exeObjId" item="items" open="(" separator=")or("
+								close=")">
+					e.EXE_OBJ_ID IN 
+					(
+						select distinct(org.org_no) from RPT_ORG_INFO org where 1=1 
+								and
+								(org.ORG_TYPE = #{items.orgType}
+									 and (
+										<foreach collection="items.orgLike" item="orgLike" open="" separator="or"
+											close="">
+											org.NAMESPACE like #{orgLike}
+										</foreach>
+									))
+			    	)
+			    	and I.task_type=#{items.orgType}
+			    	</foreach>
+			    	)
+			</if>
+		<if test="taskObjIds!=null">
+		and e.task_obj_id IN <foreach item="taskObjId"  collection="taskObjIds" separator=" or i.TASK_OBJ_ID in ">
+				<foreach collection="taskObjId" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+		)i
+		where
+		1=1
+		and
+		s.task_id = i.task_Id
+		and
+		s.data_date = i.data_date
+		<if test="taskNm!=null">and i.task_nm = #{taskNm}</if>
+		<if test="taskType!=null">and i.task_type = #{taskType}</if>
+		<if test="preSts!=null">and s.preSts =#{preSts}</if>
+	</select>
+	<!-- 根据 任务实例ID删除任务实例,根据 任务ID和数据日期，删除所有任务实例-->
+	<delete id="deleteTskInsByInsIds" parameterType="HashMap">
+		DELETE
+		FROM
+			RPT_FLTSK_INS
+		WHERE 1=1
+		<if test="upInsIds!=null">
+			AND UP_TASK_INSTANCE_ID IN
+			<foreach collection="upInsIds" item="upInsIds" open="(" separator=","
+				close=")">
+				#{upInsIds}
+			</foreach>
+		</if>
+		<if test="insIds!=null">
+			AND TASK_INSTANCE_ID IN
+			<foreach collection="insIds" item="insIds" open="(" separator=","
+				close=")">
+				#{insIds}
+			</foreach>
+		</if>
+		<if test="dataDate!=null">
+			AND data_date = #{dataDate}
+		</if>
+		<if test="taskId!=null">
+			AND TASK_ID = #{taskId}
+		</if>
+	</delete>
+	
+	<!-- 获取每个实例对应报表 -->
+	<select id="getValidByIns" resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextLogic"
+		parameterType="HashMap">
+		SELECT
+		    CHECK_ID,
+		    EXPRESSION_DESC,
+		    LOGIC_OPER_TYPE,
+		    <!--
+			LEFT_EXPRESSION,
+						RIGHT_EXPRESSION,-->
+			
+		    FLOAT_VAL,
+		    START_DATE,
+		    END_DATE,
+		    BUSI_EXPLAIN,
+		    IS_PRE,
+		    IS_SELF_DEF
+		FROM
+		    RPT_VALID_CFGEXT_LOGIC
+		WHERE
+		    CHECK_ID IN
+		    (
+		        SELECT
+		            t.CHECK_ID
+		        FROM
+		            RPT_VALID_RESULT_LOGIC t
+		        WHERE
+		            t.DATA_DATE=#{dataDate}
+		        AND t.ORG_NO=#{orgNo}
+		        AND t.RPT_TEMPLATE_ID=#{rptId} 
+		     )
+		    AND IS_PRE=#{isPre}
+	</select>
+	<!-- 修改监管任务信息实例 -->
+	<update id="updateTskIns" parameterType="HashMap">
+		UPDATE
+			RPT_FLTSK_INS
+		SET
+			LOGIC_DEL_NO = #{logicDelNo}
+		WHERE 1=1 
+			<if test="insIds!=null">
+				
+				AND TASK_INSTANCE_ID IN 
+				<foreach collection="insIds" item="insIds" open="(" separator=","
+					close=")">
+					#{insIds}
+				</foreach>
+			</if>
+	</update>
+</mapper> 

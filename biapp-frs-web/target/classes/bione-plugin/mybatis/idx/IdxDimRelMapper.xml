@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+namespace="com.yusys.bione.plugin.rptidx.repository.IdxDimRelMybatisDao">
+	<select id="getIdxDimRelInfo"
+	resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxDimRelVO"
+	parameterType="HashMap">
+		SELECT
+		RPT_DIM_TYPE_INFO.DIM_TYPE_NO,
+		RPT_DIM_TYPE_INFO.CATALOG_ID,
+		RPT_DIM_TYPE_INFO.DIM_TYPE_DESC,
+		RPT_DIM_TYPE_INFO.DIM_TYPE_EN_NM,
+		RPT_DIM_TYPE_INFO.DIM_TYPE_NM,
+		RPT_DIM_TYPE_INFO.DIM_TYPE,
+		RPT_DIM_TYPE_INFO.DIM_TYPE_STRUCT,
+		RPT_IDX_DIM_REL.DS_ID
+		FROM
+		RPT_DIM_TYPE_INFO,
+		RPT_IDX_DIM_REL,
+		<if test="indexVerID == null">(SELECT INDEX_NO,MAX(INDEX_VER_ID) as MAX_INDEX_VER_ID
+			FROM RPT_IDX_INFO GROUP BY INDEX_NO) i</if>
+		WHERE
+		1=1
+		AND
+		RPT_DIM_TYPE_INFO.DIM_TYPE_NO = RPT_IDX_DIM_REL.DIM_NO
+		AND
+		RPT_DIM_TYPE_INFO.DIM_TYPE =#{dimType}
+		AND RPT_IDX_DIM_REL.INDEX_NO=#{indexNo}
+		<if test="indexVerID != null">and RPT_IDX_DIM_REL.INDEX_VER_ID=#{indexVerID}</if>
+		<if test="indexVerID == null">and RPT_IDX_DIM_REL.INDEX_VER_ID=i.MAX_INDEX_VER_ID
+			AND RPT_IDX_DIM_REL.INDEX_NO=i.INDEX_NO</if>
+		ORDER BY RPT_IDX_DIM_REL.DS_ID,RPT_DIM_TYPE_INFO.DIM_TYPE_NO
+	</select>
+	<select id="getInnerDimInfo"
+	resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxDimRelVO"
+	parameterType="String">
+		SELECT
+			RPT_DIM_TYPE_INFO.DIM_TYPE_NO,
+			RPT_DIM_TYPE_INFO.CATALOG_ID,
+			RPT_DIM_TYPE_INFO.DIM_TYPE_DESC,
+			RPT_DIM_TYPE_INFO.DIM_TYPE_EN_NM,
+			RPT_DIM_TYPE_INFO.DIM_TYPE_NM,
+			RPT_DIM_TYPE_INFO.DIM_TYPE,
+			RPT_DIM_TYPE_INFO.DIM_TYPE_STRUCT
+			FROM
+			RPT_DIM_TYPE_INFO
+		WHERE
+			1=1
+		AND
+			RPT_DIM_TYPE_INFO.DIM_TYPE !=#{dimType}
+		ORDER BY
+			RPT_DIM_TYPE_INFO.DIM_TYPE_NO
+	</select>
+	<select id="getDimByIdxInfo"
+	resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"
+	parameterType="HashMap">
+		select
+		dim.DIM_TYPE_NO,dim.CATALOG_ID,dim.DIM_TYPE_DESC,dim.DIM_TYPE_EN_NM,dim.DIM_TYPE_NM,dim.DIM_TYPE,dim.DIM_TYPE_STRUCT
+		from
+		RPT_DIM_TYPE_INFO dim, RPT_IDX_DIM_REL rel, Rpt_idx_info idx
+		where 1=1 and
+		dim.DIM_TYPE_NO = rel.DIM_NO
+		and idx.index_no = rel.index_no
+		and idx.index_ver_id = rel.index_ver_id
+		and idx.end_date = '29991231'
+		<if test="idxNo != null">
+			and rel.index_no = #{idxNo}
+		</if>
+		<if test="ids != null">
+			and (rel.index_no in
+			<foreach item="ids"  collection="ids" separator=" or rel.index_no in ">
+				<foreach collection="ids" item="ids" open="("
+					separator="," close=")">
+					#{ids}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="dimTypeNo != null">and DIM_TYPE_NO = #{dimTypeNo}</if>
+		<if test="catalogId != null">and CATALOG_ID = #{catalogId}</if>
+		<if test="dimTypeDesc != null">and DIM_TYPE_DESC = #{dimTypeDesc}</if>
+		<if test="dimTypeEnNm != null">and DIM_TYPE_EN_NM = #{dimTypeEnNm}</if>
+		<if test="dimTypeNm != null">and DIM_TYPE_NM = #{dimTypeNm}</if>
+		<if test="dimType != null">and dim.DIM_TYPE = #{dimType}</if>
+		<if test="dimTypeStruct != null">and DIM_TYPE_STRUCT = #{dimTypeStruct}</if>
+		<if test="dimSts != null">and( DIM_STS = #{dimSts}  or  DIM_STS is null) </if>
+		order by dim.dim_type
+	</select>
+	<select id="getDimNos"
+	resultType="String"
+	parameterType="HashMap">
+		select dim_no from RPT_IDX_DIM_REL
+		where 1=1
+		<if test="id != null">
+			<if test="id.dimNo != null">and DIM_NO = #{id.dimNo}</if>
+			<if test="id.indexNo != null">and INDEX_NO = #{id.indexNo}</if>
+			<if test="id.indexVerId != null">and INDEX_VER_ID = #{id.indexVerId}</if>
+			<if test="id.dsId != null">and DS_ID = #{id.dsId}</if>
+		</if>
+		<if test="dimType != null">and DIM_TYPE = #{dimType}</if>
+		<if test="orderNum != null">and ORDER_NUM = #{orderNum}</if>
+		<if test="storeCol != null">and STORE_COL = #{storeCol}</if>
+	</select>
+	<select id="getAllDimRel"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel"
+	parameterType="HashMap">
+		select DIM_NO as "id.dimNo",INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",DS_ID as "id.dsId",DIM_TYPE,ORDER_NUM,STORE_COL
+		 from RPT_IDX_DIM_REL
+		where 1=1
+		<if test="id != null">
+			<if test="id.dimNo != null">and DIM_NO = #{id.dimNo}</if>
+			<if test="id.indexNo != null">and INDEX_NO = #{id.indexNo}</if>
+			<if test="id.indexVerId != null">and INDEX_VER_ID = #{id.indexVerId}</if>
+			<if test="id.dsId != null">and DS_ID = #{id.dsId}</if>
+		</if>
+		<if test="idxList != null">
+			and 
+			<foreach item="id" index="index" collection="idxList" open="("
+				separator=" or " close=")">
+				(index_no = #{id.id.indexNo} and index_ver_id = #{id.id.indexVerId})
+			</foreach>
+		</if>
+		<if test="dimType != null">and DIM_TYPE = #{dimType}</if>
+		<if test="orderNum != null">and ORDER_NUM = #{orderNum}</if>
+		<if test="storeCol != null">and STORE_COL = #{storeCol}</if>
+		order by DIM_NO
+	</select>
+	<select id="getDimByDimNos" resultType="com.yusys.bione.comp.common.CommonComboBoxNode" parameterType="HashMap">
+		select dim_type_no as "id", dim_type_nm as "text" from rpt_dim_type_info 
+		where 1=1 
+		<if test="dimTypeNos != null">
+			and dim_type_no in
+			<foreach item="id" index="index" collection="dimTypeNos" open="("
+			separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+	</select>
+</mapper>

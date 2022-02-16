@@ -1,0 +1,3104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.rpttsk.repository.FLTaskMgrDAO">
+<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<!-- 1104任务下报表查询 -->
+	<select id="queryTaskRptByExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select AA.* from (
+			select 
+			<!-- 20200706 调整统计规则 ： 0 是未提交 , 1、2、3是已提交  yangyf-->
+			sum(case when I.STS='1' or I.STS='2' or I.STS='3' then 1 else 0 end) as complete,
+			sum(case when I.STS='0' then 1 else 0 end) as uncomplete,
+			sum(case when I.STS='9' then 1 else 0 end) as LCK,
+			I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE,R.RPT_NM as
+			taskObjName,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE,R.RPT_NUM
+			from RPT_FLTSK_INS I
+			inner join RPT_MGR_REPORT_INFO R
+			on I.TASK_OBJ_ID = R.RPT_ID
+			WHERE 1=1
+			and i.task_mgr_sts='1'		<!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+			<if test="taskId !=null ">
+				and I.TASK_ID = #{taskId}
+			</if>
+			<if test="tsktype != null">
+				and I.TASK_TYPE = #{tsktype}
+			</if>
+			<if test="uptaskinsid != null">
+				and i.UP_TASK_INSTANCE_ID = #{uptaskinsid}
+			</if>
+			<!-- 报表权限 FANGJUAN 20150106 复核页面查询语句bug修复 20190726-->
+			<if test="taskObjId != null and taskObjId.size()>0">
+				and (I.TASK_OBJ_ID in
+				<foreach item="taskObjIds" index="index" collection="taskObjId"
+					separator=" or I.task_Obj_Id in ">
+					<foreach collection="taskObjIds" item="taskObjId" open="("
+						separator="," close=")">
+						#{taskObjId}
+					</foreach>
+				</foreach>
+				)
+			</if>
+			<if test="exeObjId != null and exeObjId.size()>0" >
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjId"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+			<if test="dataDate != null">
+				and I.DATA_DATE = #{dataDate}
+			</if>
+			<if test="fillOrgNos != null">
+				and I.EXE_OBJ_ID in
+				<foreach item="fillOrgNo" index="index" collection="fillOrgNos"
+					open="(" separator="," close=")">
+					#{fillOrgNo}
+				</foreach>
+			</if>
+			and I.LOGIC_DEL_NO = 'N'
+			GROUP BY
+			I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE,R.RPT_NM,R.RPT_NUM,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE
+			ORDER BY R.RPT_NUM
+		) AA
+		          
+		<if test=" onlyWatch != null and onlyWatch == 'true' ">
+          INNER JOIN 
+          (
+                SELECT distinct INS.TASK_ID FROM RPT_FLTSK_INS INS 
+                INNER JOIN RPT_CONCERN_ORG C
+                ON C.ORG_ID = INS.EXE_OBJ_ID
+                AND C.USER_ID = #{currentUserId}
+          ) DD 
+          ON DD.TASK_ID = AA.TASK_ID
+          </if>
+	</select>
+	
+	<select id="queryChildTaskRptByExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select sum(case when I.STS=1 then 1 else 0 end) as complete,
+		sum(case
+		when I.STS=1 then 0 else 1 end) as uncomplete,
+		I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE,R.RPT_NM as
+		taskObjName,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE,I.LINE_ID,line.LINE_NM
+		AS lineNm
+		from RPT_FLTSK_INS I
+		inner join RPT_MGR_REPORT_INFO R
+		on
+		I.TASK_OBJ_ID = R.RPT_ID
+		INNER JOIN
+		RPT_MGR_FRS_LINE line
+		ON
+		line.LINE_ID
+		= I.LINE_ID
+		WHERE 1=1
+		<if test="taskId !=null ">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<if test="uptaskinsid != null">
+			and i.UP_TASK_INSTANCE_ID = #{uptaskinsid}
+		</if>
+		<!--此参数前台JAVA没传 方娟 20150106 -->
+		<if test="taskObjId != null">
+			and I.TASK_OBJ_ID in
+			<foreach item="taskObjId" index="index" collection="taskObjId"
+				open="(" separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if>
+		<!-- 参数为用户ID 和机构无关 方娟 20150106 -->
+		<if test="exeObjId != null">
+			and I.EXE_OBJ_ID IN
+			<foreach item="exeObjId" index="index" collection="exeObjId"
+				open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		GROUP BY
+		I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE,R.RPT_NM,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE,I.LINE_ID,line.LINE_NM
+		ORDER BY R.RPT_NM
+	</select>
+	<select id="queryChildTaskRptByExeObjSend"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select sum(case when I.STS=1 then 1 else 0 end) as complete,
+		sum(case
+		when I.STS=1 then 0 else 1 end) as uncomplete,
+		I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE,R.RPT_NM as
+		taskObjName,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE,I.LINE_ID,line.LINE_NM
+		AS lineNm
+		from RPT_FLTSK_INS I
+		inner join RPT_FLTSK_INS F
+		on
+		I.UP_TASK_INSTANCE_ID = F.TASK_INSTANCE_ID
+		inner join
+		RPT_MGR_REPORT_INFO R
+		on I.TASK_OBJ_ID = R.RPT_ID
+		INNER JOIN
+		RPT_MGR_FRS_LINE line
+		ON
+		line.LINE_ID = I.LINE_ID
+		WHERE 1=1
+		<if test="taskId !=null ">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<if test="uptaskinsid != null">
+			and i.UP_TASK_INSTANCE_ID = #{uptaskinsid}
+		</if>
+		<!--此参数前台没传 fangjuan 20150106 -->
+		<if test="taskObjId != null">
+			and I.TASK_OBJ_ID in
+			<foreach item="taskObjId" index="index" collection="taskObjId"
+				open="(" separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if>
+		<!--只取当前机构的管理机构，不会超1000 fangjuan 20150106 -->
+		<if test="exeObjIdF != null">
+			and (
+			<foreach collection="exeObjIdF" item="items" open="("
+				separator=")or(" close=")">
+				F.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and F.task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.UP_TASK_INSTANCE_ID is not null
+		and I.LOGIC_DEL_NO = 'N'
+		GROUP BY
+		I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE,R.RPT_NM,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE,I.LINE_ID,line.LINE_NM
+		ORDER BY R.RPT_NM
+	</select>
+	
+	<!-- 1104任务列表查询 -->
+	<select id="queryTaskListByExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_ID,
+		I.DATA_DATE,
+		I.TASK_NM AS TASK_NAME,
+		<!-- I.START_TIME, -->
+		I.END_TIME,
+		t.is_fill
+		from
+		RPT_FLTSK_INS I
+		left join rpt_fltsk_info t
+		on I.task_id = t.task_id
+		<if test=" onlyWatch != null and onlyWatch == 'true' ">
+			INNER JOIN RPT_CONCERN_ORG C
+			ON C.ORG_ID = I.EXE_OBJ_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		where 1 = 1
+		and i.task_mgr_sts='1'		<!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<if test="exeObjId != null">
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjId"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<!-- 方娟 20150106 -->
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		and I.UP_TASK_INSTANCE_ID is null
+		and I.LOGIC_DEL_NO = 'N'
+		<if test=" todayTime != null ">
+		 	and I.START_TIME  &lt; #{todayTime}
+		 	and I.END_TIME  &gt; #{todayTime}
+		</if>
+		ORDER BY
+		I.TASK_NM,I.DATA_DATE DESC
+	</select>
+	
+	<select id="queryUniqueTaskListByExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_ID,I.TASK_NM AS TASK_NAME
+		from RPT_FLTSK_INS I
+		where 1 = 1
+		and i.task_mgr_sts='1'		<!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+		and I.UP_TASK_INSTANCE_ID is null
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<if test="exeObjIdOrg != null and exeObjIdOrg" >
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjIdOrg"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="exeObjIdUser != null">
+			and I.EXE_OBJ_ID in
+			<foreach item="exeObjIdUser" index="index" collection="exeObjIdUser"
+				open="(" separator="," close=")">
+				#{exeObjIdUser}
+			</foreach>
+		</if>
+		<!-- end 方娟 -->
+		and I.LOGIC_DEL_NO = 'N'
+		ORDER BY TASK_NAME
+	</select>
+	<select id="queryRptListByTaskIdAndExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_OBJ_ID,I.DATA_DATE,rpt.RPT_NM AS
+		taskObjName,rpt.CFG_ID AS templateId
+		from RPT_FLTSK_INS I
+		inner join
+		RPT_MGR_REPORT_INFO rpt
+		on rpt.RPT_ID = I.TASK_OBJ_ID
+		where 1 = 1
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="exeObjId != null">
+			and (
+			<foreach collection="exeObjId" item="items" open="("
+				separator=")or(" close=")">
+				I.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and I.task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<!-- add by fangjuan 20150106 -->
+		<!-- 此参数前台传过，但是sql里面没有接受，和许广源确认，二次任务不需要报表权限 -->
+		<!-- <if test="taskObjId != null"> and I.TASK_OBJ_ID in <foreach item="taskObjId" 
+			index="index" collection="taskObjId" separator=" or I.task_Obj_Id in " > 
+			<foreach collection="taskObjId" item="taskObjId" open="(" separator="," close=")"> 
+			#{taskObjId} </foreach> </foreach> </if> -->
+		<!-- add end -->
+		<if test="dataDate != null and dataDate.length() > 0">
+			and I.data_date = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		ORDER BY I.DATA_DATE,I.TASK_OBJ_ID
+	</select>
+	<select id="queryUniqueRptListByTaskIdAndExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_OBJ_ID,rpt.RPT_NM AS taskObjName,RPT.RPT_NUM
+		from
+		RPT_FLTSK_INS I
+		inner join RPT_MGR_REPORT_INFO rpt
+		on rpt.RPT_ID =
+		I.TASK_OBJ_ID
+		where 1 = 1
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="exeObjOrg != null">
+			and (
+			<foreach collection="exeObjOrg" item="items" open="("
+				separator=")or(" close=")">
+				I.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and I.task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+		<if test="exeObjUser != null">
+			and I.EXE_OBJ_ID in
+			<foreach collection="exeObjUser" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+		</if>
+		<!-- edit end -->
+		<!-- add by fangjuan 20150106 -->
+		<!-- 此参数前台传过，但是sql里面没有接受，和许广源确认，二次任务不需要报表权限 -->
+		<if test="taskObjId != null"> 
+			and I.TASK_OBJ_ID in 
+			<foreach collection="taskObjId" item="taskObjId" open="("
+				separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if>		
+		<if test="dataDate != null and dataDate.length() > 0">
+			and I.data_date = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		ORDER BY rpt.RPT_NM
+	</select>
+	<select id="queryTaskInsNew"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID, I.TASK_ID, I.TASK_NM, I.START_TIME,
+		I.END_TIME, I.STS, I.IS_UPT,
+		I.TASK_NODE_INSTANCE_ID, I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm, I.TASK_OBJ_ID, rpt.RPT_NM AS
+		taskObjNm,
+		I.UP_TASK_INSTANCE_ID, I.TASK_TYPE, sl.CHECK_STS AS logicRs,
+		sw.CHECK_STS AS warnRs,
+		sz.CHECK_STS AS zeroRs,
+		ss.CHECK_STS AS sumpartRs, I.LINE_ID AS lineId,
+		sdl.CHECK_STS AS deLogicSts, 
+		rpt.CFG_ID AS
+		templateId,length(o.namespace) as l, rpt.RPT_ID AS rptId,
+		tpp.template_type as templateType,
+		tpp.fixed_length,
+		tpp.is_paging,
+		rol.oper_user_nm as applyUserNm,
+       	rol.oper_time as oprTime,
+       	rol.oper_user_id as oprUserId,
+       	info.is_approve,
+       	info.is_check,
+       	info.is_examine,
+	    i.is_force_submit,
+	    i.force_submit_reason
+		FROM
+		RPT_FLTSK_INS I
+		left join rpt_fltsk_info info
+		on i.task_id = info.task_id
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID =
+		rpt.RPT_ID
+		INNER JOIN rpt_design_tmp_info tpp 
+    	ON rpt.cfg_id = tpp.template_id
+		and tpp.ver_id = (select max(ver_id) from rpt_design_tmp_info where template_id =  rpt.cfg_id )
+		INNER JOIN
+		RPT_ORG_INFO O
+		ON
+		I.EXE_OBJ_ID = O.ORG_NO AND
+		I.TASK_TYPE = O.ORG_TYPE
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		I.DATA_DATE
+		= sl.DATA_DATE AND rpt.CFG_ID = sl.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		sl.ORG_NO AND sl.CHECK_TYPE = #{logic}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS ss
+		ON
+		I.DATA_DATE = ss.DATA_DATE AND rpt.CFG_ID = ss.RPT_TEMPLATE_ID AND
+		I.EXE_OBJ_ID =
+		ss.ORG_NO AND ss.CHECK_TYPE = #{sum}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		I.DATA_DATE = sw.DATA_DATE AND rpt.CFG_ID =
+		sw.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		sw.ORG_NO AND sw.CHECK_TYPE =
+		#{warn}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sz
+		ON
+		I.DATA_DATE = sz.DATA_DATE AND rpt.CFG_ID = sz.RPT_TEMPLATE_ID AND 
+		    I.EXE_OBJ_ID = sz.ORG_NO AND sz.CHECK_TYPE = #{zero}
+		LEFT JOIN
+			RPT_ENGINE_CHECK_STS sdl
+		ON
+			I.DATA_DATE = sdl.DATA_DATE
+		AND
+			rpt.CFG_ID = sdl.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+			sdl.ORG_NO AND
+			sdl.CHECK_TYPE = #{deLogicSts}
+		LEFT JOIN  rpt_mgr_frs_ext ext
+        ON I.TASK_OBJ_ID = ext.rpt_id
+        left join (SELECT
+						t.task_id,
+						t.rpt_id,
+						t.org_no,
+						t.data_date,
+						t.module_type,
+						t.oper_user_id,
+						t.oper_user_nm,
+						MAX(t.oper_time) oper_time
+					FROM
+						RPT_SYS_OPER_LOG t
+					INNER JOIN
+						(SELECT
+								t.task_id,
+								t.rpt_id,
+								t.org_no,
+								t.data_date,
+								t.module_type,
+								MAX(t.oper_time) oper_time
+							FROM
+								RPT_SYS_OPER_LOG t
+							WHERE
+								t.module_nm = '报表填报'
+							AND t.log_type = '03'
+							GROUP BY
+								t.task_id,
+								t.rpt_id,
+								t.org_no,
+								t.data_date,
+								t.module_type) t2
+					ON t.task_id = t2.task_id
+					AND t.rpt_id = t2.rpt_id
+					AND t.org_no = t2.org_no
+					AND t.data_date = t2.data_date
+					AND t.module_type = t2.module_type
+					AND t.oper_time = t2.oper_time
+					WHERE
+						t.module_nm = '报表填报'
+					AND t.log_type = '03'
+					GROUP BY
+						t.task_id,
+						t.rpt_id,
+						t.org_no,
+						t.data_date,
+						t.module_type,
+						t.oper_user_id,
+						t.oper_user_nm) rol
+		  on I.Task_Type = rol.module_type
+		  and I.Task_instance_Id = rol.task_id
+		  and i.task_obj_id = rol.rpt_id
+		  and i.exe_obj_id = rol.org_no
+		  and i.data_date = rol.data_date
+		WHERE
+		1=1
+		and i.task_mgr_sts='1'
+		<if test=" moduleType !=  null ">
+			and I.module_type=#{moduleType}
+		</if>
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- renjing 20170207  -->
+		<if test="isMainRptSts != null">
+		  <!-- <if test="isMainRptSts == 'Y' " >
+	     	and ext.IS_MAIN_RPT = #{isMainRptSts}
+	      </if>
+	      <if test="isMainRptSts == 'N' " >
+	      	and ( ext.IS_MAIN_RPT = #{isMainRptSts} or ext.IS_MAIN_RPT IS NULL )
+	      </if> -->
+	      
+			<if test="isMainRptInt == 1">
+				and ext.IS_MAIN_RPT = #{isMainRptSts} 
+			</if>
+			<if test="isMainRptInt == 2">
+				and ( ext.IS_MAIN_RPT = #{isMainRptSts} OR ext.IS_MAIN_RPT IS NULL )
+			</if>
+  		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="taskObjId != null and taskObjId.size()>0">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<if test="taskType != null">
+			and I.TASK_TYPE =#{taskType}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID =#{orgNo}
+		</if>
+		<if test="notOrgNo != null">
+			and I.EXE_OBJ_ID != #{notOrgNo}
+		</if>
+		<!-- added by maxl start -->
+		<if test="taskInstanceId != null and taskInstanceId.size()>0">
+			and (I.STS not in ('1','2','3') or I.TASK_INSTANCE_ID in 
+			<foreach collection="taskInstanceId" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+			)
+		</if>
+		<if test="exeOrgNo != null and exeOrgNo.size()>0">
+			and I.EXE_OBJ_ID in 
+			<foreach collection="exeOrgNo" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+		</if>
+		<!-- added by maxl end -->
+		<if test="exeObjId != null and exeObjId.size()>0" >
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjId"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="noExeObjId != null">
+			and I.EXE_OBJ_ID not in
+			(
+			select distinct(org.org_no) from RPT_ORG_INFO
+			org where 1=1
+			and
+			<foreach collection="noExeObjId" item="items" open="("
+				separator="or" close=")">
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<!-- sts=3 支持流程2的最终状态已归档 -->
+		<if test="operType == 01">
+			<!-- and I.STS in ('1','2') -->
+			and I.STS in ('1','2','3')
+		</if>
+		<if test="operType == 02">
+			and I.STS in ('2','3')
+		</if>
+		<if test="stsList != null">
+			and I.STS in
+			<foreach item="stsList" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsList}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		<if test=" todayTime != null ">
+		 	and I.START_TIME  &lt; #{todayTime}
+		 	and I.END_TIME  &gt; #{todayTime}
+		</if>
+		<if test="isError">
+			and (
+			sl.CHECK_STS in ('04', '06')
+			or sw.CHECK_STS in ('04', '06')
+			<if test="tasktype == 03">
+				or ss.CHECK_STS in ('04', '06')
+			</if>
+			)
+		</if>
+		<if test="topten != null">
+			fetch first 10 rows only
+		</if>
+		<if test="insId != null">
+			and I.TASK_INSTANCE_ID = #{insId}
+		</if>
+		order by
+		<!-- i.data_date desc, l,o.org_type,i.exe_obj_id, i.task_obj_id, i.task_id -->
+		i.data_date desc,o.org_type,i.exe_obj_id, i.task_obj_id, i.task_id
+	</select>
+	<select id="queryTaskInsFreeze"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO" parameterType="Map">
+		SELECT I.TASK_INSTANCE_ID, I.TASK_ID AS taskId, I.TASK_NM AS taskNm,
+		I.STS AS sts, I.DATA_DATE AS dataDate,I.TASK_OBJ_ID AS taskObjId,
+		RPT.RPT_NM AS taskObjNm, I.EXE_OBJ_ID,O.ORG_NM AS exeObjNm
+	    <if test="taskId == null and taskObjId == null">
+	    	from (
+	        SELECT INS1.*
+	              FROM RPT_FLTSK_INS INS1,
+	                (SELECT task_id, task_obj_id,data_date, MAX(ROWID) AS RID
+	                   FROM RPT_FLTSK_INS INS
+	                  GROUP BY task_id, task_obj_id,data_date) INS2
+	            WHERE INS1.ROWID = INS2.RID
+	            and INS1.task_mgr_sts='1'    <!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+	        ) I 
+	    </if>
+	    <if test="taskId != null and taskObjId != null">
+	    	from RPT_FLTSK_INS I
+	    </if>
+	     INNER JOIN
+	     RPT_MGR_REPORT_INFO RPT
+	     ON
+	     I.TASK_OBJ_ID = RPT.RPT_ID
+	     INNER
+		 JOIN
+		 RPT_ORG_INFO O
+		 ON
+		 I.EXE_OBJ_ID = O.ORG_NO
+		 AND I.TASK_TYPE=O.ORG_TYPE
+	     WHERE 1=1
+	     <if test="conditionSql != null">${conditionSql}</if>
+	     <if test="taskId != null">AND I.TASK_ID = #{taskId}</if>
+	     <if test="dataDate != null">AND I.DATA_DATE = #{dataDate}</if>
+	     <if test="taskObjId != null">AND I.TASK_OBJ_ID = #{taskObjId}</if>
+	     <if test="sts != null">AND I.STS = #{sts}</if>
+	     <if test="taskType != null">AND I.TASK_TYPE = #{taskType}</if>
+		 <if test="rptList != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="rptList"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		 </if>
+	</select>
+	<select id="queryOrgForFreeze"
+		resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo" parameterType="HashMap">
+		SELECT O.ORG_NO AS "id.orgNo",
+		O.ORG_NM AS orgNm
+		FROM RPT_ORG_INFO O
+		INNER
+		JOIN
+		RPT_FLTSK_INS I
+		ON
+		I.EXE_OBJ_ID = O.ORG_NO
+		WHERE I.TASK_ID = #{taskId}
+		AND I.TASK_OBJ_ID = #{taskObjId}
+		AND I.DATA_DATE = #{dataDate}
+	</select>
+	
+	<!-- 1104 实例查询 -->
+	<select id="queryTaskInsList"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID, I.TASK_ID, I.TASK_NM, I.START_TIME,
+		I.END_TIME, 
+		case when I.STS = '0' and msg.task_instance_id is not null then '10' else I.STS end STS, 
+		I.IS_UPT,
+		I.TASK_NODE_INSTANCE_ID, 
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm, 
+		I.TASK_OBJ_ID, 
+		rpt.RPT_NM AS taskObjNm,
+		sz.CHECK_STS AS zeroRs,
+		I.LINE_ID AS lineId,
+		I.UP_TASK_INSTANCE_ID, I.TASK_TYPE, sl.CHECK_STS AS logicRs,
+		sw.CHECK_STS AS warnRs,
+		ss.CHECK_STS AS sumpartRs, 
+		sdl.CHECK_STS AS deLogicSts, 
+		rpt.CFG_ID AS
+		templateId,length(o.namespace) as l,
+		<!-- 是否筛选总表查询 下面两个条件最多有一条成立 add by wusb at 20161202-->
+		<if test="isShowIsMainRpt != null">
+	     ext.IS_MAIN_RPT AS isMainRpt, 
+  		</if>
+  		<if test="isMainRptSts != null">
+	     ext.IS_MAIN_RPT AS isMainRpt, 
+  		</if>
+		msg.OPER_CONTENT AS rejectReason,
+		I.IS_CALCULATION,
+		tpp.template_type as templateType,
+		rol.oper_user_nm as oprUser,
+        rol.oper_time as oprTime,
+        tpp.fixed_length,
+        tpp.is_paging,
+        t.is_fill
+		FROM
+		RPT_FLTSK_INS I
+		left join RPT_FLTSK_INfo t
+		on I.task_id = t.task_id
+		<if test=" onlyWatch != null and onlyWatch =='true' ">
+			INNER JOIN RPT_CONCERN_ORG C
+			ON C.ORG_ID = I.EXE_OBJ_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		<!-- add by wusb at 20161201 是否筛选总表查询 -->
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN rpt_design_tmp_info tpp 
+    	ON rpt.cfg_id = tpp.template_id
+		and tpp.ver_id = (select max(ver_id) from rpt_design_tmp_info where template_id =  rpt.cfg_id )
+		INNER JOIN 
+		RPT_ORG_INFO O
+		ON
+		I.EXE_OBJ_ID = O.ORG_NO
+		and i.task_type=O.ORG_TYPE
+		<if test="taskType != null">
+			AND I.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" queryFav != null">
+			INNER JOIN RPT_CONCERN_RPT C
+			ON C.RPT_ID = rpt.RPT_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		I.DATA_DATE = sl.DATA_DATE
+		AND
+		rpt.CFG_ID = sl.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		sl.ORG_NO AND
+		sl.CHECK_TYPE = #{logic}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS ss
+		ON
+		I.DATA_DATE
+		= ss.DATA_DATE AND rpt.CFG_ID = ss.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		ss.ORG_NO AND ss.CHECK_TYPE = #{sum}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		I.DATA_DATE = sw.DATA_DATE AND rpt.CFG_ID = sw.RPT_TEMPLATE_ID AND
+		I.EXE_OBJ_ID =
+		sw.ORG_NO AND sw.CHECK_TYPE = #{warn}
+		LEFT JOIN
+		    RPT_ENGINE_CHECK_STS sz
+		ON
+		    I.DATA_DATE = sz.DATA_DATE AND rpt.CFG_ID = sz.RPT_TEMPLATE_ID AND 
+		    I.EXE_OBJ_ID = sz.ORG_NO AND sz.CHECK_TYPE = #{zero}
+		LEFT JOIN
+			RPT_ENGINE_CHECK_STS sdl
+		ON
+			I.DATA_DATE = sdl.DATA_DATE
+		AND
+			rpt.CFG_ID = sdl.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+			sdl.ORG_NO AND
+			sdl.CHECK_TYPE = #{deLogicSts}
+		LEFT JOIN
+		(select aa.task_instance_id ,aa. oper_content from TASK_FILLTAB_MSG aa,(
+    		select  tt.task_instance_id,max(oper_date) oper_date     
+            from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb 
+            where aa.task_instance_id =bb.task_instance_id and aa.oper_date =bb.oper_date ) msg
+		ON
+		I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+		<!-- add by wusb at 20161202 报表导出是否筛选总表没有选择 -->
+			 LEFT JOIN  rpt_mgr_frs_ext ext
+			   ON I.TASK_OBJ_ID = ext.rpt_id
+			left join (SELECT t2.task_id,
+		                   t2.rpt_id,
+		                   t2.org_no,
+		                   t2.data_date,
+		                   t2.module_type,
+		                   t2.oper_user_nm,
+		                   t2.oper_time
+		              FROM RPT_SYS_OPER_LOG t2
+		              inner join (
+		                        SELECT t.task_id,
+		                                t.rpt_id,
+		                                t.org_no,
+		                                t.data_date,
+		                                t.module_type,
+		                                max(t.oper_time) oper_time
+		                          FROM RPT_SYS_OPER_LOG t
+		                         where t.module_nm = '报表填报'
+		                           and t.log_type = '03'
+		                         group by t.task_id,
+		                                   t.rpt_id,
+		                                   t.org_no,
+		                                   t.data_date,
+		                                   t.module_type) t3
+		                on t2.module_type = t3.module_type
+		               and t2.task_id = t3.task_id
+		               and t2.rpt_id = t3.rpt_id
+		               and t2.org_no = t3.org_no
+		               and t2.data_date = t3.data_date
+		               and t2.oper_time = t3.oper_time) rol
+		   on I.Task_Type = rol.module_type
+		  and I.Task_instance_Id = rol.task_id
+		  and i.task_obj_id = rol.rpt_id
+		  and i.exe_obj_id = rol.org_no
+		  and i.data_date = rol.data_date
+		WHERE
+		1=1
+		<if test="isMainRptSts != null">
+			<if test="isMainRptInt == 1">
+				and ext.IS_MAIN_RPT = #{isMainRptSts} 
+			</if>
+			<if test="isMainRptInt == 2">
+				and ( ext.IS_MAIN_RPT = #{isMainRptSts} OR ext.IS_MAIN_RPT IS NULL )
+			</if>
+		</if>
+		<if test="isCellBack != 1">
+			and i.task_mgr_sts='1'		<!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+		</if>
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="taskObjId != null and taskObjId.size()>0" >
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="notContainSts != null">
+			and I.STS != #{notContainSts}
+		</if>
+		<!-- edit end -->
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID =#{orgNo}
+		</if>
+		<if test="notOrgNo != null">
+			and I.EXE_OBJ_ID != #{notOrgNo}
+		</if>
+		<if test="notRptId != null">
+			and I.TASK_OBJ_ID != #{notRptId}
+		</if>
+		<if test="orgType != null">
+			and O.ORG_TYPE = #{orgType}
+		</if>
+		<if test=" todayTime != null ">
+		 	and I.START_TIME  &lt; #{todayTime}
+		 	and I.END_TIME  &gt; #{todayTime}
+		</if>
+		<!-- added by maxl start -->
+		<if test="taskInstanceId != null">
+			and (I.STS not in ('1','2','3') or I.TASK_INSTANCE_ID in 
+			<foreach collection="taskInstanceId" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+			)
+		</if>
+		<if test="exeOrgNo != null">
+			and I.EXE_OBJ_ID in 
+			<foreach collection="exeOrgNo" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+		</if>
+		<!-- added by maxl end -->
+		<if test="exeObjId != null and exeObjId.size()>0" >
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjId"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="noExeObjId != null">
+			and I.EXE_OBJ_ID not in
+			(
+			select distinct(org.org_no) from RPT_ORG_INFO
+			org where 1=1
+			and
+			<foreach collection="noExeObjId" item="items" open="("
+				separator="or" close=")">
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="stsList != null">
+			and I.STS in
+			<foreach item="stsList" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsList}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="isError">
+			and (
+			sl.CHECK_STS in ('04', '06')
+			or sw.CHECK_STS in ('04', '06')
+			<if test="tasktype == 03">
+				or ss.CHECK_STS in ('04', '06')
+			</if>
+			)
+		</if>
+		<if test="topten != null">
+			fetch first 10 rows only
+		</if>
+		order by
+		i.data_date desc, taskObjNm, o.org_type, i.exe_obj_id, i.task_obj_id
+	</select>
+	<!-- 1104 实例查询 -->
+	<select id="queryTaskIns"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID, I.TASK_ID, I.TASK_NM, I.START_TIME,
+		I.END_TIME, 
+		case when I.STS = '0' and msg.task_instance_id is not null then '10' else I.STS end STS,
+		I.IS_UPT,
+		I.TASK_NODE_INSTANCE_ID, 
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		I.EXE_UP_OBJ_ID,
+		O.ORG_NM AS exeObjNm, 
+		I.TASK_OBJ_ID, 
+		rpt.RPT_NM AS taskObjNm,
+		sz.CHECK_STS AS zeroRs,
+		I.LINE_ID AS lineId,
+		I.UP_TASK_INSTANCE_ID, I.TASK_TYPE,
+		sl.CHECK_STS AS logicRs,
+		sw.CHECK_STS AS warnRs,
+		ss.CHECK_STS AS sumpartRs, 
+		sdl.CHECK_STS AS deLogicSts, 
+		rpt.CFG_ID AS
+		templateId,length(o.namespace) as l,
+		<!-- 是否筛选总表查询 下面两个条件最多有一条成立 add by wusb at 20161202-->
+		<if test="isShowIsMainRpt != null">
+	     ext.IS_MAIN_RPT AS isMainRpt, 
+  		</if>
+  		<if test="isMainRptSts != null">
+	     ext.IS_MAIN_RPT AS isMainRpt, 
+  		</if>
+		msg.OPER_CONTENT AS rejectReason,
+		tpp.template_type as templateType,
+		tpp.fixed_length,
+		tpp.is_paging, 
+		rol.oper_user_nm as oprUser,
+       	rol.oper_time as oprTime,
+       	t.is_fill,
+		i.is_force_submit,
+		i.force_submit_reason,
+		case when rfr.sts ='0' then '已申请解锁' else '未申请解锁' end applySts
+		FROM
+		RPT_FLTSK_INS I
+		<!-- 左连接表查看申请状态，如果该表内有值表示已申请解锁，否则未申请 -->
+		LEFT JOIN
+		rpt_fltsk_rebut rfr
+		ON
+		I.task_instance_id = rfr.task_instance_id
+		left join rpt_fltsk_info t
+		on I.task_id = t.task_id
+		<if test=" onlyWatch != null and onlyWatch =='true' ">
+			INNER JOIN RPT_CONCERN_ORG C
+			ON C.ORG_ID = I.EXE_OBJ_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		<!-- add by wusb at 20161201 是否筛选总表查询 -->
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN rpt_design_tmp_info tpp 
+    	ON rpt.cfg_id = tpp.template_id
+		and tpp.ver_id = (select max(ver_id) from rpt_design_tmp_info where template_id =  rpt.cfg_id )
+		INNER JOIN 
+		RPT_ORG_INFO O
+		ON
+		I.EXE_OBJ_ID = O.ORG_NO
+		and i.task_type=O.ORG_TYPE
+		<if test="taskType != null">
+			AND I.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" queryFav != null">
+			INNER JOIN RPT_CONCERN_RPT C
+			ON C.RPT_ID = rpt.RPT_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		I.DATA_DATE = sl.DATA_DATE
+		AND
+		rpt.CFG_ID = sl.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		sl.ORG_NO AND
+		sl.CHECK_TYPE = #{logic}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS ss
+		ON
+		I.DATA_DATE
+		= ss.DATA_DATE AND rpt.CFG_ID = ss.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		ss.ORG_NO AND ss.CHECK_TYPE = #{sum}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		I.DATA_DATE = sw.DATA_DATE AND rpt.CFG_ID = sw.RPT_TEMPLATE_ID AND
+		I.EXE_OBJ_ID =
+		sw.ORG_NO AND sw.CHECK_TYPE = #{warn}
+		LEFT JOIN
+		    RPT_ENGINE_CHECK_STS sz
+		ON
+		    I.DATA_DATE = sz.DATA_DATE AND rpt.CFG_ID = sz.RPT_TEMPLATE_ID AND 
+		    I.EXE_OBJ_ID = sz.ORG_NO AND sz.CHECK_TYPE = #{zero}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sdl
+		ON
+		I.DATA_DATE = sdl.DATA_DATE
+		AND
+		rpt.CFG_ID = sdl.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		sdl.ORG_NO AND
+		sdl.CHECK_TYPE = #{deLogicSts}
+		LEFT JOIN
+		(select aa.task_instance_id ,aa. oper_content from TASK_FILLTAB_MSG aa,(
+    		select  tt.task_instance_id,max(oper_date) oper_date     
+            from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb 
+            where aa.task_instance_id =bb.task_instance_id and aa.oper_date =bb.oper_date ) msg
+		ON
+		I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+		<!-- add by wusb at 20161202 报表导出是否筛选总表没有选择 -->
+			 LEFT JOIN  rpt_mgr_frs_ext ext
+			   ON I.TASK_OBJ_ID = ext.rpt_id
+		left join (SELECT
+						t.task_id,
+						t.rpt_id,
+						t.org_no,
+						t.data_date,
+						t.module_type,
+						t.oper_user_nm,
+						MAX(t.oper_time) oper_time
+					FROM
+						RPT_SYS_OPER_LOG t
+					INNER JOIN
+						(SELECT
+								t.task_id,
+								t.rpt_id,
+								t.org_no,
+								t.data_date,
+								t.module_type,
+								MAX(t.oper_time) oper_time
+							FROM
+								RPT_SYS_OPER_LOG t
+							WHERE
+								t.module_nm = '报表填报'
+							AND t.log_type = '03'
+							GROUP BY
+								t.task_id,
+								t.rpt_id,
+								t.org_no,
+								t.data_date,
+								t.module_type) t2
+					ON t.task_id = t2.task_id
+					AND t.rpt_id = t2.rpt_id
+					AND t.org_no = t2.org_no
+					AND t.data_date = t2.data_date
+					AND t.module_type = t2.module_type
+					AND t.oper_time = t2.oper_time
+					WHERE
+						t.module_nm = '报表填报'
+					AND t.log_type = '03'
+					GROUP BY
+						t.task_id,
+						t.rpt_id,
+						t.org_no,
+						t.data_date,
+						t.module_type,
+						t.oper_user_nm) rol
+		  on I.Task_Type = rol.module_type
+		  and I.Task_Id = rol.task_id
+		  and i.task_obj_id = rol.rpt_id
+		  and i.exe_obj_id = rol.org_no
+		  and i.data_date = rol.data_date
+		WHERE
+		1=1
+		<if test="isMainRptSts != null">
+			<if test="isMainRptInt == 1">
+				and ext.IS_MAIN_RPT = #{isMainRptSts} 
+			</if>
+			<if test="isMainRptInt == 2">
+				and ( ext.IS_MAIN_RPT = #{isMainRptSts} OR ext.IS_MAIN_RPT IS NULL )
+			</if>
+		</if>
+		<if test="isCellBack != 1">
+			and i.task_mgr_sts='1'		<!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+		</if>
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="taskObjId != null and taskObjId.size() > 0">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID =#{orgNo}
+		</if>
+		<if test="notOrgNo != null">
+			and I.EXE_OBJ_ID != #{notOrgNo}
+		</if>
+		<if test="notRptId != null">
+			and I.TASK_OBJ_ID != #{notRptId}
+		</if>
+		<if test="orgType != null">
+			and O.ORG_TYPE = #{orgType}
+		</if>
+		<!-- added by maxl start -->
+		<if test="taskInstanceId != null">
+			and (I.STS not in ('1','2','3') or I.TASK_INSTANCE_ID in 
+			<foreach collection="taskInstanceId" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+			)
+		</if>
+		<if test="exeOrgNo != null">
+			and I.EXE_OBJ_ID in 
+			<foreach collection="exeOrgNo" item="items" open="("
+				separator="," close=")">
+				#{items}
+			</foreach>
+		</if>
+		<!-- added by maxl end -->
+		<if test="exeObjId != null and exeObjId.size() > 0">
+			and (I.EXE_OBJ_ID in
+			<foreach item="exeObjIds" index="index" collection="exeObjId"
+				separator=" or I.EXE_OBJ_ID in ">
+				<foreach collection="exeObjIds" item="exeObjId" open="("
+					separator="," close=")">
+					#{exeObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="noExeObjId != null">
+			and I.EXE_OBJ_ID not in
+			(
+			select distinct(org.org_no) from RPT_ORG_INFO
+			org where 1=1
+			and
+			<foreach collection="noExeObjId" item="items" open="("
+				separator="or" close=")">
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="notContainSts != null">
+			and I.STS != #{notContainSts}
+		</if>
+		<if test="stsList != null">
+			and I.STS in
+			<foreach item="stsList" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsList}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		<if test=" todayTime != null ">
+		 	and I.START_TIME  &lt; #{todayTime}
+		 	and I.END_TIME  &gt; #{todayTime}
+		</if>
+		<if test="isError">
+			and (
+			sl.CHECK_STS in ('04', '06')
+			or sw.CHECK_STS in ('04', '06')
+			<if test="tasktype == 03">
+				or ss.CHECK_STS in ('04', '06')
+			</if>
+			)
+		</if>
+		<if test="topten != null">
+			fetch first 10 rows only
+		</if>
+		<if test="fillOrgNos != null">
+			and I.EXE_OBJ_ID in
+			<foreach item="fillOrgNo" index="index" collection="fillOrgNos"
+				open="(" separator="," close=")">
+				#{fillOrgNo}
+			</foreach>
+		</if>
+		order by
+		i.data_date desc,o.org_type,i.exe_obj_id, i.task_obj_id, i.task_id
+	</select>
+	
+	
+	<select id="getFlTaskMaxDatadate" resultType="String">
+		SELECT
+		Max(I.DATA_DATE)
+		FROM
+		RPT_FLTSK_INS I
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN
+		RPT_ORG_INFO O
+		ON
+		I.EXE_OBJ_ID = O.ORG_NO AND I.TASK_TYPE = O.ORG_TYPE
+		WHERE
+		1=1
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="taskObjId != null and taskObjId.size() > 0">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="tasktype != null">
+			and I.TASK_TYPE =#{tasktype}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID =#{orgNo}
+		</if>
+		<if test="notOrgNo != null">
+			and I.EXE_OBJ_ID != #{notOrgNo}
+		</if>
+		<if test="exeObjId != null and exeObjId.size()>0">
+			and (
+			<foreach collection="exeObjId" item="items" open="("
+				separator=")or(" close=")">
+				I.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and I.task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="stsList != null">
+			and I.STS in
+			<foreach item="stsList" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsList}
+			</foreach>
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+	<!-- 根据任务实例ID查找一次任务实例 -->
+	
+	
+	<select id="queryChildOrgTaskIns"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO" parameterType="HashMap">
+		SELECT I.TASK_INSTANCE_ID,I.TASK_ID,I.TASK_NM,I.START_TIME,
+		I.END_TIME, I.STS, I.IS_UPT, I.TASK_NODE_INSTANCE_ID, I.DATA_DATE,
+		I.EXE_OBJ_ID,O.ORG_NM AS exeObjNm, I.TASK_OBJ_ID, rpt.RPT_NM AS
+		taskObjNm,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE,
+		sl.CHECK_STS as logicRs,
+		sw.CHECK_STS as warnRs,
+		ss.CHECK_STS as sumpartRs,
+		sz.CHECK_STS as zeroRs,
+		I.LINE_ID as lineId,
+		tpp.template_type,
+		tpp.fixed_length,
+		tpp.is_paging
+		from RPT_FLTSK_INS I
+		inner join RPT_MGR_REPORT_INFO rpt
+		on I.TASK_OBJ_ID
+		= rpt.RPT_ID
+		INNER JOIN rpt_design_tmp_info tpp 
+    	ON rpt.cfg_id = tpp.template_id
+		and tpp.ver_id = (select max(ver_id) from rpt_design_tmp_info where template_id =  rpt.cfg_id )
+		inner join RPT_ORG_INFO O
+		on I.EXE_OBJ_ID = O.ORG_NO
+		and
+		I.TASK_TYPE = O.ORG_TYPE
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		I.DATA_DATE
+		= sl.DATA_DATE
+		AND rpt.CFG_ID = sl.RPT_TEMPLATE_ID
+		AND I.EXE_OBJ_ID =
+		sl.ORG_NO
+		and sl.CHECK_TYPE = #{logic}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS ss
+		ON
+		I.DATA_DATE = ss.DATA_DATE
+		AND rpt.CFG_ID = ss.RPT_TEMPLATE_ID
+		AND
+		I.EXE_OBJ_ID =
+		ss.ORG_NO
+		and ss.CHECK_TYPE = #{sum}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		I.DATA_DATE = sw.DATA_DATE
+		AND rpt.CFG_ID =
+		sw.RPT_TEMPLATE_ID
+		AND I.EXE_OBJ_ID =
+		sw.ORG_NO
+		and sw.CHECK_TYPE =
+		#{warn}
+		LEFT JOIN
+	    RPT_ENGINE_CHECK_STS sz
+		ON
+	    I.DATA_DATE = sz.DATA_DATE AND rpt.CFG_ID = sz.RPT_TEMPLATE_ID AND 
+	    I.EXE_OBJ_ID = sz.ORG_NO AND sz.CHECK_TYPE = #{zero}
+		where 1=1 
+		<!--不会超1000 方娟 20150106 -->
+		<if test="taskInsIds != null">
+			and I.TASK_INSTANCE_ID in
+			<foreach item="taskInsId" index="index" collection="taskInsIds"
+				open="(" separator="," close=")">
+				#{taskInsId}
+			</foreach>
+		</if>
+		<if test="multiTaskInsIds != null">
+			 and (  I.TASK_INSTANCE_ID in
+			<foreach item="taskObjIds" index="index" collection="multiTaskInsIds"
+				separator=" or I.TASK_INSTANCE_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			 )
+		</if>
+		<if test="upOrgNos != null">
+			 and (  O.UP_ORG_NO in
+			<foreach item="upOrgNoss" index="index" collection="upOrgNos"
+				separator=" or O.UP_ORG_NO in ">
+				<foreach collection="upOrgNoss" item="upOrgNo" open="("
+					separator="," close=")">
+					#{upOrgNo}
+				</foreach>
+			</foreach>
+			 )
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+
+	<!-- 下面SQL没有Controller调用 fangjuan 20150106 -->
+	<select id="queryChildTaskInsGrid"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.START_TIME,
+		I.END_TIME,
+		I.STS,
+		I.TASK_NODE_INSTANCE_ID,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		U.USER_NAME AS
+		exeObjNm,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjNm,
+		I.UP_TASK_INSTANCE_ID,
+		I.TASK_TYPE,
+		I.LINE_ID AS lineId,
+		li.LINE_NM AS lineNm,
+		tmp.TEMPLATE_ID
+		AS templateId,
+		ls.CHECK_STS AS logicRs ,
+		ws.CHECK_STS AS warnRs,
+		F.EXE_OBJ_ID AS parentExeObjId
+		FROM
+		RPT_FLTSK_INS I
+		INNER JOIN
+		RPT_FLTSK_INS F
+		ON
+		F.TASK_INSTANCE_ID = I.UP_TASK_INSTANCE_ID
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN
+		RPT_DESIGN_TMP_INFO tmp
+		ON
+		tmp.PARENT_TEMPLATE_ID = rpt.CFG_ID
+		AND
+		tmp.VER_START_DATE &lt;= F.DATA_DATE
+		AND
+		tmp.VER_END_DATE > F.DATA_DATE
+		AND I.LINE_ID = tmp.LINE_ID
+		INNER JOIN
+		BIONE_USER_INFO U
+		ON
+		I.EXE_OBJ_ID =
+		U.USER_ID
+		LEFT JOIN
+		RPT_MGR_FRS_LINE li
+		ON
+		li.LINE_ID = I.LINE_ID
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS ls
+		ON
+		ls.RPT_TEMPLATE_ID = tmp.TEMPLATE_ID
+		AND
+		ls.DATA_DATE = I.DATA_DATE
+		AND ls.ORG_NO =
+		F.EXE_OBJ_ID
+		AND ls.CHECK_TYPE
+		= #{logic}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS ws
+		ON
+		ws.RPT_TEMPLATE_ID =
+		tmp.TEMPLATE_ID
+		AND ws.DATA_DATE = I.DATA_DATE
+		AND ws.ORG_NO =
+		F.EXE_OBJ_ID
+		AND ws.CHECK_TYPE = #{warn}
+		WHERE 1=1
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<if test="taskObjId != null">
+			and I.TASK_OBJ_ID in
+			<foreach item="taskObjId" index="index" collection="taskObjId"
+				open="(" separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if>
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE =#{tasktype}
+		</if>
+		<if test="exeObjIdF != null">
+			or F.EXE_OBJ_ID in
+			<foreach item="exeObjIdF" index="index" collection="exeObjIdF"
+				open="(" separator="," close=")">
+				#{exeObjIdF}
+			</foreach>
+		</if>
+		<if test="exeObjIdC != null">
+			or I.EXE_OBJ_ID in
+			<foreach item="exeObjIdC" index="index" collection="exeObjIdC"
+				open="(" separator="," close=")">
+				#{exeObjIdC}
+			</foreach>
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+
+	<select id="queryChildTaskIns"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.START_TIME,
+		I.END_TIME,
+		I.STS,
+		I.IS_UPT,
+		I.TASK_NODE_INSTANCE_ID,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		U.USER_NAME AS exeObjNm,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjNm,
+		I.UP_TASK_INSTANCE_ID,
+		I.TASK_TYPE,
+		I.LINE_ID AS lineId,
+		li.LINE_NM AS
+		lineNm,
+		tmp.TEMPLATE_ID AS templateId,
+		sl.CHECK_STS AS logicRs ,
+		sw.CHECK_STS AS warnRs,
+		F.EXE_OBJ_ID AS parentExeObjId,
+		org.ORG_NM AS
+		parentExeObjNm
+		FROM
+		RPT_FLTSK_INS I
+		INNER JOIN
+		RPT_FLTSK_INS F
+		ON
+		F.TASK_INSTANCE_ID = I.UP_TASK_INSTANCE_ID
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN
+		RPT_DESIGN_TMP_INFO tmp
+		ON
+		tmp.PARENT_TEMPLATE_ID = rpt.CFG_ID
+		AND
+		tmp.VER_START_DATE &lt;= F.DATA_DATE
+		AND
+		tmp.VER_END_DATE > F.DATA_DATE
+		AND I.LINE_ID = tmp.LINE_ID
+		INNER JOIN
+		BIONE_USER_INFO U
+		ON
+		I.EXE_OBJ_ID =
+		U.USER_ID
+		INNER JOIN
+		RPT_ORG_INFO org
+		ON
+		F.EXE_OBJ_ID = org.ORG_NO
+		and
+		F.TASK_TYPE = org.ORG_TYPE
+		LEFT JOIN
+		RPT_MGR_FRS_LINE li
+		ON
+		li.LINE_ID =
+		I.LINE_ID
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		sl.RPT_TEMPLATE_ID =
+		tmp.TEMPLATE_ID
+		AND sl.DATA_DATE = I.DATA_DATE
+		AND sl.ORG_NO =
+		F.EXE_OBJ_ID
+		AND sl.CHECK_TYPE = #{logic}
+		<if test="templateId != null">
+			and sl.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="orgNo != null">
+			and sl.ORG_NO = #{orgNo}
+		</if>
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		sw.RPT_TEMPLATE_ID = tmp.TEMPLATE_ID
+		AND sw.DATA_DATE = I.DATA_DATE
+		AND sw.ORG_NO =
+		F.EXE_OBJ_ID
+		AND
+		sw.CHECK_TYPE = #{warn}
+		<if test="templateId != null">
+			and sw.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="orgNo != null">
+			and sw.ORG_NO = #{orgNo}
+		</if>
+		WHERE 1=1
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<!-- edit by fangjuan 20150106 -->
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE =#{tasktype}
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<!-- <if test="taskObjIdF!=null||exeObjIdF != null||exeObjIdC != null"> -->
+		<if test="exeObjIdF != null||exeObjIdC != null">
+			<!-- and ( -->
+			<!--此参数前台传的是空List -->
+			<!-- <if test="taskObjIdF != null"> F.TASK_OBJ_ID in <foreach item="taskObjIdF" 
+				index="index" collection="taskObjIdF" open="(" separator="," close=")"> #{taskObjIdF} 
+				</foreach> and </if> -->
+			<!-- 只穿当前机构的管理机构，不会超过1000 20150106 fangjuan -->
+			<if test="exeObjIdF!= null">
+				and (
+				<foreach collection="exeObjIdF" item="items" open="("
+					separator=")or(" close=")">
+					F.EXE_OBJ_ID IN
+					(
+					select distinct(org.org_no) from RPT_ORG_INFO org
+					where 1=1
+					and
+					(org.ORG_TYPE = #{items.orgType}
+					and (
+					<foreach collection="items.orgLike" item="orgLike" open=""
+						separator="or" close="">
+						org.NAMESPACE like #{orgLike}
+					</foreach>
+					))
+					)
+					and F.task_type=#{items.orgType}
+				</foreach>
+				)
+			</if>
+			<!-- 该字段传的是用户ID，不会超过1000 20150106 fangjuan -->
+			<if test="exeObjIdC != null">
+				and I.EXE_OBJ_ID in
+				<foreach item="exeObjIdC" index="index" collection="exeObjIdC"
+					open="(" separator="," close=")">
+					#{exeObjIdC}
+				</foreach>
+			</if>
+			<!-- ) -->
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="topten != null">
+			fetch first 10 rows only
+		</if>
+	</select>
+
+	<select id="queryChildTaskInsSend" resultType="int">
+		SELECT
+		count(I.TASK_INSTANCE_ID)
+		FROM
+		RPT_FLTSK_INS I
+		INNER JOIN
+		RPT_FLTSK_INS F
+		ON
+		F.TASK_INSTANCE_ID = I.UP_TASK_INSTANCE_ID
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN
+		RPT_DESIGN_TMP_INFO tmp
+		ON
+		tmp.PARENT_TEMPLATE_ID = rpt.CFG_ID
+		AND
+		tmp.VER_START_DATE &lt;= F.DATA_DATE
+		AND
+		tmp.VER_END_DATE > F.DATA_DATE
+		AND I.LINE_ID = tmp.LINE_ID
+		INNER JOIN
+		BIONE_USER_INFO U
+		ON
+		I.EXE_OBJ_ID =
+		U.USER_ID
+		INNER JOIN
+		RPT_ORG_INFO org
+		ON
+		F.EXE_OBJ_ID = org.ORG_NO
+		and
+		F.TASK_TYPE = org.ORG_TYPE
+		LEFT JOIN
+		RPT_MGR_FRS_LINE li
+		ON
+		li.LINE_ID =
+		I.LINE_ID
+		WHERE 1=1
+		<if test="taskInsId != null">
+			and I.TASK_INSTANCE_ID in
+			<foreach item="taskInsId" index="index" collection="taskInsId"
+				open="(" separator="," close=")">
+				#{taskInsId}
+			</foreach>
+		</if>
+		<!-- edit by fangjuan 20150107 -->
+		<if test="taskObjIdF != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjIdF"
+				separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE =#{tasktype}
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<!-- 只传管理机构，不会超过1000 -->
+		<if test="exeObjIdF != null">
+			and F.EXE_OBJ_ID in
+			<foreach item="exeObjIdF" index="index" collection="exeObjIdF"
+				open="(" separator="," close=")">
+				#{exeObjIdF}
+			</foreach>
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+
+	<select id="queryChildTaskInsSts"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.START_TIME,
+		I.END_TIME,
+		I.STS,
+		I.TASK_NODE_INSTANCE_ID,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		U.USER_NAME AS
+		exeObjNm,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjNm,
+		I.UP_TASK_INSTANCE_ID,
+		I.TASK_TYPE,
+		I.LINE_ID AS lineId,
+		li.LINE_NM AS lineNm,
+		tmp.TEMPLATE_ID
+		AS templateId,
+		sl.CHECK_STS AS logicRs ,
+		sw.CHECK_STS AS warnRs,
+		F.EXE_OBJ_ID AS parentExeObjId
+		FROM
+		RPT_FLTSK_INS I
+		INNER JOIN
+		RPT_FLTSK_INS F
+		ON
+		F.TASK_INSTANCE_ID = I.UP_TASK_INSTANCE_ID
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN
+		RPT_DESIGN_TMP_INFO tmp
+		ON
+		tmp.PARENT_TEMPLATE_ID = rpt.CFG_ID
+		AND
+		tmp.VER_START_DATE &lt;= F.DATA_DATE
+		AND
+		tmp.VER_END_DATE > F.DATA_DATE
+		AND I.LINE_ID = tmp.LINE_ID
+		INNER JOIN
+		BIONE_USER_INFO U
+		ON
+		I.EXE_OBJ_ID =
+		U.USER_ID
+		LEFT JOIN
+		RPT_MGR_FRS_LINE li
+		ON
+		li.LINE_ID = I.LINE_ID
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		sl.RPT_TEMPLATE_ID = tmp.TEMPLATE_ID
+		AND
+		sl.DATA_DATE = I.DATA_DATE
+		AND sl.ORG_NO =
+		F.EXE_OBJ_ID
+		AND sl.CHECK_TYPE
+		= #{logic}
+		<if test="templateId != null">
+			and sl.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="orgNo != null">
+			and sl.ORG_NO = #{orgNo}
+		</if>
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		sw.RPT_TEMPLATE_ID = tmp.TEMPLATE_ID
+		AND sw.DATA_DATE = I.DATA_DATE
+		AND sw.ORG_NO =
+		F.EXE_OBJ_ID
+		AND
+		sw.CHECK_TYPE = #{warn}
+		<if test="templateId != null">
+			and sw.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="orgNo != null">
+			and sw.ORG_NO = #{orgNo}
+		</if>
+		WHERE 1=1
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- edit by fangjuan 20150107 -->
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="exeObjId !=null">
+			and I.EXE_OBJ_ID =#{exeObjId}
+		</if>
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE =#{tasktype}
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="lineId != null">
+			and tmp.LINE_ID = #{lineId}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+
+	<select id="queryChildTaskInsUsr"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.START_TIME,
+		I.END_TIME,
+		I.STS,
+		I.TASK_NODE_INSTANCE_ID,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		U.USER_NAME AS
+		exeObjNm,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjNm,
+		I.UP_TASK_INSTANCE_ID,
+		I.TASK_TYPE,
+		I.LINE_ID AS lineId,
+		li.LINE_NM AS lineNm,
+		tmp.TEMPLATE_ID
+		AS templateId,
+		sl.CHECK_STS AS logicRs ,
+		sw.CHECK_STS AS warnRs,
+		F.EXE_OBJ_ID AS parentExeObjId,
+		org.ORG_NM AS parentExeObjNm
+		FROM
+		RPT_FLTSK_INS I
+		INNER JOIN
+		RPT_FLTSK_INS F
+		ON
+		F.TASK_INSTANCE_ID =
+		I.UP_TASK_INSTANCE_ID
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID
+		= rpt.RPT_ID
+		INNER JOIN
+		RPT_DESIGN_TMP_INFO tmp
+		ON
+		tmp.PARENT_TEMPLATE_ID
+		= rpt.CFG_ID
+		AND tmp.VER_START_DATE &lt;= F.DATA_DATE
+		AND
+		tmp.VER_END_DATE > F.DATA_DATE
+		AND I.LINE_ID = tmp.LINE_ID
+		INNER JOIN
+		BIONE_USER_INFO U
+		ON
+		I.EXE_OBJ_ID = U.USER_ID
+		INNER JOIN
+		RPT_ORG_INFO org
+		ON
+		F.EXE_OBJ_ID = org.ORG_NO
+		and F.TASK_TYPE = org.ORG_TYPE
+		LEFT JOIN
+		RPT_MGR_FRS_LINE li
+		ON
+		li.LINE_ID = I.LINE_ID
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		sl.RPT_TEMPLATE_ID = tmp.TEMPLATE_ID
+		AND
+		sl.DATA_DATE = I.DATA_DATE
+		AND sl.ORG_NO =
+		F.EXE_OBJ_ID
+		AND sl.CHECK_TYPE
+		= #{logic}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		sw.RPT_TEMPLATE_ID =
+		tmp.TEMPLATE_ID
+		AND sw.DATA_DATE = I.DATA_DATE
+		AND sw.ORG_NO =
+		F.EXE_OBJ_ID
+		AND sw.CHECK_TYPE = #{warn}
+		WHERE
+		1=1
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- 此参数前台只传了一个值 -->
+		<if test="taskObjId != null">
+			and I.TASK_OBJ_ID in
+			<foreach item="taskObjId" index="index" collection="taskObjId"
+				open="(" separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if>
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE =#{tasktype}
+		</if>
+		<!-- 此参数前台未传值 -->
+		<if test="exeObjId != null">
+			and I.EXE_OBJ_ID in
+			<foreach item="exeObjId" index="index" collection="exeObjId"
+				open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if>
+		<if test="lineId != null">
+			and I.LINE_ID = #{lineId}
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+
+	<!-- 此递归查询当前机构的所有子机构，相关调用函数应该删除 -->
+	<select id="queryOrgNo" resultType="java.lang.String">
+		select org_no
+		from RPT_ORG_INFO
+		where 1 = 1
+		<if test="orgSumType != null">
+			and ORG_SUM_TYPE = #{orgSumType}
+		</if>
+		<if test="mgrorgno != null">
+			and MGR_ORG_NO = #{mgrorgno}
+		</if>
+		<if test="uporgno != null">
+			and (UP_ORG_NO in
+			<foreach item="itemno" index="index" collection="uporgno"
+				separator="or UP_ORG_NO in">
+				<foreach item="item" index="index" collection="itemno" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="mgrOrgNos != null">
+			and (MGR_ORG_NO in
+			<foreach item="itemno" index="index" collection="mgrOrgNos"
+				separator="or MGR_ORG_NO in">
+				<foreach item="item" index="index" collection="itemno" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="orgtype != null">
+			and ORG_TYPE = #{orgtype}
+		</if>
+	</select>
+	<select id="queryRptOrg"
+		resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo">
+		select org.org_no    as "id.orgNo",
+		       org.up_org_no,
+		       org.org_nm,
+		       org.org_Type  as "id.orgType"
+		  from RPT_ORG_INFO org
+		 where 1 = 1
+		   <if test="orgSumType != null">
+			and org.ORG_SUM_TYPE = #{orgSumType}
+		</if>
+		<if test="orgtype != null">
+			and org.ORG_TYPE = #{orgtype}
+		</if>
+		union all
+		select rel.org_no    as "id.orgNo",
+		       rel.up_org_no,
+		       info.org_nm,
+		       rel.org_Type  as "id.orgType"
+		  from Rpt_Org_Sum_Rel rel
+		  left join RPT_ORG_INFO info
+		    on rel.org_no = info.org_no
+		   and rel.org_type = info.org_type
+		 where 1 = 1
+		   <if test="orgSumType != null">
+			and info.ORG_SUM_TYPE = #{orgSumType}
+		</if>
+		<if test="orgtype != null">
+			and rel.ORG_TYPE = #{orgtype}
+		</if>
+		 order by "id.orgNo"
+	</select>
+
+	<select id="queryRptOrgEast"  resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo" parameterType="java.util.HashMap">
+		   select a.org_no as "id.orgNo"
+		          ,a.up_org_no
+		          ,a.org_nm
+		          ,a.org_Type as "id.orgType"
+		          ,a.org_level
+		from RPT_ORG_INFO a
+		where 1=1
+		<if test="orgtype != null">
+			and a.ORG_TYPE = #{orgtype,jdbcType=VARCHAR}
+		</if>
+		<if test="orgSumType != null">
+			and a.ORG_SUM_TYPE = #{orgSumType}
+		</if>
+		order by a.org_no
+	</select>	
+
+	<!-- 此函数没有被调用 -->
+	<select id="queryChildTaskOrg"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct f.EXE_OBJ_ID,O.ORG_NM as exeObjName,I.TASK_TYPE
+		from
+		RPT_FLTSK_INS I
+		inner join RPT_FLTSK_INS F
+		on I.UP_TASK_INSTANCE_ID =
+		f.TASK_INSTANCE_ID
+		inner join RPT_ORG_INFO O
+		on F.EXE_OBJ_ID = O.ORG_NO
+		where 1 = 1
+		<if test="exeObjId != null">
+			and f.EXE_OBJ_ID in
+			<foreach item="exeObjId" index="index" collection="exeObjId"
+				open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE=#{tasktype}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		order by F.EXE_OBJ_ID
+	</select>
+	<!-- 二次任务下发者的一次任务实例 -->
+	<select id="queryChildTaskOrg2"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct f.EXE_OBJ_ID,O.ORG_NM as exeObjName,I.TASK_TYPE as
+		taskType
+		from RPT_FLTSK_INS I
+		inner join RPT_FLTSK_INS F
+		on
+		I.UP_TASK_INSTANCE_ID = f.TASK_INSTANCE_ID
+		inner join RPT_ORG_INFO O
+		on
+		F.EXE_OBJ_ID = O.ORG_NO
+		<if test="tasktype != null">
+			and O.ORG_TYPE=#{tasktype}
+		</if>
+		where 1 = 1
+		<!--只取当前机构的管理机构，不会超1000 -->
+		<if test="exeObjIdF != null">
+			and (
+			<foreach collection="exeObjIdF" item="items" open="("
+				separator=")or(" close=")">
+				F.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and F.task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+		<!-- edit by fangjuan 20150107 -->
+		<if test="taskObjIdF != null">
+			and (f.TASK_OBJ_ID in
+			<foreach item="taskObjIdFs" index="index" collection="taskObjIdF"
+				separator=" or f.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIdFs" item="taskObjIdF" open="("
+					separator="," close=")">
+					#{taskObjIdF}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE=#{tasktype}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		order by F.EXE_OBJ_ID
+	</select>
+	<!-- 二次任务下发者的二次任务实例 -->
+	<select id="queryChildTaskOrg3"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct f.EXE_OBJ_ID,O.ORG_NM as exeObjName,I.TASK_TYPE
+		from
+		RPT_FLTSK_INS I
+		inner join RPT_FLTSK_INS F
+		on I.UP_TASK_INSTANCE_ID =
+		f.TASK_INSTANCE_ID
+		inner join RPT_ORG_INFO O
+		on F.EXE_OBJ_ID = O.ORG_NO
+		<if test="tasktype != null">
+			and O.ORG_TYPE=#{tasktype}
+		</if>
+		where 1 = 1
+		<!-- 只传当前用户，不会超过1000 fangjuan 20150107 -->
+		<if test="exeObjIdC != null">
+			and I.EXE_OBJ_ID in
+			<foreach item="exeObjId" index="index" collection="exeObjIdC"
+				open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE=#{tasktype}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		order by F.EXE_OBJ_ID
+	</select>
+
+	<select id="queryChildTaskList"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_ID,I.TASK_NM AS
+		TASK_NAME,I.TASK_TYPE,I.DATA_DATE
+		from RPT_FLTSK_INS I
+		where
+		I.UP_TASK_INSTANCE_ID
+		in (select TASK_INSTANCE_ID FROM RPT_FLTSK_INS
+		WHERE 1=1
+		and i.task_mgr_sts='1'		<!-- wanghaisong 20170206 过滤掉已结束的任务 -->
+		<if test="exeObjId != null">
+			and EXE_OBJ_ID = #{exeObjId}
+		</if>
+		<!-- edit by fangjuan 20150107 -->
+		<if test="exeObjIds != null">
+			and (
+			<foreach collection="exeObjIds" item="items" open="("
+				separator=")or(" close=")">
+				EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+		<!--edit end -->
+		<if test="sts != null">
+			and STS = #{sts}
+		</if>
+		<if test="tasktype != null">
+			and TASK_TYPE=#{tasktype}
+		</if>
+		)
+		<if test="sts != null">
+			and I.STS=#{sts}
+		</if>
+		<if test="tasktype != null">
+			and I.TASK_TYPE=#{tasktype}
+		</if>
+		<!-- 不会超1000 fangjuan 20150107 -->
+		<if test="tasktypes != null">
+			and I.TASK_TYPE in
+			<foreach item="tasktype" index="index" collection="tasktypes"
+				open="(" separator="," close=")">
+				#{tasktype}
+			</foreach>
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+	<!-- 判断是否为二次任务下发者 -->
+	<select id="queryTaskInsJudge"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT I.TASK_INSTANCE_ID,I.TASK_ID,I.TASK_NM,I.START_TIME,
+		I.END_TIME, I.STS, I.IS_UPT, I.TASK_NODE_INSTANCE_ID, I.DATA_DATE,
+		I.EXE_OBJ_ID, I.TASK_OBJ_ID,
+		I.UP_TASK_INSTANCE_ID,I.TASK_TYPE,I.LINE_ID as lineId
+		from
+		RPT_FLTSK_INS I
+		inner join RPT_FLTSK_INS C
+		on C.UP_TASK_INSTANCE_ID =
+		I.TASK_INSTANCE_ID
+		where 1=1
+		and (I.UP_TASK_INSTANCE_ID is null or
+		I.UP_TASK_INSTANCE_ID = '')
+		<!-- edit by fangjuan 20150107 -->
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<!-- 只传当前机构的管理机构 fangjuan 20150107 -->
+		<if test="exeObjId != null">
+			and (
+			<foreach collection="exeObjId" item="items" open="("
+				separator=")or(" close=")">
+				I.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				and I.task_type=#{items.orgType}
+			</foreach>
+			)
+		</if>
+		<!-- 用户不会超1000 fangjuan 20150107 -->
+		<if test="userIdList != null">
+			and C.EXE_OBJ_ID in
+			<foreach item="userIdList" index="index" collection="userIdList"
+				open="(" separator="," close=")">
+				#{userIdList}
+			</foreach>
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+	</select>
+
+	<select id="findFitskNm"
+		resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskInfo"
+		parameterType="String">
+		select
+		TASK_ID,CHECK_STS,EFFECT_DATE,UP_EXE_OBJ_ID,EXE_OBJ_TYPE,SUM_MODE,TASK_DEADLINE,TASK_DEF_ID,TASK_FREQ,TASK_NM,TASK_STS,TASK_TYPE,TRIGGER_ID,TRIGGER_TYPE,UP_TASK_ID,IS_PRE,DATE_OFFSET_AMOUNT,INVALID_DATE,IS_RELY_DATA,LOGIC_DEL_NO
+		from
+		rpt_fltsk_info
+		where 1=1
+		and TASK_ID = #{taskId}
+
+	</select>
+
+	<select id="getRptSts" resultType="String">
+		SELECT
+		sts.CHECK_STS
+		FROM
+		RPT_ENGINE_CHECK_STS sts,
+		RPT_MGR_REPORT_INFO
+		info
+		WHERE
+		1=1
+		<if test="taskObjId != null">
+			and (info.rpt_id in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		AND sts.DATA_DATE=#{dataDate}
+		AND sts.org_no = #{orgNo}
+		AND
+		sts.CHECK_TYPE=#{type}
+		AND sts.RPT_TEMPLATE_ID=info.cfg_id
+	</select>
+	<select id="getRptCellRemark" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskIptRemarkVO"
+	 parameterType="HashMap">
+	 	 select rpt.oper_id,
+		       rpt.cell_no,
+		       rpt.data_date,
+		       rpt.oper_info,
+		       rpt.oper_time,
+		       rpt.oper_user,
+		       rpt.org_no,
+		       rpt.rpt_id,
+		       rpt.task_instance_id,
+		       org.org_nm,
+		       us.user_name user_nm
+		  from rpt_fltsk_ipt_remark rpt
+		  left join bione_user_info us
+		    on rpt.oper_user = us.user_id
+		  left join rpt_org_info org
+		    on rpt.org_no = org.org_no
+		 where 1 = 1
+		 <if test="conditionSql != null" >
+		 	${conditionSql}
+		 </if>
+		 <if test="type != null">
+			 and org.org_type = #{type}
+		 </if>
+		 <if test="rptId != null">
+			 and rpt.rpt_id = #{rptId}
+		 </if>
+		 <if test="dd != null">
+			 and rpt.data_date = #{dd}
+		 </if>
+		 <if test="cellNo != null">
+			 and rpt.cell_no = #{cellNo}
+		 </if>
+		 <if test="orgNos != null">
+				and (org.org_no in
+			<foreach item="orgNos" index="index" collection="orgNos"
+				separator=" or org.org_no in ">
+				<foreach collection="orgNos" item="orgNos" open="("
+						separator="," close=")">
+						#{orgNos}
+				</foreach>
+		 </foreach>
+		 )
+		</if>
+		<if test="taskInstanceIds != null">
+			and (rpt.task_instance_id in
+			<foreach item="taskInstanceIdList" index="index" collection="taskInstanceIds"
+					 separator=" or rpt.task_instance_id in ">
+				<foreach collection="taskInstanceIdList" item="item" open="("
+						 separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	<!-- 历史查询 孔渊博 20170210-->
+	<select id="queryHistoryTaskIns"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+		I.TASK_INSTANCE_ID, I.TASK_ID, I.TASK_NM, I.START_TIME,
+		I.END_TIME, I.STS, I.IS_UPT,
+		I.TASK_NODE_INSTANCE_ID, 
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm, 
+		I.TASK_OBJ_ID, 
+		rpt.RPT_NM AS taskObjNm,
+		sz.CHECK_STS AS zeroRs,
+		I.LINE_ID AS lineId,
+		I.UP_TASK_INSTANCE_ID, I.TASK_TYPE, sl.CHECK_STS AS logicRs,
+		sw.CHECK_STS AS warnRs,
+		ss.CHECK_STS AS sumpartRs, 
+		rpt.CFG_ID AS
+		templateId,length(o.namespace) as l,
+		<!-- 是否筛选总表查询 下面两个条件最多有一条成立 add by wusb at 20161202-->
+		<if test="isShowIsMainRpt != null">
+	     ext.IS_MAIN_RPT AS isMainRpt, 
+  		</if>
+  		<if test="isMainRptSts != null">
+	     ext.IS_MAIN_RPT AS isMainRpt, 
+  		</if>
+		msg.OPER_CONTENT AS rejectReason
+		FROM
+		RPT_FLTSK_INS I
+		<if test=" onlyWatch != null and onlyWatch =='true' ">
+			INNER JOIN RPT_CONCERN_ORG C
+			ON C.ORG_ID = I.EXE_OBJ_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		<!-- add by wusb at 20161201 是否筛选总表查询 -->
+  		<if test="isMainRptSts != null">
+			 INNER JOIN  rpt_mgr_frs_ext ext
+			   ON I.TASK_OBJ_ID = ext.rpt_id
+			    and  ext.IS_MAIN_RPT = #{isMainRptSts} 
+  		</if>
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN 
+		RPT_ORG_INFO O
+		ON
+		I.EXE_OBJ_ID = O.ORG_NO
+		and i.task_type=O.ORG_TYPE
+		<if test="taskType != null">
+			AND I.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" queryFav != null">
+			INNER JOIN RPT_CONCERN_RPT C
+			ON C.RPT_ID = rpt.RPT_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sl
+		ON
+		I.DATA_DATE = sl.DATA_DATE
+		AND
+		rpt.CFG_ID = sl.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		sl.ORG_NO AND
+		sl.CHECK_TYPE = #{logic}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS ss
+		ON
+		I.DATA_DATE
+		= ss.DATA_DATE AND rpt.CFG_ID = ss.RPT_TEMPLATE_ID AND I.EXE_OBJ_ID =
+		ss.ORG_NO AND ss.CHECK_TYPE = #{sum}
+		LEFT JOIN
+		RPT_ENGINE_CHECK_STS sw
+		ON
+		I.DATA_DATE = sw.DATA_DATE AND rpt.CFG_ID = sw.RPT_TEMPLATE_ID AND
+		I.EXE_OBJ_ID =
+		sw.ORG_NO AND sw.CHECK_TYPE = #{warn}
+		LEFT JOIN
+		    RPT_ENGINE_CHECK_STS sz
+		ON
+		    I.DATA_DATE = sz.DATA_DATE AND rpt.CFG_ID = sz.RPT_TEMPLATE_ID AND 
+		    I.EXE_OBJ_ID = sz.ORG_NO AND sz.CHECK_TYPE = #{zero}
+		LEFT JOIN
+		(select aa.task_instance_id ,aa. oper_content from TASK_FILLTAB_MSG aa,(
+    		select  tt.task_instance_id,max(oper_date) oper_date     
+            from TASK_FILLTAB_MSG tt group by tt.task_instance_id) bb 
+            where aa.task_instance_id =bb.task_instance_id and aa.oper_date =bb.oper_date ) msg
+		<!-- 框架在select count(1)时会默认去除order by(select *
+               from (select tt.task_instance_id,
+                            tt.oper_content,
+                            row_number() over(partition by tt.task_instance_id order by tt.oper_date desc) as rr
+                       from TASK_FILLTAB_MSG tt) p
+              where p.rr = 1) msg -->
+		ON
+		I.TASK_INSTANCE_ID = msg.TASK_INSTANCE_ID
+		<!-- add by wusb at 20161202 报表导出是否筛选总表没有选择 -->
+			 LEFT JOIN  rpt_mgr_frs_ext ext
+			   ON I.TASK_OBJ_ID = ext.rpt_id
+		WHERE
+		1=1
+	
+			and i.task_mgr_sts='0'		<!-- 孔渊博 20170209 找到已完成的任务 -->
+
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="upinsid != null">
+			and I.UP_TASK_INSTANCE_ID =#{upinsid}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID =#{orgNo}
+		</if>
+		<if test="notOrgNo != null">
+			and I.EXE_OBJ_ID != #{notOrgNo}
+		</if>
+		<if test="notRptId != null">
+			and I.TASK_OBJ_ID != #{notRptId}
+		</if>
+		<if test="orgType != null">
+			and O.ORG_TYPE = #{orgType}
+		</if>
+		<if test="exeObjId != null">
+			and (
+			<foreach collection="exeObjId" item="items" open="("
+				separator=")or(" close=")">
+				I.EXE_OBJ_ID IN
+				(
+				select distinct(org.org_no) from RPT_ORG_INFO org
+				where 1=1
+				and
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+				)
+				<!-- and I.task_type=#{items.orgType} -->
+			</foreach>
+			)
+		</if>
+		<if test="noExeObjId != null">
+			and I.EXE_OBJ_ID not in
+			(
+			select distinct(org.org_no) from RPT_ORG_INFO
+			org where 1=1
+			and
+			<foreach collection="noExeObjId" item="items" open="("
+				separator="or" close=")">
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+			</foreach>
+			)
+		</if>
+		<!-- edit end -->
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="stsList != null">
+			and I.STS in
+			<foreach item="stsList" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsList}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		<if test="isError">
+			and (
+			sl.CHECK_STS in ('04', '06')
+			or sw.CHECK_STS in ('04', '06')
+			<if test="tasktype == 03">
+				or ss.CHECK_STS in ('04', '06')
+			</if>
+			)
+		</if>
+		<if test="topten != null">
+			fetch first 10 rows only
+		</if>
+		order by
+		i.data_date desc,o.org_type,i.exe_obj_id, i.task_obj_id, i.task_id
+	</select>
+	
+	<!-- 历史查询 任务名称下拉框内容即已完成任务名称 孔渊博 20170210-->
+	<select id="queryUniqueOverTaskListByExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_ID,I.TASK_NM AS TASK_NAME
+		from RPT_FLTSK_INS I
+		where 1 = 1
+		and i.task_mgr_sts='0'		<!-- 孔渊博 20170210 过滤掉进行中的任务 -->
+		and I.UP_TASK_INSTANCE_ID is null
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<!-- 方娟 20150106 -->
+		<if test="exeObjIdOrg != null">
+			and I.EXE_OBJ_ID in
+			(
+			select distinct(org.org_no) from RPT_ORG_INFO org
+			where 1=1
+			and
+			<foreach collection="exeObjIdOrg" item="items" open="("
+				separator="or" close=")">
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+			</foreach>
+			)
+			and I.UP_TASK_INSTANCE_ID is null
+		</if>
+		<if test="exeObjIdUser != null">
+			and I.EXE_OBJ_ID in
+			<foreach item="exeObjIdUser" index="index" collection="exeObjIdUser"
+				open="(" separator="," close=")">
+				#{exeObjIdUser}
+			</foreach>
+		</if>
+		<!-- end 方娟 -->
+		and I.LOGIC_DEL_NO = 'N'
+		ORDER BY TASK_NAME
+	</select>
+	<!-- east任务下报表查询 -->
+	<select id="queryEastTaskRptByExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select AA.* from (
+			select sum(case when I.STS!='A1' and I.STS!='B1' and I.STS!='C1' then 1 else 0 end) as complete,
+				<!--  
+				sum(case when I.STS=9 then 1 else 0 end) as LCK,
+				-->
+				sum(case when I.STS!='A1' or I.STS!='B1' or I.STS!='C1' then 1 else 0 end) as uncomplete,
+				I.TASK_ID, I.TASK_OBJ_ID, I.DATA_DATE, R.RPT_NM as taskObjName,
+				I.UP_TASK_INSTANCE_ID, I.TASK_TYPE, R.RPT_NUM
+			from RPT_FLTSK_INS I
+			inner join RPT_MGR_REPORT_INFO R
+			on I.TASK_OBJ_ID = R.RPT_ID
+			WHERE 1=1
+			<if test="taskId !=null ">
+				and I.TASK_ID = #{taskId}
+			</if>
+			<if test="tsktype != null">
+				and I.TASK_TYPE = #{tsktype}
+			</if>
+			<if test="uptaskinsid != null">
+				and i.UP_TASK_INSTANCE_ID = #{uptaskinsid}
+			</if>
+			<!-- 报表权限 FANGJUAN 20150106 -->
+			<if test="taskObjId != null">
+				and (I.TASK_OBJ_ID in
+				<foreach item="taskObjIds" index="index" collection="taskObjId"
+					separator=" or I.task_Obj_Id in ">
+					<foreach collection="taskObjIds" item="taskObjId" open="("
+						separator="," close=")">
+						#{taskObjId}
+					</foreach>
+				</foreach>
+				)
+			</if>
+			<!-- 机构权限 FANGJUAN 20150106 -->
+			<if test="exeObjId != null">
+				and (
+				<foreach collection="exeObjId" item="items" open="("
+					separator=")or(" close=")">
+					I.EXE_OBJ_ID IN
+					(
+					select distinct(org.org_no) from RPT_ORG_INFO org
+					where 1=1
+					and
+					(org.ORG_TYPE = #{items.orgType}
+					and (
+					<foreach collection="items.orgLike" item="orgLike" open=""
+						separator="or" close="">
+						org.NAMESPACE like #{orgLike}
+					</foreach>
+					))
+					)
+					and I.task_type=#{items.orgType}
+				</foreach>
+				)
+			</if>
+			<if test="dataDate != null">
+				and I.DATA_DATE = #{dataDate}
+			</if>
+			<if test="tskName!=null and tskName!=''">
+				and upper(R.rpt_nm) like #{tskName}
+			</if>
+			and I.LOGIC_DEL_NO = 'N'
+			GROUP BY
+				I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE,R.RPT_NM,R.RPT_NUM,I.UP_TASK_INSTANCE_ID,I.TASK_TYPE
+			ORDER BY R.RPT_NUM
+		) AA
+		          
+		<if test=" onlyWatch != null and onlyWatch == 'true' ">
+          INNER JOIN 
+          (
+                SELECT distinct INS.TASK_ID FROM RPT_FLTSK_INS INS 
+                INNER JOIN RPT_CONCERN_ORG C
+                ON C.ORG_ID = INS.EXE_OBJ_ID
+                AND C.USER_ID = #{currentUserId}
+          ) DD 
+          ON DD.TASK_ID = AA.TASK_ID
+       </if>
+	</select>
+	<!-- east实例查询 -->
+	<select id="queryEastTaskIns" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO"
+		parameterType="HashMap">
+		SELECT
+			I.TASK_INSTANCE_ID, 
+			I.TASK_ID, 
+			I.TASK_NM, 
+			I.TASK_TYPE,
+			I.START_TIME,
+			I.END_TIME, 
+			I.STS, 
+			I.IS_UPT,
+			I.DATA_DATE,
+			I.EXE_OBJ_ID,
+			O.ORG_NM AS exeObjNm, 
+			O.ORG_LEVEL orgLevel,
+			I.TASK_OBJ_ID, 
+			rpt.RPT_NM AS taskObjNm,
+			g.BASE_CHECK_STS,
+	        g.REL_CHECK_STS,
+	        g.SPE_CHECK_STS,
+	        e2.OPER_CONTENT AS rejectReason,
+	        EXT.IS_ADD_SRCFEILD,
+	        EXT.SRC_FEILD,
+	        EXT.IS_ADD_ORG as isAddOrgFeild
+		FROM RPT_FLTSK_INS I
+		<if test=" onlyWatch != null and onlyWatch == 'true' ">
+			INNER JOIN RPT_CONCERN_ORG C
+				ON C.ORG_ID = I.EXE_OBJ_ID
+				AND C.USER_ID = #{currentUserId}
+		</if>
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+			ON I.TASK_OBJ_ID = rpt.RPT_ID
+		INNER JOIN RPT_ORG_INFO O
+			ON I.EXE_OBJ_ID = O.ORG_NO
+			AND O.ORG_TYPE = #{moduleType}
+		LEFT JOIN		
+			(select e1.TASK_INSTANCE_ID,
+                    e1.USER_ID,
+                    e1.USER_NM,
+                    e1.TASK_INSTANCE_NM,
+                    e1.OPER_DATE,
+                    e1.OPER_CONTENT
+               from (select e.TASK_INSTANCE_ID,
+                            e.USER_ID,
+                            e.USER_NM,
+                            e.TASK_INSTANCE_NM,
+                            e.OPER_DATE,
+                            e.OPER_CONTENT,
+                            rank() over(partition by e.task_instance_id order by e.oper_date desc) maxtime
+                       from TASK_FILLTAB_MSG e) e1
+              where e1.maxtime = 1
+              ) e2 
+             ON I.task_instance_id = e2.task_instance_id
+		LEFT JOIN EAST_CHECK_TASK_RESULT_STS g 
+			ON g.RPT_ID = I.TASK_OBJ_ID 
+			and g.ORG_NO = O.ORG_NO 
+			and g.DATA_DATE = I.DATA_DATE 
+		LEFT JOIN RPT_MGR_FRS_EXT EXT
+			ON I.TASK_OBJ_ID = EXT.RPT_ID
+		WHERE 1=1
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+		<if test="taskId != null">
+			and I.TASK_ID = #{taskId}
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<!-- edit by fangjuan 20150106 -->
+		<if test="orgNo != null">
+			and I.EXE_OBJ_ID =#{orgNo}
+		</if>
+		<if test="notOrgNo != null">
+			and I.EXE_OBJ_ID != #{notOrgNo}
+		</if>
+		<if test="notRptId != null">
+			and I.TASK_OBJ_ID != #{notRptId}
+		</if>
+		<if test="orgType != null">
+			and O.ORG_TYPE = #{orgType}
+		</if>
+		<if test="exeObjId != null">
+			and (
+			<foreach collection="exeObjId" item="items" open="("
+				separator=")or(" close=")">
+				I.EXE_OBJ_ID IN
+				(
+					select distinct(org.org_no) from RPT_ORG_INFO org
+					where 1=1
+					and
+					(org.ORG_TYPE = #{items.orgType}
+					and (
+					<foreach collection="items.orgLike" item="orgLike" open=""
+						separator="or" close="">
+						org.NAMESPACE like #{orgLike}
+					</foreach>
+					))
+				)
+			</foreach>
+			)
+		</if>
+		<if test="noExeObjId != null">
+			and I.EXE_OBJ_ID not in
+			(
+			select distinct(org.org_no) from RPT_ORG_INFO
+			org where 1=1
+			and
+			<foreach collection="noExeObjId" item="items" open="("
+				separator="or" close=")">
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+			</foreach>
+			)
+		</if>
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="stsList != null">
+			and I.STS in
+			<foreach item="stsList" index="index" collection="stsList"
+				open="(" separator="," close=")">
+				#{stsList}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and I.DATA_DATE = #{dataDate}
+		</if>
+		and I.LOGIC_DEL_NO = 'N'
+		order by
+			i.data_date desc,o.org_type,i.exe_obj_id, i.task_obj_id, i.task_id
+	</select>
+	<!-- east任务列表查询 -->
+	<select id="queryEastTaskListByExeObj"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_ID,I.DATA_DATE,I.TASK_NM AS TASK_NAME
+		from
+		RPT_FLTSK_INS I
+		<if test=" onlyWatch != null and onlyWatch == 'true' ">
+			INNER JOIN RPT_CONCERN_ORG C
+			ON C.ORG_ID = I.EXE_OBJ_ID
+			AND C.USER_ID = #{currentUserId}
+		</if>
+		<if test="tskName != null and tskName !=''">
+			INNER JOIN RPT_MGR_REPORT_INFO INF
+			ON I.TASK_OBJ_ID = INF.RPT_ID
+			and UPPER(INF.RPT_NM) like #{tskName}
+		</if>
+		where 1 = 1
+		<if test="sts != null">
+			and I.STS = #{sts}
+		</if>
+		<if test="tsktype != null">
+			and I.TASK_TYPE = #{tsktype}
+		</if>
+		<!-- 方娟 20150106 -->
+		<if test="exeObjId != null">
+			and I.EXE_OBJ_ID in
+			(
+			select distinct(org.org_no) from RPT_ORG_INFO org
+			where 1=1
+			and
+			<foreach collection="exeObjId" item="items" open="("
+				separator="or" close=")">
+				(org.ORG_TYPE = #{items.orgType}
+				and (
+				<foreach collection="items.orgLike" item="orgLike" open=""
+					separator="or" close="">
+					org.NAMESPACE like #{orgLike}
+				</foreach>
+				))
+			</foreach>
+			)
+		</if>
+		<!-- 方娟 20150106 -->
+		<if test="taskObjId != null">
+			and (I.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or I.task_Obj_Id in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		and I.UP_TASK_INSTANCE_ID is null
+		and I.LOGIC_DEL_NO = 'N'
+		ORDER BY
+		I.TASK_NM,I.DATA_DATE DESC
+	</select>
+	
+	<select id="getRptUserRelByParam" resultType="hashmap" parameterType="hashmap">
+		select t.id,
+		       t.rpt_num,
+		       t.org_id,
+		       t.fill_er,
+		       t.charger,
+		       t.auditor,
+		       t.phone_number
+		  from rpt_user_rel t
+		 where t.rpt_num = #{rptNum}
+		   and t.org_id = #{orgNo}
+	</select>
+	<insert id="saveRptUserRel" parameterType="hashmap">
+		insert into rpt_user_rel (id, rpt_num, org_id, fill_er, charger, auditor, phone_number)
+		values (#{id}, #{rptNum}, #{orgId}, #{fillEr}, #{charger}, #{auditor}, #{phoneNumber})
+	</insert>
+	
+	<update id="updateRptUserRel" parameterType="hashmap">
+		update rpt_user_rel
+		<set>
+			<if test="fillEr != null">
+				fill_er = #{fillEr},
+			</if>
+			<if test="charger != null">
+				charger = #{charger},
+			</if>
+			<if test="auditor != null">
+				auditor= #{auditor},
+			</if>
+			<if test="phoneNumber != null">
+				hone_number = #{phoneNumber},
+			</if>
+		</set>
+		 where rpt_num = #{rptNum} and org_id = #{orgId}
+	</update>
+	
+</mapper> 
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>校验规则</templetname>
+</templet>
+
+<templet_item>
+    <itemkey>cons</itemkey>
+    <itemname>检核公式</itemname>
+    <itemtype>多行文本框</itemtype>
+    <card_isshow>Y</card_isshow>
+    <card_width>500*180</card_width>
+</templet_item>
+
+</root>
+

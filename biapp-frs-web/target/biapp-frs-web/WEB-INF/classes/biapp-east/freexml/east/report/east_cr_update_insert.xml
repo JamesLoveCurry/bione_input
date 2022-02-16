@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>一键下载</templetname>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<list_ispagebar>N</list_ispagebar>
+	<list_ischeckstyle>N</list_ischeckstyle>
+	<list_ismultisel>N</list_ismultisel>
+</templet>
+
+<templet_item>
+    <itemkey>data_dt</itemkey>
+    <itemname>采集日期</itemname>
+	<itemtype>日历</itemtype>
+	<itemdefine>【is8=Y】</itemdefine>
+	<ismust>Y</ismust>
+	<card_isshow>Y</card_isshow>
+	<card_width>300</card_width>
+    <list_isshow>N</list_isshow>
+    <list_width>100</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>报送机构</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select org_no id, org_nm name from rpt_org_info where org_type = '04' and is_org_report='Y' order by org_no"}】</itemdefine>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>
+

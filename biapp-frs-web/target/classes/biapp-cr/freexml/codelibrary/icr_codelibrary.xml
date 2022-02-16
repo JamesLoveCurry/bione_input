@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>个人-码值表</templetname>
+	<fromtable>icr_codelibrary</fromtable>
+	<savetable>icr_codelibrary</savetable>
+	<pkname>DATATYPE,BANKCODE,NORMSCODE,DATANAME</pkname>
+	<querycontion></querycontion>
+	<autocondition></autocondition>
+	<card_innerjs>/yujs/cr/codelibrary/Input_icr_codelibrary.js</card_innerjs>
+	<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	<autoquery>Y</autoquery>
+	<orderbys></orderbys> 
+	<card_btns></card_btns>
+	
+	<list_btns>[icon-p68]导出/onExport_1;</list_btns>
+	<list_ispagebar>Y</list_ispagebar>
+	<list_issearch></list_issearch>
+
+</templet>
+
+<templet_item>
+     <itemkey>DATATYPE</itemkey>
+    <itemname>数据项类型</itemname>
+    <itemtype>下拉框</itemtype>
+<itemdefine>【{"类型":"SQL","内容":"select distinct datatype as id, datatype from ICR_CODELIBRARY"}】</itemdefine>
+
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <card_isshow>Y</card_isshow>
+    <card_width>150,400</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>150</list_width>
+    <list_align>中</list_align>
+    <search_isshow>N</search_isshow>
+    <query_isshow>N</query_isshow>
+</templet_item>
+
+<templet_item>
+     <itemkey>DATANAME</itemkey>
+    <itemname>数据项名称</itemname>
+    <itemtype>下拉框</itemtype>
+    <itemdefine>【{"类型":"SQL","内容":"select dataname as id, dataname from ICR_CODELIBRARY"}】</itemdefine>
+    
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <seq>5</seq>
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>  
+  <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>200</list_width>
+    <list_align>中</list_align>
+    <search_isshow>N</search_isshow>
+    <query_isshow>Y</query_isshow>
+</templet_item>
+
+<templet_item>
+    <itemkey>BANKCODE</itemkey>
+    <itemname>银行代码</itemname>
+    <itemtype>文本框</itemtype>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>   
+ <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+
+    <search_isshow>N</search_isshow>
+</templet_item>
+
+<templet_item>
+    <itemkey>BANKNOTE</itemkey>
+    <itemname>银行代码说明</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>   
+ <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>200</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <query_isshow></query_isshow>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+     <itemkey>NORMSCODE</itemkey>
+    <itemname>规范代码</itemname>
+    <itemtype>文本框</itemtype>
+    <issave>Y</issave>
+    <ismust>Y</ismust>
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>   
+ <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <search_isshow>N</search_isshow>
+</templet_item>
+
+
+<templet_item>
+    <itemkey>NORMSNOTE</itemkey>
+    <itemname>规范代码说明</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+<card_width>150,400</card_width>   
+ <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>200</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <query_isshow></query_isshow>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+<templet_item>
+   <itemkey>REMARK</itemkey>
+    <itemname>备注</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>    
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq> 
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+	<card_width>150,400</card_width>    
+	<card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>200</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <search_isshow>N</search_isshow>
+    <search_itemtype></search_itemtype>
+    <search_itemdefine></search_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+
+</root>

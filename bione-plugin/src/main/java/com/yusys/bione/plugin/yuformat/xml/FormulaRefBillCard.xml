@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+<templet>
+	<templetname>公式参照</templetname>
+</templet>
+
+<templet_item>
+    <itemkey>formuladata</itemkey>
+    <itemname>公式内容</itemname>
+    <itemtype>多行文本框</itemtype>
+    <card_width>600*80</card_width>
+</templet_item>
+
+</root>

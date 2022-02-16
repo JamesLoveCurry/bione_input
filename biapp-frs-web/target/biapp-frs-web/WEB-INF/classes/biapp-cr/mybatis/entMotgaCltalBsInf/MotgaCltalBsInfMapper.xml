@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entMotgaCltalBsInf.repository.MotgaCltalBsInfDao">
+<!-- 根据条件查询报表列表 -->
+<!-- 基础信息 -->
+	<select id="getEntMotgacltalctrctb"  resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntMotgaCltalCtrctBs">
+
+		select bs.CcCode CcCode,
+               bs.InfRecType infRecType,
+               bs.RptDateCode rptDateCode,
+               bs.InfoIDType infoIDType,
+               bs.Name name,
+               bs.CertType certType,
+               bs.CertNum certNum,
+               bs.MngmtOrgCode mngmtOrgCode,
+               bs.RptDate rptDate
+ 		from Ent_MotgaCltalCtrctBs  bs where  incrementflag in('1','2')
+	</select>
+	
+	<!-- 抵（质）押合同_质物信息段 -->
+	<select id="getCltalInfSgmt"  resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntCltalInf">
+		SELECT
+			ctr.*
+		FROM 
+			Ent_CltalInf ctr
+        where 	ctr.CcCode =#{code} and  incrementflag in('1','2')
+	</select>
+	<!-- 其他债务人信息段 -->
+     <select id="getComRecInfSgmt"  resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntComRecInf">
+		SELECT
+			ef.*
+		FROM 
+			Ent_ComRecInf ef
+        where 	ef.CcCode =#{code} and  incrementflag in('1','2')
+	</select>
+	<!-- 抵押物信息段 -->
+	<select id="getMotgaProptInfSgmt"  resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntMotgaProptInf">
+		SELECT                                                                              
+			emp.*
+		FROM 
+			Ent_MotgaProptInf emp
+        where 	emp.CcCode =#{code}  and  incrementflag in('1','2')
+	</select>
+	<!-- 基本信息 -->
+     <select id="getEntMotgacltalbsinf"  resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntMotgaCltalBsInf">
+		SELECT
+			em.*                                                                       
+		FROM 
+			Ent_MotgaCltalBsInf em
+        where 	em.CcCode =#{code}  and  incrementflag in('1','2')
+	</select>
+
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(1) from Ent_MotgaCltalCtrctBs where  incrementflag in('1','2')
+	</select>
+
+	<resultMap id="MotgaCltalCtrctInfResult" type="com.yusys.cr.entMotgaCltalBsInf.entity.MotgaCltalCtrctInf">
+		<id property="cccode" column="CCCODE"></id>
+		<association property="entMotgacltalctrctb" resultMap="EntMotgaCltalCtrctBsResult"></association>
+		<association property="entMotgacltalbsinf" resultMap="EntMotgaCltalBsInfResult"></association>
+	</resultMap>
+
+	<resultMap id="EntMotgaCltalCtrctBsResult" type="com.yusys.cr.entMotgaCltalBsInf.entity.EntMotgaCltalCtrctBs">
+		<result property="cccode" column="CCCODE"></result>
+		<result property="certnum" column="CERTNUM"></result>
+		<result property="certtype" column="CERTTYPE"></result>
+		<result property="infoidtype" column="INFOIDTYPE"></result>
+		<result property="infrectype" column="INFRECTYPE"></result>
+		<result property="mngmtorgcode" column="MNGMTORGCODE"></result>
+		<result property="name" column="NAME"></result>
+		<result property="rptdate" column="RPTDATE"></result>
+		<result property="rptdatecode" column="RPTDATECODE"></result>
+	</resultMap>
+
+	<resultMap id="EntMotgaCltalBsInfResult" type="com.yusys.cr.entMotgaCltalBsInf.entity.EntMotgaCltalBsInf">
+		<result property="guartype" column="GUARTYPE"></result>
+		<result property="ccamt" column="CCAMT"></result>
+		<result property="cy" column="CY"></result>
+		<result property="ccvaldate" column="CCVALDATE"></result>
+		<result property="ccexpdate" column="CCEXPDATE"></result>
+		<result property="maxguar" column="MAXGUAR"></result>
+		<result property="ccstatus" column="CCSTATUS"></result>
+	</resultMap>
+
+	<select id="getMotgaCltalCtrctInf" resultMap="MotgaCltalCtrctInfResult">
+		select t1.cccode,
+			   t1.certnum,
+			   t1.certtype,
+			   t1.infoidtype,
+			   t1.infrectype,
+			   t1.mngmtorgcode,
+			   t1.name,
+			   t1.rptdate,
+			   t1.rptdatecode,
+			   t2.guartype,
+			   t2.ccamt,
+			   t2.cy,
+			   t2.ccvaldate,
+			   t2.ccexpdate,
+			   t2.maxguar,
+			   t2.ccstatus
+		from Ent_MotgaCltalCtrctBs t1
+		left join Ent_MotgaCltalBsInf t2
+			on t1.cccode = t2.cccode
+		where t1.incrementflag in ('1', '2')
+	</select>
+
+	<select id="getCltalInfSgmtList" resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntCltalInf">
+		SELECT
+			ctr.*
+		FROM
+			Ent_CltalInf ctr
+		where incrementflag in('1','2')
+		<if test="cccodes != null and cccodes.size() != 0">
+			and (ctr.cccode in
+			<foreach item="cccodeList"  collection="cccodes" separator=" or ctr.cccode in ">
+				<foreach collection="cccodeList" item="cccode" open="("
+						 separator="," close=")">
+					#{cccode}
+				</foreach>
+			</foreach>)
+		</if>
+	</select>
+
+	<select id="getComRecInfSgmtList" resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntComRecInf">
+		SELECT
+			ef.*
+		FROM
+			Ent_ComRecInf ef
+		where incrementflag in('1','2')
+		<if test="cccodes != null and cccodes.size() != 0">
+			and (ef.cccode in
+			<foreach item="cccodeList"  collection="cccodes" separator=" or ef.cccode in ">
+				<foreach collection="cccodeList" item="cccode" open="("
+						 separator="," close=")">
+					#{cccode}
+				</foreach>
+			</foreach>)
+		</if>
+	</select>
+
+	<select id="getMotgaProptInfSgmtList" resultType="com.yusys.cr.entMotgaCltalBsInf.entity.EntMotgaProptInf">
+		SELECT
+			emp.*
+		FROM
+			Ent_MotgaProptInf emp
+		where incrementflag in('1','2')
+		<if test="cccodes != null and cccodes.size() != 0">
+			and (emp.cccode in
+			<foreach item="cccodeList"  collection="cccodes" separator=" or emp.cccode in ">
+				<foreach collection="cccodeList" item="cccode" open="("
+						 separator="," close=")">
+					#{cccode}
+				</foreach>
+			</foreach>)
+		</if>
+	</select>
+
+</mapper> 

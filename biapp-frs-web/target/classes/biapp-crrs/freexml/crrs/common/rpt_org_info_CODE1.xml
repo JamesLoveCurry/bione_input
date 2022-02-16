@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>客户风险机构</templetname>
+		<fromtable>rpt_org_info</fromtable>
+		<savetable>rpt_org_info</savetable>
+		<pkname>org_no</pkname>
+		<querycontion>Class:com.yusys.crrs.rulevalidate.service.ValidateQueryCondition1</querycontion>
+		<autocondition descr="自动查询时的条件">Class:com.yusys.crrs.rulevalidate.service.ValidateQueryCondition1</autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<orderbys>org_no</orderbys>
+		<card_btns></card_btns>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>N</list_ispagebar>
+
+		<tree_type>parent</tree_type>
+		<tree_id>org_no</tree_id>
+		<tree_text>org_nm</tree_text>
+		<tree_parentid>up_org_no</tree_parentid>
+	</templet>
+
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>机构号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_nm</itemkey>
+		<itemname>机构名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>up_org_no</itemkey>
+		<itemname>父亲结点</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>N</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_type</itemkey>
+		<itemname>维度分类</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"直接值","内容":"00/标准|02/1104报送|03/大集中|04/EAST"}】
+		</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>mgr_org_no</itemkey>
+		<itemname>关联系统机构</itemname>
+		<itemtype>树型参照</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>org_sum_type</itemkey>
+		<itemname>汇总类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"01/汇总类型|02/基本类型"}</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>namespace</itemkey>
+		<itemname>路径</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>400</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>is_virtual_org</itemkey>
+		<itemname>是否虚拟机构</itemname>
+		<itemtype>勾选框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_class</itemkey>
+		<itemname>机构类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"总行|总行部门|分行|分行部门|支行|支行部门"}</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_level</itemkey>
+		<itemname>机构层级</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"0|1|2|3|4"}</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>rank_order</itemkey>
+		<itemname>排序</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>

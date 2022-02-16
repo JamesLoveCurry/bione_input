@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+namespace="com.yusys.bione.frame.syslog.repository.BioneLogFuncMybatisDao">
+
+	<insert id="saveLogFunc"
+	parameterType="com.yusys.bione.frame.syslog.entity.BioneLogFunc">insert into BIONE_LOG_FUNC(
+		LOG_ID,
+		USER_ID,
+		OCCUR_TIME,
+		OCCUR_DATE,
+		MENU_ID,
+		LOGIN_IP
+		)values(
+		#{logId},#{userId},#{occurTime},#{occurDate},#{menuId},#{loginIp}
+		)</insert>
+	<select id="list" resultType="com.yusys.bione.frame.syslog.web.vo.BioneLogFuncVO" parameterType="java.util.Map">
+		SELECT
+		func.pv,func.uv,func.menu_id,info.func_name
+		FROM
+		(select log.menu_id, count(*) pv, count(distinct log.user_id) uv
+          from bione_log_func log
+          left join bione_user_info u
+          on log.user_id = u.user_id
+         WHERE 1 = 1
+		<if test="startDate != null">
+			and log.occur_date >= #{startDate}
+		</if>
+		<if test="endDate != null">
+			and log.occur_date &lt;= #{endDate}
+		</if> 
+		<if test="logicSysNo != null">
+			and u.logic_sys_no = #{logicSysNo}
+		</if>
+		<if test="orgNos != null and orgNos.size() > 0">
+			and (u.org_no in
+			<foreach item="orgNos"  collection="orgNos" separator=" or u.org_no in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		group by menu_id) func, bione_menu_info menu, bione_func_info info
+		where func.menu_id = menu.menu_id and menu.func_id = info.func_id
+		<if test="funcName != null">
+			and info.func_name like #{funcName}
+		</if>
+		</select>
+	<select id="menuList" resultType="com.yusys.bione.frame.syslog.web.vo.BioneLogMenuVO" parameterType="java.util.Map">
+		SELECT
+				info.USER_NO, info.USER_NAME,org.ORG_NO, org.ORG_NAME, func.OCCUR_TIME, func.login_ip
+				FROM
+				bione_log_func func
+				LEFT JOIN
+				bione_user_info info
+				ON
+				func.user_id = info.user_id
+				LEFT JOIN
+				bione_org_info org
+				ON
+				info.org_no = org.org_no
+				where 1=1
+				<if test="menuId != null"> and func.menu_id = #{menuId} </if>
+				<if test="userNo != null"> and info.user_no = #{userNo} </if>
+				<if test="userName != null"> and info.user_name like #{userName}</if>
+				<if test="orgName != null"> and org.org_name like #{orgName}</if>
+				<if test="logicSysNo != null">
+					and info.logic_sys_no = #{logicSysNo}
+				</if>
+				<if test="orgNos != null and orgNos.size() > 0">
+					and (info.org_no in
+					<foreach item="orgNos"  collection="orgNos" separator=" or info.org_no in ">
+						<foreach collection="orgNos" item="orgNo" open="("
+							separator="," close=")">
+							#{orgNo}
+						</foreach>
+					</foreach>
+					)
+				</if>
+		</select>
+
+</mapper>

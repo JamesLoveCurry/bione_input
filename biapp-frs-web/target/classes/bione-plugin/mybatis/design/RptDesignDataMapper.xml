@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper namespace="com.yusys.bione.plugin.design.repository.RptTmpDataDao">
+
+	<select id="getRptsByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+	parameterType="HashMap">
+		select * from RPT_MGR_REPORT_INFO
+		where 1 = 1
+		<if test="rptIds != null">
+			and rpt_id in
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+	</select>
+	<select id="getRptsFrsByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsExt"
+	parameterType="HashMap">
+		select * from RPT_MGR_FRS_EXT
+		where 1 = 1
+		and rpt_id in
+		<if test="rptIds != null">
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+	</select>
+	<select id="getRptsBankByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrBankExt"
+	parameterType="HashMap">
+		select * from RPT_MGR_BANK_EXT
+		where 1 = 1
+		and rpt_id in
+		<if test="rptIds != null">
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+	</select>
+	<select id="getRptsDimByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrRptdimRel"
+	parameterType="HashMap">
+		select * from RPT_MGR_RPTDIM_REL
+		where 1 = 1
+		and rpt_id in
+		<if test="rptIds != null">
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+	</select>
+	<select id="getRptsOuterByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrOuterCfg"
+	parameterType="HashMap">
+		select cfg.* from
+		RPT_MGR_OUTER_CFG cfg,
+		RPT_MGR_REPORT_INFO info
+		where 1 = 1
+		and info.rpt_id in
+		<if test="rptIds != null">
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+		and info.cfg_id=cfg.cfg_id
+	</select>
+	<select id="getRptsModuleRelByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrModuleRel"
+	parameterType="HashMap">
+		select SET_ID as "id.setId",RPT_ID as "id.rptId"
+		from
+		RPT_MGR_MODULE_REL
+		where 1 = 1
+		and rpt_id in
+		<if test="rptIds != null">
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+	</select>
+	<select id="getRptsModuleIdxRelByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrModuleIdxRel"
+	parameterType="HashMap">
+		select SET_ID as "id.setId",INDEX_NO as "id.indexNo",COL_ID as "id.colId",RPT_ID as "id.rptId",FILTER_FORMULA
+		from  RPT_MGR_MODULE_IDX_REL
+		where 1 = 1
+		and rpt_id in
+		<if test="rptIds != null">
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+	</select>
+	<select id="getRptsIdxFilterRelByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrIdxFilter"
+	parameterType="HashMap">
+		select DIM_NO as "id.dimNo",SET_ID as "id.setId",INDEX_NO as "id.indexNo",COL_ID as "id.colId",RPT_ID as "id.rptId",FILTER_MODE,FILTER_VAL
+		from
+		RPT_MGR_IDX_FILTER
+		where 1 = 1
+		and rpt_id in
+		<if test="rptIds != null">
+			<foreach collection="rptIds" item="rptIds" open="("
+			separator="," close=")">#{rptIds}</foreach>
+		</if>
+	</select>
+	<select id="getCatalogsByRptIds"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+	parameterType="HashMap">
+		select * from RPT_MGR_REPORT_CATALOG
+		where 1 = 1
+		<if test="rpts != null">
+			and catalog_id in
+			<foreach collection="rpts" item="rpts" open="(" separator=","
+			close=")">#{rpts.catalogId}</foreach>
+		</if>
+		<if test="catalogs != null">
+			and catalog_id in
+			<foreach collection="catalogs" item="catalogs" open="("
+			separator="," close=")">#{catalogs.upCatalogId}</foreach>
+		</if>
+	</select>
+	<select id="getDesignTmpByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignTmpInfo"
+	parameterType="HashMap">
+		select TEMPLATE_ID          as "id.templateId",
+	       VER_ID               as "id.verId",
+	       VER_START_DATE,
+	       VER_END_DATE,
+	       TEMPLATE_CONTENTJSON,
+	       TEMPLATE_TYPE,
+	       TEMPLATE_NM,
+	       IS_UPT,
+	       remark,
+	       PARENT_TEMPLATE_ID,
+	       LINE_ID,
+	       TEMPLATE_UNIT,
+	       IS_AUTO_ADJ,
+	       fixed_length,
+	       is_paging,
+	       sort_sql,
+	       import_config
+		from RPT_DESIGN_TMP_INFO
+		where 1 = 1
+		<if test="busiType != null">
+			and template_type = #{busiType}
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+		and TEMPLATE_ID in (select distinct template_id from RPT_DESIGN_TMP_INFO where 1=1
+		<if test="rpts != null">
+			and template_id in
+			<foreach collection="rpts" item="rpts" open="(" separator=","
+			close=")">#{rpts.cfgId}</foreach>
+		</if>
+		<if test="prpts != null">
+			or (parent_template_id in
+			<foreach collection="prpts" item="prpts" open="(" separator=","
+			close=")">#{prpts.cfgId}</foreach>
+			and line_id is not null )
+		</if>)
+	</select>
+	<select id="getLogicCheckInfoByIds"
+	resultType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicRptRel"
+	parameterType="HashMap">
+		select RPT_TEMPLATE_ID as "id.rptTemplateId",CHECK_ID as "id.checkId" from
+		RPT_VALID_LOGIC_RPT_REL
+		where RPT_TEMPLATE_ID IN (
+		select  TEMPLATE_ID
+		from RPT_DESIGN_TMP_INFO
+		where 1 = 1
+		and TEMPLATE_ID in (select distinct template_id from RPT_DESIGN_TMP_INFO where 1=1
+		<if test="rpts != null">
+			and template_id in
+			<foreach collection="rpts" item="rpts" open="(" separator=","
+			close=")">#{rpts.cfgId}</foreach>
+		</if>
+		<if test="prpts != null">
+			or (parent_template_id in
+			<foreach collection="prpts" item="prpts" open="(" separator=","
+			close=")">#{prpts.cfgId}</foreach>
+			and line_id is not null )
+		</if>))
+	</select>
+	
+	<select id="getRptIdxCfgByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxCfg" parameterType="HashMap">
+		select TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   CELL_NO as "id.cellNo" ,
+			   INDEX_NO as "id.indexNo",
+			   rpt_num
+		from rpt_idx_cfg
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignBatchCfgByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignBatchCfg"
+	parameterType="HashMap">
+		select TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   CFG_ID as "id.cfgId" ,
+			   DIM_TYPE,
+			   FILTER_MODE,
+			   FILTER_VAL,
+			   POS_TYPE,
+			   POS_NUM 
+		from RPT_DESIGN_BATCH_CFG
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignQueryDimByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignQueryDim"
+	parameterType="HashMap">
+		select TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   PUBLIC_DIM,
+			   QUERY_DIM,
+			   PARAM_TEMPLATE_ID 
+		from RPT_DESIGN_QUERY_DIM
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignFavInfoByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignFavInfo"
+	parameterType="HashMap">
+		select * from RPT_DESIGN_FAV_INFO
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+
+	<select id="getDesignQueryDetailsByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignQueryDetail"
+	parameterType="HashMap">
+		select TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   ORDER_NUM as "id.orderNum",
+			   DS_ID,
+			   COLUMN_ID,
+			   ELEMENT_TYPE 
+		from RPT_DESIGN_QUERY_DETAIL
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	
+	<select id="getDesignCellByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignCellInfo"
+	parameterType="HashMap">
+		select CELL_NO as "id.cellNo",
+			   TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   CELL_NM,
+			   ROW_ID,
+			   COL_ID,
+			   DATA_TYPE,
+			   IS_UPT,
+			   IS_NULL,
+			   DATA_UNIT,
+			   DATA_LEN,
+			   DATA_PRECISION,
+			   CELL_SUFFIX,
+			   DISPLAY_FORMAT,
+			   CALIBER_EXPLAIN,
+			   CELL_DATA_SRC,
+			   BUSI_NO,
+			   SORT_MODE,
+			   remark,
+			   CALIBER_TECHNOLOGY,
+			   is_merge,
+			   is_merge_col
+		from RPT_DESIGN_CELL_INFO
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignComcellByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignComcellInfo"
+	parameterType="HashMap">
+		select 
+			TEMPLATE_ID as "id.templateId",
+			VER_ID as "id.verId",
+			CELL_NO as "id.cellNo",
+			TYPE_ID,
+			COL_ID,
+			ROW_ID,
+			CONTENT
+		from RPT_DESIGN_COMCELL_INFO
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="templateId != null">
+			and template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignIdxByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceIdx"
+	parameterType="HashMap">
+		select CELL_NO as "id.cellNo",
+			   TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   INDEX_NO,
+			   TIME_MEASURE_ID,
+			   MODE_ID,
+			   RULE_ID,
+			   IS_PASSYEAR,
+			   IS_CFG_SRCINDEX
+		from RPT_DESIGN_SOURCE_IDX
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignIdxTabByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceTabidx"
+	parameterType="HashMap">
+		select CELL_NO as "id.cellNo",
+			   TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   INDEX_NO,
+			   TIME_MEASURE_ID,
+			   RULE_ID,
+			   MODE_ID,
+			   SORT_MODE,
+			   IS_PASSYEAR
+		from RPT_DESIGN_SOURCE_TABIDX
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignDimTabByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceTabdim"
+	parameterType="HashMap">
+		select CELL_NO as "id.cellNo",
+			   TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   DIM_TYPE_NO,
+			   IS_TOTAL,
+			   DATE_FORMAT,
+			   IS_CONVER,
+			   DISPLAY_LEVEL,
+			   EXT_DIRECTION
+		from RPT_DESIGN_SOURCE_TABDIM
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getDesignDsByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceDs"
+	parameterType="HashMap">
+		select CELL_NO as "id.cellNo",
+			   TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   DS_ID,
+			   COLUMN_ID,
+			   IS_EXT,
+			   EXT_DIRECTION,
+			   EXT_MODE,
+			   IS_GRP,
+			   SUM_MODE,
+			   IS_FILT,
+			   IS_SORT,
+			   SORT_MODE,
+			   SORT_ORDER,
+			   LEFT_MAIN_CELL_ID,
+			   RIGHT_MAIN_CELL_ID,
+			   IS_CONVER,
+			   SORT_DB_TYPE,
+			   FILTER
+		from RPT_DESIGN_SOURCE_Ds
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	<select id="getDesignFormulaByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceFormula"
+	parameterType="HashMap">
+		select CELL_NO as "id.cellNo",
+			   TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   IS_ANALYSE_EXT,
+			   ANALYSE_EXT_TYPE,
+			   IS_RPT_INDEX,
+			   EXCEL_FORMULA
+		from
+		RPT_DESIGN_SOURCE_FORMULA
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	<select id="getDesignTextByIds"
+	resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceText"
+	parameterType="HashMap">
+		select CELL_NO as "id.cellNo",
+			   TEMPLATE_ID as "id.templateId",
+			   VER_ID as "id.verId",
+			   expression
+		from RPT_DESIGN_SOURCE_TEXT
+		where 1 = 1
+		<if test="tmps != null">
+			and template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+	<select id="getValidRelByIds"
+	resultType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicRptRel"
+	parameterType="HashMap">
+		select RPT_TEMPLATE_ID as "id.rptTemplateId",CHECK_ID as "id.checkId"
+		from
+		RPT_VALID_LOGIC_RPT_REL
+		where 1 = 1
+		<if test="tmps != null">
+			and rpt_template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+	</select>
+	<select id="getValidLogicByIds"
+	resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextLogic"
+	parameterType="HashMap">
+		select
+		CHECK_ID,END_DATE,EXPRESSION_DESC,FLOAT_VAL,IS_PRE,IS_SELF_DEF,LEFT_EXPRESSION,LOGIC_OPER_TYPE,RIGHT_EXPRESSION,BUSI_EXPLAIN,START_DATE,EXPRESSION_SHORT_DESC,SERIAL_NUMBER,DATA_UNIT,CHECK_NM,CHECK_SRC,CHECK_TYPE,DEF_USER,IS_ORG_FILTER,LEFT_FORMULA_INDEX,ORG_LEVEL,RIGHT_FORMULA_INDEX
+		from
+		RPT_VALID_CFGEXT_LOGIC
+		where 1=1
+		<if test="valids != null">
+			and (check_id in
+			<foreach item="valids"  collection="valids" separator=" or check_id in ">
+				<foreach collection="valids" item="valid" open="("
+				separator="," close=")">#{valid.id.checkId}</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	<select id="getValidLogicIdxRelByIds"
+	resultType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicIdxRel"
+	parameterType="HashMap">
+		select
+		INDEX_NO as "id.indexNo",CHECK_ID as "id.checkId",TEMPLATE_ID as "id.templateId", FORMULA_TYPE as "id.formulaType"
+		from
+		RPT_VALID_LOGIC_IDX_REL
+		where 1=1
+		<if test="valids != null">
+			and (check_id in
+			<foreach item="valids"  collection="valids" separator=" or check_id in ">
+				<foreach collection="valids" item="valid" open="("
+				separator="," close=")">#{valid.id.checkId}</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	<select id="getValidWarnByIds"
+	resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextWarn"
+	parameterType="HashMap">
+		select
+		CHECK_ID,COMPARE_VAL_TYPE,RANGE_TYPE,remark,RPT_TEMPLATE_ID,unit,INDEX_NO,START_DATE,END_DATE,CHECK_NM,COMPARE_TYPE,IS_FRS
+		from
+		RPT_VALID_CFGEXT_WARN
+		where 1=1
+		<if test="valids != null">
+			and (check_id in
+			<foreach item="valids"  collection="valids" separator=" or check_id in ">
+				<foreach collection="valids" item="valid" open="("
+				separator="," close=")">#{valid.id.checkId}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="tmps != null">
+			and rpt_template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+		</if>
+	</select>
+	<select id="getValidWarnLevelByIds"
+	resultType="com.yusys.bione.plugin.valid.entitiy.RptValidWarnLevel"
+	parameterType="HashMap">
+		select LEVEL_NUM as "id.levelNum",CHECK_ID as
+		"id.checkId",LEVEL_NM,LEVEL_TYPE,MINUS_RANGE_VAL,POSTIVE_RANGE_VAL,REMIND_COLOR,IS_PASS_COND,INDEX_NO
+		from
+		RPT_VALID_WARN_LEVEL
+		where 1=1
+		<if test="valids != null">
+			and (check_id in
+			<foreach item="valids"  collection="valids" separator=" or check_id in ">
+				<foreach collection="valids" item="valid" open="("
+				separator="," close=")">#{valid.checkId}</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	<select id="getSysModuleByIds"
+	resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo"
+	parameterType="HashMap">
+		select * from RPT_SYS_MODULE_INFO
+		where 1 = 1
+		<if test="dss != null">
+			and set_id in
+			<foreach collection="dss" item="dss" open="(" separator=","
+			close=")">#{dss.dsId}</foreach>
+		</if>
+		<if test="modules != null">
+			and set_id in
+			<foreach collection="modules" item="modules" open="(" separator=","
+			close=")">#{modules.id.setId}</foreach>
+		</if>
+		<if test="list != null">
+			and set_id in
+			<foreach collection="list" item="list" open="(" separator=","
+			close=")">#{list}</foreach>
+		</if>
+	</select>
+	<select id="getSysColByIds"
+	resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"
+	parameterType="HashMap">
+		select * from RPT_SYS_MODULE_COL
+		where 1 = 1
+		<if test="dss != null">
+			and set_id in
+			<foreach collection="dss" item="dss" open="(" separator=","
+			close=")">#{dss.dsId}</foreach>
+		</if>
+		<if test="moduleList != null">
+			and set_id in
+			<foreach collection="moduleList" item="moduleList" open="(" separator=","
+			close=")">#{moduleList.setId}</foreach>
+		</if>
+	</select>
+	<select id="getSysCatalogByIds"
+	resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog"
+	parameterType="HashMap">
+		select * from RPT_SYS_MODULE_CATALOG
+		where 1 = 1
+		<if test="modules != null">
+			and catalog_Id in
+			<foreach collection="modules" item="modules" open="("
+			separator="," close=")">#{modules.catalogId}</foreach>
+		</if>
+		<if test="moduleList != null">
+			and catalog_Id in
+			<foreach collection="moduleList" item="moduleList" open="("
+			separator="," close=")">#{moduleList.catalogId}</foreach>
+		</if>
+		<if test="catalogs != null">
+			and catalog_Id in
+			<foreach collection="catalogs" item="catalogs" open="("
+			separator="," close=")">#{catalogs.upId}</foreach>
+		</if>
+	</select>
+	<select id="getBioneDsByIds" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo"
+	parameterType="HashMap">
+		select
+		DS_ID,CONN_PWD,CONN_URL,CONN_USER,DRIVER_ID,DS_NAME,LOGIC_SYS_NO,remark
+		from
+		BIONE_DS_INFO
+		where 1=1
+		<if test="modules != null">
+			and ds_id in
+			<foreach collection="modules" item="modules" open="("
+			separator="," close=")">#{modules.sourceId}</foreach>
+		</if>
+		<if test="moduleList != null">
+			and ds_id in
+			<foreach collection="moduleList" item="moduleList" open="("
+			separator="," close=")">#{moduleList.sourceId}</foreach>
+		</if>
+	</select>
+	<select id="getRptIdxByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+	parameterType="HashMap">
+		select info.INDEX_NO as "id.indexNo",
+			   info.INDEX_VER_ID as "id.indexVerId",
+			   info.INDEX_CATALOG_NO,
+			   info.INDEX_STS,
+			   info.INDEX_NM,
+			   info.INDEX_TYPE,
+			   info.START_DATE,
+			   info.END_DATE,
+			   info.CALC_CYCLE,
+			   info.DATA_TYPE,
+			   info.DATA_LEN,
+			   info.DATA_PRECISION,
+			   info.DATA_UNIT,
+			   info.SRC_SOURCE_ID,
+			   info.SRC_INDEX_NO,
+			   info.SRC_INDEX_MEASURE,
+			   info.REMARK,
+			   info.LAST_UPT_USER,
+			   info.LAST_UPT_TIME,
+			   info.IS_SUM,
+			   info.IS_FILL_SUM,
+			   info.IS_RPT_INDEX,
+			   info.BUSI_TYPE,
+			   info.INFO_RIGHTS,
+			   info.VAL_RANGE,
+			   info.IS_PUBLISH,
+			   info.IS_SAVE,
+			   info.stat_Type,
+			   info.def_src,
+			   info.def_org,
+			   info.def_user,
+			   info.BUSI_NO,
+			   info.TEMPLATE_ID,
+			   info.dept_id,
+			   info.line_id,
+			   info.user_id,
+			   info.create_date,
+			   info.set_id,
+			   info.is_cabin,
+			   info.busi_lib_id
+		from
+		RPT_IDX_INFO info
+		<if test="tmps != null">
+			,
+			(select distinct i.index_no,i.ver_id from RPT_DESIGN_SOURCE_IDX i where 1=1
+			and i.template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+			) idx
+		</if>
+		where 1=1
+		<if test="tmps != null">and idx.index_no=info.index_no
+			and idx.ver_id=info.index_ver_id</if>
+		<if test="indexNos != null">
+			and (info.index_no in
+			<foreach item="indexNos"  collection="indexNos" separator=" or info.index_no in ">
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">#{indexNo}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and info.index_ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getRptIdxFilterByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFilterInfo"
+	parameterType="HashMap">
+		select filter.INDEX_NO as "id.indexNo",
+			   filter.INDEX_VER_ID as "id.indexVerId",
+			   filter.DIM_NO as "id.dimNo",
+			   filter.FILTER_MODE,
+			   filter.FILTER_VAL
+		from
+		RPT_IDX_FILTER_INFO filter
+		<if test="tmps != null">
+			,
+			(select distinct i.index_no,i.ver_id from RPT_DESIGN_SOURCE_IDX i where 1=1
+			and i.template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+			) idx
+		</if>
+		where 1=1
+		<if test="tmps != null">and idx.index_no=filter.index_no
+			and idx.ver_id=filter.index_ver_id</if>
+		<if test="indexNos != null">
+			and (filter.index_no in
+			<foreach item="indexNos"  collection="indexNos" separator=" or filter.index_no in ">
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">#{indexNo}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and filter.index_ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getRptIdxMeasureByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureRel"
+	parameterType="HashMap">
+		select rel.MEASURE_NO as "id.measureNo",
+			   rel.INDEX_NO as "id.indexNo",
+			   rel.INDEX_VER_ID as "id.indexVerId",
+			   rel.DS_ID as "id.dsId",
+			   rel.STORE_COL,
+			   rel.ORDER_NUM
+		from
+		RPT_IDX_MEASURE_REL rel
+		<if test="tmps != null">
+			,
+			(select distinct i.index_no,i.ver_id from RPT_DESIGN_SOURCE_IDX i where 1=1
+			and i.template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+			) idx
+		</if>
+		where 1=1
+		<if test="tmps != null">and idx.index_no=rel.index_no
+			and idx.ver_id=rel.index_ver_id</if>
+		<if test="indexNos != null">
+			and (rel.index_no in
+			<foreach item="indexNos"  collection="indexNos" separator=" or rel.index_no in ">
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">#{indexNo}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and rel.index_ver_id = #{verId}
+		</if>
+	</select>
+	<select id="getRptIdxDimByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel"
+	parameterType="HashMap">
+		select dim.DIM_NO as "id.dimNo",
+			   dim.INDEX_NO as "id.indexNo",
+			   dim.INDEX_VER_ID as "id.indexVerId",
+			   dim.DS_ID as "id.dsId",
+			   dim.STORE_COL,
+			   dim.DIM_TYPE,
+			   dim.ORDER_NUM
+		from
+		RPT_IDX_DIM_REL dim
+		<if test="tmps != null">
+			,
+			(select  distinct i.index_no,i.ver_id from RPT_DESIGN_SOURCE_IDX i where 1=1
+			and i.template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+			) idx
+		</if>
+		where 1=1
+		<if test="tmps != null">and idx.index_no=dim.index_no
+			and idx.ver_id=dim.index_ver_id</if>
+		<if test="indexNos != null">
+			and (dim.index_no in
+			<foreach item="indexNos"  collection="indexNos" separator=" or dim.index_no in ">
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">#{indexNo}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and dim.index_ver_id = #{verId}
+		</if>
+	</select>
+	<select id="getRptIdxFormulaByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo"
+	parameterType="HashMap">
+		select formula.INDEX_NO as "id.indexNo",
+			   formula.INDEX_VER_ID as "id.indexVerId",
+			   formula.FORMULA_TYPE,
+			   formula.FORMULA_CONTENT,
+			   formula.FORMULA_DESC,
+			   formula.remark
+		from
+		RPT_IDX_FORMULA_INFO formula
+		<if test="tmps != null">
+			,
+			(select distinct i.index_no,i.ver_id from RPT_DESIGN_SOURCE_IDX i where 1=1
+			and i.template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+			) idx
+		</if>
+		where 1=1
+		<if test="tmps != null">and idx.index_no=formula.index_no
+			and idx.ver_id=formula.index_ver_id</if>
+		<if test="indexNos != null">
+			and (formula.index_no in
+			<foreach item="indexNos"  collection="indexNos" separator=" or formula.index_no in ">
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">#{indexNo}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and formula.index_ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getRptIdxSrcByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxSrcRelInfo"
+	parameterType="HashMap">
+		select src.INDEX_NO as "id.indexNo",
+			   src.INDEX_VER_ID as "id.indexVerId",
+			   src.SRC_INDEX_NO as "id.srcIndexNo",
+			   src.SRC_MEASURE_NO as "id.srcMeasureNo"
+		from
+		RPT_IDX_SRC_REL_INFO src
+		<if test="tmps != null">
+			,
+			(select distinct i.index_no,i.ver_id from RPT_DESIGN_SOURCE_IDX i where 1=1
+			and i.template_id in
+			<foreach collection="tmps" item="tmps" open="(" separator=","
+			close=")">#{tmps.id.templateId}</foreach>
+			) idx
+		</if>
+		where 1=1
+		<if test="tmps != null">and idx.index_no=src.index_no
+			and idx.ver_id=src.index_ver_id</if>
+		<if test="indexNos != null">
+			and (src.index_no in
+			<foreach item="indexNos"  collection="indexNos" separator=" or src.index_no in ">
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">#{indexNo}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and src.index_ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getRptIdxBusiExtByIds"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxBusiExt"
+	parameterType="HashMap">
+		select INDEX_NO as "id.indexNo",INDEX_VER_ID as
+		"id.indexVerId",INDEX_USUAL_NM,BUSI_DEF,BUSI_RULE,DEF_DEPT,USE_DEPT,BUSI_MODEL
+		from
+		RPT_IDX_BUSI_EXT
+		where 1=1
+		<if test="indexNos != null">
+			and (index_no in
+			<foreach item="indexNos"  collection="indexNos" separator=" or index_no in ">
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">#{indexNo}</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and index_ver_id = #{verId}
+		</if>
+	</select>
+	<select id="getCatalogIdx"
+	resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxCatalog"
+	parameterType="HashMap">
+		select * from RPT_IDX_CATALOG
+		where 1 = 1
+		<if test="idxInfoList != null">
+			and index_Catalog_No in
+			<foreach collection="idxInfoList" item="idxInfoList" open="("
+			separator="," close=")">#{idxInfoList.indexCatalogNo}</foreach>
+		</if>
+		<if test="catalogs != null">
+			and index_Catalog_No in
+			<foreach collection="catalogs" item="catalogs" open="("
+			separator="," close=")">#{catalogs.upNo}</foreach>
+		</if>
+		<if test="catalogNos != null and catalogNos.size() > 0">
+			and index_Catalog_No in
+			<foreach collection="catalogNos" item="catalogNo" open="(" separator="," close=")">
+				#{catalogNo}
+			</foreach>
+		</if>
+		<if test="upNo != null">and UP_NO = #{upNo}</if>
+	</select>
+	<select id="getTypeInfoList"
+	resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"
+	parameterType="HashMap">
+		select DIM_TYPE_NO,CATALOG_ID,DIM_TYPE_DESC,DIM_TYPE_EN_NM,DIM_TYPE_NM,DIM_TYPE,DIM_TYPE_STRUCT,START_DATE,END_DATE,BUSI_DEF,BUSI_RULE,DEF_DEPT,USE_DEPT,DIM_STS
+		from
+		RPT_DIM_TYPE_INFO
+		where 1 = 1
+		<if test="dimRelList != null">
+			and DIM_TYPE_NO in
+			<foreach collection="dimRelList" item="dimRelList" open="("
+			separator="," close=")">#{dimRelList.id.dimNo}</foreach>
+		</if>
+		<if test="dimTypeNos != null">
+			and DIM_TYPE_NO in
+			<foreach collection="dimTypeNos" item="dimTypeNos" open="("
+			separator="," close=")">#{dimTypeNos}</foreach>
+		</if>
+	</select>
+	<select id="getItemInfo"
+	resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo"
+	parameterType="HashMap">
+		select DIM_ITEM_NO as "id.dimItemNo",DIM_TYPE_NO as "id.dimTypeNo",DIM_ITEM_NM,remark,UP_NO,START_DATE,END_DATE,BUSI_DEF,BUSI_RULE,DEF_DEPT,USE_DEPT,ITEM_STS
+		from
+		RPT_DIM_ITEM_INFO
+		where 1 = 1
+		<if test="infoList != null">
+			and DIM_TYPE_NO in
+			<foreach collection="infoList" item="infoList" open="("
+			separator="," close=")">#{infoList.dimTypeNo}</foreach>
+		</if>
+	</select>
+	<select id="getDimCatalog"
+	resultType="com.yusys.bione.plugin.rptdim.entity.RptDimCatalog"
+	parameterType="HashMap">
+		select CATALOG_ID,CATALOG_NM,remark,UP_CATALOG_ID
+		from Rpt_Dim_Catalog
+		where 1 = 1
+		<if test="infoList != null">
+			and CATALOG_ID in
+			<foreach collection="infoList" item="infoList" open="("
+			separator="," close=")">#{infoList.catalogId}</foreach>
+		</if>
+		<if test="catalogs != null">
+			and CATALOG_ID in
+			<foreach collection="catalogs" item="catalogs" open="("
+			separator="," close=")">#{catalogs.upCatalogId}</foreach>
+		</if>
+	</select>
+	<select id="getRptsBySrcIdxNos"
+	resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+	parameterType="HashMap">
+		select * from rpt_mgr_report_info rpt
+		where rpt.cfg_id 
+		in (
+	   		select distinct
+	   			t1_.template_id 
+	   		from 
+	   			rpt_idx_info  t1_ , 
+	   			(select distinct
+	 				t.index_no,
+			    	t.index_ver_id
+			    from 
+			    	rpt_idx_src_rel_info t
+			    where 
+			    	1=1
+			    <if test="srcIdxNo != null">and t.src_index_no = #{srcIdxNo}</if>
+			    ) t2_
+	   		where 1=1
+	   		and 
+				t1_.index_no = t2_.index_no
+			and
+				t1_.index_ver_id = t2_.index_ver_id
+		)
+	</select>
+	
+	<select id="queryDrillSql" parameterType="string" resultType="hashmap">
+		${_parameter}
+	</select>
+</mapper>

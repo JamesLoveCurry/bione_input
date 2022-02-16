@@ -1,0 +1,49 @@
+body, html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+html {
+	font-size: 62.5%;
+}
+body {
+	font-size: 1.2em;
+	background-color: #F1F1F1;
+}
+
+#center {
+	height: 100%;
+	margin: 0 2px;
+	position: relative;
+}
+
+.top {
+	height: auto;
+	position: relative;
+}
+
+.tool {
+	position: relative;
+}
+
+
+.main {
+	background-color: #F1F1F1;
+	position: absolute;
+	width: 100%;
+	height: auto;
+	bottom: 0px;
+}
+.border {
+	left: 0px;
+	right: 0px;
+	top: 2px;
+	bottom: 2px;
+	border: 1px solid #ccc;
+	position: absolute;
+}
+#outlink {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}

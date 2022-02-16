@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.pbcmessage.repository.PbcManagerDao">
+	<!--新增上报编码中grid表格-->
+	 <select id="getRptIdxInfo"
+		resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsCodeIdxVO"
+		parameterType="HashMap">
+		SELECT
+	      	info.index_no as "id.indexNo",
+	      	info.index_nm as "indexNm",
+	      	cell.cell_nm as "cellNm",
+	      	cell.BUSI_NO as "busiNo",
+	      	idx.cell_no as "cellNo"
+	    FROM
+	      	rpt_design_cell_info cell,
+	       	rpt_design_source_idx idx,
+	      	rpt_idx_info info
+	    WHERE 1=1
+	      	AND cell.cell_no=idx.cell_no
+			AND cell.ver_id=idx.ver_id
+			AND cell.template_id=idx.template_id
+			AND idx.index_no=info.index_no
+			AND info.index_ver_id=idx.ver_id
+	      	AND idx.template_Id=#{templateId}
+			AND idx.ver_id=#{verId}
+		order by cell.cell_nm
+	</select>
+	<update id="editPbcReportCodeType">
+		update FRS_PBC_REPORT_CODE 
+		set DATA_ATTR=#{dataAttr}, CURRTYPE=#{currtype} 
+		<if test="submitRangeCode != null">
+			, SUBMIT_RANGE_CODE=#{submitRangeCode}
+		</if>
+		where REPORT_CODE_CFG_NO in 
+		<foreach collection="ids" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</update>
+	<select id="getPbcRptOrgList" resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcReportOrgVO"
+		parameterType="HashMap">
+		select
+			pro.report_org_cfg_no as "reportOrgCfgNo",
+			pro.ver_id as "verId",
+			pro.ORG_CODE, 
+			pro.REPORT_ORG_CODE, 
+			pro.RPT_CODE, 
+			pro.FINANCE_CODE,
+			pro.SUBMIT_RANGE_CODE, 
+			addr.addr_NO,
+			addr.addr_NM,
+			addr.dtrct_no
+		from FRS_PBC_REPORT_ORG pro 
+			left join RPT_FIM_ADDR_INFO addr on pro.org_code = addr.org_no
+		where 1=1
+		<if test="submitRangeCode != null">
+			AND pro.submit_Range_Code = #{submitRangeCode}
+		</if>
+		<if test="verId != null">
+			AND pro.ver_id = #{verId}
+		</if>
+	</select>
+	<select id="getReportCodeXlsVoData" resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcReportCodeXlsVO"
+		parameterType="HashMap">
+		select 
+			rptCode.REPORT_CODE_CFG_NO as "reportCodeCfgNo" ,
+			rptCode.RPT_CODE as "rptCode",
+			rptCode.SYS_INDEX as "sysIndex",
+			rptCode.VER_ID as "verId",
+			rptCode.CELL_NO as "cellNo",
+			rptCode.CELL_NM as "cellNm",
+			rptCode.PBC_CODE as "pbcCode",
+			rptCode.DATA_ATTR as "dataAttr",
+			rptCode.currtype as "currtype",
+			rangeInfo.SUBMIT_RANGE_NM as "dtrctNm",
+			rptCode.START_TIME as "startTime",
+			rptCode.END_TIME as "endTime"
+		from FRS_PBC_REPORT_CODE rptCode
+		left join FRS_PBC_RANGE_INFO rangeInfo on rptCode.SUBMIT_RANGE_CODE = rangeInfo.SUBMIT_RANGE_CODE
+		where RPT_CODE in (
+				select RPT_NUM from RPT_MGR_REPORT_INFO where RPT_ID in 
+				<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+					#{ids}
+				</foreach>
+			) 
+		order by RPT_CODE,CELL_NO
+	</select>
+	<select id="getReportOrgXlsVoData" resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcReportOrgXlsVO"
+		parameterType="HashMap">
+		select
+			rptOrg.REPORT_ORG_CFG_NO as "reportOrgCfgNo",
+			rptOrg.ORG_CODE as "orgCode",
+			rptOrg.REPORT_ORG_CODE as "reportOrgCode",
+			orgInfo.ORG_NM as "orgNm",
+			rangeInfo.SUBMIT_RANGE_CODE as "submitRangeCode",
+			rangeInfo.SUBMIT_RANGE_NM as "submitRangeNm"
+		from FRS_PBC_REPORT_ORG rptOrg 
+		left join FRS_PBC_RANGE_INFO rangeInfo on rptOrg.SUBMIT_RANGE_CODE = rangeInfo.SUBMIT_RANGE_CODE
+		left join RPT_ORG_INFO orgInfo on rptOrg.ORG_CODE = orgInfo.ORG_NO and orgInfo.ORG_TYPE = '03'
+		where rptOrg.SUBMIT_RANGE_CODE in  (select SUBMIT_RANGE_CODE from FRS_PBC_REPORT_CODE where RPT_CODE in ( select RPT_NUM from RPT_MGR_REPORT_INFO where RPT_ID in
+ 				<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+					#{ids}
+				</foreach>
+		      ) group by SUBMIT_RANGE_CODE)
+		order by rptOrg.ORG_CODE
+	</select>
+	<select id="getRptCellIdxData" resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcCellIdxVO"
+		parameterType="HashMap">
+		  select 
+		  	rpt.rpt_num as "rptNum", 
+		  	idx.cell_no as "cellNo", 
+		  	cell.cell_nm as "cellNm",
+		  	idx.index_no as "indexNo"
+		  from rpt_design_source_idx idx 
+		  		left join rpt_mgr_report_info rpt on idx.template_id =  rpt.cfg_id
+		  		left join rpt_design_cell_info cell on idx.cell_no = cell.cell_no and idx.template_id = cell.template_id and idx.ver_id = cell.ver_id
+		  where idx.template_id in ( select cfg_id from rpt_mgr_report_info where 1=1 
+		  		<if test="ids != null">
+			  		and RPT_NUM in 
+			  		<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+						#{ids}
+					</foreach>
+				</if>
+				<if test="rptIds != null">
+			  		and RPT_ID in 
+			  		<foreach collection="rptIds" item="rptIds" index="index" open="(" separator="," close=")">
+						#{rptIds}
+					</foreach>
+				</if>
+		   )
+	</select>
+	<select id="getFrsOrgNoList" resultType="String"
+		parameterType="HashMap">
+		select 
+			ORG_NO
+		from RPT_ORG_INFO
+		where ORG_TYPE = '03'
+	</select>
+	<delete id="deleteRange">
+		DELETE
+		FROM
+		FRS_PBC_RANGE_INFO
+		WHERE
+		SUBMIT_RANGE_CODE IN
+		<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+		<if test="verId != null">
+			AND ver_id = #{verId}
+		</if>
+	</delete>
+	<delete id="deleteRangeOrg">
+		DELETE
+		FROM
+		FRS_PBC_REPORT_ORG
+		WHERE
+		SUBMIT_RANGE_CODE IN
+		<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+		<if test="verId != null">
+			AND ver_id = #{verId}
+		</if>
+	</delete>
+	<delete id="deleltePbcCode">
+		DELETE
+		FROM
+		FRS_PBC_REPORT_CODE
+		WHERE 1=1
+		<if test="ids != null">
+			AND rpt_code IN 
+			<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+			</foreach>
+		</if>
+		<if test="verId != null">
+			AND ver_id = #{verId}
+		</if>
+		<if test="rptCode != null">
+			AND rpt_code = #{rptCode}
+		</if>
+		<if test="cellNos != null">
+			AND cell_no IN 
+			<foreach collection="cellNos" item="cellNos" index="index" open="(" separator="," close=")">
+				#{cellNos}
+			</foreach>
+		</if>
+	</delete>
+	<update id="updatePbcCode">
+		update FRS_PBC_REPORT_CODE
+		   set end_time = to_date(#{startTime}, 'yyyy/MM/dd')
+		 where rpt_code = #{rptCode}
+		   and end_time = to_date('2999/12/31', 'yyyy/MM/dd')
+		   and ver_id &lt; #{verId}
+	</update>
+
+	<update id="updatePbcCode" databaseId="mysql">
+		update FRS_PBC_REPORT_CODE
+		set end_time = date_format(#{startTime},'%Y/%m/%d')
+		where rpt_code = #{rptCode}
+		  and end_time = date_format('2999/12/31', '%Y/%m/%d')
+		  and ver_id &lt; #{verId}
+	</update>
+	
+	<insert id="insertPbcCode" parameterType="java.util.List">
+		insert into FRS_PBC_REPORT_CODE(
+			REPORT_CODE_CFG_NO,
+			VER_ID,
+			RPT_CODE,
+			PBC_CODE,
+			SYS_INDEX,
+			DATA_ATTR,
+			CURRTYPE,
+			START_TIME,
+			END_TIME,
+			SUBMIT_RANGE_CODE,
+			CELL_NO,
+			CELL_NM,
+			IS_MAIN
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.reportCodeCfgNo},
+				#{item.verId},
+				#{item.rptCode},
+				#{item.pbcCode},
+				#{item.sysIndex},
+				#{item.dataAttr},
+				#{item.currtype},
+				#{item.startTime},
+				#{item.endTime},
+				#{item.submitRangeCode},
+				#{item.cellNo},
+				#{item.cellNm},
+				#{item.isMain}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertPbcCode" parameterType="java.util.List" databaseId="mysql">
+		insert into FRS_PBC_REPORT_CODE(
+		REPORT_CODE_CFG_NO,
+		VER_ID,
+		RPT_CODE,
+		PBC_CODE,
+		SYS_INDEX,
+		DATA_ATTR,
+		CURRTYPE,
+		START_TIME,
+		END_TIME,
+		SUBMIT_RANGE_CODE,
+		CELL_NO,
+		CELL_NM,
+		IS_MAIN
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.reportCodeCfgNo},
+			#{item.verId},
+			#{item.rptCode},
+			#{item.pbcCode},
+			#{item.sysIndex},
+			#{item.dataAttr},
+			#{item.currtype},
+			#{item.startTime},
+			#{item.endTime},
+			#{item.submitRangeCode},
+			#{item.cellNo},
+			#{item.cellNm},
+			#{item.isMain}
+			)
+		</foreach>
+	</insert>
+	
+		<!-- 获取地区编码对应的金融地区编码 -->
+	<select id="getFinanceCode"
+		resultType="HashMap"
+		parameterType="HashMap">
+		SELECT
+		org.org_No as "ORGCODE",
+		org.FINANCE_ORG_NO AS "FINANCEORGNO"
+		FROM
+		RPT_ORG_INFO org
+		WHERE
+		org.ORG_TYPE = #{orgType}
+	</select>
+	
+	<!-- 根据指标内码获取指标值-->
+	<select id="getPbcIdxResultInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			pbc.org_no as "ORGNO",
+			pbc.DATA_DATE as "DATADATE",
+			pbc.index_no as "INDEXNO",
+			pbc.INDEX_VAL AS "INDEXVAL",
+			code.RPT_CODE AS "RPTCODE",
+			code.pbc_code as "PBCCODE"
+		FROM RPT_REPORT_RESULT_ARCHIVE pbc
+		inner JOIN  FRS_PBC_REPORT_CODE code
+		ON pbc.INDEX_NO = code.SYS_INDEX
+		and code.start_time &lt;= to_date(#{dataDate},'yyyy/MM/dd')
+   		and code.end_time > to_date(#{dataDate},'yyyy/MM/dd')
+		WHERE pbc.DATA_DATE = #{dataDate}
+		and pbc.template_id = #{templateId}
+		and pbc.archive_type = #{archiveType}
+		<if test="orgNos != null">
+			AND (pbc.org_no IN
+			<foreach item="orgNos" index="index" collection="orgNos"
+				separator=" or pbc.org_no IN ">
+				<foreach collection="orgNos" item="orgNos" open="("
+						separator="," close=")">
+						#{orgNos}
+				</foreach>
+		 	</foreach>
+	 		)
+		</if>
+	</select>
+	<select id="getPbcIdxResultInfo" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT
+		pbc.org_no as "ORGNO",
+		pbc.DATA_DATE as "DATADATE",
+		pbc.index_no as "INDEXNO",
+		pbc.INDEX_VAL AS "INDEXVAL",
+		code.RPT_CODE AS "RPTCODE",
+		code.pbc_code as "PBCCODE"
+		FROM RPT_REPORT_RESULT_ARCHIVE pbc
+		inner JOIN  FRS_PBC_REPORT_CODE code
+		ON pbc.INDEX_NO = code.SYS_INDEX
+		and code.start_time &lt;= date_format(#{dataDate},'%Y/%m/%d')
+		and code.end_time > date_format(#{dataDate},'%Y/%m/%d')
+		WHERE pbc.DATA_DATE = #{dataDate}
+		and pbc.template_id = #{templateId}
+		and pbc.archive_type = #{archiveType}
+		<if test="orgNos != null">
+			AND (pbc.org_no IN
+			<foreach item="orgNos" index="index" collection="orgNos"
+					 separator=" or pbc.org_no IN ">
+				<foreach collection="orgNos" item="orgNos" open="("
+						 separator="," close=")">
+					#{orgNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+
+		<!-- and code.RPT_CODE in
+    <foreach collection="rptCode" item="rptCode" index="index" open="("
+        separator="," close=")">
+        #{rptCode}
+    </foreach> -->
+	</select>
+	<!-- 根据指标内码获取指标值-->
+	<select id="getPbcReportCode" resultType="com.yusys.biapp.frs.pbcmessage.entity.FrsPbcReportCode" parameterType="HashMap">
+		SELECT 
+			pbc.*
+        FROM 
+        	FRS_PBC_REPORT_CODE pbc
+	        LEFT JOIN RPT_MGR_REPORT_INFO rpt ON rpt.RPT_NUM = pbc.RPT_CODE
+	        LEFT JOIN  RPT_DESIGN_TMP_INFO tmp ON rpt.CFG_ID = tmp.TEMPLATE_ID and tmp.VER_ID = pbc.VER_ID
+        WHERE 1=1
+        	AND tmp.VER_START_DATE &lt;= #{dataDate}
+            AND tmp.VER_END_DATE > #{dataDate}
+            <if test="rptNums != null">
+				AND rpt.RPT_NUM IN 
+				<foreach collection="rptNums" item="rptNums" index="index" open="(" separator="," close=")">
+					#{rptNums}
+				</foreach>
+			</if>
+		ORDER BY pbc.PBC_CODE
+	</select>
+	<select id="getRptFltskData" resultType="com.yusys.biapp.frs.rpttsk.entity.RptFltskIns" parameterType="HashMap">
+		SELECT 
+			ins.*
+        FROM 
+        	RPT_FLTSK_INS ins
+        WHERE 1=1
+        	AND ins.STS = '0'
+        	<if test="dataDate != null">
+				AND ins.DATA_DATE = #{dataDate}
+			</if>
+            <if test="rptNums != null">
+            	AND ins.TASK_OBJ_ID IN (select RPT_ID from RPT_MGR_REPORT_INFO where RPT_NUM IN 
+				<foreach collection="rptNums" item="rptNums" index="index" open="(" separator="," close=")">
+					#{rptNums}
+				</foreach>
+				)
+			</if>
+			<if test="orgNos != null">
+				AND (ins.EXE_OBJ_ID IN
+				<foreach item="orgNos" index="index" collection="orgNos"
+					separator=" or ins.EXE_OBJ_ID IN ">
+					<foreach collection="orgNos" item="orgNos" open="("
+							separator="," close=")">
+							#{orgNos}
+					</foreach>
+			 	</foreach>
+		 		)
+			</if>
+	</select>
+	<select id="findNoRptCodeByParams" resultType="com.yusys.biapp.frs.pbcmessage.entity.FrsPbcReportCode"
+		parameterType="HashMap">
+		select * 
+		from FRS_PBC_REPORT_CODE code 
+		where not exists( 
+		        select 1 from RPT_IDX_INFO idx 
+		        where code.sys_index = idx.INDEX_NO 
+		                and code.VER_ID = idx.index_ver_id
+		      )
+		<if test="verId != null">
+			and code.VER_ID = #{verId}
+		</if>
+		<if test="verId != null">
+			and code.RPT_CODE = #{rptCode}
+		</if>
+	</select>
+	<select id="getRptInfo" resultType="HashMap"
+		parameterType="HashMap">
+		SELECT 
+			tmp.template_unit as "TEMPLATEUNIT",
+			rpt.rpt_num  as "RPTNUM",
+			tmp.template_id as "TEMPLATEID",
+			rpt.BUSI_LIB_ID as "BUSILIBID",
+			ext.report_code as "REPORTCODE"
+		FROM rpt_design_tmp_info tmp
+		LEFT JOIN rpt_mgr_report_info rpt on rpt.cfg_id = tmp.template_id
+		LEFT JOIN RPT_MGR_FRS_EXT ext on rpt.rpt_id = ext.rpt_id
+		WHERE tmp.VER_START_DATE &lt;= #{dataDate}
+		AND tmp.VER_END_DATE > #{dataDate}
+		AND tmp.template_id in (select cfg_id from rpt_mgr_report_info where rpt_num in 
+			<foreach collection="rptNums" item="rptNum" index="index" open="("
+				separator="," close=")">
+				#{rptNum}
+			</foreach>
+		)
+		ORDER BY rpt.rpt_num
+	</select>
+	
+	<!-- 获得报表数据-->
+	<select id="getRptList"
+		resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcRptTreeVO">
+		SELECT
+			rpt.RPT_NUM as id,
+			ext.REPORT_CODE as rptCode,
+			rpt.RPT_NM as text,
+			rpt.CATALOG_ID as upId,
+			'1' as isRpt
+		FROM
+			RPT_MGR_REPORT_INFO rpt
+		INNER JOIN
+			RPT_MGR_FRS_EXT ext
+		ON
+			rpt.RPT_ID = ext.RPT_ID
+		where 1 = 1
+		<if test="busiType != null">
+			and rpt.BUSI_TYPE = #{busiType}
+		</if>
+		<if test="rptSts != null">
+			and rpt.RPT_STS = #{rptSts}
+		</if>
+		<if test="extType != null">
+			and rpt.EXT_TYPE = #{extType}
+		</if>
+		<if test="nodeNo != null">
+			and rpt.RPT_NM like #{nodeNo}
+		</if>
+		<!-- and ext.REPORT_CODE is not null -->
+		order by ext.REPORT_CODE asc
+	</select>
+	<!-- 获得报表目录数据 -->
+	<select id="getCataList"
+		resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcRptTreeVO">
+		SELECT
+			cata.CATALOG_ID as id,
+			cata.CATALOG_NM as text,
+			cata.UP_CATALOG_ID as upId,
+			'0' as isRpt
+		FROM
+			RPT_MGR_REPORT_CATALOG cata
+		where 1 = 1
+		<if test="catalogId != null">
+			and cata.CATALOG_ID = #{catalogId}
+		</if>
+		<if test="extType != null">
+			and cata.EXT_TYPE = #{extType}
+		</if>
+		order by cata.CATALOG_ID asc
+	</select>
+	<!-- 获得报表版本 -->
+	<select id="getVerInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			tmp.template_id as "TEMPLATEID",
+			tmp.ver_id as "VERID",
+			tmp.VER_START_DATE as "VERSTARTDATE",
+			tmp.VER_END_DATE as "VERENDDATE"
+		FROM
+			RPT_MGR_REPORT_INFO rpt,
+			RPT_DESIGN_TMP_INFO tmp
+		WHERE
+			rpt.rpt_Num=#{rptCode}
+		AND
+			rpt.cfg_id=tmp.template_id
+	</select>
+	<select id="getSpecialPbcCodeList" resultType="string">
+		SELECT
+			pbc_code
+		FROM
+			frs_pbc_special_code
+		WHERE
+			1=1
+	</select>
+	<select id="getPbcCodeByIdxNo" resultType="string">
+		select t.pbc_code
+	     from FRS_PBC_REPORT_CODE t
+	    where t.sys_index = #{sysIndex}
+	      and to_char(t.start_time, 'yyyyMMdd') &lt;= #{dataDate}
+	      and to_char(t.end_time, 'yyyyMMdd') > #{dataDate}
+	</select>
+	<select id="getPbcCodeByIdxNo" resultType="string" databaseId="mysql">
+		select t.pbc_code
+		from FRS_PBC_REPORT_CODE t
+		where t.sys_index = #{sysIndex}
+		  and date_format(t.start_time, '%Y%m%d') &lt;= #{dataDate}
+		  and date_format(t.end_time, '%Y%m%d') > #{dataDate}
+	</select>
+	<!-- 获取指标配置信息 -->
+	<select id="getIdxConfig" resultType="HashMap" parameterType="HashMap">
+		select i.index_no as "indexNo", c.display_format as "displayFormat"
+		  from rpt_design_tmp_info t
+		  left join rpt_design_source_idx i
+		    on t.template_id = i.template_id
+		   and t.ver_id = i.ver_id
+		  left join rpt_design_cell_info c
+		    on t.template_id = c.template_id
+		   and t.ver_id = c.ver_id
+		   and i.cell_no = c.cell_no
+		 where t.template_id = #{templateId}
+		   and t.ver_start_date &lt;= #{dataDate}
+		   and t.ver_end_date > #{dataDate}
+	</select>
+</mapper> 

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>报送策略</templetname>
+		<fromtable>frs_wmp_cr_report_config</fromtable>
+		<savetable>frs_wmp_cr_report_config</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys>seq</orderbys>
+		<card_btns></card_btns>
+		<card_size>700*500</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>Y</list_ischeckstyle>
+		<list_ismultisel>Y</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<helptip></helptip>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<loadformula></loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<grouptitle></grouptitle>
+		<card_isshow>N</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<list_render></list_render>
+		<query_isshow>N</query_isshow>
+		<query_itemtype></query_itemtype>
+		<query_itemdefine></query_itemdefine>
+		<validateinfo></validateinfo>
+		<showformula></showformula>
+		<defvalue></defvalue>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>机构</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_name</itemkey>
+		<itemname>机构名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>280</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>tab_names</itemkey>
+		<itemname>表名</itemname>
+		<itemtype>列表参照</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>300</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>report_type</itemkey>
+		<itemname>报送类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"月报|日报"}</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>125</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>isautojob</itemkey>
+		<itemname>是否自动任务</itemname>
+		<itemtype>勾选框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>autojobtrigger</itemkey>
+		<itemname>自动任务触发器</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>seq</itemkey>
+		<itemname>排序</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>120</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>
+
+

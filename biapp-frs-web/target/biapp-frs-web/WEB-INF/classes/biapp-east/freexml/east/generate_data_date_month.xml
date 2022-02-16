@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>数据生成-月报</templetname>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>data_dt_1</itemkey>
+		<itemname>采集日期(月末)</itemname>
+		<itemtype>日历</itemtype>
+		<itemdefine></itemdefine>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>120,300</card_width>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+</root>
+

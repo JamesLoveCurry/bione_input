@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="FEEDBACK_HEAD_DEFAULT_ID"
+		classType="org.pbccrc.collectclient.api.feedback.msg.FeedbackHead">
+
+		<field name="startMark" fbTag="0000" classType="java.lang.String">
+			<rule id="startMark_EqA" type="Equals" fbValue="" errCode="ABH005">
+				<property name="data" value="A" />
+			</rule>
+		</field>
+
+		<field name="fileHeadLength" fbTag="0000" classType="java.lang.String">
+			<rule id="fileHeadLength_DataType" type="DataType" fbValue=""
+				errCode="ABH005">
+				<property name="type" value="N3" />
+			</rule>
+		</field>
+
+		<!-- <field name="recType" fbTag="0000" classType="java.lang.String"> <rule 
+			id="recType_Dict" type="Dict" fbValue="" errCode="ABH005"> <property name="dictKey" 
+			value="InfRecType" /> </rule> <rule id="recType_EqualsCtx" type="Equals" 
+			fbValue="" errCode="ABF007" depExp="recType_Dict"> <property name="data" 
+			value="${$context.REC_TYPE}" /> </rule> </field> -->
+
+		<field name="version" fbTag="0000" classType="java.lang.String">
+			<rule id="version_Format" type="Regex" fbValue="" errCode="ABH005">
+				<property name="regex" value="\d\.\d\.\d" />
+			</rule>
+		</field>
+
+		<field name="originalFileName" fbTag="0000"
+			classType="java.lang.String">
+			<rule id="originalFileName_DataType" type="DataType" fbValue=""
+				errCode="ABH005">
+				<property name="type" value="AN29" />
+			</rule>
+		</field>
+
+		<field name="feedbackId" fbTag="0000" classType="java.lang.String">
+			<rule id="feedbackId_DataType" type="DataType" fbValue=""
+				errCode="ABH005">
+				<property name="type" value="N1" />
+			</rule>
+			<rule id="feedbackId_1;2;3" type="Contains" fbValue="" errCode="ABH005">
+				<property name="dict" value="1;2;3" />
+			</rule>
+			<rule id="feedbackId_equal" type="Equals" fbValue="" errCode="ABF007">
+				<property name="data" value="${$context.FEEDBACK_ID}" />
+			</rule>
+		</field>
+
+		<field name="originalFileVersion" fbTag="0000" classType="java.lang.String">
+			<rule id="originalFileVersion_Format" type="Regex" fbValue=""
+				errCode="ABH005">
+				<property name="regex" value="\d\.\d\.\d" />
+			</rule>
+		</field>
+
+		<!-- <field name="templateType" fbTag="0000" classType="java.lang.String"> 
+			<rule id="templateType_DataType" type="DataType" fbValue="" errCode="ABH005"> 
+			<property name="type" value="AN2" /> </rule> </field> -->
+
+		<!-- <field name="finanCode" fbTag="0000" classType="java.lang.String"> 
+			<rule id="finanCode_DataType" type="FinanOrgan" fbValue="" errCode="ABF007" 
+			/> </field> -->
+
+		<field name="fileCreateTime" fbTag="0000" classType="java.lang.String">
+			<rule id="fileCreateTime_DataType" type="DataType" fbValue=""
+				errCode="ABH005">
+				<property name="type" value="TimeDigit" />
+			</rule>
+			<rule id="fileCreateTime_Range" type="DateRange" fbValue=""
+				errCode="ABH005" depExp="fileCreateTime_DataType">
+				<property name="formatType" value="Digit" />
+			</rule>
+		</field>
+
+		<!-- <field name="reserved" fbTag="0000" classType="java.lang.String"> 
+			<rule id="reserved_DataType" type="DataType" fbValue="" errCode="ABH005" 
+			> <property name="type" value="AN1" /> </rule> </field> -->
+
+		<!-- <field name="recCount" fbTag="0000" classType="java.lang.String"> 
+			<rule id="recCount_DataType" type="DataType" fbValue="" errCode="ABH005" 
+			> <property name="type" value="N7" /> </rule> <rule id="recCount_GraThan0" 
+			type="NumberLimit" fbValue="" errCode="ABH005" depExp="recCount_DataType"> 
+			<property name="startSign" value=">" /> <property name="startValue" value="0" 
+			/> </rule> </field> -->
+		<field name="rightRecordNum" fbTag="0000" classType="java.lang.String">
+			<rule id="rightRecordNum_DataType" type="DataType" fbValue=""
+				errCode="ABH005">
+				<property name="type" value="N7" />
+			</rule>
+		</field>
+		<field name="wrongRecordNum" fbTag="0000" classType="java.lang.String">
+			<rule id="wrongRecordNum_DataType" type="DataType" fbValue=""
+				errCode="ABH005">
+				<property name="type" value="N7" />
+			</rule>
+		</field>
+	</validator>
+</validators>

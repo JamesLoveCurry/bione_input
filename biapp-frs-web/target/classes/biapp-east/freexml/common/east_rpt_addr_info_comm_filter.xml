@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+	<templet>
+		<templetname>报送地区信息</templetname>
+		<fromtable>rpt_std_code_info</fromtable>
+		<savetable>rpt_std_code_info</savetable>
+		<pkname></pkname>
+		<autoquery>Y</autoquery>
+		<autocondition>Class:com.yusys.east.common.util.EastRptStdInfoCommFilter</autocondition>
+		<querycontion>Class:com.yusys.east.common.util.EastRptStdInfoCommFilter</querycontion>
+		<ishavebillquery>Y</ishavebillquery>
+		<list_btns></list_btns>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ismultisel>N</list_ismultisel>
+		<list_ischeckstyle>N</list_ischeckstyle>
+
+		<tree_type>parent</tree_type>
+		<tree_id>item</tree_id>
+		<tree_text>item_name</tree_text>
+		<tree_parentid>code_type</tree_parentid>
+	</templet>
+
+	<templet_item>
+		<itemkey>item</itemkey>
+		<itemname>报送地区号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>item_name</itemkey>
+		<itemname>报送地区名称</itemname>
+		<itemtype>文本框</itemtype>
+		<loadformula>【type=SQL】【SQL=select item_name || '(' || item || ')' from rpt_std_code_info where code_type='EAST_ADDR' and item=${item} and rpt_type='04'】</loadformula>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>code_type</itemkey>
+		<itemname>父亲结点</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>N</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+
+	<templet_item>
+		<itemkey>order_no</itemkey>
+		<itemname>排序</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>

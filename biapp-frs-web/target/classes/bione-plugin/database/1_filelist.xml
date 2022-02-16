@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+<xmlfile tabxml="bione.xml"  initdataxml="bione_data.xml">bione平台表</xmlfile>
+
+<xmlfile tabxml="rpt.xml"    viewxml=""  initdataxml="rpt_data.xml">rpt报表与引擎</xmlfile>
+
+<xmlfile tabxml="east.xml"   viewxml="east_view.xml" initdataxml="east_data.xml">east报送</xmlfile>
+
+<xmlfile tabxml="east_cf.xml"   viewxml="east_view.xml">消费金融east报送</xmlfile>
+
+<xmlfile tabxml="fsrs.xml"  initdataxml="fsrs_data.xml">金标报送</xmlfile>
+
+<xmlfile tabxml="crrs.xml"   viewxml="crrs_view.xml" initdataxml="crrs_data.xml">客户风险报送</xmlfile>
+
+<xmlfile tabxml="pbc.xml"   viewxml="">大集中报送</xmlfile>
+
+<xmlfile tabxml="pisa.xml"   viewxml="">支付报送</xmlfile>
+
+<xmlfile tabxml="pscs.xml"   viewxml="pscs_view.xml">支付合规</xmlfile>
+
+<xmlfile tabxml="cams.xml"   viewxml="cams_view.xml">非居民涉税</xmlfile>
+
+<xmlfile tabxml="safe.xml"   viewxml="safe_view.xml">外汇局报送</xmlfile>
+
+<xmlfile tabxml="bfd.xml"   viewxml="bfd_view.xml">金融基础数据</xmlfile>
+
+<xmlfile tabxml="wmp.xml" viewxml="" initdataxml="">理财与信托</xmlfile>
+
+<xmlfile tabxml="qrtz.xml"   viewxml="">任务调度相关表</xmlfile>
+
+<xmlfile tabxml="act.xml"    viewxml=""  initdataxml="act_data.xml">工作流引擎相关表</xmlfile>
+
+<xmlfile tabxml="imas.xml"   viewxml="imas_view.xml">利率报备</xmlfile>
+
+
+</root>

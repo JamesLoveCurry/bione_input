@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+<view name="V_CRRS_TRADE_AND_PUBLIC_CUT"   descr="V_CRRS_TRADE_AND_PUBLIC_CUT">
+CREATE OR REPLACE VIEW V_CRRS_TRADE_AND_PUBLIC_CUT AS
+SELECT "CUSTOMER_CODE","CUSTOMER_NAME","CUSTOMER_TYPE","NATIONALITY_CODE","INST_NO","STAFF_CODE","STAFF_NAME","DATA_DT FROM (
+        SELECT T1.CUSTOMER_CODE, T1.CUSTOMER_NAME, T1.CUSTOMER_TYPE, T1.NATIONALITY_CODE, T1.INST_NO, T1.STAFF_CODE, T1.STAFF_NAME, T1.DATA_DT FROM CRRS_GROUP_GROUP_CLIENT T1
+                UNION ALL
+        SELECT T2.CUSTOMER_CODE, T2.CUSTOMER_NAME, T2.CUSTOMER_TYPE, T2.NATIONALITY_CODE, T2.INST_NO, T2.STAFF_CODE, T2.STAFF_NAME, T2.DATA_DT FROM CRRS_SINGLE_CORPORATION T2
+                UNION ALL
+        SELECT T3.CUSTOMER_CODE, T3.CUSTOMER_NAME, T3.CUSTOMER_TYPE, T3.NATIONALITY_CODE, T3.INST_NO, T3.STAFF_CODE, T3.STAFF_NAME, T3.DATA_DT FROM CRRS_ENT_TRADE_INFO T3)
+</view>
+
+<view name="V_CRRS_TRADEINFO_SUMMARY"   descr="V_CRRS_TRADEINFO_SUMMARY">
+CREATE OR REPLACE VIEW V_CRRS_TRADEINFO_SUMMARY AS
+SELECT
+	eti.data_dt,
+	eti.inst_no,
+	COUNT (DISTINCT eti.rid) base_count,
+	COUNT (DISTINCT ec.rid) credit_count,
+	NVL (SUM(etc.bank_deposit), 0) bank_deposit_count,
+	NVL (SUM(etc.buying_back), 0) buying_back_count,
+	NVL (
+		SUM (etc.buy_out_turn_discount),
+		0
+	) buy_out_turn_count,
+	NVL (SUM(etc.selling_back), 0) selling_back_count,
+	COUNT (DISTINCT etc.rid) business_detail_count
+FROM
+	crrs_ent_trade_info eti
+LEFT JOIN crrs_ent_credit ec ON eti.customer_code = ec.customer_code
+LEFT JOIN crrs_ent_trade_customers etc ON eti.customer_code = etc.customer_code
+GROUP BY
+	eti.data_dt,
+	eti.inst_no
+</view>
+
+<view name="V_CRRS_SUPPLYCHAIN_SUMMARY"   descr="V_CRRS_SUPPLYCHAIN_SUMMARY">
+CREATE OR REPLACE VIEW V_CRRS_SUPPLYCHAIN_SUMMARY AS
+SELECT
+	gc.data_dt,
+	gc.inst_no,
+	COUNT (DISTINCT gc.rid) base_count,
+	COUNT (DISTINCT gm.rid) members_count,
+	COUNT (DISTINCT ec.rid) credit_count,
+	NVL (SUM(ec.loan_balance), 0) loan_sum,
+	COUNT (DISTINCT egc.rid) group_client_count
+FROM
+	crrs_group_group_client gc
+LEFT JOIN crrs_group_members gm ON gc.customer_code = gm.customer_code
+LEFT JOIN crrs_ent_credit ec ON gc.customer_code = ec.customer_code
+LEFT JOIN crrs_ent_group_client egc ON gc.customer_code = egc.customer_code
+WHERE
+	gc. TYPE = '2'
+GROUP BY
+	gc.data_dt,
+	gc.inst_no
+</view>
+
+<view name="V_CRRS_SINGLE_SUMMARY"   descr="V_CRRS_SINGLE_SUMMARY">
+CREATE OR REPLACE VIEW V_CRRS_SINGLE_SUMMARY AS
+SELECT
+	c.data_dt,
+	c.inst_no,
+	COUNT (distinct c.rid) base_count,
+	0 financial_count,
+	COUNT (distinct E .rid) executives_count,
+	COUNT (distinct s.rid) shareholder_ep_count,
+	COUNT (distinct et.rid) credit_count,
+	NVL (SUM(et.loan_balance), 0) loan_sum,
+	0 no_credit_count,
+	COUNT (distinct l.rid) loan_detail_count,
+	COUNT (distinct b.rid) enterprise_bond_count,
+	NVL (SUM( b.book_balance), 0) bond_account_sum,
+	COUNT (distinct ee.rid) enterprise_equitystake_count,
+	NVL (sum (ee.book_balance), 0) equitystake_account_sum,
+	COUNT (distinct oa.rid) offbalance_sa_count,
+	NVL (SUM(estimated_value), 0) collateral_price,
+	COUNT (distinct G.rid) guaranteed_count
+FROM
+	crrs_single_corporation c
+LEFT JOIN crrs_single_executives E ON c.customer_code = E .customer_code--高管
+LEFT JOIN crrs_single_shareholder_ep s ON c.customer_code = s.customer_code--重要股东信息
+LEFT JOIN crrs_ent_credit et ON c.customer_code = et.customer_code--授信情况
+LEFT JOIN crrs_ent_loan l ON c.customer_code = l.customer_code--贷款信息
+LEFT JOIN crrs_ent_trade_customers tc ON c.customer_code = tc.customer_code--同业客户业务明细
+LEFT JOIN crrs_ent_bond b ON c.customer_code = b.customer_code
+LEFT JOIN crrs_ent_equitystake ee ON c.customer_code = ee.customer_code
+LEFT JOIN crrs_ent_offbalance_sa oa ON c.customer_code = oa.customer_code--表外业务信息
+LEFT JOIN crrs_ent_guaranteed G ON c.customer_code = G.customer_code
+GROUP BY
+	c.data_dt,
+	c.inst_no
+</view>
+
+<view name="v_crrs_result"   descr="v_crrs_result">
+create or replace view v_crrs_result as
+select ruletype, inst_code, inst_name, result_status, sum(wfb) wfb, 
+sum(yff) yff, sum(ffsb) ffsb, sum(th) th, sum(wc) wc, sum(zs) zs from (
+select '确定性校验' ruletype, inst_code, inst_name, result_status,
+case when result_status = '未发布' then count(*) else 0 end as wfb,
+case when result_status = '已分发' then count(*) else 0 end as yff,
+case when result_status = '分发失败' then count(*) else 0 end as ffsb,
+case when result_status = '退回' then count(*) else 0 end as th,
+case when result_status = '完成' then count(*) else 0 end as wc,
+count(*) as zs
+from crrs_result_sure group by ruletype, inst_code, inst_name, result_status
+union ALL
+select '一致性校验' ruletype, inst_code, inst_name, result_status,
+case when result_status = '未发布' then count(*) else 0 end as wfb,
+case when result_status = '已分发' then count(*) else 0 end as yff,
+case when result_status = '分发失败' then count(*) else 0 end as ffsb,
+case when result_status = '退回' then count(*) else 0 end as th,
+case when result_status = '完成' then count(*) else 0 end as wc,
+count(*) as zs
+from crrs_result_consistency group by ruletype, inst_code, inst_name, result_status
+union ALL
+select '提示性校验' ruletype, inst_code, inst_name, result_status,
+case when result_status = '未发布' then count(*) else 0 end as wfb,
+case when result_status = '已分发' then count(*) else 0 end as yff,
+case when result_status = '分发失败' then count(*) else 0 end as ffsb,
+case when result_status = '退回' then count(*) else 0 end as th,
+case when result_status = '完成' then count(*) else 0 end as wc,
+count(*) as zs
+from crrs_result_warn group by ruletype, inst_code, inst_name, result_status) 
+group by ruletype, inst_code, inst_name, result_status
+</view>
+
+<view name="V_CRRS_PERSON_PERSONAL"   descr="V_CRRS_PERSON_PERSONAL">
+CREATE OR REPLACE VIEW V_CRRS_PERSON_PERSONAL AS
+SELECT
+	A1.rid,
+	A1.customer_code,
+	A1.customer_name,
+	A1.data_dt,
+	A1.paper_type,
+	A1.paper_code,
+	A2.bank_code,
+	A2.loan_contract_number,
+	A2.evidenceofdebt_number,
+	A2.loan_varieties,
+	A2.guarantee_way,
+	A2.issue_money,
+	A2.loan_balance,
+	A2.issue_date,
+	A2.due_date,
+	A2.default_amount,
+	A2.default_days,
+	A2.five_classify,
+	A2.payment_method,
+	A2.recently_payment_money,
+	A2.recently_payment_date,
+	A2.cust_address,
+	A2.cust_address_area,
+	A1.other_cert_tp_cd,
+	A1.other_cert_num
+FROM
+	crrs_person_personal A1,
+	crrs_person_personal_loan A2
+WHERE
+	A1.CUSTOMER_CODE = A2.CUSTOMER_CODE
+	AND A1.DATA_DT = A2.DATA_DT
+</view>
+
+<view name="v_crrs_personal_summary"   descr="v_crrs_personal_summary">
+create or replace view v_crrs_personal_summary as
+select
+	pp.data_dt,
+	pp.inst_no,
+	count (DISTINCT pp.rid) base_count,
+	count (DISTINCT ppl.rid) personal_loan_count,
+	NVL(sum (ppl.loan_balance),0) loan_sum,
+	count (DISTINCT pjd.rid) joint_debtor_count,
+	count (DISTINCT psl.rid) student_loan_count,
+	count (DISTINCT peg.rid) guaranteed_count,
+	NVL(sum (peg.estimated_value),0) collateral_price
+from
+	crrs_person_personal pp
+left join crrs_person_personal_loan ppl on pp.customer_code = ppl.customer_code
+left join crrs_person_joint_debtor pjd on pp.customer_code = pjd.customer_code
+left join crrs_person_student_loan psl on pp.customer_code = psl.customer_code
+left join crrs_person_ent_guaranteed peg on pp.customer_code = peg.customer_code
+group by
+	pp.data_dt,
+	pp.inst_no
+</view>
+
+<view name="v_crrs_group_summary"   descr="v_crrs_group_summary">
+create or replace view v_crrs_group_summary as
+select
+c.data_dt,
+c.inst_no,
+count(c.rid) base_count,
+(select count(e.rid) from crrs_group_executives e where e.customer_code=c.customer_code) executives_count,
+(select count(m.rid) from crrs_group_members m where m.customer_code=c.customer_code) members_count,
+(select count(a.rid) from crrs_group_actualcontroller a where a.customer_code=c.customer_code) actualcontroller_count,
+(select count(g.rid) from crrs_group_ffiliated_groups g where g.customer_code=c.customer_code) ffiliated_groups_count,
+(select count(ec.rid) from crrs_ent_credit ec where ec.customer_code=c.customer_code) credit_count,
+(select NVL(sum(ec.loan_balance),0) from crrs_ent_credit ec where ec.customer_code=c.customer_code) loan_sum,
+(select count(gc.rid) from crrs_ent_group_client gc where gc.customer_code=c.customer_code) group_client_count
+from crrs_group_group_client c
+where type = '1'
+group by c.customer_code,c.data_dt,c.inst_no
+</view>
+
+<view name="V_CRRS_ENT_TRADE_INFO"   descr="V_CRRS_ENT_TRADE_INFO">
+CREATE OR REPLACE VIEW V_CRRS_ENT_TRADE_INFO AS
+SELECT
+	A2.RID,
+	A2.CUSTOMER_NAME,
+	A2.CUSTOMER_CODE,
+	A1.nationality_code,
+	A2.INTERNAL_RATINGS,
+	A2.EXTERNAL_RATINGS,
+	A2.INTER_BANK_OFFERED,
+	A2.BANK_DEPOSIT,
+	A2.BOND_REPURCHASE,
+	A2.STOCK_COLLATERAL,
+	A2.BUYING_BACK,
+	A2.BUY_OUT_TURN_DISCOUNT,
+	A2.BOND_HOLDING,
+	A2.EQUITY_INVESTMENT,
+	A2.TRADE_PAID,
+	A2.OTHER_ONBALANCE_SHEET,
+	A2.SELLING_BACK,
+	A2.IRREPEALABLE_COMMITMENT,
+	A2.OTHER_OFFBALANCE_SHEET,
+	A1.INST_NO,
+	A1.STAFF_NAME,
+	A1.STAFF_CODE,
+	A1.DATA_DT,
+	A1.INST_NAME,
+	A1.org_code,
+	a1.org_code_no_scene,
+	a1.customer_cd
+FROM
+	crrs_ent_trade_info A1,
+	crrs_ent_trade_customers A2
+WHERE
+	A1.CUSTOMER_CODE = A2.CUSTOMER_CODE
+</view>
+
+<view name="v_crrs_engine_log"   descr="v_crrs_engine_log">
+create or replace view v_crrs_engine_log as
+select
+t2.rid,
+t1.task_id,
+t1.task_type,
+t1.task_name,
+t1.rule_ids,
+t1.rule_name,
+t1.tab_names,
+t1.status,
+t2.data_dt,
+t2.log_level,
+t2.log_cont,
+t2.create_tm,
+t2.log_no
+from crrs_engine_task t1,crrs_engine_log t2
+where t1.task_id=t2.task_id
+</view>
+
+</root>
+

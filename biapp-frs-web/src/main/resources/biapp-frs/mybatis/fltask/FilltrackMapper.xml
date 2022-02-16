@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.frs.rpttsk.repository.FilltrackDao">
+	<!-- 根据条件查询反馈任务列表 -->
+	<select id="getFilltrackInfos" parameterType="HashMap"
+		resultType="com.yusys.biapp.frs.rpttsk.web.vo.FilltrackVO">
+	select a.task_id,
+       b.TASK_INSTANCE_ID taskInstanceId,
+       b.TASK_NM          taskNm,
+       to_char(b.END_TIME,'yyyy-mm-dd')         endTime,
+       b.STS              sts,
+       b.DATA_DATE        dataDate,
+       b.TASK_TYPE        taskType,
+       b.TASK_OBJ_ID      taskObjId,
+       f.rpt_id           rptId,
+       f.rpt_nm           rptNm,
+       d.org_no           orgNo,
+       d.org_nm           orgNm,
+       d.org_level   	  orgLevel,
+       g.base_check_sts   baseCheckSts,
+       g.rel_check_sts    relCheckSts,
+       g.spe_check_sts    speCheckSts,
+       ext.IS_ADD_ORG as isAddOrgFeild,
+	   EXT.IS_ADD_SRCFEILD,
+       EXT.SRC_FEILD   
+	  from RPT_FLTSK_INFO a
+	 right join RPT_FLTSK_INS b on b.task_id = a.task_id
+	 left join (SELECT org.ORG_NO, org.ORG_TYPE, org.ORG_NM, org.ORG_LEVEL FROM RPT_ORG_INFO org WHERE 1=1 
+	 		<if test="orgType != null and orgType != ''">
+			AND org.ORG_TYPE = #{orgType}
+			</if>
+	 ) d on b.exe_obj_id = d.org_no
+     left join rpt_mgr_report_info f  on b.task_obj_id = f.rpt_id
+    left join EAST_CHECK_TASK_RESULT_STS g on g.rpt_id = b.task_obj_id and g.org_no = d.org_no and g.data_date = b.data_date
+    left join RPT_MGR_FRS_EXT ext
+		on ext.RPT_ID = f.rpt_id
+   where 1=1
+
+		<if test="taskType != null and taskType != ''">
+			AND a.TASK_TYPE = #{taskType}
+		</if>
+		<if test="taskNm != null and taskNm != ''">
+			AND b.TASK_ID = #{taskNm}
+		</if>
+		<if test="rptNm != null and rptNm != ''">
+			AND b.TASK_OBJ_ID = #{rptNm}
+		</if>
+		<if test="sts != null and sts != ''">
+			AND b.STS = #{sts}
+		</if>
+		<if test="orgNm != null and orgNm != ''">
+			AND orgNo = #{orgNm}
+		</if>
+		<if test="dataDate != null and dataDate!=''">
+			AND b.DATA_DATE = #{dataDate}
+		</if>
+		<if test="baseCheckSts!=null and baseCheckSts!=''">
+			AND baseCheckSts = #{baseCheckSts}
+		</if>
+		<if test="relCheckSts!=null and relCheckSts!=''">
+			AND relCheckSts = #{relCheckSts}
+		</if>
+		<if test="speCheckSts!=null and speCheckSts!=''">
+			AND speCheckSts = #{speCheckSts}
+		</if>
+		
+		<if test="exeObjId != null">
+			and (
+			b.EXE_OBJ_ID IN
+			<foreach collection="exeObjId" item="items" open="("
+				separator=") or b.EXE_OBJ_ID IN (" close=")">
+					select distinct(o.org_no) from RPT_ORG_INFO o
+					where 1=1
+					and
+						o.ORG_TYPE = #{items.orgType}
+					and 
+						<foreach collection="items.orgLike" item="orgLike" open=""
+							separator=" or " close="">
+							o.NAMESPACE like #{orgLike}
+						</foreach>
+			</foreach>
+			)
+		</if>
+		
+		<if test="taskObjId != null">
+			and b.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or b.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getFilltrackInfos" parameterType="HashMap"
+			resultType="com.yusys.biapp.frs.rpttsk.web.vo.FilltrackVO" databaseId="mysql">
+		select a.task_id,
+		b.TASK_INSTANCE_ID taskInstanceId,
+		b.TASK_NM          taskNm,
+		date_format(b.END_TIME,'%Y-%m-%d') endTime
+		b.STS              sts,
+		b.DATA_DATE        dataDate,
+		b.TASK_TYPE        taskType,
+		b.TASK_OBJ_ID      taskObjId,
+		f.rpt_id           rptId,
+		f.rpt_nm           rptNm,
+		d.org_no           orgNo,
+		d.org_nm           orgNm,
+		d.org_level   	  orgLevel,
+		g.base_check_sts   baseCheckSts,
+		g.rel_check_sts    relCheckSts,
+		g.spe_check_sts    speCheckSts,
+		ext.IS_ADD_ORG as isAddOrgFeild,
+		EXT.IS_ADD_SRCFEILD,
+		EXT.SRC_FEILD
+		from RPT_FLTSK_INFO a
+		right join RPT_FLTSK_INS b on b.task_id = a.task_id
+		left join (SELECT org.ORG_NO, org.ORG_TYPE, org.ORG_NM, org.ORG_LEVEL FROM RPT_ORG_INFO org WHERE 1=1
+		<if test="orgType != null and orgType != ''">
+			AND org.ORG_TYPE = #{orgType}
+		</if>
+		) d on b.exe_obj_id = d.org_no
+		left join rpt_mgr_report_info f  on b.task_obj_id = f.rpt_id
+		left join EAST_CHECK_TASK_RESULT_STS g on g.rpt_id = b.task_obj_id and g.org_no = d.org_no and g.data_date = b.data_date
+		left join RPT_MGR_FRS_EXT ext
+		on ext.RPT_ID = f.rpt_id
+		where 1=1
+
+		<if test="taskType != null and taskType != ''">
+			AND a.TASK_TYPE = #{taskType}
+		</if>
+		<if test="taskNm != null and taskNm != ''">
+			AND b.TASK_ID = #{taskNm}
+		</if>
+		<if test="rptNm != null and rptNm != ''">
+			AND b.TASK_OBJ_ID = #{rptNm}
+		</if>
+		<if test="sts != null and sts != ''">
+			AND b.STS = #{sts}
+		</if>
+		<if test="orgNm != null and orgNm != ''">
+			AND orgNo = #{orgNm}
+		</if>
+		<if test="dataDate != null and dataDate!=''">
+			AND b.DATA_DATE = #{dataDate}
+		</if>
+		<if test="baseCheckSts!=null and baseCheckSts!=''">
+			AND baseCheckSts = #{baseCheckSts}
+		</if>
+		<if test="relCheckSts!=null and relCheckSts!=''">
+			AND relCheckSts = #{relCheckSts}
+		</if>
+		<if test="speCheckSts!=null and speCheckSts!=''">
+			AND speCheckSts = #{speCheckSts}
+		</if>
+
+		<if test="exeObjId != null">
+			and (
+			b.EXE_OBJ_ID IN
+			<foreach collection="exeObjId" item="items" open="("
+					 separator=") or b.EXE_OBJ_ID IN (" close=")">
+				select distinct(o.org_no) from RPT_ORG_INFO o
+				where 1=1
+				and
+				o.ORG_TYPE = #{items.orgType}
+				and
+				<foreach collection="items.orgLike" item="orgLike" open=""
+						 separator=" or " close="">
+					o.NAMESPACE like #{orgLike}
+				</foreach>
+			</foreach>
+			)
+		</if>
+
+		<if test="taskObjId != null">
+			and b.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+					 separator=" or b.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+						 separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getTaskInstanceIds" parameterType="HashMap" resultType="java.lang.String">
+		SELECT 
+	       ins.task_instance_id
+		FROM 
+	        RPT_FLTSK_INS ins
+	  	WHERE 1=1
+	  	<if test="rptId != null">
+	  		and ins.TASK_OBJ_ID=#{rptId}
+	  	</if>
+	  	<if test="dataDate != null">
+	  		and ins.DATA_DATE=#{dataDate}
+	  	</if>
+	  	<if test="orgNos != null">
+	  		and ( ins.EXE_OBJ_ID in
+		      	<foreach item="tmpOrgNos" index="index" collection="orgNos"
+		        	separator=" or ins.EXE_OBJ_ID in ">
+		        		<foreach collection="tmpOrgNos" item="orgNo" open="("
+								separator="," close=")">
+								#{orgNo}
+						</foreach>
+				</foreach>
+				)
+	  	</if>
+	</select>
+	
+	<select id="updateInsSts" parameterType="HashMap">
+		update RPT_FLTSK_INS
+		<set>
+			STS = #{sts}
+		</set>
+		where ( task_instance_id in
+		      	<foreach item="taskInsIds" index="index" collection="taskInstanceIds"
+		        	separator=" or task_instance_id in ">
+		        		<foreach collection="taskInsIds" item="taskInstanceId" open="("
+								separator="," close=")">
+								#{taskInstanceId}
+						</foreach>
+				</foreach>
+				)
+	</select>
+</mapper>

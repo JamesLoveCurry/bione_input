@@ -1,0 +1,1777 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.nrt.nrtmessage.repository.NrtMessageDao">
+	<!-- 定义AccountReportVO -->
+	<resultMap id="accountReportVOMapper" type="com.yusys.nrt.nrtmessage.web.vo.AccountReportVO">
+		<id column="accountNumber" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="record_id" property="recordId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="reportingid" property="reportingId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="accountnumber" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="closedaccount" property="closedAccount" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="duediligenceind" property="dueDiligenceInd" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="selfcertification" property="selfCertification" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="currcode" property="currCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="accountbalance" property="accountBalance" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="accountholdertype" property="accountHolderType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="openingfiname" property="openingFIName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="fiid" property="fiId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="paymenttype" property="paymentType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="currcode_s" property="currCodes" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="paymentamnt" property="paymentAmnt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="reportingtype" property="reportingType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="messagerefid" property="messageRefId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="reportingperiod" property="reportingPeriod" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="messagetypeindic" property="messageTypeIndic" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="tmstp" property="tmstp" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="docrefid" property="docRefId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="corrdocrefid" property="corrDocRefId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="doctypeindic" property="docTypeIndic" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="statistics_dt" property="statisticsDt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorflag" property="errorFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorcode" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="validate_flag" property="validateFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="orgno" property="orgNo" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="inputer" property="inputer" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="reviewer" property="reviewer" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="assessor" property="assessor" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="auditstatus" property="auditStatus" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		
+		<association property="indiviDualVO" column="accountNumber" javaType="com.yusys.nrt.nrtmessage.web.vo.IndiviDualVO">
+			<id column="accountnumber_i" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="record_id_i" property="recordId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="nametype_i" property="nameType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="lastname_i" property="lastName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="middlename_i" property="middleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="firstname_i" property="firstName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="namecn_i" property="nameCn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="precedingtitle_i" property="preceDingTitle" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="titles_i" property="titles" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="nameprefix_i" property="namePrefix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="generationidentifier_i" property="generationIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="suffix_i" property="suffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="generalsuffix_i" property="generalSuffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="gender_i" property="gender" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="legaladdresstype_i" property="legalAddressType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countrycode_i" property="countryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="addressfreeen_i" property="addressFreeEn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="cityen_i" property="cityEn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="street_i" property="street" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="buildingidentifier_i" property="buildingIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="suiteidentifier_i" property="suiteIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="flooridentifier_i" property="floorIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="districtname_i" property="districtName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="pob_i" property="pOB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="postcode_i" property="postCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countrysubentity_i" property="countrySubentity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="addressfreecn_i" property="addressFreeCn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="province_i" property="province" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="citycn_i" property="cityCn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="districtname1_i" property="districtName1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="postcode1_i" property="postCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="phoneno_i" property="phoneNo" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="idtype_i" property="idType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="idnumber_i" property="idNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="rescountrycode_i" property="rescountryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="tin_i" property="tin" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="issuedby_i" property="issuedBy" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="intype_i" property="inType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="rescountrycode1_i" property="rescountryCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="tin1_i" property="tin1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="issuedby1_i" property="issuedBy1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="intype1_i" property="inType1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="explanation_i" property="explanation" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="nationality_i" property="nationAlity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="birthdate_i" property="birthDate" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="city_i" property="city" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countrycode1_i" property="countryCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="formercountryname_i" property="formerCountryName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="errorflag_i" property="errorFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="errorcode_i" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="statistics_dt_i" property="statisticsDt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="validate_flag_i" property="validateFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		</association>
+		<association property="organisationVO" column="accountNumber" javaType="com.yusys.nrt.nrtmessage.web.vo.OrganisationVO">
+			<result column="record_id_o" property="recordId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="statistics_dt_o" property="statisticsDt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="accountNumber_o" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="nameType_o" property="nameType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="organisationNameEN_o" property="organisationNameEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="organisationNameCN_o" property="organisationNameCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="legalAddressType_o" property="legalAddressType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countryCode_o" property="countryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="addressFreeEN_o" property="addressFreeEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="cityEN_o" property="cityEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="street_o" property="street" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="buildingIdentifier_o" property="buildingIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="suiteIdentifier_o" property="suiteIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="floorIdentifier_o" property="floorIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="districtName_o" property="districtName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="addressFreeCN_o" property="addressFreeCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="province_o" property="province" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="cityCN_o" property="cityCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countrySubentity_o" property="countrySubentity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="phoneNo_o" property="phoneNo" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="resCountryCode_o" property="resCountryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="explanation_o" property="explanation" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="pOB_o" property="pOB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="postCode_o" property="postCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="districtName_1_o" property="districtName_1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="postCode_1_o" property="postCode_1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="tIN_o" property="tIN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="inType_o" property="inType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="issuedBy_o" property="issuedBy" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="errorflag_o" property="errorFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="errorcode_o" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="validate_flag_o" property="validateFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		</association>
+		<association property="controllingPersonVO" column="accountNumber" javaType="com.yusys.nrt.nrtmessage.web.vo.ControllingPersonVO">
+			<result column="statistics_dt_c" property="statisticsDt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="accountnumber_c" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="nametype_c" property="nameType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="lastname_c" property="lastName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="middlename_c" property="middleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="firstname_c" property="firstName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="namecn_c" property="nameCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="precedingtitle_c" property="precedingTitle" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="titles_c" property="title" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="nameprefix_c" property="namePrefix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="generationidentifier_c" property="generationIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="suffix_c" property="suffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="generalsuffix_c" property="generalSuffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="ctrlgpersontype_c" property="ctrlgPersonType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="nationality_c" property="nationality" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="legaladdresstype_c" property="legalAddressType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countrycode_c" property="countryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="addressfreeen_c" property="addressFreeEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="cityen_c" property="cityEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="street_c" property="street" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="buildingidentifier_c" property="buildingIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="suiteidentifier_c" property="suiteIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="flooridentifier_c" property="floorIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="districtname_c" property="districtName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="pob_c" property="pOB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="postcode_c" property="postCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countrysubentity_c" property="countrySubentity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="addressfreecn_c" property="addressFreeCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="province_c" property="province" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="citycn_c" property="cityCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="districtname1_c" property="districtName1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="postcode1_c" property="postCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="rescountrycode_c" property="resCountryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="tin_c" property="tIN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="issuedby_c" property="issuedBy" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="intype_c" property="inType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="explanation_c" property="explanation" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="birthdate_c" property="birthDate" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="city_c" property="city" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="countrycode1_c" property="countryCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="formercountryname_c" property="formerCountryName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="record_id_c" property="recordId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="errorflag_c" property="errorFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="errorcode_c" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<result column="validate_flag_c" property="validateFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		</association>
+	</resultMap>
+	
+	<!-- 定义MessageHeader -->
+	<resultMap id="messageHeaderData" type="com.yusys.nrt.nrtmessage.entity.MessageHeader">
+		<result column="reportingid" property="reportingID" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="fiid" property="fIID" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="reportingtype" property="messageRefId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="messagerefid" property="reportingType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="reportingperiod" property="reportingPeriod" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="messagetypeindic" property="messageTypeIndic" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="tmstp" property="tmstp" jdbcType="VARCHAR" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<!-- 定义IndiviDualVO -->
+	<resultMap id="indiviDualVoData" type="com.yusys.nrt.nrtmessage.web.vo.IndiviDualVO">
+		<result column="accountnumber_i" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="record_id_i" property="recordId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="nametype_i" property="nameType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="lastname_i" property="lastName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="middlename_i" property="middleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="firstname_i" property="firstName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="namecn_i" property="nameCn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="precedingtitle_i" property="preceDingTitle" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="titles_i" property="titles" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="nameprefix_i" property="namePrefix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="generationidentifier_i" property="generationIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="suffix_i" property="suffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="generalsuffix_i" property="generalSuffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="gender_i" property="gender" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="legaladdresstype_i" property="legalAddressType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countrycode_i" property="countryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="addressfreeen_i" property="addressFreeEn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="cityen_i" property="cityEn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="street_i" property="street" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="buildingidentifier_i" property="buildingIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="suiteidentifier_i" property="suiteIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="flooridentifier_i" property="floorIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="districtname_i" property="districtName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="pob_i" property="pOB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="postcode_i" property="postCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countrysubentity_i" property="countrySubentity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="addressfreecn_i" property="addressFreeCn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="province_i" property="province" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="citycn_i" property="cityCn" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="districtname1_i" property="districtName1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="postcode1_i" property="postCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="phoneno_i" property="phoneNo" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="idtype_i" property="idType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="idnumber_i" property="idNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="rescountrycode_i" property="rescountryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="tin_i" property="tin" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="issuedby_i" property="issuedBy" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="intype_i" property="inType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="rescountrycode1_i" property="rescountryCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="tin1_i" property="tin1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="issuedby1_i" property="issuedBy1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="intype1_i" property="inType1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="explanation_i" property="explanation" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="nationality_i" property="nationAlity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="birthdate_i" property="birthDate" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="city_i" property="city" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countrycode1_i" property="countryCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="formercountryname_i" property="formerCountryName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorflag_i" property="errorFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorcode_i" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="statistics_dt_i" property="statisticsDt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="validate_flag_i" property="validateFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="duediligenceind_i" property="dueDiligenceInd" jdbcType="VARCHAR" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<!-- 定义OrganisationVO -->
+	<resultMap id="organisationVoData" type="com.yusys.nrt.nrtmessage.web.vo.OrganisationVO">
+		<result column="record_id_o" property="recordId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="statistics_dt_o" property="statisticsDt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="accountNumber_o" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="nameType_o" property="nameType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="organisationNameEN_o" property="organisationNameEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="organisationNameCN_o" property="organisationNameCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="legalAddressType_o" property="legalAddressType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countryCode_o" property="countryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="addressFreeEN_o" property="addressFreeEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="cityEN_o" property="cityEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="street_o" property="street" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="buildingIdentifier_o" property="buildingIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="suiteIdentifier_o" property="suiteIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="floorIdentifier_o" property="floorIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="districtName_o" property="districtName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="addressFreeCN_o" property="addressFreeCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="province_o" property="province" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="cityCN_o" property="cityCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countrySubentity_o" property="countrySubentity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="phoneNo_o" property="phoneNo" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="resCountryCode_o" property="resCountryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="explanation_o" property="explanation" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="pOB_o" property="pOB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="postCode_o" property="postCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="districtName_1_o" property="districtName_1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="postCode_1_o" property="postCode_1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="tIN_o" property="tIN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="inType_o" property="inType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="issuedBy_o" property="issuedBy" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorflag_o" property="errorFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorcode_o" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="validate_flag_o" property="validateFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="duediligenceind_o" property="dueDiligenceInd" jdbcType="VARCHAR" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<!-- 定义ControllingPersonVO -->
+	<resultMap id="controllingPersonVoData" type="com.yusys.nrt.nrtmessage.web.vo.ControllingPersonVO">
+		<result column="statistics_dt_c" property="statisticsDt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="accountnumber_c" property="accountNumber" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="nametype_c" property="nameType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="lastname_c" property="lastName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="middlename_c" property="middleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="firstname_c" property="firstName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="namecn_c" property="nameCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="precedingtitle_c" property="precedingTitle" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="titles_c" property="title" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="nameprefix_c" property="namePrefix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="generationidentifier_c" property="generationIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="suffix_c" property="suffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="generalsuffix_c" property="generalSuffix" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="ctrlgpersontype_c" property="ctrlgPersonType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="nationality_c" property="nationality" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="legaladdresstype_c" property="legalAddressType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countrycode_c" property="countryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="addressfreeen_c" property="addressFreeEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="cityen_c" property="cityEN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="street_c" property="street" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="buildingidentifier_c" property="buildingIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="suiteidentifier_c" property="suiteIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="flooridentifier_c" property="floorIdentifier" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="districtname_c" property="districtName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="pob_c" property="pOB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="postcode_c" property="postCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countrysubentity_c" property="countrySubentity" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="addressfreecn_c" property="addressFreeCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="province_c" property="province" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="citycn_c" property="cityCN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="districtname1_c" property="districtName1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="postcode1_c" property="postCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="rescountrycode_c" property="resCountryCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="tin_c" property="tIN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="issuedby_c" property="issuedBy" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="intype_c" property="inType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="explanation_c" property="explanation" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="birthdate_c" property="birthDate" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="city_c" property="city" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="countrycode1_c" property="countryCode1" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="formercountryname_c" property="formerCountryName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="record_id_c" property="recordId" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorflag_c" property="errorFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="errorcode_c" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="validate_flag_c" property="validateFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="duediligenceind_c" property="dueDiligenceInd" jdbcType="VARCHAR" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<!--  2019-11-4 19:43:24 sys 个人账户的 统计  -->
+	<select id="getSummitInfo" resultType="com.yusys.biapp.frs.personal.vo.PersonalStatistic" parameterType="hashMap">
+		<if test='isDownload != null and isDownload == "Y"'>
+			select * from (
+		</if>
+		SELECT openCombankOrgId, datadate, openFcomm, openFcard
+				, openFcomm + openFcard AS openFall, openScomm, openScard
+				, openScomm + openScard AS openSall, openTcomm, closeFcomm
+				, closeFcard, closeFcomm + closeFcard AS closeFall, closeScomm, closeScard
+				, closeScomm + closeScard AS closeSall, closeTcomm, rownum AS rn
+		FROM (
+			SELECT tt.STATISTICS_DT AS datadate, tt.orgno AS openCombankOrgId, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '01' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '01' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '02' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS openFcomm
+				, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '01' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '01' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '01' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS openFcard, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '01' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '02' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '02' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS openScomm
+				, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '01' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '02' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '01' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS openScard, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '01' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '03' THEN 1
+							ELSE 0
+						END
+					ELSE 0
+				END) AS openTcomm
+				, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '03' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '01' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '02' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS closeFcomm, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '03' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '01' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '01' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS closeFcard
+				, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '03' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '02' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '02' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS closeScomm, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '03' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '02' THEN 
+								CASE 
+									WHEN tt.SOCIETY_SECURITY_CARD = '01' THEN 1
+									ELSE 0
+								END
+							ELSE 0
+						END
+					ELSE 0
+				END) AS closeScard
+				, SUM(CASE 
+					WHEN tt.INFO_TYPE_CD = '03' THEN 
+						CASE 
+							WHEN tt.bank_acct_type_cd = '03' THEN 1
+							ELSE 0
+						END
+					ELSE 0
+				END) AS closeTcomm
+			FROM acb_indiv_bank_acct_all tt
+			GROUP BY (orgno, STATISTICS_DT)
+		) su
+		WHERE 1 = 1
+		<if test='isDownload != null and isDownload == "Y"'>
+			) where rn&lt;=10000
+		</if>
+	</select>
+	
+	<!-- 个人账户 统计导出 -->
+	
+	<select id="queryTaskIns"
+		resultType="com.yusys.nrt.nrtmessage.web.vo.PersonalStatisticVO">
+		  select  openCombankOrgId,datadate,
+       
+        openFcomm,openFcard ,(openFcomm+openFcard) as openFall,
+        openScomm,openScard ,(openScomm+openScard) as openSall,
+        openTcomm , 
+        
+        closeFcomm,closeFcard ,(closeFcomm+closeFcard) as closeFall,
+        closeScomm,closeScard ,(closeScomm+closeScard) as closeSall,
+        closeTcomm   ,
+    rownum as rn
+         from (
+select
+   tt.STATISTICS_DT as datadate,
+   tt.orgno AS openCombankOrgId,
+ 
+   sum(case 
+        when tt.INFO_TYPE_CD='01' then 
+          case 
+            when tt.bank_acct_type_cd='01' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='02'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as openFcomm ,  -- 开户I类户普通 
+   sum(case 
+        when tt.INFO_TYPE_CD='01' then 
+          case 
+            when tt.bank_acct_type_cd='01' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='01'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as openFcard  ,-- 开户I类户社保卡  
+     
+    sum(case 
+        when tt.INFO_TYPE_CD='01' then 
+          case 
+            when tt.bank_acct_type_cd='02' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='02'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as openScomm ,-- 开户II类户普通 
+   sum(case 
+        when tt.INFO_TYPE_CD='01' then 
+          case 
+            when tt.bank_acct_type_cd='02' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='01'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as openScard ,-- 开户II类户社保卡
+     
+    sum(case 
+        when tt.INFO_TYPE_CD='01' then 
+          case 
+            when tt.bank_acct_type_cd='03' then 
+              1
+            else 0
+          end    
+        else 0 
+   end ) as openTcomm ,-- 开户III类户普通
+   
+   
+   sum(case 
+        when tt.INFO_TYPE_CD='03' then 
+          case 
+            when tt.bank_acct_type_cd='01' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='02'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as closeFcomm ,
+   sum(case 
+        when tt.INFO_TYPE_CD='03' then 
+          case 
+            when tt.bank_acct_type_cd='01' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='01'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as closeFcard  ,
+      
+    sum(case 
+        when tt.INFO_TYPE_CD='03' then 
+          case 
+            when tt.bank_acct_type_cd='02' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='02'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as closeScomm ,
+   sum(case 
+        when tt.INFO_TYPE_CD='03' then 
+          case 
+            when tt.bank_acct_type_cd='02' then 
+              case 
+                when tt.SOCIETY_SECURITY_CARD='01'  then 1
+                else 0
+              end 
+            else 0
+          end    
+        else 0 
+   end ) as closeScard ,
+     
+    sum(case 
+        when tt.INFO_TYPE_CD='03' then 
+          case 
+            when tt.bank_acct_type_cd='03' then 
+              1
+            else 0
+          end    
+        else 0 
+   end ) as closeTcomm   
+ from acb_indiv_bank_acct_all tt group by (orgno,  STATISTICS_DT)  )   su  where
+		1=1
+		 
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if> 
+	</select>
+	
+	<!--  个人账户根据多个条件 查询） -->
+	<select id="getPersonAccountVOByParams" parameterType="java.util.HashMap" resultType="com.yusys.nrt.nrtmessage.web.vo.PersonAccountVO">
+	  select   
+		STATISTICS_DT	              as   statisticsDt	              ,       
+		DEPOSIT_NAME	              as   depositName	              ,
+		DEPOSIT_IDENTITY_TYPE_CD	  as   depositIdentityTypeCd	  ,
+		DEPOSIT_IDENTITY_NUM	      as   depositIdentityNum	      ,
+		IDENTITY_DUE_DT	              as   identityDueDt	          ,    
+		ISSUE_ORG_AREA_CD	          as   issueOrgAreaCd	          ,
+		DEPOSIT_CLASS_CD	          as   depositClassCd	          ,
+		DEPOSIT_COUNTRY_CD	          as   depositCountryCd	      ,    
+		DEPOSIT_SEX_CD	              as   depositSexCd	          ,    
+		DEPOSIT_POST_CD	              as   depositPostCd	          ,    
+		DEPOSIT_ADDR	              as   depositAddr	              ,
+		DEPOSIT_TEL	                  as   depositTel	              ,    
+		AGENT_NAME	                  as   agentName	              ,    
+		AGENT_IDENTITY_TYPE_CD	      as   agentIdentityTypeCd	  ,    
+		AGENT_IDENTITY_NUM	          as   agentIdentityNum	      ,    
+		AGENT_COUNTRY_CD	          as   agentCountryCd	          ,
+		AGENT_TEL	                  as   agentTel	              ,    
+		OPEN_BANK_FIN_ORG_CD	      as   openBankFinOrgCd	      ,
+		BANK_ACCT_NUM	              as   bankAcctNum	          ,    
+		BANK_ACCT_KIND_CD	          as   bankAcctKindCd	      ,    
+		CARD_CD	                      as   cardCd	                  ,    
+		CARD_DUE_DT	                  as   cardDueDt	              ,    
+		BANK_ACCT_MEDIA	              as   bankAcctMedia	          ,    
+		EXPIRE_CARD_DT	              as   expireCardDt	          ,    
+		CARD_STAT_CD	              as   cardStatCd	              ,
+		BANK_ACCT_TYPE_CD	          as   bankAcctTypeCd	      ,    
+		BINDING_I_ACCT_NUM	          as   bindingiAcctNum	      ,    
+		BINDING_I_FIN_ORG_CD	      as   bindingiFinOrgCd	      ,
+		OPEN_DT	                      as   openDt	                  ,    
+		EXPIRE_DT	                  as   expireDt	              ,    
+		ACCT_STAT_CD	              as   acctStatCd	              ,
+		CURRENCY_CD	                  as   currencyCd	              ,    
+		ARMY_SECURITY_CARD	          as   armySecurityCard	      ,    
+		SOCIETY_SECURITY_CARD	      as   societySecurityCard	  ,    
+		AUDIT_RESULT_CD	              as   auditResultCd	          ,    
+		NO_AUDIT_RESULT_DESC	      as   noAuditResultDesc	      ,
+		DISPOSE_MODE	              as   disposeMode	              ,
+		INFO_TYPE_CD	              as   infoTypeCd	              ,
+		OPEN_CHANNAL_CD	              as   openChannalCd	          ,    
+		REMARK	                      as   remark	                  ,    
+		COLUMN4	                      as   column4	                  ,    
+		COLUMN5	                      as   column5	                  ,    
+		JOINTACCOUNT	              as   jointAccount	              ,
+		ORGNO	                      as   orgNo	                  ,    
+		INPUTER	                      as   inputer	                  ,    
+		REVIEWER	                  as   reviewer	                  ,
+		ASSESSOR	                  as   assessor	                  ,
+		VALIDATE_FLAG	              as   validateFlag	          ,    
+		AUDITSTATUS	                  as   auditStatus	              ,    
+		OPEN_UNTRADE_CHANNAL	      as   openUntradeChannal	      ,
+		OPEN_AREA_CODE	              as   openAreaCode	          ,     
+		REBACK_FLAG	                  as   reBackFlag
+				 
+			from ACB_INDIV_BANK_ACCT_ALL   
+		    where 1=1 
+		    
+		    <if test="acctNum != null and acctNum !='' ">
+				and  BANK_ACCT_NUM = #{acctNum}
+			</if>
+		    <if test="infoType != null and infoType !='' ">
+				and  INFO_TYPE_CD = #{infoType}
+			</if>
+		    
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 新增非居民账户基本信息 -->
+	<insert id="insertAccountReport" parameterType="com.yusys.nrt.nrtmessage.entity.AccountReport">
+		insert into NRT_ACCOUNTREPORT (STATISTICS_DT, REPORTINGID, FIID, REPORTINGTYPE, MESSAGEREFID, 
+									   REPORTINGPERIOD, MESSAGETYPEINDIC, TMSTP, DOCREFID, CORRDOCREFID, 
+									   DOCTYPEINDIC, ACCOUNTNUMBER, CLOSEDACCOUNT, DUEDILIGENCEIND, 
+									   SELFCERTIFICATION, CURRCODE, ACCOUNTBALANCE, ACCOUNTHOLDERTYPE, 
+									   OPENINGFINAME, PAYMENTTYPE, CURRCODE_S, PAYMENTAMNT, RECORD_ID, 
+									   ERRORFLAG, ERRORCODE, VALIDATE_FLAG, ORGNO, INPUTER, REVIEWER, 
+									   ASSESSOR, AUDITSTATUS, REMARK)
+		values (#{statisticsDt}, #{reportingId}, #{fiId}, #{reportingType}, #{messageRefId}, 
+				#{reportingPeriod}, #{messageTypeIndic}, #{tmstp}, #{docRefId}, #{corrDocRefId}, 
+				#{docTypeIndic}, #{accountNumber}, #{closedAccount}, #{dueDiligenceInd }, 
+				#{selfCertification}, #{currCode}, #{accountBalance}, #{accountHolderType}, 
+				#{openingFIName}, #{paymentType}, #{currCodes}, #{paymentAmnt}, #{recordId}, 
+				#{errorFlag}, #{errorCode}, #{validateFlag}, #{orgNo}, #{inputer}, #{reviewer}, 
+				#{assessor}, #{auditStatus}, #{remark})
+		
+	</insert>
+	
+	<!-- 新增非居民账户持有人对私信息 -->
+	<insert id="insertIndiviDual" parameterType="com.yusys.nrt.nrtmessage.entity.IndiviDual">
+		insert into NRT_INDIVIDUAL (STATISTICS_DT, ACCOUNTNUMBER, NAMETYPE, LASTNAME, MIDDLENAME, 
+									FIRSTNAME, NAMECN, PRECEDINGTITLE, TITLES, NAMEPREFIX, GENERATIONIDENTIFIER, 
+									SUFFIX, GENERALSUFFIX, GENDER, LEGALADDRESSTYPE, COUNTRYCODE, ADDRESSFREEEN, 
+									CITYEN, STREET, BUILDINGIDENTIFIER, SUITEIDENTIFIER, FLOORIDENTIFIER, DISTRICTNAME, 
+									POB, POSTCODE, COUNTRYSUBENTITY, ADDRESSFREECN, PROVINCE, CITYCN, DISTRICTNAME1, 
+									POSTCODE1, PHONENO, IDTYPE, IDNUMBER, RESCOUNTRYCODE, TIN, ISSUEDBY, INTYPE, 
+									RESCOUNTRYCODE1, TIN1, ISSUEDBY1, INTYPE1, EXPLANATION, NATIONALITY, BIRTHDATE, 
+									CITY, COUNTRYCODE1, FORMERCOUNTRYNAME, RECORD_ID, ERRORFLAG, ERRORCODE, VALIDATE_FLAG)
+		values(#{statisticsDt}, #{accountNumber}, #{nameType}, #{lastName}, #{middleName}, 
+				#{firstName}, #{nameCn}, #{preceDingTitle}, #{titles}, #{namePreFix}, #{generationIdentifier}, 
+				#{suffix}, #{generalSuffix}, #{gender}, #{legalAddressType}, #{countryCode}, #{addressFreeEn}, 
+				#{cityEn}, #{street}, #{buildingIdentifier}, #{suiteIdentifier}, #{floorIdentifier}, #{districtName}, 
+				#{pOB}, #{postCode}, #{countrySubentity}, #{addressFreeCn}, #{province}, #{cityCn}, #{districtName1}, 
+				#{postCode1}, #{phoneNo}, #{idType}, #{idNumber}, #{rescountryCode}, #{tin}, #{issuedBy}, #{inType}, 
+				#{rescountryCode1}, #{tin1}, #{issuedBy1}, #{inType1}, #{explanation}, #{nationAlity}, #{birthDate}, 
+				#{city}, #{countryCode1}, #{formerCountryName}, #{recordId}, #{errorFlag}, #{errorCode}, #{validateFlag})
+	</insert>
+	
+	<!-- 新增非居民账户持有人对公信息 -->
+	<insert id="insertOrganisation" parameterType="com.yusys.nrt.nrtmessage.entity.Organisation">
+		insert into NRT_ORGANISATION (STATISTICS_DT, ACCOUNTNUMBER, NAMETYPE, ORGANISATIONNAMEEN, ORGANISATIONNAMECN, 
+									LEGALADDRESSTYPE, COUNTRYCODE, ADDRESSFREEEN, CITYEN, STREET, BUILDINGIDENTIFIER, 
+									SUITEIDENTIFIER, FLOORIDENTIFIER, DISTRICTNAME, POB, POSTCODE, COUNTRYSUBENTITY, 
+									ADDRESSFREECN, PROVINCE, CITYCN, DISTRICTNAME1, POSTCODE1, PHONENO, RESCOUNTRYCODE, 
+									TIN, ISSUEDBY, INTYPE, EXPLANATION, RECORD_ID, ERRORFLAG, ERRORCODE, VALIDATE_FLAG)
+		values(#{statisticsDt}, #{accountNumber}, #{nameType}, #{organisationNameEN}, #{organisationNameCN}, 
+				#{legalAddressType}, #{countryCode}, #{addressFreeEN}, #{cityEN}, #{street}, #{buildingIdentifier}, 
+				#{suiteIdentifier}, #{floorIdentifier}, #{districtName}, #{pOB}, #{postCode}, #{countrySubentity}, 
+				#{addressFreeCN}, #{province}, #{cityCN}, #{districtName_1}, #{postCode_1}, #{phoneNo}, #{resCountryCode}, 
+				#{tIN}, #{issuedBy}, #{inType}, #{explanation}, #{recordId}, #{errorFlag}, #{errorCode}, #{validateFlag})
+	</insert>
+	
+	<!-- 新增非居民控制人信息 -->
+	<insert id="insertControllingPerson" parameterType="com.yusys.nrt.nrtmessage.entity.ControllingPerson">
+		insert into NRT_CONTROLLINGPERSON (STATISTICS_DT, ACCOUNTNUMBER, NAMETYPE, LASTNAME, MIDDLENAME, FIRSTNAME, NAMECN, 
+							PRECEDINGTITLE, TITLES, NAMEPREFIX, GENERATIONIDENTIFIER, SUFFIX, GENERALSUFFIX, CTRLGPERSONTYPE, 
+							NATIONALITY, LEGALADDRESSTYPE, COUNTRYCODE, ADDRESSFREEEN, CITYEN, STREET, BUILDINGIDENTIFIER, 
+							SUITEIDENTIFIER, FLOORIDENTIFIER, DISTRICTNAME, POB, POSTCODE, COUNTRYSUBENTITY, ADDRESSFREECN, 
+							PROVINCE, CITYCN, DISTRICTNAME1, POSTCODE1, RESCOUNTRYCODE, TIN, ISSUEDBY, INTYPE, EXPLANATION, 
+							BIRTHDATE, CITY, COUNTRYCODE1, FORMERCOUNTRYNAME, RECORD_ID, ERRORFLAG, ERRORCODE, VALIDATE_FLAG)
+		values(#{statisticsDt}, #{accountNumber}, #{nameType}, #{lastName}, #{middleName}, #{firstName}, #{nameCN}, 
+			 #{precedingTitle}, #{title}, #{namePrefix}, #{generationIdentifier}, #{suffix}, #{generalSuffix}, #{ctrlgPersonType}, 
+			 #{nationality}, #{legalAddressType}, #{countryCode}, #{addressFreeEN}, #{cityEN}, #{street}, #{buildingIdentifier},
+			  #{suiteIdentifier}, #{floorIdentifier}, #{districtName}, #{pOB}, #{postCode}, #{countrySubentity}, #{addressFreeCN}, 
+			  #{province}, #{cityCN}, #{districtName1}, #{postCode1}, #{resCountryCode}, #{tIN}, #{issuedBy}, #{inType}, #{explanation}, 
+			  #{birthDate}, #{city}, #{countryCode1}, #{formerCountryName}, #{recordId}, #{errorCode}, #{errorFlag}, #{validateFlag})
+	</insert>
+		
+	<!-- 更新系统参数表中获取非居民相关参数 -->
+	<update id="updateNrtParamOfBioneParamInfo" parameterType="java.util.HashMap">
+		update bione_param_info
+		set param_value = #{paramValue}
+		where PARAM_TYPE_NO = #{paramTypeNo} 
+		and PARAM_NAME = #{paramName}
+	</update>
+	
+	<!-- 修改账户基本信息校验状态 -->
+	<update id="updateAccountReport" parameterType="com.yusys.nrt.nrtmessage.entity.AccountReport">
+		update NRT_ACCOUNTREPORT set
+				STATISTICS_DT = #{statisticsDt},
+				REPORTINGID = #{reportingId},
+				FIID = #{fiId},
+				REPORTINGTYPE = #{reportingType},
+				MESSAGEREFID = #{messageRefId},
+				REPORTINGPERIOD = #{reportingPeriod},
+				MESSAGETYPEINDIC = #{messageTypeIndic},
+				TMSTP = #{tmstp},
+				DOCREFID = #{docRefId},
+				CORRDOCREFID = #{corrDocRefId},
+				DOCTYPEINDIC = #{docTypeIndic},
+				ACCOUNTNUMBER = #{accountNumber},
+				CLOSEDACCOUNT = #{closedAccount},
+				DUEDILIGENCEIND = #{dueDiligenceInd },
+				SELFCERTIFICATION = #{selfCertification},
+				CURRCODE = #{currCode},
+				ACCOUNTBALANCE = #{accountBalance},
+				ACCOUNTHOLDERTYPE = #{accountHolderType},
+				OPENINGFINAME = #{openingFIName},
+				PAYMENTTYPE = #{paymentType},
+				CURRCODE_S = #{currCodes},
+				PAYMENTAMNT = #{paymentAmnt},
+				ERRORFLAG = #{errorFlag},
+				ERRORCODE = #{errorCode},
+				VALIDATE_FLAG = #{validateFlag},
+				ORGNO = #{orgNo},
+				INPUTER = #{inputer},
+				REVIEWER = #{reviewer},
+				ASSESSOR = #{assessor},
+				AUDITSTATUS = #{auditStatus},
+				REMARK = #{remark}
+				
+		where RECORD_ID = #{recordId}
+	</update>
+	
+	<!-- 修改个人账户信息校验状态 -->
+	<update id="updatePersonAccount" parameterType="com.yusys.nrt.nrtmessage.entity.PersonAccount">
+		UPDATE ACB_INDIV_BANK_ACCT_ALL 
+		set VALIDATE_FLAG = #{validateFlag},
+			AUDITSTATUS = #{auditStatus}
+		WHERE  STATISTICS_DT  = #{statisticsDt}
+		AND BANK_ACCT_NUM = #{bankAcctNum}
+	</update>
+	
+	 
+ 	
+	
+	
+	<!-- 修改个人账户信息 -->
+<!-- 	<update id="updatePersonAccountByParams" parameterType="java.util.HashMap">
+		UPDATE ACB_INDIV_BANK_ACCT_ALL 
+		set validate_flag = #{validateFlag}
+		WHERE	RECORD_ID = #{recordId}
+	</update> -->
+	
+	<!-- 修改账户持有人对私校验状态 -->
+	<update id="updateIndiviDualVo" parameterType="com.yusys.nrt.nrtmessage.web.vo.IndiviDualVO">
+		update NRT_INDIVIDUAL 
+		set STATISTICS_DT = #{statisticsDt},
+			ACCOUNTNUMBER = #{accountNumber},
+			NAMETYPE = #{nameType},
+			LASTNAME = #{lastName},
+			MIDDLENAME = #{middleName},
+			FIRSTNAME = #{firstName},
+			NAMECN = #{nameCn},
+			PRECEDINGTITLE = #{preceDingTitle},
+			TITLES = #{titles},
+			NAMEPREFIX = #{namePreFix},
+			GENERATIONIDENTIFIER = #{generationIdentifier},
+			SUFFIX = #{suffix},
+			GENERALSUFFIX = #{generalSuffix},
+			GENDER = #{gender},
+			LEGALADDRESSTYPE = #{legalAddressType},
+			COUNTRYCODE = #{countryCode},
+			ADDRESSFREEEN = #{addressFreeEn},
+			CITYEN = #{cityEn},
+			STREET = #{street},
+			BUILDINGIDENTIFIER = #{buildingIdentifier},
+			SUITEIDENTIFIER = #{suiteIdentifier},
+			FLOORIDENTIFIER = #{floorIdentifier},
+			DISTRICTNAME = #{districtName},
+			POB = #{pOB},
+			POSTCODE = #{postCode},
+			COUNTRYSUBENTITY = #{countrySubentity},
+			ADDRESSFREECN = #{addressFreeCn},
+			PROVINCE = #{province},
+			CITYCN = #{cityCn},
+			DISTRICTNAME1 = #{districtName1},
+			POSTCODE1 = #{postCode1},
+			PHONENO = #{phoneNo},
+			IDTYPE = #{idType},
+			IDNUMBER = #{idNumber},
+			RESCOUNTRYCODE = #{rescountryCode},
+			TIN = #{tin},
+			ISSUEDBY = #{issuedBy},
+			INTYPE = #{inType},
+			RESCOUNTRYCODE1 = #{rescountryCode1},
+			TIN1 = #{tin1},
+			ISSUEDBY1 = #{issuedBy1},
+			INTYPE1 = #{inType1},
+			EXPLANATION = #{explanation},
+			NATIONALITY = #{nationAlity},
+			BIRTHDATE = #{birthDate},
+			CITY = #{city},
+			COUNTRYCODE1 = #{countryCode1},
+			FORMERCOUNTRYNAME = #{formerCountryName},
+			ERRORFLAG = #{errorFlag},
+			ERRORCODE = #{errorCode},
+			VALIDATE_FLAG = #{validateFlag}
+			
+		where RECORD_ID = #{recordId}
+	</update>
+	
+	<!-- 修改账户持有人对公校验状态 -->
+	<update id="updateOrganisationVo" parameterType="com.yusys.nrt.nrtmessage.web.vo.OrganisationVO">
+		update NRT_ORGANISATION 
+		set STATISTICS_DT = #{statisticsDt},
+			ACCOUNTNUMBER = #{accountNumber},
+			NAMETYPE = #{nameType},
+			ORGANISATIONNAMEEN = #{organisationNameEN},
+			ORGANISATIONNAMECN = #{organisationNameCN},
+			LEGALADDRESSTYPE = #{legalAddressType},
+			COUNTRYCODE = #{countryCode},
+			ADDRESSFREEEN = #{addressFreeEN},
+			CITYEN = #{cityEN},
+			STREET = #{street},
+			BUILDINGIDENTIFIER = #{buildingIdentifier},
+			SUITEIDENTIFIER = #{suiteIdentifier},
+			FLOORIDENTIFIER = #{floorIdentifier},
+			DISTRICTNAME = #{districtName},
+			POB = #{pOB},
+			POSTCODE = #{postCode},
+			COUNTRYSUBENTITY = #{countrySubentity},
+			ADDRESSFREECN = #{addressFreeCN},
+			PROVINCE = #{province},
+			CITYCN = #{cityCN},
+			DISTRICTNAME1 = #{districtName_1},
+			POSTCODE1 = #{postCode_1},
+			PHONENO = #{phoneNo},
+			RESCOUNTRYCODE = #{resCountryCode},
+			TIN = #{tIN},
+			ISSUEDBY = #{issuedBy},
+			INTYPE = #{inType},
+			EXPLANATION = #{explanation},
+			ERRORFLAG = #{errorFlag},
+			ERRORCODE = #{errorCode},
+			VALIDATE_FLAG = #{validateFlag}
+			
+		where RECORD_ID = #{recordId}
+	</update>
+	
+	<!-- 修改账户控制人信息校验状态 -->
+	<update id="updateControllingPersonVo" parameterType="com.yusys.nrt.nrtmessage.web.vo.ControllingPersonVO">
+		update NRT_CONTROLLINGPERSON 
+		set STATISTICS_DT = #{statisticsDt},
+				ACCOUNTNUMBER = #{accountNumber},
+				NAMETYPE = #{nameType},
+				LASTNAME = #{lastName},
+				MIDDLENAME = #{middleName},
+				FIRSTNAME = #{firstName},
+				NAMECN = #{nameCN},
+				PRECEDINGTITLE = #{precedingTitle},
+				TITLES = #{title},
+				NAMEPREFIX = #{namePrefix},
+				GENERATIONIDENTIFIER = #{generationIdentifier},
+				SUFFIX = #{suffix},
+				GENERALSUFFIX = #{generalSuffix},
+				CTRLGPERSONTYPE = #{ctrlgPersonType},
+				NATIONALITY = #{nationality},
+				LEGALADDRESSTYPE = #{legalAddressType},
+				COUNTRYCODE = #{countryCode},
+				ADDRESSFREEEN = #{addressFreeEN},
+				CITYEN = #{cityEN},
+				STREET = #{street},
+				BUILDINGIDENTIFIER = #{buildingIdentifier},
+				SUITEIDENTIFIER = #{suiteIdentifier},
+				FLOORIDENTIFIER = #{floorIdentifier},
+				DISTRICTNAME = #{districtName},
+				POB = #{pOB},
+				POSTCODE = #{postCode},
+				COUNTRYSUBENTITY = #{countrySubentity},
+				ADDRESSFREECN = #{addressFreeCN},
+				PROVINCE = #{province},
+				CITYCN = #{cityCN},
+				DISTRICTNAME1 = #{districtName1},
+				POSTCODE1 = #{postCode1},
+				RESCOUNTRYCODE = #{resCountryCode},
+				TIN = #{tIN},
+				ISSUEDBY = #{issuedBy},
+				INTYPE = #{inType},
+				EXPLANATION = #{explanation},
+				BIRTHDATE = #{birthDate},
+				CITY = #{city},
+				COUNTRYCODE1 = #{countryCode1},
+				FORMERCOUNTRYNAME = #{formerCountryName},
+				ERRORFLAG = #{errorCode},
+				ERRORCODE = #{errorFlag},
+				VALIDATE_FLAG = #{validateFlag}
+				
+		where  RECORD_ID = #{recordId}
+
+	</update>
+	
+	<!-- 批量查询非居民报送查询数据（包含账户基本信息、对私信息、对公信息、控制信息） -->
+	<select id="getAccountReportPLData" parameterType="java.util.HashMap" resultMap="accountReportVOMapper" resultType="java.util.List">
+		select rm , report.* from (
+			select base.statistics_dt,
+					base.reportingid,
+					base.fiid,
+					base.reportingtype,
+					base.messagerefid,
+					base.reportingperiod,
+					base.messagetypeindic,
+					base.tmstp,
+					base.docrefid,
+					base.corrdocrefid,
+					base.doctypeindic,
+					base.accountnumber,
+					base.closedaccount,
+					base.duediligenceind,
+					base.selfcertification,
+					base.currcode,
+					decode(base.accountbalance, null,'',to_char(base.accountbalance,'fm999999990.00')) accountbalance,
+					base.accountholdertype,
+					base.openingfiname,
+					base.paymenttype,
+					base.currcode_s,
+					decode(base.paymentamnt, null,'',to_char(base.paymentamnt,'fm999999990.00')) paymentamnt,
+					base.record_id,
+					base.errorflag,
+					base.errorcode,
+					base.validate_flag,
+					base.orgno,   
+					base.inputer,
+					base.reviewer,
+					base.assessor,
+					base.auditstatus,
+					base.remark,
+					
+					ind.statistics_dt	as	statistics_dt_i,
+					ind.accountnumber    as	accountnumber_i,
+					ind.nametype    as	nametype_i,
+					ind.lastname    as	lastname_i,
+					ind.middlename    as	middlename_i,
+					ind.firstname    as	firstname_i,
+					ind.namecn    as	namecn_i,
+					ind.precedingtitle    as	precedingtitle_i,
+					ind.titles  as	titles_i,
+					ind.nameprefix	as	nameprefix_i,
+					ind.generationidentifier    as	generationidentifier_i,
+					ind.suffix    as	suffix_i,
+					ind.generalsuffix    as	generalsuffix_i,
+					ind.gender    as	gender_i,
+					ind.legaladdresstype  as	legaladdresstype_i,
+					ind.countrycode  as	countrycode_i,
+					ind.addressfreeen    as	addressfreeen_i,
+					ind.cityen    as	cityen_i,
+					ind.street    as	street_i,
+					ind.buildingidentifier  as	buildingidentifier_i,
+					ind.suiteidentifier    as	suiteidentifier_i,
+					ind.flooridentifier    as	flooridentifier_i,
+					ind.districtname    as	districtname_i,
+					ind.pob  as	pob_i,
+					ind.postcode  as	postcode_i,
+					ind.countrysubentity  as	countrysubentity_i,
+					ind.addressfreecn    as	addressfreecn_i,
+					ind.province  as	province_i,
+					ind.citycn    as	citycn_i,
+					ind.districtname1    as	districtname1_i,
+					ind.postcode1  as	postcode1_i,
+					ind.phoneno    as	phoneno_i,
+					ind.idtype    as	idtype_i,
+					ind.idnumber  as	idnumber_i,
+					ind.rescountrycode    as	rescountrycode_i,
+					ind.tin  as	tin_i,
+					ind.issuedby  as	issuedby_i,
+					ind.intype    as	intype_i,
+					ind.rescountrycode1    as	rescountrycode1_i,
+					ind.tin1    as	tin1_i,
+					ind.issuedby1  as	issuedby1_i,
+					ind.intype1    as	intype1_i,
+					ind.explanation  as	explanation_i,
+					ind.nationality  as	nationality_i,
+					ind.birthdate  as	birthdate_i,
+					ind.city    as	city_i,
+					ind.countrycode1    as	countrycode1_i,
+					ind.formercountryname  as	formercountryname_i,
+					ind.record_id  as	record_id_i,
+					ind.errorflag  as	errorflag_i,
+					ind.errorcode  as	errorcode_i,
+					ind.validate_flag    as	validate_flag_i,
+					
+					org.statistics_dt	as	statistics_dt_o,
+					org.accountnumber  as	accountnumber_o,
+					org.nametype  as	nametype_o,
+					org.organisationnameen  as	organisationnameen_o,
+					org.organisationnamecn  as	organisationnamecn_o,
+					org.legaladdresstype    as	legaladdresstype_o,
+					org.countrycode    as	countrycode_o,
+					org.addressfreeen  as	addressfreeen_o,
+					org.cityen    as	cityen_o,
+					org.street    as	street_o,
+					org.buildingidentifier  as	buildingidentifier_o,
+					org.suiteidentifier	as	suiteidentifier_o,
+					org.flooridentifier	as	flooridentifier_o,
+					org.districtname   as	districtname_o,
+					org.pob  as	pob_o,
+					org.postcode  as	postcode_o,
+					org.countrysubentity    as	countrysubentity_o,
+					org.addressfreecn  as	addressfreecn_o,
+					org.province  as	province_o,
+					org.citycn    as	citycn_o,
+					org.districtname1  as	districtname1_o,
+					org.postcode1 as	postcode1_o,
+					org.phoneno   as	phoneno_o,
+					org.rescountrycode as	rescountrycode_o,
+					org.tin  as	tin_o,
+					org.issuedby  as	issuedby_o,
+					org.intype    as	intype_o,
+					org.explanation    as	explanation_o,
+					org.record_id as	record_id_o,
+					org.errorflag as	errorflag_o,
+					org.errorcode as	errorcode_o,
+					org.validate_flag  as	validate_flag_o,
+					
+					control.statistics_dt as statistics_dt_c,
+					control.accountnumber as accountnumber_c,
+					control.nametype as nametype_c,
+					control.lastname as lastname_c,
+					control.middlename    as middlename_c,
+					control.firstname     as firstname_c,
+					control.namecn   as namecn_c,
+					control.precedingtitle     as precedingtitle_c,
+					control.titles   as titles_c,
+					control.nameprefix    as nameprefix_c,
+					control.generationidentifier    as generationidentifier_c,
+					control.suffix   as suffix_c,
+					control.generalsuffix as generalsuffix_c,
+					control.ctrlgpersontype    as ctrlgpersontype_c,
+					control.nationality   as nationality_c,
+					control.legaladdresstype   as legaladdresstype_c,
+					control.countrycode   as countrycode_c,
+					control.addressfreeen as addressfreeen_c,
+					control.cityen   as cityen_c,
+					control.street   as street_c,
+					control.buildingidentifier as buildingidentifier_c,
+					control.suiteidentifier    as suiteidentifier_c,
+					control.flooridentifier    as flooridentifier_c,
+					control.districtname  as districtname_c,
+					control.pob      as pob_c,
+					control.postcode as postcode_c,
+					control.countrysubentity   as countrysubentity_c,
+					control.addressfreecn as addressfreecn_c,
+					control.province as province_c,
+					control.citycn   as citycn_c,
+					control.districtname1 as districtname1_c,
+					control.postcode1     as postcode1_c,
+					control.rescountrycode     as rescountrycode_c,
+					control.tin      as tin_c,
+					control.issuedby as issuedby_c,
+					control.intype   as intype_c,
+					control.explanation   as explanation_c,
+					control.birthdate     as birthdate_c,
+					control.city     as city_c,
+					control.countrycode1  as countrycode1_c,
+					control.formercountryname  as formercountryname_c,
+					control.record_id   as record_id_c,
+					control.errorflag   as errorflag_c,
+					control.errorcode   as errorcode_c,
+					control.validate_flag   as validate_flag_c,
+					rownum 	as rm
+			from NRT_ACCOUNTREPORT base
+			left join NRT_INDIVIDUAL ind on base.accountnumber = ind.accountnumber
+		      			and base.statistics_dt = ind.statistics_dt
+		      			and ind.validate_flag = '2'
+		      			<!-- 国籍（地区）代码，其中ANT、XKD、XLE、ZZZ不得上报 -->
+		      			and ind.rescountrycode not in ('ANT','XKD','XLE','ZZZ')
+			left join NRT_ORGANISATION org on base.accountnumber = org.accountnumber
+		      			and base.statistics_dt = org.statistics_dt
+		      			and org.validate_flag = '2'
+		      			<!-- 国籍（地区）代码，其中ANT、XKD、XLE、ZZZ不得上报 -->
+		      			and org.rescountrycode not in ('ANT','XKD','XLE','ZZZ')		      			
+			left join NRT_CONTROLLINGPERSON control on base.accountnumber = control.accountnumber
+		      			and base.statistics_dt = control.statistics_dt
+		      			and control.validate_flag = '2'
+		      			<!-- 国籍（地区）代码，其中ANT、XKD、XLE、ZZZ不得上报 -->
+		      			and control.rescountrycode not in ('ANT','XKD','XLE','ZZZ')
+		    where 1=1 
+		    
+		    <!-- 日期时间 -->
+		    <if test="statisticsDtBegin != null and statisticsDtBegin != '' and statisticsDtEnd != null and statisticsDtEnd != '' ">
+		    	and base.statistics_dt between #{statisticsDtBegin} and #{statisticsDtEnd}
+		    </if>
+		    <!-- 校验状态 2-校验通过 -->
+		    <if test="validateFlag != null and validateFlag != ''">
+		    	and base.validate_flag = #{validateFlag}
+		    </if>
+		    <if test="validateFlag == null or validateFlag == ''">
+		    	and base.validate_flag = '2'
+		    </if>
+		    
+		    <!-- 判断是否新账户N,或是存量账户P -->
+		    <if test="duediligenceind != null and duediligenceind != ''">
+	  			and base.duediligenceind = #{duediligenceind}
+	  		</if>
+	  		
+	  		<!-- 判断账户报告的类型 R1: 新账户记录；R2：修改账户记录；R3：删除账户记录 -->
+		    <if test="doctypeindic != null and doctypeindic != '' and doctypeindic == 'R1'">
+	  			and base.doctypeindic = #{doctypeindic}
+	  		</if>	  	
+		    <if test="doctypeindic != null and doctypeindic != '' and doctypeindic == 'R2'">
+	  			and base.doctypeindic in ('R2','R3')
+	  		</if>
+		    
+		    and rownum &lt;= #{endNum}
+		    order by base.accountnumber
+		) report
+	  	where rm &gt; #{startNum}
+	</select>
+	
+	<!-- 非居民信息查询数据（包含账户基本信息、对私信息、对公信息、控制信息） -->
+	<select id="getAccountInfoVOByParams" parameterType="java.util.HashMap" resultType="com.yusys.nrt.nrtmessage.web.vo.AccountInfoVO">
+		select  base.statistics_dt as statisticsDt,
+				base.reportingid as reportingId,
+				base.fiid as fiId,
+				base.reportingtype as reportingType,
+				base.messagerefid as messageRefId,
+				base.reportingperiod as reportingPeriod,
+				base.messagetypeindic as messageTypeIndic,
+				base.tmstp as tmstp,
+				base.docrefid as docRefId,
+				base.corrdocrefid as corrDocRefId,
+				base.doctypeindic as docTypeIndic,
+				base.accountnumber as accountNumber,
+				base.closedaccount as closedAccount,
+				base.duediligenceind as dueDiligenceInd,
+				base.selfcertification as selfCertification,
+				base.currcode as currCode,
+				decode(base.accountbalance, null,'',to_char(base.accountbalance,'fm999999990.00')) as accountBalance,
+				base.accountholdertype as accountHolderType,
+				base.openingfiname as openingFIName,
+				base.paymenttype as paymentType,
+				base.currcode_s as currCodes,
+				decode(base.paymentamnt, null,'',to_char(base.paymentamnt,'fm999999990.00')) as paymentAmnt,
+				base.record_id as recordId,
+				base.errorflag as errorFlag,
+				base.errorcode as errorCode,
+				base.validate_flag as validateFlag,
+				base.orgno as orgNo,   
+				base.inputer as inputer,
+				base.reviewer as reviewer,
+				base.assessor as assessor,
+				base.auditstatus as auditStatus,
+				base.remark as remark,
+					
+				ind.statistics_dt	as			iStatisticsDt,
+				ind.accountnumber    as			iAccountNumber,
+				ind.nametype    as				iNameType,
+				ind.lastname    as				iLastName,
+				ind.middlename    as			iMiddleName,
+				ind.firstname    as				iFirstName,
+				ind.namecn    as				iNameCn,
+				ind.precedingtitle    as		iPreceDingTitle,
+				ind.titles  as					iTitles,
+				ind.nameprefix	as				iNamePreFix,
+				ind.generationidentifier    as	iGenerationIdentifier,
+				ind.suffix    as				iSuffix,
+				ind.generalsuffix    as			iGeneralSuffix,
+				ind.gender    as				iGender,
+				ind.legaladdresstype  as		iLegalAddressType,
+				ind.countrycode  as				iCountryCode,
+				ind.addressfreeen    as			iAddressFreeEn,
+				ind.cityen    as				iCityEn,
+				ind.street    as				iStreet,
+				ind.buildingidentifier  as		iBuildingIdentifier,
+				ind.suiteidentifier    as		iSuiteIdentifier,
+				ind.flooridentifier    as		iFloorIdentifier,
+				ind.districtname    as			iDistrictName,
+				ind.pob  as						iPOB,
+				ind.postcode  as				iPostCode,
+				ind.countrysubentity  as		iCountrySubentity,
+				ind.addressfreecn    as			iAddressFreeCn,
+				ind.province  as				iProvince,
+				ind.citycn    as				iCityCn,
+				ind.districtname1    as			iDistrictName1,
+				ind.postcode1  as				iPostCode1,
+				ind.phoneno    as				iPhoneNo,
+				ind.idtype    as				iIdType,
+				ind.idnumber  as				iIdNumber,
+				ind.rescountrycode    as		iRescountryCode,
+				ind.tin  as						iTin,
+				ind.issuedby  as				iIssuedby,
+				ind.intype    as				iIntype,
+				ind.rescountrycode1    as		iRescountrycode1,
+				ind.tin1    as					iTin1,
+				ind.issuedby1  as				iIssuedBy1,
+				ind.intype1    as				iInType1,
+				ind.explanation  as				iExplanation,
+				ind.nationality  as				iNationAlity,
+				ind.birthdate  as				iBirthDate,
+				ind.city    as					iCity,
+				ind.countrycode1    as			iCountryCode1,
+				ind.formercountryname  as		iFormerCountryName,
+				ind.record_id  as				iRecordId,
+				ind.errorflag  as				iErrorFlag,
+				ind.errorcode  as				iErrorCode,
+				ind.validate_flag    as			iValidateFlag,
+					
+				org.statistics_dt	as				oStatisticsDt,
+				org.accountnumber  as				oAccountNumber,
+				org.nametype  as					oNameType,
+				org.organisationnameen  as			oOrganisationNameEn,
+				org.organisationnamecn  as			oOrganisationNameCn,
+				org.legaladdresstype    as			oLegalAddressType,
+				org.countrycode    as				oCountryCode,
+				org.addressfreeen  as				oAddressFreeEn,
+				org.cityen    as					oCityEn,
+				org.street    as					oStreet,
+				org.buildingidentifier  as			oBuildingIdentifier,
+				org.suiteidentifier	as				oSuiteIdentifier,
+				org.flooridentifier	as				oFloorIdentifier,
+				org.districtname   as				oDistrictName,
+				org.pob  as							oPOB,
+				org.postcode  as					oPostCode,
+				org.countrysubentity    as			oCountrySubentity,
+				org.addressfreecn  as				oAddressFreeCn,
+				org.province  as					oProvince,
+				org.citycn    as					oCityCn,
+				org.districtname1  as				oDistrictName1,
+				org.postcode1 as					oPostCode1,
+				org.phoneno   as					oPhoneNo,
+				org.rescountrycode as				oRescountryCode,
+				org.tin  as							oTin,
+				org.issuedby  as					oIssuedBy,
+				org.intype    as					oInType,
+				org.explanation    as				oExplanation,
+				org.record_id as					oRecord_id,
+				org.errorflag as					oErrorFlag,
+				org.errorcode as					oErrorCode,
+				org.validate_flag  as				oValidateFlag,
+					                                
+				control.statistics_dt as			tStatisticsDt,
+				control.accountnumber as			tAccountNumber,
+				control.nametype as					tNameType,
+				control.lastname as					tLastName,
+				control.middlename    as			tMiddleName,
+				control.firstname     as			tFirstName,
+				control.namecn   as					tNameCn,
+				control.precedingtitle     as		tPrecedingTitle,
+				control.titles   as					tTitles,
+				control.nameprefix    as			tNamePrefix,
+				control.generationidentifier    as	tGenerationIdentifier,
+				control.suffix   as					tSuffix,
+				control.generalsuffix as			tGeneralSuffix,
+				control.ctrlgpersontype    as		tCtrlgPersonType,
+				control.nationality   as			tNationAlity,
+				control.legaladdresstype   as		tLegalAddressType,
+				control.countrycode   as			tCountryCode,
+				control.addressfreeen as			tAddressFreeEn,
+				control.cityen   as					tCityEn,
+				control.street   as					tStreet,
+				control.buildingidentifier as		tBuildingIdentifier,
+				control.suiteidentifier    as		tSuiteIdentifier,
+				control.flooridentifier    as		tFloorIdentifier,
+				control.districtname  as			tDistrictName,
+				control.pob      as					tPOB,
+				control.postcode as					tPostCode,
+				control.countrysubentity   as		tCountrySubentity,
+				control.addressfreecn as			tAddressFreeCn,
+				control.province as					tProvince,
+				control.citycn   as					tCityCn,
+				control.districtname1 as			tDistrictName1,
+				control.postcode1     as			tPostCode1,
+				control.rescountrycode     as		tRescountryCode,
+				control.tin      as					tTin,
+				control.issuedby as					tIssuedBy,
+				control.intype   as					tInType,
+				control.explanation   as			tExplanation,
+				control.birthdate     as			tBirthDate,
+				control.city     as					tCity,
+				control.countrycode1  as			tCountryCode1,
+				control.formercountryname  as		tFormerCountryName,
+				control.record_id   as				tRecordId,
+				control.errorflag   as				tErrorFlag,
+				control.errorcode   as				tErrorCode,
+				control.validate_flag   as			tValidateFlag
+			from NRT_ACCOUNTREPORT base
+			left join NRT_INDIVIDUAL ind on base.accountnumber = ind.accountnumber
+		      			and base.statistics_dt = ind.statistics_dt
+			left join NRT_ORGANISATION org on base.accountnumber = org.accountnumber
+		      			and base.statistics_dt = org.statistics_dt
+			left join NRT_CONTROLLINGPERSON control on base.accountnumber = control.accountnumber
+		      			and base.statistics_dt = control.statistics_dt
+		    where 1=1 
+		    
+		    <if test="recordId != null and recordId !='' ">
+				and base.record_id = #{recordId}
+			</if>
+		    <if test="statisticsDt != null and statisticsDt !='' ">
+				and base.statistics_dt = #{statisticsDt}
+			</if>
+		    
+	</select>
+	
+	<!-- 查询非居民信息数据报送条数 -->
+	<select id="getReportDataCount" parameterType="java.util.HashMap" resultType="java.lang.Long">
+		select count(1)
+		from NRT_ACCOUNTREPORT a
+   		left join NRT_INDIVIDUAL b on a.accountnumber = b.accountnumber
+     		and a.statistics_dt = b.statistics_dt
+     		and b.validate_flag = '2'
+ 		    <!-- 国籍（地区）代码，其中ANT、XKD、XLE、ZZZ不得上报 -->
+    		and b.rescountrycode not in ('ANT','XKD','XLE','ZZZ')
+   		left join NRT_ORGANISATION c on a.accountnumber = c.accountnumber
+      		and a.statistics_dt = c.statistics_dt
+      		and c.validate_flag = '2'
+      		<!-- 国籍（地区）代码，其中ANT、XKD、XLE、ZZZ不得上报 -->
+    		and c.rescountrycode not in ('ANT','XKD','XLE','ZZZ')
+   		left join NRT_CONTROLLINGPERSON d on a.accountnumber = d.accountnumber
+     		and a.statistics_dt = d.statistics_dt
+     		and d.validate_flag = '2'
+ 		    <!-- 国籍（地区）代码，其中ANT、XKD、XLE、ZZZ不得上报 -->
+    		and d.rescountrycode not in ('ANT','XKD','XLE','ZZZ')     		
+     	where 1=1 
+     	<if test="statisticsDtBegin != null and statisticsDtBegin != '' and statisticsDtEnd != null and statisticsDtEnd != '' ">
+		    and a.statistics_dt between #{statisticsDtBegin} and #{statisticsDtEnd}
+		</if>
+		<!-- 校验状态 2-校验通过 -->
+	    <if test="validateFlag != null and validateFlag != ''">
+	    	and a.validate_flag = #{validateFlag}
+	    </if>
+	    <if test="validateFlag == null or validateFlag == ''">
+	    	and a.validate_flag = '2'
+	    </if>
+	    <!-- 账号 -->
+	  	<if test="accountNumber!=null and accountNumber!=''">
+	  		and a.accountnumber = #{accountNumber}
+	  	</if>
+	  	
+	    <!-- 校验状态 2-校验通过 -->
+	    <if test="validateFlag != null and validateFlag != ''">
+	    	and a.validate_flag = #{validateFlag}
+	    </if>
+	    <if test="validateFlag == null or validateFlag == ''">
+	    	and a.validate_flag = '2'
+	    </if>
+	    
+	    <!-- 判断是否新账户N,或是存量账户P -->
+	    <if test="duediligenceind != null and duediligenceind != ''">
+  			and a.duediligenceind = #{duediligenceind}
+  		</if>
+  		
+  		<!-- 判断账户报告的类型 R1: 新账户记录；R2：修改账户记录；R3：删除账户记录 -->
+	    <if test="doctypeindic != null and doctypeindic != '' and doctypeindic == 'R1'">
+  			and a.doctypeindic = #{doctypeindic}
+  		</if>	  	
+	    <if test="doctypeindic != null and doctypeindic != '' and doctypeindic == 'R2'">
+  			and a.doctypeindic in ('R2','R3')
+  		</if>	  	
+	  	
+	</select>
+	
+	<!-- 查询账户头信息 -->
+	<select id="getMessageHeaderPLData" parameterType="java.util.HashMap" resultMap="messageHeaderData">
+		select a.reportingid,
+		       a.fiid,
+		       a.reportingtype,
+		       a.messagerefid,
+		       a.reportingperiod,
+		       a.messagetypeindic,
+		       a.tmstp
+		  from NRT_ACCOUNTREPORT a
+		  where 1=1
+		  <if test="docTypeIndic!=null and docTypeIndic!='' and docTypeIndic=='R1'">
+		  	and a.docTypeIndic = 'R1'
+		  </if>
+		  <if test="docTypeIndic!=null and docTypeIndic!='' and docTypeIndic=='R2'">
+		  	and a.docTypeIndic in('R2', 'R3')
+		  </if>
+		  and rownum = 1 						
+		  and a.reportingid is not null	  and a.fiid is not null
+		  and a.reportingtype is not null	  and a.messagerefid is not null
+		  and a.reportingperiod is not null	  and a.messagetypeindic is not null
+		  and a.tmstp is not null
+	</select>	
+	
+	<!-- 查询账户持有对私信息 -->
+	<select id="getIndiviDualVOListByParams" parameterType="java.util.HashMap" resultMap="indiviDualVoData">
+		select 	ind.statistics_dt	as	statistics_dt_i,
+				ind.accountnumber    as	accountnumber_i,
+				ind.nametype    as	nametype_i,
+				ind.lastname    as	lastname_i,
+				ind.middlename    as	middlename_i,
+				ind.firstname    as	firstname_i,
+				ind.namecn    as	namecn_i,
+				ind.precedingtitle    as	precedingtitle_i,
+				ind.titles  as	titles_i,
+				ind.nameprefix	as	nameprefix_i,
+				ind.generationidentifier    as	generationidentifier_i,
+				ind.suffix    as	suffix_i,
+				ind.generalsuffix    as	generalsuffix_i,
+				ind.gender    as	gender_i,
+				ind.legaladdresstype  as	legaladdresstype_i,
+				ind.countrycode  as	countrycode_i,
+				ind.addressfreeen    as	addressfreeen_i,
+				ind.cityen    as	cityen_i,
+				ind.street    as	street_i,
+				ind.buildingidentifier  as	buildingidentifier_i,
+				ind.suiteidentifier    as	suiteidentifier_i,
+				ind.flooridentifier    as	flooridentifier_i,
+				ind.districtname    as	districtname_i,
+				ind.pob  as	pob_i,
+				ind.postcode  as	postcode_i,
+				ind.countrysubentity  as	countrysubentity_i,
+				ind.addressfreecn    as	addressfreecn_i,
+				ind.province  as	province_i,
+				ind.citycn    as	citycn_i,
+				ind.districtname1    as	districtname1_i,
+				ind.postcode1  as	postcode1_i,
+				ind.phoneno    as	phoneno_i,
+				ind.idtype    as	idtype_i,
+				ind.idnumber  as	idnumber_i,
+				ind.rescountrycode    as	rescountrycode_i,
+				ind.tin  as	tin_i,
+				ind.issuedby  as	issuedby_i,
+				ind.intype    as	intype_i,
+				ind.rescountrycode1    as	rescountrycode1_i,
+				ind.tin1    as	tin1_i,
+				ind.issuedby1  as	issuedby1_i,
+				ind.intype1    as	intype1_i,
+				ind.explanation  as	explanation_i,
+				ind.nationality  as	nationality_i,
+				ind.birthdate  as	birthdate_i,
+				ind.city    as	city_i,
+				ind.countrycode1    as	countrycode1_i,
+				ind.formercountryname  as	formercountryname_i,
+				ind.record_id  as	record_id_i,
+				ind.errorflag  as	errorflag_i,
+				ind.errorcode  as	errorcode_i,
+				ind.validate_flag    as	validate_flag_i,
+				base.duediligenceind as duediligenceind_i
+			from NRT_INDIVIDUAL ind
+			left join NRT_ACCOUNTREPORT base 
+			on ind.accountnumber = base.accountnumber and ind.statistics_dt = base.statistics_dt
+			where 1=1
+			<if test="statisticsDt != null and statisticsDt !='' ">
+				and ind.statistics_dt = #{statisticsDt}
+			</if>
+	</select>
+	
+	<select id="getOrganisationVOListByParams"  parameterType="java.util.HashMap" resultMap="organisationVoData">
+		select 	org.statistics_dt	as	statistics_dt_o,
+				org.accountnumber  as	accountnumber_o,
+				org.nametype  as	nametype_o,
+				org.organisationnameen  as	organisationnameen_o,
+				org.organisationnamecn  as	organisationnamecn_o,
+				org.legaladdresstype    as	legaladdresstype_o,
+				org.countrycode    as	countrycode_o,
+				org.addressfreeen  as	addressfreeen_o,
+				org.cityen    as	cityen_o,
+				org.street    as	street_o,
+				org.buildingidentifier  as	buildingidentifier_o,
+				org.suiteidentifier	as	suiteidentifier_o,
+				org.flooridentifier	as	flooridentifier_o,
+				org.districtname   as	districtname_o,
+				org.pob  as	pob_o,
+				org.postcode  as	postcode_o,
+				org.countrysubentity    as	countrysubentity_o,
+				org.addressfreecn  as	addressfreecn_o,
+				org.province  as	province_o,
+				org.citycn    as	citycn_o,
+				org.districtname1  as	districtname1_o,
+				org.postcode1 as	postcode1_o,
+				org.phoneno   as	phoneno_o,
+				org.rescountrycode as	rescountrycode_o,
+				org.tin  as	tin_o,
+				org.issuedby  as	issuedby_o,
+				org.intype    as	intype_o,
+				org.explanation    as	explanation_o,
+				org.record_id as	record_id_o,
+				org.errorflag as	errorflag_o,
+				org.errorcode as	errorcode_o,
+				org.validate_flag  as	validate_flag_o,
+				base.duediligenceind as duediligenceind_o
+		from NRT_ORGANISATION org
+		left join NRT_ACCOUNTREPORT base 
+		on org.accountnumber = base.accountnumber and org.statistics_dt = base.statistics_dt
+		where 1=1
+		<if test="statisticsDt != null and statisticsDt !='' ">
+			and org.statistics_dt = #{statisticsDt}
+		</if>
+	</select>
+	
+	<select id="getControllingPersonVOListByParams"  parameterType="java.util.HashMap" resultMap="controllingPersonVoData">
+		select	control.statistics_dt as statistics_dt_c,
+				control.accountnumber as accountnumber_c,
+				control.nametype as nametype_c,
+				control.lastname as lastname_c,
+				control.middlename    as middlename_c,
+				control.firstname     as firstname_c,
+				control.namecn   as namecn_c,
+				control.precedingtitle     as precedingtitle_c,
+				control.titles   as titles_c,
+				control.nameprefix    as nameprefix_c,
+				control.generationidentifier    as generationidentifier_c,
+				control.suffix   as suffix_c,
+				control.generalsuffix as generalsuffix_c,
+				control.ctrlgpersontype    as ctrlgpersontype_c,
+				control.nationality   as nationality_c,
+				control.legaladdresstype   as legaladdresstype_c,
+				control.countrycode   as countrycode_c,
+				control.addressfreeen as addressfreeen_c,
+				control.cityen   as cityen_c,
+				control.street   as street_c,
+				control.buildingidentifier as buildingidentifier_c,
+				control.suiteidentifier    as suiteidentifier_c,
+				control.flooridentifier    as flooridentifier_c,
+				control.districtname  as districtname_c,
+				control.pob      as pob_c,
+				control.postcode as postcode_c,
+				control.countrysubentity   as countrysubentity_c,
+				control.addressfreecn as addressfreecn_c,
+				control.province as province_c,
+				control.citycn   as citycn_c,
+				control.districtname1 as districtname1_c,
+				control.postcode1     as postcode1_c,
+				control.rescountrycode     as rescountrycode_c,
+				control.tin      as tin_c,
+				control.issuedby as issuedby_c,
+				control.intype   as intype_c,
+				control.explanation   as explanation_c,
+				control.birthdate     as birthdate_c,
+				control.city     as city_c,
+				control.countrycode1  as countrycode1_c,
+				control.formercountryname  as formercountryname_c,
+				control.record_id   as record_id_c,
+				control.errorflag   as errorflag_c,
+				control.errorcode   as errorcode_c,
+				control.validate_flag   as validate_flag_c,
+				base.duediligenceind as duediligenceind_c
+		from NRT_CONTROLLINGPERSON control
+		left join NRT_ACCOUNTREPORT base 
+		on control.accountnumber = base.accountnumber and control.statistics_dt = base.statistics_dt
+		where 1=1
+		<if test="statisticsDt != null and statisticsDt !='' ">
+			and ind.statistics_dt = #{statisticsDt}
+		</if>
+	</select>
+	
+	<select id="getAccountReportVOByParams" resultType="com.yusys.nrt.nrtmessage.web.vo.AccountReportVO"
+		parameterType="HashMap">
+		select nrt.statistics_dt,
+			nrt.reportingid,
+			nrt.fiid,
+			nrt.reportingtype,
+			nrt.messagerefid,
+			nrt.reportingperiod,
+			nrt.messagetypeindic,
+			nrt.tmstp,
+			nrt.docrefid,
+			nrt.corrdocrefid,
+			nrt.doctypeindic,
+			nrt.accountnumber,
+			nrt.closedaccount,
+			nrt.duediligenceind,
+			nrt.selfcertification,
+			nrt.currcode,
+			nrt.accountbalance,
+			nrt.accountholdertype,
+			nrt.openingfiname,
+			nrt.paymenttype,
+			nrt.currcode_s,
+			nrt.paymentamnt,
+			nrt.record_id,
+			nrt.errorflag,
+			nrt.errorcode,
+			nrt.validate_flag
+		from NRT_ACCOUNTREPORT nrt
+		where 1=1
+		<if test="statisticsDt != null and statisticsDt !='' ">
+			and nrt.statistics_dt = #{statisticsDt}
+		</if>
+		
+		order by nrt.record_id
+	</select>
+	
+	<select id="getRptCellIdxRel" resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcCellIdxVO"
+		parameterType="HashMap">
+		select rptInfo.rpt_num as "rptNum", 
+		       sourIdx.cell_no as "cellNo", 
+		       sourIdx.index_no as "indexNo"
+		from RPT_DESIGN_SOURCE_IDX sourIdx
+		left join RPT_MGR_REPORT_INFO rptInfo on sourIdx.template_id = rptInfo.cfg_id
+		where 1=1
+			<if test="ids != null">
+			 	and rptInfo.RPT_NUM in 
+			 	<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+					#{ids}
+				</foreach>
+			</if>
+	</select>
+	
+	<!-- 从系统参数表中获取非居民相关参数 -->
+	<select id="getNrtParamFromBioneParamInfo" resultType="java.lang.String" parameterType="java.util.HashMap">
+		select param_value 
+		from bione_param_info 
+		where PARAM_TYPE_NO = #{paramTypeNo} 
+		and PARAM_NAME = #{paramName}
+	</select>
+	
+	<!-- 获取支行机构信息 -->
+	<select id="getBranchOrg"  resultType="java.util.HashMap" parameterType="java.lang.String">
+		SELECT LOGIC_SYS_NO, ORG_NO, ORG_NAME, UP_NO,ORG_STS FROM BIONE_ORG_INFO WHERE length(org_id) = 4 
+		AND ORG_ID not like '%99' 
+		AND ORG_ID not in('3800','3801','5294')
+		AND UP_NO != '6401011'
+		
+		<!-- 机构号 -->
+		<if test="orgNo != null and orgNo != ''">
+			AND ORG_ID = #{orgNo}
+		</if>
+	</select>
+	
+	<!-- 判断机构是否支行机构 -->
+	<select id="isBranchOrg"  resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT count(1) FROM BIONE_ORG_INFO WHERE length(org_id) = 4 
+		AND ORG_ID not like '%99' 
+		AND ORG_ID not in('3800','3801','5294')
+		AND UP_NO != '6401011'
+		
+		<!-- 机构号 -->
+		<if test="orgNo != null and orgNo != ''">
+			AND ORG_ID = #{orgNo}
+		</if>
+	</select>
+		
+	<!-- 获取本级及下级机构 -->
+	<select id="getSubOrgs"  resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT bione.ORG_NO 
+		FROM BIONE_ORG_INFO bione
+		WHERE 1 = 1
+		<!-- 机构号 -->
+		<if test="orgNo != null and orgNo != ''">
+			AND bione.UP_NO = #{orgNo}
+		</if>
+	</select>	
+	
+	<!-- 个人账户信息查询 -->
+	<select id="getPersonAccountsByParams" resultType="com.yusys.nrt.nrtmessage.entity.PersonAccount"
+		parameterType="java.util.HashMap">
+		SELECT 
+			STATISTICS_DT
+			,DEPOSIT_NAME
+			,DEPOSIT_IDENTITY_TYPE_CD
+			,DEPOSIT_IDENTITY_NUM
+			,IDENTITY_DUE_DT
+			,ISSUE_ORG_AREA_CD
+			,DEPOSIT_CLASS_CD
+			,DEPOSIT_COUNTRY_CD
+			,DEPOSIT_SEX_CD
+			,DEPOSIT_POST_CD
+			,DEPOSIT_ADDR
+			,DEPOSIT_TEL
+			,AGENT_NAME
+			,AGENT_IDENTITY_TYPE_CD
+			,AGENT_IDENTITY_NUM
+			,AGENT_COUNTRY_CD
+			,AGENT_TEL
+			,OPEN_BANK_FIN_ORG_CD
+			,BANK_ACCT_NUM
+			,BANK_ACCT_KIND_CD
+			,CARD_CD
+			,CARD_DUE_DT
+			,BANK_ACCT_MEDIA
+			,EXPIRE_CARD_DT
+			,CARD_STAT_CD
+			,BANK_ACCT_TYPE_CD
+			,BINDING_I_ACCT_NUM
+			,BINDING_I_FIN_ORG_CD
+			,OPEN_DT
+			,EXPIRE_DT
+			,ACCT_STAT_CD
+			,CURRENCY_CD
+			,ARMY_SECURITY_CARD
+			,SOCIETY_SECURITY_CARD
+			,AUDIT_RESULT_CD
+			,NO_AUDIT_RESULT_DESC
+			,DISPOSE_MODE
+			,INFO_TYPE_CD
+			,OPEN_CHANNAL_CD
+			,REMARK
+			,COLUMN4
+			,COLUMN5
+			,JOINTACCOUNT
+			,ORGNO
+			,INPUTER
+			,REVIEWER
+			,ASSESSOR
+			,VALIDATE_FLAG
+			,AUDITSTATUS
+			,OPEN_UNTRADE_CHANNAL
+			,OPEN_AREA_CODE
+			,REBACK_FLAG
+		FROM ACB_INDIV_BANK_ACCT_ALL
+		WHERE 1=1 
+			 and BANK_ACCT_NUM in   
+	 	<foreach collection="idsNo" item="idsNo" index="index" open="(" separator="," close=")">
+					#{idsNo}
+				</foreach> 
+		<!-- AND  acct.STATISTICS_DT  = #{statisticsDt} -->
+	</select>
+</mapper>
+

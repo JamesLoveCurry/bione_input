@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.icrotherinf.repository.IcrInOtherBaseDao">
+<!-- 根据条件查询报表列表 -->
+
+	<select id="getInAcctEntDelList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InAcctEntDel">
+		select * from ICR_EntDel t where t.infRecType = #{infRecType} 
+	</select>
+	
+	<select id="getInAcctDelList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InAcctDel">
+		select * from ICR_InDel t where t.infRecType = #{infRecType} 
+	</select>
+	
+	<select id="getInAcctIDCagsInfList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InAcctIDCagsInf">
+		select * from ICR_IdCagsInf t where t.infRecType = #{infRecType} 
+	</select>
+	
+	
+	<select id="getInCtrctEntDelList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InCtrctEntDel">
+		select * from ICR_EntDel t where t.infRecType = #{infRecType} 
+	</select>
+	
+	<select id="getInCtrctDelList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InCtrctDel">
+		select * from ICR_InDel t where t.infRecType = #{infRecType} 
+	</select>
+	
+	<select id="getInCtrctIDCagsInfList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InCtrctIDCagsInf">
+		select * from ICR_IdCagsInf t where t.infRecType = #{infRecType} 
+	</select>
+	
+	
+	<select id="getInSecAcctEntDelList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InSecAcctEntDel">
+		select * from ICR_EntDel t where t.infRecType = #{infRecType} 
+	</select>
+	
+	<select id="getInSecAcctDelList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InSecAcctDel">
+		select * from ICR_InDel t where t.infRecType = #{infRecType} 
+	</select>
+	
+	<select id="getInSecAcctIDCagsInfList" parameterType="HashMap" resultType="com.yusys.cr.icrotherinf.entity.InSecAcctIDCagsInf">
+		select * from ICR_IdCagsInf t where t.infRecType = #{infRecType} 
+	</select>
+	
+	
+</mapper> 

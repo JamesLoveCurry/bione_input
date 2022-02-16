@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>选择日期</templetname>
+	</templet>
+
+	<templet_item>
+		<itemkey>date</itemkey>
+		<itemname>日期</itemname>
+		<itemtype>日历</itemtype>
+		<itemdefine>【is8=Y】</itemdefine>	
+		<card_isshow>Y</card_isshow>
+	</templet_item>	
+</root>

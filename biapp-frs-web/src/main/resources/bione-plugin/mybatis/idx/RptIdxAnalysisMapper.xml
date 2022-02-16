@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptidx.repository.RptIdxAnalysisMybatisDao">
+	<select id="listIdxByRptId"
+		resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxInfoRelVO"
+		parameterType="String">
+		SELECT
+		idx.INDEX_NO AS "id.indexNo",
+		idx.INDEX_VER_ID AS
+		"id.indexVerId",
+		idx.CALC_CYCLE,
+		idx.DATA_PRECISION,
+		idx.DATA_TYPE,
+		idx.DATA_UNIT,
+		idx.END_DATE,
+		idx.INDEX_CATALOG_NO,
+		idx.INDEX_NM,
+		idx.INDEX_STS,
+		idx.INDEX_TYPE,
+		idx.LAST_UPT_TIME,
+		idx.LAST_UPT_USER,
+		RPT_MGR_MODULE_IDX_REL.RPT_ID,
+		idx.SRC_INDEX_NO,
+		idx.SRC_SOURCE_ID,
+		idx.START_DATE,
+		idx.IS_SUM
+		FROM
+		RPT_IDX_INFO
+		idx,
+		RPT_MGR_MODULE_IDX_REL,
+		(
+		SELECT
+		INDEX_NO,
+		MAX(INDEX_VER_ID) AS
+		INDEX_VER_ID
+		FROM
+		RPT_IDX_INFO
+		GROUP BY
+		INDEX_NO) l
+		WHERE
+		1=1
+		AND
+		RPT_MGR_MODULE_IDX_REL.INDEX_NO=idx.INDEX_NO
+		AND
+		RPT_MGR_MODULE_IDX_REL.RPT_ID =#{rptId}
+		AND
+		l.INDEX_NO=idx.INDEX_NO
+		AND
+		l.INDEX_VER_ID=idx.INDEX_VER_ID
+	</select>
+	
+	<select id="getRptIdxByRptId"
+		resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxInfoRelVO"
+		parameterType="String">
+		SELECT
+		idx.INDEX_NO AS "id.indexNo",
+		idx.INDEX_VER_ID AS
+		"id.indexVerId",
+		idx.CALC_CYCLE,
+		idx.DATA_PRECISION,
+		idx.DATA_TYPE,
+		idx.DATA_UNIT,
+		idx.END_DATE,
+		idx.INDEX_CATALOG_NO,
+		idx.INDEX_NM,
+		idx.INDEX_STS,
+		idx.INDEX_TYPE,
+		idx.LAST_UPT_TIME,
+		idx.LAST_UPT_USER,
+		idx.SRC_INDEX_NO,
+		idx.SRC_SOURCE_ID,
+		idx.START_DATE,
+		idx.IS_SUM
+		FROM
+		RPT_IDX_INFO
+		idx
+		WHERE
+		1=1
+		and idx.IS_RPT_INDEX='N'
+		and idx.END_DATE = '29991231'
+		<if test="idxNos == null">
+			AND 1=2
+		</if>
+<!-- 		<if test="idxNos != null"> -->
+<!-- 			AND idx.INDEX_NO IN -->
+		<if test="idxNos != null">
+			AND  (idx.INDEX_NO IN
+			<foreach item="idxNos"  collection="idxNos" separator=" or idx.INDEX_NO in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+			
+<!-- 			<foreach item="id" index="index" collection="idxNos" open="(" -->
+<!-- 				separator="," close=")"> -->
+<!-- 				#{id} -->
+<!-- 			</foreach> -->
+<!-- 		</if> -->
+		order by idx.index_no
+	</select>
+
+	<select id="listDimByRptId"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"
+		parameterType="String">
+		SELECT
+		DIM_TYPE_NO,
+		CATALOG_ID,
+		DIM_TYPE_DESC,
+		DIM_TYPE_EN_NM,
+		DIM_TYPE_NM,
+		DIM_TYPE,
+		DIM_TYPE_STRUCT
+		FROM
+		RPT_DIM_TYPE_INFO ,
+		RPT_MGR_RPTDIM_REL rel
+		WHERE
+		1=1
+		AND
+		rel.DIM_NO=DIM_TYPE_NO
+		AND rel.RPT_ID=#{rptId}
+	</select>
+
+	<select id="listRptByRptDim"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="String">
+		SELECT
+		    info.rpt_NUM,
+		    info.RPT_ID,
+		    info.CATALOG_ID,
+		    info.CFG_ID,
+		    info.END_DATE,
+		    info.EXT_TYPE,
+		    info.RANK_ORDER,
+		    info.RPT_CYCLE,
+		    info.RPT_DESC,
+		    info.RPT_NM,
+		    info.RPT_STS,
+		    info.RPT_TYPE,
+		    info.SHOW_PRIORITY,
+		    info.START_DATE,
+		    info.CREATE_TIME
+		FROM
+		    RPT_MGR_REPORT_INFO info,
+		    RPT_MGR_BANK_EXT ext,
+		    RPT_MGR_RPTDIM_REL dim
+		WHERE
+		    info.RPT_ID=ext.RPT_ID
+		AND dim.RPT_ID=info.RPT_ID
+		AND info.def_src = '01'
+		AND dim.DIM_NO=#{dimNo}
+	</select>
+	
+	<select id="listRptByRptCfg"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="HashMap">
+		SELECT
+		    info.rpt_NUM,
+		    info.RPT_ID,
+		    info.CATALOG_ID,
+		    info.CFG_ID,
+		    info.END_DATE,
+		    info.EXT_TYPE,
+		    info.RANK_ORDER,
+		    info.RPT_CYCLE,
+		    info.RPT_DESC,
+		    info.RPT_NM,
+		    info.RPT_STS,
+		    info.RPT_TYPE,
+		    info.SHOW_PRIORITY,
+		    info.START_DATE,
+		    info.CREATE_TIME
+		FROM
+		    RPT_MGR_REPORT_INFO info
+		WHERE
+		    1=1
+		<if test="cfgIds != null">
+			AND info.CFG_ID IN
+			<foreach item="cfgIds"  collection="cfgIds" separator=" or  info.CFG_ID in ">
+				<foreach collection="cfgIds" item="cfgIds" open="("
+					separator="," close=")">
+					#{cfgIds}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+
+	<select id="listRptByRptIdx"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="HashMap">
+		select t2.* from(
+		SELECT
+		info.RPT_ID,
+		info.RPT_NUM,
+		info.RPT_NM,
+		info.RPT_DESC,
+		info.SHOW_PRIORITY,
+		info.RPT_TYPE,
+		ext.DUTY_DEPT
+		FROM
+		RPT_MGR_MODULE_IDX_REL idx,
+		RPT_MGR_REPORT_INFO info
+		LEFT JOIN
+		RPT_MGR_BANK_EXT ext
+		ON
+		info.RPT_ID=ext.RPT_ID
+		WHERE
+		(info.def_src is null or info.def_src ='01')
+		and
+		idx.RPT_ID=info.RPT_ID
+		<if test="idxNos != null">
+			AND idx.INDEX_NO IN
+			<foreach item="idxNos"  collection="idxNos" separator=" or idx.INDEX_NO in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+		</if>
+<!-- 		<if test="idxNos != null"> -->
+<!-- 			AND idx.INDEX_NO IN -->
+<!-- 			<foreach item="id" index="index" collection="idxNos" open="(" -->
+<!-- 				separator="," close=")"> -->
+<!-- 				#{id} -->
+<!-- 			</foreach> -->
+<!-- 		</if> -->
+		<if test="idxNos == null">
+			AND 1=2
+		</if>
+		UNION
+		SELECT
+		rpt.rpt_id,
+		rpt.rpt_num,
+		rpt.rpt_nm,
+		rpt.rpt_desc,
+		rpt.SHOW_PRIORITY,
+		rpt.RPT_TYPE,
+		ext.DEF_DEPT AS duty_dept
+		FROM
+		(
+		SELECT
+		tmp1.*
+		FROM
+		RPT_DESIGN_TMP_INFO
+		tmp1
+		WHERE
+		1=1
+		<if test="templateIds == null">
+			AND 1=2
+		</if>
+		<if test="templateIds != null">
+			AND tmp1.template_id IN
+			<foreach item="templateId" index="index" collection="templateIds"
+				open="(" separator="," close=")">
+				#{templateId}
+			</foreach>
+		</if>
+		) t1,
+		RPT_DESIGN_TMP_INFO tmp,
+		RPT_MGR_REPORT_INFO rpt
+		LEFT JOIN
+		RPT_MGR_FRS_EXT ext
+		ON
+		rpt.rpt_id=ext.rpt_id
+		WHERE
+		rpt.def_src ='01'
+		and
+		tmp.template_id=rpt.cfg_id
+		AND (
+		tmp.template_id =t1.template_id
+		OR
+		tmp.template_id
+		=t1.parent_template_id)) t2
+	</select>
+
+	<select id="listRptIdxByRptId" resultType="String" parameterType="String">
+		SELECT
+		idx.INDEX_NO
+		FROM
+		RPT_IDX_INFO idx,
+		rpt_design_tmp_info tmp,
+		RPT_MGR_REPORT_INFO rpt
+		WHERE
+		idx.TEMPLATE_ID=tmp.template_id
+
+		and (
+		tmp.template_id=rpt.cfg_id
+		or
+		tmp.parent_template_id=rpt.cfg_id )
+		and
+		rpt.rpt_id=#{rptId}
+		and idx.end_date = '29991231'
+		order by idx.index_no
+	</select>
+</mapper> 

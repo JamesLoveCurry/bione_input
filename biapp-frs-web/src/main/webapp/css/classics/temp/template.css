@@ -1,0 +1,108 @@
+
+.jloading {
+    background: rgb(98, 135, 172);
+    border-bottom-color: rgb(83, 119, 157);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(83, 119, 157);
+    border-left-style: solid;
+    border-left-width: 1px;
+    color: white;
+    filter: alpha(opacity =         70);
+    left: 45%;
+    opacity: 0.7;
+    position: absolute;
+    top: 40%;
+    z-index: 99999;
+}
+#loading {
+    background: url(images/loaderc.gif) no-repeat;
+    height: 124px;
+    left: 50%;
+    margin: -62px 0 0 -62px;
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    width: 124px;
+    z-index: 7;
+    _position: absolute;
+}
+#componentes li { display: block; padding-right: 10px; text-align: center; }
+#componentes li span {
+    display: inline;
+    float: left;
+    height: 100%;
+    width: 16px;
+}
+#componentes li img { vertical-align: middle; }
+.template-text { background: url("images/textfield.png") no-repeat scroll center center transparent; }
+.template-hidden { background: url("images/box.gif") no-repeat scroll center center transparent; }
+.template-calendar { background: url("images/calendar.png") no-repeat scroll center center transparent; }
+.template-combox { background: url("images/mnuMenuButton.gif") no-repeat scroll center center transparent; }
+.template-tree { background: url("images/t_parent.gif") no-repeat scroll center center transparent; }
+.propTable { table-layout: fixed; width: 100%; }
+.propTable th { border-bottom: 1px solid #D0D0D0; border-right: 1px solid #D0D0D0; text-align: center; }
+.propTable td { border-bottom: 1px solid #D0D0D0; border-right: 1px solid #D0D0D0; text-align: center; }
+.template-hover { border: 1px solid #D0D0D0; }
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 24px; width: 310px;}
+.ui-sortable-placeholder * { visibility: hidden; }
+.ul-empty { height: 26px; }
+.li-hover { border: 1px dotted black!important; border-radius:4px;}
+.li-selected { border: 1px dotted black!important; background: none repeat scroll 0 0 #CCCCCC; border-radius:4px;}
+.l-form .l-fieldcontainer {
+	border: 1px dotted #FFFFFF;
+	border-radius:4px;
+	padding-left: 8px;
+}
+.ui-state-highlight {
+    height: 24px;
+    width: 300px;
+}
+.template-help {
+	vertical-align:middle;
+	/* background: url("images/help.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 16px;
+    overflow: hidden;
+    width: 16px;
+    float: left; */
+}
+.l-form {
+    margin: 0;
+    overflow: hidden;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+	border: 1px solid #999999!important;
+}
+.popupTree {
+}
+.popupTreeContainer {
+	overflow: auto;
+	position: static;
+	display: block;
+	margin-bottom: 2px;
+}
+.l-toolbar{    
+    background:#CEDFEF  url('../ligerUI/Aqua/images/panel/panel-toolbar.gif') repeat-x; height:28px;/*edit by fangjuan height有23px改为28px*/ 
+    border:1px solid #9CBAE7;  border-top:1px solid #EFF7F7;
+}
+.l-table-edit {table-layout:fixed;overflow:hidden;}
+/*.l-table-edit-td{ padding:5px 10px;}*/
+.l-button-submit,.l-button-reset{width:80px; margin-left:10px; padding-bottom:2px;}
+.l-table-edit {
+	table-layout: fixed;
+	overflow:hidden;
+}
+
+.l-button-submit,.l-button-cancel {
+	background: url("../../../../images/classics/ligerui/btn.png") repeat-x scroll 0 #D9D9D9;
+	width: 80px;
+	margin-left: 10px;
+	padding-bottom: 2px;
+	float: none;
+}
+.l-form .l-fieldcontainer {
+	margin-left: 0px;
+	padding: 0;
+	padding-left : 0;
+}

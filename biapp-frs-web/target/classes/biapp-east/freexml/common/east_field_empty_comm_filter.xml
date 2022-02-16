@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>表字段信息</templetname>
+		<fromtable>east_cr_col</fromtable>
+		<savetable>east_cr_col</savetable>
+		<pkname>rid</pkname>
+		<autoquery>Y</autoquery>
+		<autocondition></autocondition>
+		<querycontion></querycontion>
+		<ishavebillquery>Y</ishavebillquery>
+		<list_btns></list_btns>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ismultisel>N</list_ismultisel>
+		<list_ischeckstyle>N</list_ischeckstyle>
+
+		<tree_type>parent</tree_type>
+		<tree_id>col_name_en</tree_id>
+		<tree_text>col_name</tree_text>
+		<tree_parentid>tab_name</tree_parentid>
+	</templet>
+
+	<templet_item>
+		<itemkey>col_name_en</itemkey>
+		<itemname>英文字段名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>col_name</itemkey>
+		<itemname>字段名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>

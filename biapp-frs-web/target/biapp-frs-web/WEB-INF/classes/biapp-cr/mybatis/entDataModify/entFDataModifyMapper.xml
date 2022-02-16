@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entDataModify.repository.IEntDataModifyDao">
+
+	<select id="getEntReportDelAllList" resultType="java.util.HashMap">
+		select * from ENT_FINANREPDEL where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getEntBsDelAllList" resultType="java.util.HashMap">
+		select * from ENT_ENBSINFDEL where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getEntOtherInfDelAllList" resultType="java.util.HashMap">
+		select * from ENT_ACCTENTDEL where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getEntInfDelList" resultType="java.util.HashMap">
+		select * from ENT_ACCTDEL where 1=1 and incrementflag in ('1', '2')
+	</select>
+	
+	<select id="getEntIDCagsInf" resultType="java.util.HashMap">
+		select * from ENT_ACCTIDMOD where 1=1 and incrementflag in ('1', '2')
+	</select>
+</mapper>

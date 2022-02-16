@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptfav.repository.FavIdxDetailMybatisDao">
+	<select id="list" resultType="com.yusys.bione.plugin.rptfav.web.vo.FavIdxDetailAndIndexNm"
+	parameterType="HashMap">
+		select DETAIL_ID,INDEX_ALIAS,detail.INDEX_NO,INSTANCE_ID,ORDER_NUM,t.index_nm, t.index_ver_id, t.index_type
+		from
+		RPT_FAV_IDX_DETAIL detail, (select * from Rpt_idx_info where index_ver_id in (select max(index_ver_id) from Rpt_idx_info idx)) t
+		where detail.index_no = t.index_no
+		<if test="detailId != null">and DETAIL_ID = #{detailId}</if>
+		<if test="indexAlias != null">and INDEX_ALIAS = #{indexAlias}</if>
+		<if test="indexNo != null">and INDEX_NO = #{indexNo}</if>
+		<if test="instanceId != null">and INSTANCE_ID = #{instanceId}</if>
+		<if test="orderNum != null">and ORDER_NUM = #{orderNum}</if>
+	</select>
+	<insert id="save" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavIdxDetail">insert into RPT_FAV_IDX_DETAIL(DETAIL_ID,INDEX_ALIAS,INDEX_NO,INSTANCE_ID,ORDER_NUM)
+		values(#{detailId},#{indexAlias},#{indexNo},#{instanceId},#{orderNum})</insert>
+	<update id="update" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavIdxDetail">
+		update RPT_FAV_IDX_DETAIL
+		<set>
+			<if test="detailId != null">DETAIL_ID=#{detailId},</if>
+			<if test="indexAlias != null">INDEX_ALIAS=#{indexAlias},</if>
+			<if test="indexNo != null">INDEX_NO=#{indexNo},</if>
+			<if test="instanceId != null">INSTANCE_ID=#{instanceId},</if>
+			<if test="orderNum != null">ORDER_NUM=#{orderNum}</if>
+		</set>
+		where 1=1 and DETAIL_ID=#{detailId}
+	</update>
+	<delete id="delete" parameterType="HashMap">delete from RPT_FAV_IDX_DETAIL
+		where 1=1
+		and DETAIL_ID=#{detailId}</delete>
+
+</mapper>

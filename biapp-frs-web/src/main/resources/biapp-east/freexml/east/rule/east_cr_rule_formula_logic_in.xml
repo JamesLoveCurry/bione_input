@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+	<item name="表内逻辑-demo1" descr="某个字段取值"><![CDATA[成立时间 > '19900101' && 成立时间 < '21001231' || 成立时间 == '99991231'']]></item>
+	<item name="表内逻辑-demo2" descr="两个日期比较"><![CDATA[机构工作开始时间 <= 机构工作终止时间]]></item>
+	<item name="表内逻辑-demo2" descr="几个金额字段比较">期初贷方余额 - 期初借方余额 + 本期贷方发生额 - 本期借方发生额
+		== 期末贷方余额 - 期末借方余额</item>
+</root>

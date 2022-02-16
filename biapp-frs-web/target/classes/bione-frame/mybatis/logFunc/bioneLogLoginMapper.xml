@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+namespace="com.yusys.bione.frame.syslog.repository.BioneLogLoginMybatisDao">
+	<select id="list" resultType="com.yusys.bione.frame.syslog.web.vo.BioneLogLoginVO" parameterType="HashMap">
+		SELECT
+			info.user_no,
+			login_Num,
+			login_Time,
+			t.user_id,
+			user_name,
+			org_name
+			FROM
+			(SELECT 
+				COUNT(user_id) login_Num,
+				SUM(logout_time-login_time) login_Time,
+				user_id
+			FROM bione_log_login
+	  		 WHERE 1=1
+		<if test="startDate != null">
+			and LOGIN_DATE >= #{startDate}
+		</if>
+		<if test="endDate != null">
+			and LOGIN_DATE &lt;= #{endDate}
+		</if> 
+		GROUP BY user_id) t, bione_user_info info
+	   LEFT JOIN bione_org_info org
+			ON info.ORG_NO = org.ORG_NO
+			where 1=1
+			and t.user_id = info.user_id
+		<if test="userName != null"> and info.user_name like #{userName}</if>
+		<if test="orgName != null"> and org.org_name like #{orgName}</if>
+		<if test="logicSysNo != null"> and info.logic_Sys_No = #{logicSysNo}</if>
+		<if test="orgNos != null and orgNos.size() > 0">
+			and (info.org_no in
+			<foreach item="orgNos"  collection="orgNos" separator=" or info.org_no in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	<select id="userDetail" resultType="com.yusys.bione.frame.syslog.web.vo.BioneLogUserVO"
+		parameterType="HashMap">
+		SELECT
+			login.user_id,
+			login.login_time,
+			login.logout_time - login.login_time as online_time,
+			login.LOGIN_IP
+			FROM
+			bione_log_login login
+			left join bione_user_info info
+			on login.user_id = info.user_id
+		where 1=1
+		<if test="startDate != null">
+			and login.LOGIN_DATE >= #{startDate}
+		</if>
+		<if test="endDate != null">
+			and login.LOGIN_DATE &lt;= #{endDate}
+		</if>
+		<if test="userId != null"> and login.user_id = #{userId}</if>
+		<if test="orgNos != null and orgNos.size() > 0">
+			and (info.org_no in
+			<foreach item="orgNos"  collection="orgNos" separator=" or info.org_no in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<insert id="save"
+	parameterType="com.yusys.bione.frame.syslog.entity.BioneLogLogin">insert into
+		BIONE_LOG_LOGIN(LOG_ID,USER_ID,LOGIN_TIME,LOGOUT_TIME,LOGIN_DATE,LOGIN_IP,SESSION_ID)
+		values(#{logId},#{userId},#{loginTime},#{logoutTime},#{loginDate},#{loginIp},#{sessionId})</insert>
+	<update id="update"
+	parameterType="com.yusys.bione.frame.syslog.entity.BioneLogLogin">
+		update BIONE_LOG_LOGIN
+		<set>
+			<if test="logoutTime != null">LOGOUT_TIME=#{logoutTime}</if>
+		</set>
+		where 1=1 and SESSION_ID=#{sessionId} and USER_ID=#{userId}
+	</update>
+</mapper>

@@ -1,0 +1,3112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+<table name="rpt_org_info" pkname="org_no,org_type" descr="★机构信息">
+<columns>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="org_type"			type="varchar"   length="10"   descr="机构类型"/>
+  <col name="up_org_no"			type="varchar"   length="32"   descr="上级机构标识"/>
+  <col name="org_nm"			type="varchar"   length="100"   descr="机构名称"/>
+  <col name="mgr_org_no"			type="varchar"   length="32"   descr="管理机构标识"/>
+  <col name="finance_org_no"			type="varchar"   length="32"   descr="金融机构标识"/>
+  <col name="org_sum_type"			type="varchar"   length="10"   descr="机构汇总类型"/>
+  <col name="namespace"			type="varchar"   length="500"   descr="命名空间"/>
+  <col name="is_virtual_org"			type="varchar"   length="1"   descr="是否虚拟机构"/>
+  <col name="rank_order"			type="decimal"   length="38"   descr="排序顺序"/>
+  <col name="org_level"			type="varchar"   length="100"   descr="机构层级"/>
+  <col name="org_class"			type="varchar"   length="30"   descr="机构定义类型"/>
+  <col name="is_org_report"			type="varchar"   length="1"   descr="是否报送机构（Y/N）"/>
+  <col name="lei_no"			type="varchar"   length="100"   descr="金融机构LEI编码"/>
+  <col name="addr"			type="varchar"   length="100"   descr="关联归属地"/>
+</columns>
+</table>
+
+<table name="rpt_org_sum_rel" pkname="up_org_no,org_no,org_type" descr="机构汇总关系">
+<columns>
+  <col name="up_org_no"			type="varchar"   length="32"   descr="上级机构标识"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="org_type"			type="varchar"   length="10"   descr="机构类型"/>
+  <col name="sum_rel_type"			type="varchar"   length="10"   descr="汇总关系类型"/>
+</columns>
+</table>
+
+<table name="rpt_idx_info" pkname="index_no,index_ver_id" descr="★指标定义信息"  bgcolor="#D2FFFF">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="index_ver_id"			type="decimal"   length="18"   descr="指标版本号"/>
+  <col name="index_catalog_no"			type="varchar"   length="32"   descr="指标目录标识"/>
+  <col name="index_sts"			type="varchar"   length="1"   descr="指标状态"/>
+  <col name="index_nm"			type="varchar"   length="4000"   descr="指标名称"/>
+  <col name="index_type"			type="varchar"   length="10"   descr="指标类型"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="开始日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="结束日期"/>
+  <col name="calc_cycle"			type="varchar"   length="10"   descr="计算周期"/>
+  <col name="data_type"			type="varchar"   length="10"   descr="数据类型"/>
+  <col name="data_len"			type="decimal"   length="12"   descr="数据长度"/>
+  <col name="data_precision"			type="decimal"   length="12"   descr="数据精度"/>
+  <col name="data_unit"			type="varchar"   length="10"   descr="数据单位"/>
+  <col name="src_source_id"			type="varchar"   length="32"   descr="源数据源ID"/>
+  <col name="src_index_no"			type="clob"   length="-1"   descr="来源指标标识"/>
+  <col name="src_index_measure"			type="varchar"   length="4000"   descr="来源指标度量"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="last_upt_user"			type="varchar"   length="100"   descr="最后修改人"/>
+  <col name="last_upt_time"			type="timestamp"   length="6"   descr="最后修改时间"/>
+  <col name="is_sum"			type="varchar"   length="1"   descr="是否跑数汇总"/>
+  <col name="is_rpt_index"			type="varchar"   length="1"   descr="是否报表指标"/>
+  <col name="busi_type"			type="varchar"   length="10"   descr="业务类型"/>
+  <col name="info_rights"			type="varchar"   length="1"   descr="信息权限"/>
+  <col name="val_range"			type="varchar"   length="100"   descr="值范围"/>
+  <col name="is_publish"			type="varchar"   length="1"   descr="是否发布"/>
+  <col name="is_save"			type="varchar"   length="1"   descr="是否落地"/>
+  <col name="stat_type"			type="varchar"   length="10"   descr="时间范围类型"/>
+  <col name="def_src"			type="varchar"   length="10"   descr="定义来源"/>
+  <col name="def_org"			type="varchar"   length="32"   descr="定义机构"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="定义用户"/>
+  <col name="busi_no"			type="varchar"   length="100"   descr="业务标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="dept_id"			type="varchar"   length="32"   descr="部门id"/>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线id"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户id"/>
+  <col name="create_date"			type="varchar"   length="10"   descr="创建时间"/>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据集id"/>
+  <col name="is_cabin"			type="varchar"   length="1"   descr="是否管驾"/>
+  <col name="busi_lib_id"			type="varchar"   length="32"   descr="业务库id"/>
+  <col name="is_fill_sum"			type="varchar"   length="1"   descr="是否填报汇总"/>
+</columns>
+</table>
+
+<table name="rpt_dim_type_info" pkname="dim_type_no" descr="维度类型信息"  bgcolor="#D2FFFF">
+<columns>
+  <col name="dim_type_no"			type="varchar"   length="32"   descr="维度类型标识"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="dim_type"			type="varchar"   length="10"   descr="维度类型"/>
+  <col name="dim_type_nm"			type="varchar"   length="100"   descr="维度类型名称"/>
+  <col name="dim_type_en_nm"			type="varchar"   length="100"   descr="维度类型英文名称"/>
+  <col name="dim_type_desc"			type="varchar"   length="500"   descr="维度类型描述"/>
+  <col name="dim_type_struct"			type="varchar"   length="10"   descr="维度类型结构"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="启用日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="结束日期"/>
+  <col name="use_dept"			type="varchar"   length="500"   descr="使用部门"/>
+  <col name="def_dept"			type="varchar"   length="500"   descr="定义部门"/>
+  <col name="busi_def"			type="varchar"   length="500"   descr="业务定义"/>
+  <col name="busi_rule"			type="clob"   length="-1"   descr="业务规则"/>
+  <col name="dim_sts"			type="varchar"   length="1"   descr="维度状态"/>
+</columns>
+</table>
+
+<table name="rpt_dim_item_info" pkname="dim_item_no,dim_type_no" descr="维度项信息"  bgcolor="#D2FFFF">
+<columns>
+  <col name="dim_item_no"			type="varchar"   length="32"   descr="维度项标识"/>
+  <col name="dim_type_no"			type="varchar"   length="32"   descr="维度类型标识"/>
+  <col name="dim_item_nm"			type="varchar"   length="200"   descr="维度项名称"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="use_dept"			type="varchar"   length="500"   descr="使用部门"/>
+  <col name="def_dept"			type="varchar"   length="500"   descr="定义部门"/>
+  <col name="busi_def"			type="varchar"   length="2000"   descr="业务定义"/>
+  <col name="busi_rule"			type="clob"   length="-1"   descr="业务规则"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="启用日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="结束日期"/>
+  <col name="item_sts"			type="varchar"   length="1"   descr="维度项状态"/>
+  <col name="rank_order"			type="decimal"   length="38"   descr="排序顺序"/>
+</columns>
+</table>
+
+<table name="rpt_idx_dim_rel" pkname="dim_no,index_no,index_ver_id,ds_id" descr="★指标维度关系"  bgcolor="#D2FFFF">
+<columns>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度标识"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="index_ver_id"			type="decimal"   length="18"   descr="指标版本号"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="store_col"			type="varchar"   length="100"   descr="存储字段"/>
+  <col name="dim_type"			type="varchar"   length="10"   descr="维度类型"/>
+  <col name="order_num"			type="decimal"   length="38"   descr="顺序编号"/>
+</columns>
+</table>
+
+<table name="rpt_idx_measure_info" pkname="measure_no" descr="度量信息"  bgcolor="#D2FFFF">
+<columns>
+  <col name="measure_no"			type="varchar"   length="32"   descr="度量标识"/>
+  <col name="measure_type"			type="varchar"   length="10"   descr="度量类型"/>
+  <col name="measure_nm"			type="varchar"   length="100"   descr="度量名称"/>
+  <col name="calc_formula"			type="varchar"   length="2000"   descr="计算公式"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_idx_measure_rel" pkname="measure_no,index_no,index_ver_id,ds_id" descr="★指标与度量关系"  bgcolor="#D2FFFF">
+<columns>
+  <col name="measure_no"			type="varchar"   length="32"   descr="度量标识"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="index_ver_id"			type="decimal"   length="18"   descr="指标版本号"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="store_col"			type="varchar"   length="100"   descr="存储字段"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+</columns>
+</table>
+
+<table name="rpt_idx_formula_info" pkname="index_no,index_ver_id" descr="★指标公式信息" bgcolor="#D2FFFF">
+<columns>
+  <col name="index_no"			   type="varchar"   length="32"   descr="指标标识"   remark="指标编码,是组合指标或派生指标的编码" />
+  <col name="index_ver_id"		   type="decimal"   length="18"   descr="指标版本号"   remark="版本号" />
+  <col name="formula_type"		   type="varchar"   length="10"   descr="公式类型"   remark="【01-过滤公式】【02-计算公式】【03-SQL公式】"/>
+  <col name="formula_content"	   type="clob"   length="-1"   descr="公式内容"     remark="公式内容,比如:($CURRENCY=='001')或I('wfRoot001')+I('wfRoot002')" />
+  <col name="formula_desc"		   type="clob"   length="-1"   descr="公式描述"  remark="公式内容的描述" />
+  <col name="remark"			   type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_idx_catalog" pkname="index_catalog_no" descr="指标目录信息"  bgcolor="#D2FFFF">
+<columns>
+  <col name="index_catalog_no"			type="varchar"   length="32"   descr="指标目录标识"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="index_catalog_nm"			type="varchar"   length="100"   descr="指标目录名称"/>
+  <col name="def_src"			type="varchar"   length="10"   descr="定义来源"/>
+  <col name="def_org"			type="varchar"   length="32"   descr="定义机构"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="定义用户"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="catalog_order"			type="decimal"   length="10"   descr="目录排序"/>
+</columns>
+</table>
+
+
+<table name="rpt_dim_history_info" pkname="his_id" descr="维度历史信息">
+<columns>
+  <col name="his_id"			type="varchar"   length="32"   descr="历史ID"/>
+  <col name="dim_type_no"			type="varchar"   length="32"   descr="维度类型标识"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="开始日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="结束日期"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="his_info"			type="clob"   length="-1"   descr="历史信息"/>
+</columns>
+</table>
+
+<table name="rpt_idx_comp_grp" pkname="compgrp_id,main_index_no,index_no" descr="指标对比组">
+<columns>
+  <col name="compgrp_id"			type="varchar"   length="32"   descr="对比组ID"/>
+  <col name="main_index_no"			type="varchar"   length="32"   descr="主指标标识"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+</columns>
+</table>
+
+
+<table name="rpt_idx_bank_info" pkname="theme_id,index_id" descr="指标翻牌日期表">
+<columns>
+  <col name="theme_id"			type="varchar"   length="32"   descr="主题ID"/>
+  <col name="index_id"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="index_nm"			type="varchar"   length="200"   descr="指标名称"/>
+  <col name="main_no"			type="varchar"   length="32"   descr="主标识"/>
+  <col name="part_no"			type="varchar"   length="32"   descr="分标识"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="上级标识"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="index_level"			type="varchar"   length="32"   descr="层级"/>
+  <col name="currency"			type="varchar"   length="32"   descr="币种"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+</columns>
+</table>
+
+<table name="rpt_idx_busi_ext" pkname="index_no,index_ver_id" descr="指标扩展信息">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="index_ver_id"			type="decimal"   length="18"   descr="指标版本号"/>
+  <col name="index_usual_nm"			type="varchar"   length="500"   descr="指标常用名"/>
+  <col name="busi_rule"			type="clob"   length="-1"   descr="业务规则"/>
+  <col name="busi_def"			type="varchar"   length="500"   descr="业务定义"/>
+  <col name="def_dept"			type="varchar"   length="500"   descr="定义部门"/>
+  <col name="use_dept"			type="varchar"   length="500"   descr="使用部门"/>
+  <col name="busi_model"			type="varchar"   length="100"   descr="业务模型"/>
+</columns>
+</table>
+
+<table name="rpt_idx_calc_rule" pkname="rule_id" descr="指标计算规则">
+<columns>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则ID"/>
+  <col name="rule_nm"			type="varchar"   length="100"   descr="规则名称"/>
+  <col name="rule_template"			type="varchar"   length="2000"   descr="规则模板"/>
+  <col name="rule_type"			type="varchar"   length="10"   descr="规则类型"/>
+  <col name="rule_desc"			type="varchar"   length="500"   descr="规则描述"/>
+  <col name="rule_freq"			type="varchar"   length="10"   descr="规则频度"/>
+  <col name="sort_order"			type="decimal"   length="18"   descr="排序顺序"/>
+</columns>
+</table>
+
+<table name="rpt_idx_draw_info" pkname="index_no" descr="指标翻牌日期表">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="draw_date"			type="varchar"   length="10"   descr="翻牌日期"/>
+</columns>
+</table>
+
+<table name="rpt_idx_filter_info" pkname="index_no,index_ver_id,dim_no" descr="指标过滤信息">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="index_ver_id"			type="decimal"   length="18"   descr="指标版本号"/>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度标识"/>
+  <col name="filter_mode"			type="varchar"   length="10"   descr="过滤方式"/>
+  <col name="filter_val"			type="varchar"   length="2000"   descr="过滤值"/>
+</columns>
+</table>
+
+<table name="rpt_idx_formula_func" pkname="formula_id" descr="公式函数信息">
+<columns>
+  <col name="formula_id"			type="varchar"   length="32"   descr="公式ID"/>
+  <col name="func_type"			type="varchar"   length="10"   descr="函数类型"/>
+  <col name="formula_nm"			type="varchar"   length="100"   descr="公式名称"/>
+  <col name="formula_display"			type="varchar"   length="100"   descr="公式显示"/>
+  <col name="remark"			type="clob"   length="-1"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_idx_formula_symbol" pkname="symbol_id" descr="公式运算符信息">
+<columns>
+  <col name="symbol_id"			type="varchar"   length="32"   descr="运算符ID"/>
+  <col name="symbol_type"			type="varchar"   length="10"   descr="运算符类型"/>
+  <col name="symbol_nm"			type="varchar"   length="100"   descr="运算符名称"/>
+  <col name="symbol_display"			type="varchar"   length="100"   descr="运算符显示"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+<table name="rpt_idx_plan_result" pkname="index_no,data_date,org_no,currency,plan_type,dim1,dim2,dim3,dim4,dim5,dim6,dim7,dim8,dim9,dim10" descr="指标计划结果">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="currency"			type="varchar"   length="10"   descr="币种"/>
+  <col name="plan_type"			type="varchar"   length="10"   descr="计划类型"/>
+  <col name="dim1"			type="varchar"   length="32"   descr="维度1"/>
+  <col name="dim2"			type="varchar"   length="32"   descr="维度2"/>
+  <col name="dim3"			type="varchar"   length="32"   descr="维度3"/>
+  <col name="dim4"			type="varchar"   length="32"   descr="维度4"/>
+  <col name="dim5"			type="varchar"   length="32"   descr="维度5"/>
+  <col name="dim6"			type="varchar"   length="32"   descr="维度6"/>
+  <col name="dim7"			type="varchar"   length="32"   descr="维度7"/>
+  <col name="dim8"			type="varchar"   length="32"   descr="维度8"/>
+  <col name="dim9"			type="varchar"   length="32"   descr="维度9"/>
+  <col name="dim10"			type="varchar"   length="32"   descr="维度10"/>
+  <col name="index_val"			type="decimal"   length="20,5"   descr="指标值"/>
+</columns>
+</table>
+
+<table name="rpt_idx_report_mark" pkname="data_dt,idx_no" descr="指标备注信息">
+<columns>
+  <col name="data_dt"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="idx_no"			type="varchar"   length="100"   descr="指标编号"/>
+  <col name="remark"			type="varchar"   length="200"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_idx_result" pkname="index_no,data_date,org_no,currency,dim1,dim2,dim3,dim4,dim5,dim6,dim7,dim8,dim9,dim10" descr="★指标结果"   bgcolor="#FFCECE">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="currency"			type="varchar"   length="10"   descr="币种"/>
+  <col name="dim1"			type="varchar"   length="32"   descr="维度1"/>
+  <col name="dim2"			type="varchar"   length="32"   descr="维度2"/>
+  <col name="dim3"			type="varchar"   length="32"   descr="维度3"/>
+  <col name="dim4"			type="varchar"   length="32"   descr="维度4"/>
+  <col name="dim5"			type="varchar"   length="32"   descr="维度5"/>
+  <col name="dim6"			type="varchar"   length="32"   descr="维度6"/>
+  <col name="dim7"			type="varchar"   length="32"   descr="维度7"/>
+  <col name="dim8"			type="varchar"   length="32"   descr="维度8"/>
+  <col name="dim9"			type="varchar"   length="32"   descr="维度9"/>
+  <col name="dim10"			type="varchar"   length="32"   descr="维度10"/>
+  <col name="index_val"			type="decimal"   length="20,5"   descr="指标值"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+</columns>
+</table>
+
+<table name="rpt_idx_similar_grp" pkname="simigrp_id,index_no" descr="指标同类组">
+<columns>
+  <col name="simigrp_id"			type="varchar"   length="32"   descr="同类组ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+</columns>
+</table>
+
+<table name="rpt_idx_src_rel_info" pkname="index_no,index_ver_id,src_index_no,src_measure_no" descr="报表指标来源关系表">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+  <col name="index_ver_id"			type="decimal"   length="18"   descr="指标版本id"/>
+  <col name="src_index_no"			type="varchar"   length="32"   descr="来源指标编号"/>
+  <col name="src_measure_no"			type="varchar"   length="32"   descr="来源度量标识"/>
+</columns>
+</table>
+
+<table name="rpt_idx_theme_info" pkname="theme_id" descr="指标主题信息表">
+<columns>
+  <col name="theme_id"			type="varchar"   length="32"   descr="主题ID"/>
+  <col name="theme_nm"			type="varchar"   length="200"   descr="主题名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="theme_no"			type="varchar"   length="32"   descr="主题标识"/>
+  <col name="is_default"			type="varchar"   length="10"   descr="是否默认"/>
+</columns>
+</table>
+
+<table name="rpt_idx_time_measure" pkname="time_measure_id" descr="指标时间度量">
+<columns>
+  <col name="time_measure_id"			type="varchar"   length="32"   descr="时间度量ID"/>
+  <col name="measure_nm"			type="varchar"   length="100"   descr="度量名称"/>
+  <col name="measure_template"			type="varchar"   length="2000"   descr="度量模板"/>
+  <col name="measure_freq"			type="varchar"   length="10"   descr="度量频度"/>
+  <col name="measure_desc"			type="varchar"   length="500"   descr="度量描述"/>
+  <col name="sort_order"			type="decimal"   length="18"   descr="排序顺序"/>
+</columns>
+</table>
+
+<table name="rpt_idx_val_type" pkname="mode_id" descr="指标取值方式">
+<columns>
+  <col name="mode_id"			type="varchar"   length="32"   descr="方式ID"/>
+  <col name="mode_nm"			type="varchar"   length="100"   descr="方式名称"/>
+  <col name="mode_template"			type="varchar"   length="2000"   descr="方式模板"/>
+  <col name="mode_desc"			type="varchar"   length="500"   descr="方式描述"/>
+  <col name="sort_order"			type="decimal"   length="18"   descr="排序顺序"/>
+</columns>
+</table>
+
+<table name="rpt_idx_visit_his" pkname="his_id" descr="指标访问历史">
+<columns>
+  <col name="his_id"			type="varchar"   length="32"   descr="历史ID"/>
+  <col name="index_ver_id"			type="decimal"   length="18"   descr="指标版本号"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="access_date"			type="varchar"   length="8"   descr="访问日期"/>
+  <col name="access_time"			type="timestamp"   length="6"   descr="访问时间"/>
+  <col name="access_ip"			type="varchar"   length="100"   descr="访问IP"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+</columns>
+</table>
+
+
+<table name="rpt_mgr_report_info" pkname="rpt_id" descr="★报表信息表"   bgcolor="#FFCECE">
+<columns>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="rpt_nm"			type="varchar"   length="100"   descr="报表名称"/>
+  <col name="rpt_type"			type="varchar"   length="10"   descr="报表类型"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置ID"/>
+  <col name="rpt_cycle"			type="varchar"   length="10"   descr="报表周期"/>
+  <col name="rank_order"			type="decimal"   length="5"   descr="排列顺序"/>
+  <col name="rpt_desc"			type="varchar"   length="4000"   descr="报表描述"/>
+  <col name="rpt_sts"			type="varchar"   length="1"   descr="报表状态"/>
+  <col name="show_priority"			type="decimal"   length="12"   descr="展示优先级"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="启用日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="停用日期"/>
+  <col name="ext_type"			type="varchar"   length="10"   descr="扩展类型"/>
+  <col name="create_time"			type="timestamp"   length="6"   descr="创建时间"/>
+  <col name="busi_type"			type="varchar"   length="10"   descr="业务类型"/>
+  <col name="rpt_num"			type="varchar"   length="32"   descr="报表编号"/>
+  <col name="info_rights"			type="varchar"   length="1"   descr="信息权限"/>
+  <col name="def_src"			type="varchar"   length="10"   descr="定义来源"/>
+  <col name="def_org"			type="varchar"   length="32"   descr="定义机构"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="定义用户"/>
+  <col name="is_cabin"			type="varchar"   length="1"   descr="是否管驾"/>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线id"/>
+  <col name="busi_lib_id"			type="varchar"   length="32"   descr="业务库id"/>
+  <col name="rpt_busi_nm"			type="varchar"   length="200"   descr="报表业务名称"/>
+  <col name="excel_run"			type="varchar"   length="5"   descr="是否跑excel公式"/>
+  <col name="report_obj"			type="varchar"   length="100"   descr="报表报送对象01-银行 02-农信 03-农商 04-消金 05-财务公司 06-信托"/>
+</columns>
+</table>
+
+
+<table name="rpt_mgr_adapter" pkname="adapter_id" descr="报表服务器适配器类型">
+<columns>
+  <col name="adapter_id"			type="varchar"   length="32"   descr="适配器ID"/>
+  <col name="adapter_nm"			type="varchar"   length="100"   descr="适配器名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="adapter_type"			type="varchar"   length="10"   descr="适配器类型"/>
+  <col name="adapter_auth_type"			type="varchar"   length="500"   descr="适配器认证类型"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_adapter_param" pkname="adapter_param_id" descr="报表服务器适配器参数">
+<columns>
+  <col name="adapter_param_id"			type="varchar"   length="32"   descr="适配器参数ID"/>
+  <col name="adapter_id"			type="varchar"   length="32"   descr="适配器ID"/>
+  <col name="param_nm"			type="varchar"   length="100"   descr="参数名称"/>
+  <col name="init_val"			type="varchar"   length="500"   descr="初始化值"/>
+  <col name="is_notnull"			type="varchar"   length="1"   descr="是否非空"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="display_nm"			type="varchar"   length="100"   descr="显示名称"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_apply_info" pkname="apply_id" descr="报表申请信息表">
+<columns>
+  <col name="apply_id"			type="varchar"   length="32"   descr="申请ID"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="apply_user_id"			type="varchar"   length="32"   descr="申请用户ID"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+  <col name="create_time"			type="timestamp"   length="6"   descr="创建时间"/>
+  <col name="apply_sts"			type="varchar"   length="1"   descr="申请状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="apply_content"			type="varchar"   length="500"   descr="申请内容"/>
+  <col name="collate_content"			type="varchar"   length="500"   descr="审批内容"/>
+  <col name="collate_time"			type="timestamp"   length="6"   descr="审批时间"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_auth_user_info" pkname="auth_id" descr="认证用户信息">
+<columns>
+  <col name="auth_id"			type="varchar"   length="100"   descr="认证ID"/>
+  <col name="server_id"			type="varchar"   length="32"   descr="服务器ID"/>
+  <col name="auth_user_nm"			type="varchar"   length="100"   descr="认证用户名称"/>
+  <col name="auth_user_pwd"			type="varchar"   length="100"   descr="认证用户密码"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_auth_user_rel" pkname="auth_id,user_no" descr="认证用户关系">
+<columns>
+  <col name="auth_id"			type="varchar"   length="32"   descr="认证ID"/>
+  <col name="user_no"			type="varchar"   length="32"   descr="用户标识"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_bank_ext" pkname="rpt_id" descr="行内扩展信息表">
+<columns>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="rpt_currtype"			type="varchar"   length="10"   descr="报表币种"/>
+  <col name="data_unit"			type="varchar"   length="10"   descr="数据单位"/>
+  <col name="data_precision"			type="varchar"   length="10"   descr="数据精度"/>
+  <col name="generate_time"			type="varchar"   length="8"   descr="生成时间"/>
+  <col name="parties"			type="varchar"   length="10"   descr="汇率"/>
+  <col name="rpt_generate_type"			type="varchar"   length="10"   descr="报表生成类型"/>
+  <col name="duty_dept"			type="varchar"   length="500"   descr="责任部门"/>
+  <col name="rpt_use"			type="varchar"   length="10"   descr="报表用途"/>
+  <col name="require_explain"			type="clob"   length="-1"   descr="需求说明"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_busi_cfg" pkname="line_id" descr="报表条线配置表 ">
+<columns>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线id"/>
+  <col name="rpt_set_id"			type="varchar"   length="32"   descr="报表数据集id"/>
+  <col name="idx_set_id"			type="varchar"   length="32"   descr="指标数据集id"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_busi_line" pkname="line_id" descr="条线信息"  bgcolor="#FFCECE">
+<columns>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线ID"/>
+  <col name="line_nm"			type="varchar"   length="100"   descr="条线名称"/>
+  <col name="rank_order"			type="decimal"   length="5"   descr="排序顺序"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_dep_line" pkname="id" descr="部门条线管理表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="主键"/>
+  <col name="dep_no"			type="varchar"   length="32"   descr="部门编号"/>
+  <col name="line_no"			type="varchar"   length="32"   descr="所属条线编号"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_frs_ext" pkname="rpt_id" descr="监管扩展信息表">
+<columns>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="busi_type"			type="varchar"   length="10"   descr="业务类型"/>
+  <col name="def_dept"			type="varchar"   length="500"   descr="定义部门"/>
+  <col name="is_release_submit"			type="varchar"   length="1"   descr="是否下发提交"/>
+  <col name="report_code"			type="varchar"   length="32"   descr="上报编码"/>
+  <col name="submit_main"			type="varchar"   length="10"   descr="报送主体"/>
+  <col name="submit_range"			type="varchar"   length="10"   descr="报送范围"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="fill_desc"			type="clob"   length="-1"   descr="填报说明"/>
+  <col name="is_main_rpt"			type="varchar"   length="1"   descr="是否主表"/>
+  <col name="main_rpt_id"			type="varchar"   length="32"   descr="主表id"/>
+  <col name="is_add_srcfeild"			type="varchar"   length="2"   descr="is_add_srcfeild"/>
+  <col name="src_feild"			type="varchar"   length="100"   descr="src_feild"/>
+  <col name="ver_num"			type="varchar"   length="10"   descr="ver_num"/>
+  <col name="key_word"			type="varchar"   length="32"   descr="key_word"/>
+  <col name="data_pro"			type="varchar"   length="3000"   descr="data_pro"/>
+  <col name="preliminary_des"			type="varchar"   length="3000"   descr="preliminary_des"/>
+  <col name="author_sys"			type="varchar"   length="32"   descr="author_sys"/>
+  <col name="service_cyc"			type="varchar"   length="32"   descr="service_cyc"/>
+  <col name="dept_user_id"			type="varchar"   length="32"   descr="dept_user_id"/>
+  <col name="dept_user"			type="varchar"   length="32"   descr="dept_user"/>
+  <col name="desc_info_pub"			type="varchar"   length="100"   descr="desc_info_pub"/>
+  <col name="role_info"			type="varchar"   length="32"   descr="role_info"/>
+  <col name="from_sys"			type="varchar"   length="32"   descr="from_sys"/>
+  <col name="data_reserve"			type="varchar"   length="32"   descr="data_reserve"/>
+  <col name="bus_cal"			type="varchar"   length="32"   descr="bus_cal"/>
+  <col name="src_table"			type="varchar"   length="200"   descr="src_table"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="user_id"/>
+  <col name="is_add_org"			type="varchar"   length="1"   descr="is_add_org"/>
+  <col name="search_feild"			type="varchar"   length="32"   descr="search_feild"/>
+  <col name="is_datetype"			type="varchar"   length="1"   descr="is_datetype"/>
+  <col name="tmp_version_id"			type="varchar"   length="20"   descr="制度表样版本"/>
+  <col name="rep_id"			type="varchar"   length="20"   descr="制度表样编号"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_frs_ext_ver" pkname="rpt_id,ver_id" descr="报表扩展版本信息表">
+<columns>
+  <col name="ver_id"			type="varchar"   length="32"   descr="版本id"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="busi_type"			type="varchar"   length="10"   descr="业务类型"/>
+  <col name="def_dept"			type="varchar"   length="500"   descr="定义部门"/>
+  <col name="is_release_submit"			type="varchar"   length="1"   descr="is_release_submit"/>
+  <col name="report_code"			type="varchar"   length="32"   descr="上报编码"/>
+  <col name="submit_main"			type="varchar"   length="10"   descr="submit_main"/>
+  <col name="submit_range"			type="varchar"   length="10"   descr="报送范围"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="fill_desc"			type="clob"   length="-1"   descr="填报说明"/>
+  <col name="is_main_rpt"			type="varchar"   length="1"   descr="is_main_rpt"/>
+  <col name="main_rpt_id"			type="varchar"   length="32"   descr="main_rpt_id"/>
+  <col name="operate_user"			type="varchar"   length="32"   descr="operate_user"/>
+  <col name="operate_time"			type="date"   length="0"   descr="operate_time"/>
+  <col name="data_pro"			type="varchar"   length="500"   descr="data_pro"/>
+  <col name="preliminary_des"			type="varchar"   length="500"   descr="preliminary_des"/>
+  <col name="author_sys"			type="varchar"   length="32"   descr="author_sys"/>
+  <col name="service_cyc"			type="varchar"   length="32"   descr="service_cyc"/>
+  <col name="ver_num"			type="varchar"   length="10"   descr="ver_num"/>
+  <col name="dept_user_id"			type="varchar"   length="32"   descr="dept_user_id"/>
+  <col name="dept_user"			type="varchar"   length="32"   descr="dept_user"/>
+  <col name="desc_info_pub"			type="varchar"   length="100"   descr="desc_info_pub"/>
+  <col name="role_info"			type="varchar"   length="32"   descr="role_info"/>
+  <col name="from_sys"			type="varchar"   length="32"   descr="from_sys"/>
+  <col name="data_reserve"			type="varchar"   length="32"   descr="data_reserve"/>
+  <col name="bus_cal"			type="varchar"   length="32"   descr="bus_cal"/>
+  <col name="src_table"			type="varchar"   length="200"   descr="src_table"/>
+  <col name="key_word"			type="varchar"   length="32"   descr="key_word"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_frs_line" pkname="line_id" descr="条线信息"   bgcolor="#FFCECE">
+<columns>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线ID"/>
+  <col name="line_nm"			type="varchar"   length="100"   descr="条线名称"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_frs_secrelease_cfg" pkname="org_id,rpt_id,org_type,task_id" descr="报表二次下发配置">
+<columns>
+  <col name="org_id"			type="varchar"   length="32"   descr="机构ID"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="org_type"			type="varchar"   length="10"   descr="机构类型"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_idx_filter" pkname="dim_no,set_id,index_no,col_id,rpt_id" descr="报表关联指标过滤">
+<columns>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度标识"/>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据模型ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="col_id"			type="varchar"   length="32"   descr="字段ID"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="filter_mode"			type="varchar"   length="10"   descr="过滤方式"/>
+  <col name="filter_val"			type="varchar"   length="2000"   descr="过滤值"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_ipt_his" pkname="his_id" descr="修改记录历史表">
+<columns>
+  <col name="his_id"			type="varchar"   length="32"   descr="历史ID"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例ID"/>
+  <col name="upt_user"			type="varchar"   length="32"   descr="修改人"/>
+  <col name="upt_time"			type="timestamp"   length="6"   descr="修改时间"/>
+  <col name="obj_type"			type="varchar"   length="10"   descr="对象类型"/>
+  <col name="obj_no"			type="clob"   length="-1"   descr="对象标识"/>
+  <col name="old_obj_val"			type="clob"   length="-1"   descr="修改前对象值"/>
+  <col name="new_obj_val"			type="clob"   length="-1"   descr="修改后对象值"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="is_init"			type="varchar"   length="1"   descr="是否初始化"/>
+  <col name="query_cond"			type="varchar"   length="500"   descr="查询条件"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_module_idx_rel" pkname="set_id,col_id,index_no,rpt_id" descr="报表数据集字段与指标关系"  bgcolor="#FFCECE">
+<columns>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据模型ID"/>
+  <col name="col_id"			type="varchar"   length="32"   descr="字段ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="filter_formula"			type="varchar"   length="2000"   descr="过滤公式"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_module_rel" pkname="set_id,rpt_id" descr="报表数据集关系"  bgcolor="#FFCECE">
+<columns>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据模型ID"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_outer_cfg" pkname="cfg_id" descr="外部报表配置信息">
+<columns>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置ID"/>
+  <col name="paramtmp_id"			type="varchar"   length="32"   descr="参数模版ID"/>
+  <col name="search_path"			type="varchar"   length="500"   descr="搜索路径"/>
+  <col name="rpt_src_path"			type="varchar"   length="500"   descr="报表源路径"/>
+  <col name="server_id"			type="varchar"   length="32"   descr="服务器ID"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_param" pkname="server_id,adapter_param_id" descr="报表服务器参数">
+<columns>
+  <col name="server_id"			type="varchar"   length="32"   descr="服务器ID"/>
+  <col name="adapter_param_id"			type="varchar"   length="32"   descr="适配器参数ID"/>
+  <col name="param_val"			type="varchar"   length="500"   descr="参数值"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_report_catalog" pkname="catalog_id" descr="报表目录">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="catalog_nm"			type="varchar"   length="100"   descr="目录名称"/>
+  <col name="up_catalog_id"			type="varchar"   length="32"   descr="上级目录ID"/>
+  <col name="ext_type"			type="varchar"   length="10"   descr="扩展类型"/>
+  <col name="def_src"			type="varchar"   length="10"   descr="定义来源"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="def_org"			type="varchar"   length="32"   descr="定义机构"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="定义用户"/>
+  <col name="catalog_order"			type="decimal"   length="5"   descr="目录排序"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_report_data_item" pkname="rpt_item_id,rpt_id" descr="报表数据项信息表">
+<columns>
+  <col name="rpt_item_id"			type="varchar"   length="32"   descr="报表项ID"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="序号"/>
+  <col name="rpt_item_type"			type="varchar"   length="10"   descr="报表项类型"/>
+  <col name="rpt_item_nm"			type="varchar"   length="100"   descr="报表项名称"/>
+  <col name="rpt_item_desc"			type="varchar"   length="500"   descr="报表项描述"/>
+  <col name="relate_type"			type="varchar"   length="10"   descr="关联类型"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_report_his" pkname="his_id" descr="报表访问历史">
+<columns>
+  <col name="his_id"			type="varchar"   length="32"   descr="历史ID"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="access_date"			type="varchar"   length="8"   descr="访问日期"/>
+  <col name="access_time"			type="timestamp"   length="6"   descr="访问时间"/>
+  <col name="access_ip"			type="varchar"   length="100"   descr="访问IP"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_report_info_ver" pkname="rpt_id,ver_id" descr="RPT_MGR_REPORT_INFO_VER">
+<columns>
+  <col name="ver_id"			type="varchar"   length="32"   descr="版本id"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+  <col name="rpt_nm"			type="varchar"   length="100"   descr="报表名称"/>
+  <col name="rpt_type"			type="varchar"   length="10"   descr="报表类型"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="rpt_cycle"			type="varchar"   length="10"   descr="报送周期"/>
+  <col name="rank_order"			type="decimal"   length="5"   descr="排序顺序"/>
+  <col name="rpt_desc"			type="varchar"   length="500"   descr="rpt_desc"/>
+  <col name="rpt_sts"			type="varchar"   length="1"   descr="rpt_sts"/>
+  <col name="show_priority"			type="decimal"   length="12"   descr="show_priority"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="start_date"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="end_date"/>
+  <col name="ext_type"			type="varchar"   length="10"   descr="ext_type"/>
+  <col name="create_time"			type="timestamp"   length="6"   descr="create_time"/>
+  <col name="busi_type"			type="varchar"   length="10"   descr="busi_type"/>
+  <col name="rpt_num"			type="varchar"   length="32"   descr="rpt_num"/>
+  <col name="info_rights"			type="varchar"   length="1"   descr="info_rights"/>
+  <col name="def_src"			type="varchar"   length="10"   descr="def_src"/>
+  <col name="def_org"			type="varchar"   length="32"   descr="def_org"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="def_user"/>
+  <col name="operate_user"			type="varchar"   length="32"   descr="operate_user"/>
+  <col name="operate_time"			type="date"   length="0"   descr="operate_time"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_rptdim_rel" pkname="rpt_id,dim_no" descr="报表与维度的关系"   bgcolor="#FFCECE">
+<columns>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度标识"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_rptitem_idx_rel" pkname="rpt_id,rpt_item_id,index_no" descr="报表项指标关系">
+<columns>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="rpt_item_id"			type="varchar"   length="32"   descr="报表项ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="filter_formula"			type="varchar"   length="2000"   descr="过滤公式"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_rpttemplate_rel" pkname="id" descr="银监表样配置表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="id"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="version_id"			type="varchar"   length="32"   descr="版本id"/>
+  <col name="template_path"			type="varchar"   length="300"   descr="路径"/>
+  <col name="modify_time"			type="varchar"   length="32"   descr="修改时间"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_server_info" pkname="server_id" descr="报表服务器信息">
+<columns>
+  <col name="server_id"			type="varchar"   length="32"   descr="服务器ID"/>
+  <col name="adapter_id"			type="varchar"   length="32"   descr="适配器ID"/>
+  <col name="server_nm"			type="varchar"   length="100"   descr="服务器名称"/>
+  <col name="server_desc"			type="varchar"   length="500"   descr="服务器描述"/>
+  <col name="create_time"			type="timestamp"   length="6"   descr="创建时间"/>
+  <col name="namespace"			type="varchar"   length="500"   descr="命名空间"/>
+  <col name="auth_type"			type="varchar"   length="10"   descr="认证类型"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_share_info" pkname="share_id" descr="报表分享信息表">
+<columns>
+  <col name="share_id"			type="varchar"   length="32"   descr="分享ID"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象ID"/>
+  <col name="obj_type"			type="varchar"   length="10"   descr="对象类型"/>
+  <col name="src_user_id"			type="varchar"   length="32"   descr="来源用户ID"/>
+  <col name="obj_user_id"			type="varchar"   length="32"   descr="对象用户ID"/>
+  <col name="create_time"			type="timestamp"   length="6"   descr="创建时间"/>
+  <col name="share_sts"			type="varchar"   length="1"   descr="分享状态"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="obj_name"			type="varchar"   length="200"   descr="对象名称"/>
+</columns>
+</table>
+
+
+<table name="rpt_design_batch_cfg" pkname="template_id,ver_id,cfg_id" descr="指标批量过滤配置">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置ID"/>
+  <col name="dim_type"			type="varchar"   length="32"   descr="维度类型"/>
+  <col name="filter_mode"			type="varchar"   length="10"   descr="过滤方式"/>
+  <col name="filter_val"			type="varchar"   length="2000"   descr="过滤值"/>
+  <col name="pos_type"			type="varchar"   length="10"   descr="位置类型"/>
+  <col name="pos_num"			type="varchar"   length="100"   descr="位置编号"/>
+</columns>
+</table>
+
+<table name="rpt_design_cell_info" pkname="cell_no,template_id,ver_id" descr="★单元格信息"  bgcolor="#FFCECE">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="cell_nm"			type="varchar"   length="4000"   descr="单元格名称"/>
+  <col name="row_id"			type="decimal"   length="12"   descr="行号"/>
+  <col name="col_id"			type="decimal"   length="12"   descr="列号"/>
+  <col name="data_type"			type="varchar"   length="10"   descr="数据类型"/>
+  <col name="is_upt"			type="varchar"   length="1"   descr="是否修改"/>
+  <col name="is_null"			type="varchar"   length="1"   descr="是否可空"/>
+  <col name="is_merge"			type="varchar"   length="1"   descr="是否合并"/>
+  <col name="is_merge_col"			type="varchar"   length="1"   descr="是否合并参照列"/>
+  <col name="data_unit"			type="varchar"   length="10"   descr="数据单位"/>
+  <col name="data_len"			type="decimal"   length="12"   descr="数据长度"/>
+  <col name="data_precision"			type="decimal"   length="12"   descr="数据精度"/>
+  <col name="cell_suffix"			type="varchar"   length="100"   descr="单元格后缀"/>
+  <col name="display_format"			type="varchar"   length="10"   descr="显示格式"/>
+  <col name="caliber_explain"			type="varchar"   length="4000"   descr="口径说明"/>
+  <col name="caliber_technology"			type="varchar"   length="4000"   descr="技术口径"/>
+  <col name="cell_data_src"			type="varchar"   length="10"   descr="单元格数据来源"/>
+  <col name="busi_no"			type="varchar"   length="100"   descr="业务标识"/>
+  <col name="sort_mode"			type="varchar"   length="10"   descr="排序方式"/>
+  <col name="remark"			type="varchar"   length="4000"   descr="备注"/>
+  <col name="is_lock"			type="varchar"   length="1"   descr="是否锁定"/>
+</columns>
+</table>
+
+<table name="rpt_design_comcell_info" pkname="template_id,ver_id,cell_no,type_id" descr="一般单元格详情表">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="type_id"			type="varchar"   length="32"   descr="类别ID"/>
+  <col name="col_id"			type="decimal"   length="12"   descr="列编号"/>
+  <col name="row_id"			type="decimal"   length="12"   descr="行编号"/>
+  <col name="content"			type="clob"   length="-1"   descr="内容"/>
+</columns>
+</table>
+
+<table name="rpt_design_comcell_type" pkname="type_id" descr="一般单元格种类">
+<columns>
+  <col name="type_id"			type="varchar"   length="32"   descr="类别ID"/>
+  <col name="type_nm"			type="varchar"   length="100"   descr="类别名称"/>
+  <col name="sort_order"			type="decimal"   length="5"   descr="排序顺序"/>
+</columns>
+</table>
+
+<table name="rpt_design_fav_info" pkname="favour_id" descr="报表模板收藏信息表">
+<columns>
+  <col name="favour_id"			type="varchar"   length="32"   descr="收藏ID"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="ver_id"			type="decimal"   length="5"   descr="版本id"/>
+</columns>
+</table>
+
+<table name="rpt_design_query_detail" pkname="template_id,ver_id,order_num" descr="查询条件明细项">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="order_num"			type="decimal"   length="18"   descr="顺序编号"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="column_id"			type="varchar"   length="32"   descr="数据字段ID"/>
+  <col name="element_type"			type="varchar"   length="10"   descr="组件类型"/>
+</columns>
+</table>
+
+<table name="rpt_design_query_dim" pkname="template_id,ver_id" descr="报表模板查询维度">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="public_dim"			type="clob"   length="-1"   descr="公共维度"/>
+  <col name="query_dim"			type="clob"   length="-1"   descr="查询维度"/>
+  <col name="param_template_id"			type="varchar"   length="32"   descr="参数模板ID"/>
+</columns>
+</table>
+
+<table name="rpt_design_source_ds" pkname="cell_no,template_id,ver_id" descr="数据集来源">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="column_id"			type="varchar"   length="32"   descr="数据字段ID"/>
+  <col name="is_ext"			type="varchar"   length="1"   descr="是否扩展"/>
+  <col name="ext_direction"			type="varchar"   length="10"   descr="扩展方向"/>
+  <col name="ext_mode"			type="varchar"   length="10"   descr="扩展方式"/>
+  <col name="is_grp"			type="varchar"   length="1"   descr="是否分组"/>
+  <col name="sum_mode"			type="varchar"   length="10"   descr="汇总方式"/>
+  <col name="is_filt"			type="varchar"   length="1"   descr="是否筛选"/>
+  <col name="is_sort"			type="varchar"   length="1"   descr="是否排序"/>
+  <col name="sort_mode"			type="varchar"   length="10"   descr="排序方式"/>
+  <col name="sort_order"			type="decimal"   length="18"   descr="排序顺序"/>
+  <col name="left_main_cell_id"			type="varchar"   length="32"   descr="左主格ID"/>
+  <col name="right_main_cell_id"			type="varchar"   length="32"   descr="右主格ID"/>
+  <col name="is_conver"			type="varchar"   length="1"   descr="是否转码"/>
+  <col name="sort_db_type"			type="varchar"   length="20"   descr="排序类型"/>
+  <col name="filter"			type="varchar"   length="2000"   descr="过滤"/>
+</columns>
+</table>
+
+<table name="rpt_design_source_formula" pkname="cell_no,template_id,ver_id" descr="单元格公式来源"  bgcolor="#FFCECE">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="is_analyse_ext"			type="varchar"   length="1"   descr="是否分析扩展"/>
+  <col name="analyse_ext_type"			type="varchar"   length="10"   descr="分析扩展类型"/>
+  <col name="is_rpt_index"			type="varchar"   length="1"   descr="是否报表指标"/>
+  <col name="excel_formula"			type="varchar"   length="2000"   descr="EXCEL公式"/>
+</columns>
+</table>
+
+<table name="rpt_design_source_idx" pkname="cell_no,template_id,ver_id" descr="指标来源"  bgcolor="#FFCECE">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="time_measure_id"			type="varchar"   length="32"   descr="时间度量ID"/>
+  <col name="mode_id"			type="varchar"   length="32"   descr="方式ID"/>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则ID"/>
+  <col name="is_passyear"			type="varchar"   length="1"   descr="是否跨年"/>
+  <col name="is_cfg_srcindex"			type="varchar"   length="10"   descr="是否配置来源指标"/>
+</columns>
+</table>
+
+<table name="rpt_design_source_sortno" pkname="cell_no,template_id,ver_id" descr="序号来源">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="relate_cell_no"			type="varchar"   length="32"   descr="关联单元格标识"/>
+  <col name="is_grp_sort"			type="varchar"   length="1"   descr="是否分组排序"/>
+</columns>
+</table>
+
+<table name="rpt_design_source_tabdim" pkname="cell_no,template_id,ver_id" descr="列表维度来源">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="dim_type_no"			type="varchar"   length="32"   descr="维度类型标识"/>
+  <col name="is_total"			type="varchar"   length="1"   descr="是否合计"/>
+  <col name="date_format"			type="varchar"   length="10"   descr="日期格式"/>
+  <col name="is_conver"			type="varchar"   length="1"   descr="是否转码"/>
+  <col name="display_level"			type="varchar"   length="10"   descr="展示层级"/>
+  <col name="ext_direction"			type="varchar"   length="10"   descr="扩展方向"/>
+</columns>
+</table>
+
+<table name="rpt_design_source_tabidx" pkname="cell_no,template_id,ver_id" descr="列表指标来源">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="time_measure_id"			type="varchar"   length="32"   descr="时间度量ID"/>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则ID"/>
+  <col name="mode_id"			type="varchar"   length="32"   descr="方式ID"/>
+  <col name="sort_mode"			type="varchar"   length="10"   descr="排序方式"/>
+  <col name="is_passyear"			type="varchar"   length="1"   descr="是否跨年"/>
+</columns>
+</table>
+
+<table name="rpt_design_source_text" pkname="cell_no,template_id,ver_id" descr="文本常量来源">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="expression"			type="varchar"   length="2000"   descr="表达式"/>
+</columns>
+</table>
+
+<table name="rpt_design_tmp_info" pkname="template_id,ver_id" descr="报表模板信息"  bgcolor="#FFCECE">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+  <col name="ver_start_date"			type="varchar"   length="8"   descr="版本开始日期"/>
+  <col name="ver_end_date"			type="varchar"   length="8"   descr="版本结束日期"/>
+  <col name="template_contentjson"			type="clob"   length="-1"   descr="模板内容JSON"/>
+  <col name="template_type"			type="varchar"   length="10"   descr="模板类型"/>
+  <col name="template_nm"			type="varchar"   length="100"   descr="模板名称"/>
+  <col name="is_upt"			type="varchar"   length="10"   descr="是否修改"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="parent_template_id"			type="varchar"   length="32"   descr="父模板ID"/>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线ID"/>
+  <col name="template_unit"			type="varchar"   length="10"   descr="模板单位"/>
+  <col name="is_auto_adj"			type="varchar"   length="5"   descr="是否自动调节列宽"/>
+  <col name="fixed_length"			type="varchar"   length="5"   descr="是否定长"/>
+  <col name="is_paging"			    type="varchar"   length="5"   descr="是否分页"/>
+  <col name="sort_sql"			    type="varchar"   length="2000"   descr="排序SQL"/>
+  <col name="import_config"			    type="varchar"   length="500"   descr="导入数据配置"/>
+</columns>
+</table>
+
+<table name="rpt_detail_cell" pkname="cell_no,template_id,org_no,data_date" descr="明细单元格数据表">
+<columns>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格编号"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="row_no"			type="varchar"   length="10"   descr="行号"/>
+  <col name="col_no"			type="varchar"   length="10"   descr="列号"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="data_date"			type="varchar"   length="32"   descr="数据日期"/>
+  <col name="detail_val"			type="varchar"   length="200"   descr="明细值"/>
+  <col name="ver_id"			type="varchar"   length="10"   descr="版本id"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_catalog" pkname="catalog_id" descr="明细查询目录表">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="catalog_nm"			type="varchar"   length="200"   descr="目录名称"/>
+  <col name="up_id"			type="varchar"   length="32"   descr="上级ID"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_config" pkname="cfg_id,template_id" descr="明细查询配置表">
+<columns>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置ID"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="display_nm"			type="varchar"   length="200"   descr="显示名称"/>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据模型ID"/>
+  <col name="col_id"			type="varchar"   length="32"   descr="字段ID"/>
+  <col name="is_conver"			type="varchar"   length="1"   descr="是否转码"/>
+  <col name="orderno"			type="decimal"   length="5"   descr="序号"/>
+  <col name="data_type"			type="varchar"   length="10"   descr="数据类型"/>
+  <col name="data_unit"			type="varchar"   length="10"   descr="数据单位"/>
+  <col name="display_format"			type="varchar"   length="200"   descr="显示格式"/>
+  <col name="width"			type="decimal"   length="12"   descr="宽度"/>
+  <col name="dim_type_no"			type="varchar"   length="32"   descr="维度类型标识"/>
+  <col name="data_precision"			type="decimal"   length="12"   descr="数据精度"/>
+  <col name="is_sum"			type="varchar"   length="1"   descr="是否汇总"/>
+  <col name="is_des"			type="varchar"   length="5"   descr="is_des"/>
+  <col name="dict_id"			type="varchar"   length="32"   descr="dict_id"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_filter" pkname="template_id" descr="明细查询筛选表">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="filt_info"			type="clob"   length="-1"   descr="筛选信息"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_info" pkname="template_id" descr="明细查询模板表">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="template_nm"			type="varchar"   length="200"   descr="模板名称"/>
+  <col name="template_remark"			type="varchar"   length="500"   descr="模板备注"/>
+  <col name="template_type"			type="varchar"   length="10"   descr="模板类型"/>
+  <col name="template_sts"			type="varchar"   length="1"   descr="模板状态"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="def_src"			type="varchar"   length="2"   descr="定义来源"/>
+  <col name="src_id"			type="varchar"   length="32"   descr="来源id"/>
+  <col name="is_cabin"			type="varchar"   length="1"   descr="是否管驾"/>
+  <col name="is_page"			type="varchar"   length="1"   descr="是否分页"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_search" pkname="param_id,template_id" descr="明细查询参数表">
+<columns>
+  <col name="param_id"			type="varchar"   length="32"   descr="参数ID"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="cn_nm"			type="varchar"   length="200"   descr="中文名称"/>
+  <col name="en_nm"			type="varchar"   length="200"   descr="英文名称"/>
+  <col name="col_id"			type="varchar"   length="32"   descr="字段ID"/>
+  <col name="dim_type_no"			type="varchar"   length="32"   descr="维度类型标识"/>
+  <col name="dim_type_struct"			type="varchar"   length="10"   descr="维度类型结构"/>
+  <col name="element_type"			type="varchar"   length="10"   descr="元素类型"/>
+  <col name="orderno"			type="decimal"   length="5"   descr="序号"/>
+  <col name="required"			type="varchar"   length="1"   descr="必填"/>
+  <col name="checkbox"			type="varchar"   length="1"   descr="复选"/>
+  <col name="def_val"			type="varchar"   length="500"   descr="默认值"/>
+  <col name="is_conver"			type="varchar"   length="1"   descr="是否转码"/>
+  <col name="data_json"			type="clob"   length="-1"   descr="数据json"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_sort" pkname="template_id,cfg_id" descr="明细查询排序表">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置ID"/>
+  <col name="sort_orderno"			type="decimal"   length="5"   descr="排序序号"/>
+  <col name="sort_mode"			type="varchar"   length="10"   descr="排序方式"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_sql" pkname="template_id" descr="明细查询SQL表">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="querysql"			type="clob"   length="-1"   descr="查询SQL"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="paramtmp_id"			type="varchar"   length="32"   descr="参数模板id"/>
+</columns>
+</table>
+
+<table name="rpt_detail_tmp_sum" pkname="template_id,cfg_id" descr="明细查询汇总表">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置ID"/>
+  <col name="sum_mode"			type="varchar"   length="10"   descr="汇总方式"/>
+  <col name="col_type"			type="varchar"   length="10"   descr="字段类型"/>
+</columns>
+</table>
+
+<table name="rpt_dim_catalog" pkname="catalog_id" descr="维度目录">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="catalog_nm"			type="varchar"   length="100"   descr="目录名称"/>
+  <col name="up_catalog_id"			type="varchar"   length="32"   descr="上级目录ID"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+
+<table name="rpt_draw_log_info" pkname="log_id" descr="翻盘日志表">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志id"/>
+  <col name="draw_date"			type="varchar"   length="8"   descr="翻盘日期"/>
+  <col name="draw_obj"			type="varchar"   length="10"   descr="翻盘对象"/>
+  <col name="draw_time"			type="timestamp"   length="6"   descr="翻盘时间"/>
+  <col name="obj_id"			type="varchar"   length="32"   descr="对象id"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户id"/>
+</columns>
+</table>
+
+<table name="rpt_engine_node_info" pkname="node_id" descr="★引擎节点信息"   bgcolor="#FFCECE">
+<columns>
+  <col name="node_id"			type="varchar"   length="32"   descr="节点ID"/>
+  <col name="node_nm"			type="varchar"   length="100"   descr="节点名称"/>
+  <col name="node_type"			type="varchar"   length="10"   descr="节点类型"/>
+  <col name="ip_address"			type="varchar"   length="100"   descr="IP地址"/>
+  <col name="port"			type="decimal"   length="12"   descr="端口"/>
+  <col name="node_sts"			type="varchar"   length="1"   descr="节点状态"/>
+  <col name="max_thread"			type="decimal"   length="12"   descr="最大线程"/>
+  <col name="timeout_time"			type="decimal"   length="12"   descr="超时时间"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="start_time"			type="varchar"   length="8"   descr="开始时间"/>
+  <col name="end_time"			type="varchar"   length="8"   descr="结束时间"/>
+</columns>
+</table>
+
+<table name="rpt_engine_auto_task_info" pkname="data_date,task_id" descr="引擎自动任务配置">
+<columns>
+  <col name="data_date"			type="varchar"   length="10"   descr="数据日期"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="type"			type="varchar"   length="10"   descr="类型"/>
+  <col name="sts"			type="varchar"   length="32"   descr="跑数状态"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始日期"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束日期"/>
+  <col name="retry_times"			type="decimal"   length="12"   descr="重跑次数"/>
+</columns>
+</table>
+
+<table name="rpt_engine_check_sts" pkname="data_date,rpt_template_id,org_no,check_type" descr="报表校验状态">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板ID"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="check_type"			type="varchar"   length="10"   descr="校验类型"/>
+  <col name="check_sts"			type="varchar"   length="10"   descr="校验状态"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="task_type"			type="varchar"   length="10"   descr="任务类型"/>
+</columns>
+</table>
+
+<table name="rpt_engine_idx_sts" pkname="data_date,index_no" descr="指标计算状态">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="sts"			type="varchar"   length="10"   descr="状态"/>
+  <col name="error_log"			type="clob"   length="-1"   descr="错误日志"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+</columns>
+</table>
+
+
+<table name="rpt_engine_org_sum_sts" pkname="data_date,rpt_id,org_no" descr="报表机构汇总状态">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="sts"			type="varchar"   length="10"   descr="状态"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+</columns>
+</table>
+
+<table name="rpt_engine_report_sts" pkname="data_date,rpt_id" descr="报表计算状态">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="sts"			type="varchar"   length="10"   descr="状态"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+</columns>
+</table>
+
+<table name="rpt_engine_tsk" pkname="task_no" descr="引擎调度任务信息">
+<columns>
+  <col name="task_no"			type="varchar"   length="32"   descr="任务标识"/>
+  <col name="task_nm"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="obj_type"			type="varchar"   length="10"   descr="对象类型"/>
+</columns>
+</table>
+
+<table name="rpt_engine_tskobj_rel" pkname="task_no,obj_no,obj_type" descr="引擎调度任务对象关系">
+<columns>
+  <col name="task_no"			type="varchar"   length="32"   descr="任务标识"/>
+  <col name="obj_no"			type="varchar"   length="32"   descr="对象标识"/>
+  <col name="obj_type"			type="varchar"   length="10"   descr="对象类型"/>
+</columns>
+</table>
+
+<table name="rpt_fav_folder" pkname="folder_id" descr="我的文件夹信息">
+<columns>
+  <col name="folder_id"			type="varchar"   length="32"   descr="文件夹ID"/>
+  <col name="up_folder_id"			type="varchar"   length="32"   descr="上级文件夹ID"/>
+  <col name="folder_nm"			type="varchar"   length="100"   descr="文件夹名称"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+</columns>
+</table>
+
+<table name="rpt_fav_folder_ins_rel" pkname="user_id,instance_id,folder_id" descr="我的文件夹与实例关系">
+<columns>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户ID"/>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+  <col name="folder_id"			type="varchar"   length="32"   descr="文件夹ID"/>
+  <col name="instance_type"			type="varchar"   length="10"   descr="实例类型"/>
+</columns>
+</table>
+
+<table name="rpt_fav_idx_detail" pkname="detail_id" descr="指标查询明细">
+<columns>
+  <col name="detail_id"			type="varchar"   length="32"   descr="明细ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="index_alias"			type="varchar"   length="100"   descr="指标别名"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+  <col name="measure_no"			type="varchar"   length="32"   descr="度量标识"/>
+  <col name="data_type"			type="varchar"   length="10"   descr="数据类型"/>
+  <col name="data_unit"			type="varchar"   length="10"   descr="数据单位"/>
+  <col name="data_precision"			type="decimal"   length="12"   descr="数据精度"/>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则ID"/>
+  <col name="time_measure_id"			type="varchar"   length="32"   descr="时间度量ID"/>
+  <col name="mode_id"			type="varchar"   length="32"   descr="方式ID"/>
+  <col name="is_passyear"			type="varchar"   length="1"   descr="是否跨年"/>
+</columns>
+</table>
+
+<table name="rpt_fav_idx_dim" pkname="dim_no,order_num,instance_id" descr="指标查询维度">
+<columns>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度标识"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+</columns>
+</table>
+
+<table name="rpt_fav_idx_dim_filter" pkname="detail_id,dim_no" descr="指标维度过滤">
+<columns>
+  <col name="detail_id"			type="varchar"   length="32"   descr="明细ID"/>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度标识"/>
+  <col name="filter_mode"			type="varchar"   length="10"   descr="过滤方式"/>
+  <col name="filter_val"			type="varchar"   length="500"   descr="过滤值"/>
+  <col name="filter_explain"			type="varchar"   length="500"   descr="过滤说明"/>
+</columns>
+</table>
+
+<table name="rpt_fav_queryins" pkname="instance_id" descr="查询实例信息">
+<columns>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+  <col name="query_nm"			type="varchar"   length="100"   descr="查询名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="create_user"			type="varchar"   length="32"   descr="创建用户"/>
+  <col name="create_time"			type="timestamp"   length="6"   descr="创建时间"/>
+  <col name="busi_type"			type="varchar"   length="5"   descr="业务类型"/>
+</columns>
+</table>
+
+<table name="rpt_fav_querys_item" pkname="query_id" descr="报表批量查询项信息">
+<columns>
+  <col name="query_id"			type="varchar"   length="32"   descr="查询ID"/>
+  <col name="param_type"			type="varchar"   length="10"   descr="参数类型"/>
+  <col name="param_val_expression"			type="varchar"   length="2000"   descr="参数值表达式"/>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+</columns>
+</table>
+
+<table name="rpt_fav_querys_rpt_rel" pkname="rpt_id,instance_id" descr="报表批量查询与报表关系">
+<columns>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+</columns>
+</table>
+
+<table name="rpt_fav_rptidx_item" pkname="query_id" descr="报表指标查询项信息">
+<columns>
+  <col name="query_id"			type="varchar"   length="32"   descr="查询ID"/>
+  <col name="param_type"			type="varchar"   length="10"   descr="参数类型"/>
+  <col name="param_val_expression"			type="varchar"   length="2000"   descr="参数值表达式"/>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+</columns>
+</table>
+
+<table name="rpt_fav_rptidx_rel" pkname="query_id" descr="报表指标查询与指标关系">
+<columns>
+  <col name="query_id"			type="varchar"   length="32"   descr="查询ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="rpt_nm"			type="varchar"   length="100"   descr="报表名称"/>
+  <col name="index_nm"			type="varchar"   length="100"   descr="指标名称"/>
+  <col name="instance_id"			type="varchar"   length="32"   descr="实例ID"/>
+</columns>
+</table>
+
+<table name="rpt_fim_addr_info" pkname="addr_no" descr="行政区域编号表">
+<columns>
+  <col name="addr_no"			type="varchar"   length="32"   descr="区域标识"/>
+  <col name="addr_nm"			type="varchar"   length="100"   descr="区域名称"/>
+  <col name="addr_lvl"			type="decimal"   length="2"   descr="区域层级"/>
+  <col name="up_addr_no"			type="varchar"   length="32"   descr="上级区域标识"/>
+  <col name="namespace"			type="varchar"   length="500"   descr="命名空间"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="org_nm"			type="varchar"   length="100"   descr="机构名称"/>
+  <col name="dtrct_no"			type="varchar"   length="100"   descr="人行机构编码"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_exeobj_rel" pkname="task_id,exe_obj_type,exe_obj_id" descr="监管任务与执行对象关系">
+<columns>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="exe_obj_type"			type="varchar"   length="10"   descr="执行对象类型"/>
+  <col name="exe_obj_id"			type="varchar"   length="32"   descr="执行对象ID"/>
+  <col name="EXE_UP_OBJ_ID"			type="varchar"   length="32"   descr="上级机构号"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_flow" pkname="task_def_id" descr="监管任务流程定义">
+<columns>
+  <col name="task_def_id"			type="varchar"   length="32"   descr="任务定义ID"/>
+  <col name="flow_nm"			type="varchar"   length="100"   descr="流程名称"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_info" pkname="task_id" descr="监管任务信息">
+<columns>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="up_task_id"			type="varchar"   length="32"   descr="上级任务ID"/>
+  <col name="task_def_id"			type="varchar"   length="32"   descr="任务定义ID"/>
+  <col name="task_nm"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="sum_mode"			type="varchar"   length="10"   descr="汇总方式"/>
+  <col name="effect_date"			type="varchar"   length="8"   descr="生效日期"/>
+  <col name="task_freq"			type="varchar"   length="10"   descr="任务频度"/>
+  <col name="task_sts"			type="varchar"   length="10"   descr="任务状态"/>
+  <col name="task_type"			type="varchar"   length="10"   descr="任务类型"/>
+  <col name="exe_obj_type"			type="varchar"   length="10"   descr="执行对象类型"/>
+  <col name="check_sts"			type="varchar"   length="10"   descr="校验状态"/>
+  <col name="task_deadline"			type="varchar"   length="200"   descr="任务期限"/>
+  <col name="trigger_type"			type="varchar"   length="10"   descr="触发类型"/>
+  <col name="trigger_id"			type="varchar"   length="32"   descr="触发器ID"/>
+  <col name="up_exe_obj_id"			type="varchar"   length="32"   descr="上级执行对象ID"/>
+  <col name="is_pre"			type="varchar"   length="1"   descr="是否预校验"/>
+  <col name="date_offset_amount"			type="decimal"   length="12"   descr="日期偏移数"/>
+  <col name="invalid_date"			type="varchar"   length="8"   descr="失效日期"/>
+  <col name="is_rely_data"			type="varchar"   length="1"   descr="是否依赖数据"/>
+  <col name="logic_del_no"			type="varchar"   length="1"   descr="逻辑删除标识"/>
+  <col name="is_use"			type="varchar"   length="1"   descr="is_use"/>
+  <col name="is_approve"			type="varchar"   length="2"   descr="填报人参与审批"/>
+  <col name="is_fill"			type="varchar"   length="2"   descr="是否填报下级"/>
+  <col name="is_check"			type="varchar"   length="2"   descr="是否复核本级"/>
+  <col name="is_examine"			type="varchar"   length="2"   descr="是否审核本级"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_info_sms_rel" pkname="sms_info_id" descr="任务消息通知关系表">
+<columns>
+  <col name="sms_info_id"			type="varchar"   length="32"   descr="消息id"/>
+  <col name="isnotify"			type="varchar"   length="1"   descr="是否通知"/>
+  <col name="notify_type"			type="varchar"   length="1"   descr="通知类型"/>
+  <col name="notify_model"			type="varchar"   length="32"   descr="通知模式"/>
+  <col name="isremind"			type="varchar"   length="1"   descr="是否提醒"/>
+  <col name="remind_type"			type="varchar"   length="1"   descr="提醒类型"/>
+  <col name="press_model"			type="varchar"   length="32"   descr="施压模式"/>
+  <col name="remind_role"			type="varchar"   length="5"   descr="提醒角色"/>
+  <col name="remind_role_info"			type="varchar"   length="12"   descr="提醒角色信息"/>
+  <col name="remind_fre"			type="varchar"   length="5"   descr="remind_fre"/>
+  <col name="remind_fre_info"			type="varchar"   length="12"   descr="remind_fre_info"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="operate"			type="varchar"   length="10"   descr="操作"/>
+  <col name="start_time"			type="varchar"   length="12"   descr="开始时间"/>
+  <col name="end_time"			type="varchar"   length="12"   descr="结束时间"/>
+  <col name="operater"			type="varchar"   length="32"   descr="操作人"/>
+  <col name="remind_role_info_a"			type="varchar"   length="12"   descr="remind_role_info_a"/>
+  <col name="remind_role_info_b"			type="varchar"   length="12"   descr="remind_role_info_b"/>
+  <col name="remind_role_info_c"			type="varchar"   length="12"   descr="remind_role_info_c"/>
+  <col name="task_type"			type="varchar"   length="10"   descr="任务类型"/>
+  <col name="orglevel"			type="varchar"   length="10"   descr="机构级别"/>
+  <col name="node"			type="varchar"   length="10"   descr="node"/>
+  <col name="over_role_info_a"			type="varchar"   length="12"   descr="over_role_info_a"/>
+  <col name="over_role_info_b"			type="varchar"   length="12"   descr="over_role_info_b"/>
+  <col name="over_role_info_c"			type="varchar"   length="12"   descr="over_role_info_c"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_ins" pkname="task_instance_id" descr="监管任务实例信息">
+<columns>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例ID"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="task_nm"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+  <col name="sts"			type="varchar"   length="10"   descr="状态"/>
+  <col name="is_upt"			type="varchar"   length="10"   descr="是否修改"/>
+  <col name="is_check"			type="varchar"   length="10"   descr="是否校验"/>
+  <col name="task_node_instance_id"			type="varchar"   length="32"   descr="任务节点实例ID"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="exe_obj_id"			type="varchar"   length="32"   descr="执行对象ID"/>
+  <col name="task_obj_id"			type="varchar"   length="32"   descr="任务对象ID"/>
+  <col name="up_task_instance_id"			type="varchar"   length="32"   descr="上级任务实例ID"/>
+  <col name="task_type"			type="varchar"   length="10"   descr="任务类型"/>
+  <col name="logic_del_no"			type="varchar"   length="1"   descr="逻辑删除标识"/>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线ID"/>
+  <col name="task_mgr_sts"			type="varchar"   length="1"   descr="任务状态"/>
+  <col name="fh_check_date"			type="varchar"   length="20"   descr="分行校验日期"/>
+  <col name="zh_check_date"			type="varchar"   length="20"   descr="总行校验日期"/>
+  <col name="is_calculation"		type="varchar"   length="5"   descr="是否进行初始值计算"/>
+  <col name="EXE_UP_OBJ_ID"			type="varchar"   length="32"   descr="上级机构号"/>
+  <col name="IS_FORCE_SUBMIT"			type="varchar"   length="1"   descr="是否强制提交"/>
+  <col name="FORCE_SUBMIT_REASON"			type="clob"   length="-1"   descr="强制提交原因"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_ins_generate_sts" pkname="data_date,task_id" descr="监管任务实例生成状态表">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="pre_sts"			type="varchar"   length="10"   descr="预校验状态"/>
+  <col name="generate_sts"			type="varchar"   length="10"   descr="生成状态"/>
+  <col name="generate_time"			type="timestamp"   length="6"   descr="生成时间"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_ins_textvar" pkname="task_instance_id,template_id,ver_id,cell_no,type_id" descr="可编辑单元格数据表">
+<columns>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例id"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="ver_id"			type="varchar"   length="10"   descr="版本id"/>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格编号"/>
+  <col name="type_id"			type="varchar"   length="32"   descr="类型id"/>
+  <col name="cell_val"			type="varchar"   length="2000"   descr="单元格值"/>
+  <col name="data_date"			type="varchar"   length="10"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_ipt_his" pkname="his_id" descr="监管任务补录历史">
+<columns>
+  <col name="his_id"			type="varchar"   length="32"   descr="历史ID"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例ID"/>
+  <col name="upt_user"			type="varchar"   length="32"   descr="修改人"/>
+  <col name="upt_time"			type="timestamp"   length="6"   descr="修改时间"/>
+  <col name="obj_type"			type="varchar"   length="10"   descr="对象类型"/>
+  <col name="obj_no"			type="clob"   length="-1"   descr="对象标识"/>
+  <col name="obj_val"			type="clob"   length="-1"   descr="对象值"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格标识"/>
+  <col name="is_init"			type="varchar"   length="1"   descr="是否初始化"/>
+  <col name="new_obj_val"			type="clob"   length="-1"   descr="新对象值"/>
+  <col name="update_desc"			type="varchar"   length="4000"   descr="修改说明"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_ipt_remark" pkname="oper_id" descr="报表备注信息表">
+<columns>
+  <col name="oper_id"			type="varchar"   length="32"   descr="操作id"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例id"/>
+  <col name="cell_no"			type="varchar"   length="32"   descr="单元格编号"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="data_date"			type="varchar"   length="32"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作用户"/>
+  <col name="oper_info"			type="varchar"   length="500"   descr="操作内容"/>
+  <col name="oper_time"			type="timestamp"   length="6"   descr="操作时间"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_rebut" pkname="rebut_id" descr="任务驳回表">
+<columns>
+  <col name="rebut_id"			type="varchar"   length="32"   descr="驳回ID"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例ID"/>
+  <col name="apply_user_no"			type="varchar"   length="32"   descr="申请用户标识"/>
+  <col name="apply_time"			type="timestamp"   length="6"   descr="申请时间"/>
+  <col name="collate_user_no"			type="varchar"   length="32"   descr="审批用户标识"/>
+  <col name="collate_time"			type="timestamp"   length="6"   descr="审批时间"/>
+  <col name="apply_desc"			type="varchar"   length="500"   descr="申请描述"/>
+  <col name="rebut_desc"			type="varchar"   length="500"   descr="驳回描述"/>
+  <col name="sts"			type="varchar"   length="1"   descr="状态"/>
+  <col name="apply_nod_sts"			type="varchar"   length="2"   descr="申请状态"/>
+  <col name="error_res"			type="varchar"   length="2"   descr="错误来源"/>
+</columns>
+</table>
+
+<table name="rpt_fltsk_tskobj_rel" pkname="task_obj_id,task_id" descr="监管任务与任务对象关系">
+<columns>
+  <col name="task_obj_id"			type="varchar"   length="32"   descr="任务对象ID"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="task_obj_type"			type="varchar"   length="10"   descr="任务对象类型"/>
+  <col name="sts_list"			type="varchar"   length="100"   descr="状态列表"/>
+  <col name="submit_main"			type="varchar"   length="32"   descr="报送主体"/>
+</columns>
+</table>
+
+<table name="rpt_grp_auth_rel" pkname="org_no,grp_id" descr="机构分组权限关系">
+<columns>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构编号"/>
+  <col name="grp_id"			type="varchar"   length="32"   descr="分组ID"/>
+</columns>
+</table>
+
+<table name="rpt_grp_org_rel" pkname="org_no,org_type,grp_id" descr="机构分组与机构关系">
+<columns>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="org_type"			type="varchar"   length="10"   descr="机构类型"/>
+  <col name="grp_id"			type="varchar"   length="32"   descr="分组ID"/>
+</columns>
+</table>
+
+<table name="rpt_high_oper_info" pkname="log_id" descr="高级操作日志表">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志ID"/>
+  <col name="ip"			type="varchar"   length="500"   descr="IP"/>
+  <col name="oper_time"			type="timestamp"   length="6"   descr="操作时间"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据集ID"/>
+  <col name="sql_content"			type="clob"   length="-1"   descr="SQL内容"/>
+</columns>
+</table>
+
+
+<table name="rpt_input_catalog" pkname="catalog_id" descr="补录目录表">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+  <col name="catalog_type"			type="varchar"   length="10"   descr="目录类型"/>
+  <col name="catalog_nm"			type="varchar"   length="100"   descr="目录名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="父级编号"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_cfg_detail" pkname="cfg_id" descr="补录指标配置详情">
+<columns>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="排序顺序"/>
+  <col name="org_mode"			type="varchar"   length="10"   descr="机构方式"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="cfg_nm"			type="varchar"   length="100"   descr="配置名称"/>
+  <col name="index_nm"			type="varchar"   length="100"   descr="指标名称"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_cfg_org" pkname="org_no,cfg_id" descr="补录指标机构配置关系表">
+<columns>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构编号"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+  <col name="org_nm"			type="varchar"   length="100"   descr="机构名称"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_cfg_validate" pkname="cfg_id,rule_id" descr="补录指标配置规则关系表">
+<columns>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则id"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_dim_filter" pkname="cfg_id,dim_no,index_no" descr="补录指标维度过滤信息">
+<columns>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度编号"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+  <col name="filter_mode"			type="varchar"   length="10"   descr="过滤方式"/>
+  <col name="filter_val"			type="varchar"   length="500"   descr="过滤纸"/>
+  <col name="filter_explain"			type="varchar"   length="500"   descr="过滤说明"/>
+  <col name="dim_nm"			type="varchar"   length="100"   descr="维度名称"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_plan_temp_result" pkname="input_data_id" descr="补录指标结果表">
+<columns>
+  <col name="input_data_id"			type="varchar"   length="32"   descr="补录数据id"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构编号"/>
+  <col name="currency"			type="varchar"   length="10"   descr="币种"/>
+  <col name="dim1"			type="varchar"   length="32"   descr="dim1"/>
+  <col name="dim2"			type="varchar"   length="32"   descr="dim2"/>
+  <col name="dim3"			type="varchar"   length="32"   descr="dim3"/>
+  <col name="dim4"			type="varchar"   length="32"   descr="dim4"/>
+  <col name="dim5"			type="varchar"   length="32"   descr="dim5"/>
+  <col name="dim6"			type="varchar"   length="32"   descr="dim6"/>
+  <col name="dim7"			type="varchar"   length="32"   descr="dim7"/>
+  <col name="dim8"			type="varchar"   length="32"   descr="dim8"/>
+  <col name="dim9"			type="varchar"   length="32"   descr="dim9"/>
+  <col name="dim10"			type="varchar"   length="32"   descr="dim10"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例id"/>
+  <col name="index_val"			type="decimal"   length="20,5"   descr="指标值"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作用户"/>
+  <col name="oper_time"			type="timestamp"   length="6"   descr="操作时间"/>
+  <col name="data_sts"			type="varchar"   length="10"   descr="数据状态"/>
+  <col name="oper_opinion"			type="varchar"   length="500"   descr="oper_opinion"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_template" pkname="template_id" descr="补录指标模板">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="template_type"			type="varchar"   length="10"   descr="模板类型"/>
+  <col name="template_nm"			type="varchar"   length="100"   descr="模板名称"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="input_type"			type="varchar"   length="10"   descr="补录类型"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_temp_result" pkname="input_data_id" descr="补录指标模板结果表">
+<columns>
+  <col name="input_data_id"			type="varchar"   length="32"   descr="补录数据id"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构编号"/>
+  <col name="currency"			type="varchar"   length="10"   descr="币种"/>
+  <col name="dim1"			type="varchar"   length="32"   descr="dim1"/>
+  <col name="dim2"			type="varchar"   length="32"   descr="dim2"/>
+  <col name="dim3"			type="varchar"   length="32"   descr="dim3"/>
+  <col name="dim4"			type="varchar"   length="32"   descr="dim4"/>
+  <col name="dim5"			type="varchar"   length="32"   descr="dim5"/>
+  <col name="dim6"			type="varchar"   length="32"   descr="dim6"/>
+  <col name="dim7"			type="varchar"   length="32"   descr="dim7"/>
+  <col name="dim8"			type="varchar"   length="32"   descr="dim8"/>
+  <col name="dim9"			type="varchar"   length="32"   descr="dim9"/>
+  <col name="dim10"			type="varchar"   length="32"   descr="dim10"/>
+  <col name="index_val"			type="decimal"   length="20,5"   descr="指标值"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作用户"/>
+  <col name="oper_time"			type="timestamp"   length="6"   descr="操作时间"/>
+  <col name="data_sts"			type="varchar"   length="10"   descr="诗句状态"/>
+  <col name="oper_opinion"			type="varchar"   length="500"   descr="oper_opinion"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例id"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_updlog" pkname="log_id" descr="补录指标修改日志">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志id"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="index_id"			type="varchar"   length="32"   descr="指标id"/>
+  <col name="update_date"			type="timestamp"   length="6"   descr="修改时间"/>
+  <col name="type"			type="varchar"   length="10"   descr="类型"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+  <col name="update_user"			type="varchar"   length="32"   descr="修改用户"/>
+</columns>
+</table>
+
+<table name="rpt_input_idx_validate" pkname="rule_id" descr="补录指标规则">
+<columns>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则id"/>
+  <col name="rule_nm"			type="varchar"   length="100"   descr="规则名"/>
+  <col name="rule_type"			type="varchar"   length="10"   descr="规则类型"/>
+</columns>
+</table>
+
+<table name="rpt_input_list_catalog_info" pkname="catalog_id" descr="补录目录表">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+  <col name="catalog_name"			type="varchar"   length="100"   descr="目录名称"/>
+  <col name="up_catalog"			type="varchar"   length="32"   descr="父目录id"/>
+  <col name="order_no"			type="decimal"   length="18"   descr="排序顺序"/>
+  <col name="create_time"			type="varchar"   length="20"   descr="创建时间"/>
+  <col name="catalog_type"			type="varchar"   length="10"   descr="目录类型"/>
+  <col name="logic_sys_no"			type="varchar"   length="100"   descr="逻辑系统标识"/>
+  <col name="def_src"			type="varchar"   length="10"   descr="定义来源"/>
+  <col name="def_org"			type="varchar"   length="32"   descr="定义机构"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="定义用户"/>
+</columns>
+</table>
+
+<table name="rpt_input_list_data_dict_info" pkname="dict_id" descr="补录数据字典表">
+<columns>
+  <col name="dict_id"			type="varchar"   length="32"   descr="字典id"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源id"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+  <col name="dict_name"			type="varchar"   length="100"   descr="字典名称"/>
+  <col name="dict_type"			type="varchar"   length="10"   descr="字典类型"/>
+  <col name="show_type"			type="varchar"   length="10"   descr="显示类型"/>
+  <col name="static_content"			type="varchar"   length="500"   descr="静态内容"/>
+  <col name="sql_text"			type="varchar"   length="500"   descr="sql文本"/>
+  <col name="create_user"			type="varchar"   length="32"   descr="创建用户"/>
+  <col name="create_time"			type="varchar"   length="20"   descr="创建时间"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+</columns>
+</table>
+
+<table name="rpt_input_list_data_rule_info" pkname="rule_id" descr="补录规则配置表">
+<columns>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则id"/>
+  <col name="rule_nm"			type="varchar"   length="100"   descr="规则名称"/>
+  <col name="rule_type"			type="varchar"   length="10"   descr="规则类型"/>
+  <col name="error_tip"			type="varchar"   length="500"   descr="错误提示"/>
+  <col name="min_val"			type="varchar"   length="200"   descr="自小时"/>
+  <col name="max_val"			type="varchar"   length="200"   descr="最大值"/>
+  <col name="regex"			type="varchar"   length="200"   descr="正则表达式"/>
+  <col name="logic"			type="varchar"   length="200"   descr="逻辑表达式"/>
+  <col name="create_user"			type="varchar"   length="32"   descr="创建用户"/>
+  <col name="create_date"			type="varchar"   length="20"   descr="创建时间"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="filter_condition"			type="varchar"   length="500"   descr="过滤条件"/>
+  <col name="time_range"			type="varchar"   length="500"   descr="时间区间"/>
+  <col name="value_set"			type="varchar"   length="500"   descr="数值集合"/>
+  <col name="field_nm"			type="varchar"   length="100"   descr="约束字段"/>
+</columns>
+</table>
+
+<table name="rpt_input_list_rule_item_info" pkname="item_id" descr="补录规则项信息表">
+<columns>
+  <col name="item_id"			type="varchar"   length="32"   descr="子项ID"/>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则ID"/>
+  <col name="cal_code"			type="varchar"   length="32"   descr="算数运算符"/>
+  <col name="aggregate_func"			type="varchar"   length="100"   descr="聚合函数"/>
+  <col name="group_field"			type="varchar"   length="100"   descr="分类字段"/>
+  <col name="left_or_right"			type="varchar"   length="32"   descr="左或右"/>
+  <col name="filter_condition"			type="varchar"   length="500"   descr="过滤条件"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="table_en_name"			type="varchar"   length="100"   descr="表英文名"/>
+  <col name="field_name"			type="varchar"   length="100"   descr="字段名称"/>
+</columns>
+</table>
+
+<table name="rpt_input_list_table_constrain" pkname="id" descr="补录表主键信息表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="主键"/>
+  <col name="table_id"			type="varchar"   length="32"   descr="表ID"/>
+  <col name="key_name"			type="varchar"   length="100"   descr="键名称"/>
+  <col name="key_type"			type="varchar"   length="32"   descr="键类型"/>
+  <col name="key_column"			type="varchar"   length="500"   descr="键列"/>
+</columns>
+</table>
+
+<table name="rpt_input_list_table_field_inf" pkname="id" descr="补录表字段信息表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="主键"/>
+  <col name="table_id"			type="varchar"   length="32"   descr="表ID"/>
+  <col name="field_en_name"			type="varchar"   length="100"   descr="字段英文名"/>
+  <col name="field_cn_name"			type="varchar"   length="200"   descr="字段中文名"/>
+  <col name="field_type"			type="varchar"   length="100"   descr="字段类型"/>
+  <col name="allow_null"			type="varchar"   length="10"   descr="允许为空"/>
+  <col name="order_no"			type="decimal"   length="18"   descr="顺序编号"/>
+  <col name="field_length"			type="varchar"   length="10"   descr="字段长度"/>
+  <col name="decimal_length"			type="varchar"   length="10"   descr="小数位长度"/>
+  <col name="default_value"			type="varchar"   length="100"   descr="默认值"/>
+</columns>
+</table>
+
+<table name="rpt_input_list_table_info" pkname="table_id" descr="补录表信息">
+<columns>
+  <col name="table_id"			type="varchar"   length="32"   descr="表ID"/>
+  <col name="table_en_name"			type="varchar"   length="100"   descr="表英文名"/>
+  <col name="table_cn_name"			type="varchar"   length="100"   descr="表中文名"/>
+  <col name="create_user"			type="varchar"   length="100"   descr="创建人"/>
+  <col name="create_date"			type="varchar"   length="20"   descr="创建日期"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="table_type"			type="varchar"   length="1"   descr="表类型"/>
+  <col name="table_space"			type="varchar"   length="100"   descr="表空间"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_auth_records" pkname="record_id" descr="补录操作记录表">
+<columns>
+  <col name="record_id"			type="varchar"   length="32"   descr="记录ID"/>
+  <col name="case_id"			type="varchar"   length="32"   descr="实例ID"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作人"/>
+  <col name="oper_type"			type="varchar"   length="32"   descr="操作类型"/>
+  <col name="oper_remark"			type="varchar"   length="500"   descr="操作备注"/>
+  <col name="oper_time"			type="varchar"   length="20"   descr="操作时间"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="模板ID"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_data_load_info" pkname="id" descr="数据预加载条件信息表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="ID"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="condition_column"			type="varchar"   length="100"   descr="条件列"/>
+  <col name="condition_val"			type="varchar"   length="500"   descr="条件值"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_data_state" pkname="id" descr="数据预加载状态表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="id"/>
+  <col name="case_id"			type="varchar"   length="32"   descr="实例id"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构编号"/>
+  <col name="data_sts"			type="varchar"   length="32"   descr="数据状态"/>
+  <col name="oper_remark"			type="varchar"   length="500"   descr="操作备注"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作用户"/>
+  <col name="oper_time"			type="varchar"   length="20"   descr="操作时间"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_temple_const" pkname="key_id" descr="补录模板主键表">
+<columns>
+  <col name="key_id"			type="varchar"   length="32"   descr="键ID"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="母板ID"/>
+  <col name="key_name"			type="varchar"   length="100"   descr="键名称"/>
+  <col name="key_type"			type="varchar"   length="10"   descr="键类型"/>
+  <col name="key_column"			type="varchar"   length="500"   descr="键列"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_temple_field" pkname="temple_field_id" descr="补录模板字段表">
+<columns>
+  <col name="temple_field_id"			type="varchar"   length="32"   descr="模板字段ID"/>
+  <col name="field_en_name"			type="varchar"   length="100"   descr="字段英文名"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="母板ID"/>
+  <col name="dict_id"			type="varchar"   length="32"   descr="字典ID"/>
+  <col name="field_cn_name"			type="varchar"   length="100"   descr="字段中文名"/>
+  <col name="allow_null"			type="varchar"   length="1"   descr="允许为空"/>
+  <col name="order_no"			type="decimal"   length="18"   descr="顺序编号"/>
+  <col name="field_type"			type="varchar"   length="100"   descr="字段类型"/>
+  <col name="field_length"			type="varchar"   length="10"   descr="字段长度"/>
+  <col name="decimal_length"			type="varchar"   length="10"   descr="小数位长度"/>
+  <col name="allow_input"			type="varchar"   length="1"   descr="允许补录"/>
+  <col name="field_detail"			type="varchar"   length="500"   descr="字段描述"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="allow_sift"			type="varchar"   length="1"   descr="允许筛选"/>
+  <col name="allow_edit"			type="varchar"   length="1"   descr="允许编辑"/>
+  <col name="default_value"			type="varchar"   length="500"   descr="默认值"/>
+  <col name="def_org_nm"			type="varchar"   length="200"   descr="机构名称"/>
+  <col name="search_type"			type="varchar"   length="10"   descr="查询类型"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_temple_file" pkname="file_id" descr="补录模板文件信息表">
+<columns>
+  <col name="file_id"			type="varchar"   length="32"   descr="文件ID"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="母板ID"/>
+  <col name="create_date"			type="varchar"   length="20"   descr="创建日期"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作人"/>
+  <col name="sts"			type="varchar"   length="1"   descr="状态"/>
+  <col name="file_path"			type="varchar"   length="500"   descr="文件路径"/>
+  <col name="file_name"			type="varchar"   length="200"   descr="文件名称"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_temple_info" pkname="temple_id" descr="补录模板信息表">
+<columns>
+  <col name="temple_id"			type="varchar"   length="32"   descr="母板ID"/>
+  <col name="temple_sts"			type="varchar"   length="1"   descr="母板状态"/>
+  <col name="allow_add"			type="varchar"   length="1"   descr="允许新增"/>
+  <col name="allow_update"			type="varchar"   length="1"   descr="允许修改"/>
+  <col name="allow_delete"			type="varchar"   length="1"   descr="允许删除"/>
+  <col name="duty_user"			type="varchar"   length="32"   descr="负责人"/>
+  <col name="is_check"			type="varchar"   length="1"   descr="是否审核"/>
+  <col name="etl_table"			type="varchar"   length="32"   descr="ETL表"/>
+  <col name="allow_input_lower"			type="varchar"   length="1"   descr="允许补录下级"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="temple_name"			type="varchar"   length="100"   descr="母板名称"/>
+  <col name="table_en_name"			type="varchar"   length="100"   descr="表英文名"/>
+  <col name="org_column"			type="varchar"   length="32"   descr="机构列"/>
+  <col name="allow_input_hist"			type="varchar"   length="1"   descr="允许补录历史"/>
+  <col name="logic_sys_no"			type="varchar"   length="32"   descr="逻辑系统标识"/>
+  <col name="create_user"			type="varchar"   length="100"   descr="创建人"/>
+  <col name="create_date"			type="varchar"   length="20"   descr="创建日期"/>
+  <col name="duty_user_dept"			type="varchar"   length="32"   descr="负责人部门"/>
+  <col name="order_no"			type="decimal"   length="18"   descr="顺序编号"/>
+  <col name="def_org"			type="varchar"   length="32"   descr="定义机构"/>
+  <col name="def_src"			type="varchar"   length="10"   descr="定义来源"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="定义用户"/>
+  <col name="unit"			type="varchar"   length="10"   descr="单位(1.元; 2.万元)"/>
+  <col name="is_start"			type="varchar"   length="10"   descr="是否启用回写 1.启用 2.不启用"/>
+  <col name="is_send_notify"			type="varchar"   length="10"   descr="是否发短信 1.发送 2.不发送"/>
+  <col name="def_org_nm"			type="varchar"   length="100"   descr="定义机构名称"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_temple_rule" pkname="id" descr="模板规则关系表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="id"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="rule_id"			type="varchar"   length="32"   descr="规则id"/>
+</columns>
+</table>
+
+<table name="rpt_input_lst_validate_log" pkname="id" descr="补录校验结果表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="主键"/>
+  <col name="case_id"			type="varchar"   length="32"   descr="实例ID"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="母板ID"/>
+  <col name="data_file_id"			type="varchar"   length="32"   descr="数据文件ID"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="validate_type"			type="varchar"   length="10"   descr="检验类型"/>
+  <col name="validate_result"			type="varchar"   length="2000"   descr="检验结果"/>
+  <col name="validate_time"			type="varchar"   length="20"   descr="检验时间"/>
+  <col name="duty_user"			type="varchar"   length="32"   descr="负责人"/>
+  <col name="rule_name"			type="varchar"   length="100"   descr="规则名称"/>
+  <col name="row_num"			type="decimal"   length="12"   descr="行号"/>
+</columns>
+</table>
+
+<table name="rpt_input_rewrite_field_info" pkname="ds_id,temple_id,field_id" descr="补录回写字段信息表">
+<columns>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源id"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="field_name"			type="varchar"   length="100"   descr="字段名"/>
+  <col name="update_field_name"			type="varchar"   length="100"   descr="更新字段名"/>
+  <col name="is_id"			type="varchar"   length="1"   descr="是否主键"/>
+  <col name="field_type"			type="varchar"   length="10"   descr="字段类型"/>
+  <col name="update_field_type"			type="varchar"   length="10"   descr="更新字段类型"/>
+  <col name="field_id"			type="varchar"   length="32"   descr="字段id"/>
+</columns>
+</table>
+
+<table name="rpt_input_rewrite_temple_info" pkname="ds_id,temple_id" descr="补录回写信息表">
+<columns>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源id"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="table_name"			type="varchar"   length="100"   descr="表名"/>
+  <col name="update_type"			type="varchar"   length="10"   descr="更新类型"/>
+  <col name="auto_rewrite"			type="varchar"   length="10"   descr="是否自动回写"/>
+</columns>
+</table>
+
+<table name="rpt_input_task_temple_lock" pkname="id" descr="补录任务锁定信息表">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="ID"/>
+  <col name="task_case_id"			type="varchar"   length="32"   descr="任务实例ID"/>
+  <col name="lock_date"			type="varchar"   length="20"   descr="锁定日期"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+</columns>
+</table>
+
+<table name="rpt_list_dataload_data_info" pkname="cfg_id" descr="数据预加载配置表">
+<columns>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+  <col name="data_content"			type="varchar"   length="4000"   descr="内容"/>
+</columns>
+</table>
+
+<table name="rpt_list_dataload_sql_info" pkname="cfg_id" descr="数据预加载SQL信息表">
+<columns>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="配置id"/>
+  <col name="sql2"			type="clob"   length="-1"   descr="数据预加载sql"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源id"/>
+</columns>
+</table>
+
+<table name="rpt_list_dataload_type" pkname="type_id" descr="数据预加载类型">
+<columns>
+  <col name="type_id"			type="varchar"   length="32"   descr="type_id"/>
+  <col name="type"			type="varchar"   length="10"   descr="type"/>
+  <col name="cfg_id"			type="varchar"   length="32"   descr="cfg_id"/>
+  <col name="table_id"			type="varchar"   length="32"   descr="table_id"/>
+  <col name="remark"			type="clob"   length="-1"   descr="remark"/>
+</columns>
+</table>
+
+<table name="rpt_list_oper_log" pkname="field_id,log_id" descr="字段值变更日志表">
+<columns>
+  <col name="field_id"			type="varchar"   length="32"   descr="field_id"/>
+  <col name="log_id"			type="varchar"   length="32"   descr="log_id"/>
+  <col name="temple_id"			type="varchar"   length="32"   descr="temple_id"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="task_id"/>
+  <col name="node_id"			type="varchar"   length="32"   descr="node_id"/>
+  <col name="oper_type"			type="varchar"   length="10"   descr="oper_type"/>
+  <col name="oper_content"			type="varchar"   length="1000"   descr="oper_content"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="oper_user"/>
+  <col name="oper_time"			type="timestamp"   length="6"   descr="oper_time"/>
+</columns>
+</table>
+
+<table name="rpt_log_info" pkname="log_id" descr="系统日志信息表">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志ID"/>
+  <col name="module_nm"			type="varchar"   length="100"   descr="模块名称"/>
+  <col name="exe_date"			type="timestamp"   length="6"   descr="执行日期"/>
+  <col name="oper_user_id"			type="varchar"   length="32"   descr="操作人ID"/>
+  <col name="oper_user_nm"			type="varchar"   length="100"   descr="操作人名称"/>
+  <col name="log_type"			type="varchar"   length="10"   descr="日志类型"/>
+  <col name="log_content"			type="varchar"   length="2000"   descr="日志内容"/>
+</columns>
+</table>
+
+
+
+<table name="rpt_module_info" pkname="module_type" descr="报送模块配置">
+<columns>
+  <col name="module_type"			type="varchar"   length="10"   descr="业务类型"/>
+  <col name="module_name"			type="varchar"   length="200"   descr="业务名称"/>
+</columns>
+</table>
+
+<table name="rpt_mp_temp_info" pkname="show_template_id" descr="首页展示模板信息表">
+<columns>
+  <col name="show_template_id"			type="varchar"   length="32"   descr="展示模板ID"/>
+  <col name="show_template_nm"			type="varchar"   length="100"   descr="展示模板名称"/>
+  <col name="source_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="sql_sentence"			type="varchar"   length="1000"   descr="SQL语句"/>
+  <col name="template_url"			type="varchar"   length="500"   descr="模板URL"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="序号"/>
+</columns>
+</table>
+
+<table name="rpt_oper_log" pkname="log_id" descr="报送模块操作日志表">
+<columns>
+  <col name="log_id"			type="varchar"   length="64"   descr="日志id"/>
+  <col name="module_nm"			type="varchar"   length="200"   descr="模块名称"/>
+  <col name="oper_time"			type="date"   length="0"   descr="操作时间"/>
+  <col name="oper_user_id"			type="varchar"   length="64"   descr="操作用户id"/>
+  <col name="oper_user_nm"			type="varchar"   length="1000"   descr="操作用户姓名"/>
+  <col name="log_type"			type="varchar"   length="10"   descr="日志类型"/>
+  <col name="log_content"			type="varchar"   length="2000"   descr="日志内容"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="task_nm"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="rpt_nm"			type="varchar"   length="100"   descr="报表名称"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构编号"/>
+  <col name="org_nm"			type="varchar"   length="100"   descr="机构名称"/>
+  <col name="data_date"			type="varchar"   length="10"   descr="数据日期"/>
+  <col name="module_type"			type="char"   length="2"   descr="模块类型"/>
+</columns>
+</table>
+
+<table name="rpt_oper_res_info" pkname="res_no" descr="操作资源信息表">
+<columns>
+  <col name="res_no"			type="varchar"   length="32"   descr="资源编号"/>
+  <col name="res_nm"			type="varchar"   length="200"   descr="资源明细"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="排序顺序"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_org_change" pkname="org_no" descr="机构变更表">
+<columns>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="org_type"			type="varchar"   length="10"   descr="机构类型"/>
+  <col name="up_org_no"			type="varchar"   length="32"   descr="上级机构号"/>
+  <col name="org_nm"			type="varchar"   length="100"   descr="机构名称"/>
+  <col name="mgr_org_no"			type="varchar"   length="32"   descr="管理机构号"/>
+  <col name="finance_org_no"			type="varchar"   length="32"   descr="金融机构编码"/>
+  <col name="org_sum_type"			type="varchar"   length="10"   descr="机构汇总类型"/>
+  <col name="namespace"			type="varchar"   length="500"   descr="命名空间"/>
+  <col name="is_virtual_org"			type="varchar"   length="1"   descr="是否虚拟机构"/>
+  <col name="data_date"			type="date"   length="0"   descr="数据日期"/>
+  <col name="change_type"			type="char"   length="2"   descr="交换类型"/>
+</columns>
+</table>
+
+<table name="rpt_org_grp" pkname="grp_id" descr="机构分组信息">
+<columns>
+  <col name="grp_id"			type="varchar"   length="32"   descr="分组ID"/>
+  <col name="grp_nm"			type="varchar"   length="100"   descr="分组名称"/>
+  <col name="org_type"			type="varchar"   length="10"   descr="机构类型"/>
+  <col name="create_org"			type="varchar"   length="32"   descr="创建机构"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+<table name="rpt_paramtmp_attrs" pkname="param_id" descr="参数模版属性">
+<columns>
+  <col name="param_id"			type="varchar"   length="32"   descr="参数ID"/>
+  <col name="paramtmp_id"			type="varchar"   length="32"   descr="参数模版ID"/>
+  <col name="param_type"			type="varchar"   length="10"   descr="参数类型"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="param_val"			type="clob"   length="-1"   descr="参数值"/>
+</columns>
+</table>
+
+<table name="rpt_paramtmp_catalog" pkname="catalog_id" descr="参数模版目录">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="catalog_nm"			type="varchar"   length="100"   descr="目录名称"/>
+  <col name="up_id"			type="varchar"   length="32"   descr="上级ID"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_paramtmp_info" pkname="paramtmp_id" descr="参数模版信息">
+<columns>
+  <col name="paramtmp_id"			type="varchar"   length="32"   descr="参数模版ID"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="template_type"			type="varchar"   length="10"   descr="模板类型"/>
+  <col name="template_url"			type="varchar"   length="500"   descr="模板URL"/>
+  <col name="paramtmp_nm"			type="varchar"   length="100"   descr="参数模版名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_report_result" pkname="index_no,data_date,org_no,dim1,dim2,dim3,dim4,dim5,dim6,dim7,dim8,dim9,dim10,currency" descr="报表结果">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="dim1"			type="varchar"   length="32"   descr="dim1"/>
+  <col name="dim2"			type="varchar"   length="32"   descr="dim2"/>
+  <col name="dim3"			type="varchar"   length="32"   descr="dim3"/>
+  <col name="dim4"			type="varchar"   length="32"   descr="dim4"/>
+  <col name="dim5"			type="varchar"   length="32"   descr="dim5"/>
+  <col name="dim6"			type="varchar"   length="32"   descr="dim6"/>
+  <col name="dim7"			type="varchar"   length="32"   descr="dim7"/>
+  <col name="dim8"			type="varchar"   length="32"   descr="dim8"/>
+  <col name="dim9"			type="varchar"   length="32"   descr="dim9"/>
+  <col name="dim10"			type="varchar"   length="32"   descr="dim10"/>
+  <col name="index_val"			type="decimal"   length="20,5"   descr="指标值"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="currency"			type="varchar"   length="32"   descr="币种"/>
+</columns>
+</table>
+
+<table name="rpt_report_result_archive" pkname="ARCHIVE_TYPE, INDEX_NO, DATA_DATE, ORG_NO" descr="报表结果表（保存 归档、回灌数据）">
+<columns>
+  <col name="archive_type"		type="varchar"   length="5"   descr="数据类型（01-归档数据、02-回灌数据）"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="currency"			type="varchar"   length="32"   descr="币种"/>
+  <col name="index_val"			type="decimal"   length="20,5"   descr="指标值"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="sys_time"			type="varchar"   length="32"   descr="操作日期"/>
+</columns>
+</table>
+
+<table name="rpt_report_result_init" pkname="index_no,org_no,data_date" descr="指标结果表——init">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="currency"			type="varchar"   length="10"   descr="币种"/>
+  <col name="index_val"			type="decimal"   length="30,5"   descr="指标值"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="sys_time"			type="varchar"   length="32"   descr="系统日期"/>
+  <col name="RAW_INDEX_VAL"			type="decimal"   length="30,5"   descr="指标值（元）"/>
+</columns>
+</table>
+
+<table name="rpt_rpt_draw_info" pkname="rpt_id" descr="报表翻牌日期表">
+<columns>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表ID"/>
+  <col name="draw_date"			type="varchar"   length="10"   descr="翻牌日期"/>
+</columns>
+</table>
+
+<table name="rpt_std_area_info" pkname="area_cd" descr="报送标准行政区划代码表">
+<columns>
+  <col name="area_cd"			type="varchar"   length="6"   descr="行政区划代码"/>
+  <col name="area_name"			type="varchar"   length="100"   descr="行政区划名称"/>
+  <col name="area_lvl"			type="varchar"   length="1"   descr="所属层级"/>
+  <col name="p_area_cd"			type="varchar"   length="6"   descr="上层行政区划代码"/>
+  <col name="create_tm"			type="varchar"   length="20"   descr="创建时间"/>
+  <col name="creator"			type="varchar"   length="32"   descr="创建人"/>
+  <col name="order_no"			type="decimal"   length="5"   descr="排序字段"/>
+</columns>
+</table>
+
+<table name="rpt_std_code_info" pkname="rpt_type,code_type,item" descr="报送标准代码表">
+<columns>
+  <col name="rpt_type"			type="varchar"   length="50"   	descr="报送类型"/>
+  <col name="code_type"			type="varchar"   length="100"   descr="代码类型"/>
+  <col name="code_type_name"	type="varchar"   length="100"   descr="代码类型名称"/>
+  <col name="item"				type="varchar"   length="100"   descr="代码项"/>
+  <col name="item_name"			type="varchar"   length="200"   descr="代码项名称"/>
+  <col name="order_no"			type="decimal"   length="5" 	descr="代码项序号"/>
+  <col name="p_item"			type="varchar"   length="100"   descr="上级代码项"/>
+  <col name="item_lvl"			type="varchar"   length="4"   	descr="代码级别"/>
+  <col name="create_tm"			type="varchar"   length="20"   	descr="创建时间"/>
+  <col name="creator"			type="varchar"   length="32"   	descr="创建人"/>
+  <col name="modify_tm"			type="varchar"   length="20"   	descr="修改时间"/>
+  <col name="modifier"			type="varchar"   length="32"   	descr="修改人"/>
+</columns>
+</table>
+
+<table name="rpt_std_ctry_info" pkname="ctry_num" descr="报送标准国家代码表">
+<columns>
+  <col name="ctry_num"			type="varchar"   length="3"   descr="数字代码"/>
+  <col name="ctry_cd3"			type="varchar"   length="3"   descr="三字符代码"/>
+  <col name="ctry_cd2"			type="varchar"   length="2"   descr="两字符代码"/>
+  <col name="cn_short_name"			type="varchar"   length="64"   descr="中文简称"/>
+  <col name="en_short_name"			type="varchar"   length="64"   descr="英文简称"/>
+  <col name="cn_full_name"			type="varchar"   length="128"   descr="中文全称"/>
+  <col name="en_full_name"			type="varchar"   length="128"   descr="英文全称"/>
+  <col name="create_tm"			type="varchar"   length="20"   descr="创建时间"/>
+  <col name="creator"			type="varchar"   length="32"   descr="创建人"/>
+  <col name="order_no"			type="decimal"   length="5"  descr="排序字段"/>
+</columns>
+</table>
+
+<table name="rpt_std_curr_info" pkname="curr_num" descr="报送标准币种代码表">
+<columns>
+  <col name="curr_num"			type="varchar"   length="3"   descr="数字代码"/>
+  <col name="curr_name"			type="varchar"   length="100"   descr="币种名称"/>
+  <col name="curr_cd"			type="varchar"   length="3"   descr="字母代码"/>
+  <col name="curr_info"			type="varchar"   length="200"   descr="币种描述"/>
+  <col name="create_tm"			type="varchar"   length="20"   descr="创建时间"/>
+  <col name="creator"			type="varchar"   length="32"   descr="创建人"/>
+  <col name="order_no"			type="decimal"   length="5"    descr="排序字段"/>
+  <col name="data_type"			type="varchar"   length="1"    descr="数据类型"/>
+</columns>
+</table>
+
+<table name="rpt_subject_change" pkname="subject_num" descr="科目变更信息表">
+<columns>
+  <col name="subject_num"			type="varchar"   length="10"   descr="科目编号"/>
+  <col name="subject_name"			type="varchar"   length="50"   descr="科目名称"/>
+  <col name="subject_type_cd"			type="varchar"   length="10"   descr="科目类型"/>
+  <col name="subject_open_dt"			type="date"   length="0"   descr="打开日期"/>
+  <col name="subject_close_dt"			type="date"   length="0"   descr="关闭日期"/>
+  <col name="subject_level_cd"			type="varchar"   length="10"   descr="科目级别类型"/>
+  <col name="bal_dir_cd"			type="varchar"   length="10"   descr="bal_dir_cd"/>
+  <col name="parent_subject_num"			type="varchar"   length="10"   descr="父科目编号"/>
+  <col name="currency_ind"			type="char"   length="1"   descr="币种"/>
+  <col name="datadate"			type="varchar"   length="10"   descr="数据日期"/>
+  <col name="change_type"			type="varchar"   length="10"   descr="变更类型"/>
+</columns>
+</table>
+
+<table name="rpt_sys_module_catalog" pkname="catalog_id" descr="数据模型目录表">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="up_id"			type="varchar"   length="32"   descr="上级ID"/>
+  <col name="catalog_nm"			type="varchar"   length="100"   descr="目录名称"/>
+  <col name="catalog_desc"			type="varchar"   length="500"   descr="目录描述"/>
+  <col name="order_no"			type="decimal"   length="20"   descr="顺序"/>
+</columns>
+</table>
+
+
+<table name="rpt_sys_module_info" pkname="set_id" descr="数据模型信息表"  bgcolor="#FF80FF">
+<columns>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据模型ID"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="source_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="set_type"			type="varchar"   length="10"   descr="数据模型类型"/>
+  <col name="set_nm"			type="varchar"   length="100"   descr="数据模型名称"/>
+  <col name="table_en_nm"			type="varchar"   length="100"   descr="表英文名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="src_set_id"			type="varchar"   length="32"   descr="来源数据模型ID"/>
+  <col name="src_data_filter_cond"			type="varchar"   length="2000"   descr="来源数据过滤条件"/>
+  <col name="system_no"			type="varchar"   length="32"   descr="系统编号"/>
+  <col name="parent_set_id"			type="varchar"   length="32"   descr="父模型id"/>
+  <col name="order_no"			type="decimal"   length="20"   descr="顺序"/>
+  <col name="is_split"			type="varchar"   length="1"   descr="是否分割"/>
+  <col name="display_table_name"			type="varchar"   length="100"   descr="显示表名"/>
+  <col name="busi_type"			type="varchar"   length="10"   descr="业务类型"/>
+</columns>
+</table>
+
+
+<table name="rpt_sys_module_col" pkname="col_id" descr="数据模型字段信息表"  bgcolor="#FF80FF">
+<columns>
+  <col name="col_id"			type="varchar"   length="32"   descr="字段ID"/>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据模型ID"/>
+  <col name="col_type"			type="varchar"   length="10"   descr="字段类型"/>
+  <col name="cn_nm"			type="varchar"   length="100"   descr="中文名称"/>
+  <col name="en_nm"			type="varchar"   length="100"   descr="英文名称"/>
+  <col name="db_type"			type="varchar"   length="10"   descr="数据库类型"/>
+  <col name="len"			type="decimal"   length="12"   descr="长度"/>
+  <col name="precision2"			type="decimal"   length="12"   descr="精度"  remark="以前叫precision,但在MySQL中违反关键字,故改名" />
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="is_null"			type="varchar"   length="10"   descr="是否可空"/>
+  <col name="is_use"			type="varchar"   length="10"   descr="是否使用"/>
+  <col name="is_pk"			type="varchar"   length="10"   descr="是否主键"/>
+  <col name="is_query_col"			type="varchar"   length="10"   descr="是否查询字段"/>
+  <col name="query_logic"			type="varchar"   length="10"   descr="查询逻辑"/>
+  <col name="dim_type_no"			type="varchar"   length="32"   descr="维度类型标识"/>
+  <col name="measure_no"			type="varchar"   length="32"   descr="度量标识"/>
+</columns>
+</table>
+
+<table name="rpt_sys_module_col_trans" pkname="set_id,col_id" descr="数据模型字段映射关系">
+<columns>
+  <col name="set_id"			type="varchar"   length="32"   descr="数据模型ID"/>
+  <col name="col_id"			type="varchar"   length="32"   descr="字段ID"/>
+  <col name="src_col_id"			type="varchar"   length="32"   descr="来源字段ID"/>
+  <col name="trans_rule"			type="varchar"   length="2000"   descr="转换规则"/>
+  <col name="explain2"			type="varchar"   length="2000"   descr="说明"  remark="以前叫explain,但在MySQL中违反关键字,故改名"/>
+</columns>
+</table>
+
+<table name="rpt_sys_module_rel_detail" pkname="detail_id" descr="明细模型关系表">
+<columns>
+  <col name="detail_id"			type="varchar"   length="32"   descr="明细ID"/>
+  <col name="rel_id"			type="varchar"   length="32"   descr="关系ID"/>
+  <col name="src_col_id"			type="varchar"   length="32"   descr="源字段ID"/>
+  <col name="rel_type"			type="varchar"   length="10"   descr="关系类型"/>
+  <col name="tgt_type"			type="varchar"   length="10"   descr="目标类型"/>
+  <col name="tgt_content"			type="clob"   length="-1"   descr="目标内容"/>
+</columns>
+</table>
+
+<table name="rpt_sys_module_rel_info" pkname="rel_id" descr="数据模型关系表">
+<columns>
+  <col name="rel_id"			type="varchar"   length="32"   descr="关系ID"/>
+  <col name="src_set_id"			type="varchar"   length="32"   descr="源数据模型ID"/>
+  <col name="tgt_set_id"			type="varchar"   length="32"   descr="目标数据模型ID"/>
+  <col name="rel_type"			type="varchar"   length="10"   descr="关系类型"/>
+  <col name="relate_cond"			type="clob"   length="-1"   descr="关联条件"/>
+  <col name="cfg_type"			type="varchar"   length="10"   descr="配置类型"/>
+</columns>
+</table>
+
+<table name="rpt_sys_oper_log" pkname="log_id" descr="报表操作日志表">
+<columns>
+  <col name="log_id"			type="varchar"   length="64"   descr="日志id"/>
+  <col name="module_nm"			type="varchar"   length="200"   descr="模块名称"/>
+  <col name="oper_time"			type="date"   length="0"   descr="操作时间"/>
+  <col name="oper_user_id"			type="varchar"   length="64"   descr="操作用户id"/>
+  <col name="oper_user_nm"			type="varchar"   length="20"   descr="操作用户名称"/>
+  <col name="log_type"			type="varchar"   length="10"   descr="日志类型"/>
+  <col name="log_content"			type="varchar"   length="2000"   descr="日志内容"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="task_nm"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="rpt_nm"			type="varchar"   length="100"   descr="报表名称"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构no"/>
+  <col name="org_nm"			type="varchar"   length="100"   descr="机构名称"/>
+  <col name="data_date"			type="varchar"   length="10"   descr="数据日期"/>
+  <col name="module_type"			type="char"   length="2"   descr="模块类型"/>
+</columns>
+</table>
+
+<table name="rpt_sys_var_info" pkname="var_id" descr="系统平台变量">
+<columns>
+  <col name="var_id"			type="varchar"   length="32"   descr="变量ID"/>
+  <col name="var_no"			type="varchar"   length="100"   descr="变量标识"/>
+  <col name="var_nm"			type="varchar"   length="100"   descr="变量名称"/>
+  <col name="def_type"			type="varchar"   length="10"   descr="定义类型"/>
+  <col name="var_type"			type="varchar"   length="10"   descr="变量类型"/>
+  <col name="source_id"			type="varchar"   length="32"   descr="数据源ID"/>
+  <col name="var_val"			type="varchar"   length="2000"   descr="变量值"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_task_force_submit" pkname="task_instance_id,rpt_id" descr="报表审批信息表">
+<columns>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例id"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="rpt_num"			type="varchar"   length="32"   descr="报表编号"/>
+  <col name="rpt_nm"			type="varchar"   length="1000"   descr="报表名称"/>
+  <col name="rpt_type"			type="varchar"   length="2"   descr="报表类型"/>
+  <col name="task_nm"			type="varchar"   length="1000"   descr="任务名称"/>
+  <col name="rpt_org"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="rpt_user"			type="varchar"   length="32"   descr="用户"/>
+  <col name="oper_date"			type="date"   length="0"   descr="操作时间"/>
+  <col name="data_date"			type="varchar"   length="10"   descr="数据日期"/>
+  <col name="rpt_user_nm"			type="varchar"   length="200"   descr="用户名称"/>
+</columns>
+</table>
+
+<table name="rpt_task_instance_info" pkname="task_no,instance_id" descr="任务实例表">
+<columns>
+  <col name="task_no"			type="varchar"   length="32"   descr="任务编号"/>
+  <col name="task_nm"			type="varchar"   length="200"   descr="任务名称"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="instance_id"			type="varchar"   length="36"   descr="实例id"/>
+  <col name="task_type"			type="varchar"   length="32"   descr="任务类型"/>
+  <col name="sts"			type="varchar"   length="10"   descr="状态"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+  <col name="exec_node"			type="varchar"   length="32"   descr="执行节点"/>
+  <col name="parent_task_id"			type="varchar"   length="32"   descr="父任务id"/>
+  <col name="run_log"			type="clob"   length="-1"   descr="跑数日志"/>
+  <col name="org"			type="varchar"   length="4000"   descr="机构"/>
+</columns>
+</table>
+
+<table name="rpt_tmp_attach_rel" pkname="attach_id,rpt_id" descr="报表附件关系表">
+<columns>
+  <col name="attach_id"			type="varchar"   length="32"   descr="附件id"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_auth_info" pkname="task_instance_id,user_id,oper_type" descr="实例用户表">
+<columns>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例id"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户id"/>
+  <col name="oper_type"			type="varchar"   length="10"   descr="操作类型"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_catalog" pkname="catalog_id" descr="任务目录表">
+<columns>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+  <col name="catalog_nm"			type="varchar"   length="100"   descr="目录名称"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="up_no"			type="varchar"   length="32"   descr="父编号"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_exeobj_rel" pkname="task_id,exe_obj_type,exe_obj_id" descr="任务执行对象关系表">
+<columns>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="exe_obj_type"			type="varchar"   length="10"   descr="执行对象类型"/>
+  <col name="exe_obj_id"			type="varchar"   length="32"   descr="执行对象ID"/>
+  <col name="exe_obj_nm"			type="varchar"   length="100"   descr="执行对象名称"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_flow" pkname="task_def_id" descr="流程信息表">
+<columns>
+  <col name="task_def_id"			type="varchar"   length="32"   descr="任务定义ID"/>
+  <col name="flow_nm"			type="varchar"   length="100"   descr="流程名称"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_flow_node" pkname="task_node_def_id" descr="任务节点表">
+<columns>
+  <col name="task_node_def_id"			type="varchar"   length="32"   descr="任务节点定义ID"/>
+  <col name="task_def_id"			type="varchar"   length="32"   descr="任务定义ID"/>
+  <col name="flow_node_nm"			type="varchar"   length="100"   descr="流程节点名称"/>
+  <col name="is_can_interrupt"			type="varchar"   length="1"   descr="是否可以中断"/>
+  <col name="task_orderno"			type="decimal"   length="5"   descr="任务序号"/>
+  <col name="node_type"			type="varchar"   length="10"   descr="节点类型"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_info" pkname="task_id" descr="任务表">
+<columns>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="up_task_id"			type="varchar"   length="32"   descr="上级任务ID"/>
+  <col name="task_def_id"			type="varchar"   length="32"   descr="任务定义ID"/>
+  <col name="task_nm"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="sum_mode"			type="varchar"   length="10"   descr="汇总方式"/>
+  <col name="effect_date"			type="varchar"   length="8"   descr="生效日期"/>
+  <col name="task_freq"			type="varchar"   length="10"   descr="任务频度"/>
+  <col name="task_sts"			type="varchar"   length="10"   descr="任务状态"/>
+  <col name="task_type"			type="varchar"   length="10"   descr="任务类型"/>
+  <col name="exe_obj_type"			type="varchar"   length="10"   descr="执行对象类型"/>
+  <col name="check_sts"			type="varchar"   length="10"   descr="校验状态"/>
+  <col name="task_deadline"			type="varchar"   length="8"   descr="任务期限"/>
+  <col name="trigger_type"			type="varchar"   length="10"   descr="触发类型"/>
+  <col name="trigger_id"			type="varchar"   length="32"   descr="触发器ID"/>
+  <col name="is_pre"			type="varchar"   length="1"   descr="是否预校验"/>
+  <col name="date_offset_amount"			type="decimal"   length="12"   descr="日期偏移数"/>
+  <col name="invalid_date"			type="varchar"   length="8"   descr="失效日期"/>
+  <col name="is_rely_data"			type="varchar"   length="1"   descr="是否依赖数据"/>
+  <col name="logic_del_no"			type="varchar"   length="1"   descr="逻辑删除标识"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录ID"/>
+  <col name="exe_obj_id"			type="varchar"   length="32"   descr="执行对象ID"/>
+  <col name="trigger_nm"			type="varchar"   length="100"   descr="触发器名称"/>
+  <col name="node_type"			type="varchar"   length="32"   descr="节点类型"/>
+  <col name="create_user"			type="varchar"   length="32"   descr="创建人"/>
+  <col name="create_org"			type="varchar"   length="32"   descr="创建机构"/>
+  <col name="update_date"			type="timestamp"   length="6"   descr="修改日期"/>
+  <col name="after_task_obj_id"			type="varchar"   length="32"   descr="后置任务对象id"/>
+  <col name="after_task_sts"			type="varchar"   length="32"   descr="后置任务状态"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_ins" pkname="task_instance_id" descr="任务实例表">
+<columns>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例ID"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="task_nm"			type="varchar"   length="100"   descr="任务名称"/>
+  <col name="start_time"			type="timestamp"   length="6"   descr="开始时间"/>
+  <col name="end_time"			type="timestamp"   length="6"   descr="结束时间"/>
+  <col name="sts"			type="varchar"   length="10"   descr="状态"/>
+  <col name="is_update"			type="varchar"   length="10"   descr="是否修改"/>
+  <col name="is_check"			type="varchar"   length="10"   descr="是否校验"/>
+  <col name="task_node_instance_id"			type="varchar"   length="32"   descr="任务节点实例ID"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="exe_obj_id"			type="varchar"   length="32"   descr="执行对象ID"/>
+  <col name="task_obj_id"			type="varchar"   length="32"   descr="任务对象ID"/>
+  <col name="up_task_instance_id"			type="varchar"   length="32"   descr="上级任务实例ID"/>
+  <col name="task_type"			type="varchar"   length="10"   descr="任务类型"/>
+  <col name="logic_del_no"			type="varchar"   length="1"   descr="逻辑删标识"/>
+  <col name="line_id"			type="varchar"   length="32"   descr="条线ID"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="create_user"			type="varchar"   length="32"   descr="创建用户"/>
+  <col name="create_org"			type="varchar"   length="32"   descr="创建机构"/>
+  <col name="task_title"			type="varchar"   length="500"   descr="任务主题"/>
+  <col name="load_data_mark"			type="varchar"   length="10"   descr="是否预加载"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_ins_generate_sts" pkname="data_date,task_id" descr="任务实例预校验状态表">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="pre_sts"			type="varchar"   length="10"   descr="预校验状态"/>
+  <col name="generate_sts"			type="varchar"   length="10"   descr="生成状态"/>
+  <col name="generate_time"			type="timestamp"   length="6"   descr="生成时间"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_ins_log" pkname="log_id" descr="任务实例操作日志表">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志id"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例id"/>
+  <col name="task_node_instance_id"			type="varchar"   length="32"   descr="任务实例节点id"/>
+  <col name="oper_time"			type="date"   length="0"   descr="操作时间"/>
+  <col name="oper_user"			type="varchar"   length="32"   descr="操作用户"/>
+  <col name="remark"			type="clob"   length="-1"   descr="备注"/>
+  <col name="oper_type"			type="varchar"   length="10"   descr="操作类型"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_node" pkname="task_node_id" descr="任务节点表">
+<columns>
+  <col name="task_node_id"			type="varchar"   length="32"   descr="任务节点ID"/>
+  <col name="task_node_def_id"			type="varchar"   length="32"   descr="任务节点定义ID"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="task_node_nm"			type="varchar"   length="100"   descr="任务节点名称"/>
+  <col name="task_orderno"			type="decimal"   length="5"   descr="任务序号"/>
+  <col name="node_type"			type="varchar"   length="10"   descr="节点类型"/>
+  <col name="org_no"			type="varchar"   length="clob"   descr="机构号"/>
+  <col name="handle_type"			type="varchar"   length="32"   descr="处理类型"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_node_ins" pkname="task_node_instance_id" descr="任务节点实例表">
+<columns>
+  <col name="task_node_instance_id"			type="varchar"   length="32"   descr="任务节点实例ID"/>
+  <col name="task_node_nm"			type="varchar"   length="100"   descr="任务节点名称"/>
+  <col name="task_instance_id"			type="varchar"   length="32"   descr="任务实例ID"/>
+  <col name="is_can_interrupt"			type="varchar"   length="1"   descr="是否可以中断"/>
+  <col name="start_time"			type="varchar"   length="8"   descr="开始时间"/>
+  <col name="end_time"			type="varchar"   length="8"   descr="结束时间"/>
+  <col name="sts"			type="varchar"   length="10"   descr="状态"/>
+  <col name="task_orderno"			type="decimal"   length="5"   descr="任务序号"/>
+  <col name="node_type"			type="varchar"   length="10"   descr="节点类型"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_node_tskins_rel" pkname="task_obj_type,task_obj_id,task_node_instance_id" descr="任务实例节点关系表">
+<columns>
+  <col name="task_obj_type"			type="char"   length="18"   descr="任务对象类型"/>
+  <col name="task_obj_id"			type="varchar"   length="32"   descr="任务对象ID"/>
+  <col name="task_node_instance_id"			type="varchar"   length="32"   descr="任务节点实例ID"/>
+  <col name="task_obj_nm"			type="varchar"   length="100"   descr="任务对象名称"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_node_tskobj_rel" pkname="task_node_id,task_id,task_obj_id" descr="任务节点对象表">
+<columns>
+  <col name="task_node_id"			type="varchar"   length="32"   descr="任务节点ID"/>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务ID"/>
+  <col name="task_obj_id"			type="varchar"   length="32"   descr="任务对象ID"/>
+  <col name="task_obj_nm"			type="varchar"   length="100"   descr="任务对象名称"/>
+  <col name="task_obj_type"			type="varchar"   length="32"   descr="任务对象类型"/>
+</columns>
+</table>
+
+<table name="rpt_tsk_org_rel" pkname="task_id,org_no" descr="任务机构关系表">
+<columns>
+  <col name="task_id"			type="varchar"   length="32"   descr="任务id"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+</columns>
+</table>
+
+<table name="rpt_user_notice" pkname="announcement_id,user_id" descr="用户通知信息表">
+<columns>
+  <col name="announcement_id"			type="varchar"   length="32"   descr="通知id"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户id"/>
+  <col name="is_read"			type="char"   length="1"   descr="是否阅读"/>
+</columns>
+</table>
+
+<table name="rpt_user_oper_log" pkname="log_id" descr="用户操作日志表">
+<columns>
+  <col name="log_id"			type="varchar"   length="32"   descr="日志id"/>
+  <col name="module_nm"			type="varchar"   length="200"   descr="模块名称"/>
+  <col name="oper_time"			type="timestamp"   length="6"   descr="操作时间"/>
+  <col name="oper_user_id"			type="varchar"   length="32"   descr="操作用户id"/>
+  <col name="oper_user_nm"			type="varchar"   length="100"   descr="操作用户名称"/>
+  <col name="oper_type"			type="varchar"   length="10"   descr="操作类型"/>
+  <col name="log_content"			type="clob"   length="-1"   descr="操作内容"/>
+  <col name="res_no"			type="varchar"   length="32"   descr="资源编号"/>
+  <col name="res_id"			type="varchar"   length="32"   descr="资源id"/>
+  <col name="res_nm"			type="varchar"   length="100"   descr="资源名称"/>
+</columns>
+</table>
+
+<table name="rpt_user_rel" pkname="id" descr="报送人员信息">
+<columns>
+  <col name="id"			type="varchar"   length="32"   descr="id"/>
+  <col name="rpt_num"			type="varchar"   length="32"   descr="报表编号"/>
+  <col name="org_id"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="fill_er"			type="varchar"   length="32"   descr="填报人"/>
+  <col name="charger"			type="varchar"   length="32"   descr="负责人"/>
+  <col name="auditor"			type="varchar"   length="32"   descr="审批人"/>
+  <col name="phone_number"		type="varchar"   length="32"   descr="电话"/>
+  <col name="remark"			type="varchar"   length="100"   descr="备注"/>
+  <col name="data_type"			type="varchar"   length="10"   descr="数据类型"/>
+  <col name="off_set"			type="varchar"   length="10"   descr="off_set"/>
+</columns>
+</table>
+
+<table name="rpt_valid_cfgext_logic" pkname="check_id" descr="逻辑校验配置">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="logic_oper_type"			type="varchar"   length="10"   descr="逻辑运算类型"/>
+  <col name="float_val"			type="decimal"   length="20,5"   descr="容差值"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="开始日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="结束日期"/>
+  <col name="busi_explain"			type="varchar"   length="4000"   descr="业务说明"/>
+  <col name="is_pre"			type="varchar"   length="1"   descr="是否预校验"/>
+  <col name="is_self_def"			type="varchar"   length="10"   descr="是否自定义"/>
+  <col name="left_formula_index"			type="varchar"   length="200"   descr="左公式指标"/>
+  <col name="right_formula_index"			type="varchar"   length="200"   descr="右公式指标"/>
+  <col name="org_level"			type="varchar"   length="30"   descr="org_level"/>
+  <col name="is_org_filter"			type="varchar"   length="5"   descr="是否机构过滤"/>
+  <col name="check_nm"			type="varchar"   length="100"   descr="规则名称"/>
+  <col name="check_type"			type="varchar"   length="10"   descr="校验公式类型"/>
+  <col name="check_src"			type="varchar"   length="10"   descr="校验公式来源"/>
+  <col name="def_user"			type="varchar"   length="32"   descr="定义用户"/>
+  <col name="expression_desc"			type="clob"   length="-1"   descr="表达式描述"/>
+  <col name="expression_short_desc"			type="clob"   length="-1"   descr="校验公式"/>
+  <col name="left_expression"			type="clob"   length="-1"   descr="左表达式"/>
+  <col name="right_expression"			type="clob"   length="-1"   descr="右表达式"/>
+  <col name="serial_number"			type="varchar"   length="10"   descr="序号"/>
+  <col name="data_unit"			type="varchar"   length="2"   descr="数据单位"/>
+  <col name="data_precision"			type="varchar"   length="2"   descr="数据精度"/>
+  <col name="logic_check_cycle"			type="varchar"   length="2"   descr="逻辑校验频度"/>
+</columns>
+</table>
+
+<table name="rpt_valid_logic_org" pkname="check_id,check_org" descr="逻辑校验过滤机构表">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="check_org"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="开始日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="结束日期"/>
+</columns>
+</table>
+
+<table name="rpt_valid_cfgext_warn" pkname="check_id" descr="警戒值校验配置">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板ID"/>
+  <col name="compare_val_type"			type="varchar"   length="10"   descr="比较值类型"/>
+  <col name="range_type"			type="varchar"   length="10"   descr="幅度类型"/>
+  <col name="start_date"			type="varchar"   length="8"   descr="开始日期"/>
+  <col name="end_date"			type="varchar"   length="8"   descr="结束日期"/>
+  <col name="unit"			type="varchar"   length="10"   descr="单位"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+  <col name="check_nm"			type="varchar"   length="100"   descr="check_nm"/>
+  <col name="compare_type"			type="varchar"   length="2"   descr="预警类型（01环比、02同比）"/>
+  <col name="is_frs"			type="varchar"   length="2"   descr="监管要求（01是、02否）"/>
+</columns>
+</table>
+
+<table name="rpt_valid_cfgext_orgmerge" pkname="check_id" descr="1104总分校验配置表">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="SUM_INDEX_NO"			type="varchar"   length="32"   descr="总行指标编号"/>
+  <col name="SUM_TEMPLATE_ID"			type="varchar"   length="32"   descr="总行模板ID"/>
+  <col name="BRANCH_INDEX_NO"			type="varchar"   length="32"   descr="分行指标编号"/>
+  <col name="BRANCH_TEMPLATE_ID"			type="varchar"   length="32"   descr="分行模板ID"/>
+  <col name="CHECK_DESC"			type="varchar"   length="2000"   descr="校验描述"/>
+  <col name="START_DATE"			type="varchar"   length="8"   descr="开始日期"/>
+  <col name="END_DATE"			type="varchar"   length="8"   descr="结束日期"/>
+</columns>
+</table>
+
+<table name="rpt_valid_data_rel" pkname="check_id,valid_gid,valid_type" descr="校验数据关系表">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验id"/>
+  <col name="valid_gid"			type="varchar"   length="32"   descr="校验id"/>
+  <col name="valid_type"			type="varchar"   length="2"   descr="校验类型"/>
+</columns>
+</table>
+
+<table name="rpt_valid_dim_rel" pkname="check_id,valid_type,dim_no" descr="校验维度关系表">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="规则id"/>
+  <col name="valid_type"			type="varchar"   length="2"   descr="校验类型"/>
+  <col name="dim_no"			type="varchar"   length="32"   descr="维度编号"/>
+  <col name="dim_type"			type="varchar"   length="10"   descr="维度类型"/>
+  <col name="store_col"			type="varchar"   length="32"   descr="存储字段"/>
+</columns>
+</table>
+
+<table name="rpt_valid_group_info" pkname="valid_gid" descr="校验分组信息">
+<columns>
+  <col name="valid_gid"			type="varchar"   length="32"   descr="校验id"/>
+  <col name="group_id"			type="varchar"   length="32"   descr="分组id"/>
+  <col name="group_type"			type="varchar"   length="2"   descr="分组类型"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+</columns>
+</table>
+
+<table name="rpt_valid_group_main" pkname="group_id" descr="校验分组主信息">
+<columns>
+  <col name="group_id"			type="varchar"   length="32"   descr="分组id"/>
+  <col name="group_no"			type="varchar"   length="32"   descr="分组编号"/>
+  <col name="group_nm"			type="varchar"   length="200"   descr="分组名称"/>
+  <col name="group_type"			type="varchar"   length="2"   descr="分组类型"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_valid_logic_ds_rel" pkname="column_id,dim_filter,column_type,check_id,template_id,formula_type" descr="逻辑校验模型关系表">
+<columns>
+  <col name="column_id"			type="varchar"   length="32"   descr="字段id"/>
+  <col name="dim_filter"			type="varchar"   length="200"   descr="维度过滤"/>
+  <col name="column_type"			type="varchar"   length="10"   descr="字段类型"/>
+  <col name="check_id"			type="varchar"   length="32"   descr="规则id"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+  <col name="formula_type"			type="varchar"   length="10"   descr="公式类型"/>
+</columns>
+</table>
+
+<table name="rpt_valid_logic_idx_rel" pkname="index_no,check_id,template_id,formula_type" descr="逻辑校验指标关系">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="formula_type"			type="varchar"   length="10"   descr="公式类型"/>
+</columns>
+</table>
+
+<table name="rpt_valid_logic_rpt_rel" pkname="rpt_template_id,check_id" descr="逻辑校验报表关系">
+<columns>
+  <col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板ID"/>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+</columns>
+</table>
+
+<table name="rpt_valid_result_logic" pkname="check_id,data_date,org_no,currency" descr="逻辑校验结果">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="currency"			type="varchar"   length="32"   descr="currency"/>
+  <col name="is_pass"			type="varchar"   length="1"   descr="是否通过"/>
+  <col name="check_time"			type="timestamp"   length="6"   descr="校验时间"/>
+  <col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板ID"/>
+  <col name="d_val"			type="decimal"   length="24,6"   descr="d_val"/>
+  <col name="left_val"			type="decimal"   length="24,6"   descr="左表达式值"/>
+  <col name="right_val"			type="decimal"   length="24,6"   descr="右表达式值"/>
+</columns>
+</table>
+
+<table name="rpt_valid_logic_desc" pkname="check_id,data_date,org_no" descr="逻辑校验未通过说明">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="valid_desc"		type="varchar"   length="4000"   descr="未通过说明"/>
+</columns>
+</table>
+
+<table name="rpt_valid_result_orgmerge" pkname="data_date,org_no,index_no,currency" descr="总分校验结果">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="currency"			type="varchar"   length="32"   descr="currency"/>
+  <col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板ID"/>
+  <col name="index_val"			type="decimal"   length="20,5"   descr="指标值"/>
+  <col name="lowerlevel_total"			type="decimal"   length="20,5"   descr="下级合计"/>
+  <col name="unit"			type="varchar"   length="10"   descr="单位"/>
+  <col name="check_time"			type="timestamp"   length="6"   descr="校验时间"/>
+</columns>
+</table>
+
+<table name="rpt_valid_result_warn" pkname="check_id,data_date,org_no,currency" descr="警戒值校验结果">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="currency"			type="varchar"   length="32"   descr="currency"/>
+  <col name="level_num"			type="varchar"   length="32"   descr="级别编号"/>
+  <col name="curr_val"			type="decimal"   length="20,5"   descr="当前值"/>
+  <col name="compare_val"			type="decimal"   length="20,5"   descr="比较值"/>
+  <col name="check_time"			type="timestamp"   length="6"   descr="校验时间"/>
+  <col name="is_pass"			type="varchar"   length="1"   descr="是否通过"/>
+  <col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板ID"/>
+  <col name="unit"			type="varchar"   length="10"   descr="单位"/>
+</columns>
+</table>
+
+<table name="rpt_valid_result_zero" pkname="data_date,org_no,index_no" descr="零值校验结果表">
+<columns>
+  <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+  <col name="org_no"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+  <col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板id"/>
+  <col name="result_type"			type="decimal"   length="20,5"   descr="零值校验结果"/>
+  <col name="check_time"			type="timestamp"   length="6"   descr="校验时间"/>
+</columns>
+</table>
+
+<table name="rpt_valid_warn_level" pkname="check_id,level_num" descr="警戒值校验报警级别">
+<columns>
+  <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+  <col name="level_num"			type="varchar"   length="32"   descr="级别编号"/>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="level_nm"			type="varchar"   length="100"   descr="级别名称"/>
+  <col name="level_type"			type="varchar"   length="10"   descr="级别类型"/>
+  <col name="minus_range_val"			type="decimal"   length="20,5"   descr="负幅度值"/>
+  <col name="postive_range_val"			type="decimal"   length="20,5"   descr="正幅度值"/>
+  <col name="remind_color"			type="varchar"   length="6"   descr="提醒颜色"/>
+  <col name="is_pass_cond"			type="varchar"   length="1"   descr="是否通过条件"/>
+</columns>
+</table>
+
+<table name="rpt_ana_charts_date_rel" pkname="chart_id" descr="指标分析图表日期关系表">
+<columns>
+  <col name="chart_id"			type="varchar"   length="32"   descr="图表ID"/>
+  <col name="date_freq"			type="varchar"   length="10"   descr="日期频度"/>
+  <col name="show_type"			type="varchar"   length="10"   descr="展示类型"/>
+  <col name="start_date"			type="varchar"   length="100"   descr="开始日期"/>
+  <col name="end_date"			type="varchar"   length="100"   descr="结束日期"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_ana_charts_formula_rel" pkname="rel_id" descr="指标分析图表公式关系表">
+<columns>
+  <col name="rel_id"			type="varchar"   length="32"   descr="关系ID"/>
+  <col name="chart_id"			type="varchar"   length="32"   descr="图表ID"/>
+  <col name="formula_id"			type="varchar"   length="32"   descr="公式ID"/>
+  <col name="formula_nm"			type="varchar"   length="100"   descr="公式名称"/>
+  <col name="formula_content"			type="varchar"   length="500"   descr="公式内容"/>
+  <col name="formula_type"			type="varchar"   length="10"   descr="公式类型"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+</columns>
+</table>
+
+<table name="rpt_ana_charts_info" pkname="chart_id" descr="指标分析图表信息表">
+<columns>
+  <col name="chart_id"			type="varchar"   length="32"   descr="图表ID"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="chart_type"			type="varchar"   length="10"   descr="图表类型"/>
+  <col name="chart_nm"			type="varchar"   length="200"   descr="图表名称"/>
+  <col name="chart_cfg"			type="clob"   length="-1"   descr="图表配置"/>
+  <col name="show_type"			type="varchar"   length="10"   descr="展示类型"/>
+  <col name="text_cfg"			type="clob"   length="-1"   descr="文本配置"/>
+  <col name="chart_color"			type="varchar"   length="500"   descr="图表颜色"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_ana_charts_org_rel" pkname="chart_id" descr="指标分析图表机构关系表">
+<columns>
+  <col name="chart_id"			type="varchar"   length="32"   descr="图表ID"/>
+  <col name="show_type"			type="varchar"   length="10"   descr="展示类型"/>
+  <col name="show_org"			type="varchar"   length="2000"   descr="展示机构"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_ana_charts_theme_rel" pkname="chart_id" descr="指标分析图表主题关系表">
+<columns>
+  <col name="chart_id"			type="varchar"   length="32"   descr="图表ID"/>
+  <col name="theme_id"			type="varchar"   length="32"   descr="主题ID"/>
+</columns>
+</table>
+
+<table name="rpt_ana_tmp_formula_rel" pkname="rel_id" descr="指标分析模板公式关系表">
+<columns>
+  <col name="rel_id"			type="varchar"   length="32"   descr="关系ID"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="formula_id"			type="varchar"   length="32"   descr="公式ID"/>
+  <col name="formula_nm"			type="varchar"   length="100"   descr="公式名称"/>
+  <col name="formula_content"			type="varchar"   length="500"   descr="公式内容"/>
+  <col name="formula_type"			type="varchar"   length="10"   descr="公式类型"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+</columns>
+</table>
+
+<table name="rpt_ana_tmp_idx_rel" pkname="index_no" descr="指标分析模板指标关系表">
+<columns>
+  <col name="index_no"			type="varchar"   length="32"   descr="指标标识"/>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="index_nm"			type="varchar"   length="100"   descr="指标名称"/>
+</columns>
+</table>
+
+<table name="rpt_ana_tmp_info" pkname="template_id" descr="指标分析模板信息表">
+<columns>
+  <col name="template_id"			type="varchar"   length="32"   descr="模板ID"/>
+  <col name="template_nm"			type="varchar"   length="100"   descr="模板名称"/>
+  <col name="template_freq"			type="varchar"   length="10"   descr="模板频度"/>
+  <col name="data_format"			type="varchar"   length="10"   descr="数据格式"/>
+  <col name="data_unit"			type="varchar"   length="10"   descr="数据单位"/>
+  <col name="data_precision"			type="decimal"   length="5"   descr="数据精度"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="is_default"			type="varchar"   length="10"   descr="是否默认"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+
+<table name="rpt_cabin_formula_info" pkname="formula_id" descr="公式信息表">
+<columns>
+  <col name="formula_id"			type="varchar"   length="32"   descr="公式ID"/>
+  <col name="formula_nm"			type="varchar"   length="100"   descr="公式名称"/>
+  <col name="formula_content"			type="varchar"   length="500"   descr="公式内容"/>
+  <col name="formula_freq"			type="varchar"   length="10"   descr="公式频度"/>
+  <col name="formula_type"			type="varchar"   length="10"   descr="公式类型"/>
+  <col name="display_content"			type="varchar"   length="500"   descr="显示内容"/>
+  <col name="order_num"			type="decimal"   length="5"   descr="顺序编号"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="rpt_concern_org" pkname="module_type,user_id,org_id" descr="报送机构信息">
+<columns>
+  <col name="module_type"			type="char"   length="2"   descr="报送业务类型"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户id"/>
+  <col name="org_id"			type="varchar"   length="32"   descr="机构号"/>
+  <col name="org_nm"			type="varchar"   length="100"   descr="机构名称"/>
+</columns>
+</table>
+
+<table name="rpt_concern_rpt" pkname="module_type,user_id,rpt_id" descr="报送报表信息">
+<columns>
+  <col name="module_type"			type="char"   length="2"   descr="报送业务类型"/>
+  <col name="user_id"			type="varchar"   length="32"   descr="用户id"/>
+  <col name="rpt_id"			type="varchar"   length="32"   descr="报表id"/>
+  <col name="rpt_nm"			type="varchar"   length="100"   descr="报表名称"/>
+  <col name="cata_id"			type="varchar"   length="32"   descr="目录id"/>
+</columns>
+</table>
+
+<table name="rpt_mgr_busi_lib_info" pkname="busi_lib_id" descr="业务分库分表配置表">
+<columns>
+  <col name="busi_lib_id"			type="varchar"   length="32"   descr="业务库id"/>
+  <col name="busi_lib_no"			type="varchar"   length="32"   descr="业务库编号"/>
+  <col name="busi_lib_nm"			type="varchar"   length="200"   descr="业务库名称"/>
+  <col name="ds_id"			type="varchar"   length="32"   descr="数据源id"/>
+  <col name="set_id"			type="varchar"   length="32"   descr="事实表id"/>
+  <col name="remark"			type="varchar"   length="500"   descr="备注"/>
+</columns>
+</table>
+
+<table name="frs_system_cfg" pkname="busi_type,system_ver_id" descr="监管制度版本信息表">
+<columns>
+  <col name="busi_type"			type="varchar"   length="10"   descr="业务类型"/>
+  <col name="system_ver_id"			type="decimal"   length="10"   descr="制度版本号"/>
+  <col name="system_name"			type="varchar"   length="100"   descr="制度名称"/>
+  <col name="ver_start_date"			type="varchar"   length="50"   descr="版本开始日期"/>
+  <col name="ver_end_date"			type="varchar"   length="50"   descr="版本结束日期"/>
+  <col name="catalog_id"			type="varchar"   length="32"   descr="目录id"/>
+  <col name="remark"			type="varchar"   length="1000"   descr="备注"/>
+</columns>
+</table>
+
+<table name="frs_submit_division" pkname="rid" descr="报送分工表">
+	<columns>
+		<col name="rid"					type="varchar"   length="32"   descr="rid"/>
+		<col name="module_type"			type="varchar"   length="5"   descr="报送模块编码"/>
+		<col name="rpt_num"				type="varchar"   length="50"   descr="报表编号"/>
+		<col name="rpt_nm"				type="varchar"   length="100"   descr="报表名称"/>
+		<col name="dept_no"				type="varchar"   length="50"   descr="机构编号"/>
+		<col name="org_no"				type="varchar"   length="50"   descr="部门编号"/>
+	</columns>
+</table>
+
+<table name="frs_error_manage" pkname="rid" descr="错报说明管理表">
+	<columns>
+		<col name="rid"					type="varchar"   length="32"   descr="rid"/>
+		<col name="module_type"			type="varchar"   length="5"   descr="报送模块编码"/>
+		<col name="task_id"				type="varchar"   length="32"   descr="任务id"/>
+		<col name="task_nm"				type="varchar"   length="32"   descr="任务名称"/>
+		<col name="data_date"				type="varchar"   length="20"   descr="数据日期"/>
+		<col name="org_no"				type="varchar"   length="20"   descr="机构编号"/>
+		<col name="dept_no"				type="varchar"   length="20"   descr="部门编号"/>
+		<col name="error_desc"				type="varchar"   length="500"   descr="错误概述"/>
+		<col name="error_file"				type="varchar"   length="500"   descr="错误附件"/>
+		<col name="create_user"				type="varchar"   length="32"   descr="创建人"/>
+		<col name="create_time"				type="varchar"   length="20"   descr="创建时间"/>
+	</columns>
+</table>
+
+<table name="rpt_idx_detail_drill" pkname="index_no,index_ver_id" descr="指标下钻明细配置表">
+	<columns>
+		<col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+		<col name="index_ver_id"		type="decimal"   length="20"    descr="指标版本号"/>
+		<col name="drill_sql"			type="varchar"   length="1000"   descr="下钻SQL"/>
+	</columns>
+</table>
+
+  <table name="rpt_idx_cfg" pkname="template_id,ver_id,cell_no,index_no" descr="报表指标配置表">
+    <columns>
+      <col name="template_id"		type="varchar"   length="32"   descr="模板id"/>
+      <col name="rpt_num"			type="varchar"   length="32"   descr="报表编号"/>
+      <col name="ver_id"			type="decimal"   length="18"   descr="版本号"/>
+      <col name="cell_no"			type="varchar"   length="32"   descr="单元格编号"/>
+      <col name="index_no"			type="varchar"   length="32"   descr="指标编号"/>
+    </columns>
+  </table>
+
+  <table name="rpt_fltsk_procdef" pkname="task_id" descr="任务流程关系表">
+    <columns>
+      <col name="task_id"			type="varchar"   length="50"   descr="任务id"/>
+      <col name="proc_def_key"		type="varchar"   length="50"   descr="流程id"/>
+      <col name="proc_def_name"		type="varchar"   length="100"   descr="流程名称"/>
+    </columns>
+  </table>
+
+  <table name="import_design_info_log" pkname="" descr="制度包导入日志表">
+    <columns>
+      <col name="id"			type="varchar"   length="32"   descr="导入流程id"/>
+      <col name="sort_no"		type="varchar"   length="10"   descr="顺序编号"/>
+      <col name="content"		type="varchar"   length="500"   descr="日志内容"/>
+    </columns>
+  </table>
+
+  <table name="rpt_detail_valid_cfg" pkname="check_id" descr="明细校验配置信息表">
+    <columns>
+	   	<col name="check_id"				type="varchar"   length="32"     descr="校验ID"/>
+		<col name="rpt_template_id"			type="varchar"   length="32"     descr="报表模板ID"/>
+		<col name="expression_desc"			type="varchar"   length="2000"   descr="表达式描述"/>
+		<col name="logic_oper_type"			type="varchar"   length="10"     descr="逻辑运算类型"/>
+		<col name="left_expression"			type="varchar"   length="2000"   descr="左表达式"/>
+		<col name="right_expression"		type="varchar"   length="2000"   descr="右表达式"/>
+		<col name="float_val"				type="number"     length="22"     descr="容差值"/>
+		<col name="start_date"				type="varchar"   length="8"      descr="开始日期"/>
+		<col name="end_date"				type="varchar"   length="8"      descr="结束日期"/>
+		<col name="busi_explain"			type="varchar"   length="500"    descr="业务说明"/>
+		<col name="is_pre"					type="varchar"   length="1"      descr="是否有前置条件"/>
+		<col name="pre_left_expression"		type="varchar"   length="2000"   descr="前置左表达式"/>
+		<col name="pre_oper_type"			type="varchar"   length="10"     descr="前置运算符类型"/>
+		<col name="pre_right_expression"	type="varchar"   length="2000"   descr="前置右表达式"/>
+		<col name="check_type"				type="varchar"   length="10"     descr="公式类型"/>
+		<col name="check_src"				type="varchar"   length="10"     descr="公式来源"/>
+		<col name="exp_type"				type="varchar"   length="2"     descr="校验类型：01-逻辑校验，02-正则表达式校验，03-字段比较校验"/>
+    </columns>
+  </table>
+
+  <table name="rpt_detail_valid_result_logic" pkname="check_result_id" descr="明细校验结果信息表">
+    <columns>
+	   	<col name="check_result_id"			type="varchar"   length="32"	descr="校验结果ID"/>
+		<col name="check_cfg_id"			type="varchar"   length="32"   descr="校验配置ID"/>
+		<col name="data_date"				type="varchar"   length="8"    descr="数据日期"/>
+		<col name="org_no"					type="varchar"   length="32"   descr="机构标识"/>
+		<col name="rpt_template_id"			type="varchar"   length="32"   descr="报表模板ID"/>
+		<col name="check_time"				type="timestamp"  length="6"    descr="校验时间"/>
+		<col name="is_pass"			     	type="varchar"   length="1"    descr="是否通过"/>
+		<col name="differ_val"				type="number"     length="22"   descr="校验差值"/>
+		<col name="org_type"				type="varchar"   length="10"   descr="机构类型"/>
+		<col name="replace_expression"		type="varchar"   length="2000" descr="校验展示公式"/>
+		<col name="float_val"				type="number"     length="22"   descr="容差值"/>
+		<col name="verifyt_sts"				type="varchar"   length="10"   descr="结果状态"/>
+		<col name="expression_short_desc"	type="varchar"   length="2000" descr="校验公式"/>
+		<col name="expression_desc"			type="varchar"   length="2000" descr="表达式描述"/>
+		<col name="data_unit"				type="varchar"   length="10"   descr="数据单位"/>
+		<col name="row_id"					type="number"     length="38"   descr="行号"/>
+		<col name="check_type"				type="varchar"   length="10"   descr="校验类型"/>
+		<col name="check_src"				type="varchar"   length="10"   descr="校验来源"/>
+    </columns>
+  </table>
+
+  <table name="rpt_detail_data_update" pkname="rid" descr="报表明细数据修改表">
+	<columns>
+		<col name="rid"					type="varchar"   length="32"   descr="rid"/>
+		<col name="template_id"			type="varchar"   length="32"   descr="模板id"/>
+		<col name="rpt_num"				type="varchar"   length="32"   descr="报表编号"/>
+		<col name="data_date"			type="varchar"   length="8"    descr="数据日期"/>
+		<col name="org_no"				type="varchar"   length="32"   descr="机构编号"/>
+		<col name="ds_id"			    type="varchar"   length="32"   descr="数据源id"/>
+		<col name="set_id"			    type="varchar"   length="32"   descr="模型id"/>
+		<col name="table_en_nm"			type="varchar"   length="32"   descr="模型对应后台表名"/>
+		<col name="module_key_name"		type="varchar"   length="2000" descr="模型主键名称"/>
+		<col name="module_key_value"	type="varchar"   length="2000" descr="模型主键值"/>
+		<col name="column_name"			type="varchar"   length="2000"  descr="字段名"/>
+		<col name="column_value"		type="varchar"   length="2000"  descr="字段初始值"/>
+		<col name="oper_type"		    type="varchar"   length="5"    descr="操作类型（新增、修改、删除）"/>
+		<col name="oper_time"		    type="varchar"   length="20"    descr="操作时间"/>
+	</columns>
+  </table>
+
+  <table name="rpt_valid_warn_desc" pkname="check_id,data_date,org_no" descr="预警校验未通过说明">
+    <columns>
+      <col name="check_id"			type="varchar"   length="32"   descr="校验ID"/>
+      <col name="data_date"			type="varchar"   length="8"   descr="数据日期"/>
+      <col name="org_no"			type="varchar"   length="32"   descr="机构标识"/>
+      <col name="valid_desc"		type="varchar"   length="4000"   descr="未通过说明"/>
+    </columns>
+  </table>
+
+  <table name="RPT_TASK_REFRESH_INFO" pkname="task_no" descr="引擎刷新信息表">
+    <columns>
+      <col name="task_no"			type="varchar"     length="32"   descr="任务编号"/>
+      <col name="task_nm"			type="varchar"     length="200"  descr="任务名称"/>
+      <col name="instance_id"	    type="varchar"     length="36"   descr="实例id"/>
+      <col name="task_type"		    type="varchar"     length="32"   descr="任务类型"/>
+      <col name="sts"		        type="varchar"     length="10"   descr="状态"/>
+      <col name="start_time"		type="timestamp"   length="6"    descr="开始时间"/>
+      <col name="end_time"		    type="timestamp"   length="6"    descr="结束时间"/>
+      <col name="parent_task_id"	type="varchar"     length="32"   descr="父任务id"/>
+        <col name="run_log"		    type="clob"                      descr="跑数日志"/>
+    </columns>
+  </table>
+
+</root>

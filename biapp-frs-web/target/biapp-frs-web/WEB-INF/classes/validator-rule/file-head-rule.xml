@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="FILE_HEAD_DEFAULT_ID" classType="org.pbccrc.archive.collect.messagetools.head.FileHead">
+
+		<field name="startMark" fbTag="0000" classType="java.lang.String">
+			<rule id="startMark_EqA" type="Equals" fbValue="" errCode="ABH005">
+				<property name="data" value="A" />
+			</rule>
+		</field>
+
+		<field name="fileHeadLength" fbTag="0000" classType="java.lang.String">
+			<rule id="fileHeadLength_DataType" type="DataType" fbValue="" errCode="ABH005">
+				<property name="type" value="N3" />
+			</rule>
+			<rule id="fileHeadLength_eq50" type="NumberLimit" fbValue="" errCode="ABH005" depExp="fileHeadLength_DataType">
+				<property name="startValue" value="50"/>
+				<property name="startSign" value="&gt;="/>
+				<property name="endValue" value="50"/>
+				<property name="endSign" value="&lt;="/>
+			</rule>
+		</field>
+
+		<field name="recType" fbTag="0000" classType="java.lang.String">
+			<rule id="recType_Dict" type="DictManage" fbValue="" errCode="ABH005">
+				<property name="dictKey" value="InfRecType" />
+			</rule>
+			<rule id="recType_EqualsCtx" type="Equals" fbValue="" errCode="ABF007" depExp="recType_Dict">
+				<property name="data" value="${$context.REC_TYPE}" />
+			</rule>
+		</field>
+
+		<field name="version" fbTag="0000" classType="java.lang.String">
+			<rule id="version_Format" type="Regex" fbValue="" errCode="ABH005">
+				<property name="regex" value="\d\.\d\.\d" />
+			</rule>
+		</field>
+
+		<field name="templateType" fbTag="0000" classType="java.lang.String">
+			<rule id="templateType_DataType" type="DataType" fbValue="" errCode="ABH005">
+				<property name="type" value="AN2" />
+			</rule>
+			<!-- <rule id="templateType_EqualsCtx" type="Equals" fbValue="" errCode="ABH005" depExp="templateType_DataType">
+				<property name="data" value="${$context.TEMPLATE_TYPE}" />
+			</rule> -->
+		</field>
+
+		<field name="finanCode" fbTag="0000" classType="java.lang.String">
+			<rule id="finanCode_DataType" type="DataType" fbValue="" errCode="ABH005">
+				<property name="type" value="AN14" />
+			</rule>
+			<rule id="finanCode_EqualsCtx" type="Equals" fbValue="" errCode="ABF007" depExp="finanCode_DataType">
+				<property name="data" value="${$context.FINAN_CODE}" />
+			</rule>
+		</field>
+
+		<field name="fileCreateTime" fbTag="0000" classType="java.lang.String">
+			<rule id="fileCreateTime_DataType" type="DataType" fbValue="" errCode="ABH005">
+				<property name="type" value="TimeDigit" />
+			</rule>
+			<rule id="fileCreateTime_Range" type="DateRange" fbValue="" errCode="ABH005" depExp="fileCreateTime_DataType">
+				<property name="formatType" value="Digit" />
+			</rule>
+			<rule id="fileCreateTime_EqCtxDate" type="DateCompare" fbValue="" errCode="ABF007" depExp="fileCreateTime_Range">
+				<property name="type" value="date" />
+				<property name="beginDate" value="${$context.FILE_CREATE_DATE}" />
+				<property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+			</rule>
+		</field>
+
+		<field name="reserved" fbTag="0000" classType="java.lang.String">
+			<rule id="reserved_DataType" type="DataType" fbValue="" errCode="ABH005">
+				<property name="type" value="AN1" />
+			</rule>
+		</field>
+
+		<field name="recCount" fbTag="0000" classType="java.lang.String">
+			<rule id="recCount_DataType" type="DataType" fbValue="" errCode="ABH005">
+				<property name="type" value="N7" />
+			</rule>
+			<!-- <rule id="recCount_GraThan0" type="NumberLimit" fbValue="" errCode="ABH005" depExp="recCount_DataType"> <property 
+				name="startSign" value=">" /> <property name="startValue" value="0" /> </rule> -->
+		</field>
+	</validator>
+</validators>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <templet>
+        <templetname>企业黑名单</templetname>
+        <fromtable>CR_ENTP_BLIST</fromtable>
+        <savetable>CR_ENTP_BLIST</savetable>
+        <pkname>CTF_TP,CTF_NBR</pkname>
+        <querycontion></querycontion>
+        <autocondition></autocondition>
+        <ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+        <autoquery>Y</autoquery>
+        <orderbys></orderbys>
+        <card_btns></card_btns>
+        <list_btns>$INSERT;$UPDATE;$DELETE;[icon-p68]导出/onExport_1;</list_btns>
+        <list_ispagebar>Y</list_ispagebar>
+        <list_issearch></list_issearch>
+    </templet>
+
+    <templet_item>
+        <itemkey>CTF_TP</itemkey>
+        <itemname>证件类型</itemname>
+        <itemtype>下拉框</itemtype>
+        <itemdefine>【{"类型":"SQL","内容":"select NORMSCODE id, NORMSNOTE name from ENT_CODELIBRARY where DATATYPE='IDType' "}】
+        </itemdefine>
+        <issave>Y</issave>
+        <ismust>Y</ismust>
+        <card_isshow>Y</card_isshow>
+        <card_width>150,400</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>Y</list_isshow>
+        <list_width>150</list_width>
+        <list_align>中</list_align>
+        <list_render></list_render>
+        <search_isshow>N</search_isshow>
+        <query_isshow>Y</query_isshow>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>CTF_NBR</itemkey>
+        <itemname>证件号码</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>150,400</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>Y</list_isshow>
+        <list_width>200</list_width>
+        <list_align>中</list_align>
+        <search_isshow>N</search_isshow>
+        <query_isshow>Y</query_isshow>
+        <ismust>Y</ismust>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>ENTP_NM</itemkey>
+        <itemname>企业名称</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>150,400</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>Y</list_isshow>
+        <list_width>80</list_width>
+        <list_align>中</list_align>
+        <search_isshow>N</search_isshow>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>REMARK</itemkey>
+        <itemname>备注</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <seq>5</seq>
+        <card_isshow>Y</card_isshow>
+        <card_width>150,400</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>Y</list_isshow>
+        <list_width>200</list_width>
+        <list_align>中</list_align>
+        <list_render></list_render>
+        <search_isshow>N</search_isshow>
+        <search_itemtype></search_itemtype>
+        <search_itemdefine></search_itemdefine>
+        <query_isshow></query_isshow>
+        <validateinfo></validateinfo>
+        <showformula></showformula>
+        <defvalue></defvalue>
+    </templet_item>
+
+</root>

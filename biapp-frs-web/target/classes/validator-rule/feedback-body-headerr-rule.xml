@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="FEEDBACK_ERROR_HEAD_DEFAULT_ID2.0.0"
+		classType="org.pbccrc.collectclient.api.feedback.msg.FeedbackHeadErrRecord">
+
+		<field name="FbErrNum" fbTag="FbErrNum" classType="java.lang.String">
+			<rule id="FbErrNum_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="FbErrNum_NotEmpty" type="NotEmpty" errCode="ABE000"
+				depExp="FbErrNum_NotNull" />
+			<rule id="FbErrNum_DataType" type="DataType" fbValue="${FbErrNum}"
+				errCode="ABE001" depExp="FbErrNum_NotEmpty">
+				<property name="type" value="uInt..3" />
+			</rule>
+		</field>
+
+		<field name="ErrInf" fbTag="ErrInf" classType="java.util.List">
+			<rule id="ErrInf_NotNull" type="NotNull" errCode="ABD000"
+				depExp="FbErrNum_NotNull" />
+			<rule id="ErrInf_CollectionSize" fbTag="ErrInf" type="CollectionSize"
+				errCode="ABE010" depExp="FbErrNum_DataType">
+				<property name="size" value="${FbErrNum}" />
+			</rule>
+			<field name="ErrInf_bean" fbTag="ErrInf_bean"
+				classType="org.pbccrc.collectclient.api.feedback.segment.ErrInf">
+				<field name="FbCode" fbTag="FbCode" classType="java.lang.String">
+					<rule id="FbCode_NotNull" type="NotNull" errCode="ABD000"
+						scope="local" />
+					<rule id="FbCode_NotEmpty" type="NotEmpty" errCode="ABE000"
+						depExp="FbCode_NotNull" scope="local" />
+					<rule id="FbCode_DataType" type="DataType" errCode="ABE001"
+						depExp="FbCode_NotEmpty" scope="local">
+						<property name="type" value="AN6" />
+					</rule>
+				</field>
+				<field name="FbMsg" fbTag="FbMsg" classType="java.lang.String">
+					<rule id="FbMsg_NotNull" type="NotNull" errCode="ABD000"
+						scope="local" />
+					<rule id="FbMsg_NotEmpty" type="NotEmpty" depExp="FbMsg_NotNull"
+						scope="local" />
+					<rule id="FbMsg_DataType" type="DataType" errCode="ABE001"
+						depExp="FbMsg_NotEmpty" scope="local">
+						<property name="type" value="ANC..100" />
+					</rule>
+				</field>
+			</field>
+		</field>
+
+	</validator>
+</validators>

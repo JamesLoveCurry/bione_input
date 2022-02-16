@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+    <validator id="30079222.0.0" classType="org.pbccrc.archive.collect.messagetools.enthgucont.message.GuarNormalRecord" >
+
+    <field  name="GuarBsSgmt" fbTag="GuarBsSgmt" classType="org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.GuarBsSgmt" >
+            <rule  id="GuarBsSgmt_NotNull" type="NotNull" errCode="CHR000" />
+            <field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+                <rule id="InfRecType_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+				<rule id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecType_NotNull"/>
+				<rule id="InfRecType_EqCtxt" type="Equals" errCode="ABR000" fbTag="0000" depExp="InfRecType_NotEmpty">
+					<property name="data" value="${$context.REC_TYPE}" />
+				</rule>
+				<rule id="InfRecType_Dict" type="DictManage" errCode="ABE001" depExp="InfRecType_EqCtxt">
+					<property name="dictKey" value="EntInfRecType" />
+				</rule> 
+            </field> 
+            <field  name="GuarMcCode" fbTag="GuarMcCode" classType="java.lang.String" >
+                <rule  id="GuarMcCode_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="GuarMcCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GuarMcCode_NotNull"/>
+                <rule  id="GuarMcCode_DataType" type="DataType" errCode="ABE001" depExp="GuarMcCode_NotEmpty">
+                    <property  name="type" value="ANC..60" />
+                </rule>
+                <!-- 校验前14位与数据机构提供区段码相等 错误码ABE002 -->
+				<rule id="GuarMcCode_finanOrg" type="FinanOrgan" errCode="ABE002" depExp="GuarMcCode_DataType" />
+            </field> 
+            <field  name="RptDate" fbTag="RptDate" classType="java.lang.String" >
+                <rule  id="RptDate_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDate_NotNull"/>
+                <rule  id="RptDate_DataType" type="DataType" errCode="ABE001" depExp="RptDate_NotEmpty">
+                    <property  name="type" value="Date" />
+                </rule>
+                <rule id="RptDate_Range" type="DateRange" errCode="ABE008"	depExp="RptDate_DataType" />
+				<rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001"	depExp="RptDate_DataType">
+					<property name="type" value="date" />
+					<property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+				</rule>
+            </field> 
+            <field  name="RptDateCode" fbTag="RptDateCode" classType="java.lang.String" >
+                <rule  id="RptDateCode_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="RptDateCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDateCode_NotNull"/>
+                <rule id="RptDateCode_Dict" type="Dict" errCode="ABE001"	depExp="RptDateCode_NotEmpty">
+					<property name="dictKey" value="HguContractRptDateCode" />
+				</rule> 
+            </field> 
+            <field  name="CerType" fbTag="CerType" classType="java.lang.String" >
+                <rule  id="CertType_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="CertType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CertType_NotNull"/>
+                <rule  id="CertType_Dict" type="Dict" errCode="ABE001"  depExp="CertType_NotEmpty">
+                       <property  name="dictKey" value="EntRltRepymtInfoIdType" />
+                </rule>                       
+                <rule id="CertType_1" type="Equals"  depExp="CertType_Dict"  >
+                       <property name="data" value="1" />
+                </rule>
+                <rule id="CertType_2" type="Equals"  depExp="CertType_Dict" >
+                       <property name="data" value="2" />
+                </rule>
+            </field> 
+            <field  name="Name" fbTag="Name" classType="java.lang.String" >
+                <rule  id="Name_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="Name_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Name_NotNull"/>
+                <rule  id="Name_Ent_DataType" type="DataType" errCode="ABE001" depExp="Name_NotEmpty &amp; CertType_2">
+                      <property  name="type" value="ANC..80" />
+                </rule>
+                <rule  id="Name_Ntr_DataType" type="DataType" errCode="ABE001" depExp="Name_NotEmpty &amp; CertType_1">
+                      <property  name="type" value="ANC..30" />
+                </rule>
+            </field> 
+            <field  name="IDType" fbTag="IDType" classType="java.lang.String" >
+                <rule  id="IDType_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="IDType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDType_NotNull"/>
+                <rule id="IDType_Ntr_Dict" type="Dict" errCode="ABE001" fbTag="IDType"  depExp="IDType_NotEmpty &amp; CertType_1"  >
+                       <property name="dictKey" value="EntPerCertType" />
+                </rule>
+<!--                 <rule id="IDType_Org_Dict" type="Dict" errCode="ABE001" fbTag="IDType" depExp="IDType_NotEmpty &amp; CertType_2"   > -->
+<!--                         <property name="dictKey" value="EntCertType" /> -->
+<!--                 </rule> -->
+                <rule  id="IDType_Org_Dict" type="Contains" errCode="ABE001" depExp="IDType_NotEmpty &amp; CertType_2" >
+					<property name="dict" value="10;20;30" />
+				</rule>
+                
+            </field> 
+            <field  name="IDNum" fbTag="IDNum" classType="java.lang.String" >
+                <rule  id="IDNum_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="IDNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDNum_NotNull"/>
+                <rule  id="IDNum_DataType_Ent" type="DataType" errCode="ABE001" depExp="IDNum_NotEmpty &amp; CertType_2">
+                    <property  name="type" value="ANC..40" />
+                </rule>
+                <rule  id="IDNum_DataType_Ntr" type="DataType" errCode="ABE001" depExp="IDNum_NotEmpty &amp; CertType_1">
+                    <property  name="type" value="ANC..20" />
+                </rule>
+            </field> 
+            <!-- 校验身份证类型及号码 -->
+			<rule id="IDNum_NtrCert_Vali" type="NtrCert" errCode="ABE004" fbTag="IDNum"  fbValue="${$this.IDNum}" depExp="IDType_Ntr_Dict">
+				<property name="certTypeFeild" value="IDType" />
+				<property name="certNumFeild" value="IDNum" />
+			</rule>
+			<rule id="IDNum_LegCert_Vali" type="LegCert" errCode="ABE004" fbTag="IDNum"  fbValue="${$this.IDNum}" depExp="IDType_Org_Dict">
+				<property name="certTypeFeild" value="IDType" />
+				<property name="certNumFeild" value="IDNum" />
+			</rule>
+			
+            <field  name="MngmtOrgCode" fbTag="MngmtOrgCode" classType="java.lang.String" >
+                <rule  id="MngmtOrgCode_NotNull" type="NotNull" errCode="ABD000" depExp="GuarBsSgmt_NotNull"/>
+                <rule  id="MngmtOrgCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="MngmtOrgCode_NotNull"/>
+                <rule  id="MngmtOrgCode_DataType" type="DataType" errCode="ABE001" depExp="MngmtOrgCode_NotEmpty">
+                    <property  name="type" value="AN14" />
+                </rule>
+               <rule id="MngmtOrgCode_Organ" type="Organ" errCode="ABE003"	depExp="MngmtOrgCode_DataType" />
+            </field> 
+        </field> 
+
+        <field  name="CosignerSgmt" fbTag="CosignerSgmt" classType="org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.CosignerSgmt" >
+            <rule  id="CosignerSgmt_NotNull" type="NotNull" />
+            <field  name="CosignersNm" fbTag="CosignersNm" classType="java.lang.String" >
+                <rule  id="CosignersNm_NotNull" type="NotNull" errCode="ABD000" depExp="CosignerSgmt_NotNull"/>
+                <rule  id="CosignersNm_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CosignersNm_NotNull"/>
+                <rule  id="CosignersNm_DataType" type="DataType" errCode="ABE001" depExp="CosignersNm_NotEmpty">
+                    <property  name="type" value="uInt..2" />
+                </rule>
+                  <rule id="CosignersNm_GraThan0" type="NumberLimit" depExp="CosignersNm_DataType">
+					<property name="startSign" value=">" />
+					<property name="startValue" value="0" />
+				</rule>
+                
+            </field> 
+            <field  name="CosignersInfo" fbTag="CosignersInfo" classType="java.util.List" >
+                <rule  id="CosignersInfo_NotNull" type="NotNull"  depExp="CosignerSgmt_NotNull"/>
+                <rule  id="CosignersInfo_CollectionSize" fbTag="CosignersInfoNm"	fbValue="${CosignerSgmt.CosignersNm}" 
+                      type="CollectionSize" errCode="ABE010" depExp="CosignersNm_DataType">
+					<property name="size" value="${CosignerSgmt.CosignersNm}" />
+				</rule>
+                <rule id="CosignersInfo_CollectionRepeat" type="CollectionRepeat" errCode="ABE011" fbTag="CosignersNm" fbValue=""
+                      depExp="CosignersInfo_NotNull ">
+					<property name="repeat" value="false" />
+					<property name="beanClass"	value="org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.CosignersInfo" />
+					<property name="fieldNames" value="CosignersType;CosignersIDType;CosignersIDNum" />
+				</rule>
+                <field  name="CosignersInfo_bean" fbTag="CosignersInfo" classType="org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.CosignersInfo" >
+                    <field  name="CosignersType" fbTag="CosignersType" classType="java.lang.String" >
+                        <rule  id="CosignersType_NotNull" type="NotNull" errCode="ABD000" scope="local" depExp="CosignersInfo_NotNull "/>
+                        <rule  id="CosignersType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CosignersType_NotNull" scope="local" />
+                        <rule  id="CosignersType_Dict" type="Dict" errCode="ABE001"  scope="local" depExp="CosignersType_NotEmpty">
+                               <property  name="dictKey" value="EntRltRepymtInfoIdType" />
+                        </rule>                       
+		                <rule id="CosignersType_1" type="Equals"  depExp="CosignersType_Dict"  scope="local">
+		                       <property name="data" value="1" />
+		                </rule>
+		                <rule id="CosignersType_2" type="Equals"  depExp="CosignersType_Dict"  scope="local">
+		                       <property name="data" value="2" />
+		                </rule>
+                    </field> 
+                    <field  name="CosignersName" fbTag="CosignersName" classType="java.lang.String" >
+                        <rule  id="CosignersName_NotNull" type="NotNull" errCode="ABD000" scope="local" depExp="CosignersInfo_NotNull"/>
+                        <rule  id="CosignersName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CosignersName_NotNull" scope="local" />
+                        <rule  id="CosignersName_Ent_DataType" type="DataType" errCode="ABE001" scope="local" depExp="CosignersName_NotEmpty &amp; CosignersType_2">
+                            <property  name="type" value="ANC..80" />
+                        </rule>
+                        <rule  id="CosignersName_Ntr_DataType" type="DataType" errCode="ABE001" scope="local" depExp="CosignersName_NotEmpty &amp; CosignersType_1">
+                            <property  name="type" value="ANC..30" />
+                        </rule>
+                    </field> 
+                    <field  name="CosignersIDType" fbTag="CosignersIDType" classType="java.lang.String" >
+                        <rule  id="CosignersIDType_NotNull" type="NotNull" errCode="ABD000" scope="local" depExp="CosignersInfo_NotNull"/>
+                        <rule  id="CosignersIDType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CosignersIDType_NotNull" scope="local" />
+                        <rule id="CosignersIDType_Ntr_Dict" type="Dict" errCode="CHE000" fbTag="0000"  fbValue="" depExp="CosignersIDType_NotEmpty &amp; CosignersType_1"  scope="local">
+                             <property name="dictKey" value="EntPerCertType" />
+                        </rule>
+<!-- 			            <rule id="CosignersIDType_Org_Dict" type="Dict" errCode="CHE000" fbTag="0000" fbValue="" depExp="CosignersIDType_NotEmpty &amp; CosignersType_2"   scope="local"> -->
+<!-- 			                  <property name="dictKey" value="EntCertType" /> -->
+<!-- 			            </rule> -->
+			            <rule  id="CosignersIDType_Org_Dict" type="Contains" errCode="CHE000" depExp="CosignersIDType_NotEmpty &amp; CosignersType_2" scope="local">
+							<property name="dict" value="10;20;30" />
+						</rule>
+                    </field> 
+                    <field  name="CosignersIDNum" fbTag="CosignersIDNum" classType="java.lang.String" >
+                        <rule  id="CosignersIDNum_NotNull" type="NotNull" errCode="ABD000" scope="local" depExp="CosignersInfo_NotNull"/>
+                        <rule  id="CosignersIDNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="CosignersIDNum_NotNull" scope="local" />
+                        <rule  id="CosignersIDNum_DataType_Ent" type="DataType" errCode="ABE001" scope="local" depExp="CosignersIDNum_NotEmpty &amp; CosignersType_2">
+                            <property  name="type" value="ANC..40" />
+                        </rule>
+                        <rule  id="CosignersIDNum_DataType_Ntr" type="DataType" errCode="ABE001" scope="local" depExp="CosignersIDNum_NotEmpty &amp; CosignersType_1">
+                            <property  name="type" value="ANC..20" />
+                        </rule>
+                    </field> 
+                    <!-- 校验身份证类型及号码 -->
+					<rule id="CosignersIDNum_NtrCert_Vali" type="NtrCert" errCode="ABE004" fbTag="CosignersIDNum" fbValue="${$this.CosignersIDNum}"  depExp="CosignersIDNum_DataType_Ntr &amp; CosignersIDType_Ntr_Dict">
+						<property name="certTypeFeild" value="CosignersIDType" />
+						<property name="certNumFeild" value="CosignersIDNum" />
+					</rule>
+					<rule id="CosignersIDNum_LegCert_Vali" type="LegCert" errCode="ABE004" fbTag="CosignersIDNum" fbValue="${$this.CosignersIDNum}"  depExp="CosignersIDNum_DataType_Ent &amp; CosignersIDType_Org_Dict">
+						<property name="certTypeFeild" value="CosignersIDType" />
+						<property name="certNumFeild" value="CosignersIDNum" />
+					</rule>
+                    <rule id="CosignerSgmt_bean_co" fbTag="0000" fbValue="" type="Method"	errCode="CHE003" depExp="GuarBsSgmt_NotNull &amp; CosignersInfo_NotNull &amp;  CosignersNm_GraThan0">
+						<package>
+							org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.GuarBsSgmt;
+							org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.CosignersInfo;
+							org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.CosignerSgmt;
+							org.pbccrc.archive.collect.messagetools.validators.utils.ValueUtil;
+						</package>
+						<method>
+							{
+								GuarBsSgmt guarBsSgmt = record.getGuarBsSgmt();
+								if (ValueUtil.hasNull(guarBsSgmt)){
+									return true;
+								}
+								String eIdNum = "";
+								String eIdType = "";
+								String cIdNum = "";
+								String cIdType = "";
+								if(guarBsSgmt.getCerType()==null){
+								   return true;
+								}
+								if(guarBsSgmt.getCerType().equals("1")){
+									  cIdNum = guarBsSgmt.getIDNum();
+									  cIdType = guarBsSgmt.getIDType();
+									  if (ValueUtil.hasNull(guarBsSgmt, cIdNum, cIdType)) {
+									   return true;
+									 }
+								}else{
+								  eIdNum = guarBsSgmt.getIDNum();
+								  eIdType = guarBsSgmt.getIDType();
+								  if (ValueUtil.hasNull(guarBsSgmt, eIdNum, eIdType)) {
+								   return true;
+								  }
+								}
+								CosignerSgmt ccSgmt = record.getCosignerSgmt();
+								if (ccSgmt == null || ccSgmt.getCosignersInfo() == null || ccSgmt.getCosignersInfo().size()==0) {
+								    return true;
+								}
+								for(int i=0 ;i &lt; ccSgmt.getCosignersInfo().size();i++){
+								CosignersInfo ccR = (CosignersInfo)ccSgmt.getCosignersInfo().get(i);
+								if(ccR.getCosignersType()==null||ccR.getCosignersIDType()==null||ccR.getCosignersIDNum()==null){
+									return true;
+								}
+								if(ccR.getCosignersType().equals("1")){
+										if(ccR.getCosignersIDType().equals(cIdType) &amp;&amp;
+										ccR.getCosignersIDNum().equals(cIdNum)){
+										return false;
+									}
+								}else{
+								   if(ccR.getCosignersIDType().equals(eIdType) &amp;&amp;
+									ccR.getCosignersIDNum().equals(eIdNum)){
+									    return false;
+									}
+								}
+								}
+								return	true;
+								
+							}
+						</method>
+					</rule>
+                </field> 
+            </field> 
+        </field> 
+
+        <field  name="GuarCreditLimSgmt" fbTag="GuarCreditLimSgmt" classType="org.pbccrc.archive.collect.messagetools.enthgucont.message.segment.GuarCreditLimSgmt" >
+            <rule  id="GuarCreditLimSgmt_NotNull" type="NotNull" errCode="CHR000" />
+            <field  name="LimLoopFlg" fbTag="LimLoopFlg" classType="java.lang.String" >
+                <rule  id="LimLoopFlg_NotNull" type="NotNull" errCode="ABD000" depExp="GuarCreditLimSgmt_NotNull"/>
+                <rule  id="LimLoopFlg_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="LimLoopFlg_NotNull"/>
+                <rule id="LimLoopFlg_Dict" type="Dict" errCode="ABE001"	depExp="LimLoopFlg_NotEmpty">
+					<property name="dictKey" value="HguLimLoopFlg" />
+				</rule>
+            </field> 
+            <field  name="GuarLim" fbTag="GuarLim" classType="java.lang.String" >
+                <rule  id="GuarLim_NotNull" type="NotNull" errCode="ABD000" depExp="GuarCreditLimSgmt_NotNull"/>
+                <rule  id="GuarLim_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="GuarLim_NotNull"/>
+                <rule  id="GuarLim_DataType" type="DataType" errCode="ABE001" depExp="GuarLim_NotEmpty">
+                    <property  name="type" value="uInt..15" />
+                </rule>
+            </field> 
+            <field  name="Cy" fbTag="Cy" classType="java.lang.String" >
+                <rule  id="Cy_NotNull" type="NotNull" errCode="ABD000" depExp="GuarCreditLimSgmt_NotNull"/>
+                <rule  id="Cy_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Cy_NotNull"/>
+                <rule id="Cy_Dict" type="Dict" errCode="ABE001" depExp="Cy_NotEmpty">
+					<property name="dictKey" value="EntCy" />
+				</rule>
+            </field> 
+            <field  name="ConEffDate" fbTag="ConEffDate" classType="java.lang.String" >
+                <rule  id="ConEffDate_NotNull" type="NotNull" errCode="ABD000" depExp="GuarCreditLimSgmt_NotNull"/>
+                <rule  id="ConEffDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ConEffDate_NotNull"/>
+                <rule  id="ConEffDate_DataType" type="DataType" errCode="ABE001" depExp="ConEffDate_NotEmpty">
+                    <property  name="type" value="Date" />
+                </rule>
+                <rule id="ConEffDate_Range" type="DateRange" errCode="ABE008"	depExp="ConEffDate_DataType" />
+				<rule id="RptDate_DateCompare" type="DateCompare" errCode="ABE007"	depExp="ConEffDate_DataType &amp; RptDate_DataType &amp; ConEffDate_Range ">
+					<property name="type" value="date" />
+					<property name="endDate" value="${GuarBsSgmt.RptDate}" />
+				</rule>
+            </field> 
+            <field  name="ConExpDate" fbTag="ConExpDate" classType="java.lang.String" >
+                <rule  id="ConExpDate_NotNull" type="NotNull" errCode="ABD000" depExp="GuarCreditLimSgmt_NotNull"/>
+                <rule  id="ConExpDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ConExpDate_NotNull"/>
+                <rule  id="ConExpDate_DataType" type="DataType" errCode="ABE001" depExp="ConExpDate_NotEmpty">
+                    <property  name="type" value="Date" />
+                </rule>
+                <rule id="ConExpDate_Range" type="DateRange" errCode="ABE008"	depExp="ConExpDate_DataType" />
+				<rule id="ConExpDate_DateCompare" type="DateCompare" errCode="CHE002" fbTag="ConEffDate" fbValue="${GuarCreditLimSgmt.ConEffDate}"
+					depExp="ConEffDate_DataType &amp; ConExpDate_DataType">
+					<property name="type" value="date" />
+					<property name="beginDate" value="${GuarCreditLimSgmt.ConEffDate}" />
+				</rule>
+            </field> 
+            <field  name="ConStatus" fbTag="ConStatus" classType="java.lang.String" >
+                <rule  id="ConStatus_NotNull" type="NotNull" errCode="ABD000" depExp="GuarCreditLimSgmt_NotNull"/>
+                <rule  id="ConStatus_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="ConStatus_NotNull"/>
+                <rule id="ConStatus_DataType" type="Dict" errCode="ABE001"	depExp="ConStatus_NotEmpty">
+					<property name="dictKey" value="HguConStatus" />
+				</rule>
+            </field> 
+        </field> 
+    </validator>
+</validators>

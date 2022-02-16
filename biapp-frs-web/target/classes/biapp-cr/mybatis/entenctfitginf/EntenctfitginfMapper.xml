@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entenctfitginf.repository.EntEnctfitginfDao">
+<!-- 根据条件查询报表列表 -->
+
+	<select id="getEnctfitginfList"  resultType="com.yusys.cr.entenctfitginf.entity.EntEnctfitginf">
+
+		SELECT
+			ec.InfRecType   infrectype,<!--  信息记录类型-->
+			ec.EntName	entname,<!--企业名称  -->
+			ec.EntCertType	   entcerttype,<!-- 企业身份标识类型 -->
+			ec.EntCertNum	entcertnum,<!-- 企业身份标识号码 -->
+			ec.OthEntCertType	othentcerttype,<!-- 其他企业身份标识类型 -->
+			ec.OthEntCertNum	othentcertnum,<!-- 其他企业身份标识号码 -->
+			ec.CertAssFlg	certassflg,<!-- 身份标识关联标志 -->
+			ec.RptDate	rptdate  <!-- 信息报告日期 -->
+		FROM 
+			Ent_EnCtfItgInf ec
+		where 1=1 and ec.incrementflag in('1','2')
+	</select>
+</mapper> 

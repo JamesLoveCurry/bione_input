@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.input.task.repository.TaskOperDao">
+
+
+	<insert id="saveTskInsLog"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskInsLog">
+		INSERT INTO RPT_TSK_INS_LOG
+		(LOG_ID,OPER_TIME,OPER_USER,REMARK,TASK_INSTANCE_ID,TASK_NODE_INSTANCE_ID,OPER_TYPE)
+		VALUES(#{logId},#{operTime},#{operUser},#{remark},#{taskInstanceId},#{taskNodeInstanceId},#{operType})
+	</insert>
+	
+	<insert id="saveRptListOperLog" parameterType="com.yusys.biapp.input.input.entity.RptListOperLog">
+		INSERT INTO RPT_LIST_OPER_LOG (LOG_ID,NODE_ID,FIELD_ID,TEMPLE_ID,TASK_ID,OPER_TYPE,OPER_CONTENT,OPER_USER,OPER_TIME)
+		VALUES (#{id.logId},#{nodeId},#{id.fieldId},#{templeId},#{taskId},#{operType},#{operContent},#{operUser},#{operTime})
+	</insert>
+	<select id="getNeedOperTask" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			TASK_NODE_NM as "TASK_NODE_NM",
+			TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+			TASK_NODE_INSTANCE_ID as "TASK_NODE_INSTANCE_ID",
+			TASK_NM as "TASK_NM",
+			STS as "STS",
+			TASK_TYPE_NM as "TASK_TYPE_NM",
+		    ORG_NAME as "ORG_NAME",
+		    ORG_NO as "ORG_NO",
+			TASK_EXE_OBJ_TYPE_NM as "TASK_EXE_OBJ_TYPE_NM",
+			EXE_OBJ_NM as "EXE_OBJ_NM",
+			START_TIME as "START_TIME",
+			CREATOR as "CREATOR",
+			DATA_DATE as "DATA_DATE",
+			DEPLOY_ORG as "DEPLOY_ORG",
+		    DEPLOY_ORGNO as "DEPLOY_ORGNO",
+			D as "D",
+			TASK_TITLE as "TASK_TITLE",
+			TEMPLATE_ID as "TEMPLATE_ID"
+		FROM (SELECT
+				distinct NODEINS.TASK_NODE_NM,
+	 			TSKINS.TASK_INSTANCE_ID,
+	 			TSKINS.TASK_NODE_INSTANCE_ID,
+                TSKINS.TASK_NM,
+                TSKINS.STS,
+                TSKINS.TASK_TITLE,
+                EXEOBJ.EXE_OBJ_ID AS TEMPLATE_ID,
+                TSKINS.TASK_TYPE_NM,
+		        (SELECT ORG_NAME FROM BIONE_ORG_INFO WHERE ORG_NO=TSKINS.ORG_NO) ORG_NAME,
+		        TSKINS.ORG_NO,
+                CASE
+                WHEN EXEOBJ.EXE_OBJ_TYPE = '01' THEN '指标补录'
+                WHEN EXEOBJ.EXE_OBJ_TYPE = '02' THEN '明细补录'
+                END
+                TASK_EXE_OBJ_TYPE_NM,
+                EXEOBJ.EXE_OBJ_NM,
+                TSKINS.START_TIME,
+                USR.USER_NAME AS CREATOR,
+                ORG.ORG_NAME AS DEPLOY_ORG,
+		        ORG.ORG_NO AS DEPLOY_ORGNO,
+                TSKINS.DATA_DATE,
+                CASE
+                <if test=" userno!=null and userno!=''  ">
+					WHEN #{userno}='admin' THEN '1'
+				</if>
+				<if test=" userno==null or userno==''  ">
+					WHEN #{userno} is null
+					THEN
+						CASE
+						<if test=" userid!=null and userid!=''  ">
+							WHEN OBJREL.TASK_OBJ_TYPE='AUTH_OBJ_USER'
+							THEN (SELECT 1 FROM BIONE_USER_INFO INFO WHERE OBJREL.TASK_OBJ_ID=#{userid} AND INFO.USER_ID=OBJREL.TASK_OBJ_ID)
+						</if>
+						<if test=" roles!=null and roles!=''  ">
+							WHEN OBJREL.TASK_OBJ_TYPE='AUTH_OBJ_ROLE'
+							THEN (SELECT 1 FROM BIONE_ROLE_INFO ROLEINFO WHERE ROLEINFO.ROLE_ID = OBJREL.TASK_OBJ_ID AND  OBJREL.TASK_OBJ_ID in
+							<foreach collection="roles" index="index" item="item" open="("
+								separator="," close=")">
+								#{item}
+							</foreach>
+							AND  (OBJREL.ORG_NO = #{orgLikeNo}
+								<if test="orLike != null">
+									${orLike}
+								</if>
+							)
+							)
+						</if>
+						<if test=" posis!=null and deptno!=''  ">
+							WHEN OBJREL.TASK_OBJ_TYPE='03'
+							THEN (SELECT 1 FROM BIONE_POSI_INFO POSIINFO WHERE POSIINFO.POSI_NO = OBJREL.TASK_OBJ_ID AND  OBJREL.TASK_OBJ_ID in
+							<foreach collection="posis" index="index" item="item" open="("
+								separator="," close=")">
+								#{posis}
+							</foreach>
+							)
+						</if>
+						<if test=" deptno!=null and deptno!='' ">
+							WHEN OBJREL.TASK_OBJ_TYPE='04'
+							THEN (SELECT 1 FROM BIONE_DEPT_INFO DEPTINFO WHERE DEPTINFO.DEPT_NO= OBJREL.TASK_OBJ_ID AND OBJREL.TASK_OBJ_ID =#{deptno})
+						</if>
+						ELSE NULL
+						END
+				</if>
+                       END D
+                  FROM RPT_TSK_NODE_INS NODEINS,
+                       (SELECT TASK_INSTANCE_ID,
+                       		   TASK_NODE_INSTANCE_ID,
+                               TASK_NM,
+                               TASK_TYPE,
+                               START_TIME,
+                               TASK_ID,
+                               CREATE_USER,
+                               TASK_TITLE,
+                               STS,
+                               DATA_DATE,
+                               PARAM.PARAM_NAME AS TASK_TYPE_NM,
+		                       ORG_NO
+                          FROM RPT_TSK_INS,BIONE_PARAM_INFO PARAM
+						  WHERE TASK_TYPE=PARAM.PARAM_VALUE
+						  AND PARAM.PARAM_TYPE_NO=#{paramTypeNo}
+						  AND PARAM.UP_NO='0'
+						  <!--AND STS = '1' -->
+                       ) TSKINS,
+                       RPT_TSK_EXEOBJ_REL EXEOBJ,
+                       BIONE_USER_INFO USR,
+                      BIONE_ORG_INFO ORG,
+                       RPT_TSK_NODE_TSKINS_REL OBJREL
+                 WHERE NODEINS.TASK_NODE_INSTANCE_ID = OBJREL.TASK_NODE_INSTANCE_ID
+                   AND USR.USER_ID = TSKINS.CREATE_USER
+                   AND USR.ORG_NO = ORG.ORG_NO
+                   AND NODEINS.TASK_INSTANCE_ID = TSKINS.TASK_INSTANCE_ID
+                   <if test = " nodeType == '01' ">
+                        AND NODEINS.NODE_TYPE = #{nodeType}
+	                </if>
+	                <if test = " nodeType != '01' ">
+	                   AND NODEINS.NODE_TYPE != '01'
+	                </if>
+                   AND EXEOBJ.TASK_ID = TSKINS.TASK_ID
+				   <if test = " searchType != null ">
+                       AND NODEINS.STS = #{searchType}
+				   </if>
+                <if test = " dataDate !=null ">
+                   AND TSKINS.DATA_DATE = #{dataDate}
+                </if>
+		        <if test=" taskNm!=null ">
+					AND TSKINS.TASK_NM LIKE #{taskNm}
+				</if>
+				<if test=" taskType!=null ">
+					AND TSKINS.TASK_TYPE = #{taskType}
+				</if>
+				<if test=" sts!=null ">
+					AND TSKINS.STS = #{sts}
+				</if>
+				<if test=" executeOrg != null">
+					AND ORG.ORG_NO = #{executeOrg}
+				</if>
+				<if test=" deployUserNm != null ">
+					AND USR.USER_NAME LIKE #{deployUserNm}
+				</if>
+				<if test="  queryType == 1  ">
+					AND TSKINS.CREATE_USER = #{userid}
+				</if>
+				ORDER BY TSKINS.START_TIME DESC
+        ) t WHERE D=1
+	</select>
+
+	<select id="getNeedOperTask" resultType="HashMap" parameterType="HashMap" databaseId="postgresql">
+		SELECT
+		TASK_NODE_NM as "TASK_NODE_NM",
+		TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+		TASK_NODE_INSTANCE_ID as "TASK_NODE_INSTANCE_ID",
+		TASK_NM as "TASK_NM",
+		STS as "STS",
+		TASK_TYPE_NM as "TASK_TYPE_NM",
+		ORG_NAME as "ORG_NAME",
+		TASK_EXE_OBJ_TYPE_NM as "TASK_EXE_OBJ_TYPE_NM",
+		EXE_OBJ_NM as "EXE_OBJ_NM",
+		START_TIME as "START_TIME",
+		CREATOR as "CREATOR",
+		DATA_DATE as "DATA_DATE",
+		DEPLOY_ORG as "DEPLOY_ORG",
+		D as "D",
+		TASK_TITLE as "TASK_TITLE",
+		TEMPLATE_ID as "TEMPLATE_ID"
+		FROM (SELECT
+		distinct NODEINS.TASK_NODE_NM,
+		TSKINS.TASK_INSTANCE_ID,
+		TSKINS.TASK_NODE_INSTANCE_ID,
+		TSKINS.TASK_NM,
+		TSKINS.STS,
+		TSKINS.TASK_TITLE,
+		EXEOBJ.EXE_OBJ_ID AS TEMPLATE_ID,
+		TSKINS.TASK_TYPE_NM,
+		(SELECT ORG_NAME FROM BIONE_ORG_INFO WHERE ORG_ID=TSKINS.ORG_NO) ORG_NAME ,
+		CASE
+		WHEN EXEOBJ.EXE_OBJ_TYPE = '01' THEN '指标补录'
+		WHEN EXEOBJ.EXE_OBJ_TYPE = '02' THEN '明细补录'
+		END
+		TASK_EXE_OBJ_TYPE_NM,
+		EXEOBJ.EXE_OBJ_NM,
+		TSKINS.START_TIME,
+		USR.USER_NAME AS CREATOR,
+		ORG.ORG_NAME AS DEPLOY_ORG,
+		TSKINS.DATA_DATE,
+		CASE
+		<if test=" userno!=null and userno!=''  ">
+			WHEN #{userno}='admin' THEN '1'
+		</if>
+		<if test=" userno==null or userno==''  ">
+			WHEN null is null
+			THEN
+			CASE
+			<if test=" userid!=null and userid!=''  ">
+				WHEN OBJREL.TASK_OBJ_TYPE='AUTH_OBJ_USER'
+				THEN (SELECT 1 FROM BIONE_USER_INFO INFO WHERE OBJREL.TASK_OBJ_ID=#{userid} AND INFO.USER_ID=OBJREL.TASK_OBJ_ID)
+			</if>
+			<if test=" roles!=null and roles!=''  ">
+				WHEN OBJREL.TASK_OBJ_TYPE='AUTH_OBJ_ROLE'
+				THEN (SELECT 1 FROM BIONE_ROLE_INFO ROLEINFO WHERE ROLEINFO.ROLE_ID = OBJREL.TASK_OBJ_ID AND  OBJREL.TASK_OBJ_ID in
+				<foreach collection="roles" index="index" item="item" open="("
+						 separator="," close=")">
+					#{item}
+				</foreach>
+				AND  (OBJREL.ORG_NO = #{orgLikeNo}
+				<if test="orLike != null">
+					${orLike}
+				</if>
+				)
+				)
+			</if>
+			<if test=" posis!=null and deptno!=''  ">
+				WHEN OBJREL.TASK_OBJ_TYPE='03'
+				THEN (SELECT 1 FROM BIONE_POSI_INFO POSIINFO WHERE POSIINFO.POSI_NO = OBJREL.TASK_OBJ_ID AND  OBJREL.TASK_OBJ_ID in
+				<foreach collection="posis" index="index" item="item" open="("
+						 separator="," close=")">
+					#{posis}
+				</foreach>
+				)
+			</if>
+			<if test=" deptno!=null and deptno!='' ">
+				WHEN OBJREL.TASK_OBJ_TYPE='04'
+				THEN (SELECT 1 FROM BIONE_DEPT_INFO DEPTINFO WHERE DEPTINFO.DEPT_NO= OBJREL.TASK_OBJ_ID AND OBJREL.TASK_OBJ_ID =#{deptno})
+			</if>
+			ELSE NULL
+			END
+		</if>
+		END D
+		FROM RPT_TSK_NODE_INS NODEINS,
+		(SELECT TASK_INSTANCE_ID,
+		TASK_NODE_INSTANCE_ID,
+		TASK_NM,
+		TASK_TYPE,
+		START_TIME,
+		TASK_ID,
+		CREATE_USER,
+		TASK_TITLE,
+		STS,
+		DATA_DATE,
+		PARAM.PARAM_NAME AS TASK_TYPE_NM,
+		ORG_NO
+		FROM RPT_TSK_INS,BIONE_PARAM_INFO PARAM
+		WHERE TASK_TYPE=PARAM.PARAM_VALUE
+		AND PARAM.PARAM_TYPE_NO=#{paramTypeNo}
+		AND PARAM.UP_NO='0'
+		<!--AND STS = '1' -->
+		) TSKINS,
+		RPT_TSK_EXEOBJ_REL EXEOBJ,
+		BIONE_USER_INFO USR,
+		BIONE_ORG_INFO ORG,
+		RPT_TSK_NODE_TSKINS_REL OBJREL
+		WHERE NODEINS.TASK_NODE_INSTANCE_ID = OBJREL.TASK_NODE_INSTANCE_ID
+		AND USR.USER_ID = TSKINS.CREATE_USER
+		AND USR.ORG_NO = ORG.ORG_NO
+		AND NODEINS.TASK_INSTANCE_ID = TSKINS.TASK_INSTANCE_ID
+		<if test = " nodeType == '01' ">
+			AND NODEINS.NODE_TYPE = #{nodeType}
+		</if>
+		<if test = " nodeType != '01' ">
+			AND NODEINS.NODE_TYPE != '01'
+		</if>
+		AND EXEOBJ.TASK_ID = TSKINS.TASK_ID
+		<if test = " searchType != null ">
+			AND NODEINS.STS = #{searchType}
+		</if>
+		<if test = " dataDate !=null ">
+			AND TSKINS.DATA_DATE = #{dataDate}
+		</if>
+		<if test=" taskNm!=null ">
+			AND TSKINS.TASK_NM LIKE #{taskNm}
+		</if>
+		<if test=" taskType!=null ">
+			AND TSKINS.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" sts!=null ">
+			AND TSKINS.STS = #{sts}
+		</if>
+		ORDER BY TSKINS.START_TIME DESC
+		) t WHERE D=1
+	</select>
+
+	<select id="getDeployAuthObjInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT  
+			TASK_NODE_NM as "TASK_NODE_NM",
+			TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+			TASK_NODE_INSTANCE_ID as "TASK_NODE_INSTANCE_ID",
+			TASK_NM as "TASK_NM",
+			STS as "STS",
+			TASK_TYPE_NM as "TASK_TYPE_NM",
+			TASK_EXE_OBJ_TYPE_NM as "TASK_EXE_OBJ_TYPE_NM",
+			EXE_OBJ_NM as "EXE_OBJ_NM",
+			START_TIME as "START_TIME",
+			CREATOR as "CREATOR",
+			DATA_DATE as "DATA_DATE",
+			DEPLOY_ORG as "DEPLOY_ORG",
+			TASK_TITLE as "TASK_TITLE",
+			TEMPLATE_ID as "TEMPLATE_ID",
+			TASK_ID as "TASK_ID",
+			TASK_OBJ_ID as "TASK_OBJ_ID"
+		FROM (SELECT
+				NODEINS.TASK_NODE_NM,
+				TSKINS.TASK_ID,
+	 			TSKINS.TASK_INSTANCE_ID,
+	 			TSKINS.TASK_NODE_INSTANCE_ID,
+                TSKINS.TASK_NM,
+                TSKINS.STS,
+                TSKINS.TASK_TITLE,
+                EXEOBJ.EXE_OBJ_ID AS TEMPLATE_ID,
+                TSKINS.TASK_TYPE_NM,
+                CASE
+                WHEN EXEOBJ.EXE_OBJ_TYPE = '01' THEN '指标补录'
+                WHEN EXEOBJ.EXE_OBJ_TYPE = '02' THEN '明细补录'
+                END  
+                TASK_EXE_OBJ_TYPE_NM,
+                EXEOBJ.EXE_OBJ_NM,
+                TSKINS.START_TIME,
+                USR.USER_NAME AS CREATOR,
+                ORG.ORG_NAME AS DEPLOY_ORG,
+		        TSKINS.ORG_NO AS ORG_NO,
+                TSKINS.DATA_DATE, 
+                OBJREL.TASK_OBJ_ID
+                  FROM RPT_TSK_NODE_INS NODEINS,
+                       (SELECT TASK_INSTANCE_ID,
+                       		   TASK_NODE_INSTANCE_ID,
+                               TASK_NM,
+                               TASK_TYPE,
+                               START_TIME,
+                               TASK_ID,
+                               CREATE_USER,
+                               TASK_TITLE,
+                               STS,
+                               DATA_DATE,
+                               PARAM.PARAM_NAME AS TASK_TYPE_NM,
+		                       ORG_NO
+                          FROM RPT_TSK_INS,BIONE_PARAM_INFO PARAM 
+						  WHERE TASK_TYPE=PARAM.PARAM_VALUE 
+						  AND PARAM.PARAM_TYPE_NO='reportorgtype'
+						  AND PARAM.UP_NO='0' 
+						  AND STS = '1'
+                       ) TSKINS,
+                       RPT_TSK_EXEOBJ_REL EXEOBJ,
+                       BIONE_USER_INFO USR,
+                      BIONE_ORG_INFO ORG,
+                       RPT_TSK_NODE_TSKINS_REL OBJREL
+                 WHERE NODEINS.TASK_NODE_INSTANCE_ID = OBJREL.TASK_NODE_INSTANCE_ID
+                   AND USR.USER_ID = TSKINS.CREATE_USER
+                   AND USR.ORG_NO = ORG.ORG_NO
+                   AND NODEINS.TASK_INSTANCE_ID = TSKINS.TASK_INSTANCE_ID
+                   AND NODEINS.NODE_TYPE = '01'
+                   AND EXEOBJ.TASK_ID = TSKINS.TASK_ID
+                   AND NODEINS.STS = '1'
+        ) t WHERE 1=1
+        and task_id = #{taskId}
+        <if test="dataDate != null">
+        	and data_date = #{dataDate}
+        </if>
+        <if test="taskObjList != null">
+			and task_obj_id in
+			<foreach item="taskObjId" index="index" collection="taskObjList"
+				open="(" separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if>
+		<if test="orgNos != null and orgNos.size > 0">
+			and ORG_NO in
+			<foreach item="orgNo" index="index" collection="orgNos"
+					 open="(" separator="," close=")">
+				#{orgNo}
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getTaskObjNames" parameterType="list" resultType="map">
+		select user_name "name" from bione_user_info where 1=1 
+		<if test="list != null">
+			and user_id in
+			<foreach item="taskObjId" index="index" collection="list"
+				open="(" separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if> 
+		union 
+		select role_name "name" from bione_role_info where 1=1 
+		<if test="list != null">
+			and role_id in
+			<foreach item="taskObjId" index="index" collection="list"
+				open="(" separator="," close=")">
+				#{taskObjId}
+			</foreach>
+		</if> 
+	</select>
+	
+	
+	<select id="getNeedBackTask" resultType="HashMap" parameterType="HashMap">
+		SELECT TSKINS.TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+			   TSKINS.TASK_NODE_INSTANCE_ID as "TASK_NODE_INSTANCE_ID",
+		       TSKINS.TASK_NM as "TASK_NM",
+		       TSKINS.STS as "STS",
+		       TSKINS.TASK_TITLE as "TASK_TITLE",
+		       <!-- 
+		       CASE
+		         WHEN TSKINS.TASK_TYPE = '01' THEN
+		          '行内'
+		         WHEN TSKINS.TASK_TYPE = '02' THEN
+		          '1104'
+		         WHEN TSKINS.TASK_TYPE = '03' THEN
+		          '1'
+		       END TASK_TYPE_NM,
+		       -->
+		        
+		       CASE
+		         WHEN EXEOBJ.EXE_OBJ_TYPE = '01' THEN
+		          '指标补录'
+		         WHEN EXEOBJ.EXE_OBJ_TYPE = '02' THEN
+		          '明细补录'
+		       END TASK_EXE_OBJ_TYPE_NM as "TASK_EXE_OBJ_TYPE_NM",
+		       PARAM.PARAM_NAME as "TASK_TYPE_NM",
+		       EXEOBJ.EXE_OBJ_NM as "EXE_OBJ_NM",
+		       TO_CHAR(TSKINS.START_TIME,'yyyyMMdd hh24:mi:ss') as "START_TIME",
+		       USR.USER_NAME AS "CREATOR",
+		       ORG.ORG_NAME AS "DEPLOY_ORG",
+		       TSKINS.DATA_DATE as "DATA_DATE"
+		  FROM RPT_TSK_INS TSKINS, RPT_TSK_EXEOBJ_REL EXEOBJ, BIONE_USER_INFO USR,
+		  <!-- RPT_ORG_INFO ORG, -->
+		  RPT_ORG_INFO ORG,
+		  BIONE_PARAM_INFO PARAM 
+		  WHERE TSKINS.TASK_TYPE=PARAM.PARAM_VALUE 
+		   AND PARAM.PARAM_TYPE_NO=#{paramTypeNo} 
+		   AND PARAM.UP_NO='0' 
+		   AND TSKINS.STS = '2'
+		   AND EXEOBJ.TASK_ID = TSKINS.TASK_ID
+		   AND USR.USER_ID = TSKINS.CREATE_USER
+		   AND USR.ORG_NO = ORG.ORG_NO
+		   AND EXISTS (SELECT 1
+		          FROM BIONE_ORG_INFO ORG
+		         WHERE ORG.ORG_NO = #{orgNo}
+		         START WITH ORG.ORG_NO = TSKINS.ORG_NO
+		        CONNECT BY ORG.ORG_NO = PRIOR ORG.UP_NO)
+		<if test=" taskNm!=null ">
+			AND TSKINS.TASK_NM LIKE #{taskNm}
+		</if>
+		<if test=" taskType!=null ">
+			AND TSKINS.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" sts!=null ">
+			AND TSKINS.STS = #{sts}
+		</if>
+		<if test=" dataDate !=null ">
+			AND TSKINS.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	<select id="getNeedBackTask" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT TSKINS.TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+		TSKINS.TASK_NODE_INSTANCE_ID as "TASK_NODE_INSTANCE_ID",
+		TSKINS.TASK_NM as "TASK_NM",
+		TSKINS.STS as "STS",
+		TSKINS.TASK_TITLE as "TASK_TITLE",
+		<!--
+        CASE
+          WHEN TSKINS.TASK_TYPE = '01' THEN
+           '行内'
+          WHEN TSKINS.TASK_TYPE = '02' THEN
+           '1104'
+          WHEN TSKINS.TASK_TYPE = '03' THEN
+           '1'
+        END TASK_TYPE_NM,
+        -->
+
+		CASE
+		WHEN EXEOBJ.EXE_OBJ_TYPE = '01' THEN
+		'指标补录'
+		WHEN EXEOBJ.EXE_OBJ_TYPE = '02' THEN
+		'明细补录'
+		END TASK_EXE_OBJ_TYPE_NM as "TASK_EXE_OBJ_TYPE_NM",
+		PARAM.PARAM_NAME AS "TASK_TYPE_NM",
+		EXEOBJ.EXE_OBJ_NM as "EXE_OBJ_NM",
+		date_format(TSKINS.START_TIME,'%Y-%m-%d %H:%i:%s') as "START_TIME",
+		USR.USER_NAME AS "CREATOR",
+		ORG.ORG_NAME AS "DEPLOY_ORG",
+		TSKINS.DATA_DATE as "DATA_DATE"
+		FROM RPT_TSK_INS TSKINS, RPT_TSK_EXEOBJ_REL EXEOBJ, BIONE_USER_INFO USR,
+		<!-- RPT_ORG_INFO ORG, -->
+		RPT_ORG_INFO ORG,
+		BIONE_PARAM_INFO PARAM
+		WHERE TSKINS.TASK_TYPE=PARAM.PARAM_VALUE
+		AND PARAM.PARAM_TYPE_NO=#{paramTypeNo}
+		AND PARAM.UP_NO='0'
+		AND TSKINS.STS = '2'
+		AND EXEOBJ.TASK_ID = TSKINS.TASK_ID
+		AND USR.USER_ID = TSKINS.CREATE_USER
+		AND USR.ORG_NO = ORG.ORG_NO
+		AND EXISTS (SELECT 1
+		FROM BIONE_ORG_INFO ORG
+		WHERE ORG.ORG_NO = #{orgNo}
+		START WITH ORG.ORG_NO = TSKINS.ORG_NO
+		CONNECT BY ORG.ORG_NO = PRIOR ORG.UP_NO)
+		<if test=" taskNm!=null ">
+			AND TSKINS.TASK_NM LIKE #{taskNm}
+		</if>
+		<if test=" taskType!=null ">
+			AND TSKINS.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" sts!=null ">
+			AND TSKINS.STS = #{sts}
+		</if>
+		<if test=" dataDate !=null ">
+			AND TSKINS.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	
+	<select id="getTskDealInfoByNodeInfo" resultType="HashMap" parameterType="String">
+		SELECT REL.EXE_OBJ_ID as "EXE_OBJ_ID"
+		FROM RPT_TSK_EXEOBJ_REL REL,RPT_TSK_INS INS , RPT_TSK_NODE_INS ND 
+		WHERE REL.TASK_ID=INS.TASK_ID AND ND.TASK_NODE_INSTANCE_ID= INS.TASK_NODE_INSTANCE_ID
+		AND INS.TASK_INSTANCE_ID=#{taskInstanceId}
+	</select>
+	
+	<select id="getOperedTask" resultType="HashMap" parameterType="HashMap">
+	SELECT TASK_INSTANCE_ID as "TASK_INSTANCE_ID",
+	       TASK_NODE_INSTANCE_ID as "TASK_NODE_INSTANCE_ID",
+	       TASK_NM as "TASK_NM",
+	       TASK_TYPE_NM as "TASK_TYPE_NM",
+	       TASK_EXE_OBJ_TYPE_NM as "TASK_EXE_OBJ_TYPE_NM",
+	       EXE_OBJ_NM as "EXE_OBJ_NM",
+	       TEMPLATE_ID as "TEMPLATE_ID",
+	       TASK_TITLE as "TASK_TITLE",
+		   START_TIME as "START_TIME",
+		   CREATOR as "CREATOR",
+	       STS as "STS",
+	       DATA_DATE as "DATA_DATE",
+	       DEPLOY_ORG as "DEPLOY_ORG"
+	FROM (
+		SELECT DISTINCT TSKINS.TASK_INSTANCE_ID,TSKINS.TASK_NODE_INSTANCE_ID, TSKINS.TASK_NM,TSKINS.TASK_TITLE,
+		<!-- 
+		CASE WHEN TSKINS.TASK_TYPE ='01' THEN '行内'
+		WHEN TSKINS.TASK_TYPE='02' THEN '1104'
+		WHEN TSKINS.TASK_TYPE='03' THEN '人行大集中'
+		END TASK_TYPE_NM,
+		 -->
+		 TASK_TYPE_NM,
+		CASE WHEN EXEOBJ.EXE_OBJ_TYPE='01' THEN '指标补录'
+		WHEN EXEOBJ.EXE_OBJ_TYPE='02' THEN '明细补录'
+		END TASK_EXE_OBJ_TYPE_NM,
+		EXEOBJ.EXE_OBJ_NM,
+		EXEOBJ.EXE_OBJ_ID AS TEMPLATE_ID, 
+		TSKINS.START_TIME,USR.USER_NAME AS CREATOR,TSKINS.STS,TSKINS.DATA_DATE,ORG.ORG_NAME AS DEPLOY_ORG
+		FROM
+		(
+			SELECT 
+			INS.TASK_INSTANCE_ID,INS.TASK_NODE_INSTANCE_ID,INS.TASK_NM,INS.TASK_TYPE,INS.START_TIME,TASK_TITLE,
+			INS.TASK_ID, INS.CREATE_USER,INS.STS,DATA_DATE,PARAM.PARAM_NAME AS TASK_TYPE_NM,
+			CASE
+				<if test=" userid!=null and userid!=''  ">
+					WHEN OBJREL.TASK_OBJ_TYPE='AUTH_OBJ_USER'
+					THEN (SELECT 1 FROM BIONE_USER_INFO INFO WHERE OBJREL.TASK_OBJ_ID=#{userid}  AND INS.STS='1' AND INFO.USER_ID=OBJREL.TASK_OBJ_ID)
+				</if>
+				<if test=" roles!=null and roles!=''  ">
+					WHEN OBJREL.TASK_OBJ_TYPE='AUTH_OBJ_ROLE'
+					THEN (SELECT 1 FROM BIONE_ROLE_INFO ROLEINFO WHERE ROLEINFO.ROLE_ID = OBJREL.TASK_OBJ_ID AND INS.STS='1' AND  OBJREL.TASK_OBJ_ID in
+					<foreach collection="roles" index="index" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+					)
+				</if>
+				ELSE 2
+			END X
+			FROM
+			RPT_TSK_INS INS, BIONE_PARAM_INFO PARAM ,RPT_TSK_NODE_TSKINS_REL OBJREL
+			WHERE INS.TASK_TYPE=PARAM.PARAM_VALUE 
+			AND INS.TASK_NODE_INSTANCE_ID = OBJREL.TASK_NODE_INSTANCE_ID
+			AND PARAM.PARAM_TYPE_NO=#{paramTypeNo} 
+			AND PARAM.UP_NO='0' 
+			AND EXISTS( SELECT 1 FROM RPT_TSK_INS_LOG INSLOG 
+						WHERE INS.TASK_INSTANCE_ID = INSLOG.TASK_INSTANCE_ID
+						AND INSLOG.OPER_TYPE IN('2','3')
+						AND INSLOG.OPER_USER=#{userid}
+					)
+			<!-- 20190731 修复已处理任务中显示未完成的任务
+				INS.STS=1的任务关联的OBJREL表中的处理人不是当前登录人时， case when后X字段的值是null。
+				这样的任务是流转中的，而最后的where条件(X IS NULL OR X = '2')并没有过滤掉，也被查询出来了，导致已处理任务中显示未完成的任务。
+				所以这里加一个条件，判断INS.STS=2，直接判断是已处理完的任务
+			-->
+			AND INS.STS='2'
+			<if test=" taskNm!=null ">
+				AND TASK_NM LIKE #{taskNm}
+			</if>
+			<if test=" taskType!=null ">
+				AND TASK_TYPE = #{taskType}
+			</if>
+			<if test=" sts!=null ">
+				AND STS = #{sts}
+			</if>
+			<if test=" dataDate !=null ">
+				AND INS.DATA_DATE = #{dataDate}
+			</if>
+		) TSKINS,BIONE_USER_INFO USR,
+		<!-- RPT_ORG_INFO ORG, -->
+		BIONE_ORG_INFO ORG,
+		RPT_TSK_EXEOBJ_REL EXEOBJ
+		WHERE EXEOBJ.TASK_ID = TSKINS.TASK_ID
+		AND USR.USER_ID = TSKINS.CREATE_USER
+		AND USR.ORG_NO = ORG.ORG_NO
+		AND (X IS NULL OR X = '2')
+		) t
+	</select>
+	
+	<select id="getAllTaskNodeInsIds"  resultType="String" parameterType="String">
+		select INS.TASK_NODE_INSTANCE_ID  FROM RPT_TSK_NODE_INS  INS WHERE INS.TASK_INSTANCE_ID=#{taskInstanceId}
+	</select>
+
+	<select id="getQueryTask" resultType="HashMap" parameterType="HashMap">
+		SELECT 
+		<!-- decode(INFO.CATALOG_ID,'0','根目录',CATALOG.CATALOG_NM ) as CATALOG_NM, decode不通用改为下行写法-->
+		case when INFO.CATALOG_ID = '0' then '根目录' else CATALOG.CATALOG_NM end AS "CATALOG_NM",
+		TSKINS.TASK_INSTANCE_ID AS "TASK_INSTANCE_ID",
+		TSKINS.TASK_NM AS "TASK_NM",
+		TSKINS.TASK_TITLE AS "TASK_TITLE",
+		TSKINS.TASK_ID AS "TASK_ID",
+		<!-- 
+		CASE WHEN TSKINS.TASK_TYPE ='01' THEN '行内'
+		WHEN TSKINS.TASK_TYPE='02' THEN '1104'
+		WHEN TSKINS.TASK_TYPE='03' THEN '人行大集中'
+		END TASK_TYPE_NM,
+		 -->
+		CASE WHEN EXEOBJ.EXE_OBJ_TYPE='01' THEN '指标补录'
+		WHEN EXEOBJ.EXE_OBJ_TYPE='02' THEN '明细补录'
+		END AS "TASK_EXE_OBJ_TYPE_NM",
+		EXEOBJ.EXE_OBJ_NM AS "EXE_OBJ_NM",
+		TSKINS.START_TIME AS "START_TIME",
+		USR.USER_NAME AS "CREATOR",
+		TSKINS.STS AS "STS",
+		TSKINS.DATA_DATE AS "DATA_DATE",
+		ORGINFO.ORG_NAME AS "ORG_NAME",
+		PARAM.PARAM_NAME AS "TASK_TYPE_NM" ,
+		TSKINS.CREATE_USER AS "CREATE_USER",
+		ORGINFOS.ORG_NAME AS "ORG_NM",
+		TSKINS.EXE_OBJ_ID AS "TEMPLATE_ID"
+		FROM
+		RPT_TSK_EXEOBJ_REL EXEOBJ
+                       inner join RPT_TSK_INS        TSKINS
+                       on EXEOBJ.TASK_ID = TSKINS.TASK_ID
+                       inner join RPT_TSK_INFO       INFO
+                       on TSKINS.TASK_ID = INFO.TASK_ID
+                       inner join BIONE_USER_INFO    USR
+                       on USR.USER_ID = TSKINS.CREATE_USER
+                       inner join BIONE_ORG_INFO     ORGINFO
+                       on TSKINS.CREATE_ORG = ORGINFO.ORG_NO
+                       inner join BIONE_ORG_INFO     ORGINFOS
+                       on TSKINS.ORG_NO = ORGINFOS.ORG_NO
+                       inner join BIONE_PARAM_INFO   PARAM
+                       on TSKINS.TASK_TYPE = PARAM.PARAM_VALUE
+                       left join  (SELECT '0' AS CATALOG_ID,'根目录' as CATALOG_NM  from dual ) root
+                       on INFO.CATALOG_ID = root.CATALOG_ID
+                       left join RPT_TSK_CATALOG CATALOG
+                       on  INFO.CATALOG_ID = CATALOG.CATALOG_ID 
+		WHERE 1 = 1 	
+		AND PARAM.PARAM_TYPE_NO = 'reportorgtype'
+        AND PARAM.UP_NO = '0'
+		<if test="  queryType == 1  ">
+			AND TSKINS.CREATE_USER=#{userid}
+		</if>
+		<if test=" catalogNm != null ">
+			AND CATALOG.CATALOG_NM LIKE #{catalogNm}
+		</if>
+		<if test=" deployUserNm != null ">
+			AND USR.USER_NAME LIKE #{deployUserNm}
+		</if>
+		<if test=" executeOrg != null ">
+			AND TSKINS.ORG_NO=#{executeOrg}
+		</if>
+		<if test=" taskNm!=null ">
+			AND TSKINS.TASK_NM LIKE #{taskNm}
+		</if>
+		<if test=" taskType!=null ">
+			AND TSKINS.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" sts!=null ">
+			AND STS = #{sts}
+		</if>
+		<if test=" dataDate !=null ">
+			AND TSKINS.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNos != null">
+	   	and TSKINS.ORG_NO in
+			<foreach item="orgs"  collection="orgNos" separator=" or TSKINS.ORG_NO in ">
+				<foreach collection="orgs" item="org" open="("
+					separator="," close=")">
+					#{org}
+				</foreach>
+			</foreach>
+	   </if>
+	   ORDER BY TSKINS.START_TIME DESC
+	</select>
+	<select id="getQueryTask" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT
+		<!-- decode(INFO.CATALOG_ID,'0','根目录',CATALOG.CATALOG_NM ) as CATALOG_NM, decode不通用改为下行写法-->
+		case when INFO.CATALOG_ID = '0' then '根目录' else CATALOG.CATALOG_NM end CATALOG_NM,
+		TSKINS.TASK_INSTANCE_ID, TSKINS.TASK_NM,TSKINS.TASK_TITLE,TSKINS.TASK_ID,
+		<!--
+		CASE WHEN TSKINS.TASK_TYPE ='01' THEN '行内'
+		WHEN TSKINS.TASK_TYPE='02' THEN '1104'
+		WHEN TSKINS.TASK_TYPE='03' THEN '人行大集中'
+		END TASK_TYPE_NM,
+		 -->
+		CASE WHEN EXEOBJ.EXE_OBJ_TYPE='01' THEN '指标补录'
+		WHEN EXEOBJ.EXE_OBJ_TYPE='02' THEN '明细补录'
+		END TASK_EXE_OBJ_TYPE_NM,
+		EXEOBJ.EXE_OBJ_NM,
+		TSKINS.START_TIME
+		,USR.USER_NAME AS CREATOR ,TSKINS.STS,TSKINS.DATA_DATE,ORGINFO.ORG_NAME AS ORG_NAME,
+		PARAM.PARAM_NAME AS TASK_TYPE_NM , TSKINS.CREATE_USER , ORGINFOS.ORG_NAME AS ORG_NM,
+		TSKINS.EXE_OBJ_ID AS "TEMPLATE_ID"
+		FROM
+		RPT_TSK_EXEOBJ_REL EXEOBJ
+		inner join RPT_TSK_INS        TSKINS
+		on EXEOBJ.TASK_ID = TSKINS.TASK_ID
+		inner join RPT_TSK_INFO       INFO
+		on TSKINS.TASK_ID = INFO.TASK_ID
+		inner join BIONE_USER_INFO    USR
+		on USR.USER_ID = TSKINS.CREATE_USER
+		inner join BIONE_ORG_INFO     ORGINFO
+		on TSKINS.CREATE_ORG = ORGINFO.ORG_NO
+		inner join BIONE_ORG_INFO     ORGINFOS
+		on TSKINS.ORG_NO = ORGINFOS.ORG_NO
+		inner join BIONE_PARAM_INFO   PARAM
+		on TSKINS.TASK_TYPE = PARAM.PARAM_VALUE
+		left join  (SELECT '0' AS CATALOG_ID,'根目录' as CATALOG_NM) root
+		on INFO.CATALOG_ID = root.CATALOG_ID
+		left join RPT_TSK_CATALOG CATALOG
+		on  INFO.CATALOG_ID = CATALOG.CATALOG_ID
+		WHERE 1 = 1
+		AND PARAM.PARAM_TYPE_NO = 'reportorgtype'
+		AND PARAM.UP_NO = '0'
+		<if test="  queryType == 1  ">
+			AND TSKINS.CREATE_USER=#{userid}
+		</if>
+		<if test=" catalogNm != null ">
+			AND CATALOG.CATALOG_NM LIKE #{catalogNm}
+		</if>
+		<if test=" deployUserNm != null ">
+			AND USR.USER_NAME LIKE #{deployUserNm}
+		</if>
+		<if test=" executeOrg != null ">
+			AND TSKINS.ORG_NO=#{executeOrg}
+		</if>
+		<if test=" taskNm!=null ">
+			AND TSKINS.TASK_NM LIKE #{taskNm}
+		</if>
+		<if test=" taskType!=null ">
+			AND TSKINS.TASK_TYPE = #{taskType}
+		</if>
+		<if test=" sts!=null ">
+			AND STS = #{sts}
+		</if>
+		<if test=" dataDate !=null ">
+			AND TSKINS.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNos != null">
+			and TSKINS.ORG_NO in
+			<foreach item="orgs"  collection="orgNos" separator=" or TSKINS.ORG_NO in ">
+				<foreach collection="orgs" item="org" open="("
+						 separator="," close=")">
+					#{org}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+
+	<update id="updateRptTskNodeIns"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskNodeIns">
+		UPDATE
+		RPT_TSK_NODE_INS INS
+		<set>
+			<if test="  startTime!=null and   startTime!='toNull' ">
+				INS.START_TIME=#{startTime},
+			</if>
+			<if test="  startTime == 'toNull'   ">
+				INS.START_TIME= NULL,
+			</if>
+			<if test="  endTime!=null  and  endTime != 'toNull' ">
+				INS.END_TIME=#{endTime},
+			</if>
+			<if test="  endTime == 'toNull' ">
+				INS.END_TIME= NULL,
+			</if>
+			<if test="  sts!=null   ">
+				INS.STS=#{sts}
+			</if>
+		</set>
+		WHERE INS.TASK_NODE_INSTANCE_ID=#{taskNodeInstanceId}
+	</update>
+
+
+	<select id="getRptTskInsInfoWithNode" parameterType="string"
+		resultType="HashMap">
+		SELECT TSKINS.TASK_NM AS "TASK_NM",
+		       NODEINS.TASK_NODE_INSTANCE_ID AS "TASK_NODE_INSTANCE_ID",
+		       NODEINS.NODE_TYPE AS "NODE_TYPE",
+		       TSKINS.TASK_ID AS "TASK_ID",
+		       TSKINS.DATA_DATE AS "DATA_DATE",
+			   TSKINS.LOAD_DATA_MARK AS "LOAD_DATA_MARK",
+		       TSKINS.TASK_TITLE AS "TASK_TITLE",
+		<if test= " type != null ">
+			OTHERINS.TASK_NODE_INSTANCE_ID AS "OTHERINS_NODE_INSTANCE_ID",
+		</if>
+		TSKINS.ORG_NO AS "ORG_NO"
+		FROM RPT_TSK_INS TSKINS
+		INNER JOIN
+		RPT_TSK_NODE_INS NODEINS ON(TSKINS.TASK_NODE_INSTANCE_ID =
+		NODEINS.TASK_NODE_INSTANCE_ID)
+		<if test= " type != null ">
+			LEFT JOIN RPT_TSK_NODE_INS OTHERINS ON (
+			OTHERINS.TASK_INSTANCE_ID= TSKINS.TASK_INSTANCE_ID 
+			AND OTHERINS.TASK_ORDERNO =
+			<if test="  type ==1   ">
+				NODEINS.TASK_ORDERNO+1
+			</if>
+			<if test="  type ==2 or  type ==3 ">
+				NODEINS.TASK_ORDERNO-1
+			</if>
+			)
+		</if>
+		WHERE TSKINS.TASK_INSTANCE_ID=#{taskInstanceId}
+	</select>
+
+
+	<update id="updateRptTskIns" parameterType="com.yusys.biapp.input.task.entity.RptTskIns">
+		UPDATE RPT_TSK_INS
+		<set>
+			<if test="  taskNm!=null   ">
+				TASK_NM= #{taskNm},
+			</if>
+			<if test="  startTime!=null ">
+				START_TIME= #{startTime},
+			</if>
+			<if test="  endTime!=null ">
+				END_TIME= #{endTime},
+			</if>
+			<if test=" sts!=null ">
+				STS= #{sts},
+			</if>
+			<if test="  isUpdate!=null ">
+				IS_UPDATE= #{isUpdate},
+			</if>
+			<if test="  isCheck!=null ">
+				IS_CHECK= #{isCheck},
+			</if>
+			<if test="  taskNodeInstanceId!=null ">
+				TASK_NODE_INSTANCE_ID= #{taskNodeInstanceId},
+			</if>
+			<if test="  dataDate!=null ">
+				DATA_DATE= #{dataDate},
+			</if>
+			<if test="  exeObjId!=null ">
+				EXE_OBJ_ID= #{exeObjId},
+			</if>
+			<if test="  taskObjId!=null ">
+				TASK_OBJ_ID= #{taskObjId},
+			</if>
+			<if test="  upTaskInstanceId!=null ">
+				UP_TASK_INSTANCE_ID= #{upTaskInstanceId},
+			</if>
+			<if test="  taskType!=null ">
+				TASK_TYPE= #{taskType},
+			</if>
+			<if test="  logicDelNo!=null ">
+				LOGIC_DEL_NO= #{logicDelNo},
+			</if>
+			<if test="  lineId!=null ">
+				LINE_ID= #{lineId},
+			</if>
+			<if test="  taskId!=null ">
+				TASK_ID= #{taskId},
+			</if>
+			<if test="  loadDataMark != null ">
+				LOAD_DATA_MARK = #{loadDataMark},
+			</if>
+<!--			<if test="  taskInstanceId!=null ">-->
+<!--				TASK_INSTANCE_ID= #{taskInstanceId}-->
+<!--			</if>-->
+		</set>
+		WHERE  1=1 
+		<if test ='  taskInstanceId!=null  '>
+			AND TASK_INSTANCE_ID=#{taskInstanceId}
+		</if>
+		<if test ='  taskInstanceId ==null  and  taskId!=null  '>
+			AND TASK_ID=#{taskId}
+		</if>
+	</update>
+
+	<select id="getTaskInsLog" parameterType="string" resultType="HashMap">
+	/*	SELECT
+		NODEINS.TASK_NODE_NM AS "TASK_NODE_NM",
+		NODEINS.TASK_ORDERNO AS "TASK_ORDERNO",
+		NODEINS.NODE_TYPE AS "NODE_TYPE",
+		INSLOG.OPER_TYPE AS "OPER_TYPE",
+		INSLOG.OPER_TIME AS "OPER_TIME",
+		USRINFO.USER_NAME AS "USER_NAME",
+		NODEINS.TASK_NODE_INSTANCE_ID AS "TASK_NODE_INSTANCE_ID",
+		INSLOG.LOG_ID AS "LOG_ID"
+		FROM
+		RPT_TSK_NODE_INS NODEINS
+		INNER JOIN RPT_TSK_INS_LOG INSLOG ON (NODEINS.TASK_NODE_INSTANCE_ID =
+		INSLOG.TASK_NODE_INSTANCE_ID )
+		INNER JOIN BIONE_USER_INFO USRINFO ON (INSLOG.OPER_USER = USRINFO.USER_ID )
+		WHERE NODEINS.TASK_INSTANCE_ID =#{taskInstanceId}
+		ORDER BY INSLOG.OPER_TIME*/
+		SELECT
+			NODEINS.TASK_NODE_NM AS "TASK_NODE_NM",
+			NODEINS.TASK_ORDERNO AS "TASK_ORDERNO",
+			NODEINS.NODE_TYPE AS "NODE_TYPE",
+			INSLOG.OPER_TYPE AS "OPER_TYPE",
+			OPERLOG.OPER_TIME AS "OPER_TIME",
+			USRINFO.USER_NAME AS "USER_NAME",
+			NODEINS.TASK_NODE_INSTANCE_ID AS "TASK_NODE_INSTANCE_ID",
+			INSLOG.LOG_ID AS "LOG_ID"
+		FROM
+			RPT_TSK_NODE_INS NODEINS
+				INNER JOIN RPT_TSK_INS_LOG INSLOG ON ( NODEINS.TASK_NODE_INSTANCE_ID = INSLOG.TASK_NODE_INSTANCE_ID )
+				INNER JOIN BIONE_USER_INFO USRINFO ON ( INSLOG.OPER_USER = USRINFO.USER_ID )
+				LEFT JOIN RPT_LIST_OPER_LOG OPERLOG ON ( inslog.LOG_ID = operlog.LOG_ID )
+		WHERE
+			NODEINS.TASK_INSTANCE_ID = #{taskInstanceId}
+		ORDER BY
+			OPERLOG.OPER_TIME
+	</select>
+
+	<select id="getListLogDetail" parameterType="HashMap" resultType="com.yusys.biapp.input.input.entity.RptListOperLog">
+		SELECT OPERLOG.OPER_TYPE,OPERLOG.OPER_CONTENT,OPERLOG.OPER_TIME 
+		FROM RPT_LIST_OPER_LOG OPERLOG 
+		WHERE 1=1
+		<if test=" nodeId != null " >
+			AND OPERLOG.NODE_ID = #{nodeId}
+		</if>
+		<if test=" logId != null " >
+			AND OPERLOG.LOG_ID = #{logId}
+		</if>
+	</select>
+
+	<select id="getPreRptTskNodeIns" parameterType="string"
+		resultType="com.yusys.biapp.input.task.entity.RptTskNodeIns">
+		SELECT PARENTINS.*
+		FROM RPT_TSK_NODE_INS NODEINS ,
+		RPT_TSK_NODE_INS PARENTINS
+		WHERE PARENTINS.TASK_INSTANCE_ID =
+		NODEINS.TASK_INSTANCE_ID
+		AND PARENTINS.TASK_ORDERNO+1 =
+		NODEINS.TASK_ORDERNO
+		AND
+		NODEINS.TASK_NODE_INSTANCE_ID=#{taskNodeInstanceId}
+	</select>
+
+	<select id="getRptTskNodeIns" parameterType="string"
+		resultType="com.yusys.biapp.input.task.entity.RptTskNodeIns">
+		SELECT
+				a.TASK_OBJ_TYPE,
+				CASE
+					WHEN a.TASK_OBJ_TYPE = 'AUTH_OBJ_USER' THEN (
+				SELECT
+						USER_NAME
+				FROM
+						BIONE_USER_INFO
+				WHERE
+						USER_ID = a.TASK_OBJ_ID)
+				WHEN a.TASK_OBJ_TYPE = 'AUTH_OBJ_ROLE' THEN (
+				SELECT
+						ROLE_NAME
+				FROM
+						BIONE_ROLE_INFO
+				WHERE
+						ROLE_ID = a.TASK_OBJ_ID)
+				ELSE ''
+			END TASK_OBJ_NM,
+				b.*
+		FROM
+				RPT_TSK_NODE_TSKINS_REL a
+		LEFT JOIN RPT_TSK_NODE_INS b ON
+				a.TASK_NODE_INSTANCE_ID = b.TASK_NODE_INSTANCE_ID
+		LEFT JOIN RPT_TSK_INS c ON
+				b.TASK_INSTANCE_ID = c.TASK_INSTANCE_ID
+		WHERE
+				c.TASK_INSTANCE_ID = #{taskInstanceId}
+		ORDER BY TASK_ORDERNO
+	</select>
+	
+	<select id="canReOpen" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT 1 FROM RPT_TSK_INS_LOG INSLOG , RPT_TSK_INS INS 
+			WHERE INSLOG.TASK_INSTANCE_ID = INS.TASK_INSTANCE_ID
+			AND INSLOG.TASK_NODE_INSTANCE_ID = INS.TASK_NODE_INSTANCE_ID
+			AND INSLOG.TASK_INSTANCE_ID=#{taskInstanceId}
+			AND INSLOG.OPER_TYPE='2'
+			AND INS.STS='2'
+			AND (INSLOG.OPER_USER = #{currentUser} 
+					OR EXISTS (SELECT 1
+	           		FROM RPT_ORG_INFO ORGINFO WHERE ORGINFO.UP_ORG_NO = #{orgNo} AND ORGINFO.ORG_NO = INS.ORG_NO)
+	        	)
+	</select>
+
+	<select id="getRptTskNodeTskinsByTaskNode" parameterType="String" resultType="HashMap" >
+		SELECT TASK_OBJ_TYPE AS "TASK_OBJ_TYPE",
+		       TASK_OBJ_ID AS "TASK_OBJ_ID"
+		FROM RPT_TSK_NODE_TSKINS_REL REL WHERE REL.TASK_NODE_INSTANCE_ID=#{taskNodeInstanceId}
+	</select>
+
+
+	<select id="getIsSendNotifyByTaskNodeInstanceId" parameterType="String" resultType="String" >
+		SELECT TMP.IS_SEND_NOTIFY 
+		FROM RPT_TSK_NODE_INS NODEINS,RPT_TSK_INS TSKINS,RPT_TSK_INFO TSKINFO,
+			 RPT_TSK_EXEOBJ_REL EXEOBJ,RPT_INPUT_LST_TEMPLE_INFO TMP
+		WHERE TMP.TEMPLE_ID = EXEOBJ.EXE_OBJ_ID 
+		AND  EXEOBJ.TASK_ID = TSKINFO.TASK_ID 
+		AND  TSKINS.TASK_ID = TSKINFO.TASK_ID 
+		AND  NODEINS.TASK_INSTANCE_ID=TSKINS.TASK_INSTANCE_ID 
+		AND  NODEINS.TASK_NODE_INSTANCE_ID=#{taskNodeInstanceId}
+	</select>
+	
+	
+	<delete id="deleteRptTskNodeTskinsRelByInsId" parameterType="String">
+		DELETE FROM RPT_TSK_NODE_TSKINS_REL REL WHERE EXISTS (SELECT 1 FROM RPT_TSK_NODE_INS INS WHERE INS.TASK_NODE_INSTANCE_ID=REL.TASK_NODE_INSTANCE_ID AND INS.TASK_INSTANCE_ID =#{taskInstanceId})
+	</delete>
+
+	<delete id="deleteRptTskNodeTskinsRelByInsId" parameterType="String" databaseId="mysql">
+		DELETE REL FROM RPT_TSK_NODE_TSKINS_REL REL WHERE EXISTS (SELECT 1 FROM RPT_TSK_NODE_INS INS WHERE INS.TASK_NODE_INSTANCE_ID=REL.TASK_NODE_INSTANCE_ID AND INS.TASK_INSTANCE_ID =#{taskInstanceId})
+	</delete>
+
+	<delete id="deleteRptTskNodeInsByInsId" parameterType="String">
+		DELETE FROM RPT_TSK_NODE_INS WHERE TASK_INSTANCE_ID =#{taskInstanceId}
+	</delete>
+	
+	<delete id="deleteRptTskInsByInsId" parameterType="String">
+		DELETE FROM RPT_TSK_INS WHERE TASK_INSTANCE_ID =#{taskInstanceId}
+	</delete>
+	
+	
+</mapper> 

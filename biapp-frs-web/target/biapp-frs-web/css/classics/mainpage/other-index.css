@@ -1,0 +1,59 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.clearfix:after {
+    /*START 真正起到清除浮动的代码*/
+    content: '';
+    display: block;
+    clear: both;
+    /*END 真正起到清除浮动的代码*/
+    height: 0;
+}
+
+.clearfix {
+    /*  display: inline-block; */
+
+} /* for IE/Mac */
+
+.design_all {
+    margin-left: 10px;
+    border-left: 1px solid #DFDFDF;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.design_head {
+    border-bottom: 1px solid #DFDFDF;
+}
+
+.design_left {
+    display: inline-block;
+    float: left;
+    border-bottom: 1px solid #DFDFDF;
+    width: 50%;
+}
+
+.design_right {
+    display: inline-block;
+    float: left;
+    border-left: 1px solid #DFDFDF;
+    border-bottom: 1px solid #DFDFDF;
+    width: 49%;
+}
+
+.subdiv_layout_header {
+    padding-top: 5px;
+    margin: 0px 0px 5px 10px;
+}
+
+.subdiv_titletext {
+    font-weight: bolder;
+}
+
+.subdiv_layout_bg span {
+    display: inline-block;
+}

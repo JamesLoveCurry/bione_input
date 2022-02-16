@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.rptfill.repository.DataValidMybatisDao">
+
+	<!-- 根据业务类型查询报表相关信息 -->
+	<select id="searchFrsRptInfo" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo" parameterType="String">
+		SELECT
+		    rpt.rpt_nm, ins.data_date as create_time
+		FROM
+		    rpt_mgr_report_info rpt
+		INNER JOIN
+		    rpt_fltsk_ins ins
+		ON
+		    ins.task_obj_id = rpt.rpt_id
+		where ins.LOGIC_DEL_NO = 'N'
+	</select>
+	
+	<!-- 查看配置的机构及报表是否已在校验 -->
+	<select id="countEngineRptIsRun" resultType="Long">
+		select count(*) from rpt_engine_check_sts sts where sts.data_date = #{dataDate} and sts.sts = #{calcSts}
+		and sts.rpt_template_id in 
+		<foreach item="templateId" index="index" collection="templateIdList" open="(" separator="," close=")">
+			#{templateId}
+		</foreach>
+		<if test="orgTypeList!=null  and   orgTypeList.size()>0">
+			and (
+				sts.org_no in
+				<foreach item="orgTypes"  collection="orgTypeList" separator=" or sts.org_no in ">
+					<foreach collection="orgTypes" item="orgTypes" open="(" separator="," close=")">
+						#{orgTypes}
+					</foreach>
+				</foreach>
+			)
+		</if>
+	</select>
+	
+	<!-- 查看配置的机构及报表是否已在汇总 -->
+	<select id="countEngineSumIsRun" resultType="Long">
+		select count(*) from rpt_engine_sum_sts sts where sts.data_date = #{dataDate} and sts.sts = #{calcSts}
+		<if test="rptIdList!=null   and   rptIdList.size() > 0">
+		    and (
+			    sts.rpt_id in
+				<foreach item="rptIds"  collection="rptIdList" separator=" or sts.rpt_id in ">
+					<foreach collection="rptIds" item="rptIds" open="(" separator="," close=")">
+						#{rptIds}
+					</foreach>
+				</foreach>
+			)
+		</if>
+		<if test="orgTypeList!=null  and   orgTypeList.size()>0">
+			and (
+			    sts.org_no in
+				<foreach item="orgTypes"  collection="orgTypeList" separator=" or sts.org_no in ">
+					<foreach collection="orgTypes" item="orgTypes" open="(" separator="," close=")">
+						#{orgTypes}
+					</foreach>
+				</foreach>
+			)
+		</if>
+	</select>
+	
+	<!-- 获取校验结果 -->
+	<select id="searchValidResult" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO">
+		SELECT
+			<!-- STS.RPT_TEMPLATE_ID, STS.ORG_NO, -->
+			STS.DATA_DATE,     STS.LOGIC_STS,    STS.SUMPART_STS,    STS.WARN_STS ,STS.LOGIC_TIME,   STS.SUMPART_TIME,   STS.WARN_TIME,   
+			ORG.ORG_NO AS EXE_OBJ_ID,	ORG.ORG_NM AS EXE_OBJ_NM ,
+			RPT.RPT_ID AS TASK_OBJ_ID,    RPT.RPT_NM AS TASK_OBJ_NM,    RPT.CFG_ID AS TEMPLATE_ID,
+			INF.TASK_NM AS TASK_NM, 	STS.TASK_TYPE AS TASK_TYPE,INF.TASK_ID AS TASK_ID
+		FROM (
+			SELECT 
+				RPT_TEMPLATE_ID, DATA_DATE, ORG_NO, TASK_ID, TASK_TYPE
+				, MAX(CASE CHECK_TYPE WHEN '02' THEN CHECK_STS END) LOGIC_STS
+				, MAX(CASE CHECK_TYPE WHEN '02' THEN START_TIME END) LOGIC_TIME
+				, MAX(CASE CHECK_TYPE WHEN '03' THEN CHECK_STS END) SUMPART_STS
+				, MAX(CASE CHECK_TYPE WHEN '03' THEN START_TIME END) SUMPART_TIME
+				, MAX(CASE CHECK_TYPE WHEN '04' THEN CHECK_STS END) WARN_STS
+				, MAX(CASE CHECK_TYPE WHEN '04' THEN START_TIME END) WARN_TIME
+			FROM 
+				RPT_ENGINE_CHECK_STS
+			WHERE 1 = 1
+				<if test="dataDate != null and dataDate.length() > 0">
+					AND DATA_DATE = #{dataDate}
+				</if>
+				<if test="taskId != null and taskId.length() > 0">
+					AND TASK_ID = #{taskId}
+				</if>
+				<if test="taskType != null and taskType.length() > 0">
+					AND TASK_TYPE = #{taskType}
+				</if>
+				<if test="orgNoList != null and orgNoList.size() > 0">
+					<!-- 用于机构查询过滤 -->
+					AND ORG_NO IN 
+					<foreach collection="orgNoList" item="orgNo" open="(" separator="," close=")">
+						#{orgNo}
+					</foreach>
+				</if>
+				<if test="isError">
+					AND CHECK_STS IN ('04', '06')
+				</if>
+			GROUP BY RPT_TEMPLATE_ID, DATA_DATE, ORG_NO, TASK_ID, TASK_TYPE) STS
+		LEFT JOIN 
+			RPT_MGR_REPORT_INFO RPT
+		ON 
+			RPT.CFG_ID = STS.RPT_TEMPLATE_ID
+		LEFT JOIN
+			RPT_ORG_INFO ORG
+		ON
+			ORG.ORG_NO = STS.ORG_NO AND ORG.ORG_TYPE = STS.TASK_TYPE
+		LEFT JOIN
+			RPT_FLTSK_INFO INF
+		ON
+			INF.TASK_ID = STS.TASK_ID
+		where 
+			INF.LOGIC_DEL_NO = 'N' 
+			<if test="mgrOrgNoList != null and mgrOrgNoList.size() > 0">
+				<!-- 用于管理机构权限过滤 -->
+				AND (
+					ORG.NAMESPACE LIKE '%/' || 
+					<foreach collection="mgrOrgNoList" item="mgrOrgNo" separator=" or ORG.NAMESPACE LIKE '%/' || ">
+						#{mgrOrgNo} || '/%'
+					</foreach>
+				)
+			</if>
+			<if test="rptIdList != null and rptIdList.size() > 0">
+				<!-- 用于报表权限过滤 -->
+				AND (
+					RPT.RPT_ID IN
+					<foreach collection="rptIdList" item="rptIdArr" index="index" separator=" OR RPT.RPT_ID IN " >
+						<foreach collection="rptIdArr" item="rptId" open="(" separator="," close=")">
+							#{rptId}
+						</foreach>
+					</foreach>
+				)
+			</if>
+			<if test="sts != null "> AND ( sts.LOGIC_STS = '01' or sts.LOGIC_STS = '02' or sts.WARN_STS = '01' or sts.WARN_STS = '02' or sts.SUMPART_STS = '01' or sts.SUMPART_STS = '02') </if>
+		
+	</select>
+	
+	<!-- 通过管理机构获取所属机构 -->
+	<select id="searchOrgWithMgrOrgNo" resultType="String" parameterType="HashMap">
+		SELECT DISTINCT
+	        ORG_NO
+	    FROM
+	        RPT_ORG_INFO
+		<where>
+	        <if test="orgType != null and orgType.length() > 0">
+	        	AND ORG_TYPE = #{orgType}
+	        </if>
+	        <if test="mgrOrgNo != null and mgrOrgNo.length() > 0">
+	        	AND MGR_ORG_NO = #{mgrOrgNo}
+	        </if>
+		</where>
+	</select>
+	
+	<!-- 获取具有校验结果信息的机构信息 -->
+	<select id="searchValidStsAllOrgInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT DISTINCT
+		    org.org_no id, org.org_nm text, org.up_org_no up_id
+		FROM
+		    rpt_org_info org
+		INNER JOIN
+		    rpt_engine_check_sts sts
+		ON
+		    sts.data_date = #{dataDate} AND sts.org_no = org.org_no
+		<if test="upOrgNo != null and upOrgNo.length() > 0">
+			AND org.up_org_no = #{upOrgNo}
+			<!-- AND org.up_org_no in 
+			<foreach item="item" index="index" collection="upOrgNo" open="(" separator="," close=")">
+				#{item}
+			</foreach> -->
+		</if>
+		<if test="mgrOrgNo != null and mgrOrgNo.length() > 0">
+			AND org.namespace LIKE '%/' ||
+			    (
+			        SELECT
+			            org.org_no
+			        FROM
+			            rpt_org_info org
+			        WHERE
+			            org.mgr_org_no = #{mgrOrgNo}
+			        AND org.org_type = #{orgType} 
+			) || '/%'
+		</if>
+		<if test="mgrOrgNoList != null and mgrOrgNoList.size() > 0">
+			AND (
+				org.namespace LIKE '%' || 
+				<foreach item="orgNo"  collection="mgrOrgNoList" separator=" or org.namespace LIKE '%' || ">
+					#{orgNo} || '%'
+				</foreach>
+			)
+		</if>
+		AND org.org_type = #{orgType}
+		<if test="orgSumType != null and orgSumType.length() > 0">
+			 AND org.org_sum_type = #{orgSumType}
+		</if>
+		INNER JOIN
+		    rpt_fltsk_ins ins
+		ON
+		    ins.exe_obj_id = org.org_no 
+		<if test="taskId != null and taskId.length() > 0">
+			AND ins.task_id = #{taskId} 
+		</if>
+	    AND ins.task_type = org.org_type
+		INNER JOIN
+		    rpt_mgr_report_info rpt
+		ON
+		    ins.task_obj_id = rpt.rpt_id AND rpt.cfg_id = sts.rpt_template_id
+	</select>
+	<!-- 获取具有校验结果信息的机构信息 -->
+	<select id="searchValidStsOrgInfo" resultType="HashMap" parameterType="HashMap">
+		select distinct
+			org.org_no "id", org.org_nm "text", org.up_org_no "upId" 
+		from 
+			rpt_engine_check_sts sts
+		inner join 
+			rpt_org_info org
+		on 
+			sts.org_no = org.org_no and sts.task_type = org.org_type
+		inner join 
+			rpt_mgr_report_info rpt
+		on 
+			sts.rpt_template_id = rpt.cfg_id
+		<where>
+			<if test="dataDate != null and dataDate.length() > 0">
+				sts.data_date = #{dataDate}
+			</if>
+			<if test="orgType != null and orgType.length() > 0">
+				and sts.task_type = #{orgType}
+			</if>
+			<if test="taskId != null and taskId.length() > 0">
+				and sts.task_id = #{taskId}
+			</if>
+			<if test="rptIdList != null and rptIdList.size() > 0">
+				<!-- 用于报表权限过滤 -->
+				and (
+					rpt.rpt_id in
+					<foreach collection="rptIdList" item="rptIdArr" index="index" separator=" or rpt.rpt_id in ">
+						<foreach collection="rptIdArr" item="rptId" open="(" separator="," close=")">
+							#{rptId}
+						</foreach>
+					</foreach>
+				)
+			</if>
+			<if test="mgrOrgNoList != null and mgrOrgNoList.size() > 0">
+				<!-- 用于管理机构权限过滤 -->
+				and (
+					org.namespace like '%' || 
+					<foreach collection="mgrOrgNoList" item="mgrOrgNo" separator=" or org.namespace like '%' || ">
+						#{mgrOrgNo} || '%'
+					</foreach>
+				)
+			</if>
+		</where>
+	</select>
+	
+	<!-- 获取具有校验结果信息的报表信息 -->
+	<select id="searchValidStsRptInfo" resultType="HashMap" parameterType="HashMap">
+		select distinct
+			rpt.rpt_id "id", rpt.rpt_nm "text"
+		from rpt_engine_check_sts sts
+		inner join rpt_org_info org
+		on 
+			sts.org_no = org.org_no and sts.task_type = org.org_type
+		inner join rpt_mgr_report_info rpt
+		on 
+			sts.rpt_template_id = rpt.cfg_id
+		<where>
+			<if test="dataDate != null and dataDate.length() > 0">
+				sts.data_date = #{dataDate}
+			</if>
+			<if test="orgType != null and orgType.length() > 0">
+				and sts.task_type = #{orgType}
+			</if>
+			<if test="taskId != null and taskId.length() > 0">
+				and sts.task_id = #{taskId}
+			</if>
+			<if test="rptIdList != null and rptIdList.size() > 0">
+				<!-- 用于报表权限过滤 -->
+				and (
+					rpt.rpt_id in
+					<foreach collection="rptIdList" item="rptIdArr" index="index" separator=" or rpt.rpt_id in ">
+						<foreach collection="rptIdArr" item="rptId" open="(" separator="," close=")">
+							#{rptId}
+						</foreach>
+					</foreach>
+				)
+			</if>
+			<if test="mgrOrgNoList != null and mgrOrgNoList.size() > 0">
+				<!-- 用于管理机构权限过滤 -->
+				and (
+					org.namespace like '%' || 
+					<foreach collection="mgrOrgNoList" item="mgrOrgNo" separator=" or org.namespace like '%' || ">
+						#{mgrOrgNo} || '%'
+					</foreach>
+				)
+			</if>
+			<if test="orgNoList != null and orgNoList.size() > 0">
+				<!-- 用于筛选机构的过滤 -->
+				and (
+					sts.org_no in
+					<foreach collection="orgNoList" item="orgNoArr" index="index" separator=" or sts.org_no in ">
+						<foreach collection="orgNoArr" item="orgNo" open="(" separator="," close=")">
+							#{orgNo}
+						</foreach>
+					</foreach>
+				)
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询总分校验结果 -->
+	<select id="getOrgMergeValidResult" resultType="java.lang.String">
+		SELECT
+		    om.INDEX_NO
+		FROM
+		    RPT_VALID_RESULT_ORGMERGE om
+		WHERE 1 = 1
+		<if test="dataDate != null">
+			and om.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and om.ORG_NO = #{orgNo}
+		</if>
+		<if test="templateId != null">
+			and om.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="orgType != null">
+			and om.ORG_TYPE = #{orgType}
+		</if>
+	</select>
+	<!-- 查询警戒值校验结果 -->
+	<select id="getWarnValidResult" resultType="java.lang.String">
+		SELECT
+		    wa.INDEX_NO
+		FROM
+		    RPT_VALID_RESULT_WARN wa
+		where 1 = 1
+		<if test="dataDate != null">
+			and wa.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and wa.ORG_NO = #{orgNo}
+		</if>
+		<if test="templateId != null">
+			and wa.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="orgType != null">
+			and wa.ORG_TYPE = #{orgType}
+		</if>
+	</select>
+	<!-- 查询逻辑校验结果 -->
+	<select id="getLogicValidResult" resultType="java.lang.String">
+		SELECT
+		    de.INDEX_NO
+		FROM
+		    RPT_VALID_RESULT_LOGIC lo
+		inner join
+		    RPT_VALID_LOGIC_DETAIL de
+		on lo.CHECK_ID = de.CHECK_ID
+		and lo.DATA_DATE = de.DATA_DATE
+		and lo.ORG_NO = de.ORG_NO
+		and lo.ORG_TYPE = de.ORG_TYPE
+		where 1 = 1
+		<if test="dataDate != null">
+			and lo.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and lo.ORG_NO = #{orgNo}
+		</if>
+		<if test="templateId != null">
+			and lo.RPT_TEMPLATE_ID = #{templateId}
+		</if>
+		<if test="orgType != null">
+			and lo.ORG_TYPE = #{orgType}
+		</if>
+	</select>
+	<!-- 查询校验状态信息 -->
+	<select id="searchCheckSts" resultType="com.yusys.bione.plugin.valid.entitiy.RptEngineCheckSts" parameterType="HashMap">
+		SELECT
+		    RPT_TEMPLATE_ID as "id.rptTemplateId",
+		    DATA_DATE as "id.dataDate",
+		    ORG_NO as "id.orgNo",
+		    CHECK_TYPE as "id.checkType",
+		    CHECK_STS
+		FROM
+		    RPT_ENGINE_CHECK_STS sts
+		where 1 = 1
+		<if test="templateIdList != null">
+			and sts.RPT_TEMPLATE_ID in 
+			<foreach item="templateId" index="index" collection="templateIdList" open="(" separator="," close=")">
+				#{templateId}
+			</foreach>
+		</if>
+		<if test="orgNoList != null">
+			and (
+				sts.ORG_NO in
+				<foreach item="orgNos"  collection="orgNoList" separator=" or sts.ORG_NO in ">
+					<foreach collection="orgNos" item="orgNos" open="("
+						separator="," close=")">
+						#{orgNos}
+					</foreach>
+				</foreach>
+			)
+		</if>
+		<if test="checkTypeList != null">
+			and sts.CHECK_TYPE in 
+			<foreach item="checkType" index="index" collection="checkTypeList" open="(" separator="," close=")">
+				#{checkType}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and sts.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	
+	<!-- 通过模板ID获取报表信息 -->
+	<select id="searchRptNmByTempId" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo" parameterType="HashMap">
+		select rpt_id, rpt_nm, cfg_id from rpt_mgr_report_info 
+		<where>
+			<if test="tempIds != null and tempIds.size() > 0">
+				cfg_id in 
+				<foreach item="cfgId" index="index" collection="tempIds" open="(" separator="," close=")">
+					#{cfgId}
+				</foreach>
+			</if>
+		</where>
+		group by rpt_id, rpt_nm, cfg_id
+	</select>
+	
+	<delete id="deleteEngineCheckSts" parameterType="HashMap">
+		DELETE
+		FROM
+		RPT_ENGINE_CHECK_STS
+		WHERE
+		DATA_DATE=#{dataDate}
+		AND
+		RPT_TEMPLATE_ID IN
+    (
+        SELECT
+            rpt.cfg_id
+        FROM
+            RPT_MGR_REPORT_INFO rpt
+        WHERE
+            rpt.rpt_id=#{rptId})
+		AND
+		ORG_NO=#{orgNo}
+	</delete>
+	
+	<delete id="deleteLogicCheckSts" parameterType="HashMap">
+		DELETE
+	FROM
+	    RPT_VALID_RESULT_LOGIC
+	WHERE
+	    check_id IN
+	    (
+	        SELECT
+	            rel.check_id
+	        FROM
+	            RPT_VALID_LOGIC_RPT_REL rel,
+	            RPT_VALID_CFGEXT_LOGIC logic,
+	            RPT_MGR_REPORT_INFO rpt
+	        WHERE
+	            rel.check_id=logic.check_id
+	        AND rel.rpt_template_id=rpt.cfg_id
+	        AND logic.START_DATE &lt;=#{dataDate}
+	        AND logic.END_DATE>#{dataDate}
+	        AND rpt.rpt_id=#{rptId})
+	        AND DATA_DATE=#{dataDate}
+	        AND org_no=#{orgNo}
+      </delete>
+	
+	<delete id="deleteWarnCheckSts" parameterType="HashMap">
+	DELETE
+	FROM
+	    RPT_VALID_RESULT_WARN
+	WHERE
+	    check_id IN
+    (
+        SELECT
+            warn.check_id
+        FROM
+           RPT_VALID_CFGEXT_WARN warn,
+            RPT_MGR_REPORT_INFO rpt
+        WHERE
+        warn.rpt_template_id=rpt.cfg_id
+        AND warn.START_DATE &lt;=#{dataDate}
+        AND warn.END_DATE>#{dataDate}
+        AND rpt.rpt_id=#{rptId})
+        AND DATA_DATE=#{dataDate}
+        AND org_no=#{orgNo}
+     </delete>
+     
+     <delete id="deleteSumCheckSts" parameterType="HashMap">
+     	DELETE
+			FROM
+			    RPT_VALID_RESULT_ORGMERGE
+			WHERE
+			    RPT_TEMPLATE_ID IN
+			    (
+			        SELECT
+			            rpt.cfg_id
+			        FROM
+			            RPT_MGR_REPORT_INFO rpt
+			        WHERE
+			            rpt.rpt_id=#{rptId})
+			AND DATA_DATE=#{dataDate}
+			AND org_no=#{orgNo}
+     </delete>
+     
+     <delete id="deleteZeroCheckSts" parameterType="HashMap">
+     	DELETE
+			FROM
+			    rpt_valid_result_zero
+			WHERE
+			    RPT_TEMPLATE_ID IN
+			    (
+			        SELECT
+			            rpt.cfg_id
+			        FROM
+			            RPT_MGR_REPORT_INFO rpt
+			        WHERE
+			            rpt.rpt_id=#{rptId})
+			AND DATA_DATE=#{dataDate}
+			AND org_no=#{orgNo}
+     </delete>
+</mapper>

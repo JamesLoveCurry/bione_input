@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.bione.plugin.access.repository.RptAccessIdxDao">
+
+<!-- edit by fangjuan 2016-02-17 -->
+	<select id="search"
+		resultType="com.yusys.bione.plugin.access.web.vo.IdxUserAccessVO"
+		parameterType="HashMap">
+		SELECT
+    		t1.index_no,
+    		t1.index_ver_id,
+    		idx.index_nm,
+   			pv,
+    		uv
+		FROM
+    (
+        SELECT
+            index_No,
+            index_Ver_Id,
+            COUNT(*)                 pv,
+            COUNT(DISTINCT(user_id)) uv
+        FROM
+            RPT_IDX_VISIT_HIS his
+        where 1=1
+        <if test="startAccess != null">
+			and access_date >= #{startAccess}</if>
+		<if test="endAccess != null">
+			and access_date &lt;= #{endAccess}</if>
+        GROUP BY
+            index_no, index_ver_id) t1,
+    		RPT_IDX_INFO idx
+		where	
+    	idx.index_no = t1.index_no and idx.index_ver_id = t1.index_ver_id
+    	and idx.end_date = '29991231'
+    	<if test="indexNm != null">
+    		and idx.index_nm like #{indexNm}
+    	</if>
+	</select>
+	
+	<select id="findInfo"
+		resultType="com.yusys.bione.plugin.access.web.vo.IdxUserInfoVO"
+		parameterType="HashMap">
+		SELECT
+    		his.user_id,
+    		user_name,
+    		user_no,
+    		access_time,
+    		access_ip
+		FROM
+    		RPT_IDX_VISIT_HIS his
+		LEFT JOIN
+   			bione_user_info info
+		ON
+    		info.user_id = his.user_id
+    	where 1=1
+    	<if test="indexNo != null">and his.index_No = #{indexNo}</if>
+    	<if test="indexVerId != null">and his.index_Ver_Id = #{indexVerId}</if>
+    	<if test="userNo != null">and user.user_no like #{userNo}</if>
+    	<if test="userName != null">and user.user_name like #{userName}</if>
+    	<if test="startDate != null">
+			and access_date >= #{startDate}
+		</if>
+		<if test="endDate != null">
+			and access_date &lt;= #{endDate}
+		</if> 
+	</select>
+	
+	<insert id="saveHis"
+		parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxVisitHis">
+		insert into
+		RPT_IDX_VISIT_HIS(HIS_ID,ACCESS_DATE,ACCESS_IP,ACCESS_TIME,INDEX_NO,INDEX_VER_ID,USER_ID)
+		values(#{hisId},#{accessDate},#{accessIp},#{accessTime},#{indexNo},#{indexVerId},#{userId})</insert>
+		
+	
+	<select id="userSearch"
+		resultType="com.yusys.bione.plugin.access.web.vo.IdxByUserAccessVO"
+		parameterType="HashMap">
+		SELECT
+    		t1.user_id,
+    		info.user_no,
+    		info.user_name,
+    		t1.pv,
+    		t1.uv,
+    		org.org_name
+		FROM
+    		(
+        	SELECT
+            	his.user_id,
+            	COUNT(his.user_id) pv,
+            	COUNT(DISTINCT(idx.index_no)) uv
+            from
+        	 	RPT_IDX_VISIT_HIS his left join rpt_idx_info idx
+        	ON
+            	his.index_no = idx.index_no 
+            	and his.index_ver_id = idx.index_ver_id
+            where 
+            	idx.end_date = '29991231'
+            <if test="startAccess != null">
+				and access_date >= #{startAccess}</if>
+			<if test="endAccess != null">
+				and access_date &lt;= #{endAccess}</if>
+        	GROUP BY
+            	his.user_id) t1,
+    		bione_user_info info,
+    		bione_org_info org
+		WHERE
+    		t1.user_id = info.user_id
+    		and info.org_no = org.org_no
+    	<if test="userNo != null">
+    		and info.user_No like #{userNo}
+    	</if>
+    	<if test="userName != null">
+    		and info.user_Name like #{userName}
+    	</if>
+    	<if test="orgName != null">
+    		and org.org_Name like #{orgName}
+    	</if>
+	</select>
+	
+	<select id="findUserDetail"
+		resultType="com.yusys.bione.plugin.access.web.vo.IdxUserInfoVO"
+		parameterType="HashMap">
+		SELECT
+    		idx.index_nm,
+    		idx.index_no,
+    		idx.index_ver_id,
+    		his.ACCESS_TIME,
+    		his.ACCESS_IP
+		FROM
+    		RPT_IDX_VISIT_HIS his
+		LEFT JOIN
+    		RPT_IDX_INFO idx
+		ON
+    		his.index_no = idx.index_no and his.index_ver_id = idx.index_ver_id
+    	where 
+    		idx.end_date = '29991231'
+		<if test="userId != null">
+			and his.user_id = #{userId}</if>
+
+	</select>
+
+</mapper> 

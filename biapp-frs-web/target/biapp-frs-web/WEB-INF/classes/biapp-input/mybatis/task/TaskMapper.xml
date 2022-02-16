@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.yusys.biapp.input.task.repository.TaskDao">
+ 
+	<insert id="saveRptTskInfo" parameterType="com.yusys.biapp.input.task.entity.RptTskInfo">
+		INSERT INTO
+		RPT_TSK_INFO
+		(
+		TASK_ID,
+		UP_TASK_ID,
+		TASK_DEF_ID,
+		TASK_NM,
+		SUM_MODE,
+		EFFECT_DATE,
+		TASK_FREQ,
+		TASK_STS,
+		TASK_TYPE,
+		EXE_OBJ_TYPE,
+		CHECK_STS,
+		TASK_DEADLINE,
+		TRIGGER_TYPE,
+		TRIGGER_ID,
+		TRIGGER_NM,
+		IS_PRE,
+		DATE_OFFSET_AMOUNT,
+		INVALID_DATE,
+		IS_RELY_DATA,
+		LOGIC_DEL_NO,
+		CATALOG_ID,
+		EXE_OBJ_ID,
+		NODE_TYPE,
+		CREATE_USER,
+		CREATE_ORG,
+		UPDATE_DATE,
+		AFTER_TASK_STS,
+		AFTER_TASK_OBJ_ID
+		)
+		VALUES
+		(
+		#{taskId},
+		#{upTaskId},
+		#{taskDefId},
+		#{taskNm},
+		#{sumMode},
+		#{effectDate},
+		#{taskFreq},
+		#{taskSts},
+		#{taskType},
+		#{exeObjType},
+		#{checkSts},
+		#{taskDeadline},
+		#{triggerType},
+		#{triggerId},
+		#{triggerNm},
+		#{isPre},
+		#{dateOffsetAmount},
+		#{invalidDate},
+		#{isRelyData},
+		#{logicDelNo},
+		#{catalogId},
+		#{exeObjId},
+		#{nodeType},
+		#{createUser},
+		#{createOrg},
+		#{updateDate},
+		#{afterTaskSts},
+		#{afterTaskObjId}
+		)
+	</insert>
+
+	<insert id="saveRptTskNode" parameterType="com.yusys.biapp.input.task.entity.RptTskNode">
+		INSERT INTO
+		RPT_TSK_NODE (TASK_NODE_ID,TASK_NODE_DEF_ID, TASK_ID, TASK_NODE_NM,
+		TASK_ORDERNO,HANDLE_TYPE,ORG_NO)
+		VALUES (#{taskNodeId}, #{taskNodeDefId}, #{taskId},
+		#{taskNodeNm}, #{taskOrderno},#{handleType},#{orgNo})
+	</insert>
+
+	<insert id="saveRptTskTskobjIns"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskTskobjIns">
+		INSERT INTO RPT_TSK_TSKOBJ_INS (TASK_OBJ_ID,
+		TASK_OBJ_NM, TASK_OBJ_TYPE)
+		VALUES
+		(#{taskObjId},#{taskObjNm},#{taskObjType})
+	</insert>
+
+
+	<insert id="saveFlow"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskFlow">
+		INSERT INTO RPT_TSK_FLOW (TASK_DEF_ID,FLOW_NM)
+		VALUES(#{taskDefId},#{flowNm})
+	</insert>
+	
+	<insert id="saveRptTskExeobjIns"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskExeobjIns">
+		INSERT INTO RPT_TSK_EXEOBJ_INS (EXE_OBJ_ID,EXE_OBJ_NM,
+		EXE_OBJ_TYPE)
+		VALUES (#{exeObjId}, #{exeObjNm}, #{exeObjType})
+	</insert>
+
+	<insert id="saveRptTskExeobjRel"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskExeobjRel">
+		INSERT INTO RPT_TSK_EXEOBJ_REL (TASK_ID,
+		EXE_OBJ_TYPE,EXE_OBJ_ID,EXE_OBJ_NM)
+		VALUES
+		(#{id.taskId},#{id.exeObjType}, #{id.exeObjId},#{exeObjNm})
+	</insert>
+
+	<insert id="saveRptTskNodeTskobjRel"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskNodeTskobjRel">
+		INSERT INTO RPT_TSK_NODE_TSKOBJ_REL (TASK_OBJ_ID,
+		TASK_ID, TASK_NODE_ID,TASK_OBJ_NM,TASK_OBJ_TYPE)
+		VALUES (#{id.taskObjId},
+		#{id.taskId},#{id.taskNodeId},#{taskObjNm},#{taskObjType})
+	</insert>
+
+	<insert id="saveRptTskNodeExeobjRel"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskNodeExeobjRel">
+		INSERT INTO
+		RPT_TSK_NODE_EXEOBJ_REL(TASK_NODE_ID,TASK_ID,EXE_OBJ_ID)
+		VALUES
+		(#{id.taskNodeId},#{id.taskId},#{id.exeObjId})
+	</insert>
+	
+	<insert id="saveRptTskNodeTskinsRel"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskNodeTskinsRel">
+		INSERT INTO     RPT_TSK_NODE_TSKINS_REL
+   		(TASK_OBJ_TYPE, TASK_OBJ_ID,   TASK_NODE_INSTANCE_ID,  TASK_OBJ_NM,ORG_NO)
+    	<foreach collection="list" item="item" separator="union all" open="(" close=")">
+    		select
+   		 		#{item.id.taskObjType},#{item.id.taskObjId},#{item.id.taskNodeInstanceId},#{item.taskObjNm},#{item.orgNo}
+			from dual
+		</foreach>
+	</insert>
+	
+	<insert id="saveRptTskNodeTskinsRel"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskNodeTskinsRel" databaseId="mysql">
+		INSERT INTO     RPT_TSK_NODE_TSKINS_REL
+   		(TASK_OBJ_TYPE, TASK_OBJ_ID,   TASK_NODE_INSTANCE_ID,  TASK_OBJ_NM,ORG_NO)values
+    	<foreach collection="list" item="item" separator=",">
+    		(
+   		 		#{item.id.taskObjType},#{item.id.taskObjId},#{item.id.taskNodeInstanceId},#{item.taskObjNm},#{item.orgNo}
+			)
+		</foreach>
+	</insert>
+	
+
+	<insert id="saveRptTskInsGenerateSts"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskInsGenerateSts">
+		INSERT INTO RPT_TSK_INS_GENERATE_STS (DATA_DATE,TASK_ID,
+		PRE_STS, GENERATE_STS, GENERATE_TIME)
+		VALUES(#{id.dataDate},#{id.taskId}, #{preSts},
+		#{generateSts},#{generateTime})
+	</insert>
+
+	<insert id="saveRptTskIns" parameterType="com.yusys.biapp.input.task.entity.RptTskIns">
+		INSERT INTO RPT_TSK_INS( 
+			TASK_INSTANCE_ID,
+			TASK_ID,
+			TASK_NM,	
+			START_TIME,STS,
+			IS_UPDATE,
+			IS_CHECK,
+			TASK_NODE_INSTANCE_ID,
+			DATA_DATE,
+			EXE_OBJ_ID,
+			TASK_OBJ_ID,
+			UP_TASK_INSTANCE_ID,
+			TASK_TYPE,
+			LOGIC_DEL_NO,
+			LINE_ID,
+			ORG_NO,
+			CREATE_USER,
+			CREATE_ORG,
+			TASK_TITLE,
+			LOAD_DATA_MARK
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.taskInstanceId}, 
+				#{item.taskId},
+				#{item.taskNm}, 
+				#{item.startTime},
+				#{item.sts},
+				#{item.isUpdate}, 
+				#{item.isCheck},
+				#{item.taskNodeInstanceId},
+				#{item.dataDate}, 
+				#{item.exeObjId},
+				#{item.taskObjId},
+				#{item.upTaskInstanceId},
+				#{item.taskType},
+				#{item.logicDelNo},#{item.lineId},#{item.orgNo},#{item.createUser},#{item.createOrg},#{item.taskTitle},#{item.loadDataMark}
+			from dual
+		</foreach>
+	</insert>
+	
+	<insert id="saveRptTskIns" parameterType="com.yusys.biapp.input.task.entity.RptTskIns" databaseId="mysql">
+		INSERT INTO RPT_TSK_INS( 
+			TASK_INSTANCE_ID,
+			TASK_ID,
+			TASK_NM,	
+			START_TIME,STS,
+			IS_UPDATE,
+			IS_CHECK,
+			TASK_NODE_INSTANCE_ID,
+			DATA_DATE,
+			EXE_OBJ_ID,
+			TASK_OBJ_ID,
+			UP_TASK_INSTANCE_ID,
+			TASK_TYPE,
+			LOGIC_DEL_NO,
+			LINE_ID,
+			ORG_NO,
+			CREATE_USER,
+			CREATE_ORG,
+			TASK_TITLE,
+			LOAD_DATA_MARK
+		)values
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.taskInstanceId}, 
+				#{item.taskId},
+				#{item.taskNm}, 
+				#{item.startTime},
+				#{item.sts},
+				#{item.isUpdate}, 
+				#{item.isCheck},
+				#{item.taskNodeInstanceId},
+				#{item.dataDate}, 
+				#{item.exeObjId},
+				#{item.taskObjId},
+				#{item.upTaskInstanceId},
+				#{item.taskType},
+				#{item.logicDelNo},#{item.lineId},#{item.orgNo},#{item.createUser},#{item.createOrg},#{item.taskTitle},#{item.loadDataMark}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="saveRptTskNodeIns"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskNodeIns">
+		INSERT INTO
+	    RPT_TSK_NODE_INS
+	    (
+	        TASK_NODE_INSTANCE_ID,
+	        TASK_NODE_NM,
+	        TASK_INSTANCE_ID,
+	        IS_CAN_INTERRUPT,
+	        START_TIME,
+	        STS,
+	        TASK_ORDERNO,
+	        NODE_TYPE
+	    )
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select 
+				#{item.taskNodeInstanceId},#{item.taskNodeNm}, #{item.taskInstanceId}, #{item.isCanInterrupt}, 
+				#{item.startTime}, #{item.sts}, #{item.taskOrderno},#{item.nodeType}
+			from dual
+		</foreach>
+	</insert>
+	
+	<insert id="saveRptTskNodeIns"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskNodeIns" databaseId="mysql">
+		INSERT INTO
+	    RPT_TSK_NODE_INS
+	    (
+	        TASK_NODE_INSTANCE_ID,
+	        TASK_NODE_NM,
+	        TASK_INSTANCE_ID,
+	        IS_CAN_INTERRUPT,
+	        START_TIME,
+	        STS,
+	        TASK_ORDERNO,
+	        NODE_TYPE
+	    )values
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.taskNodeInstanceId},#{item.taskNodeNm}, #{item.taskInstanceId}, #{item.isCanInterrupt}, 
+				#{item.startTime}, #{item.sts}, #{item.taskOrderno},#{item.nodeType}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="saveRptTskExeobjNodeinsRel"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskExeobjNodeinsRel">
+		INSERT INTO
+		RPT_TSK_EXEOBJ_NODEINS_REL(EXE_OBJ_ID,TASK_NODE_INSTANCE_ID)
+		VALUES
+		(#{id.exeObjId},#{id.taskNodeInstanceId})
+	</insert>
+
+	<insert id="saveTaskFlowNode"
+        parameterType="com.yusys.biapp.input.task.entity.RptTskFlowNode">
+        INSERT INTO RPT_TSK_FLOW_NODE(TASK_NODE_DEF_ID,TASK_DEF_ID,FLOW_NODE_NM,IS_CAN_INTERRUPT,TASK_ORDERNO,NODE_TYPE)
+        VALUES
+            (#{taskNodeDefId},#{taskDefId},#{flowNodeNm},#{isCanInterrupt},#{taskOrderno},#{nodeType})
+    </insert>
+	
+	<insert id="saveRptTskCatalog"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskCatalog">
+		INSERT INTO RPT_TSK_CATALOG(CATALOG_ID,CATALOG_NM,REMARK,UP_NO)
+		VALUES(#{catalogId},#{catalogNm},#{remark},#{upNo})
+	</insert>
+	
+	<select id="getTaskUserTreeOfOrgs" resultType="HashMap" parameterType="HashMap">
+			SELECT INFO.USER_ID as "USER_ID",
+			       INFO.USER_NAME as "USER_NAME",
+			       INFO.USER_NO as "USER_NO",
+			       '' AS "USER_ICON",
+			       INFO.ORG_NO as "ORG_NO",
+			       ORGINFO.ORG_NAME as "ORG_NAME",
+			       ''  AS "ORG_ICON"
+			FROM  BIONE_USER_INFO INFO ,BIONE_ORG_INFO ORGINFO
+			WHERE ORGINFO.ORG_NO = INFO.ORG_NO
+			<if test = "  orgList!=null ">
+				AND INFO.ORG_NO  IN 
+				<foreach item="item" index="index" collection="orgList" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="  org !=null  ">
+				AND INFO.ORG_NO = #{org}
+			</if>
+			<if test="  searchNm!= null ">
+				AND INFO.USER_NAME LIKE #{searchNm}
+			</if>
+		ORDER BY INFO.USER_NAME
+	</select>
+	<select   id="getTaskRoleTreeOfOrgs"    resultType="HashMap" parameterType="HashMap">
+			SELECT INFO.ROLE_ID as "ROLE_ID",
+			       INFO.ROLE_NAME as "ROLE_NAME",
+			       '' AS "ROLE_ICON"
+			FROM
+			    BIONE_ROLE_INFO INFO
+			WHERE  INFO.ROLE_STS='1' 
+			<if test="  logicSysNo!= null ">
+				AND INFO.LOGIC_SYS_NO = #{logicSysNo}
+			</if>
+			<if test="  searchNm!= null ">
+				AND INFO.ROLE_NAME LIKE #{searchNm}
+			</if>
+	</select>
+	<select id="getTaskType" parameterType="String" resultType="HashMap">
+		SELECT INFO.PARAM_VALUE as "PARAM_VALUE",
+		       INFO.PARAM_NAME as "PARAM_NAME"
+		FROM BIONE_PARAM_INFO INFO 
+		WHERE INFO.PARAM_TYPE_NO= #{taskType}
+		AND INFO.UP_NO='0' ORDER BY INFO.ORDER_NO
+	</select>
+
+	<select id="getUpOrgNos" resultType="String">
+		select DISTINCT a.UP_NO from BIONE_ORG_INFO a where 
+		(a.ORG_NO in
+		<foreach collection="list" item="orgNos" separator=" or a.org_no in ">
+			<foreach collection="orgNos" item="orgNo" open="(" separator="," close=")">
+				#{orgNo}
+			</foreach>
+		</foreach>
+		)
+		AND a.ORG_NO !='0'
+	</select>
+	<select id="getTaskOrgs" 		resultType="string" 		parameterType="string">
+			SELECT ORG_NO FROM RPT_TSK_ORG_REL REL WHERE REL.TASK_ID=#{taskId}
+	</select>
+	
+	<insert id="saveRptTskOrgRel" parameterType="com.yusys.biapp.input.task.entity.RptTskOrgRel">
+			INSERT INTO RPT_TSK_ORG_REL(TASK_ID,ORG_NO)
+    		VALUES(#{id.taskId},#{id.orgNo})
+	</insert>
+
+	<select id="getRptTskCatalog"
+		resultType="com.yusys.biapp.input.task.entity.RptTskCatalog"
+		parameterType="HashMap">
+		SELECT CATALOG_ID as "CATALOG_ID",
+		       CATALOG_NM as "CATALOG_NM",
+		       REMARK as "REMARK",
+		       UP_NO as "UP_NO"
+		FROM RPT_TSK_CATALOG WHERE
+		1=1
+		<if test="  parentCatalogId!=null ">
+			AND UP_NO=#{parentCatalogId}
+		</if>
+		<if test="  catalogName!=null ">
+			AND CATALOG_NM=#{catalogName} 
+		</if>
+		<if test= "  catalogId != null  ">
+			AND CATALOG_ID=#{catalogId}
+		</if>
+		
+   	 	<if test="objIds != null">
+        	and catalog_id in
+        	(select res_id from BIONE_AUTH_OBJ_RES_REL t
+				where 1=1 
+				and t.logic_sys_no = #{logicSysNo}
+				and t.obj_def_no = #{objDefNo}
+				and t.res_def_no = #{resDefNo}
+				and t.obj_id in 
+				<foreach collection="objIds" item="objId" open="("
+            	separator="," close=")">
+            	#{objId}
+        		</foreach>
+        	)
+   	 	</if>
+		ORDER BY CATALOG_NM
+	</select>
+
+	<select id="getTaskInfosCount" resultType="java.lang.Integer" parameterType="HashMap">
+		SELECT COUNT(1) FROM RPT_TSK_INFO T WHERE 1=1
+		<if test="  taskNma!=null ">
+			AND T.TASK_NM=#{taskNma}
+		</if>
+		<if test="  catalogIdb!=null ">
+			AND T.CATALOG_ID!=#{catalogIdb}
+		</if>
+		<if test="  taskIdc!=null ">
+			AND T.TASK_ID!=#{taskIdc}
+		</if>
+		<if test="  taskDefIdd!=null ">
+			AND T.TASK_DEF_ID!=#{catalogIdd}
+		</if>		
+		<if test="  catalogId!=null ">
+			AND T.CATALOG_ID=#{catalogId}
+		</if>
+		<if test="  taskId!=null ">
+			AND TASK_ID=#{taskId}
+		</if>
+		<if test="  taskDefId!=null ">
+			AND task_Def_Id!=#{taskDefId}
+		</if>
+		<if test="  taskNm!=null ">
+			AND TASK_NM like #{taskNm}
+		</if>
+		<if test="  taskSts!=null ">
+			AND TASK_STS=#{taskSts}
+		</if>
+		<if test="  exeObjType!=null ">
+			AND T.EXE_OBJ_TYPE=#{exeObjType}
+		</if>
+		<if test="  taskType!=null ">
+			AND TASK_Type=#{taskType}
+		</if>
+		AND (LOGIC_DEL_NO='NO' OR LOGIC_DEL_NO IS NULL)
+		<if test="  orgList != null and orgList.size() > 0 ">
+			AND ( T.CREATE_ORG IN
+				<foreach item="item" index="index" collection="orgList" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+				OR T.CREATE_USER = #{currentUserId}
+			 )
+		</if>
+		<if test="orgNo != null ">
+			AND (
+                        T.CREATE_USER = 'e91f0c6f8a6e4b75b1c3effb7ab333ef'
+                    OR  EXISTS
+                        (
+                            SELECT
+                                1
+                            FROM
+                                RPT_INPUT_LST_TEMPLE_INFO TEMPLE
+                            WHERE
+                                TEMPLE.TEMPLE_ID=EXEOBJ.EXE_OBJ_ID
+                            AND (
+                            		TEMPLE.DEF_SRC='01'
+                                    OR (TEMPLE.DEF_SRC ='02' AND  DEF_ORG LIKE  #{orgNo}  )
+                               		OR (TEMPLE.DEF_SRC ='03' AND  DEF_USER LIKE #{userId})
+                               )
+                          )
+                  )
+		</if>
+	</select>
+
+	<select id="getRptTskCatalogByCatalogId"
+		resultType="com.yusys.biapp.input.task.entity.RptTskCatalog"
+		parameterType="string">
+		SELECT CATALOG_ID,CATALOG_NM,REMARK,UP_NO FROM RPT_TSK_CATALOG WHERE
+		CATALOG_ID=#{catalogId}
+	</select>
+	
+	<select id="getTaskNmsByIds" parameterType="java.util.List" resultType="HashMap">
+		SELECT TASK_NM as "TASK_NM",
+		       TASK_STS as "TASK_STS"
+		FROM RPT_TSK_INFO  WHERE TASK_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="getTaskInfos" parameterType="HashMap"
+		resultType="com.yusys.biapp.input.task.entity.RptTskInfo">
+		SELECT
+		CATALOG_ID,CHECK_STS,DATE_OFFSET_AMOUNT,EFFECT_DATE,EXEOBJ.EXE_OBJ_TYPE,INVALID_DATE,
+		IS_PRE,IS_RELY_DATA,LOGIC_DEL_NO,SUM_MODE,TASK_DEADLINE,TASK_DEF_ID,TASK_FREQ,
+		T.TASK_ID,TASK_NM,TASK_STS,PARAM.PARAM_NAME AS TASK_TYPE_NM,PARAM.PARAM_VALUE AS TASK_TYPE,
+		 TRIGGER_ID,TRIGGER_TYPE,T.EXE_OBJ_ID,UP_TASK_ID,TRIGGER_NM,NODE_TYPE,
+		T.AFTER_TASK_STS,T.AFTER_TASK_OBJ_ID  , t.UPDATE_DATE, EXEOBJ.EXE_OBJ_NM
+		FROM RPT_TSK_INFO T,BIONE_PARAM_INFO PARAM,RPT_TSK_EXEOBJ_REL EXEOBJ
+		WHERE T.TASK_TYPE=PARAM.PARAM_VALUE 
+		AND PARAM.PARAM_TYPE_NO=#{paramTypeNo} 
+		AND PARAM.UP_NO='0' 
+		AND EXEOBJ.TASK_ID = T.TASK_ID
+		<if test=" type!='grid' ">
+			<if test="  catalogId!=null ">
+				AND T.CATALOG_ID=#{catalogId}
+			</if>
+		</if>
+		<if test="  taskId!=null ">
+			AND T.TASK_ID=#{taskId}
+		</if>
+		<if test="  taskNm!=null ">
+			AND TASK_NM like #{taskNm}
+		</if>
+		<if test="  taskSts!=null ">
+			AND TASK_STS=#{taskSts}
+		</if>
+		<if test="  exeObjType!=null ">
+			AND T.EXE_OBJ_TYPE=#{exeObjType}
+		</if>
+		<if test="  taskType!=null ">
+			AND TASK_Type=#{taskType}
+		</if>
+		AND (LOGIC_DEL_NO='NO' OR LOGIC_DEL_NO IS NULL) 
+   	 	<if test="objIds != null">
+        	and t.task_id in
+        	(select res_id from BIONE_AUTH_OBJ_RES_REL t
+				where 1=1 
+				and t.logic_sys_no = #{logicSysNo}
+				and t.obj_def_no = #{objDefNo}
+				and t.res_def_no = #{resDefNo}
+				and t.obj_id in 
+				<foreach collection="objIds" item="objId" open="("
+            	separator="," close=")">
+            	#{objId}
+        		</foreach>
+        	)
+   	 	</if> 
+		
+        <if test=" loginName !='admin' ">
+			<if test="  orgList != null and orgList.size() > 0 ">
+				AND ( T.CREATE_ORG IN
+					<foreach item="item" index="index" collection="orgList" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+					OR T.CREATE_USER = #{currentUserId}
+				 )
+			</if>
+			AND (
+	                   T.CREATE_USER = #{currentUserId}
+	                  
+	                   OR  EXISTS
+	                       (
+	                           SELECT
+	                               1
+	                           FROM
+	                               RPT_INPUT_LST_TEMPLE_INFO TEMPLE
+	                           WHERE
+	                               TEMPLE.TEMPLE_ID=EXEOBJ.EXE_OBJ_ID
+	                           AND (
+	                           		TEMPLE.DEF_SRC='01'
+	                                   OR (TEMPLE.DEF_SRC ='02' AND  DEF_ORG LIKE  #{orgNo}  )
+	                              		OR (TEMPLE.DEF_SRC ='03' AND  DEF_USER LIKE #{userId})
+	                              )
+	                         )
+	           )
+        </if>
+         <if test="orderField != null">
+         	ORDER BY UPDATE_DATE DESC
+         </if>
+	</select>
+
+	<select id="testSameIndexCatalogNm" parameterType="HashMap"
+		resultType="java.lang.Integer">
+		SELECT  COUNT(1)  FROM RPT_TSK_CATALOG CATALOG WHERE 1=1
+		<if test="  upNo!=null ">
+			AND CATALOG.UP_NO=#{upNo}
+		</if>
+		<if test="  catalogName!=null ">
+			AND CATALOG.CATALOG_NM=#{catalogName}
+		</if>
+		<if test="  catalogId!=null and catalogId!='' ">
+			AND  CATALOG_ID != #{catalogId}
+		</if>
+	</select>
+
+	<select id="getFlowCnt" parameterType="HashMap"
+		resultType="java.lang.Integer">
+		SELECT  COUNT(1)  FROM RPT_TSK_FLOW FLW WHERE 1=1
+		<if test="  taskDefId != null ">
+			AND FLW.TASK_DEF_ID != #{taskDefId}
+		</if>
+		<if test="  flowNm != null ">
+			AND FLW.FLOW_NM=#{flowNm}
+		</if>
+	</select>
+
+	<select id="getDulpDeployTask" parameterType="HashMap"
+		resultType="string">
+		SELECT ORG.ORG_NAME
+		  FROM RPT_TSK_INS INS, BIONE_ORG_INFO ORG
+		 WHERE INS.ORG_NO = ORG.ORG_NO
+		   AND INS.TASK_ID = #{taskId}
+		   AND INS.ORG_NO IN 
+			<foreach item="item" index="index" collection="orgList" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		   AND INS.DATA_DATE = #{dataDate}
+	</select>
+	
+	<select id="getTaskList" resultType="com.yusys.biapp.input.task.entity.RptTskFlow">
+		SELECT TASK_DEF_ID,FLOW_NM FROM RPT_TSK_FLOW ORDER BY FLOW_NM
+	</select>
+
+	<select id="getTaskNodeInfos" parameterType="string" resultType="HashMap">
+		SELECT FLOWNODE.NODE_TYPE as "NODE_TYPE",
+		       NODE.ORG_NO as "ORG_NO",
+			   NODE.TASK_NODE_DEF_ID as "TASK_NODE_DEF_ID",
+		       NODE.TASK_NODE_NM as "TASK_NODE_NM",
+		       NODE.TASK_ORDERNO as "TASK_ORDERNO",
+		       FLOWNODE.IS_CAN_INTERRUPT as "IS_CAN_INTERRUPT",
+		       NODE.TASK_NODE_ID as "TASK_NODE_ID",
+		       NODE.HANDLE_TYPE as "HANDLE_TYPE"
+		FROM RPT_TSK_NODE NODE
+		INNER JOIN RPT_TSK_FLOW_NODE FLOWNODE ON (NODE.TASK_NODE_DEF_ID=FLOWNODE.TASK_NODE_DEF_ID )
+		WHERE NODE.TASK_ID=#{taskId}
+		ORDER BY FLOWNODE.TASK_ORDERNO
+	</select>
+
+	<select id="getTskExeobjNodeinsRel" resultType="HashMap"
+		parameterType="string">
+		SELECT TASK_ID as "TASK_ID",
+		       EXE_OBJ_TYPE as "EXE_OBJ_TYPE",
+		       EXE_OBJ_ID as "EXE_OBJ_ID"
+		FROM RPT_TSK_EXEOBJ_REL WHERE
+		TASK_ID=#{taskId}
+	</select>
+
+	<select id="getTskNodeTskobjRelList" parameterType="string"
+		resultType="com.yusys.biapp.input.task.entity.RptTskNodeTskobjRel">
+		SELECT TASK_OBJ_ID,TASK_ID,TASK_NODE_ID FROM RPT_TSK_NODE_TSKOBJ_REL WHERE
+		TASK_ID=#{taskId}
+	</select>
+
+	<select id="getTaskNodeList" parameterType="string" resultType="HashMap">
+		SELECT FNODE.TASK_NODE_DEF_ID as "TASK_NODE_DEF_ID",
+		       FNODE.FLOW_NODE_NM as "TASK_NODE_NM",
+		       FNODE.TASK_ORDERNO as "TASK_ORDERNO",
+		       FNODE.IS_CAN_INTERRUPT as "IS_CAN_INTERRUPT",
+		       FNODE.NODE_TYPE as "NODE_TYPE"
+		FROM RPT_TSK_FLOW_NODE FNODE
+		WHERE FNODE.TASK_DEF_ID=#{taskDefId} ORDER BY FNODE.TASK_ORDERNO
+	</select>
+
+	<select id="getListWorkFlow"  parameterType="HashMap"  resultType="com.yusys.biapp.input.task.entity.RptTskFlow">
+		SELECT FL.TASK_DEF_ID,FL.FLOW_NM FROM RPT_TSK_FLOW FL WHERE 1=1
+		<if test=" taskDefId != null ">
+			AND TASK_DEF_ID= #{taskDefId}
+		</if>
+	</select>
+
+	<select id="getTskExeobjRelInfo" resultType="HashMap"
+		parameterType="string">
+		SELECT
+		OBJREL.EXE_OBJ_ID as "EXE_OBJ_ID",
+		OBJREL.EXE_OBJ_NM as "EXE_OBJ_NM",
+		OBJREL.EXE_OBJ_TYPE as "EXE_OBJ_TYPE"
+		FROM
+		RPT_TSK_EXEOBJ_REL OBJREL
+		WHERE OBJREL.TASK_ID=#{taskId} 
+		ORDER BY OBJREL.EXE_OBJ_NM
+	</select>
+
+	<select id="getTaskObjOfNode" parameterType="HashMap"
+		resultType="HashMap">
+		SELECT
+		REL.TASK_NODE_ID as "TASK_NODE_ID",
+		REL.TASK_ID as "TASK_ID",
+		REL.TASK_OBJ_ID as "TASK_OBJ_ID",
+		REL.TASK_OBJ_NM as "TASK_OBJ_NM",
+		REL.TASK_OBJ_TYPE as "TASK_OBJ_TYPE"
+		FROM RPT_TSK_NODE_TSKOBJ_REL REL
+		WHERE REL.TASK_ID=#{taskId}
+		AND REL.TASK_NODE_ID=#{taskNodeId} 
+		ORDER BY TASK_OBJ_NM
+	</select>
+
+	<select id="getRptTskExeobjRelByTaskInstanceId"  parameterType="string" 	resultType="com.yusys.biapp.input.task.entity.RptTskExeobjRel">
+			SELECT    REL.TASK_ID      AS "id.taskId",    REL.EXE_OBJ_TYPE AS "id.exeObjType",   REL. EXE_OBJ_ID   AS "id.exeObjId",    REL.EXE_OBJ_NM
+			FROM    RPT_TSK_EXEOBJ_REL REL,RPT_TSK_INS INS WHERE    REL.TASK_ID = INS.TASK_ID AND     INS.TASK_INSTANCE_ID=#{taskInstanceId} 
+			ORDER BY REL.EXE_OBJ_NM
+	</select>
+<!--	<select id="getRptTskInsInfo"   parameterType="string" 	resultType="HashMap">-->
+<!--		SELECT  INS.ORG_NO,ORGINFO.ORG_NAME FROM RPT_TSK_INS INS, BIONE_ORG_INFO ORGINFO -->
+<!--		WHERE INS.ORG_NO= ORGINFO.ORG_NO AND  INS.TASK_INSTANCE_ID = #{taskInstanceId} -->
+<!--		ORDER BY ORGINFO.ORG_NAME-->
+<!--	</select>-->
+	
+	<select id="getRptTskInsOrgInfo"  parameterType="string" 	resultType="HashMap">
+			SELECT INS.ORG_NO as "ORG_NO",
+			       INFO.ORG_NAME as "ORG_NAME"
+			FROM    RPT_TSK_INS INS, BIONE_ORG_INFO INFO
+			WHERE INS.TASK_INSTANCE_ID=#{taskInstanceId}
+ 			AND INS.ORG_NO = INFO.ORG_NO 
+ 			ORDER BY INFO.ORG_NAME
+	</select>
+	
+	<select id="getRptTskInsById"  parameterType="string" 	resultType="com.yusys.biapp.input.task.entity.RptTskIns">
+			SELECT *  FROM    RPT_TSK_INS INS WHERE INS.TASK_INSTANCE_ID=#{taskInstanceId} ORDER BY INS.TASK_NM
+	</select>
+	<select id="findOrgNode" resultType="com.yusys.bione.plugin.datashow.web.vo.RptTreeNode" parameterType="HashMap">
+		SELECT DISTINCT * FROM(
+			SELECT
+				org.ORG_NO   AS ID, org.ORG_NM AS TEXT, org.UP_ORG_NO    AS UPID, ''  AS ICON, org.ORG_NO   AS REALID
+			FROM
+				RPT_ORG_INFO org
+			where 
+				ORG_TYPE='01' and org.org_no in
+				<if test="orgList != null">
+					<foreach item="item" index="index" collection="orgList" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			order by org.org_no
+		)
+	</select>
+	<select id="findPubOrgNode" resultType="com.yusys.bione.plugin.datashow.web.vo.RptTreeNode" parameterType="HashMap">
+        SELECT
+            org.ORG_NO   AS ID, org.ORG_NAME AS TEXT, org.UP_NO    AS UPID, ''  AS ICON, org.ORG_NO   AS REALID
+        FROM
+            BIONE_ORG_INFO org
+        where 
+            1 = 1
+            AND ORG_STS = '1'
+		    <if test="logicSysNo != null">and org.LOGIC_SYS_NO = #{logicSysNo}</if>
+            <if test="orgNo != null">and org.ORG_NO = #{orgNo}</if>
+            <if test="orgNm != null">and org.ORG_NAME = #{orgNm}</if>
+            <if test="upOrgNo != null">and org.UP_NO = #{upOrgNo}</if>
+            <if test="orgNmLike != null">and (org.ORG_NAME like #{orgNmLike} or org.org_No like #{orgNmLike})</if>
+            <if test="orgNos != null and orgNos.size() > 0">
+                AND (org.ORG_NO IN
+                <foreach item="items"  collection="orgNos" separator=" or org.ORG_NO IN ">
+                    <foreach collection="items" item="item" open="("
+                        separator="," close=")">#{item}</foreach>
+                </foreach>
+                )
+            </if>
+        order by org.org_no
+    </select>
+	
+	<update id="updateFlow" parameterType="HashMap">
+		UPDATE RPT_TSK_FLOW SET FLOW_NM = #{flowNm} WHERE TASK_DEF_ID=#{taskDefId}
+	</update>
+	
+	<update id="updateRptTskInfo" parameterType="com.yusys.biapp.input.task.entity.RptTskInfo">
+		UPDATE RPT_TSK_INFO
+		<set>
+			<if test="upTaskId != null">UP_TASK_ID=#{upTaskId},</if>
+			<if test="exeObjId != null">EXE_OBJ_ID=#{upExeObjId},</if>
+			<if test="triggerType != null">TRIGGER_TYPE=#{triggerType},</if>
+			<if test="triggerId != null">TRIGGER_ID=#{triggerId},</if>
+			<if test="triggerNm != null">TRIGGER_Nm=#{triggerNm},</if>
+			<if test="taskType != null">TASK_TYPE=#{taskType},</if>
+			<if test="taskSts != null">TASK_STS=#{taskSts},</if>
+			<if test="taskFreq != null">TASK_FREQ=#{taskFreq},</if>
+			<if test="taskDefId != null">TASK_DEF_ID=#{taskDefId},</if>
+			<if test="taskDeadline != null">TASK_DEADLINE=#{taskDeadline},</if>
+			<if test="sumMode != null">SUM_MODE=#{sumMode},</if>
+			<if test="logicDelNo != null">LOGIC_DEL_NO=#{logicDelNo},</if>
+			<if test="isRelyData != null">IS_RELY_DATA=#{isRelyData},</if>
+			<if test="isPre != null">IS_PRE=#{isPre},</if>
+			<if test="invalidDate != null">INVALID_DATE=#{invalidDate},</if>
+			<if test="exeObjType != null">EXE_OBJ_TYPE=#{exeObjType},</if>
+			<if test="effectDate != null">EFFECT_DATE=#{effectDate},</if>
+			<if test="dateOffsetAmount != null">DATE_OFFSET_AMOUNT=#{dateOffsetAmount},</if>
+			<if test="checkSts != null">CHECK_STS=#{checkSts},</if>
+			<if test="nodeType != null">NODE_TYPE=#{nodeType},</if>
+			<if test="updateDate != null">UPDATE_DATE=#{updateDate},</if>
+			<if test="taskNm != null">TASK_NM=#{taskNm},</if>
+			<if test="afterTaskSts != null">AFTER_TASK_STS=#{afterTaskSts},</if>
+			<if test="afterTaskObjId != null">AFTER_TASK_OBJ_ID=#{afterTaskObjId}</if>
+		</set>
+		WHERE TASK_ID=#{taskId}
+	</update>
+
+
+	<update id="updateRptTskCatalog"
+		parameterType="com.yusys.biapp.input.task.entity.RptTskCatalog">
+		UPDATE RPT_TSK_CATALOG CLOG
+		SET CLOG.CATALOG_NM=#{catalogNm},CLOG.REMARK=#{remark},CLOG.UP_NO=#{upNo}
+		WHERE CLOG.CATALOG_ID=#{catalogId}
+	</update>
+	
+	<update id="batchLogicDelRptTskInfo" parameterType="java.util.List">
+		UPDATE RPT_TSK_INFO SET LOGIC_DEL_NO='Y' WHERE TASK_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<update id="changeTaskSts"  parameterType="java.util.List">
+		UPDATE RPT_TSK_INFO T SET T.TASK_STS =
+		        (SELECT CASE 
+		                WHEN ( TASK_STS ='' OR TASK_STS IS NULL) THEN '0' 
+		                WHEN TASK_STS='1' THEN '0' 
+		                WHEN TASK_STS='0' THEN '1' END 
+		         FROM RPT_TSK_INFO INFO WHERE INFO.TASK_ID = T.TASK_ID
+		         )  
+		WHERE  T.TASK_ID IN 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</update>
+	
+	<update id="changeTaskSts"  parameterType="java.util.List" databaseId="mysql">
+		UPDATE RPT_TSK_INFO T SET T.TASK_STS =
+		        (select a.sts from (SELECT INFO.TASK_ID,CASE 
+		                WHEN ( INFO.TASK_STS ='' OR INFO.TASK_STS IS NULL) THEN '0' 
+		                WHEN INFO.TASK_STS='1' THEN '0' 
+		                WHEN INFO.TASK_STS='0' THEN '1' END sts
+		         FROM RPT_TSK_INFO INFO)a  WHERE a.TASK_ID = T.TASK_ID
+		         )  
+		WHERE  T.TASK_ID IN 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</update>
+	
+	<delete id="deleteTskCatalog" parameterType="java.util.List">
+		DELETE FROM RPT_TSK_CATALOG WHERE CATALOG_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<delete id="deleteRptTskNodeByTask" parameterType="string">
+		DELETE FROM
+		RPT_TSK_NODE WHERE TASK_ID=#{taskId}
+	</delete>
+
+	<delete id="deleteRptTskTskobjRelByTask" parameterType="string">
+		DELETE
+		FROM RPT_TSK_TSKOBJ_REL WHERE TASK_NODE_ID=#{taskId}
+	</delete>
+
+	<delete id="deleteRptTskNodeExeobjRelByTask" parameterType="string">
+		DELETE FROM RPT_TSK_NODE_EXEOBJ_REL WHERE TASK_NODE_ID=#{taskId}
+	</delete>
+	
+	<delete id="deleteRptTskOrgRelByTask" parameterType="string">
+			DELETE FROM RPT_TSK_ORG_REL  WHERE TASK_ID = #{taskId}
+	</delete>
+
+	<delete id="deleteRptTskExeobjRelByTask" parameterType="string">
+		DELETE
+		FROM RPT_TSK_EXEOBJ_REL WHERE TASK_ID=#{taskId}
+	</delete>
+
+	<delete id="deleteRptTskNodeTskobjRelByTask" parameterType="string">
+		DELETE FROM RPT_TSK_NODE_TSKOBJ_REL WHERE TASK_ID=#{taskId}
+	</delete>
+
+	<delete id="batchDeleteRptTskNodeTskobjRel" parameterType="java.util.List">
+		DELETE FROM RPT_TSK_NODE_TSKOBJ_REL WHERE TASK_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<delete id="batchDeleteRptTskExeobjRel" parameterType="java.util.List">
+		DELETE FROM RPT_TSK_EXEOBJ_REL WHERE TASK_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+
+	<delete id="batchDeleteRptTskNode" parameterType="java.util.List">
+		DELETE FROM RPT_TSK_NODE WHERE TASK_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	
+	<delete id="batchDeleteRptTskInfo" parameterType="java.util.List">
+		DELETE FROM RPT_TSK_INFO WHERE TASK_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	
+	<delete id="batchDeleteRptTskIns" parameterType="java.util.List">
+		DELETE FROM RPT_TSK_INS WHERE TASK_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+
+	<delete id="delTaskFlow" parameterType="string">
+		DELETE
+		FROM RPT_TSK_FLOW WHERE TASK_DEF_ID=#{taskDefId}
+	</delete>
+	
+	
+
+	<delete id="delTaskFlowNode" parameterType="HashMap">
+		DELETE
+		FROM RPT_TSK_FLOW_NODE WHERE 1=1
+		<if test=" taskDefId != null  ">
+			AND TASK_DEF_ID = #{taskDefId}
+		</if>
+		<if test=" taskNodeDefId != null  ">
+			AND TASK_NODE_DEF_ID = #{taskNodeDefId}
+		</if>
+	</delete>
+	
+	<select id="getTskInsNode" parameterType="string" resultType="HashMap">
+		SELECT RTNTR.TASK_OBJ_ID as "TASK_OBJ_ID",
+		       RTNTR.TASK_NODE_INSTANCE_ID as "TASK_NODE_INSTANCE_ID",
+		       RTNTR.TASK_OBJ_TYPE as "TASK_OBJ_TYPE",
+		       RTNTR.ORG_NO as "ORG_NO",
+		       rtni.node_Type as "NODE_TYPE"
+		FROM rpt_tsk_ins rti 
+		inner join rpt_tsk_node_ins rtni
+		on rti.task_instance_id = rtni.task_instance_id
+		inner join rpt_tsk_node_tskins_rel rtntr
+		on rtntr.task_node_instance_id = rtni.task_node_instance_id
+		where rti.task_instance_id = #{insId}
+	</select>
+	
+	<delete id="delTskInsNode" parameterType="HashMap" flushCache="true">
+		DELETE FROM RPT_TSK_NODE_TSKINS_REL RTNTR
+		WHERE RTNTR.TASK_OBJ_ID = #{objId}
+		AND RTNTR.TASK_OBJ_TYPE = #{objType}
+		AND RTNTR.TASK_NODE_INSTANCE_ID IN( 
+		    SELECT TASK_NODE_INSTANCE_ID FROM RPT_TSK_NODE_INS RTNI 
+		    WHERE RTNI.TASK_INSTANCE_ID = #{insId}
+		    AND NODE_TYPE = #{nodeType}
+		)
+	</delete>
+
+	<select id="getTaskDeptList" parameterType="String" resultType="com.yusys.biapp.input.task.web.vo.TaskDeptUserList">
+		SELECT START_TIME, TASK_INSTANCE_ID,(SELECT ORG_NAME FROM BIONE_ORG_INFO WHERE ORG_NO = t.ORG_NO)ORG_NM, NODE_TYPE,TASK_NODE_NM,TASK_OBJ_TYPE, wm_concat(TASK_OBJ_NM) TASK_OBJ_NM FROM (
+			SELECT a.TASK_OBJ_TYPE,
+			CASE WHEN a.TASK_OBJ_TYPE = 'AUTH_OBJ_USER' THEN (SELECT USER_NAME FROM BIONE_USER_INFO WHERE USER_ID = a.TASK_OBJ_ID)
+			WHEN a.TASK_OBJ_TYPE = 'AUTH_OBJ_ROLE' THEN (SELECT ROLE_NAME FROM BIONE_ROLE_INFO WHERE ROLE_ID = a.TASK_OBJ_ID) ELSE '' END TASK_OBJ_NM,
+			a.TASK_NODE_INSTANCE_ID, a.ORG_NO, b.TASK_INSTANCE_ID, b.NODE_TYPE,b.TASK_NODE_NM, c.TASK_ID, c.START_TIME,c.DATA_DATE
+			FROM RPT_TSK_NODE_TSKINS_REL a
+			LEFT JOIN RPT_TSK_NODE_INS  b ON a.TASK_NODE_INSTANCE_ID = b.TASK_NODE_INSTANCE_ID
+			LEFT JOIN RPT_TSK_INS c ON  b.TASK_INSTANCE_ID =c.TASK_INSTANCE_ID
+			WHERE c.TASK_ID = #{taskId}
+			) t
+			GROUP BY START_TIME, TASK_INSTANCE_ID, ORG_NO, NODE_TYPE,TASK_NODE_NM, TASK_OBJ_TYPE
+			ORDER BY START_TIME DESC
+	</select>
+
+	<select id="getTaskDeptList" parameterType="String" resultType="com.yusys.biapp.input.task.web.vo.TaskDeptUserList" databaseId="postgresql">
+		SELECT START_TIME, TASK_INSTANCE_ID,(SELECT ORG_NAME FROM BIONE_ORG_INFO WHERE ORG_NO = t.ORG_NO)ORG_NM, NODE_TYPE,TASK_NODE_NM,TASK_OBJ_TYPE, string_agg(TASK_OBJ_NM,',') TASK_OBJ_NM FROM (
+		   SELECT a.TASK_OBJ_TYPE,
+				  CASE WHEN a.TASK_OBJ_TYPE = 'AUTH_OBJ_USER' THEN (SELECT USER_NAME FROM BIONE_USER_INFO WHERE USER_ID = a.TASK_OBJ_ID)
+					   WHEN a.TASK_OBJ_TYPE = 'AUTH_OBJ_ROLE' THEN (SELECT ROLE_NAME FROM BIONE_ROLE_INFO WHERE ROLE_ID = a.TASK_OBJ_ID) ELSE '' END TASK_OBJ_NM,
+				  a.TASK_NODE_INSTANCE_ID, a.ORG_NO, b.TASK_INSTANCE_ID, b.NODE_TYPE,b.TASK_NODE_NM, c.TASK_ID, c.START_TIME,c.DATA_DATE
+		   FROM RPT_TSK_NODE_TSKINS_REL a
+					LEFT JOIN RPT_TSK_NODE_INS  b ON a.TASK_NODE_INSTANCE_ID = b.TASK_NODE_INSTANCE_ID
+					LEFT JOIN RPT_TSK_INS c ON  b.TASK_INSTANCE_ID =c.TASK_INSTANCE_ID
+		   WHERE c.TASK_ID = #{taskId}
+	   ) t
+		GROUP BY START_TIME, TASK_INSTANCE_ID, ORG_NO, NODE_TYPE,TASK_NODE_NM, TASK_OBJ_TYPE
+		ORDER BY START_TIME DESC
+	</select>
+
+</mapper> 

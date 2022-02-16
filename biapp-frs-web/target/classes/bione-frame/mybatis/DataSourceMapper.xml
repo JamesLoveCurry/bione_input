@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.bione.frame.mtool.repository.mybatis.DataSourceDao">
+    
+	<select id="search" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo">
+		SELECT 
+		DS_ID ,LOGIC_SYS_NO 
+		,DRIVER_ID,DS_NAME  
+		,CONN_URL,CONN_USER 
+		,CONN_PWD,REMARK,HOST
+		,PORT,DBNAME,SCHEMA2  
+		FROM
+		BIONE_DS_INFO
+	</select>
+	
+	<insert id="saveDS" parameterType="com.yusys.bione.frame.mtool.entity.BioneDsInfo">
+	   insert into BIONE_DS_INFO(
+	       DS_ID 
+	      ,LOGIC_SYS_NO 
+		  ,DRIVER_ID
+		  ,DS_NAME  
+		  ,CONN_URL
+		  ,CONN_USER 
+		  ,CONN_PWD
+		  ,REMARK
+		  ,HOST
+		  ,PORT
+		  ,DBNAME
+		  ,SCHEMA2   
+	   )
+	   values(
+	       #{dsId},
+			#{logicSysNo},
+			#{driverId},
+			#{dsName},
+			#{connUrl},
+			#{connUser},
+			#{connPwd},
+			#{remark},
+			#{host},
+			#{port},
+			#{dbname},
+			#{schema2}
+	   )
+    </insert>
+    <update id="updateDS" parameterType="com.yusys.bione.frame.mtool.entity.BioneDsInfo">
+		update BIONE_DS_INFO
+		<set>
+			<if test="connPwd != null">CONN_PWD=#{connPwd},</if>
+			<if test="connUrl != null">CONN_URL=#{connUrl},</if>
+			<if test="connUser != null">CONN_USER=#{connUser},</if>
+			<if test="driverId != null">DRIVER_ID=#{driverId},</if>
+			<if test="dsName != null">DS_NAME=#{dsName},</if>
+			<if test="remark != null">REMARK=#{remark},</if>
+			<if test="logicSysNo != null">LOGIC_SYS_NO=#{logicSysNo},</if>
+			<if test="host != null">HOST=#{host},</if>
+			<if test="port != null">PORT=#{port},</if>
+			<if test="schema2 != null">SCHEMA2=#{schema2},</if>
+			<if test="dbname != null">DBNAME=#{dbname}</if>
+		</set>
+		where 1=1 and DS_ID=#{dsId}
+	</update>
+	
+	<select id="checkedDsName" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo"    parameterType="java.util.Map">
+		SELECT 
+		DS_ID ,LOGIC_SYS_NO 
+		,DRIVER_ID,DS_NAME  
+		,CONN_URL,CONN_USER 
+		,CONN_PWD,REMARK,SCHEMA2
+		FROM
+		BIONE_DS_INFO
+		where 1=1
+		<if test="dsId != null">and DS_ID != #{dsId}</if>
+		and  DS_NAME =#{dsName}
+	</select>
+
+	<select id="getBioneLogicSysInfoList" resultType="com.yusys.bione.frame.logicsys.entity.BioneLogicSysInfo">
+		SELECT 
+		LOGIC_SYS_ID ,AUTH_SRC_ID 
+		,AUTH_TYPE_NO,LOGIC_SYS_NO  
+		,LOGIC_SYS_NAME,LOGIC_SYS_ICON
+		,ORDER_NO,LOGIC_SYS_STS   
+		,IS_BUILTIN,REMARK   
+		,LAST_UPDATE_USER,LAST_UPDATE_TIME   
+		,SYSTEM_VERSION,CN_COPYRIGHT   
+		,EN_COPYRIGHT,LOGIC_SYS_TYPE   
+		,VISIT_URL,AUTH_URL   
+		FROM
+		BIONE_LOGIC_SYS_INFO
+	</select>
+
+	<select id="getDriverList" resultType="com.yusys.bione.frame.mtool.entity.BioneDriverInfo">
+		SELECT 
+		DRIVER_ID ,DRIVER_TYPE 
+		,DRIVER_NAME,CONN_URL
+		FROM
+		BIONE_DRIVER_INFO
+	</select>
+	
+	<select id="getURLDataByDriverId" resultType="com.yusys.bione.frame.mtool.entity.BioneDriverInfo"  parameterType="string">
+		SELECT 
+		DRIVER_ID ,DRIVER_TYPE 
+		,DRIVER_NAME,CONN_URL  
+		FROM	
+		BIONE_DRIVER_INFO
+		where DRIVER_ID = #{driverId}  
+	</select>
+
+    <delete id="dsBatchDel" parameterType="java.util.List">
+             delete from BIONE_DS_INFO where ds_id   in
+             <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}               
+             </foreach> 
+    </delete>
+    <select id="findDriverInfoById"   resultType="com.yusys.bione.frame.mtool.entity.BioneDriverInfo"   parameterType="string">
+           SELECT 
+            DRIVER_ID           ,
+            DRIVER_NAME         ,
+            DRIVER_TYPE          ,
+            CONN_URL       
+        from   BIONE_DRIVER_INFO
+        where     DRIVER_ID = #{id} 
+    </select>
+    
+    <select id="findDataSourceById" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo" parameterType="string">
+		SELECT 
+		    DS_ID,LOGIC_SYS_NO               
+            ,DRIVER_ID,DS_NAME                
+            ,CONN_URL,CONN_USER                
+            ,CONN_PWD,REMARK
+            ,HOST,PORT,DBNAME,SCHEMA2
+            from  BIONE_DS_INFO         
+		where   DS_ID =#{id}  
+	</select>
+	<select id="getDataSetCountByDsId" resultType="java.lang.Integer"     parameterType="java.util.Map">
+		SELECT count(*)  FROM  RPT_SYS_MODULE_INFO    
+		  where      SOURCE_ID  in
+		  <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	      </foreach>  
+	</select>
+	
+</mapper> 

@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>展现配置字段</templetname>
+	<fromtable>imas_cr_col</fromtable>
+	<savetable>imas_cr_col</savetable>
+	<pkname>rid</pkname>
+	<querycontion></querycontion>
+	<autocondition descr="自动查询时的条件"></autocondition>
+	<autoquery descr="是否自动查询数据">N</autoquery>
+	<ishavebillquery descr="是否有查询面板"></ishavebillquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+
+	<card_isdebugborder>N</card_isdebugborder>
+	<list_btns></list_btns>
+	<list_issearch></list_issearch>
+	<list_ispagebar>Y</list_ispagebar>
+</templet>
+
+<templet_item>
+    <itemkey>issave</itemkey>
+    <itemname>是否保存</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <defaultformula></defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>320,350</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+ 
+<templet_item>
+    <itemkey>ismust</itemkey>
+    <itemname>是否必填</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+     <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>120,150</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+    <query_width>250</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>itemtype</itemkey>
+    <itemname>控件类型</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"文本框|多行文本框|下拉框|日历|列表参照|树型参照|自定义参照"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>Y</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+    <query_width>250</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>itemdefine</itemkey>
+    <itemname>控件定义</itemname>
+    <itemtype>多行文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <defaultformula></defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590*50</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+
+<templet_item>
+    <itemkey>card_isshow</itemkey>
+    <itemname>卡片是否展示</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+     <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>320,350</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>180</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+    <query_width>250</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>card_iswrap</itemkey>
+    <itemname>卡片是否换行</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>120,150</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>130</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>card_width</itemkey>
+    <itemname>卡片类型长度</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <defaultformula>init</defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <formatvalidate>全英文;</formatvalidate>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>80</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+    <query_width>250</query_width>
+</templet_item>
+
+<templet_item>
+    <itemkey>list_isshow</itemkey>
+    <itemname>列表是否展示</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>320,350</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>list_width</itemkey>
+    <itemname>列表长度</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <formatvalidate>全英文;</formatvalidate>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>list_align</itemkey>
+    <itemname>列表布局</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"左|中|右"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>query_isshow</itemkey>
+    <itemname>查询框是否显示</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip>查询框否显示字段</helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>320,350</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>query_width</itemkey>
+    <itemname>查询控件宽度</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <formatvalidate>全英文;</formatvalidate>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>query_itemtype</itemkey>
+    <itemname>查询框控件类型</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"文本框|多行文本框|下拉框|日历|日历区间|列表参照|树型参照|自定义参照"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>query_comparetype</itemkey>
+    <itemname>查询条件</itemname>
+    <itemtype>下拉框</itemtype>
+    <helptip></helptip>
+    <itemdefine>【{"类型":"直接值","内容":"=|like|in"}】</itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>query_itemdefine</itemkey>
+    <itemname>查询控件定义</itemname>
+    <itemtype>多行文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <defaultformula></defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust>N</ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width>240,590*50</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>checkbox</itemkey>
+    <itemname>树型是否勾选</itemname>
+    <itemtype>勾选框</itemtype>
+    <helptip>树型控件是否可以多选</helptip>
+    <card_isshow>Y</card_isshow>
+    <card_width>320,350</card_width>
+    <card_iswrap>Y</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+<templet_item>
+    <itemkey>tree_isCheckboxCascade</itemkey>
+    <itemname>树型勾选是否联动</itemname>
+    <itemtype>勾选框</itemtype>
+    <card_isshow>Y</card_isshow>
+    <card_width>120,150</card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>250</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+</root>

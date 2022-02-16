@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<!-- 客户风险数据表 -->
+	<firstinstall descr="首次安装的表数据">
+		<table name="crrs_rule">客户风险校验规则</table>
+	</firstinstall>
+
+	<upgrade descr="升级安装的表数据">
+	</upgrade>
+</root>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptidx.repository.IdxCatalogMybatisDao">
+	<select id="listIdxCatalog" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxCatalog"
+	parameterType="HashMap">
+		select INDEX_CATALOG_NO,INDEX_CATALOG_NM,REMARK,UP_NO,CATALOG_ORDER
+		from
+		RPT_IDX_CATALOG
+		where 1=1
+		<if test="indexCatalogNo != null">and INDEX_CATALOG_NO = #{indexCatalogNo}</if>
+		<if test="indexCatalogNm != null">and INDEX_CATALOG_NM like #{indexCatalogNm}</if>
+		<if test="remark != null">and REMARK = #{remark}</if>
+		<if test="catalogOrder != null">and CATALOG_ORDER = #{catalogOrder}</if>
+		<if test="upNo != null">and UP_NO = #{upNo}</if>
+		<if test="defSrc != null">and  DEF_SRC = #{defSrc}</if>
+		<if test="defSrc == null">
+			and ( DEF_SRC is null
+			<if test="defaultDefSrc != null">
+			 	or DEF_SRC = #{defaultDefSrc} 
+			 </if>
+			 <if test="defaultDefSrc == null">
+			 	or  DEF_SRC = '01'
+			 </if>
+			 )
+		</if>
+		<if test="defOrg != null">and  DEF_ORG = #{defOrg}</if>
+		<if test="defUser != null">and  DEF_USER = #{defUser}</if>
+		<if test="needOrderByNm != null">
+			order by INDEX_CATALOG_NM
+		</if>
+	</select>
+	<insert id="saveIdxCatalog" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxCatalog">insert into RPT_IDX_CATALOG(INDEX_CATALOG_NO,INDEX_CATALOG_NM,REMARK,UP_NO,def_src,def_org,def_user,catalog_order)
+		values(#{indexCatalogNo},#{indexCatalogNm},#{remark},#{upNo},#{defSrc},#{defOrg},#{defUser},#{catalogOrder})</insert>
+	<update id="updateIdxCatalog" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxCatalog">
+		update RPT_IDX_CATALOG
+		<set>
+			<if test="indexCatalogNo != null">INDEX_CATALOG_NO=#{indexCatalogNo}</if>
+			<if test="indexCatalogNm != null">,INDEX_CATALOG_NM=#{indexCatalogNm}</if>
+			<if test="remark != null">,REMARK=#{remark}</if>
+			<if test="upNo != null">,UP_NO=#{upNo}</if>
+			<if test="defSrc != null">,def_src=#{defSrc}</if>
+			<if test="catalogOrder != null">,catalog_order=#{catalogOrder}</if>
+		</set>
+		where 1=1 and INDEX_CATALOG_NO=#{indexCatalogNo}
+	</update>
+	<delete id="deleteIdxCatalog" parameterType="HashMap">delete from RPT_IDX_CATALOG
+		where 1=1
+		and INDEX_CATALOG_NO=#{indexCatalogNo}</delete>
+     
+      <select id="testSameIndexCatalogNm" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  RPT_IDX_CATALOG    
+		  where      INDEX_CATALOG_NM=#{indexCatalogNm}
+		  and  UP_NO=#{upNo}
+		  <if test="INDEX_CATALOG_NO!=null">
+		     and  INDEX_CATALOG_NO != #{indexCatalogNo}
+		  </if>
+	</select>
+     
+</mapper> 

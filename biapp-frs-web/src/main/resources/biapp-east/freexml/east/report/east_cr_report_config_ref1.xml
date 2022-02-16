@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>报文策略</templetname>
+		<fromtable>east_cr_report_config</fromtable>
+		<savetable>east_cr_report_config</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys>org_no</orderbys>
+		<card_btns></card_btns>
+		<card_size>700*500</card_size>
+		<card_innerjs>/yujs/east/report/report_config.js</card_innerjs>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>Y</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>report_type</itemkey>
+		<itemname>报送频率</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine></itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>90</list_width>
+		<list_align>中</list_align>
+		<!-- <list_colorformula>【colors=日报/#A6FFA6;月报/#FFBBFF】</list_colorformula> -->
+		<query_isshow>Y</query_isshow>
+
+		<query3_isshow>Y</query3_isshow>
+		<query3_iswrap>N</query3_iswrap>
+	</templet_item>
+</root>
+
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <!-- START SNIPPET: xfire -->
+    <bean id="syncUserWebService" class="com.yusys.bione.frame.user.service.SyncUserWebServiceImpl">
+    </bean>
+    <import resource="classpath:org/codehaus/xfire/spring/xfire.xml"/>
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+            <map>
+                <entry key="/SyncUserWebService">
+                    <ref bean="syncUser"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Declare a parent bean with all properties common to both services -->
+    <bean id="syncUser" class="org.codehaus.xfire.spring.remoting.XFireExporter">
+        <property name="serviceFactory">
+            <ref bean="xfire.serviceFactory"/>
+        </property>
+        <property name="xfire">
+            <ref bean="xfire"/>
+        </property>
+        <property name="serviceBean">
+            <ref bean="syncUserWebService"/>
+        </property>
+        <property name="serviceClass">
+            <value>com.yusys.bione.frame.user.service.ISyncUserWebAfterService</value>
+        </property>
+    </bean>
+    <!-- END SNIPPET: xfire -->
+</beans>

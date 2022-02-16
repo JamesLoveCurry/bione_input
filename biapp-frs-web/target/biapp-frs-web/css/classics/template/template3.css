@@ -1,0 +1,20 @@
+#left {
+	float: left;
+	width: 100%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6;
+}
+
+#right {
+	width: 100%;
+	float: right;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6;
+	overflow: auto;
+}
+
+#tree {
+	background-color: #F1F1F1;
+}

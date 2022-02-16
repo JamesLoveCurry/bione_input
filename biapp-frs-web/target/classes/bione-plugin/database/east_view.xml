@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+<view name="V_EAST_CR_SUMMARY1" descr="V_EAST_CR_SUMMARY1">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY1 AS
+SELECT
+    tab_name,
+    sum(pass_count)+sum(fail_count) sum_count,
+    sum(fail_count) fail_count,
+    case when sum(pass_count)+sum(fail_count)=0 then '' else to_char(ROUND(sum(fail_count)/(sum(pass_count)+sum(fail_count)),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    data_dt,
+	org_no,
+	busi_type
+FROM
+    (
+        SELECT
+            tab_name,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt,
+			org_no,
+			busi_type
+        FROM
+            east_cr_tab_summary
+        GROUP BY
+            tab_name,
+            data_dt,
+			org_no,
+			busi_type) summary
+GROUP BY
+	org_no,
+	tab_name,
+	data_dt,
+	busi_type
+ORDER BY
+    data_dt DESC,
+    fail_count DESC
+</view>
+
+<view name="V_EAST_CR_SUMMARY2" descr="V_EAST_CR_SUMMARY2">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY2 AS
+SELECT
+    data_dt,
+	org.org_no,
+    org.org_nm,
+    pass_count+fail_count sum_count,
+    fail_count,
+	case when pass_count+fail_count=0 then '' else to_char(ROUND(fail_count/(pass_count+fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    tab_name,
+    busi_type
+FROM
+    (
+        SELECT
+            org_no,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt,
+            tab_name,
+            busi_type
+        FROM
+            east_cr_tab_summary
+        GROUP BY
+            org_no,
+            data_dt,
+            tab_name,
+            busi_type
+        ORDER BY
+            data_dt DESC,
+            fail_count DESC) summary
+LEFT JOIN
+    rpt_org_info org
+ON
+    summary.org_no=org.org_no
+AND org.org_type='04'
+ORDER BY
+    data_dt DESC,
+    fail_count DESC
+</view>
+
+<!-- <view name="V_EAST_CR_SUMMARY3" descr="V_EAST_CR_SUMMARY3">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY3 AS
+SELECT
+	summary.dept_no,
+    org.line_nm,
+    pass_count+fail_count sum_count,
+    fail_count,
+    case when pass_count+fail_count=0 then '' else to_char(ROUND(fail_count/(pass_count+fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    data_dt,
+    tab_name
+FROM
+    (
+        SELECT
+            dept_no,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt,
+            tab_name
+        FROM
+            east_cr_tab_summary
+        GROUP BY
+            dept_no,
+            data_dt,
+            tab_name
+        ORDER BY
+            data_dt DESC,
+            fail_count DESC) summary
+LEFT JOIN
+    RPT_MGR_BUSI_LINE org
+ON
+    summary.dept_no=org.line_id
+</view> -->
+
+<view name="V_EAST_CR_SUMMARY4" descr="V_EAST_CR_SUMMARY4">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY4 AS
+SELECT
+    ru.col_name,
+    pass_count+fail_count sum_count,
+    fail_count,
+    case when pass_count+fail_count=0 then '' else to_char(ROUND(fail_count/(pass_count+fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    data_dt,
+    ru.tab_name
+FROM
+    (
+        SELECT
+            rule_id,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt
+        FROM
+            east_cr_rule_summary
+        GROUP BY
+            rule_id,
+            data_dt
+        ORDER BY
+            data_dt DESC,
+            fail_count DESC) summary
+LEFT JOIN
+    east_cr_rule ru
+ON
+    summary.rule_id=ru.id
+</view>
+
+<!-- <view name="V_EAST_CR_SUMMARY5" descr="V_EAST_CR_SUMMARY5">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY5 AS
+SELECT
+    src_sys,
+    pass_count+fail_count sum_count,
+    fail_count,
+    case when pass_count+fail_count=0 then '' else to_char(ROUND(fail_count/(pass_count+fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    data_dt,
+    tab_name
+FROM
+    (
+        SELECT
+            src_sys,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt,
+            tab_name
+        FROM
+            east_cr_tab_summary
+        GROUP BY
+            src_sys,
+            data_dt,
+            tab_name) summary
+ORDER BY
+    data_dt DESC,
+    fail_count DESC
+</view> -->
+
+<view name="V_EAST_CR_SUMMARY6" descr="V_EAST_CR_SUMMARY6">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY6 AS
+SELECT
+    org.org_no,
+    org.org_nm,
+    pass_count+fail_count sum_count,
+    fail_count,
+	case when pass_count+fail_count=0 then '' else to_char(ROUND(fail_count/(pass_count+fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    data_dt,
+    tab_name,
+	busi_type
+FROM
+    (
+        SELECT
+            org_no,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt,
+            tab_name,
+			busi_type
+        FROM
+            east_cr_tab_summary
+        GROUP BY
+            org_no,
+            data_dt,
+            tab_name,
+			busi_type
+        ORDER BY
+            data_dt DESC,
+            fail_count DESC) summary
+LEFT JOIN
+    rpt_org_info org
+ON
+    summary.org_no=org.org_no
+and org.org_type = '04'
+ORDER BY
+    data_dt DESC,
+    fail_count DESC
+</view>
+
+<!-- <view name="V_EAST_CR_SUMMARY7" descr="V_EAST_CR_SUMMARY7">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY7 AS
+SELECT
+	summary.dept_no,
+    org.line_nm,
+    pass_count+fail_count sum_count,
+    fail_count,
+	case when pass_count+fail_count=0 then '' else to_char(ROUND(fail_count/(pass_count+fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    data_dt,
+    tab_name
+FROM
+    (
+        SELECT
+            dept_no,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt,
+            tab_name
+        FROM
+            east_cr_tab_summary
+        GROUP BY
+            dept_no,
+            data_dt,
+            tab_name
+        ORDER BY
+            data_dt desc,
+            fail_count DESC) summary
+LEFT JOIN
+    RPT_MGR_BUSI_LINE org
+ON
+    summary.dept_no=org.line_id
+</view> -->
+
+<view name="V_EAST_CR_SUMMARY8" descr="V_EAST_CR_SUMMARY8">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY8 AS
+SELECT
+    ru.col_name,
+    pass_count+fail_count sum_count,
+    fail_count,
+	case when pass_count+fail_count=0 then '' else to_char(ROUND(fail_count/(pass_count+fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    data_dt,
+    summary.tab_name
+FROM
+    (
+        SELECT
+            rule_id,
+            SUM(pass_count) pass_count,
+            SUM(fail_count) fail_count,
+            data_dt,
+            tab_name
+        FROM
+            east_cr_rule_summary
+        GROUP BY
+            rule_id,
+            data_dt,
+            tab_name
+        ORDER BY
+            data_dt DESC,
+            fail_count DESC) summary
+LEFT JOIN
+    east_cr_rule ru
+ON
+    summary.rule_id=ru.id
+</view>
+
+<view name="V_EAST_CR_SUMMARY_RULE" descr="V_EAST_CR_SUMMARY_RULE">
+CREATE OR REPLACE VIEW V_EAST_CR_SUMMARY_RULE AS
+SELECT
+    s.data_dt,
+    s.rule_id,
+	r.report_no,
+    r.rule_name,
+    r.tab_name,
+    col_name,
+    r.type_cd,
+	r.disp_cd,
+    r.weight,
+    s.pass_count+s.fail_count sum_count,
+    s.fail_count,
+    case when s.pass_count+s.fail_count=0 then '' else to_char(ROUND(s.fail_count/(s.pass_count+s.fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    s.create_tm,
+    s.rid,
+	s.org_no,
+	r.rule_source,
+	s.busi_type
+FROM
+    east_cr_rule_summary s
+LEFT JOIN
+    east_cr_rule r
+ON
+    s.rule_id = r.id
+</view>
+
+<!-- <view name="V_EAST_CR_TAB_SUMMARY_1" descr="V_EAST_CR_TAB_SUMMARY_1">
+CREATE OR REPLACE VIEW V_EAST_CR_TAB_SUMMARY_1 AS
+SELECT
+    t1.rid,
+    t1.data_dt,
+    t1.tab_name,
+    t1.org_no,
+    t2.org_nm,
+    t1.dept_no,
+    t3.line_nm dept_nm,
+    t1.src_sys,
+    t1.pass_count+t1.fail_count sum_count,
+    t1.fail_count,
+    case when t1.pass_count+t1.fail_count=0 then '' else to_char(ROUND(t1.fail_count/(t1.pass_count+t1.fail_count),4)*100,'FM999990.00')||'%' end AS fail_rate,
+    t1.create_tm
+FROM
+    east_cr_tab_summary t1
+LEFT JOIN
+    rpt_org_info t2
+ON
+    (
+    t1.org_no = t2.org_no
+    AND t2.org_type='04')
+LEFT JOIN
+    rpt_mgr_busi_line t3
+ON
+    t1.dept_no=t3.line_id
+</view> -->
+
+<view name="v_east_cr_log" descr="v_east_cr_log">
+CREATE OR REPLACE VIEW V_EAST_CR_LOG AS
+SELECT
+	t2.rid,
+	t1.task_id,
+	t1.task_type,
+	t1.task_name,
+	t1.rule_ids,
+	t1.rule_name,
+	t1.tab_names,
+	t1.status,
+	t2.data_dt,
+	t2.log_level,
+	t2.log_cont,
+	t2.create_tm,
+	t2.log_no
+FROM
+	east_cr_task t1,
+	east_cr_log t2
+WHERE
+	t1.task_id = t2.task_id
+</view>
+
+<view name="NATIONALITY_VIEW" descr="NATIONALITY_VIEW">
+CREATE OR REPLACE VIEW NATIONALITY_VIEW AS
+SELECT
+	dim_item_no nationality
+FROM
+	rpt_dim_item_info
+WHERE
+	dim_type_no = 'NATIONALITY'
+</view>
+
+<!-- <view name="EAST_CR_DS" descr="EAST_CR_DS">
+CREATE OR REPLACE VIEW EAST_CR_DS AS
+SELECT t.ds_name, 'oracle.jdbc.driver.OracleDriver' ds_driver, t.conn_url ds_url, UPPER(t.conn_user) ds_schema, t.conn_user ds_username, t.conn_pwd ds_password, 'com.yusys.review.dialect.Oracle' ds_dialect
+FROM bione_ds_info t
+WHERE EXISTS (SELECT * FROM east_cr_tab WHERE ds_name = t.ds_name)
+</view> -->
+
+<view name="CURRENCY_VIEW" descr="CURRENCY_VIEW">
+CREATE OR REPLACE VIEW CURRENCY_VIEW AS
+SELECT
+	dim_item_no currency
+FROM
+	rpt_dim_item_info
+WHERE
+	dim_type_no = 'CURRENCY'
+</view>
+
+<view name="BANK_VIEW" descr="BANK_VIEW">
+CREATE OR REPLACE VIEW BANK_VIEW AS
+SELECT
+	item bank_code,
+	item_name bank_name
+FROM
+	rpt_std_code_info
+WHERE
+	rpt_type = '08'
+AND code_type = 'RPT_BANK_INFO'
+</view>
+
+<view name="V_EAST_CR_SUMMARY_ADDR" descr="V_EAST_CR_SUMMARY_ADDR">
+    CREATE VIEW
+    V_EAST_CR_SUMMARY_ADDR
+    (
+    TAB_NAME,
+    SUM_COUNT,
+    FAIL_COUNT,
+    FAIL_RATE,
+    DATA_DT,
+    ADDR,
+    BUSI_TYPE
+    ) AS
+    SELECT
+    tab_name,
+    SUM(pass_count)+SUM(fail_count) sum_count,
+    SUM(fail_count)                 fail_count,
+    CASE
+    WHEN SUM(pass_count)+SUM(fail_count)=0
+    THEN ''
+    ELSE TO_CHAR(ROUND(SUM(fail_count)/(SUM(pass_count)+SUM(fail_count)),4)*100,'FM999990.00')
+    ||'%'
+    END AS fail_rate,
+    data_dt,
+    dim1,
+    busi_type
+    FROM
+    (
+    SELECT
+    tab_name,
+    SUM(pass_count) pass_count,
+    SUM(fail_count) fail_count,
+    data_dt,
+    dim1,
+    busi_type
+    FROM
+    east_cr_tab_summary
+    GROUP BY
+    tab_name,
+    data_dt,
+    dim1,
+    busi_type) summary
+    GROUP BY
+    dim1,
+    tab_name,
+    data_dt,
+    busi_type
+    ORDER BY
+    data_dt DESC,
+    fail_count DESC
+</view>
+
+<view name="V_EAST_CR_SUMMARY_RULE_ADDR" descr="V_EAST_CR_SUMMARY_RULE_ADDR">
+    CREATE VIEW
+    V_EAST_CR_SUMMARY_RULE_ADDR
+    (
+    DATA_DT,
+    RULE_ID,
+    REPORT_NO,
+    RULE_NAME,
+    TAB_NAME,
+    COL_NAME,
+    TYPE_CD,
+    DISP_CD,
+    WEIGHT,
+    SUM_COUNT,
+    FAIL_COUNT,
+    FAIL_RATE,
+    CREATE_TM,
+    RID,
+    ADDR,
+    RULE_SOURCE,
+    BUSI_TYPE
+    ) AS
+    SELECT
+    s.data_dt,
+    s.rule_id,
+    r.report_no,
+    r.rule_name,
+    r.tab_name,
+    col_name,
+    r.type_cd,
+    r.disp_cd,
+    r.weight,
+    s.pass_count+s.fail_count sum_count,
+    s.fail_count,
+    CASE
+    WHEN s.pass_count+s.fail_count=0
+    THEN ''
+    ELSE TO_CHAR(ROUND(s.fail_count/(s.pass_count+s.fail_count),4)*100,'FM999990.00')||'%'
+    END AS fail_rate,
+    s.create_tm,
+    s.rid,
+    s.dim1,
+    r.rule_source,
+    s.busi_type
+    FROM
+    east_cr_rule_summary s
+    LEFT JOIN
+    east_cr_rule r
+    ON
+    s.rule_id = r.id
+</view>
+<view ame="V_EAST_CR_SUMMARY_ISSUED_NO" descr="V_EAST_CR_SUMMARY_ISSUED_NO">
+    CREATE VIEW
+    V_EAST_CR_SUMMARY_ISSUED_NO
+    (
+    TAB_NAME,
+    SUM_COUNT,
+    FAIL_COUNT,
+    FAIL_RATE,
+    DATA_DT,
+    ISSUED_NO,
+    BUSI_TYPE
+    ) AS
+    SELECT
+    tab_name,
+    SUM(pass_count)+SUM(fail_count) sum_count,
+    SUM(fail_count)                 fail_count,
+    CASE
+    WHEN SUM(pass_count)+SUM(fail_count)=0
+    THEN ''
+    ELSE TO_CHAR(ROUND(SUM(fail_count)/(SUM(pass_count)+SUM(fail_count)),4)*100,'FM999990.00')
+    ||'%'
+    END AS fail_rate,
+    data_dt,
+    dim2,
+    busi_type
+    FROM
+    (
+    SELECT
+    tab_name,
+    SUM(pass_count) pass_count,
+    SUM(fail_count) fail_count,
+    data_dt,
+    dim2,
+    busi_type
+    FROM
+    east_cr_tab_summary
+    GROUP BY
+    tab_name,
+    data_dt,
+    dim2,
+    busi_type) summary
+    GROUP BY
+    dim2,
+    tab_name,
+    data_dt,
+    busi_type
+    ORDER BY
+    data_dt DESC,
+    fail_count DESC
+</view>
+<view name="V_EAST_CR_SUMMARY_RULE_ISSU" descr="V_EAST_CR_SUMMARY_RULE_ISSU">
+    CREATE VIEW V_EAST_CR_SUMMARY_RULE_ISSU
+    (
+    DATA_DT,
+    RULE_ID,
+    REPORT_NO,
+    RULE_NAME,
+    TAB_NAME,
+    COL_NAME,
+    TYPE_CD,
+    DISP_CD,
+    WEIGHT,
+    SUM_COUNT,
+    FAIL_COUNT,
+    FAIL_RATE,
+    CREATE_TM,
+    RID,
+    ISSUED_NO,
+    RULE_SOURCE,
+    BUSI_TYPE
+    ) AS
+    SELECT
+    s.data_dt,
+    s.rule_id,
+    r.report_no,
+    r.rule_name,
+    r.tab_name,
+    col_name,
+    r.type_cd,
+    r.disp_cd,
+    r.weight,
+    s.pass_count+s.fail_count sum_count,
+    s.fail_count,
+    CASE
+    WHEN s.pass_count+s.fail_count=0
+    THEN ''
+    ELSE TO_CHAR(ROUND(s.fail_count/(s.pass_count+s.fail_count),4)*100,'FM999990.00')||'%'
+    END AS fail_rate,
+    s.create_tm,
+    s.rid,
+    s.dim2,
+    r.rule_source,
+    s.busi_type
+    FROM
+    east_cr_rule_summary s
+    LEFT JOIN
+    east_cr_rule r
+    ON
+    s.rule_id = r.id
+</view>
+</root>
+

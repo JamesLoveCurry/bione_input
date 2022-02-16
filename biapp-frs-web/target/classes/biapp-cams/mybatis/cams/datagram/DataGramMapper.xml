@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.cams.datagramtask.repository.CamsDatagramTaskDao">	
+	
+	<!-- 删除个人账户信息报送表 -->
+    <delete id="deleteCamsIndvAcctM" parameterType="HashMap">
+		delete from CAMS_INDV_ACCT_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+    
+    <!-- 删除个人名称信息报送表 -->
+    <delete id="deleteCamsIndvNameM" parameterType="HashMap">
+		delete from CAMS_INDV_NAME_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+	
+    <!-- 删除个人地址信息报送表 -->
+    <delete id="deleteCamsIndvAddrM" parameterType="HashMap">
+		delete from CAMS_INDV_ADDR_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+	
+    <!-- 删除个人TIN信息报送表 -->
+    <delete id="deleteCamsIndvTinM" parameterType="HashMap">
+		delete from CAMS_INDV_TIN_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+	
+	<!-- 删除机构账户信息报送表"-->
+    <delete id="deleteCamsCorpAcctM" parameterType="HashMap">
+		delete from CAMS_CORP_ACCT_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+    
+   	<!-- 删除机构名称信息报送表"-->
+    <delete id="deleteCamsCorpNameM" parameterType="HashMap">
+		delete from CAMS_CORP_NAME_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+	
+   	<!-- 删除机构名称地址报送表"-->
+    <delete id="deleteCamsCorpAddrM" parameterType="HashMap">
+		delete from CAMS_CORP_ADDR_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+    
+   	<!-- 删除机构TIN信息报送表"-->
+    <delete id="deleteCamsCorpTinM" parameterType="HashMap">
+		delete from CAMS_CORP_TIN_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+       
+   	<!-- 删除机构控制人信息报送表"-->
+    <delete id="deleteCamsCorpCtrlM" parameterType="HashMap">
+		delete from CAMS_CORP_CTRL_M where docrefid IN
+        <foreach  collection = "docrefids" index="index" item="docrefid"  open="("  separator="," close=")">
+              #{docrefid}               
+        </foreach> 
+    </delete>
+    
+    <!-- 删除机构控制人信息报送表"-->
+    <delete id="deleteCamsCrReportAcctRel" parameterType="HashMap">
+		delete from CAMS_CR_REPORT_ACCT_REL where rid = #{rid}
+    </delete>
+    
+    <!-- 删除报文记录信息"-->
+    <delete id="deleteCamsCrReport" parameterType="HashMap">
+		delete from CAMS_CR_REPORT where rid = #{rid}
+    </delete>
+    
+    <select id="findAllCamsIndvAcct" resultType="com.yusys.cams.datagramtask.entity.CamsIndvAcctM">
+		SELECT 
+			rid,
+			data_dt,
+			clct_mode,
+			doc_type_indic,
+			account_number,
+			first_name,
+			last_name,
+			closed_account,
+			due_diligence_ind,
+			self_certification,
+			account_balance,
+			bal_curr_code,
+			account_holder_type,
+			opening_fin_name,
+			payment_type,
+			payment_amt,
+			payment_curr_code,
+			gender,
+			phone_no,
+			id_type,
+			id_number,
+			res_country_code,
+			nationality,
+			birth_date,
+			birth_city,
+			birth_country_code,
+			former_country_name,
+			explanation,
+			status,
+			org_no,
+			user_name,
+    		'1' as revise_status 
+		FROM cams_indv_acct
+		<if test="dueDiligenceInd != null">
+			WHERE due_diligence_ind = #{dueDiligenceInd}
+		</if>
+	</select>
+	
+    <select id="findAllCamsCorpAcctM" resultType="com.yusys.cams.datagramtask.entity.CamsCorpAcctM">
+		SELECT 
+			rid,
+			data_dt,
+			clct_mode,
+			doc_type_indic,
+			account_number,
+			organ_name_en,
+			closed_account,
+			due_diligence_ind,
+			self_certification,
+			account_balance,
+			bal_curr_code,
+			account_holder_type,
+			opening_fin_name,
+			payment_type,
+			payment_amt,
+			payment_curr_code,
+			phone_no,
+			res_country_code,
+			explanation,
+			status,
+			org_no,
+			user_name,
+			create_time,
+    		'1' as revise_status
+		FROM cams_corp_acct
+		<if test="dueDiligenceInd != null">
+			WHERE due_diligence_ind = #{dueDiligenceInd}
+		</if>
+	</select>
+	
+	<insert id="insertCamsIndvNameM" parameterType="HashMap">
+		insert into CAMS_INDV_NAME_M (
+			RID, 
+			DATA_TYPE, 
+			DATA_ID, 
+			NAME_TYPE, 
+			FIRST_NAME, 
+			MIDDLE_NAME, 
+			LAST_NAME, 
+			NAME_CN, 
+			PRECEDING_TITLE, 
+			TITLE, 
+			NAME_PREFIX, 
+			GENERATION_IDENTIFIER, 
+			SUFFIX, 
+			GENERAL_SUFFIX, 
+			DOCREFID,
+			REVISE_STATUS
+		) 		
+		select 
+			NAME.RID, 
+			NAME.DATA_TYPE, 
+			NAME.DATA_ID, 
+			NAME.NAME_TYPE, 
+			NAME.FIRST_NAME, 
+			NAME.MIDDLE_NAME, 
+			NAME.LAST_NAME, 
+			NAME.NAME_CN, 
+			NAME.PRECEDING_TITLE, 
+			NAME.TITLE, 
+			NAME.NAME_PREFIX, 
+			NAME.GENERATION_IDENTIFIER, 
+			NAME.SUFFIX, 
+			NAME.GENERAL_SUFFIX, 
+			ACCT.DOCREFID,
+		    '1' as REVISE_STATUS
+		from CAMS_INDV_ACCT_M ACCT left join CAMS_INDV_NAME NAME on ACCT.rid = NAME.data_id
+		where NAME.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCamsIndvAddrM" parameterType="HashMap">
+		insert into CAMS_INDV_ADDR_M (
+			RID, 
+			DATA_TYPE, 
+			DATA_ID, 
+			LEGAL_ADDRESS_TYPE, 
+			COUNTRY_CODE, 
+			CITY_EN, 
+			STREET_EN, 
+			BUILDING_IDENTIFIER_EN, 
+			SUITE_IDENTIFIER_EN, 
+			FLOOR_IDENTIFIER_EN, 
+			DISTRICT_NAME_EN, 
+			POB_EN, 
+			POST_CODE_EN, 
+			COUNTRY_SUBENTITY_EN, 
+			ADDRESS_FREE_EN, 
+			PROVINCE_CN, 
+			CITY_CN, 
+			DISTRICT_CN, 
+			POST_CODE_CN, 
+			ADDRESS_FREE_CN, 
+			DOCREFID,
+			REVISE_STATUS
+		) 
+		select 
+			ADDR.RID, 
+			ADDR.DATA_TYPE, 
+			ADDR.DATA_ID, 
+			ADDR.LEGAL_ADDRESS_TYPE, 
+			ADDR.COUNTRY_CODE, 
+			ADDR.CITY_EN, 
+			ADDR.STREET_EN, 
+			ADDR.BUILDING_IDENTIFIER_EN, 
+			ADDR.SUITE_IDENTIFIER_EN, 
+			ADDR.FLOOR_IDENTIFIER_EN, 
+			ADDR.DISTRICT_NAME_EN, 
+			ADDR.POB_EN, 
+			ADDR.POST_CODE_EN, 
+			ADDR.COUNTRY_SUBENTITY_EN, 
+			ADDR.ADDRESS_FREE_EN, 
+			ADDR.PROVINCE_CN, 
+			ADDR.CITY_CN, 
+			ADDR.DISTRICT_CN, 
+			ADDR.POST_CODE_CN, 
+			ADDR.ADDRESS_FREE_CN, 
+			ACCT.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_INDV_ACCT_M ACCT left join CAMS_INDV_ADDR ADDR  on ADDR.data_id = ACCT.rid
+		where ADDR.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCamsIndvTinM" parameterType="HashMap">
+		insert into CAMS_INDV_TIN_M (
+			RID,
+			DATA_TYPE,
+			DATA_ID,
+			ISSUED_BY,
+			IN_TYPE,
+			TIN,
+			DOCREFID,
+        	REVISE_STATUS
+		)
+		select 
+			TIN.RID,
+			TIN.DATA_TYPE,
+			TIN.DATA_ID,
+			TIN.ISSUED_BY,
+			TIN.IN_TYPE,
+			TIN.TIN, 
+			ACCT.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_INDV_ACCT_M ACCT left join CAMS_INDV_TIN TIN on TIN.data_id = ACCT.rid
+		where TIN.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCamsCorpNameM" parameterType="HashMap">
+		insert into CAMS_CORP_NAME_M (
+			RID,
+			ACCOUNT_NUMBER,
+			NAME_TYPE,
+			ORGAN_NAME_EN,
+			ORGAN_NAME_CN,
+			DOCREFID,
+       		REVISE_STATUS
+		) 
+		select 
+			NAME.RID,
+			NAME.ACCOUNT_NUMBER,
+			NAME.NAME_TYPE,
+			NAME.ORGAN_NAME_EN,
+			NAME.ORGAN_NAME_CN,
+			ACCT.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_CORP_ACCT_M ACCT left join CAMS_CORP_NAME NAME on NAME.account_number = ACCT.account_number
+		where NAME.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCamsCorpAddrM" parameterType="HashMap">
+		insert into CAMS_CORP_ADDR_M (
+			RID,
+			ACCOUNT_NUMBER,
+			LEGAL_ADDRESS_TYPE,
+			COUNTRY_CODE,
+			CITY_EN,
+			STREET_EN,
+			BUILDING_IDENTIFIER_EN,
+			SUITE_IDENTIFIER_EN,
+			FLOOR_IDENTIFIER_EN,
+			DISTRICT_NAME_EN,
+			POB_EN,
+			POST_CODE_EN,
+			COUNTRY_SUBENTITY_EN,
+			ADDRESS_FREE_EN,
+			PROVINCE_CN,
+			CITY_CN,
+			DISTRICT_CN,
+			POST_CODE_CN,
+			ADDRESS_FREE_CN,
+			DOCREFID,
+        	REVISE_STATUS
+		)
+		select 
+			ADDR.RID,
+			ADDR.ACCOUNT_NUMBER,
+			ADDR.LEGAL_ADDRESS_TYPE,
+			ADDR.COUNTRY_CODE,
+			ADDR.CITY_EN,
+			ADDR.STREET_EN,
+			ADDR.BUILDING_IDENTIFIER_EN,
+			ADDR.SUITE_IDENTIFIER_EN,
+			ADDR.FLOOR_IDENTIFIER_EN,
+			ADDR.DISTRICT_NAME_EN,
+			ADDR.POB_EN,
+			ADDR.POST_CODE_EN,
+			ADDR.COUNTRY_SUBENTITY_EN,
+			ADDR.ADDRESS_FREE_EN,
+			ADDR.PROVINCE_CN,
+			ADDR.CITY_CN,
+			ADDR.DISTRICT_CN,
+			ADDR.POST_CODE_CN,
+			ADDR.ADDRESS_FREE_CN,
+			ACCT.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_CORP_ACCT_M ACCT left join CAMS_CORP_ADDR ADDR on ADDR.account_number = ACCT.account_number
+		where ADDR.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCamsCorpTinM" parameterType="HashMap">
+		insert into CAMS_CORP_TIN_M (
+			RID,
+			ACCOUNT_NUMBER,
+			ISSUED_BY,
+			IN_TYPE,
+			TIN,
+			DOCREFID,
+        	REVISE_STATUS
+		) 
+		select 
+			TIN.RID,
+			TIN.ACCOUNT_NUMBER,
+			TIN.ISSUED_BY,
+			TIN.IN_TYPE,
+			TIN.TIN,
+			ACCT.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_CORP_ACCT_M ACCT left join CAMS_CORP_TIN TIN on TIN.account_number = ACCT.account_number
+		where TIN.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCamsCorpCtrlM" parameterType="HashMap">
+		insert into CAMS_CORP_CTRL_M (
+			RID,
+			ACCOUNT_NUMBER,
+			CTRL_PERSON_TYPE,
+			FIRST_NAME,
+			LAST_NAME,
+			RES_COUNTRY_CODE,
+			NATIONALITY,
+			BIRTH_DATE,
+			BIRTH_CITY,
+			BIRTH_COUNTRY_CODE,
+			FORMER_COUNTRY_NAME,
+			EXPLANATION,
+			DOCREFID,
+        	REVISE_STATUS
+		) 
+		select 
+			CTRL.RID,
+			CTRL.ACCOUNT_NUMBER,
+			CTRL.CTRL_PERSON_TYPE,
+			CTRL.FIRST_NAME,
+			CTRL.LAST_NAME,
+			CTRL.RES_COUNTRY_CODE,
+			CTRL.NATIONALITY,
+			CTRL.BIRTH_DATE,
+			CTRL.BIRTH_CITY,
+			CTRL.BIRTH_COUNTRY_CODE,
+			CTRL.FORMER_COUNTRY_NAME,
+			CTRL.EXPLANATION,
+			ACCT.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_CORP_ACCT_M ACCT left join CAMS_CORP_CTRL CTRL on CTRL.account_number = ACCT.account_number
+		where CTRL.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCtrlCamsIndvNameM" parameterType="HashMap">
+		insert into CAMS_INDV_NAME_M (
+			RID, 
+			DATA_TYPE, 
+			DATA_ID, 
+			NAME_TYPE, 
+			FIRST_NAME, 
+			MIDDLE_NAME, 
+			LAST_NAME, 
+			NAME_CN, 
+			PRECEDING_TITLE, 
+			TITLE, 
+			NAME_PREFIX, 
+			GENERATION_IDENTIFIER, 
+			SUFFIX, 
+			GENERAL_SUFFIX, 
+			DOCREFID,
+        	REVISE_STATUS
+		)
+		select 
+			NAME.RID, 
+			NAME.DATA_TYPE, 
+			NAME.DATA_ID, 
+			NAME.NAME_TYPE, 
+			NAME.FIRST_NAME, 
+			NAME.MIDDLE_NAME, 
+			NAME.LAST_NAME, 
+			NAME.NAME_CN, 
+			NAME.PRECEDING_TITLE, 
+			NAME.TITLE, 
+			NAME.NAME_PREFIX, 
+			NAME.GENERATION_IDENTIFIER, 
+			NAME.SUFFIX, 
+			NAME.GENERAL_SUFFIX, 
+			CTRL.DOCREFID,
+   	 		'1' as REVISE_STATUS
+		from CAMS_CORP_CTRL_M CTRL left join CAMS_INDV_NAME NAME on CTRL.RID = NAME.DATA_ID 
+		left join CAMS_CORP_ACCT_M ACCT on CTRL.account_number = ACCT.account_number
+		where NAME.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCtrlCamsIndvAddrM" parameterType="HashMap">
+		insert into CAMS_INDV_ADDR_M (
+			RID, 
+			DATA_TYPE, 
+			DATA_ID, 
+			LEGAL_ADDRESS_TYPE, 
+			COUNTRY_CODE, 
+			CITY_EN, 
+			STREET_EN, 
+			BUILDING_IDENTIFIER_EN, 
+			SUITE_IDENTIFIER_EN, 
+			FLOOR_IDENTIFIER_EN, 
+			DISTRICT_NAME_EN, 
+			POB_EN, 
+			POST_CODE_EN, 
+			COUNTRY_SUBENTITY_EN, 
+			ADDRESS_FREE_EN, 
+			PROVINCE_CN, 
+			CITY_CN, 
+			DISTRICT_CN, 
+			POST_CODE_CN, 
+			ADDRESS_FREE_CN, 
+			DOCREFID,
+        	REVISE_STATUS
+		)
+		select 
+			ADDR.RID, 
+			ADDR.DATA_TYPE, 
+			ADDR.DATA_ID, 
+			ADDR.LEGAL_ADDRESS_TYPE, 
+			ADDR.COUNTRY_CODE, 
+			ADDR.CITY_EN, 
+			ADDR.STREET_EN, 
+			ADDR.BUILDING_IDENTIFIER_EN, 
+			ADDR.SUITE_IDENTIFIER_EN, 
+			ADDR.FLOOR_IDENTIFIER_EN, 
+			ADDR.DISTRICT_NAME_EN, 
+			ADDR.POB_EN, 
+			ADDR.POST_CODE_EN, 
+			ADDR.COUNTRY_SUBENTITY_EN, 
+			ADDR.ADDRESS_FREE_EN, 
+			ADDR.PROVINCE_CN, 
+			ADDR.CITY_CN, 
+			ADDR.DISTRICT_CN, 
+			ADDR.POST_CODE_CN, 
+			ADDR.ADDRESS_FREE_CN, 
+			CTRL.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_CORP_CTRL_M CTRL left join CAMS_INDV_ADDR ADDR on CTRL.RID = ADDR.DATA_ID
+		left join CAMS_CORP_ACCT_M ACCT on CTRL.account_number = ACCT.account_number
+		where ADDR.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+	<insert id="insertCtrlCamsIndvTinM" parameterType="HashMap">
+		insert into CAMS_INDV_TIN_M (
+			RID,
+			DATA_TYPE,
+			DATA_ID,
+			ISSUED_BY,
+			IN_TYPE,
+			TIN,
+			DOCREFID,
+        	REVISE_STATUS
+		)
+		select 
+			TIN.RID,
+			TIN.DATA_TYPE,
+			TIN.DATA_ID,
+			TIN.ISSUED_BY,
+			TIN.IN_TYPE,
+			TIN.TIN, 
+			CTRL.DOCREFID,
+    		'1' as REVISE_STATUS
+		from CAMS_CORP_CTRL_M CTRL left join CAMS_INDV_TIN TIN on CTRL.RID = TIN.DATA_ID
+		left join CAMS_CORP_ACCT_M ACCT on CTRL.account_number = ACCT.account_number
+		where TIN.RID is not null
+		<if test="dueDiligenceInd != null">
+			and ACCT.DUE_DILIGENCE_IND = #{dueDiligenceInd}
+		</if>
+	</insert>
+	
+    <select id="findCamsIndvAcctM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsIndvAcctM">
+		select * from CAMS_INDV_ACCT_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+    <select id="findCamsIndvNameM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsIndvNameM">
+		select * from CAMS_INDV_NAME_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+    <select id="findCamsIndvAddrM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsIndvAddrM">
+		select * from CAMS_INDV_ADDR_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+    <select id="findCamsIndvTinM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsIndvTinM">
+		select * from CAMS_INDV_TIN_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+    <select id="findCamsCorpAcctM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsCorpAcctM">
+		select * from CAMS_CORP_ACCT_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+    <select id="findCamsCorpNameM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsCorpNameM">
+		select * from CAMS_CORP_NAME_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+    <select id="findCamsCorpAddrM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsCorpAddrM">
+		select * from CAMS_CORP_ADDR_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+    <select id="findCamsCorpTinM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsCorpTinM">
+		select * from CAMS_CORP_TIN_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+    <select id="findCamsCorpCtrlM" parameterType="HashMap" resultType="com.yusys.cams.datagramtask.entity.CamsCorpCtrlM">
+		select * from CAMS_CORP_CTRL_M 
+		<if test="docrefidLists != null">
+			where (DOCREFID in
+			<foreach item="docrefidList" collection="docrefidLists" separator=" or DOCREFID in ">
+				<foreach collection="docrefidList" item="docrefidListss" open="("
+					separator="," close=")">
+					#{docrefidListss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+</mapper> 

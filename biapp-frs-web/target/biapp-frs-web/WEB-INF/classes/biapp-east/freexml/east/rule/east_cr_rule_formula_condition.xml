@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+	<item name="前置条件-某字段值" descr="某个字段必须等于某个常量,比如机构='001'">字段中文名=='001'</item>
+	<item name="前置条件-金额大于" descr="某金额字段必须大于或小于某个值">贷款逾期余额 > 0.0</item>
+	<item name="前置条件-多个条件" descr="几个条件组合"><![CDATA[员工标志 == '是' && 证件类别 == '居民身份证']]></item>
+	<item name="前置条件-in某个范围" descr="某个字段必须在某些范围内">IN(贷款状态, '正常', '逾期')</item>
+
+</root>

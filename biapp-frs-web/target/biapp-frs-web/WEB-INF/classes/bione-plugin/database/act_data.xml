@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<firstinstall descr="首次安装的表数据">
+		<table name="act_ge_property">系统参数</table>
+	</firstinstall>
+
+	<upgrade descr="升级安装的表数据">
+	</upgrade>
+</root>

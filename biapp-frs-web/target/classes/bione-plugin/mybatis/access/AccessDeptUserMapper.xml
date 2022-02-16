@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yusys.bione.plugin.access.repository.RptAccessReportDao">
+
+	<select id="search"
+		resultType="com.yusys.bione.plugin.access.web.vo.DeptUserAccessVO"
+		parameterType="HashMap">
+		SELECT
+    		t1.rpt_id,
+    		report.rpt_nm,
+   			pv,
+    		uv
+		FROM
+    (
+        SELECT
+            rpt_id,
+            COUNT(*)                 pv,
+            COUNT(DISTINCT(user_id)) uv
+        FROM
+            RPT_MGR_REPORT_HIS his
+        where 1=1
+        <if test="startAccess != null">
+			and access_date >= #{startAccess}</if>
+		<if test="endAccess != null">
+			and access_date &lt;= #{endAccess}</if>
+        GROUP BY
+            rpt_id) t1,
+    		RPT_MGR_REPORT_INFO report
+		where	
+    	report.rpt_id = t1.rpt_id
+    	<if test="rptNm != null">
+    		and report.rpt_nm like #{rptNm}
+    	</if>
+	</select>
+
+	<select id="findInfo"
+		resultType="com.yusys.bione.plugin.access.web.vo.RptUserAccessVO"
+		parameterType="HashMap">
+		SELECT
+    		his.user_id,
+    		user_name,
+    		user_no,
+    		access_time,
+    		access_ip
+		FROM
+    		rpt_mgr_report_his his
+		LEFT JOIN
+   			bione_user_info info
+		ON
+    		info.user_id = his.user_id
+    	where 1=1
+    	<if test="rptId != null">and his.rpt_id = #{rptId}</if>
+    	<if test="userNo != null">and user.user_no like #{userNo}</if>
+    	<if test="userName != null">and user.user_name like #{userName}</if>
+    	<if test="startDate != null">
+			and access_date >= #{startDate}
+		</if>
+		<if test="endDate != null">
+			and access_date &lt;= #{endDate}
+		</if> 
+	</select>
+</mapper> 

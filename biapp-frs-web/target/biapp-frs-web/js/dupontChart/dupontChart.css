@@ -1,0 +1,71 @@
+@font-face {
+  font-family: 'Glyphicons Halflings';   /*字体名称*/
+  src: url('glyphicons-halflings-regular.ttf');       /*字体源文件*/
+}
+.dupont-horizontal-line {
+	height: 1px;
+	position: absolute;
+}
+
+.dupont-vertical-line {
+	width: 1px;
+	position: absolute;
+}
+
+.dupont-sharp-chart {
+    border-radius: 4px;
+	text-align : center;
+	color : #fff;
+}
+
+.dupont-sharp-div{
+	border-radius: 4px;
+}
+
+.dupont-top-text {
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.dupont-bottom-text {
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-block;
+}
+
+
+.behind-line {
+	cursor: pointer;
+}
+
+.dupont-sharp-chart{
+	cursor: pointer;
+}
+
+.expand-flag-btn {
+	 display: inline-block;
+	 color : #fff;
+	  margin-bottom: 0;
+	  width: 16px;
+	  height:16px;
+	  font-size: 5px;
+	  font-weight: normal;
+	  line-height: 14px;
+	  text-align: center;
+	  white-space: nowrap;
+	  vertical-align: middle;
+	  -ms-touch-action: manipulation;
+	      touch-action: manipulation;
+	  cursor: pointer;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+	  background-image: none;
+	  border: 1px solid transparent;
+	  border-radius: 16px;
+}

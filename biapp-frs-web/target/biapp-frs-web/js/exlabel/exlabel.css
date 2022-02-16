@@ -1,0 +1,143 @@
+@font-face {
+  font-family: 'Glyphicons Halflings';   /*字体名称*/
+  src: url('glyphicons-halflings-regular.ttf');       /*字体源文件*/
+}
+*:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.panel-default {
+    border-color: #ddd;
+    overflow : auto;
+}
+
+.glyphicon-remove:before {
+    content: "\e014";
+}
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.label-info {
+    background-color: #4bbdfb;
+}
+
+.label-btn {
+    background-color: #fff;
+    color : #4bbdfb;
+    border : 1px solid #4bbdfb;
+}
+
+.label-btn.selected{
+    background-color: #4bbdfb;
+    color : #fff;
+    border : 1px solid #4bbdfb;
+}
+
+.exlabel {
+  font-size: 12px; 
+}
+
+.exlabel .exlabel-content:after {
+    display: block;
+    clear: both; }
+.exlabel .exlabel-content::after {
+    content: ""; }
+  .exlabel .exlabel-menu {
+    position: absolute;
+    background-color: #FFF;
+    margin-top: 0px;
+    left: 0;
+    right: 0;
+    margin: 0; }
+    .exlabel .exlabel-menu .exlabel-menu-caret {
+      display: block;
+      border-width: 0 9px 9px 9px;
+      border-color: transparent transparent #1c7ecf transparent;
+      border-style: solid;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0; }
+  .exlabel .exlabel-input {
+    outline: none;
+    border: 0;
+    line-height: 1.6em;
+    margin-bottom: 2px;
+    display: block;
+    float: left; }
+  .exlabel .list-group-item {
+    padding: 5px 15px; }
+  .exlabel .label {
+    position: relative;
+    cursor: default;
+    display: block;
+    float: left;
+    margin: 0 5px 2px 0;
+    line-height: 1.2em; }
+    .exlabel .label.label-close, .exlabel .label.label-menu {
+      padding-right: 20px; }
+      .exlabel .label.label-close i, .exlabel .label.label-menu i {
+        position: absolute;
+        right: 2px;
+        top: 3px;
+        cursor: pointer; }
+    .exlabel .label.label-menu.active {
+      border: 1px solid #5bc0de;
+      color: #555;
+      background-color: #FFF; }
+  .exlabel .exmenu {
+    position: relative;
+    left: 0;
+    right: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: -5px 0 0 0;
+    max-height: 100px;
+    overflow: auto; }
+    .exlabel .exmenu .exmenu-item {
+      padding: 5px 15px;
+      display: block;
+      background-color: #fff;
+      border-top: 1px solid #ddd; }
+    .exlabel .exmenu .exmenu-item:first-child {
+      border: 0; }
+    .exlabel .exmenu a.exmenu-item {
+      color: #555; }
+    .exlabel .exmenu a.exmenu-item.active {
+      background-color: #f5f5f5; }
+    .exlabel .exmenu a.exmenu-item:hover {
+      color: #555;
+      text-decoration: none;
+      background-color: #f5f5f5; }

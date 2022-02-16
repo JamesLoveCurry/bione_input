@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>企业授信额度信息</templetname>
+	<fromtable>Ent_AcctCred</fromtable>
+	<savetable>Ent_AcctCred</savetable>
+	<pkname>ACCTCODE,Mcc</pkname>
+	<!-- <autocondition descr="自动查询时的条件"> status = '1' </autocondition> -->
+	<autoquery descr="是否自动查询数据">N</autoquery>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<!-- <list_btns>$INSERT;$UPDATE;$DELETE;[icon-p05]详情/onDetail</list_btns> -->
+	<list_btns>$INSERT;$UPDATE;$DELETE</list_btns>
+	<list_ispagebar>Y</list_ispagebar>
+</templet>
+
+<templet_item>
+	<itemkey>ACCTCODE</itemkey>
+	<itemname>账户标识码</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>130,300</card_width>
+	<list_isshow>Y</list_isshow>
+	<list_width>180</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>Mcc</itemkey>
+	<itemname>授信协议标识码</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>130,300</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<query_isshow>Y</query_isshow>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>	
+
+<templet_item>
+	<itemkey>UpdateDate</itemkey>
+	<itemname>信息更新日期</itemname>
+	<itemtype>日历</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>130,300</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>IncrementFlag</itemkey>
+	<itemname>增量标记</itemname>
+	<itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"直接值","内容":"0/不上报|1/新增|2/变更|3/永远不上报|4/待处理"}】</itemdefine>
+	<card_isshow>Y</card_isshow>
+	<card_width>130,300</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+</root>

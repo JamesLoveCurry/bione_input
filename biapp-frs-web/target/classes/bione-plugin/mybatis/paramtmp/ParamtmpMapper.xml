@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.paramtmp.repository.ParamtmpMybatisDao">
+
+	<select id="findCatalogNotId" resultType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpCatalog" parameterType="HashMap">
+		select CATALOG_ID,CATALOG_NM,remark,UP_ID from Rpt_Paramtmp_Catalog
+		where 1=1
+		<if test="catalogNm != null">and CATALOG_NM = #{catalogNm}</if>
+		<if test="upId != null">and UP_ID = #{upId}</if>
+		<if test="catalogId != null">
+				and catalog_Id != #{catalogId}
+		</if>
+	</select>
+	<select id="findParamtmpInfoNotId" resultType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpInfo" parameterType="HashMap">
+		select PARAMTMP_ID,CATALOG_ID,PARAMTMP_NM,remark,TEMPLATE_TYPE,TEMPLATE_URL from Rpt_Paramtmp_Info
+		where 1=1
+		<if test="catalogId != null">
+				and catalog_Id = #{catalogId}
+		</if>
+		<if test="paramtmpNm != null">
+			and paramtmp_Nm = #{paramtmpNm} 
+		</if>
+		<if test="paramtmpId != null">
+				and paramtmp_Id != #{paramtmpId}
+		</if>
+		
+	</select>
+	
+	<select id="findParamtmpInfoInCatalog" resultType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpInfo" parameterType="HashMap">
+		select PARAMTMP_ID,CATALOG_ID,PARAMTMP_NM,remark,TEMPLATE_TYPE,TEMPLATE_URL from Rpt_Paramtmp_Info
+		where 1=1
+		<if test="catalogIds != null">
+				and catalog_Id in 
+			<foreach  collection = "catalogIds" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach> 
+		</if>
+	</select>
+	
+	
+	
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<select id="findParamtmpInfo" resultType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpInfo"
+		parameterType="HashMap">
+		select PARAMTMP_ID,CATALOG_ID,PARAMTMP_NM,remark,TEMPLATE_TYPE,TEMPLATE_URL from 
+		Rpt_paramtmp_info
+		where 1=1 
+		<if test="paramtmpId != null">
+			and paramtmp_Id = #{paramtmpId} 
+		</if>
+		<if test="paramtmpIds != null">
+				and paramtmp_Id in 
+			<foreach  collection = "paramtmpIds" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach> 
+		</if>
+		<if test="cfgs != null">
+				and paramtmp_Id in 
+			<foreach  collection = "cfgs" index="index" item="item"  open="("  separator="," close=")">
+                   #{item.paramtmpId}	             
+	         </foreach> 
+		</if>
+		<if test="catalogId != null">
+			and catalog_Id like #{catalogId} 
+		</if>
+		<if test="paramtmpNm != null">
+			and paramtmp_Nm like #{paramtmpNm} 
+		</if>
+		<if test="templateType != null">
+			and template_Type = #{templateType} 
+		</if>
+		<if test="templateUrl != null">
+			and template_Url like #{templateUrl} 
+		</if>
+		<if test="orderName != null">
+			order by paramtmp_Nm
+			<if test="orderType != null">
+					#{orderType}
+			</if>
+		</if>
+	</select>
+	<select id="findParamtmpAttr" resultType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpAttr"
+		parameterType="HashMap">
+			select PARAM_ID,ORDER_NUM,PARAM_TYPE,PARAM_VAL,PARAMTMP_ID,remark from
+			RPT_PARAMTMP_ATTRS
+			where 1=1
+			<if test="paramId != null">and PARAM_ID = #{paramId}</if>
+			<if test="orderNum != null">and ORDER_NUM like #{orderNum}</if>
+			<if test="paramType != null">and PARAM_TYPE like #{paramType}</if>
+			<if test="paramVal != null">and PARAM_VAL like #{paramVal}</if>
+			<if test="paramtmpId != null">and PARAMTMP_ID like #{paramtmpId}</if>
+			<if test="paramtmpIds != null">
+				and paramtmp_Id in 
+			<foreach  collection = "paramtmpIds" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach> 
+			</if>
+			order by ORDER_NUM
+			
+		</select>
+
+	<select id="findParamtmpCatalog" resultType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpCatalog"
+	parameterType="HashMap">
+		select distinct catalog.CATALOG_ID,catalog.CATALOG_NM,catalog.remark,catalog.UP_ID from
+		RPT_PARAMTMP_CATALOG catalog <if test="paramtmpIds != null">,Rpt_paramtmp_info tmp</if>
+		where 1=1
+		<if test="paramtmpIds != null">
+			and catalog.catalog_id=tmp.catalog_id
+				and tmp.paramtmp_Id in 
+			<foreach  collection = "paramtmpIds" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach> 
+		</if>
+		<if test="catalogId != null">and catalog.CATALOG_ID = #{catalogId}</if>
+		<if test="catalogNm != null">and catalog.CATALOG_NM like #{catalogNm}</if>
+		<if test="upId != null">and catalog.UP_ID = #{upId}</if>
+		
+		<if test="orderName != null"> order by catalog.catalog_nm</if>
+		<if test="catalogs != null">
+			and catalog.catalog_id in
+			<foreach collection="catalogs" item="catalogs" open="("
+			separator="," close=")">#{catalogs.upId}</foreach>
+		</if>
+	</select>
+	
+	<update id="updateParamtmpInfo" parameterType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpInfo">
+			update Rpt_paramtmp_info
+			<set>
+				<if test="paramtmpId != null">paramtmp_Id=#{paramtmpId},</if>
+				<if test="catalogId != null">catalog_Id=#{catalogId},</if>
+				<if test="paramtmpNm != null">paramtmp_Nm=#{paramtmpNm},</if>
+				<if test="remark != null">remark=#{remark},</if>
+				<if test="templateType != null">template_Type=#{templateType},</if>
+				<if test="templateUrl != null">template_Url=#{templateUrl}</if>
+			</set>
+			where paramtmp_Id=#{paramtmpId}
+		</update>
+	<update id="updateParamtmpAttr" parameterType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpAttr">
+			update Rpt_Paramtmp_Attr
+			<set>
+				<if test="paramId != null">param_Id=#{paramId},</if>
+				<if test="catalogId != null">catalog_Id=#{catalogId},</if>
+				<if test="paramType != null">PARAM_TYPE=#{paramType},</if>
+				<if test="paramVal != null">param_Val=#{paramVal},</if>
+				<if test="paramtmpId != null">paramtmp_Id=#{paramtmpId},</if>
+				<if test="remark != null">remark=#{remark}</if>
+			</set>
+			where param_Id=#{paramId}
+		</update>
+	<update id="updateParamtmpCatalog" parameterType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpCatalog">
+			update Rpt_Paramtmp_Catalog
+			<set>
+				<if test="catalogId != null">CATALOG_ID=#{catalogId},</if>
+				<if test="catalogNm != null">catalog_Nm=#{catalogNm},</if>
+				<if test="remark != null">remark=#{remark},</if>
+				<if test="upId != null">UP_ID=#{upId}</if>
+			</set>
+			where CATALOG_ID=#{catalogId}
+		</update>
+	<insert id="saveParamtmpInfo" parameterType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpInfo">insert into Rpt_paramtmp_info(paramtmp_Id,catalog_Id,paramtmp_Nm,template_Type,template_Url,remark)
+		values(#{paramtmpId},#{catalogId},#{paramtmpNm},#{templateType},#{templateUrl},#{remark})</insert>
+		
+	<insert id="saveParamtmpCatalog" parameterType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpCatalog">insert into RPT_PARAMTMP_CATALOG(CATALOG_ID,CATALOG_NM,UP_ID,remark)
+		values(#{catalogId},#{catalogNm},#{upId},#{remark})</insert>
+		
+	<insert id="saveParamtmpAttr" parameterType="com.yusys.bione.plugin.paramtmp.entity.RptParamtmpAttr">insert into RPT_PARAMTMP_ATTRS(PARAM_ID,ORDER_NUM,PARAM_TYPE,PARAM_VAL,paramtmp_Id,remark)
+			values(#{paramId},#{orderNum},#{paramType},#{paramVal},#{paramtmpId},#{remark})</insert>
+			
+	<delete id="deleteParamtmpInfo" parameterType="HashMap">
+			delete  from
+			Rpt_paramtmp_info
+			where 1=1
+			<if test="paramtmpId != null">and paramtmp_Id = #{paramtmpId}</if>
+			<if test="catalogId != null">and catalog_Id =#{catalogId}</if>
+			<if test="paramtmpNm != null">and paramtmp_Nm like #{paramtmpNm}</if>
+			<if test="templateType != null">and template_Type = #{templateType}</if>
+			<if test="templateUrl != null">and template_Url like #{templateUrl}</if>
+		</delete>
+	<delete id="deleteParamtmpCatalog" parameterType="HashMap">
+			delete  from
+			RPT_PARAMTMP_CATALOG
+			where 1=1
+			<if test="catalogId != null">and catalog_Id = #{catalogId}</if>
+			<if test="catalogNm != null">and catalog_Nm like #{catalogNm}</if>
+			<if test="upId != null">and up_Id like = {paramtmpNm}</if>
+		</delete>
+	<delete id="deleteParamtmpAttr" parameterType="HashMap">
+			delete  from
+			RPT_PARAMTMP_ATTRS
+			where 1=1
+			<if test="paramId != null">and param_Id = #{paramId}</if>
+			<if test="orderNum != null">and order_Num like #{orderNum}</if>
+			<if test="paramtmpId != null">and paramtmp_Id  = #{paramtmpId}</if>
+		</delete>
+	<delete id="deleteCatalogInID" parameterType="java.util.List">
+				delete  from
+				RPT_PARAMTMP_CATALOG
+				where 1=1
+				<if test="list != null">
+					and catalog_Id in
+					<foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">#{item}</foreach>
+				</if>
+			</delete>
+	<select id="findDatasetInfo" resultType="com.yusys.bione.frame.mtool.entity.BioneDatasetInfo"
+			parameterType="HashMap">
+				select DATASET_ID,CATALOG_ID,DATASET_NAME,DS_ID,DS_TYPE,QUERY_SQL,remark,T_ENAME,LOGIC_SYS_NO from
+				BIONE_DATASET_INFO
+				where 1=1
+				<if test="datasetId != null">and DATASET_ID = #{datasetId}</if>
+				<if test="catalogId != null">and CATALOG_ID = #{catalogId}</if>
+				<if test="datasetName != null">and DATASET_NAME = #{datasetName}</if>
+				<if test="dsId != null">and DS_ID = #{dsId}</if>
+				<if test="dsType != null">and DS_TYPE = #{dsType}</if>
+				<if test="querySql != null">and QUERY_SQL = #{querySql}</if>
+				<if test="tableEname != null">and T_ENAME = #{tableEname}</if>
+				<if test="logicSysNo != null">and LOGIC_SYS_NO = #{logicSysNo}</if>
+	</select>
+</mapper> 

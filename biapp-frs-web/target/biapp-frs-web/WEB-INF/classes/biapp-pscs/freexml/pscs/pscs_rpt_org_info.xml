@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>支付合规机构</templetname>
+		<fromtable>rpt_org_info</fromtable>
+		<savetable>rpt_org_info</savetable>
+		<pkname>org_no</pkname>
+		<querycontion>org_type='11'</querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<orderbys></orderbys>
+		<card_btns></card_btns>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>N</list_ispagebar>
+
+		<tree_type>parent</tree_type>
+		<tree_id>org_no</tree_id>
+		<tree_text>org_nm</tree_text>
+		<tree_parentid>up_org_no</tree_parentid>
+		<checkbox>Y</checkbox>
+		<tree_ischeckboxcascade>Y</tree_ischeckboxcascade>
+	</templet>
+
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>机构号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_nm</itemkey>
+		<itemname>机构名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>up_org_no</itemkey>
+		<itemname>父亲结点</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>200</card_width>
+		<card_iswrap>N</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+</root>

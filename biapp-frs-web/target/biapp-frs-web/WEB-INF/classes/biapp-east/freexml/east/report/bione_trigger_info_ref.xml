@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>触发器</templetname>
+		<fromtable>bione_trigger_info</fromtable>
+		<savetable>bione_trigger_info</savetable>
+		<pkname>trigger_id</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<orderbys></orderbys>
+		<list_ispagebar>N</list_ispagebar>
+	</templet>
+
+	<templet_item>
+		<itemkey>trigger_id</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>trigger_name</itemkey>
+		<itemname>触发器名称</itemname>
+		<itemtype>文本框</itemtype>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>cron</itemkey>
+		<itemname>规则</itemname>
+		<itemtype>文本框</itemtype>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>start_time</itemkey>
+		<itemname>启用开始时间</itemname>
+		<itemtype>文本框</itemtype>
+		<list_isshow>Y</list_isshow>
+		<list_width>140</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>end_time</itemkey>
+		<itemname>启用结束时间</itemname>
+		<itemtype>文本框</itemtype>
+		<list_isshow>Y</list_isshow>
+		<list_width>140</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+
+	<templet_item>
+		<itemkey>remark</itemkey>
+		<itemname>说明</itemname>
+		<itemtype>文本框</itemtype>
+		<list_isshow>Y</list_isshow>
+		<list_width>250</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+</root>
+

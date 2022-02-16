@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="pscs_corb_merch_sum"
+		pkname="org_code,join_code1,date_begin,date_end,count_currcy_code"
+		descr="银行卡线下收单业务特约商户交易流水汇总表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="org_code" type="varchar" length="14" descr="收单机构代码" />
+			<col name="join_code1" type="varchar" length="50" descr="收单机构系统内部商户编码" />
+			<col name="join_code2" type="varchar" length="50" descr="上送清算机构的商户编码" />
+			<col name="date_begin" type="varchar" length="8" descr="交易起始日期" />
+			<col name="date_end" type="varchar" length="8" descr="交易结束日期" />
+			<col name="amt_in" type="decimal" length="18,2" descr="入金合计金额" />
+			<col name="count_in" type="decimal" length="18" descr="入金合计笔数" />
+			<col name="amt_out" type="decimal" length="18,2" descr="出金合计金额" />
+			<col name="count_out" type="decimal" length="18" descr="出金合计笔数" />
+			<col name="count_currcy_code" type="varchar" length="3" descr="对应币种" />
+			<col name="data_dt" type="varchar" length="8" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="pscs_ospb_merch_sum"
+		pkname="org_code,join_code1,date_begin,date_end,count_currcy_code"
+		descr="线下扫码支付业务特约商户交易流水汇总表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="org_code" type="varchar" length="14" descr="收单机构代码" />
+			<col name="join_code1" type="varchar" length="50" descr="收单机构系统内部商户编码" />
+			<col name="join_code2" type="varchar" length="50" descr="上送清算机构的商户编码" />
+			<col name="date_begin" type="varchar" length="8" descr="交易起始日期" />
+			<col name="date_end" type="varchar" length="8" descr="交易结束日期" />
+			<col name="amt_in" type="decimal" length="18,2" descr="入金合计金额" />
+			<col name="count_in" type="decimal" length="18" descr="入金合计笔数" />
+			<col name="amt_out" type="decimal" length="18,2" descr="出金合计金额" />
+			<col name="count_out" type="decimal" length="18" descr="出金合计笔数" />
+			<col name="count_currcy_code" type="varchar" length="3" descr="对应币种" />
+			<col name="data_dt" type="varchar" length="8" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="pscs_ops_merch_sum"
+		pkname="org_code,join_code1,date_begin,date_end,count_currcy_code"
+		descr="网络支付业务（不含线下扫码支付）特约商户交易流水汇总表">
+		<columns>
+		 	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="org_code" type="varchar" length="14" descr="收单机构代码" />
+			<col name="join_code1" type="varchar" length="50" descr="收单机构系统内部商户编码" />
+			<col name="join_code2" type="varchar" length="50" descr="上送清算机构的商户编码" />
+			<col name="tran_type" type="varchar" length="2" descr="交易业务类型" />
+			<col name="date_begin" type="varchar" length="8" descr="交易起始日期" />
+			<col name="date_end" type="varchar" length="8" descr="交易结束日期" />
+			<col name="amt_in" type="decimal" length="18,2" descr="入金合计金额" />
+			<col name="count_in" type="decimal" length="18" descr="入金合计笔数" />
+			<col name="amt_out" type="decimal" length="18,2" descr="出金合计金额" />
+			<col name="count_out" type="decimal" length="18" descr="出金合计笔数" />
+			<col name="count_currcy_code" type="varchar" length="3" descr="对应币种" />
+			<col name="data_dt" type="varchar" length="8" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="pscs_merch_info" pkname="prof_type,join_code1,beg_date,end_date"
+		descr="特约商户身份信息记录表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="org_code" type="varchar" length="14" descr="收单机构代码" />
+			<col name="org_lei" type="varchar" length="20" descr="收单机构法人机构识别编码（LEI）" />
+			<col name="org_loc_code" type="varchar" length="4" descr="实际签约收单机构的分支机构" />
+			<col name="prof_type" type="varchar" length="2" descr="业务种类" />
+			<col name="join_code1" type="varchar" length="50" descr="收单机构系统内部商户编码" />
+			<col name="join_code2" type="varchar" length="50" descr="上送清算机构的商户编码" />
+			<col name="acc_name" type="varchar" length="80" descr="特约商户名称" />
+			<col name="acc_type" type="varchar" length="2" descr="商户类型" />
+			<col name="open_time" type="varchar" length="8" descr="建立业务关系日期" />
+			<col name="close_time" type="varchar" length="8" descr="撤销（终止业务关系）日期" />
+			<col name="coo_state" type="varchar" length="2" descr="合作状态" />
+			<col name="id_name" type="varchar" length="50" descr="法定代表人或负责人姓名" />
+			<col name="id_type" type="varchar" length="2" descr="法定代表人或负责人证件种类" />
+			<col name="id_no" type="varchar" length="50" descr="法定代表人或负责人证件号码" />
+			<col name="id_deadline" type="varchar" length="8" descr="法定代表人或负责人证件有效期截止日" />
+			<col name="contact" type="varchar" length="20" descr="商户联系方式" />
+			<col name="address" type="varchar" length="200" descr="地址" />
+			<col name="add_code" type="varchar" length="6" descr="所属地区代码" />
+			<col name="set_file" type="varchar" length="2" descr="依法设立或经营登记证件类型" />
+			<col name="license" type="varchar" length="50" descr="依法设立或经营登记证件号码" />
+			<col name="license_deadline" type="varchar" length="8"
+				descr="依法设立或经营登记证件有效期截止日" />
+			<col name="reg_amt" type="decimal" length="18,2" descr="注册资本金" />
+			<col name="self_acc_type" type="varchar" length="2" descr="商户收单结算账户类型" />
+			<col name="self_acc_no" type="varchar" length="60" descr="商户收单结算账户账号" />
+			<col name="self_acc_name" type="varchar" length="80" descr="商户收单结算账户名称" />
+			<col name="set_bank_hq" type="varchar" length="80" descr="收单结算账户开户机构" />
+			<col name="dept_type" type="varchar" length="2" descr="商户拓展方式" />
+			<col name="agents_name" type="varchar" length="80" descr="外包服务机构名称" />
+			<col name="agents_license" type="varchar" length="50" descr="外包服务机构营业执照编码" />
+			<col name="pos_type" type="varchar" length="30" descr="外包服务机构营业执照编码" />
+			<col name="pos_count" type="decimal" length="3" descr="终端数量" />
+			<col name="acc_add" type="varchar" length="100" descr="网络商户登记网址" />
+			<col name="acc_ip" type="varchar" length="50" descr="网络商户登记IP" />
+			<col name="acc_icp_no" type="varchar" length="20" descr="网络商户ICP备案/许可证号" />
+			<col name="beg_date" type="varchar" length="8" descr="生效日期" />
+			<col name="end_date" type="varchar" length="8" descr="失效日期" />
+			<col name="rpt_mode" type="varchar" length="1" descr="数据模式" />
+			<col name="data_dt" type="varchar" length="8" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="pscs_os_ent_info" pkname="prof_type,license,beg_date,end_date"
+		descr="外包服务机构身份信息记录表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="org_code" type="varchar" length="14" descr="收单机构代码" />
+			<col name="prof_type" type="varchar" length="2" descr="业务种类" />
+			<col name="acc_name" type="varchar" length="80" descr="特约商户名称" />
+			<col name="acc_type" type="varchar" length="2" descr="商户类型" />
+			<col name="set_file" type="varchar" length="2" descr="依法设立或经营登记证件类型" />
+			<col name="license" type="varchar" length="50" descr="依法设立或经营登记证件号码" />
+			<col name="license_deadline" type="varchar" length="8"
+				descr="依法设立或经营登记证件有效期截止日" />
+			<col name="id_name" type="varchar" length="50" descr="法定代表人或负责人姓名" />
+			<col name="id_type" type="varchar" length="2" descr="法定代表人或负责人证件种类" />
+			<col name="id_no" type="varchar" length="50" descr="法定代表人或负责人证件号码" />
+			<col name="id_deadline" type="varchar" length="8" descr="法定代表人或负责人证件有效期截止日" />
+			<col name="open_time" type="varchar" length="8" descr="建立业务关系日期" />
+			<col name="close_time" type="varchar" length="8" descr="撤销（终止业务关系）日期" />
+			<col name="coo_acc_type" type="varchar" length="2" descr="外包服务机构分润结算账户类型" />
+			<col name="coo_acc_no" type="varchar" length="60" descr="外包服务机构分润结算账户账号" />
+			<col name="coo_acc_name" type="varchar" length="80" descr="外包服务机构分润结算账户名称" />
+			<col name="coo_acc_bank_name" type="varchar" length="80"
+				descr="外包服务机构分润结算账户开户机构" />
+			<col name="beg_date" type="varchar" length="8" descr="生效日期" />
+			<col name="end_date" type="varchar" length="8" descr="失效日期" />
+			<col name="rpt_mode" type="varchar" length="1" descr="数据模式" />
+			<col name="data_dt" type="varchar" length="8" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="pscs_bnk_corp_acct" pkname="org_code,cst_code,acc_no,beg_date,end_date"
+		descr="单位银行结算账户信息表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="org_code" type="varchar" length="14" descr="收单机构代码" />
+			<col name="org_lei" type="varchar" length="20" descr="收单机构法人机构识别编码（LEI）" />
+			<col name="open_code" type="varchar" length="50" descr="开户银行金融机构代码（网点）" />
+			<col name="cst_code" type="varchar" length="50" descr="客户编号" />
+			<col name="acc_name" type="varchar" length="80" descr="账户名称" />
+			<col name="acc_no" type="varchar" length="60" descr="账户账号" />
+			<col name="acc_type" type="varchar" length="2" descr="账户类型" />
+			<col name="open_date" type="varchar" length="8" descr="开户日期" />
+			<col name="open_time" type="varchar" length="6" descr="开户时间" />
+			<col name="close_date" type="varchar" length="8" descr="销户日期" />
+			<col name="close_time" type="varchar" length="6" descr="销户时间" />
+			<col name="acc_state" type="varchar" length="2" descr="账户状态" />
+			<col name="set_file" type="varchar" length="2" descr="依法设立或经营登记证件类型" />
+			<col name="license" type="varchar" length="50" descr="依法设立或经营登记证件号码" />
+			<col name="license_deadline" type="varchar" length="8"
+				descr="依法设立或经营登记证件有效期截止日" />
+			<col name="operate" type="varchar" length="500" descr="经营范围" />
+			<col name="address" type="varchar" length="200" descr="联系地址" />
+			<col name="id_region" type="varchar" length="6" descr="营业执照注册所在地的地区代码" />
+			<col name="man_region" type="varchar" length="6" descr="经营地地区代码" />
+			<col name="reg_amt" type="decimal" length="18,2" descr="注册资本金" />
+			<col name="id_name" type="varchar" length="30" descr="法定代表人或负责人姓名" />
+			<col name="id_type" type="varchar" length="2" descr="法定代表人或负责人证件种类" />
+			<col name="id_no" type="varchar" length="50" descr="法定代表人或负责人证件号码" />
+			<col name="id_startline" type="varchar" length="8"
+				descr="法定代表人或负责人证件有效期开始日" />
+			<col name="id_deadline" type="varchar" length="8" descr="法定代表人或负责人证件有效期截止日" />
+			<col name="contact" type="varchar" length="15" descr="法定代表人或负责人联系电话" />
+			<col name="id_name2" type="varchar" length="30" descr="代理人姓名" />
+			<col name="id_type2" type="varchar" length="2" descr="代理人证件种类" />
+			<col name="id_no2" type="varchar" length="50" descr="代理人证件号码" />
+			<col name="id_startline2" type="varchar" length="8" descr="代理人证件有效期开始日" />
+			<col name="id_deadline2" type="varchar" length="8" descr="代理人证件有效期截止日" />
+			<col name="contact2" type="varchar" length="15" descr="代理人联系电话" />
+			<col name="bind_mob" type="varchar" length="15" descr="绑定的手机号码" />
+			<col name="acc_region" type="varchar" length="6" descr="开户地地区代码" />
+			<col name="temp_deadline" type="varchar" length="8" descr="临时户账户到期日" />
+			<col name="beg_date" type="varchar" length="8" descr="生效日期" />
+			<col name="end_date" type="varchar" length="8" descr="失效日期" />
+			<col name="rpt_mode" type="varchar" length="1" descr="数据模式" />
+			<col name="data_dt" type="varchar" length="8" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="PSCS_BNK_INDV_ACCT" pkname="ORG_CODE,CST_CODE,ACC_NO,BEG_DATE,END_DATE"
+		descr="个人银行结算账户信息表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="ORG_CODE" type="varchar" length="14" descr="开户银行金融机构代码（法人）" />
+			<col name="ORG_LEI" type="varchar" length="20" descr="开户机构法人机构识别编码（LEI）" />
+			<col name="OPEN_CODE" type="varchar" length="50" descr="开户银行金融机构代码（网点）" />
+			<col name="CST_CODE" type="varchar" length="50" descr="客户编号" />
+			<col name="ACC_NAME" type="varchar" length="80" descr="账户名称" />
+			<col name="ACC_NO" type="varchar" length="60" descr="账户账号" />
+			<col name="ACC_TYPE" type="varchar" length="2" descr="账户类型" />
+			<col name="OPEN_DATE" type="varchar" length="8" descr="开户日期" />
+			<col name="OPEN_TIME" type="varchar" length="6" descr="开户时间" />
+			<col name="CLOSE_DATE" type="varchar" length="8" descr="销户日期" />
+			<col name="CLOSE_TIME" type="varchar" length="6" descr="销户时间" />
+			<col name="ACC_STATE" type="varchar" length="2" descr="账户状态" />
+			<col name="ID_TYPE" type="varchar" length="2" descr="证件种类" />
+			<col name="ID_NO" type="varchar" length="50" descr="身份证件号码" />
+			<col name="ID_STARTLINE" type="varchar" length="8" descr="身份证件有效期开始日" />
+			<col name="ID_DEADLINE" type="varchar" length="8" descr="身份证件有效期截止日" />
+			<col name="ID_REGION" type="varchar" length="6" descr="身份证件发证机关所在地的地区代码" />
+			<col name="NATION" type="varchar" length="3" descr="客户所属国家（地区）" />
+			<col name="CST_SEX" type="varchar" length="2" descr="客户性别" />
+			<col name="ADDRESS" type="varchar" length="200" descr="联系地址" />
+			<col name="ID_VER" type="varchar" length="2" descr="身份核验方式" />
+			<col name="BIND_MOB" type="varchar" length="15" descr="绑定的手机号码" />
+			<col name="BIND_ACC" type="varchar" length="15" descr="绑定的银行账户账号" />
+			<col name="BIND_DATE" type="varchar" length="8" descr="绑定银行账号日期" />
+			<col name="BIND_TIME" type="varchar" length="6" descr="绑定银行账号时间" />
+			<col name="BIND_BANK" type="varchar" length="14" descr="被绑定的银行账户开户行（法人）代码" />
+			<col name="ID_NAME2" type="varchar" length="30" descr="代理人姓名" />
+			<col name="ID_TYPE2" type="varchar" length="2" descr="代理人证件种类" />
+			<col name="ID_NO2" type="varchar" length="50" descr="代理人证件号码" />
+			<col name="ID_STARTLINE2" type="varchar" length="8" descr="代理人证件有效期开始日" />
+			<col name="ID_DEADLINE2" type="varchar" length="8" descr="代理人证件有效期截止日" />
+			<col name="CONTACT2" type="varchar" length="15" descr="代理人联系电话" />
+			<col name="ACC_REGION" type="varchar" length="6" descr="开户地地区代码" />
+			<col name="MEDIA_ID" type="varchar" length="494" descr="介质号" />
+			<col name="MEDIA_TYPE" type="varchar" length="44" descr="介质类型" />
+			<col name="MEDIA_STATE" type="varchar" length="44" descr="介质状态" />
+			<col name="IP_ADDR" type="varchar" length="50" descr="用户开立银行账户时的IP地址" />
+			<col name="MAC_ADDR" type="varchar" length="100" descr="用户开立银行账户时的MAC地址" />
+			<col name="BEG_DATE" type="varchar" length="8" descr="生效日期" />
+			<col name="END_DATE" type="varchar" length="8" descr="失效日期" />
+			<col name="RPT_MODE" type="varchar" length="1" descr="数据模式" />
+			<col name="DATA_DT" type="varchar" length="8" descr="数据日期" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="PSCS_CORB_MERCH_TRANS" pkname="ORG_CODE,TRANS_DATE,TRANS_NO"
+		descr="银行卡线下收单业务特约商户交易流水表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="ORG_CODE" type="varchar" length="14" descr="收单机构代码" />
+			<col name="JOIN_CODE1" type="varchar" length="50" descr="收单机构系统内部商户编码" />
+			<col name="JOIN_CODE2" type="varchar" length="50" descr="上送清算机构的商户编码" />
+			<col name="TRANS_DATE" type="varchar" length="8" descr="交易日期" />
+			<col name="TRANS_TIME" type="varchar" length="6" descr="交易时间" />
+			<col name="TRANS_AMT" type="decimal" length="18,2" descr="交易金额" />
+			<col name="TRANS_CURRCY_CODE" type="varchar" length="3" descr="交易币种" />
+			<col name="LEND_FLAG" type="varchar" length="2" descr="资金收付标识" />
+			<col name="TRANS_TYPE" type="varchar" length="2" descr="交易类型" />
+			<col name="TRANS_NO" type="varchar" length="50" descr="交易流水号" />
+			<col name="POS_NO" type="varchar" length="40" descr="终端机具编号" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="PSCS_OSPB_MERCH_TRANS" pkname="ORG_CODE,TRANS_DATE,TRANS_NO"
+		descr="银行卡线下收单业务特约商户交易流水表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="ORG_CODE" type="varchar" length="14" descr="收单机构代码" />
+			<col name="JOIN_CODE1" type="varchar" length="50" descr="收单机构系统内部商户编码" />
+			<col name="JOIN_CODE2" type="varchar" length="50" descr="上送清算机构的商户编码" />
+			<col name="TRANS_DATE" type="varchar" length="8" descr="交易日期" />
+			<col name="TRANS_TIME" type="varchar" length="6" descr="交易时间" />
+			<col name="TRANS_AMT" type="decimal" length="18,2" descr="交易金额" />
+			<col name="TRANS_CURRCY_CODE" type="varchar" length="3" descr="交易币种" />
+			<col name="LEND_FLAG" type="varchar" length="2" descr="资金收付标识" />
+			<col name="CUST_MESS" type="varchar" length="30" descr="交易附言" />
+			<col name="BORD_FLAG" type="varchar" length="2" descr="跨境交易标识" />
+			<col name="TRANS_ORDER" type="varchar" length="50" descr="交易订单号" />
+			<col name="TRANS_NO" type="varchar" length="50" descr="交易流水号" />
+			<col name="TRANS_TYPE" type="varchar" length="2" descr="扫码类型" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="PSCS_OPS_MERCH_TRANS" pkname="ORG_CODE,TRANS_DATE,TRANS_NO"
+		descr="网络支付业务（不含线下扫码支付）特约商户交易流水表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="ORG_CODE" type="varchar" length="14" descr="收单机构代码" />
+			<col name="JOIN_CODE1" type="varchar" length="50" descr="收单机构系统内部商户编码" />
+			<col name="JOIN_CODE2" type="varchar" length="50" descr="上送清算机构的商户编码" />
+			<col name="TRANS_DATE" type="varchar" length="8" descr="交易日期" />
+			<col name="TRANS_TIME" type="varchar" length="6" descr="交易时间" />
+			<col name="TRANS_AMT" type="decimal" length="18,2" descr="交易金额" />
+			<col name="TRANS_CURRCY_CODE" type="varchar" length="3" descr="交易币种" />
+			<col name="TRANS_TYPE" type="varchar" length="2" descr="交易业务类型" />
+			<col name="LEND_FLAG" type="varchar" length="2" descr="资金收付标识" />
+			<col name="PART_ACC_NAME" type="varchar" length="80" descr="交易对方账户名称" />
+			<col name="PART_ACC_NO" type="varchar" length="60" descr="交易对方账号" />
+			<col name="ACC_FLAG" type="varchar" length="2" descr="交易对方账户类别" />
+			<col name="TRAN_FLAG" type="varchar" length="2" descr="对手账号标识" />
+			<col name="OPEN_BANK_NAME" type="varchar" length="80"
+				descr="交易对方开户银行或开户支付机构名称" />
+			<col name="CUST_MESS" type="varchar" length="30" descr="交易附言" />
+			<col name="BORD_FLAG" type="varchar" length="2" descr="跨境交易标识" />
+			<col name="TRANS_ORDER" type="varchar" length="50" descr="交易订单号" />
+			<col name="TRANS_NO" type="varchar" length="50" descr="交易流水号" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="PSCS_AOB_ACCT_TRANS" pkname="ORG_CODE,ACC_NO,TRANS_DATE,TRANS_NO"
+		descr="收单类业务账户资金流水表">
+		<columns>
+		  	<col name="rid"              type="varchar"   length="50"    descr="主键"/>
+			<col name="ORG_CODE" type="varchar" length="50" descr="收单机构代码" />
+			<col name="ACC_NO" type="varchar" length="60" descr="账户账号" />
+			<col name="ACC_NAME" type="varchar" length="80" descr="账户名称" />
+			<col name="TRANS_DATE" type="varchar" length="8" descr="交易日期" />
+			<col name="TRANS_TIME" type="varchar" length="6" descr="交易时间" />
+			<col name="TRANS_AMT" type="decimal" length="18,2" descr="交易金额" />
+			<col name="TRANS_CURRCY_CODE" type="varchar" length="3" descr="交易币种" />
+			<col name="ACC_BAL" type="decimal" length="18,2" descr="账户余额" />
+			<col name="TRANS_NO" type="varchar" length="50" descr="资金结算流水号" />
+			<col name="LEND_FLAG" type="varchar" length="2" descr="资金收付标识" />
+			<col name="PART_ACC_NAME" type="varchar" length="80" descr="交易对方账户名称" />
+			<col name="PART_ACC_NO" type="varchar" length="60" descr="交易对方账号" />
+			<col name="OPEN_BANK_NAME" type="varchar" length="80"
+				descr="交易对方开户银行或开户支付机构名称" />
+			<col name="CUST_MESS" type="varchar" length="30" descr="交易附言" />
+			<col name="org_no" type="varchar" length="20" descr="内部机构号" />
+		</columns>
+	</table>
+
+	<table name="pscs_datagram_config" pkname="rid" descr="支付合规-报文策略表">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="org_no" type="varchar" length="100" descr="机构号" />
+			<col name="org_name" type="varchar" length="100" descr="机构名称" />
+			<col name="report_type" type="varchar" length="6" descr="报送频率" />
+			<col name="tab_names" type="varchar" length="1000" descr="表名" />
+			<col name="isautojob" type="varchar" length="1" descr="是否自动任务" />
+			<col name="autojobtrigger" type="varchar" length="40" descr="定时任务" />
+		</columns>
+	</table>
+
+	<table name="pscs_cr_tab" pkname="rid" descr="支付合规-业务数据表定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="tab_name" type="varchar" length="200" descr="表名（中文）" />
+			<col name="tab_name_en" type="varchar" length="200" descr="表名（英文）" />
+			<col name="tab_type" type="varchar" length="10" descr="接口分类（一级分类）" />
+			<col name="tab_type_seq" type="varchar" length="5" descr="接口分类（二级分类）" />
+			<col name="ds_name" type="varchar" length="50" descr="数据源" />
+			<col name="is_common" type="varchar" length="1" descr="是否基础表" />
+			<col name="is_virtual" type="varchar" length="1" descr="是否虚拟表" />
+		</columns>
+	</table>
+
+	<table name="pscs_cr_col" pkname="rid" descr="支付合规-业务表字段定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="200" descr="中文字段名" />
+			<col name="col_name_en" type="varchar" length="200" descr="英文字段名" />
+			<col name="is_pk" type="varchar" length="1" descr="是否主键" />
+			<col name="is_export" type="varchar" length="1" descr="是否参与报送" />
+			<col name="is_limit" type="varchar" length="1" descr="是否限定额度" />
+			<col name="limit_value" type="decimal" length="16" descr="限制金额（元）" />
+			<col name="col_no" type="decimal" length="38" descr="序号" />
+			<col name="display_config" type="varchar" length="2000" descr="展现的配置文件" />
+		</columns>
+	</table>
+
+	<table name="pscs_job" pkname="rid" descr="支付合规-自动任务表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="name" type="varchar" length="30" descr="任务名" />
+			<col name="classname" type="varchar" length="100" descr="类名" />
+			<col name="triggerconf" type="varchar" length="50" descr="参数" />
+			<col name="activeflag" type="varchar" length="1" descr="是否激活" />
+			<col name="triggertype" type="varchar" length="100" descr="调度类型" />
+			<col name="descr" type="varchar" length="100" descr="备注" />
+			<col name="seq" type="decimal" length="3" descr="排序" />
+		</columns>
+	</table>
+
+	<table name="pscs_job_log" pkname="rid" descr="支付合规-自动任务日志表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="jobid" type="varchar" length="50" descr="jobid" />
+			<col name="begintime" type="varchar" length="25" descr="开始时间" />
+			<col name="endtime" type="varchar" length="25" descr="结束时间" />
+			<col name="useseconds" type="decimal" length="10" descr="耗时" />
+			<col name="execresult" type="varchar" length="4000" descr="执行结果信息" />
+		</columns>
+	</table>
+
+	<table name="pscs_datagram_task" pkname="rid" descr="支付合规-报文任务表">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="org_no" type="varchar" length="100" descr="机构号" />
+			<col name="org_name" type="varchar" length="100" descr="机构名称" />
+			<col name="report_type" type="varchar" length="20" descr="报送频率" />
+			<col name="data_dt" type="varchar" length="10" descr="采集日期" />
+			<col name="tab_name" type="varchar" length="200" descr="表名" />
+			<col name="tab_name_en" type="varchar" length="200" descr="表名（英文）" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="start_tm" type="varchar" length="19" descr="开始时间" />
+			<col name="end_tm" type="varchar" length="19" descr="结束时间" />
+			<col name="status" type="varchar" length="30" descr="任务状态" />
+			<col name="execsql" type="varchar" length="2000" descr="实际SQL" />
+			<col name="filepath" type="varchar" length="300" descr="报文文件路径" />
+			<col name="filelog" type="varchar" length="500" descr="生成文件的日志内容" />
+		</columns>
+	</table>
+
+	<table name="pscs_datagram_task_log" pkname="rid" descr="支付合规-报文任务日志表">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="task_rid" type="varchar" length="40" descr="任务id" />
+			<col name="log_level" type="varchar" length="20" descr="日志级别" />
+			<col name="log_cont" type="varchar" length="2000" descr="日志内容" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+		</columns>
+	</table>
+
+	<table name="pscs_report_list" pkname="rid" descr="报送清单">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="ID" />
+			<col name="task_rid" type="varchar" length="40" descr="任务id" />
+			<col name="tab_no" type="varchar" length="4" descr="表序号" />
+			<col name="tab_name" type="varchar" length="200" descr="表名" />
+			<col name="record_count" type="decimal" length="38" descr="记录数" />
+			<col name="file_name" type="varchar" length="200" descr="文件名" />
+			<col name="file_size" type="decimal" length="38" descr="文件大小（字节）" />
+			<col name="remark" type="varchar" length="200" descr="备注" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="机构编号" />
+			<col name="org_name" type="varchar" length="100" descr="机构名称" />
+		</columns>
+	</table>
+	
+	<table name="pscs_lock_data" pkname="rid" descr="数据锁定">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		  <col name="type"				type="varchar"   	length="1"   	descr="频度:1-按日，2-按月"/>
+		  <col name="status"			type="varchar"   	length="10"   	descr="状态"/>
+		  <col name="operator"			type="varchar"   	length="100"   	descr="操作人"/>
+		  <col name="operator_name"		type="varchar"   	length="100"    descr="操作人名称"/>
+		  <col name="create_tm"			type="varchar"   	length="19"   	descr="操作时间"/>
+		</columns>
+	</table>
+
+	<table name="pscs_bs_dict_code" pkname="rid" descr="字典参数表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="rid" />
+			<col name="parent_item_code" type="varchar" length="50" descr="父编码" />
+			<col name="parent_item_name" type="varchar" length="100" descr="父名称" />
+			<col name="item_code" type="varchar" length="50" descr="编码" />
+			<col name="item_name" type="varchar" length="100" descr="名称" />
+			<col name="item_order" type="decimal" length="16" descr="排序" />
+			<col name="item_desc" type="varchar" length="500" descr="描述" />
+			<col name="create_time" type="varchar" length="20" descr="创建时间" />
+		</columns>
+	</table>
+	
+	<table name="pscs_engine_task_param" pkname="task_id" descr="引擎参数表">
+		<columns>
+			<col name="task_id" 					type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"						type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"						type="varchar"   		length="2000"     	descr="参数值"/>
+		</columns>
+	</table>
+	
+	<table name="pscs_engine_task_param_bak" pkname="rid" descr="引擎参数表">
+		<columns>
+			<col name="rid" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"						type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"						type="varchar"   		length="2000"     	descr="参数值"/>
+		  	<col name="remark"						type="varchar"   		length="500"     	descr="备注"/>
+		</columns>
+	</table>
+	
+	<table name="pscs_engine_task" pkname="task_id" descr="引擎任务表">
+		<columns>
+			<col name="task_id" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>	
+		  	<col name="tab_name"						type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="status"							type="varchar"   		length="30"     	descr="状态"/>
+		  	<col name="create_tm"						type="varchar"   		length="20"     	descr="创建时间"/>
+		  	<col name="update_tm"						type="varchar"   		length="20"     	descr="更新时间"/>
+		  	<col name="command1"						type="varchar"   		length="2000"     	descr="配置命令"/>
+		  	<col name="command2"						type="varchar"   		length="2000"     	descr="展示命令"/>
+		  	<col name="task_name"						type="varchar"   		length="100"     	descr="任务名称"/>
+		  	<col name="rule_name"						type="varchar"   		length="2000"     	descr="规则名称"/>
+		  	<col name="rule_ids"						type="varchar"   		length="4000"     	descr="规则ids"/>
+		  	<col name="tab_ids"							type="varchar"   		length="4000"     	descr="表id"/>
+		  	<col name="info"							type="varchar"   		length="1000"     	descr="信息"/>
+		  	<col name="tab_names"						type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="task_type"						type="varchar"   		length="15"     	descr="任务类型"/>
+		</columns>
+	</table>
+	
+	<table name="pscs_engine_cmd_template" pkname="rid" descr="任务命令模板表">
+		<columns>
+		  <col name="rid"						type="varchar"   length="50"   		descr="主键"/>
+		  <col name="template_sts"				type="varchar"   length="1"   		descr="模板状态"/>
+		  <col name="cmd"						type="varchar"   length="2500"  	descr="命令"/>
+		  <col name="tem_name"					type="varchar"   length="200"   	descr="模板名称"/>
+		  <col name="cmd_type"					type="varchar"   length="20"   		descr="任务类型（规则任务/表任务）"/>
+		  <col name="last_upd_tm"				type="varchar"   length="19"   		descr="最后更新时间"/>
+		  <col name="create_tm"					type="varchar"   length="19"   		descr="创建时间"/>
+		  <col name="last_update_user"			type="varchar"   length="200"   	descr="最后修改人"/>
+		  <col name="creat_user"				type="varchar"   length="200"   	descr="创建人"/>
+		</columns>
+	</table>
+	
+	<table name="pscs_engine_log" pkname="rid" descr="检核日志">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="task_id"			type="varchar"   	length="50"   	descr="检核任务主键"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		  <col name="log_level"			type="varchar"   	length="20"   	descr="日志级别"/>
+		  <col name="log_cont"			type="varchar"   	length="2000"   descr="日志信息"/>
+		  <col name="create_tm"			type="char"   		length="19"   	descr="创建时间"/>
+		  <col name="log_no"			type="decimal"   	length="38"   	descr="日志序号"/>
+		</columns>
+	</table>
+	
+	<table name="pscs_cr_rule" pkname="id" descr="规则总表">
+		<columns>
+			<col name="id" 			type="decimal" length="38" 		descr="id" />
+			<col name="type_cd" 	type="varchar" length="20" 		descr="校验类型" />
+			<col name="disp_cd" 	type="varchar" length="20" 		descr="展示分类" />
+			<col name="rule_name" 	type="varchar" length="2000" 	descr="规则名称" />
+			<col name="tab_name" 	type="varchar" length="200" 	descr="中文表名" />
+			<col name="col_name" 	type="varchar" length="2000" 	descr="数据项中文字段名" />
+			<col name="create_tm" 	type="varchar" length="19" 		descr="创建时间" />
+			<col name="update_tm" 	type="varchar" length="19" 		descr="最后修改时间" />
+			<col name="update_user" type="varchar" length="200" 	descr="最后修改人" />
+			<col name="rule_sts" 	type="varchar" length="1" 		descr="是否启用" />
+			<col name="eff_dt" 		type="varchar" length="10" 		descr="生效日期" />
+			<col name="exp_dt" 		type="varchar" length="10" 		descr="失效日期" />
+			<col name="cond" 		type="varchar" length="1000" 	descr="前置条件表达式" />
+			<col name="weight" 		type="decimal" length="38" 		descr="权重" />
+			<col name="version" 	type="decimal" length="10" 		descr="版本" />
+			<col name="report_cd" 	type="varchar" length="20" 		descr="检核类型" />
+			<col name="report_no" 	type="varchar" length="20" 		descr="检核规则序号" />
+			
+			<col name="rule_source" type="varchar" length="20" 		descr="规则来源（监管、自定义）" />
+			<col name="constraint_type" type="varchar" length="20" 	descr="约束类型（强制、警示）" />
+		</columns>
+	</table>
+	
+	<table name="pscs_cr_rule_type" pkname="rid" descr="检核规则类型">
+		<columns>
+			<col name="type_name" 	type="varchar" length="200" descr="规则名称" />
+			<col name="type_desc" 	type="varchar" length="500" descr="规则描述" />
+			<col name="rid" 		type="varchar" length="50" 	descr="rid" />
+			<col name="type_table" 	type="varchar" length="50" 	descr="表名" />
+			<col name="typeclass" 	type="varchar" length="30" 	descr="规则分类" />
+			<col name="createtime" 	type="varchar" length="20" 	descr="生成时间" />
+		</columns>
+	</table>
+	
+	<table name="pscs_result_data" pkname="rid" descr="校验结果"  remark="精确到明细记录,即某一条记录的主键值都存入">
+		<columns>
+		  <col name="rid"              type="varchar"   length="50"    descr="主键"/>
+		  <col name="reportdate"       type="varchar"   length="10"    descr="报告日期"/>
+		  <col name="rulerid"          type="varchar"   length="50"    descr="校验id"/>
+		  <col name="rulecode"         type="varchar"   length="30"    descr="校验编号"/>
+		  <col name="ruletype"         type="varchar"   length="30"    descr="校验类型"/>
+		  
+		  <col name="tablename"        type="varchar"   length="50"    descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"    descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"    descr="字段名"/>
+		  <col name="colname_en"       type="varchar"   length="30"    descr="字段名(英文)"/>
+		  <col name="colvalue"         type="varchar"   length="300"   descr="字段值"/>
+		  <col name="pkcolname"        type="varchar"   length="30"    descr="主键字段名"/>
+		  <col name="pkvalue"          type="varchar"   length="100"   descr="主键字段值"/>
+		  
+		  <col name="problemcode"      type="varchar"   length="30"    descr="问题编号"/>
+		  <col name="problemmsg"       type="varchar"   length="2000"  descr="问题提示"/>
+		  
+		  <col name="org_no"           type="varchar"   length="30"    descr="经办机构代码"/>
+		  <col name="org_name"         type="varchar"   length="200"   descr="经办机构名称"/>
+		  
+		  <col name="result_status"    type="varchar"   length="20"    descr="状态:待处理，完成"/>
+		</columns>
+	</table>
+</root>

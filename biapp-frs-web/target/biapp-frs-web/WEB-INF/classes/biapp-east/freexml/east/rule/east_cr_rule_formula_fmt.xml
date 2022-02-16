@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+	<item name="格式-非空" descr="字段值不能为空">NON_EMPTY(中文表名__中文字段名)</item>
+	<item name="格式-日期格式" descr="是20191015样式">FORMAT(中文字段名,1)</item>
+	<item name="格式-时间格式" descr="是20191015 13:30:25样式">FORMAT(中文字段名,2)</item>
+	<item name="格式-电话号码" descr="必须是13500885630">FORMAT(中文字段名,4)</item>
+	<item name="格式-邮编格式" descr="必须是6位数字">FORMAT(中文字段名,5)</item>
+</root>

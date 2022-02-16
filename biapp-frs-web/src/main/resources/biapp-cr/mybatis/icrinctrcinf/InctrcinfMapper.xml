@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.icrinctrctinf.repository.InctrctinfBaseDao">
+<!-- 根据条件查询报表列表 -->
+
+	<select id="getInctrctInfList"  resultType="com.yusys.cr.icrinctrctinf.entity.CtrctBs">
+
+		SELECT
+			ctrcbs.InfRecType   infrectype, 
+			ctrcbs.ContractCode	contractcode,
+			ctrcbs.RptDate	    rptdate,
+			ctrcbs.RptDateCode	rptdatecode,
+			ctrcbs.Name	name,
+			ctrcbs.IDType	idtype,
+			ctrcbs.IDNum	idnum,
+			ctrcbs.MngmtOrgCode	mngmtorgcode
+		FROM 
+			Icr_CtrctBs ctrcbs
+
+	</select>
+	
+	<select id="getCtrctCertRelList"  resultType="com.yusys.cr.icrinctrctinf.entity.CtrctCertRel">
+		SELECT
+			ctrel.*
+		FROM 
+			ICR_CTRCTCERTREL ctrel
+        where 	ctrel.contractcode =#{code}
+	</select>
+	
+     <select id="getCreditLim"  resultType="com.yusys.cr.icrinctrctinf.entity.CreditLim">
+		SELECT
+			crlim.*
+		FROM 
+			ICR_CREDITLIM crlim
+        where 	crlim.contractcode =#{code}
+	</select>
+
+	<select id="selectHIcrCtrctBsCount" resultType="java.lang.Integer">
+		select count(*) from HIcr_CtrctBs t where t.incrementflag = '2'
+	</select>
+
+	<select id="getHIcrAtrctBsList" resultType="com.yusys.cr.icrinctrctinf.entity.IcrCtrctBsSgmt">
+		select * from HIcr_CtrctBs t where t.incrementflag = '2'
+	</select>
+
+	<select id="getHIcrAtrctBs" resultType="com.yusys.cr.icrinctrctinf.entity.IcrCtrctBsMdfcUpt">
+		select * from HIcr_CtrctBs t where t.incrementflag = '2' and t.contractcode = #{code}
+	</select>
+
+	<select id="getHCtrctCertRelList" resultType="com.yusys.cr.icrinctrctinf.entity.CtrctCertRel">
+		SELECT * FROM HICR_CTRCTCERTREL t WHERE t.incrementflag = '2' AND t.contractcode = #{code}
+	</select>
+
+	<select id="getHCreditLim" resultType="com.yusys.cr.icrinctrctinf.entity.CreditLim">
+		SELECT * FROM HICR_CREDITLIM t WHERE t.incrementflag = '2' AND t.contractcode = #{code}
+	</select>
+
+</mapper> 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.biapp.frs.mainpage.itemchange.repository.InsQueryMybatisDao">
+
+	<!-- 查询机构变动相关信息, 查询条件来自前台表单 -->
+<!-- 	<select id="searchRptOrgInfo" resultType="com.yusys.biapp.frs.mainpage.orgchange.entity.RptOrgChange"  -->
+<!-- 		parameterType="HashMap"> -->
+<!-- 		select rpt.org_no, -->
+<!-- 		rpt.org_type, rpt.change_type, rpt.org_nm, rpt.up_org_no -->
+<!-- 		from rpt_org_change rpt  WHERE 1=1  -->
+<!-- 		<if test=" orgNm != null "> -->
+<!-- 			AND org_nm LIKE #{orgNm} -->
+<!-- 		</if> -->
+<!-- 		 order by rpt.data_date desc  -->
+<!-- 	</select> -->
+
+	<!-- 查询科目变动相关信息, 查询条件来自前台表单 -->
+	<select id="searchRptSubjectInfo" resultType="com.yusys.biapp.frs.mainpage.itemchange.entity.RptSubjectChange" 
+		parameterType="HashMap">
+		select
+		rpt2.subject_num,
+		rpt2.subject_name,
+		rpt2.subject_type_cd,
+		rpt2.change_type
+		from rpt_subject_change rpt2 WHERE 1=1 
+		<if test=" subjectName != null ">
+			AND subject_name LIKE #{subjectName}
+		</if>
+		order by rpt2.datadate desc
+	</select>
+
+</mapper>

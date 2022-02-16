@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.frame.auth.repository.AuthMybatisDao">
+
+
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<select id="search" resultType="com.yusys.bione.frame.auth.entity.BioneAuthObjDef">
+		SELECT obj_def_NO ,obj_def_name
+		,BEAN_NAME,remark FROM
+		BIONE_AUTH_OBJ_DEF
+	</select>
+
+	<select id="getBioneRoleList" parameterType="String" resultType="com.yusys.bione.frame.authobj.entity.BioneRoleInfo">
+		SELECT
+			ROLE_NO as roleNo, ROLE_NAME as roleName
+		FROM
+			BIONE_ROLE_INFO
+		WHERE
+			ROLE_ID=#{userId}
+	</select>
+
+	<select id="getBioneDept" parameterType="String" resultType="com.yusys.bione.frame.authobj.entity.BioneDeptInfo">
+		SELECT
+			DEPT_NAME as deptName
+		FROM
+			BIONE_DEPT_INFO
+		WHERE
+			dept_id=#{deptId}
+	</select>
+
+	<select id="getBioneOrgInfo" parameterType="String" resultType="com.yusys.bione.frame.authobj.entity.BioneOrgInfo">
+		SELECT
+			ORG_NAME as orgName
+		FROM
+			BIONE_ORG_INFO
+		WHERE
+			ORG_ID=#{orgId}
+	</select>
+
+	<select id="getBioneAuthObjectInfo"  resultType="com.yusys.bione.frame.auth.entity.BioneAuthObjDef">
+		SELECT
+			OBJ_DEF_NO as objDefNo,
+			OBJ_DEF_NAME as objDefName
+		FROM
+			BIONE_AUTH_OBJ_DEF
+	</select>
+
+	<select id="getBioneAuthResDefInfo"  resultType="com.yusys.bione.frame.auth.entity.BioneAuthResDef">
+		SELECT
+			RES_NAME as resName,
+			RES_DEF_NO as resDefNo
+		FROM
+			BIONE_AUTH_RES_DEF
+		<if test="resDefNo != null">
+			WHERE RES_DEF_NO=#{resDefNo}
+		</if>
+	</select>
+
+    <select id="getBioneResDefInfo"  parameterType="HashMap" resultType="com.yusys.bione.frame.auth.entity.BioneAuthResDef">
+        select res.RES_NAME as resName,func.FUNC_NAME as resDefNo from
+        BIONE_AUTH_OBJ_RES_REL object LEFT JOIN
+        BIONE_MENU_INFO menu on object.RES_ID = menu.MENU_ID LEFT JOIN
+        BIONE_FUNC_INFO func on menu.FUNC_ID = func.FUNC_ID LEFT JOIN
+        BIONE_AUTH_RES_DEF res on object.RES_DEF_NO = res.RES_DEF_NO
+        WHERE
+        object.OBJ_ID = #{objId}
+        AND func.FUNC_STS ='1'
+        AND object.OBJ_DEF_NO =#{objDefNo}
+        AND object.RES_DEF_NO =#{resDefNo}
+		<if test="orgNos != null">
+			and (org.org_no in
+			<foreach item="orgNos" index="index" collection="orgNos"
+					 separator=" or org.org_no in ">
+				<foreach collection="orgNos" item="orgNos" open="("
+						 separator="," close=")">
+					#{orgNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+        ORDER BY
+        func.ORDER_NO,
+        func.UP_ID ASC
+    </select>
+
+	<select id="getUserBioneResDefInfo"  resultType="com.yusys.bione.frame.auth.entity.BioneAuthObjResRelPK">
+        select RES_ID as resId from
+        BIONE_AUTH_OBJ_RES_REL
+        WHERE
+        OBJ_ID = #{objId}
+        AND RES_DEF_NO =#{resDefNo}
+        AND OBJ_DEF_NO =#{objDefNo}
+        AND LOGIC_SYS_NO =#{logicSysNo}
+    </select>
+
+    <select id="getUserAllBioneResDefInfo"  resultType="com.yusys.bione.frame.auth.entity.BioneAuthObjResRelPK">
+        select RES_ID as resId,
+            OBJ_DEF_NO as objDefNo from
+        BIONE_AUTH_OBJ_RES_REL
+        WHERE
+		LOGIC_SYS_NO =#{logicSysNo}
+		AND (<if test="resName == null or resName == 'AUTH_OBJ_USER'">
+		 OBJ_ID = #{objId}
+		</if>
+		<if test="resName == null">
+			or
+		</if>
+		<if test="resName == null or resName != 'AUTH_OBJ_USER'">
+			OBJ_ID in (SELECT
+			OBJ_ID as objId
+			FROM
+			BIONE_AUTH_OBJ_USER_REL
+			WHERE
+			USER_ID = #{objId}
+			<if test="resName == null">
+				AND OBJ_DEF_NO in( 'AUTH_OBJ_ROLE', 'AUTH_OBJ_DEPT')
+			</if>
+			<if test="resName != null">
+				AND OBJ_DEF_NO = #{resName}
+			</if>)
+		</if>)
+        AND RES_DEF_NO =#{resDefNo}
+        <if test="resName == null">
+            AND OBJ_DEF_NO in( 'AUTH_OBJ_USER', 'AUTH_OBJ_ROLE', 'AUTH_OBJ_DEPT')
+        </if>
+        <if test="resName != null">
+            AND OBJ_DEF_NO = #{resName}
+        </if>
+    </select>
+
+	<select id="getBioneRoleUserList" parameterType="HashMap" resultType="com.yusys.bione.frame.user.entity.BioneUserInfo">
+		SELECT
+		b.USER_NAME as userName,
+		org.ORG_NAME as orgNo,
+		dept.DEPT_NAME as deptNo
+		FROM
+		BIONE_AUTH_OBJ_USER_REL obj
+		LEFT JOIN
+		BIONE_USER_INFO b
+		on obj.USER_ID = b.USER_ID
+		LEFT JOIN
+		BIONE_ORG_INFO org
+		on b.ORG_NO = org.ORG_NO
+		LEFT JOIN
+		BIONE_DEPT_INFO dept
+		on b.DEPT_NO = dept.DEPT_NO
+		and org.org_no = dept.org_no
+		WHERE
+		obj.OBJ_ID = #{objId}
+		AND obj.OBJ_DEF_NO = #{objDefNo}
+		and b.user_id is not null
+		<if test="logicSysNo != null">
+			AND obj.LOGIC_SYS_NO = #{logicSysNo}
+		</if>
+	</select>
+
+	<select id="getBioneAuthObjResRel" resultType="com.yusys.bione.frame.auth.entity.BioneAuthObjResRel">
+		select logic_sys_no as "id.logicSysNo",
+		       obj_def_no as "id.objDefNo",
+		       res_def_no as "id.resDefNo",
+		       permission_type as "id.permissionType",
+		       obj_id as "id.objId",
+		       res_id as "id.resId",
+		       permission_id as "id.permissionId"
+		from bione_auth_obj_res_rel where 1=1
+		<if test="logicSysNo != null">
+			AND logic_sys_no = #{logicSysNo}
+		</if>
+		<if test="objDefNo != null">
+			AND obj_def_no = #{objDefNo}
+		</if>
+		<if test="resDefNo != null">
+			AND res_def_no = #{resDefNo}
+		</if>
+		<if test="resId != null">
+			AND res_id = #{resId}
+		</if>
+		<if test="objId != null">
+			AND obj_id = #{objId}
+		</if>
+		<if test="objIds != null">
+			and (obj_id in
+			<foreach item="objIdList" index="index" collection="objIds"
+					 separator=" or obj_id in ">
+				<foreach collection="objIdList" item="objId" open="("
+						 separator="," close=")">
+					#{objId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+</mapper> 

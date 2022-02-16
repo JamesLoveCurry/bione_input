@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.frs.syslog.repository.SysLogDao">
+
+	<select id="queryOperLog" resultType="com.yusys.biapp.frs.syslog.entity.RptUserOperLog"
+		parameterType="HashMap">
+		SELECT * FROM RPT_USER_OPER_LOG WHERE 1=1 
+		<if test=" moduleNm != null ">
+			AND MODULE_NM LIKE #{moduleNm}
+		</if>
+		<if test=" resNo != null ">
+			AND RES_NO = #{resNo}
+		</if>
+		<if test=" startoperTime != null " >
+			<![CDATA[and OPER_TIME >= #{startoperTime}   and  OPER_TIME < #{endoperTime} ]]>
+		</if>
+		<if test=" operUserNm != null " >
+			AND OPER_USER_NM LIKE #{operUserNm}
+		</if>
+		<if test=" operType != null " >
+			AND OPER_TYPE = #{operType}
+		</if>
+		<if test=" logContent != null " >
+			AND LOG_CONTENT LIKE #{logContent}
+		</if>
+		<if test=" resNm != null ">
+			AND RES_NM = #{resNm}
+		</if>
+	</select>
+	
+
+	<select id="querySysLogInfo" resultType="com.yusys.biapp.frs.syslog.entity.RptLogInfo"
+		parameterType="HashMap">
+		SELECT 
+		LOG_ID,MODULE_NM,OPER_TIME,OPER_USER_ID,OPER_USER_NM,LOG_TYPE,LOG_CONTENT ,TASK_ID,TASK_NM,RPT_ID,RPT_NM,ORG_NO,ORG_NM,DATA_DATE,MODULE_TYPE 
+		FROM RPT_OPER_LOG WHERE 1=1 
+		<if test=" moduleNm != null ">
+			AND MODULE_NM LIKE #{moduleNm}
+		</if>
+		<if test=" moduleType != null ">
+			AND MODULE_TYPE = #{moduleType}
+		</if>
+		<if test=" startoperTime != null " >
+			<![CDATA[and ( OPER_TIME >= to_date(#{startoperTime}  ,'yyyy/mm/dd HH24:mi:ss')   and  OPER_TIME < to_date(#{endoperTime}  ,'yyyy/mm/dd HH24:mi:ss')  ) ]]>
+		</if>
+		<if test=" operUserNm != null " >
+			AND OPER_USER_NM LIKE #{operUserNm}
+		</if>
+		<if test=" taskNm != null " >
+			AND TASK_NM LIKE #{taskNm}
+		</if>
+		<if test=" rptNm != null " >
+			AND RPT_NM LIKE #{rptNm}
+		</if>
+		<if test=" orgNm != null " >
+			AND ORG_NM LIKE #{orgNm}
+		</if>
+		<if test=" logType != null " >
+			AND LOG_TYPE = #{logType}
+		</if>
+		<if test=" logContent != null " >
+			AND LOG_CONTENT LIKE #{logContent}
+		</if>
+	</select>
+	
+	<insert id="insertLog" parameterType="com.yusys.biapp.frs.syslog.entity.RptLogInfo">
+		<if test=" taskInstanceId != null " >
+			INSERT INTO RPT_OPER_LOG(LOG_ID,MODULE_NM,MODULE_TYPE,OPER_TIME,OPER_USER_ID,OPER_USER_NM,LOG_TYPE,LOG_CONTENT,TASK_ID,TASK_NM,RPT_ID,RPT_NM,ORG_NO,ORG_NM,DATA_DATE)
+			SELECT #{logId}, #{moduleNm},#{moduleType}, #{operTime},#{operUserId},#{operUserNm},#{logType},#{logContent},INS.TASK_INSTANCE_ID TASK_ID,INF.TASK_NM,RPT.RPT_ID,RPT.RPT_NM,ORG.ORG_NO,ORG.ORG_NM,INS.DATA_DATE
+			FROM RPT_FLTSK_INFO INF
+				INNER JOIN (SELECT INS.TASK_ID, INS.DATA_DATE,INS.EXE_OBJ_ID,INS.TASK_OBJ_ID,INS.TASK_INSTANCE_ID
+			               FROM RPT_FLTSK_INS INS
+			              WHERE INS.TASK_INSTANCE_ID =
+			                    #{taskInstanceId}) INS
+		          ON (INF.TASK_ID = INS.TASK_ID)
+		      INNER JOIN RPT_MGR_REPORT_INFO RPT
+		         ON (INS.TASK_OBJ_ID = RPT.RPT_ID)
+		      INNER JOIN RPT_ORG_INFO ORG
+			   ON ( ORG.ORG_NO = INS.EXE_OBJ_ID AND ORG.ORG_TYPE = #{moduleType} )
+			WHERE INS.TASK_OBJ_ID  = #{rptId}
+		</if>
+		<if test=" taskId != null " >
+			INSERT INTO RPT_OPER_LOG(LOG_ID,MODULE_NM,MODULE_TYPE,OPER_TIME,OPER_USER_ID,OPER_USER_NM,LOG_TYPE,LOG_CONTENT,TASK_ID,TASK_NM,RPT_ID,RPT_NM,ORG_NO,ORG_NM,DATA_DATE)
+			VALUES( #{logId},#{moduleNm},#{moduleType},#{operTime},#{operUserId},#{operUserNm},#{logType},#{logContent},#{taskId},#{taskNm},#{rptId},#{rptNm},#{orgNo},#{orgNm},#{dataDate})
+		</if>
+		<if test=" taskId == null and taskInstanceId == null ">
+			INSERT INTO RPT_OPER_LOG(LOG_ID,MODULE_NM,MODULE_TYPE,OPER_TIME,OPER_USER_ID,OPER_USER_NM,LOG_TYPE,LOG_CONTENT)
+			VALUES( #{logId},#{moduleNm},#{moduleType},#{operTime},#{operUserId},#{operUserNm},#{logType},#{logContent})
+		</if> 
+	</insert>
+	
+	<insert id="rptOperLog" parameterType="com.yusys.biapp.frs.syslog.entity.RptLogInfo">
+			INSERT INTO RPT_SYS_OPER_LOG(LOG_ID,MODULE_NM,MODULE_TYPE,OPER_TIME,OPER_USER_ID,OPER_USER_NM,LOG_TYPE,LOG_CONTENT,TASK_ID,TASK_NM,RPT_ID,RPT_NM,ORG_NO,ORG_NM,DATA_DATE)
+			SELECT #{logId}, #{moduleNm},#{moduleType}, #{operTime},#{operUserId},#{operUserNm},#{logType},#{logContent},INS.TASK_INSTANCE_ID TASK_ID,INF.TASK_NM,RPT.RPT_ID,RPT.RPT_NM,ORG.ORG_NO,ORG.ORG_NM,INS.DATA_DATE
+			FROM RPT_FLTSK_INFO INF
+				INNER JOIN (SELECT INS.TASK_ID, INS.DATA_DATE,INS.EXE_OBJ_ID,INS.TASK_OBJ_ID,INS.TASK_INSTANCE_ID
+			               FROM RPT_FLTSK_INS INS
+			              WHERE INS.TASK_INSTANCE_ID =
+			                    #{taskInstanceId}) INS
+		          ON (INF.TASK_ID = INS.TASK_ID)
+		      INNER JOIN RPT_MGR_REPORT_INFO RPT
+		         ON (INS.TASK_OBJ_ID = RPT.RPT_ID)
+		      INNER JOIN RPT_ORG_INFO ORG
+			   ON ( ORG.ORG_NO = INS.EXE_OBJ_ID AND ORG.ORG_TYPE = #{moduleType} )
+			WHERE INS.TASK_OBJ_ID  = #{rptId}
+	</insert>
+	
+	<insert id="saveRptDesignOperLog" parameterType="com.yusys.biapp.frs.syslog.entity.RptLogInfo">
+		INSERT INTO RPT_OPER_LOG (LOG_ID, MODULE_NM, MODULE_TYPE, OPER_TIME, OPER_USER_ID, OPER_USER_NM, LOG_TYPE, LOG_CONTENT, RPT_ID, RPT_NM) 
+		VALUES( #{logId}, #{moduleNm}, #{moduleType}, #{operTime}, #{operUserId}, #{operUserNm}, #{logType}, #{logContent}, #{rptId}, #{rptNm})
+	</insert>
+	
+	<select id="queryInputLogInfo" resultType="com.yusys.biapp.frs.syslog.entity.InputRptLogInfo"
+		parameterType="HashMap">
+		SELECT 
+		LOG_ID,MODULE_NM,EXE_DATE,OPER_USER_ID,OPER_USER_NM,LOG_TYPE,LOG_CONTENT 
+		FROM RPT_LOG_INFO WHERE 1=1 
+		<if test=" moduleNm != null ">
+			AND MODULE_NM LIKE #{moduleNm}
+		</if>
+		<if test=" startDate != null " >
+			AND EXE_DATE >= #{startDate}
+		</if>
+		<if test=" endDate != null " >
+			<![CDATA[ AND EXE_DATE <= #{endDate} ]]>
+		</if>
+		<if test=" operUserNm != null " >
+			AND OPER_USER_NM LIKE #{operUserNm}
+		</if>
+		<if test=" logType != null " >
+			AND LOG_TYPE = #{logType}
+		</if>
+	</select>
+	
+	<insert id="insertInputLog" parameterType="com.yusys.biapp.frs.syslog.entity.InputRptLogInfo">
+		INSERT INTO RPT_LOG_INFO(LOG_ID,MODULE_NM,EXE_DATE,OPER_USER_ID,OPER_USER_NM,LOG_TYPE,LOG_CONTENT)
+		VALUES (#{logId}, #{moduleNm}, #{exeDate},#{operUserId},#{operUserNm},#{logType},#{logContent})
+	</insert>
+	
+</mapper> 

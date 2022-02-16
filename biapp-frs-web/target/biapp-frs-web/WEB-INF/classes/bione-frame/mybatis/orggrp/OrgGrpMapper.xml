@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.frame.authobj.repository.OrgGrpMybatisDao">
+
+	<insert id="saveGroup">
+		insert into bione_org_grp
+			(GRP_ID,GRP_NM,CREATE_ORG,CREATE_TIME,REMARK)
+		values(#{grpId},#{grpNm},#{createOrg},#{createTime},#{remark})
+	</insert>
+
+	<insert id="saveObj">
+		insert into bione_grp_org_rel(ORG_NO,GRP_ID)
+		values(#{orgNo},#{grpId})
+	</insert>
+
+	<update id="editGroup">
+		update bione_org_grp
+		<set>
+			<if test="grpNm != null">GRP_NM=#{grpNm},</if>
+			<if test="remark != null">REMARK=#{remark}</if>
+		</set>
+		where GRP_ID=#{grpId}
+	</update>
+
+	<delete id="delOrg">
+		delete from bione_org_grp where GRP_ID in
+		<if test="list!=null">
+			<foreach item="item" index="index" collection="list" open="("
+					 separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+
+	<delete id="delObjs">
+		delete from bione_grp_org_rel where 1=1
+		<if test="list!=null">
+			and GRP_ID in
+			<foreach item="item" index="index" collection="list" open="("
+					 separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+
+	<delete id="delObj">
+		delete from bione_grp_org_rel
+		where GRP_ID=#{grpId}
+	</delete>
+
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<select id="list" resultType="com.yusys.bione.frame.authobj.web.vo.BioneOrgGrpVO">
+		SELECT
+			grp.GRP_ID,
+			grp.GRP_NM,
+			grp.CREATE_ORG,
+			grp.CREATE_TIME,
+			grp.remark,
+		    org.ORG_NAME as "createOrgNm"
+		FROM
+		   BIONE_ORG_GRP grp
+		left join
+		   BIONE_ORG_INFO org on grp.CREATE_ORG = org.org_no
+	</select>
+
+	<select id="checkName" resultType="com.yusys.bione.frame.authobj.entity.BioneOrgGrp">
+		select * from BIONE_ORG_GRP where 1=1
+		<if test="collectionName!=null">
+			and GRP_NM=#{collectionName}
+		</if>
+		<if test="id!=null">
+			and GRP_ID!=#{id}
+		</if>
+		<if test="orgno!=null">
+			and CREATE_ORG=#{orgno}
+		</if>
+	</select>
+
+	<select id="getRptById" resultType="com.yusys.bione.frame.authobj.entity.BioneOrgGrp">
+		select * from BIONE_ORG_GRP where GRP_ID=#{groupId}
+	</select>
+
+	<select id="searchbyId" resultType="java.lang.String">
+		select ORG_NO from bione_grp_org_rel where
+			GRP_ID=#{grpId}
+	</select>
+
+</mapper> 

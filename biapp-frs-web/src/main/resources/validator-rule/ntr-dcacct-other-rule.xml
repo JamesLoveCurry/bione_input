@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30078902.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctCodeChangeRecord">
+		<!-- 借贷账户标识变更 -->
+		<field name="InfRecType" fbTag="InfRecType" classType="java.lang.String">
+			<rule id="IdCagsType_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="IdCagsType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IdCagsType_NotNull" />
+			<rule id="IdCagsType_CtxE" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="IdCagsType_NotEmpty">
+				<property name="data" value="${$context.REC_TYPE}" />
+			</rule>
+		</field>
+		<field name="OdBnesCode"  fbTag="OdBnesCode" classType="java.lang.String">
+			<rule id="OdBnesCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="OdBnesCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OdBnesCode_NotNull" />
+			<rule id="OdBnesCode_DataType" type="DataType" errCode="ABE001" depExp="OdBnesCode_NotEmpty">
+				<property name="type" value="AN..60" />
+			</rule>
+			<rule id="OdBnesCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="OdBnesCode_DataType"/>
+		</field>
+		<field name="NwBnesCode" fbTag="NwBnesCode" classType="java.lang.String">
+			<rule id="NwBnesCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="NwBnesCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NwBnesCode_NotNull" />
+			<rule id="NwBnesCode_DataType" type="DataType" errCode="ABE001" depExp="NwBnesCode_NotEmpty">
+				<property name="type" value="AN..60" />
+			</rule>
+			<rule id="NwBnesCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="NwBnesCode_DataType"/>
+			<rule id="NwBnesCode_NEq_OdBnesCode" type="NotEquals" errCode="BIE000" fbTag="0000" fbValue=""  depExp="OdBnesCode_FinanOrgan  &amp; NwBnesCode_FinanOrgan">
+				<property name="data" value="${OdBnesCode}" />
+			</rule>
+
+		</field>
+	</validator>
+
+
+	<validator id="30078942.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctSpecialEvtRecord">
+		<!-- 借贷账户 特殊事件说明 -->
+		<field name="InfRecType" fbTag="InfRecType" classType="java.lang.String">
+			<rule id="InfRecTp_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="InfRecTp_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecTp_NotNull" />
+			<rule id="InfRecTp_CtxE" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecTp_NotEmpty">
+				<property name="data" value="${$context.REC_TYPE}" />
+			</rule>
+		</field>
+		<field name="AcctCode" fbTag="AcctCode" classType="java.lang.String">
+			<rule id="AcctCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="AcctCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="AcctCode_NotNull" />
+			<rule id="AcctCode_DataType" type="DataType" errCode="ABE001" depExp="AcctCode_NotEmpty">
+				<property name="type" value="AN..60" />
+			</rule>
+			<rule id="AcctCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="AcctCode_DataType"/>
+		</field>
+		<field name="OpetnType" fbTag="OpetnType"  classType="java.lang.String">
+			<rule id="OpetnType_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="OpetnType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OpetnType_NotNull" />
+			<rule id="OpetnType_Dict" type="Dict" errCode="ABE001" depExp="OpetnType_NotEmpty">
+				<property name="dictKey" value="OpetnType" />
+			</rule>
+		</field>
+		<field name="Month" fbTag="Month"  classType="java.lang.String">
+			<rule id="Month_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="Month_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Month_NotNull" />
+			<rule id="Month_DataType" type="DataType" errCode="ABE001" depExp="Month_NotEmpty">
+				<property name="type" value="Month" />
+			</rule>
+			<rule id="Month_Range" type="DateRange" errCode="ABE008" depExp="Month_DataType" />
+		</field>
+		<field name="Flag" fbTag="Flag" classType="java.lang.String">
+			<rule id="Flag_NotNull" type="NotNull" errCode="ABD000"  />
+			<rule id="Flag_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Flag_NotNull" />
+			<rule id="Flag_Dict" type="Dict" errCode="ABE001" depExp="Flag_NotEmpty"> 
+				<property name="dictKey" value="EffectFlag"/> 
+			</rule>
+		</field>
+		<field name="RptDate" fbTag="RptDate" classType="java.lang.String">
+			<rule id="RptDate_NotNull" type="NotNull" errCode="ABD000"  />
+			<rule id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDate_NotNull" />
+			<rule id="RptDate_DataType" type="DataType" errCode="ABE001" depExp="RptDate_NotEmpty">
+				<property name="type" value="Date" />
+			</rule>
+			<rule id="RptDate_Range" type="DateRange" errCode="ABE008" depExp="RptDate_DataType" />
+			<rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001" depExp="RptDate_Range" >
+				<property  name="type" value="date" />
+				<property  name="endDate" value="${$context.FILE_CREATE_DATE}" />
+			</rule>
+			<rule id="Month_EqRptDate" type="Method" errCode="BQR000" fbTag="0000" fbValue="" depExp="Month_DataType &amp; RptDate_DataType">
+				<package>
+					org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctSpecialEvtRecord;
+				</package>
+				<method>{
+					/* 借贷账户特殊事件说明记录的“信息报告日期”的“年”和“月”与“发生月份”相等 */
+						if (record != null) {
+							if (record.getMonth() != null &amp;&amp; record.getRptDate() != null) {
+								if (record.getMonth().equals(record.getRptDate().substring(0, 7)))
+									return true;
+							}
+						}
+						return false;
+					}
+				</method>
+			</rule>
+		</field>
+	</validator>
+
+	<validator id="30078922.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctDelPartRecord" >
+	<!-- 借贷账户按段删除 -->
+		<field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+			<rule id="DelRecType_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="DelRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecType_NotNull" />
+			<rule id="DelRecType_CtxE" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="DelRecType_NotEmpty">
+				<property name="data" value="${$context.REC_TYPE}" />
+			</rule>
+		</field> 
+		<field  name="DelRecCode"  fbTag="DelRecCode" classType="java.lang.String" >
+			<rule  id="DelRecCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelRecCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecCode_NotNull" />
+			<rule  id="DelRecCode_DataType" type="DataType" errCode="ABE001" depExp="DelRecCode_NotEmpty" >
+				<property  name="type" value="AN..60" />
+			</rule>
+			<rule id="DelRecCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="DelRecCode_DataType"/>
+		</field> 
+		<field  name="DelSgmtCode" fbTag="DelSgmtCode" classType="java.lang.String" >
+			<rule  id="DelSgmtCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelSgmtCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelSgmtCode_NotNull" />
+			<rule  id="DelSgmtCode_Contains" type="Contains" errCode="ABE001" depExp="DelSgmtCode_NotEmpty" >
+				<property name="dict" value="C;H;I;J;K" />
+			</rule>
+		</field> 
+		<field  name="DelStartDate" fbTag="DelStartDate" classType="java.lang.String" >
+			<rule  id="DelStartDate_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelStartDate_Empty" type="Empty" depExp="DelStartDate_NotNull" />
+			<rule  id="DelStartDate_NotEmpty_EndEmpty" type="NotEmpty" errCode="BSE000" fbTag="0000" fbValue=""  depExp="DelStartDate_NotNull &amp; DelEndDate_Empty" />
+			<rule  id="DelStartDate_NotEmpty" type="NotEmpty" depExp="DelStartDate_NotNull" />
+			<rule  id="DelStartDate_DataType" type="DataType" errCode="ABE001" depExp="DelStartDate_NotEmpty" >
+				<property  name="type" value="Date" />
+			</rule>
+			<rule id="DelStartDate_Range" type="DateRange" errCode="ABE008" depExp="DelStartDate_DataType" />
+			<rule id="DelStartDate_LE_DelEndDate" type="DateCompare" errCode="BSE001" depExp="DelStartDate_DataType &amp; DelEndDate_DataType">
+				<property name="endDate" value="${DelEndDate}" />
+			</rule>
+		</field> 
+		<field  name="DelEndDate" fbTag="DelEndDate" classType="java.lang.String" >
+			<rule  id="DelEndDate_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelEndDate_Empty" type="Empty" depExp="DelEndDate_NotNull" />
+			<rule  id="DelEndDate_NotEmpty" type="NotEmpty" depExp="DelEndDate_NotNull"/>
+			<rule  id="DelEndDate_DataType" type="DataType" errCode="ABE001" depExp="DelEndDate_NotEmpty" >
+				<property  name="type" value="Date" />
+			</rule>
+			<rule id="DelEndDate_Range" type="DateRange" errCode="ABE008" depExp="DelEndDate_DataType" />
+		</field> 
+	</validator>
+
+	<validator id="30078932.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrdcaccount.msg.DcacctDelAllRecord">
+		<!-- 借贷账户整笔删除 -->
+		<field name="InfRecType" fbTag="InfRecType" classType="java.lang.String">
+			<rule id="DelRecType_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="DelRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecType_NotNull" />
+			<rule id="DelRecType_CtxE" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="DelRecType_NotEmpty">
+				<property name="data" value="${$context.REC_TYPE}" />
+			</rule>
+		</field>
+		<field name="DelRecCode" fbTag="DelRecCode" classType="java.lang.String">
+			<rule id="DelRecCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule id="DelRecCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecCode_NotNull" />
+			<rule id="DelRecCode_DataType" type="DataType" errCode="ABE001" depExp="DelRecCode_NotEmpty">
+				<property name="type" value="AN..60" />
+			</rule>
+			<rule id="DelRecCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="DelRecCode_DataType"/>
+		</field>
+	</validator>
+
+</validators>

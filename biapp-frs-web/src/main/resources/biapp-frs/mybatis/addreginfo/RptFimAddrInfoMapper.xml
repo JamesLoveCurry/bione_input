@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yusys.biapp.frs.addreginfo.repository.RptFimAddrInfoMybatisDao">
+
+	<select id="getTree"
+		resultType="com.yusys.biapp.frs.addreginfo.web.vo.RptFimAddrInfoVO"
+		parameterType="HashMap"
+		>
+	select ADDR_NO,ADDR_LVL,ADDR_NM,UP_ADDR_NO,NAMESPACE
+	from   rpt_fim_addr_info
+	where  1=1
+		<if test="upNo == null">
+			and up_addr_no ='-1'
+		</if>
+		<if test="upNo != null">
+			and up_addr_no =#{upNo}
+		</if>
+	</select>
+	<!--
+		根据名称得到相应信息
+	-->	
+	<select id="getTreeByName"
+		resultType="com.yusys.biapp.frs.addreginfo.web.vo.RptFimAddrInfoVO"
+		parameterType="HashMap"
+		>
+	select ADDR_NO,ADDR_LVL,ADDR_NM,UP_ADDR_NO,NAMESPACE
+	from   rpt_fim_addr_info
+	where  1=1
+		<if test="addrNm != null">
+			and ADDR_NM =#{addrNm}
+		</if>
+	</select>
+
+	<select id="getTreeNode"
+		resultType="com.yusys.biapp.frs.addreginfo.web.vo.RptFimAddrInfoVO"
+		parameterType="HashMap"
+		>
+	select ADDR_NO,ADDR_LVL,ADDR_NM,UP_ADDR_NO,NAMESPACE
+	from   rpt_fim_addr_info
+	where  1=1
+ 	    <if test="addrNo != null">
+			and addr_no =#{addrNo}
+		</if>
+
+	</select>
+	
+	<!--
+		判断当前节点下是否还有内容
+	-->
+	<select id="checkIsDelete"
+		resultType="int"
+		parameterType="HashMap"
+		>
+	select distinct count(*)
+	from   rpt_fim_addr_info
+	where  1=1
+ 	    <if test="addrNo != null">
+			and up_addr_no =#{addrNo}
+		</if>
+
+	</select>
+
+	<update id="updateAddrinfo"
+		parameterType="HashMap">
+		update rpt_fim_addr_info
+		<set>
+			<if test="addrNm != null">ADDR_NM=#{addrNm}</if>
+		</set>
+		where ADDR_NO=#{addrNo}
+	</update>
+	
+	<insert id="savaAddrInfo"
+		parameterType="HashMap">
+		insert into rpt_fim_addr_info
+		(
+			ADDR_NO,
+			ADDR_LVL,
+			ADDR_NM,
+			UP_ADDR_NO,
+			NAMESPACE
+		)
+		values
+		(
+			#{addrNo},
+			#{addrLvl},
+			#{addrNm},
+			#{upNo},
+			#{nameSpace}
+		)
+
+	</insert>
+	
+	<delete id="delete" 
+		parameterType="HashMap">
+		delete from
+		rpt_fim_addr_info
+		where
+		ADDR_NO=#{addrNo}
+	</delete>
+
+</mapper>

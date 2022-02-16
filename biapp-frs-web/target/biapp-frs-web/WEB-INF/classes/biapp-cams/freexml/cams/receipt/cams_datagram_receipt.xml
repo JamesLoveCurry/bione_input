@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>回执导入</templetname>
+		<fromtable>cams_cr_receipt</fromtable>
+		<savetable>cams_cr_receipt</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys>report_data desc</orderbys>
+		<card_btns></card_btns>
+		<card_size>600*600</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns>[icon-p20]导入回执/onImport;[icon-p20]回执预览/onPreview;</list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ischeckstyle>Y</list_ischeckstyle>
+		<list_ismultisel>Y</list_ismultisel>
+	</templet>
+	
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<helptip></helptip>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<loadformula></loadformula>
+		<editformula></editformula>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<grouptitle></grouptitle>
+		<card_isshow>N</card_isshow>
+		<card_width>300</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<list_render></list_render>
+		<query_isshow>N</query_isshow>
+		<query_itemtype></query_itemtype>
+		<query_itemdefine></query_itemdefine>
+		<validateinfo></validateinfo>
+		<showformula></showformula>
+		<defvalue></defvalue>
+	</templet_item>
+
+   <templet_item>
+		<itemkey>report_data</itemkey>
+		<itemname>报告日期</itemname>
+		<itemtype>日历</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>中</list_align>
+        <query_itemtype>日历</query_itemtype>
+		<query_ismust>N</query_ismust>
+		<query_isshow>Y</query_isshow>
+		<query_width>220</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>report_type</itemkey>
+		<itemname>报告类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"S/无错误数据|F/文件级错误|R/记录级错误"}</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>85</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>220</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>report_file_name</itemkey>
+		<itemname>回执文件名</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>messagerefid</itemkey>
+		<itemname>对应报文序列号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>filepath</itemkey>
+		<itemname>回执文件路径</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>create_tm</itemkey>
+		<itemname>创建时间</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>138</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_iswrap>Y</query_iswrap>
+		<query_width>250</query_width>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>ferrcode</itemkey>
+		<itemname>文件错误代码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>250</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>138</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_iswrap>Y</query_iswrap>
+		<query_width>250</query_width>
+	</templet_item>
+</root>
+

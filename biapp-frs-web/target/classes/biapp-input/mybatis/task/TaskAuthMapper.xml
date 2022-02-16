@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.input.task.repository.TaskAuthDao">
+
+	<select   id="getTaskAuthRole"    resultType="com.yusys.bione.frame.authobj.entity.BioneRoleInfo" parameterType="String">
+		SELECT LAST_UPDATE_TIME,LAST_UPDATE_USER,LOGIC_SYS_NO,REMARK,ROLE_ID,ROLE_NAME,ROLE_NO,ROLE_STS,ROLE_TYPE
+		FROM  BIONE_ROLE_INFO  
+		WHERE ROLE_NAME IN 
+             <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}               
+             </foreach> 
+	</select>
+	<select   id="getChildOrgs"    resultType="String" parameterType="String" >
+		SELECT  INFO.ORG_NO FROM BIONE_ORG_INFO INFO WHERE INFO.UP_NO=#{orgNo}
+	</select>
+	<select   id="getUserInfoByOrgs"    resultType="java.util.Map" parameterType="java.util.Map" >
+		SELECT  INFO.ADDRESS as "ADDRESS",
+		       INFO.BIRTHDAY as "BIRTHDAY",
+		       INFO.DEPT_NO as "DEPT_NO",
+		       INFO.EMAIL as "EMAIL",
+		       INFO.IS_BUILTIN as "IS_BUILTIN",
+		       INFO.LAST_PWD_UPDATE_TIME as "LAST_PWD_UPDATE_TIME",
+		       INFO.LAST_UPDATE_TIME as "LAST_UPDATE_TIME",
+		       INFO.LAST_UPDATE_USER as "LAST_UPDATE_USER",
+		       INFO.LOGIC_SYS_NO as "LOGIC_SYS_NO",
+		       INFO.MOBILE as "MOBILE",
+		       INFO.ORG_NO as "ORG_NO",
+		       INFO.POSTCODE as "POSTCODE",
+		       INFO.REMARK as "REMARK",
+		       INFO.SEX as "SEX",
+		       INFO.TEL as "TEL",
+		       INFO.USER_ICON as "USER_ICON",
+		       ORG.ORG_NAME as "ORG_NAME",
+		       USER_ID as "USER_ID",
+		       USER_NAME as "USER_NAME",
+		       USER_NO as "USER_NO",
+		       USER_PWD as "USER_PWD",
+		       USER_STS  as "USER_STS"
+		FROM BIONE_USER_INFO INFO INNER JOIN BIONE_ORG_INFO ORG ON INFO.ORG_NO=ORG.ORG_NO WHERE INFO.ORG_NO IN
+             <foreach  collection = "childOrgList" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}               
+             </foreach> 
+        <if test=" searchText != null ">
+        	AND USER_NAME LIKE #{searchText}
+        </if>
+        <if test=" isyg != null">
+        	AND EXISTS (SELECT 1 FROM BIONE_AUTH_OBJ_USER_REL REL ,BIONE_ROLE_INFO INF WHERE REL.OBJ_ID=INF.ROLE_ID AND 
+        	REL.OBJ_DEF_NO='AUTH_OBJ_ROLE'   AND    REL.USER_ID=INFO.USER_ID AND INF.ROLE_NAME='业务管理员' )
+        </if>
+	</select>
+</mapper> 

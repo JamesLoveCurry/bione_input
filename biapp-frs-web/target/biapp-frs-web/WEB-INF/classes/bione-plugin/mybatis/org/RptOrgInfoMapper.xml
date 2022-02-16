@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptorg.repository.RptOrgInfoMybatisDao">
+
+	<!-- 以下是查询用的 -->
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<!-- 机构源节点 -->
+	<select id="findOrg" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE,IS_VIRTUAL_ORG
+	 	from RPT_ORG_INFO 
+	 	where 1=1 
+		<if test="orgNo != null">
+			and ORG_NO = #{orgNo}
+		</if>
+		<if test="orgType != null">
+			and ORG_TYPE = #{orgType}
+		</if>
+		<if test="financeOrgNo != null">
+			and FINANCE_ORG_NO = #{financeOrgNo}
+		</if>
+		<if test="mgrOrgNo != null">
+			and MGR_ORG_NO = #{mgrOrgNo}
+		</if>
+		<if test="orgNm != null">
+			and ORG_NM = #{orgNm}
+		</if>
+		<if test="upOrgNo != null">
+			and UP_ORG_NO = #{upOrgNo}
+		</if>
+		<if test="orgSumType != null">
+			and ORG_SUM_TYPE = #{orgSumType}
+		</if> 
+		<if test="isOrgReport != null">
+			and IS_ORG_REPORT = #{isOrgReport}
+		</if> 
+		order by ORG_NO asc
+</select>
+
+	<select id="findOrgBySumRel" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+		select org.ORG_NO         as "id.orgNo",
+	       org.ORG_TYPE       as "id.orgType",
+	       org.FINANCE_ORG_NO,
+	       org.MGR_ORG_NO,
+	       org.ORG_NM,
+	       org.ORG_SUM_TYPE,
+	       org.UP_ORG_NO,
+	       org.NAMESPACE,
+	       org.IS_VIRTUAL_ORG
+	  from RPT_ORG_INFO org
+ 		where 1=1 
+	<if test="orgNo != null">
+		and org.ORG_NO = #{orgNo}
+	</if>
+	<if test="orgType != null">
+		and org.ORG_TYPE = #{orgType}
+	</if>
+	<if test="financeOrgNo != null">
+		and org.FINANCE_ORG_NO = #{financeOrgNo}
+	</if>
+	<if test="mgrOrgNo != null">
+		and org.MGR_ORG_NO = #{mgrOrgNo}
+	</if>
+	<if test="orgNm != null">
+		and org.ORG_NM = #{orgNm}
+	</if>
+	<if test="upOrgNo != null">
+		and org.UP_ORG_NO = #{upOrgNo}
+	</if>
+	<if test="orgSumType != null">
+		and org.ORG_SUM_TYPE = #{orgSumType}
+	</if> 
+	<if test="isOrgReport != null">
+		and org.IS_ORG_REPORT = #{isOrgReport}
+	</if> 
+	union all
+	select rel.ORG_NO          as "id.orgNo",
+	       rel.ORG_TYPE        as "id.orgType",
+	       info.FINANCE_ORG_NO,
+	       info.MGR_ORG_NO,
+	       info.ORG_NM,
+	       info.ORG_SUM_TYPE,
+	       rel.UP_ORG_NO,
+	       info.NAMESPACE,
+	       info.IS_ORG_REPORT
+	  from rpt_org_sum_rel rel
+	  left join RPT_ORG_INFO info
+	    on rel.org_no = info.org_no
+	   and rel.org_type = info.org_type
+	 where 1 = 1
+	 <if test="orgNo != null">
+		and rel.ORG_NO = #{orgNo}
+	</if>
+	<if test="orgType != null">
+		and rel.ORG_TYPE = #{orgType}
+	</if>
+	<if test="financeOrgNo != null">
+		and info.FINANCE_ORG_NO = #{financeOrgNo}
+	</if>
+	<if test="mgrOrgNo != null">
+		and info.MGR_ORG_NO = #{mgrOrgNo}
+	</if>
+	<if test="orgNm != null">
+		and info.ORG_NM = #{orgNm}
+	</if>
+	<if test="upOrgNo != null">
+		and rel.UP_ORG_NO = #{upOrgNo}
+	</if>
+	<if test="orgSumType != null">
+		and info.ORG_SUM_TYPE = #{orgSumType}
+	</if> 
+	<if test="isOrgReport != null">
+		and info.IS_ORG_REPORT = #{isOrgReport}
+	</if> 
+	order by "id.orgNo" asc
+</select>
+
+<select id="findOrgThen" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,IS_VIRTUAL_ORG
+ from 
+	RPT_ORG_INFO 
+	 where 1=1 
+	 <if test="orgNo != null">
+		 and ORG_NO = #{orgNo}</if>
+	 <if test="orgType != null">
+		 and ORG_TYPE = #{orgType}</if>
+	 <if test="financeOrgNo != null">
+		 and FINANCE_ORG_NO = #{financeOrgNo}</if>
+	 <if test="mgrOrgNo != null">
+		 and MGR_ORG_NO = #{mgrOrgNo}</if>
+	 <if test="orgNm != null">
+		 and ORG_NM = #{orgNm}</if>
+	 <if test="upOrgNo != null">
+		 and UP_ORG_NO = #{upOrgNo}</if>
+		order by ORG_NO asc 
+</select>
+
+<select id="findOrgNm" resultType="com.yusys.bione.plugin.rptorg.web.vo.RptOrgInfoVo"
+	parameterType="HashMap"> 
+	select o.ORG_NO as "id.orgNo",o.ORG_TYPE as "id.orgType",o.FINANCE_ORG_NO,o.MGR_ORG_NO,o.ORG_NM,o.ORG_SUM_TYPE,o.UP_ORG_NO
+from RPT_ORG_INFO o 
+where 1=1
+	 <if test="orgNo != null">
+		 and o.ORG_NO = #{orgNo}</if>
+	 <if test="orgType != null">
+		 and o.ORG_TYPE = #{orgType}</if>
+	 <if test="financeOrgNo != null">
+		 and o.FINANCE_ORG_NO = #{financeOrgNo}</if>
+	 <if test="mgrOrgNo != null">
+		 and o.MGR_ORG_NO = #{mgrOrgNo}</if>
+	 <if test="orgNm != null">
+		 and o.ORG_NM = #{orgNm}</if>
+	 <if test="orgSumType != null">
+		 and o.ORG_SUM_TYPE = #{orgSumType}</if>
+	 <if test="upOrgNo != null">
+		 and o.UP_ORG_NO = #{upOrgNo}</if>
+</select>
+
+<select id="findMgrNms" resultType="String" parameterType="HashMap"> 
+	select ORG_NAME from 
+	BIONE_ORG_INFO 
+	where 1=1 
+	 <if test="orgNo != null">
+		 and ORG_NO = #{orgNo}</if>
+	 
+</select>
+
+<!-- 新增 -->
+	<!-- 查询是否唯一 -->
+	<select id="getOrg" resultType="com.yusys.bione.plugin.rptorg.web.vo.RptOrgInfoVo" parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO from
+	RPT_ORG_INFO 
+	where 1=1 
+	 <if test="orgNo != null">
+		 and ORG_NO = #{orgNo}</if>
+	 <if test="orgType != null">
+		 and ORG_TYPE = #{orgType}</if>
+	 <if test="financeOrgNo != null">
+		 and FINANCE_ORG_NO = #{financeOrgNo}</if>
+	 <if test="mgrOrgNo != null">
+		 and MGR_ORG_NO = #{mgrOrgNo}</if>
+	 <if test="orgNm != null">
+		 and ORG_NM = #{orgNm}</if>
+	 <if test="orgSumType != null">
+		 and ORG_SUM_TYPE = #{orgSumType}</if>
+	 <if test="upOrgNo != null">
+		 and UP_ORG_NO = #{upOrgNo}</if>
+	<if test="sourceOrgNo != null">
+		and ORG_NO != #{sourceOrgNo}
+	</if>
+</select>
+
+<select id="getOrgList" resultType="com.yusys.bione.plugin.rptorg.web.vo.RptOrgInfoVo" parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO from 
+	RPT_ORG_INFO 
+	where 1=1 
+	 <if test="orgNo != null">
+		 and ORG_NO = #{orgNo}</if>
+	 <if test="orgType != null">
+		 and ORG_TYPE = #{orgType}</if>
+	 <if test="financeOrgNo != null">
+		 and FINANCE_ORG_NO = #{financeOrgNo}</if>
+	 <if test="mgrOrgNo != null">
+		 and MGR_ORG_NO = #{mgrOrgNo}</if>
+	 <if test="orgNm != null">
+		 and ORG_NM = #{orgNm}</if>
+	 <if test="orgSumType != null">
+		 and ORG_SUM_TYPE = #{orgSumType}</if>
+	 <if test="upOrgNo != null">
+		 and UP_ORG_NO = #{upOrgNo}</if>
+	<if test="sourceOrgNo != null">
+		and ORG_NO != #{sourceOrgNo}
+	</if>
+</select>
+
+	<!-- 插入数据 -->
+<insert id="saveOrg" parameterType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo">
+	insert into RPT_ORG_INFO(ORG_NO,ORG_TYPE,FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE,IS_VIRTUAL_ORG)
+		values(#{id.orgNo},#{id.orgType},#{financeOrgNo},#{mgrOrgNo},#{orgNm},#{orgSumType},#{upOrgNo},#{namespace},#{isVirtualOrg})
+</insert>
+
+	<!-- 删除数据 -->
+<delete id="deleteOrg" parameterType="HashMap">
+	delete from RPT_ORG_INFO
+	where 1=1
+	and ORG_NO=#{id.orgNo} 
+	and ORG_TYPE=#{id.orgType} 
+</delete>
+	
+	<!-- 修改数据 -->
+<update id="updateOrg" parameterType="com.yusys.bione.plugin.rptorg.web.vo.RptMgrFrsOrgSource">
+	 update RPT_ORG_INFO
+	<set> 
+		<if test="id.orgNo != null">ORG_NO=#{id.orgNo},</if>
+		<if test="id.orgType != null">ORG_TYPE=#{id.orgType},</if>
+		<if test="financeOrgNo != null">FINANCE_ORG_NO=#{financeOrgNo},</if>
+		<if test="mgrOrgNo != null">MGR_ORG_NO=#{mgrOrgNo},</if>
+		<if test="orgNm != null">ORG_NM=#{orgNm},</if>
+		<if test="orgSumType != null">ORG_SUM_TYPE=#{orgSumType},</if>
+		<if test="upOrgNo != null">UP_ORG_NO=#{upOrgNo},</if>
+		<if test="isVirtualOrg !=null">IS_VIRTUAL_ORG=#{isVirtualOrg}</if>
+	</set>
+	where 1=1 
+	and ORG_NO=#{sourceOrgNo} 
+	and ORG_TYPE=#{id.orgType} 
+</update>
+ <!-- 模糊查询树 -->
+ 	<select id="searchTree" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO from 
+	RPT_ORG_INFO 
+	 where 1=1 
+	 <if test="orgNm != null">
+		 and ORG_NM like #{orgNm}</if>
+		 order by ORG_NO asc 
+</select>
+
+<!-- 加权限的处理 -->
+
+ 
+<select id="getOrgNoUser" resultType="String"
+	parameterType="HashMap"> 
+	select org_no from 
+	RPT_ORG_INFO 
+	 where 1=1 
+	 <if test="mgrOrgNo != null">
+		 and mgr_Org_No = #{mgrOrgNo}</if>
+	<if test="orgType != null">
+		 and org_Type = #{orgType}</if>
+</select>
+
+
+
+<select id="getOrgNoInfoUser" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE
+ 	from 
+	RPT_ORG_INFO 
+	 where 1=1 
+	 <if test="mgrOrgNo != null">
+		 and mgr_Org_No = #{mgrOrgNo}</if>
+	<if test="orgType != null">
+		 and org_Type = #{orgType}</if>
+</select>
+
+<select id="findOrgUser" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE
+ from 
+	RPT_ORG_INFO 
+	 where 1=1 
+	  <if test="orgNo != null">
+	  and org_No in
+	  <foreach collection="orgNo" item="orgNo" separator=",">
+	  <foreach collection="orgNo" item="orgNoUser" open="(" separator=","
+			close=")">
+			#{orgNoUser}
+		</foreach>
+		</foreach>
+		</if>
+	 <if test="orgType != null">
+		 and ORG_TYPE = #{orgType}</if>
+	 <if test="financeOrgNo != null">
+		 and FINANCE_ORG_NO = #{financeOrgNo}</if>
+	 <if test="mgrOrgNo != null">
+		 and MGR_ORG_NO = #{mgrOrgNo}</if>
+	 <if test="orgNm != null">
+		 and ORG_NM = #{orgNm}</if>
+	 <if test="upOrgNo != null">
+		 and UP_ORG_NO = #{upOrgNo}</if>
+	<if test="orgSumType != null">
+		and ORG_SUM_TYPE = #{orgSumType}</if>
+	 order by ORG_NO asc
+</select>
+
+<select id="findOrgUserThen" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE
+ from 
+	RPT_ORG_INFO 
+	 where 1=1 
+	  <if test="orgNo != null">
+	  and org_No in
+	  <foreach collection="orgNo" item="orgNo" separator=" or org_No in ">
+	  <foreach collection="orgNo" item="orgNoUser" open="(" separator=","
+			close=")">
+			#{orgNoUser}
+		</foreach>
+		</foreach>
+		</if>
+	 <if test="orgType != null">
+		 and ORG_TYPE = #{orgType}</if>
+	 <if test="financeOrgNo != null">
+		 and FINANCE_ORG_NO = #{financeOrgNo}</if>
+	 <if test="mgrOrgNo != null">
+		 and MGR_ORG_NO = #{mgrOrgNo}</if>
+	 <if test="orgNm != null">
+		 and ORG_NM = #{orgNm}</if>
+	 <if test="upOrgNo != null">
+		 and UP_ORG_NO = #{upOrgNo}</if>
+	 order by ORG_NO asc
+</select>  
+
+<select id="list" resultType="com.yusys.bione.frame.authobj.entity.BioneOrgInfo"
+	parameterType="HashMap">
+		select ORG_ID,LAST_UPDATE_TIME,LAST_UPDATE_USER,LOGIC_SYS_NO,ORG_NAME,ORG_NO,ORG_STS,REMARK,UP_NO
+		from
+		BIONE_ORG_INFO
+		where 1=1
+		<if test="orgId != null">and ORG_ID = #{orgId}</if>
+		<if test="lastUpdateTime != null">and LAST_UPDATE_TIME = #{lastUpdateTime}</if>
+		<if test="lastUpdateUser != null">and LAST_UPDATE_USER = #{lastUpdateUser}</if>
+		<if test="logicSysNo != null">and LOGIC_SYS_NO = #{logicSysNo}</if>
+		<if test="orgName != null">and ORG_NAME = #{orgName}</if>
+		 <if test="orgNo != null">
+	  and org_No in
+	  <foreach item="orgNo"  collection="orgNo" separator=" or org_No in ">
+	  <foreach collection="orgNo" item="orgNoUser" open="(" separator=","
+			close=")">
+			#{orgNoUser}
+		</foreach>
+		</foreach>
+		</if>
+		<if test="orgSts != null">and ORG_STS = #{orgSts}</if>
+		<if test="remark != null">and REMARK = #{remark}</if>
+		<if test="upNo != null">
+		and up_no in
+		<foreach collection="upNo" item="upNo" separator=" or up_no in ">
+		<foreach collection="upNo" item="orgNoUser" open="(" separator=","
+			close=")">
+			#{orgNoUser}
+		</foreach>
+		</foreach>
+		</if>
+		ORDER BY ORG_NO
+	</select>
+	<!-- 更新机构信息，包含namespace字段 fangjuan 20150122-->
+	<update id="updateOrg2" parameterType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo">
+	 update RPT_ORG_INFO
+	<set> 
+		<if test="id.orgNo != null">ORG_NO=#{id.orgNo},</if>
+		<if test="id.orgType != null">ORG_TYPE=#{id.orgType},</if>
+		<if test="financeOrgNo != null">FINANCE_ORG_NO=#{financeOrgNo},</if>
+		<if test="mgrOrgNo != null">MGR_ORG_NO=#{mgrOrgNo},</if>
+		<if test="orgNm != null">ORG_NM=#{orgNm},</if>
+		<if test="orgSumType != null">ORG_SUM_TYPE=#{orgSumType},</if>
+		<if test="upOrgNo != null">UP_ORG_NO=#{upOrgNo},</if>
+		<if test="namespace != null">NAMESPACE=#{namespace}</if>
+	</set>
+	where 1=1 
+	and ORG_NO=#{id.orgNo} 
+	and ORG_TYPE=#{id.orgType} 
+	</update>
+	<!-- 取orgNo下的所有下级机构（包含本级）传入参数orgNo时，需要添加%/orgNo/%，例如%/701100/% 20150122-->
+	<select id="findChildOrgs" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE
+ 	from 
+	RPT_ORG_INFO 
+	where NAMESPACE like #{orgNo} and org_type = #{orgType}
+</select>
+
+<select id="findFreeOrg" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap"> 
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE
+ from 
+	RPT_ORG_INFO 
+	 where 1=1 
+	 <if test="orgNo != null">
+		 and ORG_NO = #{orgNo}</if>
+	 <if test="orgType != null">
+		 and ORG_TYPE = #{orgType}</if>
+	 <if test="financeOrgNo != null">
+		 and FINANCE_ORG_NO = #{financeOrgNo}</if>
+	 <if test="mgrOrgNo != null">
+		 and MGR_ORG_NO = #{mgrOrgNo}</if>
+	 <if test="orgNm != null">
+		 and ORG_NM = #{orgNm}</if>
+	 <if test="upOrgNo != null">
+		 and UP_ORG_NO = #{upOrgNo}</if>
+	<if test="orgSumType != null">
+		and ORG_SUM_TYPE = #{orgSumType}
+	</if> order by ORG_NO asc
+</select>
+<!-- 获取机构及其下属机构 --><!--以及机构的具体信息20211022补充修改-->
+<select id="getFrsOrgByNamespace" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+	parameterType="HashMap">
+	select ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",UP_ORG_NO,ORG_NM,MGR_ORG_NO,FINANCE_ORG_NO,ORG_SUM_TYPE,NAMESPACE,IS_VIRTUAL_ORG,ORG_CLASS,ORG_LEVEL,is_org_report,lei_no,ADDR
+ from 
+	RPT_ORG_INFO 
+	where 1=1
+	<if test="nmspace != null">
+		and NAMESPACE like #{nmspace}
+	</if>
+	<if test="orgType != null ">
+		and ORG_TYPE = #{orgType}
+	</if>
+	order by ORG_NO asc
+</select>
+
+<!-- 根据管理机构编码获取监管机构树 -->
+	<select id="getChildOrg" 
+		resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+		parameterType="HashMap">
+		SELECT
+	        ORG_NO as "id.orgNo",
+	        ORG_TYPE as "id.orgType",
+	        UP_ORG_NO,
+	        MGR_ORG_NO,
+	        FINANCE_ORG_NO,
+	        ORG_NM,
+	        ORG_SUM_TYPE
+	    FROM
+	        RPT_ORG_INFO
+        WHERE
+        	1=1
+        <if test="orgType!=null">
+        	AND ORG_TYPE = #{orgType}
+        </if>
+        <if test="upOrgNo != null">
+			and UP_ORG_NO in 
+			<foreach item="upOrgNo" index="index" collection="upOrgNo" open="("
+			separator="," close=")">
+			#{upOrgNo}
+			</foreach>
+		</if>
+        <if test="orgSumType!=null">
+        	AND ORG_SUM_TYPE = #{orgSumType}
+        </if>
+        ORDER BY ORG_NO
+	</select>
+	
+	<select id="findOrgNode" resultType="com.yusys.bione.plugin.datashow.web.vo.RptTreeNode" parameterType="HashMap">
+		SELECT
+			org.ORG_NO   AS ID, org.ORG_NM AS TEXT, org.UP_ORG_NO    AS UPID, ''  AS ICON, org.ORG_NO   AS REALID
+		FROM
+			RPT_ORG_INFO org
+		where 
+			1 = 1
+			<if test="orgNo != null">and org.ORG_NO = #{orgNo}</if>
+			<if test="orgType != null">and org.ORG_TYPE = #{orgType}</if>
+			<if test="financeOrgNo != null">and org.FINANCE_ORG_NO = #{financeOrgNo}</if>
+			<if test="mgrOrgNo != null">and org.MGR_ORG_NO = #{mgrOrgNo}</if>
+			<if test="orgNm != null">and org.ORG_NM = #{orgNm}</if>
+			<if test="orgSumType != null">and org.ORG_SUM_TYPE = #{orgSumType}</if>
+			<if test="upOrgNo != null">and org.UP_ORG_NO = #{upOrgNo}</if>
+			<if test="orgNmLike != null">and (org.ORG_NM like #{orgNmLike} or org.org_No like #{orgNmLike})</if>
+			<if test="orgNos != null and orgNos.size() > 0">
+				AND (org.ORG_NO IN
+				<foreach item="items"  collection="orgNos" separator=" or org.ORG_NO IN ">
+					<foreach collection="items" item="item" open="("
+						separator="," close=")">#{item}</foreach>
+				</foreach>
+				)
+			</if>
+		order by org.org_no
+	</select>
+
+	<select id="getSameLevelOrgNo" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo" parameterType="HashMap">
+		select ORG_NO as "id.orgNo",
+			   ORG_TYPE as "id.orgType",
+			   UP_ORG_NO,
+			   MGR_ORG_NO,
+			   FINANCE_ORG_NO,
+			   ORG_NM,
+			   ORG_SUM_TYPE
+		from rpt_org_info
+		where org_type = #{orgType}
+		  and up_org_no = (
+				select up_org_no from rpt_org_info where org_no = #{orgNo} and org_type = #{orgType}
+			)
+	</select>
+	<select id="getExportInfo" resultType="com.yusys.bione.plugin.wizard.web.vo.OrgImportVO" parameterType="HashMap">
+		select info1.* ,info2.addr_no as rhOrgNo,info2.addr_nm as rhOrgNm,info2.dtrct_no
+		from
+		RPT_ORG_INFO info1
+		left join
+		RPT_FIM_ADDR_INFO info2
+		on
+		info1.org_no = info2.org_NO
+		and
+		info1.up_org_no = info2.up_addr_no
+		where 1=1
+		<if test="orgType != null">
+			and info1.ORG_TYPE = #{orgType}</if>
+	</select>
+	
+	<select id="getChildOrgBySumRel" 
+		resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo"
+		parameterType="HashMap">
+		SELECT
+	        org.ORG_NO as "id.orgNo",
+	        org.ORG_TYPE as "id.orgType",
+	        org.UP_ORG_NO,
+	        org.MGR_ORG_NO,
+	        org.FINANCE_ORG_NO,
+	        org.ORG_NM,
+	        org.ORG_SUM_TYPE,
+	        org.ORG_TYPE
+	    FROM
+	        RPT_ORG_INFO org
+        WHERE
+        	1=1
+        <if test="orgType!=null">
+        	AND org.ORG_TYPE = #{orgType}
+        </if>
+        <if test=" orgTypes!=null">
+        	AND org.ORG_TYPE IN 
+			<foreach item="orgType" index="index" collection="orgTypes" open="("
+			separator="," close=")">
+				#{orgType}
+			</foreach>
+        </if>
+        
+        <if test="upOrgNo != null">
+			and org.UP_ORG_NO in 
+			<foreach item="upOrgNo" index="index" collection="upOrgNo" open="("
+			separator="," close=")">
+			#{upOrgNo}
+			</foreach>
+		</if>
+        <if test="orgSumType!=null">
+        	AND org.ORG_SUM_TYPE = #{orgSumType}
+        </if>
+        union all
+		select rel.ORG_NO as "id.orgNo",
+		        rel.ORG_TYPE as "id.orgType",
+		        rel.UP_ORG_NO,
+		        info.MGR_ORG_NO,
+		        info.FINANCE_ORG_NO,
+		        info.ORG_NM,
+		        info.ORG_SUM_TYPE,
+		        rel.ORG_TYPE
+		  from Rpt_Org_Sum_Rel rel
+		  left join RPT_ORG_INFO info
+		    on rel.org_no = info.org_no
+		   and rel.org_type = info.org_type
+		 where 1 = 1
+		 <if test="orgType!=null">
+        	AND rel.ORG_TYPE = #{orgType}
+        </if>
+        <if test=" orgTypes!=null">
+        	AND rel.ORG_TYPE IN 
+			<foreach item="orgType" index="index" collection="orgTypes" open="("
+			separator="," close=")">
+				#{orgType}
+			</foreach>
+        </if>
+        <if test="upOrgNo != null">
+			and rel.UP_ORG_NO in 
+			<foreach item="upOrgNo" index="index" collection="upOrgNo" open="("
+			separator="," close=")">
+			#{upOrgNo}
+			</foreach>
+		</if>
+        <if test="orgSumType!=null">
+        	AND info.ORG_SUM_TYPE = #{orgSumType}
+        </if>
+        ORDER BY "id.orgNo"
+	</select>
+</mapper> 

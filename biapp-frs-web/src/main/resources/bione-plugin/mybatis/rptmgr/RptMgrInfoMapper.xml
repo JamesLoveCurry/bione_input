@@ -1,0 +1,1435 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptmgr.repository.RptMgrInfoMybatisDao">
+	
+	<select id="getTemplateTypeByRptInfo" resultType="String"
+			parameterType="HashMap" >
+		SELECT
+		    tmp.template_type
+		FROM
+		    rpt_mgr_report_info rpt,
+		    rpt_design_tmp_info tmp
+		WHERE
+		    rpt.rpt_id=#{rptId}
+		<if test="busiLineId == null">
+			AND tmp.template_id=rpt.cfg_id
+		</if>
+		<if test="busiLineId != null">
+			AND tmp.PARENT_TEMPLATE_ID=rpt.cfg_id
+			AND tmp.LINE_ID=#{busiLineId}
+		</if>
+		<if test="dataDate != null">
+			and tmp.ver_start_date &lt;= #{dataDate}
+			and tmp.ver_end_date > #{dataDate}
+		</if>
+	</select>
+		
+	<!-- add donglt -->
+	<select id="getRptRoleInfoByParam"
+		resultType="com.yusys.bione.frame.authobj.entity.BioneRoleInfo"
+		parameterType="HashMap">
+		SELECT role.* FROM
+		BIONE_AUTH_OBJ_RES_REL rel,BIONE_ROLE_INFO role
+		where 1 = 1
+		and
+		rel.obj_id=role.role_id
+		<if test="logicSysNo != null">
+			and rel.LOGIC_SYS_NO = #{logicSysNo}
+		</if>
+		<if test="resId != null">
+			and rel.RES_ID = #{resId}
+		</if>
+		<if test="objDefNo != null">
+			and rel.OBJ_DEF_NO = #{objDefNo}
+		</if>
+		<if test="resDefNo != null">
+			and rel.RES_DEF_NO = #{resDefNo}
+		</if>
+		<if test="roleNm != null">
+			and role.role_Name like #{roleNm}
+		</if>
+		order by LOGIC_SYS_NO desc
+	</select>
+
+	<select id="getIdxFilterByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrIdxFilterVO"
+		parameterType="HashMap">
+		select RPT_MGR_IDX_FILTER.DIM_NO ,RPT_MGR_IDX_FILTER.SET_ID
+		,RPT_MGR_IDX_FILTER.INDEX_NO ,RPT_MGR_IDX_FILTER.COL_ID
+		,RPT_MGR_IDX_FILTER.RPT_ID
+		,RPT_MGR_IDX_FILTER.FILTER_MODE,RPT_MGR_IDX_FILTER.FILTER_VAL,RPT_DIM_TYPE_INFO.DIM_TYPE_NM
+		as dimNm
+		from
+		RPT_MGR_IDX_FILTER,
+		RPT_DIM_TYPE_INFO
+		where 1=1
+		AND
+		RPT_MGR_IDX_FILTER.DIM_NO=RPT_DIM_TYPE_INFO.DIM_TYPE_NO
+		<if test="dimNo != null">
+			and RPT_MGR_IDX_FILTER.DIM_NO = #{dimNo}</if>
+		<if test="setId != null">
+			and RPT_MGR_IDX_FILTER.SET_ID = #{setId}</if>
+		<if test="indexNo != null">
+			and RPT_MGR_IDX_FILTER.INDEX_NO = #{indexNo}</if>
+		<if test="colId != null">
+			and RPT_MGR_IDX_FILTER.COL_ID = #{colId}</if>
+		<if test="rptId != null">
+			and RPT_MGR_IDX_FILTER.RPT_ID = #{rptId}</if>
+		<if test="filterMode != null">
+			and RPT_MGR_IDX_FILTER.FILTER_MODE = #{filterMode}</if>
+		<if test="filterVal != null">
+			and RPT_MGR_IDX_FILTER.FILTER_VAL = #{filterVal}</if>
+
+	</select>
+
+	<select id="getRptsByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+		parameterType="HashMap">
+		select info.* from
+		RPT_MGR_REPORT_INFO info
+		<if test="catalogId == null">,
+			RPT_MGR_REPORT_CATALOG catalog
+		</if>
+		<if test="belongDeptId != null">,
+			RPT_MGR_FRS_EXT frs,BIONE_DEPT_INFO dept
+		</if>
+			where 1 = 1
+		<if test="catalogId == null">
+			and info.catalog_id=catalog.catalog_id
+		</if>
+		<if test="catalogId != null">
+			and info.catalog_id=#{catalogId}
+		</if>
+		<if test="belongDeptId != null">
+			and dept.dept_id=#{belongDeptId}
+		</if>
+		<if test="belongDeptId != null">
+			and info.rpt_id=frs.rpt_id and frs.def_dept = dept.dept_id
+		</if>
+		<if test="templateType != null">
+			and (info.cfg_id in (select template_id from
+			rpt_design_tmp_info where
+			template_type in
+			<foreach collection="templateType" item="templateType" open="("
+				separator="," close=")">
+				#{templateType}
+			</foreach>
+			<if test="verId != null">
+				and ver_id = #{verId}
+			</if>
+			)
+			or
+			info.rpt_type = '01'
+			)
+		</if>
+		<if test="rptId != null">
+			and info.rpt_Id = #{rptId}
+		</if>
+		<if test="rptNm != null">
+			and info.rpt_nm like #{rptNm}
+		</if>
+		<if test="rptNum != null">
+			and info.rpt_num = #{rptNum}
+		</if>
+		<if test="rptSts != null">
+			and info.rpt_sts = #{rptSts}
+		</if>
+		<if test="isCabin != null">
+			and info.is_cabin = #{isCabin}
+		</if>
+		<if test="extType != null">
+			and info.ext_type = #{extType}
+			<if test="catalogId == null">
+			and
+			catalog.ext_type=#{extType}
+			</if>
+		</if>
+		<if test="rptType != null">
+			and info.rpt_type = #{rptType}
+		</if>
+		<if test="defSrc != null">
+			and info.def_src = #{defSrc}
+		</if>
+		<if test="defOrg != null">
+			and info.def_org = #{defOrg}
+		</if>
+		<if test="defUser != null">
+			and info.def_user = #{defUser}
+		</if>
+		<if test="defSrc == null">
+			and (info.def_src = #{defaultDefSrc} or info.def_src is null)
+		</if>
+		<if test="ids != null">
+			and info.catalog_id in
+			<foreach collection="ids" item="ids" open="(" separator=","
+				close=")">
+				#{ids}
+			</foreach>
+		</if>
+		<if test="rptIds != null">
+			and info.rpt_id in
+			<foreach collection="rptIds" item="rptId" open="(" separator=","
+				close=")">
+				#{rptId}
+			</foreach>
+		</if>
+		<if test="authRptIds != null">
+			and (info.rpt_id in
+			<foreach collection="authRptIds" item="authRptIds" separator=" or info.rpt_id in ">
+				<foreach collection="authRptIds" item="authRptId" open="("
+					separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="busiType != null">
+			and info.busi_Type = #{busiType}
+		</if>
+		order by info.RPT_NM
+	</select>
+
+	<select id="getRptVOsByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="HashMap">
+		select 
+			info.Catalog_Id,info.Rpt_Id,info.Rpt_Nm,info.Cfg_Id,info.Rpt_Id,info.Busi_Type,info.Rpt_Cycle,info.Rpt_Type,tmp.Template_Type,frs.tmp_version_id,frs.rep_id,info.rpt_num,tmp.ver_start_date,info.rpt_busi_nm
+		from RPT_MGR_REPORT_INFO info
+			left join (select template_id, Template_Type, ver_start_date from rpt_design_tmp_info  where ver_end_date='29991231' group by template_id, Template_Type, ver_start_date) tmp on tmp.template_id=info.cfg_id 
+		left join RPT_MGR_FRS_EXT frs on info.rpt_id=frs.rpt_id
+		<if test="catalogId == null">
+			left join RPT_MGR_REPORT_CATALOG catalog on info.catalog_id=catalog.catalog_id
+		</if>
+		<if test="belongDeptId != null">
+			left join BIONE_DEPT_INFO dept on frs.def_dept = dept.dept_id and dept.dept_id=#{belongDeptId}
+		</if>
+		where 1 = 1
+			AND tmp.template_id=info.cfg_id 
+		<if test="catalogId != null">
+			and info.catalog_id=#{catalogId}
+		</if>
+		<if test="templateType != null">
+			and (info.cfg_id in (select template_id from
+			rpt_design_tmp_info where
+			template_type in
+			<foreach collection="templateType" item="templateType" open="("
+				separator="," close=")">
+				#{templateType}
+			</foreach>
+			  group by template_id
+			)
+			or
+			info.rpt_type = '01'
+			)
+		</if>
+		<if test="rptId != null">
+			and info.rpt_Id = #{rptId}
+		</if>
+		<if test="rptNm != null">
+			and info.rpt_nm like #{rptNm}
+		</if>
+		<if test="rptNum != null">
+			and info.rpt_num = #{rptNum}
+		</if>
+		<if test="rptSts != null">
+			and info.rpt_sts = #{rptSts}
+		</if>
+		<if test="isCabin != null">
+			and info.is_cabin = #{isCabin}
+		</if>
+		<if test="extType != null">
+			and info.ext_type = #{extType}
+			<if test="catalogId == null">
+			and
+			catalog.ext_type=#{extType}
+			</if>
+		</if>
+		<if test="rptType != null">
+			and info.rpt_type = #{rptType}
+		</if>
+		<if test="defSrc != null">
+			and info.def_src = #{defSrc}
+		</if>
+		<if test="defOrg != null">
+			and info.def_org = #{defOrg}
+		</if>
+		<if test="defUser != null">
+			and info.def_user = #{defUser}
+		</if>
+		<if test="defSrc == null">
+			and (info.def_src = #{defaultDefSrc} or info.def_src is null)
+		</if>
+		<if test="ids != null">
+			and info.catalog_id in
+			<foreach collection="ids" item="ids" open="(" separator=","
+				close=")">
+				#{ids}
+			</foreach>
+		</if>
+		<if test="rptIds != null">
+			and info.rpt_id in
+			<foreach collection="rptIds" item="rptId" open="(" separator=","
+				close=")">
+				#{rptId}
+			</foreach>
+		</if>
+		<if test="authRptIds != null">
+			and info.rpt_id in
+			<foreach collection="authRptIds" item="authRptIds" separator=" or info.rpt_id in ">
+				<foreach collection="authRptIds" item="authRptId" open="("
+					separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		<if test="busiType != null">
+			and info.busi_Type = #{busiType}
+		</if>
+		order by info.rank_Order,info.RPT_NM<if test="catalogId == null">,catalog.catalog_nm</if>
+	</select>
+
+	<select id="getRptsByLabel"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+		parameterType="HashMap">
+		select info.* from
+		RPT_MGR_REPORT_INFO info,
+		BIONE_LABEL_OBJ_REL rel
+		<if test="belongDeptId != null">,
+			,RPT_MGR_FRS_EXT frs,BIONE_DEPT_INFO dept
+		</if>
+		where 1 = 1
+		and rel.label_obj_id = #{labelObjId}
+		and rel.obj_id = info.rpt_id
+		and rel.label_id in
+		<foreach collection="labelIds" item="labelId" open="("
+			separator="," close=")">
+			#{labelId}
+		</foreach>	
+		<if test="belongDeptId != null">
+			and dept.dept_id=#{belongDeptId}
+		</if>
+		<if test="belongDeptId != null">
+			and info.rpt_id=frs.rpt_id and frs.def_dept = dept.dept_id
+		</if>
+		<if test="templateType != null">
+			and (info.cfg_id in (select template_id from
+			rpt_design_tmp_info where
+			template_type in
+			<foreach collection="templateType" item="templateType" open="("
+				separator="," close=")">
+				#{templateType}
+			</foreach>
+			)
+			or
+			info.rpt_type = '01'
+			)
+		</if>
+		<if test="rptId != null">
+			and info.rpt_Id = #{rptId}
+		</if>
+		<if test="rptNm != null">
+			and info.rpt_nm like #{rptNm}
+		</if>
+		<if test="rptNum != null">
+			and info.rpt_num = #{rptNum}
+		</if>
+		<if test="rptSts != null">
+			and info.rpt_sts = #{rptSts}
+		</if>
+		<if test="isCabin != null">
+			and info.is_cabin = #{isCabin}
+		</if>
+		<if test="extType != null">
+			and info.ext_type = #{extType}
+		</if>
+		<if test="rptType != null">
+			and info.rpt_type = #{rptType}
+		</if>
+		<if test="defSrc != null">
+			and info.def_src = #{defSrc}
+		</if>
+		<if test="defOrg != null">
+			and info.def_org = #{defOrg}
+		</if>
+		<if test="defUser != null">
+			and info.def_user = #{defUser}
+		</if>
+		<if test="defSrc == null">
+			and (info.def_src = #{defaultDefSrc} or info.def_src is null)
+		</if>
+		<if test="ids != null">
+			and info.catalog_id in
+			<foreach collection="ids" item="ids" open="(" separator=","
+				close=")">
+				#{ids}
+			</foreach>
+		</if>
+		<if test="rptIds != null">
+			and info.rpt_id in
+			<foreach collection="rptIds" item="rptId" open="(" separator=","
+				close=")">
+				#{rptId}
+			</foreach>
+		</if>
+		<if test="authRptIds != null">
+			and info.rpt_id in
+			<foreach collection="authRptIds" item="authRptIds" separator=" or info.rpt_id in ">
+				<foreach collection="authRptIds" item="authRptId" open="("
+					separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		</if>
+		order by info.rank_Order,info.RPT_NM
+	</select>
+	
+	<select id="getAllRptsByParams"
+			resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+			parameterType="HashMap">
+			select info.* from
+			RPT_MGR_REPORT_INFO info
+			where 1 = 1
+			<if test="templateType != null">
+				and info.cfg_id in (select template_id from
+				rpt_design_tmp_info where
+				template_type in
+				<foreach collection="templateType" item="templateType" open="("
+					separator="," close=")">
+					#{templateType}
+				</foreach>
+				)
+			</if>
+			<if test="rptId != null">
+				and info.rpt_Id = #{rptId}
+			</if>
+			<if test="rptNm != null">
+				and info.rpt_nm like #{rptNm}
+			</if>
+			<if test="rptNum != null">
+				and info.rpt_num = #{rptNum}
+			</if>
+			<if test="rptSts != null">
+				and info.rpt_sts = #{rptSts}
+			</if>
+			<if test="extType != null">
+				and info.ext_type = #{extType}
+			</if>
+			<if test="rptType != null">
+				and info.rpt_type = #{rptType}
+			</if>
+			<if test="defSrc != null">
+				and info.def_src = #{defSrc}
+			</if>
+			<if test="defOrg != null">
+				and info.def_org = #{defOrg}
+			</if>
+			<if test="defUser != null">
+				and info.def_user = #{defUser}
+			</if>
+			<if test="defSrc == null">
+				and (info.def_src = #{defaultDefSrc} or info.def_src is null)
+			</if>
+			<if test="ids != null">
+				and info.catalog_id in
+				<foreach collection="ids" item="ids" open="(" separator=","
+					close=")">
+					#{ids}
+				</foreach>
+			</if>
+			<if test="authRptIds != null">
+				and info.rpt_id in
+				<foreach collection="authRptIds" item="authRptIds" separator=" or info.rpt_id in ">
+					<foreach collection="authRptIds" item="authRptId" open="("
+						separator="," close=")">
+						#{authRptId}
+					</foreach>
+				</foreach>
+			</if>
+			order by info.rank_Order,info.RPT_NM
+		</select>
+
+
+	<select id="validateRpt"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+		parameterType="HashMap">
+		select info.* from
+		RPT_MGR_REPORT_INFO info
+		where 1=1
+		and catalog_Id !=''
+		<if test="rptNm != null">
+			and rpt_nm = #{rptNm}
+		</if>
+		<if test="rptNum != null">
+			and rpt_num = #{rptNum}
+		</if>
+		<if test="rptId != null">
+			and rpt_id != #{rptId}
+		</if>
+	</select>
+
+	<select id="getRptTmpParams"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptTmpDataInfoVO"
+		parameterType="HashMap">
+		SELECT
+		rpt.RPT_ID,
+		rpt.BUSI_TYPE,
+		tmp.TEMPLATE_ID AS "id.templateId",
+		tmp.VER_ID AS "id.verId",
+		tmp.IS_UPT,
+		tmp.remark,
+		tmp.TEMPLATE_CONTENTJSON,
+		tmp.TEMPLATE_NM,
+		tmp.VER_END_DATE,
+		tmp.VER_START_DATE,
+		tmp.TEMPLATE_TYPE,
+		tmp.PARENT_TEMPLATE_ID,
+		tmp.LINE_ID,
+		tmp.TEMPLATE_UNIT<!-- ,
+		tmp.IS_AUTO_ADJ -->
+		FROM
+		rpt_mgr_report_info rpt,
+		rpt_design_tmp_info tmp
+		WHERE
+		1=1
+		<if test="rptIds != null">
+			and rpt.rpt_id IN
+			<foreach collection="rptIds" item="rptId" open="(" separator=","
+				close=")">
+				#{rptId}
+			</foreach>
+		</if>
+		<if test="rptId != null">
+			and rpt.rpt_id = #{rptId}
+		</if>
+		<if test="rptType != null">
+			and rpt.rpt_type = #{rptType}
+		</if>
+		<if test="dataDate != null">
+			and tmp.ver_start_date &lt;= #{dataDate}
+			and
+			tmp.ver_end_date > #{dataDate}
+		</if>
+		<if test="dataDate == null">
+			and tmp.ver_end_date = '29991231'
+		</if>
+		AND (
+		tmp.template_id=rpt.cfg_id
+		OR tmp.parent_template_id=rpt.cfg_id)
+	</select>
+
+	<select id="getCatalogById"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+		parameterType="HashMap">
+		select CATALOG_ID,CATALOG_NM,UP_CATALOG_ID,EXT_TYPE,REMARK
+		from
+		RPT_MGR_REPORT_CATALOG
+		where 1=1
+		<if test="catalogId != null">
+			and CATALOG_ID = #{catalogId}
+		</if>
+		<if test="catalogNm != null">
+			and CATALOG_NM = #{catalogNm}
+		</if>
+		<if test="upCatalogId != null">
+			and UP_CATALOG_ID = #{upCatalogId}
+		</if>
+		<if test="extType != null">
+			and EXT_TYPE = #{extType}
+		</if>
+	</select>
+
+	<select id="getRptCatalogs"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+		parameterType="HashMap">
+		select catalog.* from
+		RPT_MGR_REPORT_CATALOG catalog
+		where 1=1
+		<if test="extType != null">
+			and ext_type = #{extType}
+		</if>
+		<if test="upCatalogId != null">
+			and UP_CATALOG_ID = #{upCatalogId}
+		</if>
+		<if test="defSrc != null">
+			and catalog.def_src = #{defSrc}
+		</if>
+		<if test="defOrg != null">
+			and catalog.def_org = #{defOrg}
+		</if>
+		<if test="defUser != null">
+			and catalog.def_user = #{defUser}
+		</if>
+		<if test="defSrc == null">
+			and (catalog.def_src = #{defaultDefSrc} or catalog.def_src is null)
+		</if>
+		<if test="ids != null">
+			and catalog_id in
+			<foreach collection="ids" item="ids" open="(" separator=","
+				close=")">
+				#{ids}
+			</foreach>
+		</if>
+		order by catalog_order,catalog_nm
+	</select>
+
+
+	<select id="findDimTypeInfoByReport"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"
+		parameterType="HashMap">
+		SELECT DIM_TYPE_NO ,CATALOG_ID
+		,DIM_TYPE_NM,DIM_TYPE_EN_NM,DIM_TYPE_DESC FROM
+		RPT_DIM_TYPE_INFO
+		,RPT_MGR_RPTDIM_REL
+		where DIM_TYPE_NO = DIM_NO
+		<if test="rptId != null">
+			and RPT_ID = #{rptId}
+		</if>
+	</select>
+
+	<select id="catalogNameValid"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+		parameterType="HashMap">
+		select CATALOG_ID,CATALOG_NM,UP_CATALOG_ID,EXT_TYPE,REMARK
+		from
+		RPT_MGR_REPORT_CATALOG
+		where 1=1
+		and CATALOG_NM = #{catalogNm}
+		and
+		EXT_TYPE = #{extType}
+		<if test="catalogId != null">
+			and CATALOG_Id != #{catalogId}
+		</if>
+		<if test="upCatalogId != null">
+			and UP_CATALOG_ID = #{upCatalogId}
+		</if>
+	</select>
+
+	<select id="getReportInfo"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="HashMap">
+		select
+		RPT_MGR_REPORT_INFO.RPT_ID,RPT_MGR_REPORT_INFO.CATALOG_ID,RPT_MGR_REPORT_INFO.CFG_ID,RPT_MGR_REPORT_INFO.END_DATE,RPT_MGR_REPORT_INFO.EXT_TYPE,RPT_MGR_REPORT_INFO.RANK_ORDER,RPT_MGR_REPORT_INFO.RPT_CYCLE,RPT_MGR_REPORT_INFO.RPT_DESC,RPT_MGR_REPORT_INFO.RPT_NM,RPT_MGR_REPORT_INFO.RPT_STS,RPT_MGR_REPORT_INFO.RPT_TYPE,RPT_MGR_REPORT_INFO.SHOW_PRIORITY,RPT_MGR_REPORT_INFO.START_DATE,RPT_MGR_REPORT_INFO.CREATE_TIME,RPT_MGR_REPORT_INFO.INFO_RIGHTS,RPT_MGR_BANK_EXT.DATA_PRECISION,RPT_MGR_BANK_EXT.DATA_UNIT,RPT_MGR_BANK_EXT.DUTY_DEPT,RPT_MGR_BANK_EXT.GENERATE_TIME,RPT_MGR_BANK_EXT.parties,RPT_MGR_BANK_EXT.REQUIRE_EXPLAIN,RPT_MGR_BANK_EXT.RPT_CURRTYPE,RPT_MGR_BANK_EXT.RPT_GENERATE_TYPE,RPT_MGR_REPORT_INFO.RPT_NUM,RPT_MGR_BANK_EXT.RPT_USE,RPT_MGR_OUTER_CFG.PARAMTMP_ID,RPT_MGR_OUTER_CFG.RPT_SRC_PATH,RPT_MGR_OUTER_CFG.SEARCH_PATH,RPT_MGR_OUTER_CFG.SERVER_ID,RPT_PARAMTMP_INFO.PARAMTMP_NM,RPT_MGR_SERVER_INFO.SERVER_NM,RPT_MGR_REPORT_CATALOG.CATALOG_NM
+		from
+		RPT_MGR_BANK_EXT,RPT_MGR_REPORT_CATALOG,RPT_MGR_REPORT_INFO
+		LEFT
+		JOIN
+		RPT_MGR_OUTER_CFG
+		ON
+		RPT_MGR_REPORT_INFO.CFG_ID=RPT_MGR_OUTER_CFG.CFG_ID
+		LEFT JOIN
+		RPT_PARAMTMP_INFO
+		ON
+		RPT_PARAMTMP_INFO.PARAMTMP_ID=RPT_MGR_OUTER_CFG.PARAMTMP_ID
+		LEFT JOIN
+		RPT_MGR_SERVER_INFO
+		ON
+		RPT_MGR_SERVER_INFO.SERVER_ID=RPT_MGR_OUTER_CFG.SERVER_ID
+		where 1=1
+		and
+		RPT_MGR_REPORT_INFO.RPT_ID=RPT_MGR_BANK_EXT.RPT_ID
+		and
+		RPT_MGR_REPORT_CATALOG.CATALOG_ID=RPT_MGR_REPORT_INFO.CATALOG_ID
+		<if test="extType != null">
+			and RPT_MGR_REPORT_CATALOG.EXT_TYPE= #{extType}
+		</if>
+		<if test="rptId != null">
+			and RPT_MGR_REPORT_INFO.RPT_ID = #{rptId}
+		</if>
+	</select>
+
+	<select id="getExportReportInfo"
+		resultType="com.yusys.bione.plugin.wizard.web.vo.ReportImportVO"
+		parameterType="HashMap">
+		select
+		RPT_MGR_REPORT_INFO.RPT_ID,RPT_MGR_REPORT_INFO.CATALOG_ID,RPT_MGR_REPORT_INFO.CFG_ID,RPT_MGR_REPORT_INFO.END_DATE,RPT_MGR_REPORT_INFO.EXT_TYPE,RPT_MGR_REPORT_INFO.RANK_ORDER,RPT_MGR_REPORT_INFO.RPT_CYCLE,RPT_MGR_REPORT_INFO.RPT_DESC,RPT_MGR_REPORT_INFO.RPT_NM,RPT_MGR_REPORT_INFO.RPT_STS,RPT_MGR_REPORT_INFO.RPT_TYPE,RPT_MGR_REPORT_INFO.SHOW_PRIORITY,RPT_MGR_REPORT_INFO.START_DATE,RPT_MGR_REPORT_INFO.CREATE_TIME,RPT_MGR_REPORT_INFO.INFO_RIGHTS,RPT_MGR_BANK_EXT.DATA_PRECISION,RPT_MGR_BANK_EXT.DATA_UNIT,RPT_MGR_BANK_EXT.DUTY_DEPT,RPT_MGR_BANK_EXT.GENERATE_TIME,RPT_MGR_BANK_EXT.parties,RPT_MGR_BANK_EXT.REQUIRE_EXPLAIN,RPT_MGR_BANK_EXT.RPT_CURRTYPE,RPT_MGR_BANK_EXT.RPT_GENERATE_TYPE,RPT_MGR_REPORT_INFO.RPT_NUM,RPT_MGR_BANK_EXT.RPT_USE
+		from
+		RPT_MGR_BANK_EXT,RPT_MGR_REPORT_INFO
+		where 1=1
+		and
+		RPT_MGR_REPORT_INFO.RPT_ID=RPT_MGR_BANK_EXT.RPT_ID
+		<if test="extType != null">
+			and RPT_MGR_REPORT_CATALOG.EXT_TYPE= #{extType}
+		</if>
+		<if test="rptIds != null">
+			and RPT_MGR_REPORT_INFO.RPT_ID in
+			<foreach collection="rptIds" item="rptIds"
+				separator=" or RPT_MGR_REPORT_INFO.RPT_ID in ">
+				<foreach collection="rptIds" item="id" open="(" separator=","
+					close=")">
+					#{id}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getReportFrsInfo"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="HashMap">
+		select
+		RPT_MGR_REPORT_INFO.RPT_NUM,RPT_MGR_REPORT_INFO.RPT_ID,RPT_MGR_REPORT_INFO.CATALOG_ID,RPT_MGR_REPORT_INFO.CFG_ID,RPT_MGR_REPORT_INFO.END_DATE,RPT_MGR_REPORT_INFO.EXT_TYPE,RPT_MGR_REPORT_INFO.RANK_ORDER,RPT_MGR_REPORT_INFO.RPT_CYCLE,RPT_MGR_REPORT_INFO.RPT_DESC,RPT_MGR_REPORT_INFO.RPT_NM,RPT_MGR_REPORT_INFO.RPT_STS,RPT_MGR_REPORT_INFO.RPT_TYPE,RPT_MGR_REPORT_INFO.SHOW_PRIORITY,RPT_MGR_REPORT_INFO.START_DATE,RPT_MGR_REPORT_INFO.CREATE_TIME,RPT_MGR_REPORT_INFO.INFO_RIGHTS,RPT_MGR_REPORT_CATALOG.CATALOG_NM
+		from
+		RPT_MGR_REPORT_INFO,RPT_MGR_REPORT_CATALOG
+		where 1=1
+		and
+		RPT_MGR_REPORT_CATALOG.CATALOG_ID=RPT_MGR_REPORT_INFO.CATALOG_ID
+		<if test="extType != null">
+			and RPT_MGR_REPORT_CATALOG.EXT_TYPE= #{extType}
+		</if>
+		<if test="rptType != null">
+			and RPT_MGR_REPORT_INFO.RPT_TYPE= #{rptType}
+		</if>
+		<if test="rptId != null">
+			and RPT_MGR_REPORT_INFO.RPT_ID = #{rptId}
+		</if>
+	</select>
+	
+	<select id="getRptInfoByCatalogId"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="HashMap">
+		select
+		rpt.INFO_RIGHTS,rpt.RPT_ID,rpt.CATALOG_ID,rpt.CFG_ID,rpt.END_DATE,rpt.EXT_TYPE,rpt.RANK_ORDER,rpt.RPT_CYCLE,rpt.RPT_DESC,rpt.RPT_NM,rpt.RPT_STS,rpt.RPT_TYPE,rpt.SHOW_PRIORITY,rpt.START_DATE,rpt.CREATE_TIME,bank.DATA_PRECISION,bank.DATA_UNIT,bank.DUTY_DEPT,bank.GENERATE_TIME,bank.parties,bank.REQUIRE_EXPLAIN,bank.RPT_CURRTYPE,bank.RPT_GENERATE_TYPE,rpt.RPT_NUM,bank.RPT_USE,RPT_MGR_OUTER_CFG.PARAMTMP_ID,RPT_MGR_OUTER_CFG.RPT_SRC_PATH,RPT_MGR_OUTER_CFG.SEARCH_PATH,RPT_MGR_OUTER_CFG.SERVER_ID,RPT_PARAMTMP_INFO.PARAMTMP_NM,RPT_MGR_SERVER_INFO.SERVER_NM,RPT_MGR_REPORT_CATALOG.CATALOG_NM
+		from
+		RPT_MGR_REPORT_CATALOG,RPT_MGR_REPORT_INFO rpt
+		LEFT JOIN
+		RPT_MGR_BANK_EXT bank
+		ON
+		rpt.RPT_ID=bank.RPT_ID
+		LEFT JOIN
+		RPT_MGR_OUTER_CFG
+		ON
+		rpt.CFG_ID=RPT_MGR_OUTER_CFG.CFG_ID
+		LEFT JOIN
+		RPT_PARAMTMP_INFO
+		ON
+		RPT_PARAMTMP_INFO.PARAMTMP_ID=RPT_MGR_OUTER_CFG.PARAMTMP_ID
+		LEFT JOIN
+		RPT_MGR_SERVER_INFO
+		ON
+		RPT_MGR_SERVER_INFO.SERVER_ID=RPT_MGR_OUTER_CFG.SERVER_ID
+		where 1=1
+		and
+		RPT_MGR_REPORT_CATALOG.CATALOG_ID=rpt.CATALOG_ID
+		<if test="extType != null">
+			and RPT_MGR_REPORT_CATALOG.EXT_TYPE= #{extType}
+		</if>
+		<if test="rptNm != null">
+			and rpt.rpt_Nm like #{rptNm}
+		</if>
+		<if test="catalogIds != null">
+			and rpt.CATALOG_ID in
+			<foreach collection="catalogIds" item="ids" open="("
+				separator="," close=")">
+				#{ids}
+			</foreach>
+		</if>
+		<if test="rptIds != null">
+			and rpt.RPT_ID in
+			<foreach collection="rptIds" item="rptIds" separator=" or rpt.RPT_ID in ">
+				<foreach collection="rptIds" item="rptid" open="("
+					separator="," close=")">
+					#{rptid}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getReportInfoByCatalogId"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrInfoVO"
+		parameterType="HashMap">
+		select
+		rpt.INFO_RIGHTS,rpt.RPT_ID,rpt.CATALOG_ID,rpt.CFG_ID,rpt.END_DATE,
+		rpt.EXT_TYPE,rpt.RANK_ORDER,rpt.RPT_CYCLE,rpt.RPT_DESC,rpt.RPT_NM,
+		rpt.RPT_STS,rpt.RPT_TYPE,rpt.SHOW_PRIORITY,rpt.START_DATE,rpt.CREATE_TIME,
+		bank.DATA_PRECISION,bank.DATA_UNIT,bank.DUTY_DEPT,bank.GENERATE_TIME,
+		bank.parties,bank.REQUIRE_EXPLAIN,bank.RPT_CURRTYPE,bank.RPT_GENERATE_TYPE,
+		rpt.RPT_NUM,bank.RPT_USE,RPT_MGR_OUTER_CFG.PARAMTMP_ID,RPT_MGR_OUTER_CFG.RPT_SRC_PATH,
+		RPT_MGR_OUTER_CFG.SEARCH_PATH,RPT_MGR_OUTER_CFG.SERVER_ID,RPT_PARAMTMP_INFO.PARAMTMP_NM,
+		RPT_MGR_SERVER_INFO.SERVER_NM,cata.CATALOG_NM,usr.user_name,usr.tel,usr.email,dept.dept_Name,rpt.is_cabin
+		from
+		RPT_MGR_REPORT_INFO rpt
+		left join
+		RPT_MGR_FRS_EXT frs
+		on rpt.rpt_id = frs.rpt_id
+		left join
+		BIONE_USER_INFO usr
+		on
+		frs.user_id = usr.user_id
+		left join
+		BIONE_DEPT_INFO dept
+		on
+		frs.def_dept = dept.dept_id
+		LEFT JOIN
+		RPT_MGR_REPORT_CATALOG cata
+		ON
+		cata.catalog_id = rpt.catalog_id
+		LEFT JOIN
+		RPT_MGR_BANK_EXT bank
+		ON
+		rpt.RPT_ID=bank.RPT_ID
+		LEFT JOIN
+		RPT_MGR_OUTER_CFG
+		ON
+		rpt.CFG_ID=RPT_MGR_OUTER_CFG.CFG_ID
+		LEFT JOIN
+		RPT_PARAMTMP_INFO
+		ON
+		RPT_PARAMTMP_INFO.PARAMTMP_ID=RPT_MGR_OUTER_CFG.PARAMTMP_ID
+		LEFT JOIN
+		RPT_MGR_SERVER_INFO
+		ON
+		RPT_MGR_SERVER_INFO.SERVER_ID=RPT_MGR_OUTER_CFG.SERVER_ID
+		where 1=1
+		<if test="extType != null">
+			and rpt.EXT_TYPE= #{extType}
+		</if>
+		<if test="defUser != null">
+			and rpt.DEF_USER= #{defUser}
+		</if>
+		<if test="defSrc != null">
+			and rpt.DEF_Src= #{defSrc}
+		</if>
+		<if test="rptNm != null">
+			and rpt.rpt_Nm like #{rptNm}
+		</if>
+		<if test="catalogIds != null">
+			and rpt.CATALOG_ID in
+			<foreach collection="catalogIds" item="ids" open="("
+				separator="," close=")">
+				#{ids}
+			</foreach>
+		</if>
+		<if test="rptIds != null">
+			and rpt.RPT_ID in
+			<foreach collection="rptIds" item="rptIds" separator=" or rpt.RPT_ID in ">
+				<foreach collection="rptIds" item="rptid" open="("
+					separator="," close=")">
+					#{rptid}
+				</foreach>
+			</foreach>
+		</if>
+		<if test="labelIds != null">
+			and rpt.RPT_ID in
+			<foreach collection="labelIds" item="labelIds" separator=" or rpt.RPT_ID in ">
+				<foreach collection="labelIds" item="labelIds" open="("
+					separator="," close=")">
+					#{labelIds}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getRptInfoByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+		parameterType="HashMap">
+		select
+		INFO_RIGHTS,RPT_ID,CATALOG_ID,CFG_ID,END_DATE,EXT_TYPE,RANK_ORDER,RPT_CYCLE,RPT_DESC,RPT_NM,
+		RPT_STS,RPT_TYPE,SHOW_PRIORITY,START_DATE,CREATE_TIME,BUSI_TYPE,RPT_NUM,RPT_BUSI_NM,BUSI_LIB_ID
+		from
+		RPT_MGR_REPORT_INFO
+		where 1=1
+		<if test="rptId != null">
+			and RPT_ID = #{rptId}</if>
+		<if test="catalogId != null">
+			and CATALOG_ID = #{catalogId}</if>
+		<if test="cfgId != null">
+			and CFG_ID = #{cfgId}</if>
+		<if test="endDate != null">
+			and END_DATE = #{endDate}</if>
+		<if test="extType != null">
+			and EXT_TYPE = #{extType}</if>
+		<if test="rankOrder != null">
+			and RANK_ORDER = #{rankOrder}</if>
+		<if test="rptCycle != null">
+			and RPT_CYCLE = #{rptCycle}</if>
+		<if test="rptDesc != null">
+			and RPT_DESC = #{rptDesc}</if>
+		<if test="rptNm != null">
+			and RPT_NM = #{rptNm}</if>
+		<if test="rptSts != null">
+			and RPT_STS = #{rptSts}</if>
+		<if test="rptType != null">
+			and RPT_TYPE = #{rptType}</if>
+		<if test="showPriority != null">
+			and SHOW_PRIORITY = #{showPriority}</if>
+		<if test="startDate != null">
+			and START_DATE = #{startDate}</if>
+		<if test="createTime != null">
+			and CREATE_TIME = #{createTime}</if>
+		<if test="busiType != null">
+			and BUSI_TYPE = #{busiType}</if>
+		<if test="rptNum != null">
+			and RPT_NUM = #{rptNum}</if>
+		<if test="infoRights != null">
+			and INFO_RIGHTS = #{infoRights}</if>
+	</select>
+
+	<select id="getReportInfoCfgId" resultType="String"
+		parameterType="String">
+		select
+		CFG_ID
+		from
+		RPT_MGR_REPORT_INFO
+		where 1=1
+		and
+		RPT_MGR_REPORT_INFO.RPT_ID = #{rptId}
+	</select>
+
+	<select id="getDataItemByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportDataItem"
+		parameterType="HashMap">
+		select RPT_ITEM_ID as "id.rptItemId",RPT_ID as
+		"id.rptId",RELATE_TYPE,RPT_ITEM_DESC,RPT_ITEM_NM,RPT_ITEM_TYPE,ORDER_NO
+		from
+		RPT_MGR_REPORT_DATA_ITEM
+		where 1=1
+		<if test="rptItemId != null">
+			and RPT_ITEM_ID = #{rptItemId}
+		</if>
+		<if test="rptId != null">
+			and RPT_ID = #{rptId}
+		</if>
+		<if test="relateType != null">
+			and RELATE_TYPE = #{relateType}
+		</if>
+		<if test="rptItemDesc != null">
+			and RPT_ITEM_DESC = #{rptItemDesc}
+		</if>
+		<if test="rptItemNm != null">
+			and RPT_ITEM_NM = #{rptItemNm}
+		</if>
+		<if test="rptItemType != null">
+			and RPT_ITEM_TYPE = #{rptItemType}
+		</if>
+
+	</select>
+
+	
+
+	<insert id="saveCatalog"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog">
+		insert into
+		RPT_MGR_REPORT_CATALOG(CATALOG_ID,CATALOG_NM,UP_CATALOG_ID,EXT_TYPE,REMARK)
+		values(#{catalogId},#{catalogNm},#{upCatalogId},#{extType},#{remark})
+	</insert>
+
+	<insert id="saveReportInfo"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		insert into
+		RPT_MGR_REPORT_INFO(RPT_ID,CATALOG_ID,CFG_ID,END_DATE,EXT_TYPE,RANK_ORDER,RPT_CYCLE,RPT_DESC,RPT_NM,RPT_STS,RPT_TYPE,SHOW_PRIORITY,START_DATE,CREATE_TIME,RPT_NUM,BUSI_TYPE,INFO_RIGHTS)
+		values(#{rptId},#{catalogId},#{cfgId},#{endDate},#{extType},#{rankOrder},#{rptCycle},#{rptDesc},#{rptNm},#{rptSts},#{rptType},#{showPriority},#{startDate},#{createTime},#{rptNum},#{busiType},#{infoRights})
+	</insert>
+
+	<insert id="saveRptBankExt"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrBankExt">
+		insert into
+		RPT_MGR_BANK_EXT(RPT_ID,DATA_PRECISION,DATA_UNIT,DUTY_DEPT,GENERATE_TIME,parties,REQUIRE_EXPLAIN,RPT_CURRTYPE,RPT_GENERATE_TYPE,RPT_USE)
+		values(#{rptId},#{dataPrecision},#{dataUnit},#{dutyDept},#{generateTime},#{parties},#{requireExplain},#{rptCurrtype},#{rptGenerateType},#{rptUse})
+	</insert>
+
+	<insert id="saveRptOuterCfg"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrOuterCfg">
+		insert into
+		RPT_MGR_OUTER_CFG(CFG_ID,PARAMTMP_ID,RPT_SRC_PATH,SEARCH_PATH,SERVER_ID)
+		values(#{cfgId},#{paramtmpId},#{rptSrcPath},#{searchPath},#{serverId})
+	</insert>
+
+	<insert id="saveRptDimRel"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrRptdimRel">
+		insert into RPT_MGR_RPTDIM_REL(RPT_ID,DIM_NO)
+		values(#{id.rptId},#{id.dimNo})
+	</insert>
+
+	<insert id="saveRptDataItem"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportDataItem">
+		insert into
+		RPT_MGR_REPORT_DATA_ITEM(RPT_ITEM_ID,RPT_ID,RELATE_TYPE,RPT_ITEM_DESC,RPT_ITEM_NM,RPT_ITEM_TYPE,ORDER_NO)
+		values(#{id.rptItemId},#{id.rptId},#{relateType},#{rptItemDesc},#{rptItemNm},#{rptItemType},#{orderNo})
+	</insert>
+
+	<insert id="saveRptIdxRel"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrRptitemIdxRel">
+		insert into
+		RPT_MGR_RPTITEM_IDX_REL(RPT_ITEM_ID,RPT_ID,INDEX_NO,FILTER_FORMULA)
+		values(#{id.rptItemId},#{id.rptId},#{id.indexNo},#{filterFormula})
+	</insert>
+
+	<insert id="saveRptMgrModule"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrModuleRel">
+		insert into RPT_MGR_MODULE_REL(SET_ID,RPT_ID)
+		values(#{id.setId},#{id.rptId})
+	</insert>
+
+
+	<insert id="saveRptMgrModuleIdx"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrModuleIdxRel">
+		insert into
+		RPT_MGR_MODULE_IDX_REL(SET_ID,INDEX_NO,COL_ID,RPT_ID,FILTER_FORMULA)
+		values(#{id.setId},#{id.indexNo},#{id.colId},#{id.rptId},#{filterFormula})
+	</insert>
+
+	<insert id="saveRptMgrIdxFilter"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrIdxFilter">
+		insert into
+		RPT_MGR_IDX_FILTER(DIM_NO,SET_ID,INDEX_NO,COL_ID,RPT_ID,FILTER_MODE,FILTER_VAL)
+		values(#{id.dimNo},#{id.setId},#{id.indexNo},#{id.colId},#{id.rptId},#{filterMode},#{filterVal})
+	</insert>
+
+	<update id="updateRptIdxRel"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrRptitemIdxRel">
+		update RPT_MGR_RPTITEM_IDX_REL
+		<set>
+			<if test="id.rptItemId != null">RPT_ITEM_ID=#{id.rptItemId},</if>
+			<if test="id.rptId != null">RPT_ID=#{id.rptId},</if>
+			<if test="id.indexNo != null">INDEX_NO=#{id.indexNo},</if>
+			<if test="filterFormula != null">FILTER_FORMULA=#{filterFormula}</if>
+		</set>
+		where 1=1
+		and
+		RPT_ITEM_ID=#{id.rptItemId}
+		and
+		RPT_ID=#{id.rptId}
+		and
+		INDEX_NO=#{id.indexNo}
+	</update>
+
+
+
+	<update id="updateRptBankExt"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrBankExt">
+		update RPT_MGR_BANK_EXT
+		<set>
+			<if test="rptId != null">RPT_ID=#{rptId},</if>
+			<if test="dataPrecision != null">DATA_PRECISION=#{dataPrecision},</if>
+			<if test="dataUnit != null">DATA_UNIT=#{dataUnit},</if>
+			<if test="dutyDept != null">DUTY_DEPT=#{dutyDept},</if>
+			<if test="generateTime != null">GENERATE_TIME=#{generateTime},</if>
+			<if test="parties != null">parties=#{parties},</if>
+			<if test="requireExplain != null">REQUIRE_EXPLAIN=#{requireExplain},</if>
+			<if test="rptCurrtype != null">RPT_CURRTYPE=#{rptCurrtype},</if>
+			<if test="rptGenerateType != null">RPT_GENERATE_TYPE=#{rptGenerateType},</if>
+			<if test="rptUse != null">RPT_USE=#{rptUse}</if>
+		</set>
+		where 1=1 and RPT_ID=#{rptId}
+	</update>
+
+	<update id="updateReportInfo"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		update RPT_MGR_REPORT_INFO
+		<set>
+			<if test="rptId != null">RPT_ID=#{rptId},</if>
+			<if test="catalogId != null">CATALOG_ID=#{catalogId},</if>
+			<if test="cfgId != null">CFG_ID=#{cfgId},</if>
+			<if test="endDate != null">END_DATE=#{endDate},</if>
+			<if test="extType != null">EXT_TYPE=#{extType},</if>
+			<if test="rankOrder != null">RANK_ORDER=#{rankOrder},</if>
+			<if test="rptCycle != null">RPT_CYCLE=#{rptCycle},</if>
+			<if test="rptDesc != null">RPT_DESC=#{rptDesc},</if>
+			<if test="rptNm != null">RPT_NM=#{rptNm},</if>
+			<if test="rptSts != null">RPT_STS=#{rptSts},</if>
+			<if test="rptType != null">RPT_TYPE=#{rptType},</if>
+			<if test="showPriority != null">SHOW_PRIORITY=#{showPriority},</if>
+			<if test="startDate != null">START_DATE=#{startDate},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			<if test="rptNum != null">RPT_NUM=#{rptNum},</if>
+			<if test="busiType != null">BUSI_TYPE=#{busiType},</if>
+			<if test="infoRights != null">INFO_RIGHTS=#{infoRights}</if>
+		</set>
+		where 1=1 and RPT_ID=#{rptId}
+	</update>
+
+	<update id="updateCatalog"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog">
+		update RPT_MGR_REPORT_CATALOG
+		<set>
+			<if test="catalogId != null">CATALOG_ID=#{catalogId},</if>
+			<if test="catalogNm != null">CATALOG_NM=#{catalogNm},</if>
+			<if test="upCatalogId != null">UP_CATALOG_ID=#{upCatalogId},</if>
+			<if test="extType != null">EXT_TYPE=#{extType},</if>
+			<if test="remark != null">REMARK=#{remark}</if>
+		</set>
+		where 1=1 and CATALOG_ID=#{catalogId}
+	</update>
+
+	<update id="updateRptOuterCfg"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrOuterCfg">
+		update RPT_MGR_OUTER_CFG
+		<set>
+			<if test="cfgId != null">CFG_ID=#{cfgId},</if>
+			<if test="paramtmpId != null">PARAMTMP_ID=#{paramtmpId},</if>
+			<if test="rptSrcPath != null">RPT_SRC_PATH=#{rptSrcPath},</if>
+			<if test="searchPath != null">SEARCH_PATH=#{searchPath},</if>
+			<if test="serverId != null">SERVER_ID=#{serverId}</if>
+		</set>
+		where 1=1 and CFG_ID=#{cfgId}
+	</update>
+
+	<update id="updateRptDimRel"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrRptdimRel">
+		update RPT_MGR_RPTDIM_REL
+		<set>
+			<if test="id.rptId != null">RPT_ID=#{id.rptId},</if>
+			<if test="id.dimNo != null">DIM_NO=#{id.dimNo}</if>
+		</set>
+		where 1=1
+		and RPT_ID=#{id.rptId}
+		and DIM_NO=#{id.dimNo}
+	</update>
+
+
+	<update id="updateRptDataItem"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportDataItem">
+		update RPT_MGR_REPORT_DATA_ITEM
+		<set>
+			<if test="id.rptItemId != null">RPT_ITEM_ID=#{id.rptItemId},</if>
+			<if test="id.rptId != null">RPT_ID=#{id.rptId},</if>
+			<if test="relateType != null">RELATE_TYPE=#{relateType},</if>
+			<if test="rptItemDesc != null">RPT_ITEM_DESC=#{rptItemDesc},</if>
+			<if test="rptItemNm != null">RPT_ITEM_NM=#{rptItemNm},</if>
+			<if test="rptItemType != null">RPT_ITEM_TYPE=#{rptItemType}</if>
+			<if test="orderNo != null">RPT_ITEM_TYPE=#{orderNo}</if>
+		</set>
+		where 1=1
+		and
+		RPT_ITEM_ID=#{id.rptItemId}
+		and
+		RPT_ID=#{id.rptId}
+	</update>
+
+	<update id="updateRptMgrModule"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrModuleRel">
+		update RPT_MGR_MODULE_REL
+		<set>
+			<if test="id.setId != null">SET_ID=#{id.setId},</if>
+			<if test="id.rptId != null">RPT_ID=#{id.rptId}</if>
+		</set>
+		where 1=1 and SET_ID=#{id.setId}
+		and RPT_ID=#{id.rptId}
+	</update>
+
+
+	<update id="updateRptMgrModuleIdx"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrModuleIdxRel">
+		update RPT_MGR_MODULE_IDX_REL
+		<set>
+			<if test="id.setId != null">SET_ID=#{id.setId},</if>
+			<if test="id.indexNo != null">INDEX_NO=#{id.indexNo},</if>
+			<if test="id.colId != null">COL_ID=#{id.colId},</if>
+			<if test="id.rptId != null">RPT_ID=#{id.rptId},</if>
+			<if test="filterFormula != null">FILTER_FORMULA=#{filterFormula}</if>
+		</set>
+		where 1=1 and SET_ID=#{id.setId}
+		and INDEX_NO=#{id.indexNo}
+		and
+		COL_ID=#{id.colId}
+		and RPT_ID=#{id.rptId}
+	</update>
+
+	<update id="updateRptMgrIdxFilter"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrIdxFilter">
+		update RPT_MGR_IDX_FILTER
+		<set>
+			<if test="id.dimNo != null">DIM_NO=#{id.dimNo},</if>
+			<if test="id.setId != null">SET_ID=#{id.setId},</if>
+			<if test="id.indexNo != null">INDEX_NO=#{id.indexNo},</if>
+			<if test="id.colId != null">COL_ID=#{id.colId},</if>
+			<if test="id.rptId != null">RPT_ID=#{id.rptId},</if>
+			<if test="filterMode != null">FILTER_MODE=#{filterMode},</if>
+			<if test="filterVal != null">FILTER_VAL=#{filterVal}</if>
+		</set>
+		where 1=1 and DIM_NO=#{id.dimNo}
+		and SET_ID=#{id.setId}
+		and
+		INDEX_NO=#{id.indexNo}
+		and COL_ID=#{id.colId}
+		and RPT_ID=#{id.rptId}
+	</update>
+
+	<delete id="deleteRptBankExt" parameterType="String">
+		delete from
+		RPT_MGR_BANK_EXT
+		where 1=1
+		and RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteCatalog" parameterType="String">
+		delete from
+		RPT_MGR_REPORT_CATALOG
+		where 1=1
+		and CATALOG_ID=#{catalogId}
+	</delete>
+
+	<delete id="deleteReportInfo" parameterType="String">
+		delete from
+		RPT_MGR_REPORT_INFO
+		where 1=1
+		and RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteRptOuterCfg" parameterType="String">
+		delete from
+		RPT_MGR_OUTER_CFG
+		where 1=1
+		and CFG_ID=#{cfgId}
+	</delete>
+
+	<delete id="deleteRptDimRel" parameterType="String">
+		delete from
+		RPT_MGR_RPTDIM_REL
+		where 1=1
+		and RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteRptDataItem" parameterType="String">
+		delete from
+		RPT_MGR_REPORT_DATA_ITEM
+		where 1=1
+		and RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteRptIdxRel" parameterType="String">
+		delete from
+		RPT_MGR_RPTITEM_IDX_REL
+		where 1=1
+		and
+		RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteRptMgrModule" parameterType="String">
+		delete from
+		RPT_MGR_MODULE_REL
+		where 1=1
+		and
+		RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteRptMgrModuleIdx" parameterType="String">
+		delete from
+		RPT_MGR_MODULE_IDX_REL
+		where 1=1
+		and RPT_ID=#{rptId}
+	</delete>
+
+	<delete id="deleteRptMgrIdxFilter" parameterType="String">
+		delete from
+		RPT_MGR_IDX_FILTER
+		where 1=1
+		AND
+		RPT_ID=#{rptId}
+	</delete>
+	
+	<select id="getTemplateIdByRptInfo" resultType="String"
+			parameterType="HashMap" >
+		SELECT
+		    tmp.template_id
+		FROM
+		    rpt_mgr_report_info rpt,
+		    rpt_design_tmp_info tmp
+		WHERE
+		    rpt.rpt_id=#{rptId}
+		<if test="busiLineId == null">
+			AND tmp.template_id=rpt.cfg_id
+		</if>
+		<if test="busiLineId != null">
+			AND tmp.PARENT_TEMPLATE_ID=rpt.cfg_id
+			AND tmp.LINE_ID=#{busiLineId}
+		</if>
+		<if test="dataDate != null">
+			and tmp.ver_start_date &lt;= #{dataDate}
+			and tmp.ver_end_date > #{dataDate}
+		</if>
+	</select>
+	
+	<select id="queryRptNamesByRptIds" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.RPT_ID "id", A.RPT_NM "name"
+		  FROM RPT_MGR_REPORT_INFO A
+		 WHERE A.RPT_ID in
+		<foreach collection="arrays" item="rptId" open="(" separator="," close=")">
+			#{rptId}
+		</foreach>
+	</select>
+	
+	<select id="getEastRptTreeNodes2" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		SELECT INFO.*
+		  	FROM RPT_MGR_REPORT_INFO INFO, 
+		  	RPT_MGR_REPORT_CATALOG CATALOG,
+		  	RPT_MGR_FRS_EXT EXT
+		  
+		WHERE
+			1 = 1
+		   	AND INFO.CATALOG_ID = CATALOG.CATALOG_ID
+		   	AND EXT.RPT_ID = INFO.RPT_ID
+		   	AND INFO.RPT_TYPE = '04'
+		   	AND EXT.IS_ADD_SRCFEILD = '0'
+		   	
+		   <!-- 添加条件搜索 -->
+		<if test="rptNm != null">
+			AND info.rpt_nm like #{rptNm}
+		</if>
+		
+		<if test="userId!= null and  userId != '' ">
+			AND 
+				EXT.RPT_ID in(
+					SELECT 
+						o.RPT_ID  
+					FROM 
+						RPT_MGR_REPORT_INFO o 
+					WHERE 
+						o.RPT_ID in (
+							SELECT 
+								DISTINCT(RES_ID) 
+							FROM 
+								BIONE_AUTH_OBJ_RES_REL r 
+							WHERE 
+								r.OBJ_ID IN(
+								SELECT 
+									B.OBJ_ID 
+								FROM 
+									BIONE_AUTH_OBJ_USER_REL b 
+								WHERE 
+									b.USER_ID = #{userId}
+								and 
+									b.OBJ_DEF_NO ='AUTH_OBJ_ROLE')
+						) 
+				)
+		</if>
+		
+		 ORDER BY INFO.RANK_ORDER
+	</select>
+	
+	<select id="getEastRptTreeCatalogs"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+		parameterType="HashMap">
+		select DISTINCT catalog.* from RPT_MGR_REPORT_CATALOG catalog
+		where 1=1
+		AND catalog.ext_type = '04'
+		<if test="authRptIds != null and  authRptIds.size() > 0 ">
+			start with catalog.CATALOG_ID in 
+			(
+				SELECT DISTINCT info.CATALOG_ID FROM  RPT_MGR_REPORT_INFO info 
+				where info.rpt_id in
+				<foreach collection="authRptIds" item="authRptIds" separator=" or info.rpt_id in ">
+					<foreach collection="authRptIds" item="authRptId" open="(" separator="," close=")">
+						#{authRptId}
+					</foreach>
+				</foreach>
+				
+			) connect by catalog.catalog_id = prior catalog.up_catalog_id
+		</if>
+		
+		<if test="userId != null and  userId != '' ">
+			and 
+				catalog.CATALOG_ID in(
+					select 
+						catalog_id 
+					from 
+						rpt_mgr_report_info o, RPT_MGR_FRS_EXT ext
+					where 
+						o.rpt_id in (
+							select 
+								distinct(res_id) 
+							from 
+								bione_auth_obj_res_rel r 
+							where r.obj_id in(
+								select 
+									b.obj_id 
+								from 
+									bione_auth_obj_user_rel b 
+								where 
+									b.user_id=#{userId}
+								and 
+									b.obj_def_no ='AUTH_OBJ_ROLE')
+						)
+						and ext.RPT_ID = o.RPT_ID 
+						AND o.RPT_TYPE = '04'
+         				AND ext.IS_ADD_SRCFEILD = '0'
+				)
+		</if>
+		<if test="ids != null">
+			and catalog.catalog_id in
+			<foreach collection="ids" item="id" open="(" separator=","
+				close=")">
+				#{id}
+			</foreach>
+		</if>
+		order by catalog_nm
+	</select>
+	<!-- 通过rptId,verId获取模板路径 -->
+	<select id="getTemplatepath" parameterType="HashMap" resultType="HashMap">
+		select template_path templatepath from RPT_MGR_RPTTEMPLATE_REL t where t.rpt_id = #{rptId} and t.version_id=#{verId}
+	</select>
+	
+	<!-- 根据报表id查询未归档的报表的填报人员 -->
+	<select id="getFillUserByRpt" resultType="HashMap" parameterType="HashMap">
+		select distinct u.user_id "USERID" 
+		from RPT_FLTSK_INS t inner join bione_user_info u on t.exe_obj_id = u.org_no
+		where u.user_sts='1' and t.sts='0' 
+		and t.task_obj_id = #{rptId}
+	</select>
+	
+	<select id="getRptsParams"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptTmpDataInfoVO"
+		parameterType="HashMap">
+		SELECT
+		rpt.RPT_ID,
+		rpt.BUSI_TYPE,
+		tmp.TEMPLATE_ID AS "id.templateId",
+		tmp.VER_ID AS "id.verId"
+		FROM
+		rpt_mgr_report_info rpt,
+		rpt_design_tmp_info tmp
+		WHERE
+		1=1
+		<if test="busiType != null">
+			and rpt.busi_type = #{busiType}
+		</if>
+		<if test="reportObj != null">
+			and rpt.report_obj like #{reportObj}
+		</if>
+		<if test="verId != null">
+			and tmp.ver_id = #{verId}
+		</if>
+		<if test="endDate != null">
+			and tmp.ver_end_date = #{endDate}
+		</if>
+		<!-- 升级概况 -->
+		<if test="templateNm != null">
+			and (tmp.template_nm != #{templateNm} or tmp.template_nm is null)
+		</if>
+		AND (
+		tmp.template_id=rpt.cfg_id
+		OR tmp.parent_template_id=rpt.cfg_id)
+	</select>
+	
+	<select id="getRptsParams2"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptTmpDataInfoVO"
+		parameterType="HashMap">
+		SELECT
+		rpt.RPT_ID,
+		rpt.BUSI_TYPE,
+		tmp.TEMPLATE_ID AS "id.templateId",
+		tmp.VER_ID AS "id.verId",
+		rpt.rpt_nm
+		FROM
+		rpt_mgr_report_info rpt,
+		rpt_design_tmp_info tmp
+		WHERE
+		1=1
+		<if test="busiType != null">
+			and rpt.busi_type = #{busiType}
+		</if>
+		<if test="endDate != null">
+			and tmp.ver_start_date &lt; #{endDate}
+			and tmp.ver_end_date >= #{endDate}
+		</if>
+		<!-- 升级概况 -->
+		<if test="templateNm != null">
+			and (tmp.template_nm != #{templateNm} or tmp.template_nm is null)
+		</if>
+		AND (
+		tmp.template_id=rpt.cfg_id
+		OR tmp.parent_template_id=rpt.cfg_id)
+	</select>
+</mapper> 

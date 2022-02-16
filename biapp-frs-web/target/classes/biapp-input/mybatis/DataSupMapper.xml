@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.input.suptask.DataSupDAO">
+
+<select id="getTableInfoNodes"
+    	resultType="com.yusys.biapp.input.task.entity.DataSupSearchInfo" parameterType="HashMap">
+			select DS_ID,TABLE_EN_NAME,TABLE_ID,TABLE_CN_NAME
+    	, LOGIC_SYS_NO,up_id,type
+    	 from (select TA.DS_ID,
+		       TA.TABLE_EN_NAME,
+		       TA.TABLE_ID,
+		       TE.TEMPLE_NAME   as TABLE_CN_NAME,
+		       TE.TEMPLE_ID     AS LOGIC_SYS_NO,
+		       te.catalog_id as up_id,
+		       'table' as type
+		  FROM RPT_INPUT_LIST_TABLE_INFO TA
+		 INNER JOIN RPT_INPUT_LST_TEMPLE_INFO TE
+		    ON TA.TABLE_EN_NAME = TE.TABLE_EN_NAME
+		    union all 
+		    
+		   SELECT '0' as ds_id ，'0' as table_en_name ,catlog.catalog_id as table_id ,catlog.catalog_name as table_cn_name 
+		   , '0' as logic_sys_no , catlog.up_catalog as up_id , 'catalog' as type
+		     FROM  rpt_input_list_catalog_info catlog
+		     where catalog_type = '1'
+		     ) 
+			
+    	where 1=1 
+    	
+    	<if test="upId != null">
+			and up_id = #{upId}
+		</if>
+    	
+		<if test="dsId != null">
+			and ds_id = #{dsId}
+		</if>
+    	<if test="tableCnName != null">
+        	and table_cn_name like #{tableCnName}
+        	and type = 'table'
+    	</if>
+
+    	<if test="tableIds != null">
+        	and table_id in
+        	<foreach collection="tableIds" item="tableId" open="("
+            	separator="," close=")">
+            	#{tableId}
+        	</foreach>
+   	 	</if>
+   	 	
+   	 	<if test="objIds != null">
+        	and table_id in
+        	(select res_id from BIONE_AUTH_OBJ_RES_REL t
+				where 1=1 
+				and t.logic_sys_no = #{logicSysNo}
+				and t.obj_def_no = #{objDefNo}
+				and t.res_def_no = #{resDefNo}
+				and t.obj_id in 
+				<foreach collection="objIds" item="objId" open="("
+            	separator="," close=")">
+            	#{objId}
+        	</foreach>
+        	)
+   	 	</if>
+   	 	
+    </select>
+    
+    <select id="getDataSources" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo" parameterType="string">
+		SELECT 
+		    DS_ID,LOGIC_SYS_NO               
+            ,DRIVER_ID,DS_NAME                
+            ,CONN_URL,CONN_USER                
+            ,CONN_PWD,REMARK                
+            from  BIONE_DS_INFO         
+		where   LOGIC_SYS_NO =#{id}  
+	</select>
+</mapper> 

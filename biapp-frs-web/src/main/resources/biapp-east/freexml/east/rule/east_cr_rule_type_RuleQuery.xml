@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>规则类型</templetname>
+	<fromtable>east_cr_rule_type</fromtable>
+	<savetable>east_cr_rule_type</savetable>
+	<pkname>rid</pkname>
+	<querycontion></querycontion>
+	<autocondition descr="自动查询时的条件"></autocondition>
+	<autoquery descr="是否自动查询数据">Y</autoquery>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<orderbys></orderbys>
+	<card_btns></card_btns>
+	<list_btns></list_btns>
+	<list_issearch></list_issearch>
+	<list_ispagebar descr="是否有分页">N</list_ispagebar>
+	
+	<tree_type>group</tree_type>
+	<tree_id>rid</tree_id>
+	<tree_text>type_name</tree_text>
+	<tree_groupcols></tree_groupcols>
+</templet>
+
+<templet_item>
+    <itemkey>rid</itemkey>
+    <itemname>主键</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <defaultformula>UUID</defaultformula>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>Y</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>120</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>type_name</itemkey>
+    <itemname>名称</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>Y</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>Y</list_isshow>
+    <list_width>180</list_width>
+    <list_align>中</list_align>
+    <list_render></list_render>
+    <query_isshow>Y</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+
+<templet_item>
+    <itemkey>type_desc</itemkey>
+    <itemname>说明</itemname>
+    <itemtype>文本框</itemtype>
+    <helptip></helptip>
+    <itemdefine></itemdefine>
+    <loadformula></loadformula>
+    <editformula></editformula>
+    <issave>N</issave>
+    <ismust></ismust>
+    <seq>5</seq>
+    <grouptitle></grouptitle>
+    <card_isshow>N</card_isshow>
+    <card_width></card_width>
+    <card_iswrap>N</card_iswrap>
+    <list_isshow>N</list_isshow>
+    <list_width>240</list_width>
+    <list_align>左</list_align>
+    <list_render></list_render>
+    <query_isshow>N</query_isshow>
+    <query_itemtype></query_itemtype>
+    <query_itemdefine></query_itemdefine>
+    <validateinfo></validateinfo>
+    <showformula></showformula>
+    <defvalue></defvalue>
+</templet_item>
+</root>
+

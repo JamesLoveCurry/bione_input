@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.biapp.frs.rptfill.repository.VerificationMybatiDao">
+
+	<!-- 根据业务类型查询报表相关信息 -->
+	
+
+	<!-- 根据指标内码获取指标单位 -->
+	<select id="getCellUnitInfo"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptIdxUnitVO"
+		parameterType="HashMap">
+		SELECT
+		idx.index_no as "indexNo",
+		tmp.TEMPLATE_UNIT,
+		cell.DATA_UNIT,
+		cell.DISPLAY_FORMAT
+		FROM
+		RPT_DESIGN_TMP_INFO tmp,
+		RPT_DESIGN_SOURCE_IDX idx,
+		RPT_DESIGN_CELL_INFO cell
+		WHERE
+		tmp.VER_START_DATE &lt;= #{dataDate}
+		AND tmp.VER_END_DATE > #{dataDate}
+		<if test="templateId !=null">
+			AND tmp.template_id = #{templateId}
+		</if>
+		AND idx.cell_no=cell.cell_no
+		AND idx.ver_id=tmp.ver_id
+		AND idx.template_id=tmp.template_id
+		AND cell.ver_id=tmp.ver_id
+		AND cell.template_id=tmp.template_id
+		<if test="indexNos !=null">
+			and idx.INDEX_NO in 
+			<foreach collection="indexNos" item="index" open="("
+				separator="," close=")">
+				#{index}
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="AllInfo"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.RptValidLogicDetailVo"
+		parameterType="HashMap">
+		select d.*,c.* from RPT_VALID_LOGIC_DETAIL d,RPT_VALID_CFGEXT_LOGIC c
+		where 1=1
+			and d.CHECK_ID = c.CHECK_ID
+		<if test="checkIds != null">
+			and d.CHECK_ID in
+			<foreach collection="checkIds" item="checkId" open="("
+				separator="," close=")">
+				#{checkId}
+			</foreach>
+		</if>
+
+		<if test="dataDate != null">
+			and d.DATA_DATE = #{dataDate}</if>
+		<if test="orgNo != null">
+			and d.ORG_NO = #{orgNo}</if>
+		<if test="rptTemplateId != null">
+			and RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+	</select>
+	
+	<select id="findCheckId" resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextLogic"
+	parameterType="HashMap"> 
+		select * from RPT_VAlID_CFGEXT_LOGIC  where 1=1 and check_id in (select distinct logic.CHECK_ID 
+ 			from 
+		RPT_VALID_LOGIC_RPT_REL rel,RPT_VAlID_CFGEXT_LOGIC logic,RPT_VALID_RESULT_LOGIC result
+	 		where 1=1 
+	 		and rel.check_id = logic.check_id
+	 		and rel.check_id = result.check_id
+	 <if test="checkId != null">
+		 and rel.CHECK_ID = #{checkId}</if>
+	 <if test="dataDate != null">
+		 and result.DATA_DATE = #{dataDate}</if>
+	 <if test="orgNo != null">
+		 and result.ORG_NO = #{orgNo}</if>
+	 <!--
+	 <if test="indexNo != null">
+			  and d.INDEX_NO like #{indexNo}
+			  and c.left_formula_index like #{indexNo}
+		  </if>
+		  <if test="indexVal != null">
+			  and d.INDEX_VAL = #{indexVal}</if>-->
+	<!-- edit by fangjuan 20150405
+	<if test="indexNo != null">
+				  and logic.left_formula_index like #{indexNo}
+			  </if>-->
+	
+	<if test="rptTemplateId != null">
+		 and rel.RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+		 )
+	<!-- <if test="indexNo != null">
+		and c.left_formula_index like #{indexNo}
+	</if>  -->
+
+</select>
+
+
+<select id="findIndexNos" parameterType="HashMap" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptValidLogicDetailVo">
+		select result.data_date as "dataDate", result.index_no as "indexNo", 
+			result.org_no as "orgNo", result.index_val as "indexVal"
+		from RPT_REPORT_RESULT result 
+		<!--
+		left join rpt_valid_result_logic logic
+				on 
+				result.data_date = logic.data_date
+				and result.org_no = logic.org_no-->
+		
+		where 1=1
+		<!--
+		<if test="checkId != null">
+					and logic.check_Id in
+					<foreach collection="checkId" item="checkId" open="("
+						separator="," close=")">
+						#{checkId}
+					</foreach>
+				</if>-->
+		
+		<if test="dataDate != null">
+			and result.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and result.ORG_NO = #{orgNo}</if>
+		<if test="dataList != null">
+			and result.DATA_DATE in
+			<foreach collection="dataList" item="index" open="("
+				separator="," close=")">
+				#{index}
+			</foreach>
+		</if>	
+		<if test="indexNo != null and indexNo.size()>0">
+			and result.index_no in
+			<foreach collection="indexNo" item="index" open="("
+				separator="," close=")">
+				#{index}
+			</foreach>
+		</if>
+		<if test="templateId != null">
+			and result.template_id = #{templateId}
+		</if>
+	</select>
+<select id="findIndexInfo" parameterType="HashMap" resultType="HashMap">
+	select idx.index_no as "indexNo", idx.index_nm as "indexNm"
+	from rpt_idx_info idx
+	where 1=1
+	<if test="indexNo != null and indexNo.size()>0">
+		and idx.index_no in
+		<foreach collection="indexNo" item="index" open="("
+			separator="," close=")">
+			#{index}
+		</foreach>
+	</if>
+	<if test="isRptIndex != null">
+		and idx.is_rpt_index = #{isRptIndex}
+	</if>
+	<choose>
+		<when test="verId != null">
+			and idx.index_ver_id = #{verId}
+		</when>
+		<otherwise>
+			<if test="dataDate != null">
+				and idx.end_date > #{dataDate}
+				and idx.start_date &lt;= #{dataDate}
+			</if>
+		</otherwise>
+	</choose>
+</select>
+	
+	<select id="warnInfo"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.AllResultWarnVo"
+		parameterType="HashMap">
+		select r.CHECK_ID as "id.checkId",r.DATA_DATE as
+		"id.dataDate",r.ORG_NO as "id.orgNo",r.CHECK_TIME,r.COMPARE_VAL,r.CURR_VAL,r.IS_PASS,r.LEVEL_NUM,r.RPT_TEMPLATE_ID,r.unit,r.INDEX_NO,
+		w.*,c.*,i.index_Nm,d.valid_desc
+		from
+			RPT_VALID_RESULT_WARN r
+		left join RPT_VALID_WARN_LEVEL w
+		    on r.check_id = w.check_id
+		left join RPT_VALID_CFGEXT_WARN c
+		    on r.check_id = c.check_id
+		left join RPT_IDX_INFO i
+		    on r.index_no = i.index_no
+		left join RPT_VALID_WARN_DESC d
+		    on r.check_id = d.check_id
+		    and r.data_date = d.data_date
+		    and r.org_no = d.org_no
+		where 1=1
+		<!-- edit by fangjuan 20150107-->
+		<if test="indexNo != null">
+			and r.INDEX_NO in
+			<foreach item="indexNos" index="index" collection="indexNo" 
+					separator=" or r.INDEX_NO in " >
+						<foreach collection="indexNos" item="indexNo" open="("
+						separator="," close=")">
+						#{indexNo}
+						</foreach>
+					</foreach>
+		</if>
+		<!-- edit end-->
+		<if test="dataDate != null">
+			and r.DATA_DATE = #{dataDate}
+			and i.end_date > #{dataDate}
+			and i.start_date &lt;= #{dataDate}</if>
+		<if test="orgNo != null">
+			and r.ORG_NO = #{orgNo}</if>
+		<if test="checkTime != null">
+			and r.CHECK_TIME = #{checkTime}</if>
+		<if test="compareVal != null">
+			and r.COMPARE_VAL = #{compareVal}</if>
+		<if test="currVal != null">
+			and r.CURR_VAL = #{currVal}</if>
+		<if test="isPass != null">
+			and r.IS_PASS = #{isPass}</if>
+		<if test="levelNum != null">
+			and w.LEVEL_NUM in
+			<foreach collection="levelNum" item="levelNum" open="("
+				separator="," close=")">
+				#{levelNum}
+			</foreach>
+		</if>
+		<if test="rptTemplateId != null">
+			and r.RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+	</select>
+
+
+	<select id="warnCheckId"
+		resultType="com.yusys.bione.plugin.valid.entitiy.RptValidResultWarn"
+		parameterType="HashMap">
+		select CHECK_ID as "id.checkId",DATA_DATE as
+		"id.dataDate",ORG_NO as "id.orgNo",CHECK_TIME,COMPARE_VAL,CURR_VAL,IS_PASS,LEVEL_NUM,RPT_TEMPLATE_ID,unit,INDEX_NO
+		from
+		RPT_VALID_RESULT_WARN
+		where 1=1
+		<if test="checkID != null">
+			and CHECK_ID = #{checkID}</if>
+		<if test="dataDate != null">
+			and DATA_DATE = #{dataDate}</if>
+		<if test="orgNo != null">
+			and ORG_NO = #{orgNo}</if>
+		<if test="checkTime != null">
+			and CHECK_TIME = #{checkTime}</if>
+		<if test="compareVal != null">
+			and COMPARE_VAL = #{compareVal}</if>
+		<if test="currVal != null">
+			and CURR_VAL = #{currVal}</if>
+		<if test="isPass != null">
+			and IS_PASS = #{isPass}</if>
+		<if test="levelNum != null">
+			and LEVEL_NUM = #{levelNum}</if>
+		<if test="rptTemplateId != null">
+			and RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+		<if test="unit != null">
+			and unit = #{unit}</if>
+		<if test="indexNoss != null">
+			and INDEX_NO = #{indexNoss}</if>
+		<if test="indexNo != null">
+			and INDEX_NO in
+			<!--edit by fangjuan 20150106 方娟 -->
+			<foreach item="indexNos" index="index" collection="indexNo" 
+					separator=" or INDEX_NO in " >
+						<foreach collection="indexNos" item="indexNo" open="("
+						separator="," close=")">
+						#{indexNo}
+						</foreach>
+			</foreach>
+			<!--edit end-->
+		</if>
+	</select>
+	
+	
+	<select id="findIndexValue" parameterType="HashMap" resultType="String">
+		select index_NO,index_val from RPT_VALID_LOGIC_DETAIL
+		where 1=1
+		<if test="checkIds != null">
+			and CHECK_ID in
+			<foreach collection="checkIds" item="checkId" open="("
+				separator="," close=")">
+				#{checkId}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and DATA_DATE = #{dataDate}</if>
+		<if test="orgNo != null">
+			and ORG_NO = #{orgNo}
+			</if>
+	</select>
+	
+<!-- 弹出全部信息的sql -->
+<!-- 总分 -->
+<select id="totalAllInfo"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.AllResultOrgmergeVo"
+		parameterType="HashMap">
+		select o.DATA_DATE as "id.dataDate",o.ORG_NO as "id.orgNo",o.INDEX_NO as
+		"id.indexNo",o.CHECK_TIME,o.INDEX_VAL,o.LOWERLEVEL_TOTAL,o.RPT_TEMPLATE_ID,o.unit,
+		case when cell.cell_nm='' or cell.cell_nm is null then cell.cell_no else cell.cell_nm end as index_nm
+		from
+		RPT_VALID_RESULT_ORGMERGE o,RPT_IDX_INFO i,
+		RPT_DESIGN_CELL_INFO cell,
+		RPT_DESIGN_SOURCE_IDX  sidx
+		where 1=1 
+		and
+		i.index_no = sidx.index_no and i.INDEX_VER_ID = sidx.ver_id
+		and i.template_id = sidx.template_id
+		and sidx.cell_no = cell.cell_no and sidx.ver_id = cell.ver_id
+		and sidx.template_id = cell.template_id
+		and o.index_no = i.index_no
+		<if test="dataDate != null">
+			and o.DATA_DATE = #{dataDate}
+			and i.end_date > #{dataDate}
+			and i.start_date &lt;= #{dataDate}</if>
+		<if test="orgNo != null">
+			and o.ORG_NO = #{orgNo}</if>
+		<if test="indexNo != null">
+			and o.INDEX_NO = #{indexNo}</if>
+		<if test="checkTime != null">
+			and o.CHECK_TIME = #{checkTime}</if>
+		<if test="indexVal != null">
+			and o.INDEX_VAL = #{indexVal}</if>
+		<if test="lowerlevelTotal != null">
+			and o.LOWERLEVEL_TOTAL = #{lowerlevelTotal}</if>
+		<if test="rptTemplateId != null">
+			and o.RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+		<if test="unit != null">
+			and o.unit = #{unit}</if>
+	</select>
+<!--所有逻辑校验 -->
+<select id="findAll" parameterType="HashMap" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptValidLogicDetailVo">
+		select c.*,l.*
+		from RPT_VALID_CFGEXT_LOGIC c , RPT_VALID_LOGIC_DETAIL l
+		where 1=1
+		and c.check_id = l.check_id
+		<if test="checkId != null">
+			and c.check_Id in
+			<foreach collection="checkId" item="checkId" open="("
+				separator="," close=")">
+				#{checkId}
+			</foreach>
+		</if>
+		<if test="dataDate != null">
+			and l.DATA_DATE = #{dataDate}</if>
+		<if test="orgNo != null">
+			and l.ORG_NO = #{orgNo}</if>
+	</select>
+<!-- added by fangjuan 20150405 查找校验和指标关系表  -->
+<select id="findLogicIdxRel" parameterType="HashMap" resultType="String">
+		select c.index_no 
+		from RPT_VALID_LOGIC_IDX_REL c 
+		where 1=1
+		<if test="checkId != null">
+			and c.check_Id in
+			<foreach collection="checkId" item="checkId" open="("
+				separator="," close=")">
+				#{checkId}
+			</foreach>
+		</if>
+	</select>
+
+<!-- 逻辑校验结果+状态查询  edit by lxp 2016114
+		添加 floatVal differVal
+-->
+<select id="findCheckId2"
+	resultType="com.yusys.biapp.frs.rptfill.web.vo.RptValidCfgextLogicVo"
+	parameterType="HashMap">
+	select 
+		aa.IS_PASS as verifytSts,
+		aa.D_VAL as differVal,
+		aa.LEFT_VAL as leftVal,
+		aa.RIGHT_VAL as rightVal,
+		d.VALID_DESC as validDesc,
+		logic.*
+	from
+		RPT_VAlID_CFGEXT_LOGIC logic
+	inner join  (select 
+			distinct logic.CHECK_ID ,
+			result.IS_PASS,
+			result.D_VAL,
+			result.LEFT_VAL,
+			result.RIGHT_VAL,
+			result.DATA_DATE,
+            result.ORG_NO
+		from 
+			RPT_VALID_LOGIC_RPT_REL rel,
+			RPT_VAlID_CFGEXT_LOGIC logic,
+			RPT_VALID_RESULT_LOGIC result
+		where 1 = 1
+			and rel.check_id = logic.check_id
+			and rel.check_id = result.check_id
+			and result.RPT_TEMPLATE_ID = rel.RPT_TEMPLATE_ID
+			<if test="rptTemplateId != null">
+				and rel.RPT_TEMPLATE_ID = #{rptTemplateId}
+			</if>
+			<if test="verifytSts != null and verifytSts !='' ">
+				and result.IS_PASS = #{verifytSts}
+			</if>
+			<if test="checkId != null">
+				and rel.CHECK_ID = #{checkId}
+			</if>
+			<if test="dataDate != null">
+				and result.DATA_DATE = #{dataDate}
+			</if>
+			<if test="orgNo != null">
+				and result.ORG_NO = #{orgNo}
+			</if>
+			<if test="checkType != null">
+				and logic.CHECK_TYPE = #{checkType}
+			</if>
+			) aa
+		on logic.CHECK_ID = aa.CHECK_ID
+		left join rpt_valid_logic_desc d
+    	  on logic.check_id = d.check_id
+      	 and aa.org_no = d.org_no
+         and aa.data_date = d.data_date
+	where 1=1
+</select>
+
+<select id="findCheckIdByIdxNo"
+	resultType="com.yusys.biapp.frs.rptfill.web.vo.RptValidCfgextLogicVo"
+	parameterType="HashMap">
+	select aa.IS_PASS as verifytSts ,
+		   aa.D_VAL as differVal, 
+		   d.VALID_DESC AS validDesc, 
+	       aa.LEFT_VAL,
+		   aa.RIGHT_VAL,
+		   logic.*
+	from RPT_VAlID_CFGEXT_LOGIC logic
+	inner join (select distinct rel.CHECK_ID ,
+					   result.IS_PASS,
+					   result.D_VAL,
+					   result.DATA_DATE,
+                       result.ORG_NO,
+                       result.LEFT_VAL,
+					   result.RIGHT_VAL
+	from RPT_VALID_LOGIC_IDX_REL rel,
+		 RPT_VALID_RESULT_LOGIC result
+	where 1 = 1
+	  and rel.check_id = result.check_id
+	<if test="indexNo != null">
+		and rel.INDEX_NO = #{indexNo} and rel.FORMULA_TYPE = 'L'
+	</if>
+	<if test="verifytSts != null">
+		and result.IS_PASS = #{verifytSts}
+	</if>
+	<if test="checkId != null">
+		and rel.CHECK_ID = #{checkId}
+	</if>
+	<if test="dataDate != null">
+		and result.DATA_DATE = #{dataDate}
+	</if>
+	<if test="orgNo != null">
+		and result.ORG_NO = #{orgNo}
+	</if>
+	ORDER BY result.IS_PASS) aa
+	on logic.CHECK_ID = aa.CHECK_ID
+	left join rpt_valid_logic_desc d
+           on logic.check_id = d.check_id
+          and aa.org_no = d.org_no
+          and aa.data_date = d.data_date
+	where 1=1
+	<if test="checkType != null">
+		and logic.CHECK_TYPE = #{checkType}
+	</if>
+</select>
+
+<select id="zeroAllInfo"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.AllResultZeroVo"
+		parameterType="HashMap">
+		select o.DATA_DATE as "id.dataDate",o.ORG_NO as "id.orgNo",o.INDEX_NO as
+		"id.indexNo",o.CHECK_TIME,o.RESULT_TYPE,o.RPT_TEMPLATE_ID,
+		case when cell.cell_nm='' or cell.cell_nm is null then cell.cell_no else cell.cell_nm end as index_nm
+		from
+		RPT_VALID_RESULT_ZERO o,RPT_IDX_INFO i,
+		RPT_DESIGN_CELL_INFO cell,
+		RPT_DESIGN_SOURCE_IDX  sidx
+		where 1=1 
+		and
+		i.index_no = sidx.index_no and i.INDEX_VER_ID = sidx.ver_id
+		and i.template_id = sidx.template_id
+		and sidx.cell_no = cell.cell_no and sidx.ver_id = cell.ver_id
+		and sidx.template_id = cell.template_id
+		and o.index_no = i.index_no
+		<if test="dataDate != null">
+			and o.DATA_DATE = #{dataDate}
+			and i.end_date > #{dataDate}
+			and i.start_date &lt;= #{dataDate}</if>
+		<if test="orgNo != null">
+			and o.ORG_NO = #{orgNo}</if>
+		<if test="indexNo != null">
+			and o.INDEX_NO = #{indexNo}</if>
+		<if test="checkTime != null">
+			and o.CHECK_TIME = #{checkTime}</if>
+		<if test="indexVal != null">
+			and o.INDEX_VAL = #{indexVal}</if>
+		<if test="lowerlevelTotal != null">
+			and o.LOWERLEVEL_TOTAL = #{lowerlevelTotal}</if>
+		<if test="rptTemplateId != null">
+			and o.RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+		<if test="unit != null">
+			and o.unit = #{unit}</if>
+	</select>
+<!-- 零值校验结果集+状态显示edit by lxp 20161124 -->	
+<select id="zeroAllInfo2"
+		resultType="com.yusys.biapp.frs.rptfill.web.vo.AllResultZeroVo"
+		parameterType="HashMap">
+		select sts.CHECK_STS as verifytSts ,o.DATA_DATE as "id.dataDate",o.ORG_NO as "id.orgNo",o.INDEX_NO as
+		"id.indexNo",o.CHECK_TIME,o.RESULT_TYPE,o.RPT_TEMPLATE_ID,
+		case when cell.cell_nm='' or cell.cell_nm is null then cell.cell_no else cell.cell_nm end as index_nm
+		from
+		RPT_VALID_RESULT_ZERO o,RPT_IDX_INFO i,
+		RPT_DESIGN_CELL_INFO cell,
+		RPT_DESIGN_SOURCE_IDX  sidx,
+		RPT_ENGINE_CHECK_STS sts
+		where 1=1 
+		and
+		i.index_no = sidx.index_no and i.INDEX_VER_ID = sidx.ver_id
+		and i.template_id = sidx.template_id
+		and sidx.cell_no = cell.cell_no and sidx.ver_id = cell.ver_id
+		and sidx.template_id = cell.template_id
+		and o.index_no = i.index_no
+		
+		and o.DATA_DATE=sts.DATA_DATE
+		and o.ORG_NO=sts.ORG_NO
+		and sts.CHECK_TYPE='05'
+		and o.rpt_template_id=sts.rpt_template_id
+		<if test="verifytSts != null and verifytSts !='' ">
+			and sts.CHECK_STS = #{verifytSts}</if>	
+		<if test="rptTemplateId != null">
+			and sts.RPT_TEMPLATE_ID = #{rptTemplateId}</if>
+		<if test="dataDate != null">
+			and sts.DATA_DATE = #{dataDate}</if>
+		<if test="orgNo != null">
+			and sts.ORG_NO = #{orgNo}</if>
+		<if test="dataDate != null">
+			and o.DATA_DATE = #{dataDate}
+			and i.end_date > #{dataDate}
+			and i.start_date &lt;= #{dataDate}</if>
+		<if test="indexNo != null">
+			and o.INDEX_NO = #{indexNo}</if>
+		<if test="checkTime != null">
+			and o.CHECK_TIME = #{checkTime}</if>
+		<if test="indexVal != null">
+			and o.INDEX_VAL = #{indexVal}</if>
+		<if test="lowerlevelTotal != null">
+			and o.LOWERLEVEL_TOTAL = #{lowerlevelTotal}</if>
+		<!-- <if test="rptTemplateId != null">
+			and o.RPT_TEMPLATE_ID = #{rptTemplateId}</if> -->
+		<if test="unit != null">
+			and o.unit = #{unit}</if>
+	</select>
+	<select id="findDSByIndex" parameterType="String" resultType="HashMap">
+		select sys.TABLE_EN_NM as "DSID",sys.SOURCE_ID as "SOURCEID" from RPT_IDX_MEASURE_REL me left join RPT_SYS_MODULE_INFO sys on me.ds_id = sys.set_id
+		 where 1=1 
+		<if test="_parameter != null">
+			and me.INDEX_NO = #{index}
+		</if>
+		<if test="_parameter == null">
+			and 1=2
+		</if>
+	</select>
+	
+	<select id="queryCellAllValue" parameterType="HashMap" resultType="HashMap">
+		SELECT t.index_no as "INDEX_NO",
+			   max(t.index_val)/10000 as "maxValue",
+		       min(t.index_val)/10000 as "minValue",
+		       avg(t.index_val)/10000 as "averageValue"
+		  FROM RPT_REPORT_RESULT t
+		 where 1=1
+		 <if test="rptTemplateId != null">
+		 	and t.template_id = #{rptTemplateId}
+		 </if>
+		 <if test="indexNo != null">
+		 	and t.index_no in
+		 	<foreach item="indexNos" index="index" collection="indexNo" 
+					separator=" or r.INDEX_NO in " >
+				<foreach collection="indexNos" item="indexNo" open="("
+				separator="," close=")">
+				#{indexNo}
+				</foreach>
+			</foreach>
+		 </if>
+		 <if test="orgNo != null">
+		 	and t.org_no = #{orgNo}
+		 </if>
+		 group by t.index_no
+	</select>
+	
+	<select id="getLogicValidResult" parameterType="map" resultType="map">
+		/*监管校验未通过或自定义校验没有添加说明*/
+		select aa.flag as "flag",
+				count(*) as "result"
+	         from (SELECT t.check_id, t.check_type, t3.is_pass, t2.valid_desc, '01' flag
+	                 FROM rpt_valid_cfgext_logic t
+	                 left join rpt_valid_result_logic t3
+	                   on t.check_id = t3.check_id
+	                 left join rpt_valid_logic_desc t2
+	                   on t.check_id = t2.check_id
+	                  and t3.data_date = t2.data_date
+	                  and t3.org_no = t2.org_no
+	                where 1 = 1
+	                  and t3.rpt_template_id = #{templateId}
+		   			  and t3.data_date = #{dataDate}
+		   			  and t3.org_no = #{orgNo}
+	                  and t3.is_pass = 'N'
+	                  and t.check_src = '01'
+	                 union all
+	                 SELECT t.check_id,
+	                           t.check_type,
+	                           t3.is_pass,
+	                           t2.valid_desc, '02' flag
+	                      FROM rpt_valid_cfgext_logic t
+	                      left join rpt_valid_result_logic t3
+	                        on t.check_id = t3.check_id
+	                      left join rpt_valid_logic_desc t2
+	                        on t.check_id = t2.check_id
+	                       and t3.data_date = t2.data_date
+	                       and t3.org_no = t2.org_no
+	                     where 1 = 1
+	                       and t3.rpt_template_id = #{templateId}
+		   				and t3.data_date = #{dataDate}
+		  				   and t3.org_no = #{orgNo}
+	                       and t3.is_pass = 'N'
+	                       and t.check_src = '02'
+	                       and t2.valid_desc is null 
+	                union all
+	               SELECT t.check_id, t.check_type, '' is_pass, '' valid_desc, '03' flag
+                     FROM rpt_valid_cfgext_logic t
+                     left join rpt_valid_logic_rpt_rel t2
+                       on t.check_id = t2.check_id
+                    where 1 = 1
+                      and t2.rpt_template_id = #{templateId}
+	                 ) aa
+			group by aa.flag
+	</select>
+	
+	<select id="getRptDetailValidResult" resultType="com.yusys.biapp.frs.rptfill.web.vo.AllResultLogicVo" parameterType="map">
+		SELECT r.*,c.busi_explain FROM rpt_detail_valid_result_logic r
+		left join rpt_detail_valid_cfg c
+		on r.check_cfg_id = c.check_id
+		where 1=1
+		and r.rpt_template_id = #{rptTemplateId}
+		and r.org_no = #{orgNo}
+		and r.data_date = #{dataDate}
+		<if test="verifytSts != null">
+			and r.verifyt_sts = #{verifytSts}
+		</if>
+		order by r.expression_short_desc
+	</select>
+
+	<select id="getWarnValidList" resultType="java.util.Map">
+		SELECT a.check_id as "checkId",
+		       a.index_no as "indexNo",
+		       a.rpt_template_id as "tmpleteId",
+		       a.compare_val_type as "compareValType",
+		       a.range_type as "rangeType",
+		       a.compare_type as "compareType",
+		       a.is_frs as "isFrs",
+		       a.level_nm as "levelNm",
+		       a.level_type as "levelType",
+		       a.minus_range_val as "minusRangeVal",
+		       a.postive_range_val as "postiveRangeVal",
+		       a.is_pass_cond as "isPassCond",
+		       a.rpt_nm as "rptNm",
+		       a.rpt_id as "rptId",
+		       a.rpt_type as "rptType",
+		       a.rpt_num as "rptNum",
+		       coalesce(a.data_date, b.data_date) as "dataDate",
+		       coalesce(a.org_no, b.org_no) as "orgNo",
+		       b.curr_val as "currVal",
+		       b.compare_val as "compareVal",
+		       coalesce(a.is_pass, b.is_pass) as "isPass",
+		       coalesce(a.unit, b.unit) as "unit",
+		       coalesce(a.org_nm, b.org_nm) as "orgName",
+		       a.index_nm as "indexNm",
+		       a.busi_type as "busiType"
+		  FROM (select t1.check_id,
+		               t1.index_no,
+		               t1.rpt_template_id,
+		               t1.compare_val_type,
+		               t1.range_type,
+		               t1.compare_type,
+		               t1.is_frs,
+		               t2.level_nm,
+		               t2.level_type,
+		               t2.minus_range_val,
+		               t2.postive_range_val,
+		               t2.is_pass_cond,
+		               t3.rpt_nm,
+		               t3.rpt_id,
+		               t3.rpt_type,
+		               t3.rpt_num,
+		               '' data_date,
+		               '' org_no,
+		               0 curr_val,
+		               0 compare_val,
+		               '' is_pass,
+		               '' unit,
+		               '' org_nm,
+		               t6.index_nm,
+		               t3.busi_type
+		          from rpt_valid_cfgext_warn t1
+		          left join rpt_valid_warn_level t2
+		            on t1.check_id = t2.check_id
+		          left join rpt_mgr_report_info t3
+		            on t1.rpt_template_id = t3.cfg_id
+		          left join rpt_idx_info t6
+		            on t1.index_no = t6.index_no
+		           and t6.start_date &lt;= #{dataDate}
+		           and t6.end_date >= #{dataDate}
+		         where t3.busi_type = '02') a
+		  left join (select t1.check_id,
+		                    t1.index_no,
+		                    t1.rpt_template_id,
+		                    t1.compare_val_type,
+		                    t1.range_type,
+		                    t1.compare_type,
+		                    t1.is_frs,
+		                    t2.level_nm,
+		                    t2.level_type,
+		                    t2.minus_range_val,
+		                    t2.postive_range_val,
+		                    t2.is_pass_cond,
+		                    t3.rpt_nm,
+		                    t3.rpt_id,
+		                    t3.rpt_type,
+		                    t3.rpt_num,
+		                    t4.data_date,
+		                    t4.org_no,
+		                    t4.curr_val,
+		                    t4.compare_val,
+		                    t4.is_pass,
+		                    t4.unit,
+		                    t5.org_nm,
+		                    t6.index_nm,
+		                    t3.busi_type
+		               from rpt_valid_cfgext_warn t1
+		               left join rpt_valid_warn_level t2
+		                 on t1.check_id = t2.check_id
+		               left join rpt_mgr_report_info t3
+		                 on t1.rpt_template_id = t3.cfg_id
+		               left join RPT_VALID_RESULT_WARN t4
+		                 on t1.check_id = t4.check_id
+		                and t3.cfg_id = t4.rpt_template_id
+		               left join rpt_org_info t5
+		                 on t4.org_no = t5.org_no
+		                and t5.org_type = #{rptType}
+		               left join rpt_idx_info t6
+		                 on t1.index_no = t6.index_no
+		                and t6.start_date &lt;= #{dataDate}
+		                and t6.end_date >= #{dataDate}
+		              where t3.busi_type = #{rptType}
+		                and t4.data_date = #{dataDate}
+		                <if test="orgNos != null and orgNos.size() > 0">
+						  and (t4.org_no is null or t4.org_no in
+							   <foreach collection="orgNos" item="orgNo" open="("
+										separator="," close=")">
+								   #{orgNo}
+							   </foreach>)
+					  </if>) b
+		    on a.check_id = b.check_id
+		   and a.index_no = b.index_no
+		   where 1=1
+		   <if test="rptIds != null and rptIds.size() > 0">
+			 and a.rpt_id in
+			  <foreach collection="rptIds" item="rptId" open="("
+					   separator="," close=")">
+				  #{rptId}
+			  </foreach>
+		  </if>
+		  <if test="isPass != null and isPass != ''">
+			  <choose>
+				  <when test="isPass == '2'.toString()">
+					 and b.is_pass is null
+				  </when>
+				  <otherwise>
+					 and b.is_pass = #{isPass}
+				  </otherwise>
+			  </choose>
+		  </if>
+		  <if test="authRptIds != null and authRptIds.size() > 0">
+			and a.rpt_id in
+			<foreach collection="authRptIds" item="authRptIds" separator=" or a.rpt_id in ">
+				<foreach collection="authRptIds" item="authRptId" open="("
+						 separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+		  </if>
+		  <if test="authRptOrgs != null and authRptOrgs.size() > 0">
+			and b.org_no in
+			<foreach collection="authRptOrgs" item="authRptOrgs" separator=" or b.org_no in ">
+				<foreach collection="authRptOrgs" item="authRptOrg" open="("
+						 separator="," close=")">
+					#{authRptOrg}
+				</foreach>
+			</foreach>
+		  </if>
+		order by a.rpt_num, a.index_nm asc
+	</select>
+
+	<select id="queryCellValue" resultType="java.util.Map">
+		SELECT t.index_no as "indexNo",
+		       t.data_date as "dataDate",
+		       t.curr_val as "indexVal",
+		       t.unit as "unit"
+		FROM RPT_VALID_RESULT_WARN t
+		where 1=1
+		<if test="templateId != null">
+			and t.template_id = #{templateId}
+		</if>
+		<if test="indexNos != null">
+			and t.index_no in
+			<foreach collection="indexNos" item="indexNo" open="("
+					 separator="," close=")">
+				#{indexNo}
+			</foreach>
+		</if>
+		<if test="orgNo != null and orgNo != ''">
+			and t.org_no = #{orgNo}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			and t.data_date >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			and t.data_date &lt;= #{endDate}
+		</if>
+		order by data_date
+	</select>
+
+	<select id="warnAnalysisByOrg" resultType="java.util.Map">
+		select to_char(to_date(data_date, 'YYYYMMDD'), 'YYYYMM') as "month",
+		       sum(case
+		             when is_pass = '1' then
+		              1
+		             else
+		              0
+		           end) as "errorCount",
+		       sum(case
+		             when is_pass = '0' then
+		              1
+		             else
+		              0
+		           end) as "successCount"
+		  from RPT_VALID_RESULT_WARN
+		where org_no in
+		<foreach collection="orgNos" item="orgNo" open="("
+				 separator="," close=")">
+			#{orgNo}
+		</foreach>
+		<if test="startDate != null and startDate != ''">
+			and data_date >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			and data_date &lt;= #{endDate}
+		</if>
+		 group by to_char(to_date(data_date, 'YYYYMMDD'), 'YYYYMM')
+		 order by to_char(to_date(data_date, 'YYYYMMDD'), 'YYYYMM')
+	</select>
+
+	<select id="searchRptOrgInfo" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo">
+		SELECT ORG_NO as "id.orgNo",ORG_TYPE as "id.orgType",FINANCE_ORG_NO,MGR_ORG_NO,ORG_NM,ORG_SUM_TYPE,UP_ORG_NO,NAMESPACE,ORG_CLASS,ORG_LEVEL,IS_ORG_REPORT
+		from
+			RPT_ORG_INFO
+		where 1=1
+		<if test="orgType != null and orgType != ''">
+			AND ORG_TYPE = #{orgType}
+		</if>
+		<if test="mgrOrgNo != null and mgrOrgNo != ''">
+			AND MGR_ORG_NO = #{mgrOrgNo}
+		</if>
+	</select>
+
+	<select id="WarnFailList"
+			resultType="com.yusys.biapp.frs.rptfill.web.vo.WarnFailVO"
+			parameterType="HashMap">
+		select b.row_id+1 as row_id,b.col_id+1 as col_id,e.finance_org_no as org_no,e.org_nm as org_name,c.data_date,a.rpt_num,a.rpt_nm,b.busi_no as index_no,idx.index_nm,c.compare_val,d.minus_range_val,d.postive_range_val,c.curr_val,f.valid_desc
+		from RPT_VALID_RESULT_WARN c
+		left join RPT_VALID_WARN_LEVEL d
+		on c.check_id = d.check_id
+		left join rpt_valid_warn_desc f
+		on c.check_id = f.check_id and c.org_no = f.org_no and c.data_date = f.data_date
+		left join rpt_design_tmp_info dti
+		on c.rpt_template_id=dti.template_id and c.data_date &lt;dti.ver_end_date and c.data_date &gt;=dti.ver_start_date
+		left join rpt_design_source_idx dsi
+		on c.index_no=dsi.index_no and dti.ver_id=dsi.ver_id
+		left join RPT_DESIGN_CELL_INFO b
+		on b.template_id=dti.template_id and b.ver_id=dti.ver_id and b.cell_no=dsi.cell_no
+		left join RPT_MGR_REPORT_INFO a
+		on a.cfg_id=c.rpt_template_id
+		left join RPT_IDX_INFO idx
+		on c.index_no=idx.index_no and is_rpt_index='Y' and idx.index_ver_id=dti.ver_id
+		left join rpt_org_info e
+		on c.org_no=e.org_no and org_type='17'
+		left join rpt_valid_cfgext_warn cfgwarn
+		on cfgwarn.check_id=c.check_id
+		where 1=1 and c.is_pass='1' and cfgwarn.range_type='02'
+		and a.busi_type='17'
+	</select>
+
+	<select id="warnValidDesc"
+			resultType="java.lang.String"
+			parameterType="HashMap">
+		select VALID_DESC
+		from
+		RPT_VALID_WARN_DESC
+		where 1=1
+		<if test="checkID != null">
+			and CHECK_ID = #{checkID}</if>
+		<if test="dataDate != null">
+			and DATA_DATE = #{dataDate}</if>
+		<if test="orgNo != null">
+			and ORG_NO = #{orgNo}</if>
+	</select>
+
+	<select id="getChildOrgWarnInfo"
+			resultType="com.yusys.biapp.frs.rptfill.web.vo.RptValidResultWarnOrgVo"
+			parameterType="HashMap">
+		select
+		warn.COMPARE_VAL as compareVal,
+		descs.VALID_DESC as validDesc,
+		warn.ORG_NO as orgNo
+		from RPT_VALID_RESULT_WARN warn
+		left join rpt_valid_warn_desc descs on warn.CHECK_ID = descs.CHECK_ID
+		and warn.org_no = descs.org_no
+		and warn.DATA_DATE = descs.DATA_DATE
+		where 1=1
+		<if test="checkId != null">
+			and warn.CHECK_ID = #{checkId}
+		</if>
+		<if test="dataDate != null">
+			and warn.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and warn.ORG_NO in (select distinct org_no from RPT_ORG_INFO where UP_ORG_NO = #{orgNo})
+		</if>
+		<if test="indexNo != null">
+			and warn.INDEX_NO = #{indexNo}
+		</if>
+	</select>
+
+	<select id="queryOrgNm"
+			resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo" parameterType="java.lang.String">
+		SELECT
+		ORG_NM AS orgNm
+		FROM RPT_ORG_INFO
+		WHERE ORG_NO = #{orgNo}
+	</select>
+</mapper>

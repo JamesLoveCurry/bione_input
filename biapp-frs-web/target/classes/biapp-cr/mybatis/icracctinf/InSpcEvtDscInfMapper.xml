@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.icrinacctinf.repository.InSpcEvtDscInfDao">
+<!-- 个人借贷账户特殊事件说明 -->
+
+	<select id="getIcrInSpcEvtDscInfs" parameterType="HashMap"  resultType="com.yusys.cr.icrinacctinf.entity.IcrInSpcEvtDscInf">
+		SELECT * FROM Icr_InSpcEvtDscInf t 
+	</select>
+</mapper> 

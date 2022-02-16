@@ -1,0 +1,3741 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper namespace="com.yusys.bione.plugin.design.repository.RptTmpDAO">
+
+	<select id="getCatalogById"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+		parameterType="HashMap">
+		select * from RPT_MGR_REPORT_CATALOG
+		where 1 = 1
+		<if test="catalogId != null">
+			and catalog_id = #{catalogId}
+		</if>
+	</select>
+
+	<select id="getCatalogByIds"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog">
+		select * from RPT_MGR_REPORT_CATALOG
+		where 1 = 1
+		and catalog_id in
+		<foreach collection="list" item="catalogIds" open="("
+			separator="," close=")">
+			#{catalogIds}
+		</foreach>
+	</select>
+	
+	<select id="getCatalogByUpId"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+		parameterType="HashMap">
+		select * from RPT_MGR_REPORT_CATALOG
+		where 1 = 1
+		<if test="upCatalogId != null">
+			and up_catalog_id = #{upCatalogId}
+		</if>
+	</select>
+
+	<select id="getCatalogByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog"
+		parameterType="HashMap">
+		select * from RPT_MGR_REPORT_CATALOG
+		where 1 = 1
+		<if test="defSrc != null">
+			and def_src = #{defSrc}
+		</if>
+		<if test="defUser != null">
+			and def_User = #{defUser}
+		</if>
+		<if test="catalogNm != null">
+			and catalog_nm = #{catalogNm}
+		</if>
+		<if test="notCatalogId != null">
+			and catalog_id != #{notCatalogId}
+		</if>
+		<if test="upCatalogId != null">
+			and up_Catalog_Id = #{upCatalogId}
+		</if>
+		<if test="extType != null">
+			and ext_type = #{extType}
+		</if>
+	</select>
+
+	<select id="getSubCatalogs"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog">
+		select * from RPT_MGR_REPORT_CATALOG
+		where 1 = 1
+		and up_catalog_id in
+		<foreach collection="list" item="catalogIds" open="("
+			separator="," close=")">
+			#{catalogIds}
+		</foreach>
+	</select>
+
+	<select id="getRptsByCatalogId"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		select * from RPT_MGR_REPORT_INFO
+		where 1 = 1
+		and catalog_id in
+		<foreach collection="list" item="catalogIds" open="("
+			separator="," close=")">
+			#{catalogIds}
+		</foreach>
+	</select>
+	
+	<select id="getBatchCfgs"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptBatchViewVO"
+		parameterType="HashMap">
+		select bat.template_id
+		           ,bat.ver_id
+		           ,bat.cfg_id
+		           ,bat.dim_type
+		           ,bat.filter_mode
+		           ,bat.filter_val
+		           ,bat.pos_type
+		           ,bat.pos_num
+		           ,dim.dim_type_nm
+		from    RPT_DESIGN_BATCH_CFG bat
+		left join RPT_DIM_TYPE_INFO dim
+		on dim. dim_type_no = bat.dim_type
+		where 1 = 1
+		<if test="templateId != null">
+			and bat.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and bat.ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getQueryDim"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignQueryDim"
+		parameterType="HashMap">
+		select template_id as "id.templateId"
+		         ,ver_id as "id.verId"
+		         ,public_dim
+		         ,query_dim
+		         ,param_template_id
+		from   RPT_DESIGN_QUERY_DIM
+		where 1 = 1
+		<if test="templateId != null">
+			and template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</select>
+
+	<select id="getPriCellNo" resultType="String" parameterType="HashMap">
+		select CELL_NO
+		from
+		RPT_DESIGN_CELLLINE_REL
+		where 1=1
+		<if test="cellNo != null">
+			and CELL_NO = #{cellNo}</if>
+		<if test="templateId != null">
+			and TEMPLATE_ID = #{templateId}</if>
+		<if test="verId != null">
+			and VER_ID = #{verId}</if>
+		<if test="busiLineId != null">
+			and BUSI_LINE_ID = #{busiLineId}</if>
+	</select>
+
+	<insert id="saveCatalog"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog">
+		insert into RPT_MGR_REPORT_CATALOG(catalog_id ,
+		catalog_nm , up_catalog_id , remark , ext_type , def_src , def_org , def_user ,catalog_order)
+		values(#{catalogId} ,
+		#{catalogNm} , #{upCatalogId} , #{remark} , #{extType} , #{defSrc} , #{defOrg} , #{defUser}, #{catalogOrder})
+	</insert>
+
+	<update id="updateCatalog"
+		parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog">
+		update RPT_MGR_REPORT_CATALOG
+		<set>
+			<if test="catalogNm != null">catalog_nm=#{catalogNm},</if>
+			up_catalog_id=#{upCatalogId},
+			remark=#{remark},
+			ext_type=#{extType},
+			def_src=#{defSrc},
+			def_org=#{defOrg},
+			def_user=#{defUser},
+			catalog_order=#{catalogOrder}
+		</set>
+		where catalog_id=#{catalogId}
+	</update>
+
+	<delete id="deleteCatalogs">
+		delete from
+		RPT_MGR_REPORT_CATALOG
+		where catalog_id in
+		<foreach collection="list" item="catalogIds" open="("
+			separator="," close=")">
+			#{catalogIds}
+		</foreach>
+	</delete>
+	
+	<select id="getFrsRptsByPage" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.design.web.vo.FrsReportInfoVO">
+		select rpt.rpt_id
+		,rpt.rpt_nm
+		,rpt.catalog_id
+		,catalog.catalog_nm
+		,rpt.rpt_sts
+		,rpt.rpt_desc
+		,rpt.show_priority
+		,rpt.create_time
+		,rpt.start_date
+		,rpt.end_date
+		,rpt.rpt_num
+		,rpt.rpt_cycle
+		,rpt.def_src
+		,rpt.def_org
+		,rpt.def_user
+		,rpt.ext_type
+		,rpt.is_cabin
+		,rpt.rank_order
+		,frs.busi_type
+		,frs.def_dept
+		,frs.user_id
+		,frs.is_release_submit
+		,frs.report_code
+		,frs.submit_main
+		,frs.submit_range
+		,frs.fill_desc
+		,frs.is_main_rpt
+		,frs.main_rpt_id
+		,frs.tmp_version_id
+		,frs.rep_id
+		,(select tmpRpt.rpt_nm 
+		   from RPT_MGR_REPORT_INFO tmpRpt 
+		   where tmpRpt.rpt_id = frs.main_rpt_id
+		 ) as mainRptNm
+		,tmp.template_id
+		,tmp.template_nm
+		,tmp.template_type
+		,tmp.is_upt
+		,tmp.ver_id
+		,tmp.ver_start_date
+		,tmp.ver_end_date
+		,tmp.template_unit
+		,tmp.is_auto_adj
+		,tmp.fixed_length
+		,tmp.is_paging
+		,tmp.import_config
+		,usr.user_name
+		,usr.tel
+		,usr.email
+		,dept.dept_Name
+		from 
+		RPT_MGR_REPORT_INFO rpt
+		left join
+		RPT_MGR_FRS_EXT frs
+		on 
+		rpt.rpt_id = frs.rpt_id
+		left join
+		BIONE_USER_INFO usr
+		on
+		frs.user_id = usr.user_id
+		left join
+		BIONE_DEPT_INFO dept
+		on
+		frs.def_dept = dept.dept_id
+		left join
+		RPT_DESIGN_TMP_INFO tmp
+		on rpt.cfg_id = tmp.template_id
+		left join
+		RPT_MGR_REPORT_CATALOG catalog
+		on rpt.catalog_id = catalog.catalog_id
+		where exists (
+  			select 1
+     		 from  (
+        		select
+            		template_id ,
+            		MAX(ver_id) AS max_ver
+        		from
+            		RPT_DESIGN_TMP_INFO tmp2
+        		group by
+            		template_id ) vertmp
+       		where vertmp.template_id = tmp.template_id
+       		<choose>
+       			<when test="verId != null and verDate == null">
+       				and tmp.ver_id = #{verId}
+       			</when>
+       			<when test="verDate != null and verId == null">
+					and tmp.ver_start_date &lt;=  #{verDate}
+					and tmp.ver_end_date &gt; #{verDate}
+				</when>
+				<when test="verId != null and verDate != null">
+					and tmp.ver_id = #{verId}
+					and tmp.ver_start_date &lt;=  #{verDate}
+					and tmp.ver_end_date &gt; #{verDate}
+				</when>
+       			<otherwise>
+     				and vertmp.max_ver = tmp.ver_id
+       			</otherwise>
+       			
+       		</choose>
+		)
+		<if test="catalogId != null">
+			and rpt.catalog_id = #{catalogId}
+		</if>
+		<if test="rptId != null">
+			and rpt.rpt_id = #{rptId}
+		</if>
+		<if test="currDt != null">
+			and tmp.ver_start_date >= #{currDt}
+			<![CDATA[and tmp.ver_end_date < #{currDt}]]>
+		</if>
+		<if test="busiType != null">
+			and frs.busi_type = #{busiType}
+		</if>
+		<if test="defSrc != null">
+			and rpt.def_src = #{defSrc}
+		</if>
+		<if test="catalogId == null">
+			<if test="defSrc == null and defaultDefSrc !=null">
+				and (rpt.def_src = #{defaultDefSrc} or rpt.def_src is null)
+			</if> 
+		</if>
+		<if test="defOrg != null">
+			and rpt.def_org = #{defOrg}
+		</if>
+		<if test="defUser != null">
+			and rpt.def_user = #{defUser}
+		</if>
+		<if test="rptNm != null">
+			and rpt.rpt_nm like #{rptNm}
+		</if>
+		<if test="authRptIds != null">
+			and (rpt.rpt_id in
+			<foreach collection="authRptIds" item="authRptIds" separator=" or rpt.rpt_id in ">
+				<foreach collection="authRptIds" item="authRptId" open="("
+					separator="," close=")">
+					#{authRptId}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		order by rpt.SHOW_PRIORITY,rpt.RPT_NM
+	</select>
+	
+	<select id="getFrsRptsById" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.design.web.vo.FrsReportInfoVO">
+		select rpt.rpt_id
+		,rpt.rpt_nm
+		,rpt.catalog_id
+		,catalog.catalog_nm
+		,rpt.rpt_sts
+		,rpt.rpt_desc
+		,rpt.show_priority
+		,rpt.create_time
+		,rpt.start_date
+		,rpt.end_date
+		,rpt.rpt_num
+		,rpt.rpt_cycle
+		,rpt.def_src
+		,rpt.def_org
+		,rpt.def_user
+		,rpt.ext_type
+		,rpt.busi_lib_id
+		,rpt.rpt_busi_nm
+		,rpt.excel_run
+		,rpt.report_obj
+		,frs.busi_type
+		,frs.def_dept
+		,frs.is_release_submit
+		,frs.report_code
+		,frs.submit_main
+		,frs.submit_range
+		,frs.fill_desc
+		,frs.is_main_rpt
+		,frs.main_rpt_id
+		,frs.tmp_version_id
+		,frs.rep_id
+		,tmp.template_id
+		,tmp.template_type
+		,tmp.is_upt
+		,tmp.ver_id
+		,tmp.ver_start_date
+		,tmp.ver_end_date
+		,tmp.template_unit
+		,tmp.template_nm
+		,tmp.fixed_length
+		,tmp.is_paging
+		,tmp.sort_sql
+		,tmp.import_config
+		,(select max(t.ver_id)
+		   from RPT_DESIGN_TMP_INFO t
+		   where t.template_id = rpt.cfg_id
+		 ) as maxVerId
+		,(select tmpRpt.rpt_nm 
+		   from RPT_MGR_REPORT_INFO tmpRpt 
+		   where tmpRpt.rpt_id = frs.main_rpt_id
+		 ) as mainRptNm
+		from RPT_MGR_REPORT_INFO rpt
+		left join RPT_MGR_FRS_EXT frs
+		on rpt.rpt_id = frs.rpt_id
+		left join RPT_DESIGN_TMP_INFO tmp
+		on rpt.cfg_id = tmp.template_id
+		<if test="verId != null">
+			and tmp.ver_id = #{verId}
+		</if>
+		<if test="verId == null">
+			and tmp.ver_end_date = #{maxDate}
+		</if>
+		left join RPT_MGR_REPORT_CATALOG catalog
+		on rpt.catalog_id = catalog.catalog_id
+		where 1=1
+		<if test="rptId != null">
+			and rpt.rpt_id = #{rptId}
+		</if>
+		<if test="rptIds != null">
+			and rpt.rpt_id in 
+			<foreach collection="rptIds" item="rptIds" open="("
+				separator="," close=")">
+				#{rptIds}
+			</foreach>
+		</if>
+		<if test="busiType != null">
+			and frs.busi_type = #{busiType}
+		</if>
+		<if test="rptSts != null">
+			and rpt.rpt_sts = #{rptSts}
+		</if>
+		<if test="defSrc != null">
+			and rpt.def_src = #{defSrc}
+		</if>
+		order by tmp.ver_id desc
+	</select>
+
+	<select id="getFrsRptsByIdNew" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.design.web.vo.FrsReportInfoVO">
+		select rpt.rpt_id
+		,rpt.rpt_nm
+		,rpt.catalog_id
+		,catalog.catalog_nm
+		,rpt.rpt_sts
+		,rpt.rpt_desc
+		,rpt.show_priority
+		,rpt.create_time
+		,rpt.start_date
+		,rpt.end_date
+		,rpt.rpt_num
+		,rpt.rpt_cycle
+		,rpt.def_src
+		,rpt.def_org
+		,rpt.def_user
+		,rpt.is_cabin
+		,frs.busi_type
+		,frs.def_dept
+		,frs.is_release_submit
+		,frs.report_code
+		,frs.submit_main
+		,frs.submit_range
+		,frs.rpt_line_no
+		,frs.developer
+		,frs.demand_source
+		,frs.tmp_version_id
+		,tmp.template_id
+		,tmp.template_type
+		,tmp.is_upt
+		,tmp.ver_id
+		,tmp.ver_start_date
+		,tmp.template_unit
+		,tmp.is_auto_adj
+		,tmp.src_sys_code
+		,tmp.import_config
+		,usr.user_id
+		,usr.user_name
+		,usr.tel
+		,usr.email
+		,dept.dept_Name
+		,(select max(t.ver_id)
+		   from RPT_DESIGN_TMP_INFO t
+		  where t.template_id = rpt.cfg_id
+		 ) as maxVerId
+		from RPT_MGR_REPORT_INFO rpt
+		left join RPT_MGR_FRS_EXT frs
+		on rpt.rpt_id = frs.rpt_id
+		left join RPT_DESIGN_TMP_INFO tmp
+		on rpt.cfg_id = tmp.template_id
+		left join BIONE_USER_INFO usr
+		on frs.user_id = usr.user_id
+		left join BIONE_DEPT_INFO dept
+		on frs.def_dept = dept.dept_id
+		<if test="verId != null">
+			and tmp.ver_id = #{verId}
+		</if>
+		<if test="verId == null">
+			and tmp.ver_end_date = #{maxDate}
+		</if>
+		left join RPT_MGR_REPORT_CATALOG catalog
+		on rpt.catalog_id = catalog.catalog_id
+		where 1=1
+		<if test="rptId != null">
+			and rpt.rpt_id = #{rptId}
+		</if>
+		<if test="rptIds != null">
+			and rpt.rpt_id in 
+			<foreach collection="rptIds" item="rptIds" open="("
+				separator="," close=")">
+				#{rptIds}
+			</foreach>
+		</if>
+		<if test="busiType != null">
+			and frs.busi_type = #{busiType}
+		</if>
+		<if test="rptSts != null">
+			and rpt.rpt_sts = #{rptSts}
+		</if>
+		<if test="defSrc != null">
+			and rpt.def_src = #{defSrc}
+		</if>
+		order by tmp.ver_id desc
+	</select>
+
+	<select id="getModuleCatalogNodes"
+		resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog">
+		select * from RPT_SYS_MODULE_CATALOG where 1=1
+		<if test="catalogIds != null">
+			and catalog_id in
+			<foreach collection="catalogIds" item="catalogId" open="("
+				separator="," close=")">
+				#{catalogId}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getModuleInfoNodes"
+		resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo" parameterType="HashMap">
+		select * from RPT_SYS_MODULE_INFO
+		where 1=1
+		<if test="setNm != null">
+			and set_nm like #{setNm}
+		</if>
+		<if test="setType != null">
+			and set_type = #{setType}
+		</if>
+		<if test="dsId != null">
+			and source_id = #{dsId}
+		</if>
+		<if test="setIds != null">
+			and set_id in
+			<foreach collection="setIds" item="setId" open="("
+				separator="," close=")">
+				#{setId}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getModuleColNodes"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptSysModuleColVO">
+		select col.col_id,
+		         col.set_id,
+		         col.col_type,
+		         col.cn_nm,
+		         col.en_nm,
+		         col.db_type,
+		         col.len,
+		         col.precision2,
+		         col.order_num,
+		         col.is_null,
+		         col.is_use,
+		         col.is_pk,
+		         col.is_query_col,
+		         col.query_logic,
+		      	 col.dim_type_no,
+		      	 col.measure_no,
+		         typ.dim_type_struct,
+		         info.busi_type
+		from RPT_SYS_MODULE_COL col
+		left join rpt_sys_module_info info
+  		on col.set_id = info.set_id
+		left    join RPT_DIM_TYPE_INFO typ
+		on     col.dim_type_no = typ.dim_type_no
+		where 1 = 1
+		and col.set_id in
+		<foreach collection="list" item="setIds" open="(" separator=","
+			close=")">
+			#{setIds}
+		</foreach>
+		order by col.order_num
+	</select>
+	
+	<select id="getModuleInfoNoDetailNodes"
+		resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleInfo" parameterType="HashMap">
+		select * from RPT_SYS_MODULE_INFO
+		where 1=1
+		<if test="setNm != null">
+			and set_nm like #{setNm}
+		</if>
+		<if test="setType != null">
+			and set_type != #{setType}
+		</if>
+		<if test="dsId != null">
+			and source_id = #{dsId}
+		</if>
+		<if test="setIds != null">
+			and set_id  not in
+			<foreach collection="setIds" item="setId" open="("
+				separator="," close=")">
+				#{setId}
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getQueryDetails"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignQueryDetailVO">
+		select   detail.template_id,
+		           detail.ver_id,
+		           detail.order_num,
+		           detail.ds_id,
+		           detail.column_id,
+		           detail.element_type,
+		           col.en_nm,
+		           col.cn_nm,
+		           col.dim_type_no,
+		           col.db_type,
+		           typ.dim_type_struct
+		from RPT_DESIGN_QUERY_DETAIL detail
+		left    join RPT_SYS_MODULE_COL col
+		on     detail.ds_id = col.set_id
+		and   detail.column_id = col.col_id
+		left    join RPT_DIM_TYPE_INFO typ
+		on    col.dim_type_no = typ.dim_type_no
+		where 1 = 1
+		<if test="templateId != null">
+			and detail.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and detail.ver_id = #{verId}
+		</if>
+		order by detail.order_num
+	</select>
+	
+	<select id="getTmpByParams"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignTmpInfo">
+		select
+		tmp.template_id as "id.templateId"
+		,tmp.ver_id as "id.verId"
+		,tmp.ver_end_date
+		,tmp.ver_start_date
+		,tmp.template_contentjson
+		,tmp.template_nm
+		,tmp.remark
+		,tmp.is_upt
+		,tmp.template_type
+		,tmp.parent_template_id
+		,tmp.line_id
+		,tmp.template_unit
+		,tmp.fixed_length
+		,tmp.import_config
+		from
+		RPT_DESIGN_TMP_INFO tmp
+		where 1 = 1
+		<if test="templateId != null">
+			and tmp.template_id = #{templateId}
+		</if>
+		<if test="dataDate != null">
+			and tmp.ver_start_date &lt;= #{dataDate}
+			and
+			tmp.ver_end_date > #{dataDate}
+		</if>
+		<if test="parentTemplateId != null">
+			and tmp.parent_template_id = #{parentTemplateId}
+		</if>
+		<if test="lineId != null">
+			and tmp.line_Id = #{lineId}
+		</if>
+		<if test="verId != null">
+			and tmp.ver_id = #{verId}
+		</if>
+		<if test="temlateType != null">
+			and tmp.template_type = #{templateType}
+		</if>
+		order by tmp.template_id
+	</select>
+	<select id="getTmpById"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignTmpInfo">
+		select
+		tmp.template_id as "id.templateId"
+		,tmp.ver_id as "id.verId"
+		,tmp.ver_end_date
+		,tmp.ver_start_date
+		,tmp.template_contentjson
+		,tmp.template_nm
+		,tmp.remark
+		,tmp.is_upt
+		,tmp.template_type
+		,tmp.parent_template_id
+		,tmp.line_id
+		,tmp.template_unit
+		,tmp.is_auto_adj
+		,tmp.import_config
+		from
+		RPT_DESIGN_TMP_INFO tmp
+		where 1 = 1
+		<if test="templateId != null">
+			and tmp.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and tmp.ver_id = #{verId}
+		</if>
+		order by tmp.ver_id desc
+	</select>
+
+	<select id="getTmpCells"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignCellInfo">
+		select
+		cell.cell_no as "id.cellNo"
+		,cell.template_id as "id.template_id"
+		,cell.ver_id as "id.ver_id"
+		,cell.row_id
+		,cell.col_id
+		,cell.is_upt
+		,cell.cell_nm
+		,cell.data_len
+		,cell.data_precision
+		,cell.data_type
+		,cell.cell_suffix
+		,cell.display_format
+		,cell.caliber_explain
+		,cell.remark
+		,cell.is_null
+		,cell.cell_data_src
+		,cell.data_unit
+		,cell.busi_no
+		,cell.sort_mode
+		,cell.caliber_technology
+		,cell.is_merge
+		,cell.is_merge_col
+		,is_lock
+		from
+		RPT_DESIGN_CELL_INFO cell
+		where 1 = 1
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+	</select>
+
+<select id="getTmpComCells"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignComcellInfo">
+		select
+		cell.cell_no as "id.cellNo"
+		,cell.template_id as "id.template_id"
+		,cell.ver_id as "id.ver_id"
+		,cell.row_id
+		,cell.col_id
+		,cell.type_id
+		,cell.content
+		from
+		RPT_DESIGN_COMCELL_INFO cell
+		where 1 = 1
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+	</select>
+	
+	<select id="getTmpAllCells" resultType="HashMap">
+		SELECT
+		cell.*,
+		idx.index_no,
+		ds.ds_id,
+		ds.column_id,
+		ds.is_ext,
+		ds.ext_direction,
+		ds.ext_mode,
+		ds.is_grp,
+		ds.sum_mode,
+		ds.is_filt,
+		ds.is_sort,
+		ds.sort_mode,
+		ds.sort_order,
+		ds.left_main_cell_id,
+		ds.right_main_cell_id,
+		fom.excel_formula,
+		fom.is_analyse_ext,
+		fom.is_rpt_index,
+		txt.expression,
+		mer.ds_id as "IDS_ID"
+		FROM
+		rpt_design_tmp_info tmp,
+		rpt_design_cell_info cell
+		LEFT JOIN
+		RPT_DESIGN_SOURCE_IDX idx
+		ON
+		idx.template_id=cell.template_id
+		AND idx.ver_id=cell.ver_id
+		AND idx.cell_no=cell.cell_no
+		LEFT JOIN
+		RPT_DESIGN_SOURCE_DS ds
+		ON
+		ds.template_id=cell.template_id
+		AND ds.ver_id=cell.ver_id
+		AND ds.cell_no=cell.cell_no
+		LEFT JOIN
+		RPT_DESIGN_SOURCE_FORMULA fom
+		ON
+		fom.template_id=cell.template_id
+		AND fom.ver_id=cell.ver_id
+		AND fom.cell_no=cell.cell_no
+		LEFT JOIN
+		RPT_DESIGN_SOURCE_TEXT txt
+		ON
+		txt.template_id=cell.template_id
+		AND txt.ver_id=cell.ver_id
+		AND txt.cell_no=cell.cell_no
+		LEFT JOIN
+		RPT_IDX_MEASURE_REL mer
+		ON
+		mer.index_no = idx.index_no
+		AND mer.index_ver_id = idx.ver_id
+		WHERE
+		1=1
+		AND tmp.template_id=cell.template_id
+		AND
+		tmp.ver_id=cell.ver_id
+		<if test="dataDate != null">
+			and tmp.ver_start_date &lt;= #{dataDate}
+			and
+			tmp.ver_end_date > #{dataDate}
+		</if>
+		<if test="templateId != null">
+			AND tmp.template_id=#{templateId}
+		</if>
+		<if test="lineId != null">
+			AND tmp.line_Id=#{lineId}
+		</if>
+	</select>
+
+	<select id="getModuleCells"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignSourceDsVO">
+		select
+		ds.cell_no as "id.cellNo"
+		,ds.template_id as "id.templateId"
+		,ds.ver_id as "id.verId"
+		,ds.ds_id
+		,ds.column_id
+		,ds.is_ext
+		,ds.is_grp
+		,ds.ext_direction
+		,ds.ext_mode
+		,ds.sum_mode
+		,ds.is_filt
+		,ds.is_sort
+		,ds.sort_mode
+		,ds.sort_order
+		,ds.is_conver
+		,case when col.cn_nm = '' or col.cn_nm is
+		null
+		then col.en_nm
+		else col.cn_nm
+		end as "columnName"
+		,case when
+		md.set_nm = '' or md.set_nm is null
+		then md.table_en_nm
+		else md.set_nm
+		end as "dsName",
+		col.is_pk
+		from RPT_DESIGN_SOURCE_DS ds
+		left join
+		RPT_SYS_MODULE_COL
+		col
+		on ds.column_id = col.col_id
+		left join
+		RPT_SYS_MODULE_INFO md
+		on
+		ds.ds_id = md.set_id
+		where 1 = 1
+		<if test="templateId != null">
+			and ds.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and ds.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (ds.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or ds.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getFormulaCells"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignFormulaCellVO">
+		select
+		f.cell_no
+		,f.template_id
+		,f.ver_id
+		,f.excel_formula
+		,f.is_analyse_ext
+		,f.is_rpt_index
+		,f.analyse_ext_type
+		,i.index_no as "realIndexNo"
+		,c.row_id
+		,c.col_id
+		,c.cell_nm
+		,c.data_len
+		,c.data_unit
+		,c.data_type
+		,c.is_upt
+		,c.is_null
+		,c.data_precision
+		,c.display_format
+		,c.caliber_explain
+		,c.sort_mode
+		,c.busi_no
+		,c.caliber_technology
+		,c.remark
+		,idx.is_sum
+		,idx.is_fill_sum
+		,idx.index_ver_id
+		from
+		RPT_DESIGN_SOURCE_FORMULA f
+		left join RPT_DESIGN_CELL_INFO c
+		on
+		f.cell_no = c.cell_no
+		and f.template_id = c.template_id
+		and f.ver_id =
+		c.ver_id
+		left join RPT_DESIGN_SOURCE_IDX i
+		on f.cell_no = i.cell_no
+		and
+		f.template_id = i.template_id
+		and f.ver_id = i.ver_id
+		left join RPT_IDX_INFO idx
+		on
+		idx.index_no = i.index_no
+		and idx.index_ver_id = c.ver_id
+		where 1 = 1
+		<if test="templateId != null">
+			and f.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and f.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (f.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or f.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getTextCells"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceText">
+		select
+		cell_no as "id.cellNo"
+		,template_id as "id.templateId"
+		,ver_id as
+		"id.verId"
+		,expression
+		from RPT_DESIGN_SOURCE_TEXT
+		where 1 = 1
+		<if test="templateId != null">
+			and template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+	<select id="getColDimsByCell"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignTabDimVO">
+		select
+		tab.cell_no
+		,tab.template_id
+		,tab.ver_id
+		,tab.dim_type_no
+		,tab.is_total
+		,tab.date_format
+		,tab.is_conver
+		,tab.display_level
+		,tab.ext_direction
+		,dim.dim_type_nm
+		,dim.dim_type
+		
+		from RPT_DESIGN_SOURCE_TABDIM tab
+		left    join RPT_DIM_TYPE_INFO dim
+		on    tab.dim_type_no = dim.dim_type_no
+		where 1 = 1
+		<if test="templateId != null">
+			and template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getIdxCellsVO"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignSrcIdxVO">
+		select
+		cell.cell_no as "id.cellNo"
+		,cell.template_id as "id.template_id"
+		,cell.ver_id as "id.ver_id"
+		,cell.row_id
+		,cell.col_id
+		,cell.is_upt
+		,cell.cell_nm
+		,cell.busi_no
+		,cell.data_len
+		,cell.data_precision
+		,cell.data_type
+		,cell.cell_suffix
+		,cell.display_format
+		,cell.caliber_explain
+		,cell.remark
+		,cell.is_null
+		,cell.cell_data_src
+		,cell.data_unit
+		,cell.sort_mode
+		,cell.caliber_technology
+		,idx.index_No
+		,mer.ds_id
+		,idxinfo.is_sum
+		from
+		RPT_DESIGN_CELL_INFO cell,
+		RPT_DESIGN_SOURCE_IDX idx
+		LEFT JOIN
+		RPT_IDX_MEASURE_REL mer
+		ON
+		mer.index_no = idx.index_no
+		AND mer.index_ver_id = idx.ver_id
+		LEFT JOIN
+		RPT_IDX_INFO idxinfo
+		ON
+		idxinfo.index_no = idx.index_no
+		AND idxinfo.index_ver_id = idx.ver_id
+		where
+		1 = 1
+		AND
+		cell.template_id=idx.template_id
+		AND
+		cell.ver_id=idx.ver_id
+		AND
+		cell.cell_no=idx.cell_no
+		<if test="cellDataSrc != null">
+			and cell.cell_data_src = #{cellDataSrc}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+
+	<select id="getIdxTabCellsVO" resultType="com.yusys.bione.plugin.design.web.vo.RptDesignSrcIdxTabVO">
+		SELECT
+		    cell.cell_no     AS "id.cellNo" ,
+		    cell.template_id AS "id.template_id" ,
+		    cell.ver_id      AS "id.ver_id" ,
+		    cell.row_id ,
+		    cell.col_id ,
+		    cell.is_upt ,
+		    cell.cell_nm ,
+		    cell.busi_no ,
+		    cell.data_len ,
+		    cell.data_precision ,
+		    cell.data_type ,
+		    cell.cell_suffix ,
+		    cell.display_format ,
+		    cell.caliber_explain ,
+		    cell.remark ,
+		    cell.is_null ,
+		    cell.cell_data_src ,
+		    cell.data_unit ,
+		    cell.sort_mode ,
+		    cell.caliber_technology,
+		    idx.index_No ,
+		    mer.ds_id
+		FROM
+		    RPT_DESIGN_SOURCE_TABIDX idx
+		LEFT JOIN
+		    RPT_IDX_MEASURE_REL mer
+		ON
+		    mer.index_no = idx.index_no
+		AND mer.index_ver_id = idx.ver_id
+		INNER JOIN
+		    RPT_DESIGN_CELL_INFO cell
+		ON
+		    cell.template_id=idx.template_id
+		AND cell.ver_id=idx.ver_id
+		AND cell.cell_no=idx.cell_no
+		WHERE
+		    1 = 1
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+	<select id="getDimTabCellsVO" resultType="com.yusys.bione.plugin.design.web.vo.RptDesignSrcDimTabVO">
+		SELECT
+		    cell.cell_no     AS "id.cellNo" ,
+		    cell.template_id AS "id.template_id" ,
+		    cell.ver_id      AS "id.ver_id" ,
+		    cell.row_id ,
+		    cell.col_id ,
+		    cell.is_upt ,
+		    cell.cell_nm ,
+		    cell.busi_no ,
+		    cell.data_len ,
+		    cell.data_precision ,
+		    cell.data_type ,
+		    cell.cell_suffix ,
+		    cell.display_format ,
+		    cell.caliber_explain ,
+		    cell.remark ,
+		    cell.is_null ,
+		    cell.cell_data_src ,
+		    cell.data_unit ,
+		    cell.sort_mode ,
+		    cell.caliber_technology,
+		    dim.dim_Type_No,
+		    dim.IS_TOTAL,
+		    dim.date_format,
+		    dim.is_conver,
+		    dim.display_level,
+		    dim.ext_direction
+		FROM
+		    RPT_DESIGN_SOURCE_TABDIM dim,
+		    RPT_DESIGN_CELL_INFO cell
+		WHERE
+		    1 = 1
+		AND cell.template_id=dim.template_id
+		AND cell.ver_id=dim.ver_id
+		AND cell.cell_no=dim.cell_no
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		order by  dim.ext_direction,cell.cell_no
+	</select>
+	
+	<select id="getDsCellsVO"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignSrcDsVO">
+		select
+		cell.cell_no as "id.cellNo"
+		,cell.template_id as "id.template_id"
+		,cell.ver_id as "id.ver_id"
+		,cell.row_id
+		,cell.col_id
+		,cell.is_upt
+		,cell.cell_nm
+		,cell.busi_no
+		,cell.data_len
+		,cell.data_precision
+		,cell.data_type
+		,cell.cell_suffix
+		,cell.display_format
+		,cell.caliber_explain
+		,cell.remark
+		,cell.is_null
+		,cell.cell_data_src
+		,cell.data_unit
+		,cell.sort_mode
+		,cell.caliber_technology
+		,ds.column_Id
+		,ds.ds_Id
+		,ds.ext_Direction
+		,ds.ext_Mode
+		,ds.is_Ext
+		,ds.is_Filt
+		,ds.is_Grp
+		,ds.sum_Mode
+		,ds.is_conver
+		,cell.is_merge
+		,cell.is_merge_col
+		from RPT_DESIGN_CELL_INFO cell,
+		RPT_DESIGN_SOURCE_DS ds
+		where 1 = 1
+		AND
+		cell.template_id=ds.template_id
+		AND
+		cell.ver_id=ds.ver_id
+		AND
+		cell.cell_no=ds.cell_no
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getFormulaCellsVO"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignSrcFormulaVO">
+		select
+		cell.cell_no as "id.cellNo"
+		,cell.template_id as "id.template_id"
+		,cell.ver_id as "id.ver_id"
+		,cell.row_id
+		,cell.col_id
+		,cell.is_upt
+		,cell.cell_nm
+		,cell.data_len
+		,cell.busi_no
+		,cell.data_precision
+		,cell.data_type
+		,cell.cell_suffix
+		,cell.display_format
+		,cell.caliber_explain
+		,cell.remark
+		,cell.is_null
+		,cell.cell_data_src
+		,cell.data_unit
+		,cell.sort_mode
+		,cell.caliber_technology
+		,formula.excel_Formula
+		,formula.is_Analyse_Ext
+		,formula.is_RPT_INDEX
+		,formula.ANALYSE_EXT_TYPE
+		from RPT_DESIGN_CELL_INFO cell,
+		RPT_DESIGN_SOURCE_FORMULA formula
+		where
+		1 = 1
+		AND
+		cell.template_id=formula.template_id
+		AND
+		cell.ver_id=formula.ver_id
+		AND
+		cell.cell_no=formula.cell_no
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getTextCellsVO"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignSrcTextVO">
+		select
+		cell.cell_no as "id.cellNo"
+		,cell.template_id as "id.template_id"
+		,cell.ver_id as "id.ver_id"
+		,cell.row_id
+		,cell.col_id
+		,cell.is_upt
+		,cell.cell_nm
+		,cell.data_len
+		,cell.busi_no
+		,cell.data_precision
+		,cell.data_type
+		,cell.cell_suffix
+		,cell.display_format
+		,cell.caliber_explain
+		,cell.caliber_technology
+		,cell.remark
+		,cell.is_null
+		,cell.cell_data_src
+		,cell.data_unit
+		,cell.sort_mode
+		,text.expression
+		from
+		RPT_DESIGN_CELL_INFO cell,
+		RPT_DESIGN_SOURCE_TEXT
+		text
+		where
+		1 = 1
+		AND
+		cell.template_id=text.template_id
+		AND
+		cell.ver_id=text.ver_id
+		AND
+		cell.cell_no=text.cell_no
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getIdxsByCell"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignIdxCellVO">
+		select
+		case when cfg.index_no is null then idx.index_no else cfg.index_no end as "realIndexNo"
+		,cell.cell_no
+		,idx.index_ver_id
+		,idx.src_index_no as "indexNo"
+		,idx.src_index_measure as "measureNo"
+		,idx.is_sum
+		,idx.is_fill_sum
+		,idx.is_save
+		,idx.stat_type
+		,cell.rule_id
+		,cell.mode_id
+		,cell.time_Measure_Id
+		,idx.busi_type
+		from RPT_DESIGN_SOURCE_IDX cell
+		left join RPT_IDX_INFO idx
+		on
+		cell.index_no = idx.index_no
+		and cell.ver_id = idx.index_ver_id
+		left join rpt_idx_cfg cfg
+		on cell.template_id = cfg.template_id
+		and cell.ver_id = cfg.ver_id
+		and cell.cell_no = cfg.cell_no
+		where 1 = 1
+		<if test="isRptIdx != null">
+			and idx.is_rpt_index = #{isRptIdx}
+		</if>
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+	<select id="getCalcIdxsByCell"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignIdxCalcCellVO">
+		select
+		idx.index_no as "realIndexNo"
+		,cell.cell_no
+		,idx.index_ver_id
+		,idx.src_index_no as "indexNo"
+		,idx.src_index_measure as "measureNo"
+		,idx.is_sum
+		,idx.is_fill_sum
+		,idx.is_save
+		,idx.stat_type
+		,cell.rule_id
+		,cell.mode_id
+		,cell.time_Measure_Id
+		,formula.formula_content
+		,formula.formula_desc
+		from RPT_DESIGN_SOURCE_IDX cell
+		left join RPT_IDX_INFO idx
+		on
+		cell.index_no = idx.index_no
+		and cell.ver_id = idx.index_ver_id
+		left join RPT_IDX_FORMULA_INFO formula
+		on
+		formula.index_no = idx.index_no
+		and formula.index_ver_id = idx.index_ver_id
+		where 1 = 1
+		<if test="isRptIdx != null">
+			and idx.is_rpt_index = #{isRptIdx}
+		</if>
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+	
+	<select id="getColIdxsByCell"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignTabIdxVO">
+		select
+		idx.index_no as "realIndexNo"
+		,cell.cell_no
+		,idx.index_ver_id
+		,idx.src_index_no as "indexNo"
+		,idx.src_index_measure as "measureNo"
+		,idx.is_sum
+		,idx.is_save
+		,idx.stat_type
+		,cell.rule_id
+		,cell.mode_id
+		,cell.time_Measure_Id
+		,cell.is_passyear
+		from RPT_DESIGN_SOURCE_TABIDX cell
+		left join RPT_IDX_INFO idx
+		on
+		cell.index_no = idx.index_no
+		and cell.ver_id = idx.index_ver_id
+
+		where 1 = 1
+		<if test="isRptIdx != null">
+			and idx.is_rpt_index = #{isRptIdx}
+		</if>
+		<if test="templateId != null">
+			and cell.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and cell.ver_id = #{verId}
+		</if>
+		<if test="cellNo != null">
+			and cell.cell_no = #{cellNo}
+		</if>
+		<if test="cellNos != null">
+			and (cell.cell_no in
+			<foreach item="cellNos" collection="cellNos" separator=" or cell.cell_no in ">
+				<foreach collection="cellNos" item="cellNos" open="("
+					separator="," close=")">
+					#{cellNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getDimRelByNos"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel">
+		select
+		rel.dim_no as "id.dimNo"
+		,rel.index_no as "id.indexNo"
+		,rel.index_ver_id as "id.indexVerId"
+		,rel.ds_id as "id.dsId"
+		,rel.dim_type
+		,rel.store_col
+		,rel.order_num
+		from RPT_IDX_DIM_REL rel
+		where exists (
+		select 1
+		from (
+		select
+		max(tmp.index_ver_id) as max_ver
+		,tmp.index_no
+		from RPT_IDX_DIM_REL tmp
+		group by tmp.index_no
+		) ver
+		where
+		rel.index_no = ver.index_no
+		and rel.index_ver_id = ver.max_ver
+		)
+		<if test="idxNos != null">
+			and (rel.index_no in
+			<foreach item="idxNos" collection="idxNos" separator=" or rel.index_no in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getDimRelByVer"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel">
+		select
+		rel.dim_no as "id.dimNo"
+		,rel.index_no as "id.indexNo"
+		,rel.index_ver_id as "id.indexVerId"
+		,rel.ds_id as "id.dsId"
+		,rel.dim_type
+		,rel.store_col
+		,rel.order_num
+		from RPT_IDX_DIM_REL rel
+		where 1 = 1
+		<if test="idxNos != null">
+			and (rel.index_no in
+			<foreach item="idxNos" collection="idxNos" separator=" or rel.index_no in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and rel.index_ver_id = #{verId}
+		</if>
+	</select>
+
+	<select id="getFilterByNos"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignFilterVO">
+		select
+		fil.index_no
+		,fil.dim_no
+		,fil.filter_val
+		,fil.filter_mode
+		from
+		RPT_IDX_FILTER_INFO fil
+		where exists (
+		select 1
+		from (
+		select
+		max(tmp.index_ver_id) as max_ver
+		,tmp.index_no
+		from RPT_IDX_FILTER_INFO
+		tmp
+		group by tmp.index_no
+		) ver
+		where fil.index_no = ver.index_no
+		and
+		fil.index_ver_id = ver.max_ver
+		)
+		<if test="idxNos != null">
+			and (fil.index_no in
+			<foreach item="idxNos" collection="idxNos" separator=" or fil.index_no in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getFilterByVer"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignFilterVO">
+		select
+		fil.index_no
+		,fil.dim_no
+		,fil.filter_val
+		,fil.filter_mode
+		from
+		RPT_IDX_FILTER_INFO fil
+		where 1 = 1
+		<if test="idxNos != null">
+			and (fil.index_no in
+			<foreach item="idxNos" collection="idxNos" separator=" or fil.index_no in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and fil.index_ver_id = #{verId}
+		</if>
+	</select>
+
+	<select id="getFormulaByVer"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo">
+		select
+		index_no as "id.indexNo"
+		,index_ver_id as "id.indexVerId"
+		,formula_type
+		,formula_content
+		,formula_desc
+		,remark
+		from
+		RPT_IDX_FORMULA_INFO
+		where 1 = 1
+		<if test="idxNos != null">
+			and (index_no in
+			<foreach item="idxNos" collection="idxNos" separator=" or index_no in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="verId != null">
+			and index_ver_id = #{verId}
+		</if>
+	</select>
+
+	<select id="getRptIdxs"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo">
+		select
+		idx.index_no as "id.indexNo"
+		,idx.index_ver_id as "id.indexVerId"
+		,idx.index_catalog_no
+		,idx.index_sts
+		,idx.index_nm
+		,idx.index_type
+		,idx.start_date
+		,idx.end_date
+		,idx.calc_cycle
+		,idx.data_type
+		,idx.data_precision
+		,idx.data_unit
+		,idx.src_source_id
+		,idx.src_index_no
+		,idx.src_index_measure
+		,idx.remark
+		,idx.last_upt_user
+		,idx.last_upt_time
+		,idx.is_sum
+		,idx.is_fill_sum
+		,idx.is_rpt_index
+		,idx.stat_type
+		from RPT_IDX_INFO idx
+		where 1 = 1
+		<if test="idxNos != null">
+			and (idx.index_no in
+			<foreach item="idxNos" collection="idxNos" separator=" or idx.index_no in ">
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="getRptInfos"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		select
+		*
+		from RPT_MGR_REPORT_INFO
+		where 1 = 1
+		<if test="rptIds != null">
+			and rpt_id in
+			<foreach collection="rptIds" item="rptIds" open="("
+				separator="," close=")">
+				#{rptIds}
+			</foreach>
+		</if>
+		<if test="rptId != null">
+			and rpt_id = #{rptId}
+		</if>
+		<if test="rptNm != null">
+			and rpt_nm = #{rptNm}
+		</if>
+		<if test="rptNum != null">
+			and rpt_num = #{rptNum}
+		</if>
+		<if test="notRptId != null">
+			and rpt_id != #{notRptId}
+		</if>
+		<if test="defSrc != null">
+			and def_Src = #{defSrc}
+		</if>
+		<if test="defUser != null">
+			and def_User = #{defUser}
+		</if>
+		<if test="templateId != null">
+			and cfg_id = #{templateId}
+		</if>
+	</select>
+
+	<select id="getSubTmpIdxs"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceIdx">
+		select idx.cell_no as "id.cellNo"
+		,idx.template_id as "id.templateId"
+		,idx.ver_id as "id.verId"
+		,idx.index_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on
+		idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where
+		idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		<if test="parentTemplateId != null">
+			and tmp.parent_template_id = #{parentTemplateId}
+		</if>
+		<if test="verId != null">
+			and tmp.ver_id = #{verId}
+		</if>
+	</select>
+
+	<select id="getMainTmpIdxs"
+		resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceIdx">
+		select idx.cell_no as "id.cellNo"
+		,idx.template_id as "id.templateId"
+		,idx.ver_id as "id.verId"
+		,idx.index_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		where 1 = 1
+		<if test="templateId != null">
+			and idx.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and idx.ver_id = #{verId}
+		</if>
+		<if test="indexNos != null">
+			and idx.index_no in
+			<foreach collection="indexNos" item="indexNos" open="("
+				separator="," close=")">
+				#{indexNos}
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getDimTypes"
+		resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo">
+		select *
+		from   RPT_DIM_TYPE_INFO inf
+		where 1 = 1
+		<if test="idxNos != null">
+			and exists (
+			  select 1
+			  from   (
+			    select  rel.dim_no , count(rel.index_no) as idxc
+			    from    rpt_idx_dim_rel rel,rpt_idx_info idx
+			    where idx.index_no =rel.index_no and idx.index_ver_id = rel.index_ver_id and idx.end_date='29991231' and rel.index_no in 
+				<foreach collection="idxNos" item="idxNos" open="("
+					separator="," close=")">
+					#{idxNos}
+				</foreach>
+				group by rel.dim_no
+			  ) tmp
+			  where inf.dim_type_no = tmp.dim_no
+			      and tmp.idxc = #{idxSize}
+			) 
+		</if>
+		<if test="dimNos != null">
+			and inf.dim_type_no in 
+			<foreach collection="dimNos" item="dimNos" open="(" separator=","
+				close=")">
+				#{dimNos}
+			</foreach>
+		</if>
+		<if test="dimSts != null">
+			and inf.dim_sts = #{dimSts}
+		</if>
+	</select>
+
+	<delete id="deleteRptInfos">
+		delete from
+		RPT_MGR_REPORT_INFO
+		where rpt_id in
+		<foreach collection="list" item="rptIds" open="(" separator=","
+			close=")">
+			#{rptIds}
+		</foreach>
+	</delete>
+
+	<delete id="deleteRptFrsExts">
+		delete from
+		RPT_MGR_FRS_EXT
+		where rpt_id in
+		<foreach collection="list" item="rptIds" open="(" separator=","
+			close=")">
+			#{rptIds}
+		</foreach>
+	</delete>
+
+	<delete id="deleteFavInfo">
+		delete from
+		RPT_DESIGN_FAV_INFO
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+	
+	<delete id="deleteDesignTmp">
+		delete from
+		RPT_DESIGN_TMP_INFO
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteDesignCell">
+		delete from
+		RPT_DESIGN_CELL_INFO
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteSourceIdx">
+		delete from
+		RPT_DESIGN_SOURCE_IDX
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+	
+	<delete id="deleteQueryDim">
+		delete from
+		RPT_DESIGN_QUERY_DIM
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+	
+	<delete id="deleteQueryDetail">
+		delete from
+		RPT_DESIGN_QUERY_DETAIL
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+	
+	<delete id="deleteComDetail">
+		delete from
+		RPT_DESIGN_COMCELL_INFO
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteSourceDs">
+		delete from
+		RPT_DESIGN_SOURCE_DS
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteSourceFormula">
+		delete from
+		RPT_DESIGN_SOURCE_FORMULA
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteSourceText">
+		delete from
+		RPT_DESIGN_SOURCE_TEXT
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteIdxInfo">
+		delete from
+		RPT_IDX_INFO
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and index_ver_id = #{verId}
+		</if>
+		<if test="isRptIndex != null">
+			and is_rpt_index = #{isRptIndex}
+		</if>
+	</delete>
+
+	<delete id="deleteIdxMeasureRel">
+		delete from
+		RPT_IDX_MEASURE_REL
+		where exists (
+		select 1
+		from
+		RPT_IDX_INFO
+		where RPT_IDX_INFO.template_id = #{tmpId}
+		<if test="verId != null">
+			and RPT_IDX_INFO.index_ver_id = #{verId}
+		</if>
+		<if test="isRptIndex != null">
+			and RPT_IDX_INFO.is_rpt_index = #{isRptIndex}
+		</if>
+		and RPT_IDX_INFO.index_no = RPT_IDX_MEASURE_REL.index_no
+		and RPT_IDX_INFO.index_ver_id = RPT_IDX_MEASURE_REL.index_ver_id
+		)
+	</delete>
+
+	<delete id="deleteIdxDimRel">
+		delete from
+		RPT_IDX_DIM_REL
+		where exists (
+		select 1
+		from RPT_IDX_INFO
+		where RPT_IDX_INFO.template_id = #{tmpId}
+		<if test="verId != null">
+			and RPT_IDX_INFO.index_ver_id = #{verId}
+		</if>
+		<if test="isRptIndex != null">
+			and RPT_IDX_INFO.is_rpt_index = #{isRptIndex}
+		</if>
+		and RPT_IDX_INFO.index_no = RPT_IDX_DIM_REL.index_no
+		and RPT_IDX_INFO.index_ver_id = RPT_IDX_DIM_REL.index_ver_id
+		)
+	</delete>
+	
+	<delete id="deleteIdxSrcRel">
+		delete from
+		RPT_IDX_SRC_REL_INFO
+		where exists (
+		select 1
+		from RPT_IDX_INFO
+		where RPT_IDX_INFO.template_id = #{tmpId}
+		<if test="verId != null">
+			and RPT_IDX_INFO.index_ver_id = #{verId}
+		</if>
+		<if test="isRptIndex != null">
+			and RPT_IDX_INFO.is_rpt_index = #{isRptIndex}
+		</if>
+		and RPT_IDX_INFO.index_no = RPT_IDX_SRC_REL_INFO.index_no
+		and RPT_IDX_INFO.index_ver_id = RPT_IDX_SRC_REL_INFO.index_ver_id
+		)
+	</delete>
+
+	<delete id="deleteIdxFilter">
+		delete from
+		RPT_IDX_FILTER_INFO
+		where exists (
+		select 1
+		from
+		RPT_IDX_INFO
+		where RPT_IDX_INFO.template_id = #{tmpId}
+		<if test="verId != null">
+			and RPT_IDX_INFO.index_ver_id = #{verId}
+		</if>
+		<if test="isRptIndex != null">
+			and RPT_IDX_INFO.is_rpt_index = #{isRptIndex}
+		</if>
+		and RPT_IDX_INFO.index_no = RPT_IDX_FILTER_INFO.index_no
+		and RPT_IDX_INFO.index_ver_id = RPT_IDX_FILTER_INFO.index_ver_id
+		)
+	</delete>
+
+	<delete id="deleteIdxFormula">
+		delete from
+		RPT_IDX_FORMULA_INFO
+		where exists (
+		select 1
+		from
+		RPT_IDX_INFO
+		where RPT_IDX_INFO.template_id = #{tmpId}
+		<if test="verId != null">
+			and RPT_IDX_INFO.index_ver_id = #{verId}
+		</if>
+		<if test="isRptIndex != null">
+			and RPT_IDX_INFO.is_rpt_index = #{isRptIndex}
+		</if>
+		and RPT_IDX_INFO.index_no = RPT_IDX_FORMULA_INFO.index_no
+		and RPT_IDX_INFO.index_ver_id = RPT_IDX_FORMULA_INFO.index_ver_id
+		)
+	</delete>
+	
+	<delete id="deleteBatchCfg">
+		delete from
+		RPT_DESIGN_BATCH_CFG
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+	
+	<delete id="deleteParamInfo">
+		delete from
+		RPT_PARAMTMP_INFO
+		where paramtmp_id in (
+		  select   param_template_id
+		   from   rpt_design_query_dim
+		   where 1 = 1
+		   <if test="tmpId != null">
+				and template_id = #{tmpId}
+			</if>		   
+			<if test="verId != null">
+				and ver_id = #{verId}
+			</if>
+		)
+	</delete>
+	
+	<delete id="deleteParamAttrs">
+		delete from
+		RPT_PARAMTMP_ATTRS
+		where paramtmp_id in (
+		  select   param_template_id
+		   from   rpt_design_query_dim
+		   where 1 = 1
+		   <if test="tmpId != null">
+				and template_id = #{tmpId}
+			</if>		   
+			<if test="verId != null">
+				and ver_id = #{verId}
+			</if>
+		)
+	</delete>
+	
+	<delete id="deleteSourceColIdx">
+		delete from
+		RPT_DESIGN_SOURCE_TABIDX
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+	
+	<delete id="deleteSourceColDim">
+		delete from
+		RPT_DESIGN_SOURCE_TABDIM
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+	
+	<delete id="deleteCell4Sync">
+		delete from
+		RPT_DESIGN_CELL_INFO
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		and tmp.ver_id = #{verId}
+		) t
+		where t.cell_no = RPT_DESIGN_CELL_INFO.cell_no
+		)
+		<if test="templateId != null">
+			and RPT_DESIGN_CELL_INFO.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and RPT_DESIGN_CELL_INFO.ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteSourceDs4Sync">
+		delete from
+		RPT_DESIGN_SOURCE_DS
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		and tmp.ver_id = #{verId}
+		) t
+		where t.cell_no = RPT_DESIGN_SOURCE_DS.cell_no
+		)
+		<if test="templateId != null">
+			and RPT_DESIGN_SOURCE_DS.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and RPT_DESIGN_SOURCE_DS.ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteSourceFormula4Sync">
+		delete from
+		RPT_DESIGN_SOURCE_FORMULA
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		and tmp.ver_id = #{verId}
+		) t
+		where t.cell_no = RPT_DESIGN_SOURCE_FORMULA.cell_no
+		)
+		<if test="templateId != null">
+			and RPT_DESIGN_SOURCE_FORMULA.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and RPT_DESIGN_SOURCE_FORMULA.ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteSourceText4Sync">
+		delete from
+		RPT_DESIGN_SOURCE_TEXT
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		and tmp.ver_id = #{verId}
+		) t
+		where t.cell_no = RPT_DESIGN_SOURCE_TEXT.cell_no
+		)
+		<if test="templateId != null">
+			and RPT_DESIGN_SOURCE_TEXT.template_id = #{templateId}
+		</if>
+		<if test="verId != null">
+			and RPT_DESIGN_SOURCE_TEXT.ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteIdx4Sync">
+		delete from
+		rpt_idx_info
+		where exists (
+		select 1
+		from (
+		select distinct mi.index_no
+		from RPT_DESIGN_SOURCE_IDX mi
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		) t
+		where t.cell_no = mi.cell_no
+		and mi.template_id = #{templateId}
+		)
+		) mt
+		where mt.index_no = rpt_idx_info.index_no
+		)
+		<if test="verId != null">
+			and rpt_idx_info.index_ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteMeasureRel4Sync">
+		delete from
+		RPT_IDX_MEASURE_REL
+		where exists (
+		select 1
+		from (
+		select distinct mi.index_no
+		from RPT_DESIGN_SOURCE_IDX mi
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		) t
+		where t.cell_no = mi.cell_no
+		and mi.template_id = #{templateId}
+		)
+		) mt
+		where mt.index_no = RPT_IDX_MEASURE_REL.index_no
+		)
+		<if test="verId != null">
+			and RPT_IDX_MEASURE_REL.index_ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteDimRel4Sync">
+		delete from
+		RPT_IDX_DIM_REL
+		where exists (
+		select 1
+		from (
+		select distinct mi.index_no
+		from RPT_DESIGN_SOURCE_IDX mi
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		) t
+		where t.cell_no = mi.cell_no
+		and mi.template_id = #{templateId}
+		)
+		) mt
+		where mt.index_no = RPT_IDX_DIM_REL.index_no
+		)
+		<if test="verId != null">
+			and RPT_IDX_DIM_REL.index_ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteFilter4Sync">
+		delete from
+		RPT_IDX_FILTER_INFO
+		where exists (
+		select 1
+		from (
+		select distinct mi.index_no
+		from RPT_DESIGN_SOURCE_IDX mi
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		) t
+		where t.cell_no = mi.cell_no
+		and mi.template_id = #{templateId}
+		)
+		) mt
+		where mt.index_no = RPT_IDX_FILTER_INFO.index_no
+		)
+		<if test="verId != null">
+			and RPT_IDX_FILTER_INFO.index_ver_id = #{verId}
+		</if>
+	</delete>
+
+	<delete id="deleteFormula4Sync">
+		delete from
+		RPT_IDX_FORMULA_INFO
+		where exists (
+		select 1
+		from (
+		select distinct mi.index_no
+		from RPT_DESIGN_SOURCE_IDX mi
+		where exists (
+		select 1
+		from (
+		select distinct idx.cell_no
+		from RPT_DESIGN_SOURCE_IDX idx
+		left join RPT_DESIGN_TMP_INFO tmp
+		on idx.template_id = tmp.template_id
+		and idx.ver_id = tmp.ver_id
+		where idx.index_no is not null
+		<!-- and idx.index_no != '' -->
+		<if test="notCellType != null">
+			and not exists (
+			select 1
+			from RPT_DESIGN_CELL_INFO cell
+			where cell.template_id = idx.template_id
+			and cell.ver_id = idx.ver_id
+			and idx.cell_no = cell.cell_no
+			and cell_data_src = #{notCellType}
+			)
+		</if>
+		and tmp.parent_template_id = #{templateId}
+		) t
+		where t.cell_no = mi.cell_no
+		and mi.template_id = #{templateId}
+		)
+		) mt
+		where mt.index_no = RPT_IDX_FORMULA_INFO.index_no
+		)
+		<if test="verId != null">
+			and RPT_IDX_FORMULA_INFO.index_ver_id = #{verId}
+		</if>
+	</delete>
+
+	<select id="getBusiLine"
+		resultType="com.yusys.bione.plugin.businessline.entity.RptMgrBusiLine">
+		select * from RPT_MGR_FRS_LINE
+		where 1 = 1
+		<if test="lineId != null">
+			and line_id = #{lineId}
+		</if>
+		<if test="lineNm != null">
+			and line_nm like #{line_nm}
+		</if>
+		order by line_id
+	</select>
+	
+	<select id="getIdxDimRels"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel">
+		select
+		rel.dim_no as "id.dimNo"
+		,rel.index_no as "id.indexNo"
+		,rel.index_ver_id as "id.indexVerId"
+		,rel.ds_id as "id.dsId"
+		,rel.dim_type
+		,rel.store_col
+		,rel.order_num
+		from RPT_IDX_DIM_REL rel
+		where exists (
+			select 1
+			from (
+			select
+			max(tmp.index_ver_id) as max_ver
+			,tmp.index_no
+			from RPT_IDX_DIM_REL tmp
+			group by tmp.index_no
+			) ver
+			where
+			rel.index_no = ver.index_no
+			and rel.index_ver_id = ver.max_ver
+		)
+		<if test="indexNo != null">
+			and rel.index_no = #{indexNo}
+		</if>
+		<if test="containDims != null">
+			and (rel.dim_no in
+			<foreach collection="containDims" item="containDims" open="("
+				separator="," close=")">
+				#{containDims}
+			</foreach>
+			)
+		</if>
+	</select>
+	
+	<select id="getModuleDimRels"
+		resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol">
+		select
+			*
+		from RPT_SYS_MODULE_COL col
+		where 1 = 1
+		<if test="setId != null">
+			and col.set_id = #{setId}
+		</if>
+		<if test="containDims != null">
+			and (col.dim_type_no in
+			<foreach collection="containDims" item="containDims" open="("
+				separator="," close=")">
+				#{containDims}
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<update id="updateTemplate" parameterType="HashMap">
+		update RPT_DESIGN_TMP_INFO
+		<set>
+			template_unit = #{templateUnit},
+			is_upt = #{isUpt},
+			template_nm = #{templateNm},
+			fixed_length = #{fixedLength},
+			is_paging = #{isPaging},
+			sort_sql = #{sortSql},
+			import_config = #{importConfig}
+		</set>
+		where
+		(
+		template_id = #{templateId}
+		or parent_template_id = #{templateId}
+		)
+		and ver_id = #{verId}
+	</update>
+
+	<update id="updateIdxCycle" parameterType="HashMap">
+		update RPT_IDX_INFO idx
+		<set>
+			idx.calc_cycle = #{calcCycle}
+		</set>
+		where
+		idx.index_ver_id = #{indexVerId}
+		and idx.template_id = #{templateId}
+		and exists (
+		select 1
+		from RPT_DESIGN_TMP_INFO tmp
+		where (
+		tmp.template_id = idx.template_id
+		or tmp.parent_template_id = idx.template_id
+		)
+		)
+		and index_ver_id = #{indexVerId}
+	</update>
+	
+	<select id="getAllTmpIdsByParent"
+		resultType="String">
+		select template_id
+		from  RPT_DESIGN_TMP_INFO
+		where template_id = #{templateId}
+		     or parent_template_id = #{templateId}
+	</select>
+	
+	<update id="updateTmpVerEndDate" parameterType="HashMap">
+		update RPT_DESIGN_TMP_INFO
+		<set>
+			ver_end_date = #{verEndDate}
+		</set>
+		where
+		template_id in
+		<foreach collection="templateIds" item="templateIds" open="("
+			separator="," close=")">
+			#{templateIds}
+		</foreach>
+		and ver_id = #{verId}
+	</update>
+	
+	<update id="updateIdxVerEndDate" parameterType="HashMap">
+		update RPT_IDX_INFO
+		<set>
+			end_date = #{verEndDate}
+		</set>
+		where
+		template_id in
+		<foreach collection="templateIds" item="templateIds" open="("
+			separator="," close=")">
+			#{templateIds}
+		</foreach>
+		and index_ver_id = #{verId}
+	</update>
+	
+	<update id="updateLogicVerEndDate" parameterType="HashMap">
+		update RPT_VALID_CFGEXT_LOGIC
+		<set>
+			end_date = #{verEndDate}
+		</set>
+		where
+		  end_date = #{maxEndDate}
+		  and check_id in (
+		    select rel.check_id
+		    from  RPT_VALID_LOGIC_RPT_REL rel
+		    where rel.rpt_template_id in 
+		    <foreach collection="templateIds" item="templateIds" open="("
+		  		  separator="," close=")">
+				  #{templateIds}
+		    </foreach>
+		  )
+	</update>
+	
+	<update id="updateWarnVerEndDate" parameterType="HashMap">
+		update RPT_VALID_CFGEXT_WARN
+		<set>
+			end_date = #{verEndDate}
+		</set>
+		where
+		  end_date = #{maxEndDate}
+		  and rpt_template_id in
+		  <foreach collection="templateIds" item="templateIds" open="("
+			  separator="," close=")">
+			  #{templateIds}
+		  </foreach>
+	</update>
+	
+	<select id="getLogicByPublish"
+		resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextLogic">
+		select *
+		from  RPT_VALID_CFGEXT_LOGIC logic
+	  where logic.end_date = #{verEndDate}
+	     and exists (
+	       select 1
+	        from RPT_VALID_LOGIC_RPT_REL rel
+	        where rel.check_id = logic.check_id
+	          and rel.rpt_template_id in
+	          <foreach collection="templateIds" item="templateIds" open="("
+			  		separator="," close=")">
+			  	#{templateIds}
+		      </foreach>
+	     )
+	</select>
+	
+	<select id="getRelByPublish"
+		resultType="com.yusys.bione.plugin.valid.entitiy.RptValidLogicRptRel">
+		select rel.rpt_template_id as "id.rptTemplateId"
+		        ,rel.check_id as "id.checkId"
+		from  RPT_VALID_LOGIC_RPT_REL rel
+		where rel.rpt_template_id in 
+		<foreach collection="templateIds" item="templateIds" open="("
+			  		separator="," close=")">
+			  #{templateIds}
+		 </foreach>
+	</select>
+	
+	<select id="getWarnByPublish"
+		resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextWarn">
+		select *
+		from  RPT_VALID_CFGEXT_WARN warn
+	  where warn.end_date = #{verEndDate}
+	     and warn.rpt_template_id in 
+	     <foreach collection="templateIds" item="templateIds" open="("
+			  		separator="," close=")">
+			  #{templateIds}
+		 </foreach>
+	</select>
+	
+	<select id="getLevelByPublish"
+		resultType="com.yusys.bione.plugin.valid.entitiy.RptValidWarnLevel">
+		select l.check_id as "id.checkId"
+		        ,l.level_num as "id.levelNum"
+		        ,l.index_no
+		        ,l.level_nm
+		        ,l.level_type
+		        ,l.minus_range_val
+		        ,l.postive_range_val
+		        ,l.remind_color
+		        ,l.is_pass_cond
+		from  RPT_VALID_WARN_LEVEL l
+	  where exists (
+		select 1
+		from   RPT_VALID_CFGEXT_WARN warn
+		where warn.end_date = #{verEndDate}
+		  and  warn.rpt_template_id in
+		  <foreach collection="templateIds" item="templateIds" open="("
+			  		separator="," close=")">
+			  #{templateIds}
+		 </foreach>
+		 and   warn.check_id = l.check_id
+	  )
+	</select>
+	
+	<select id="getRptVersion" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.design.web.vo.FrsReportInfoVO">
+		select rpt.rpt_id
+		,rpt.rpt_nm
+		,rpt.catalog_id
+		,rpt.rpt_sts
+		,rpt.rpt_desc
+		,rpt.show_priority
+		,rpt.create_time
+		,rpt.start_date
+		,rpt.end_date
+		,rpt.rpt_num
+		,rpt.rpt_cycle
+		,frs.busi_type
+		,frs.def_dept
+		,frs.is_release_submit
+		,frs.report_code
+		,frs.submit_main
+		,frs.submit_range
+		,frs.tmp_version_id
+		,tmp.template_id
+		,tmp.template_type
+		,tmp.template_nm
+		,tmp.is_upt
+		,tmp.ver_id
+		,tmp.ver_start_date
+		,tmp.ver_end_date
+		,tmp.template_unit
+		,sys.system_name
+		from RPT_MGR_REPORT_INFO rpt
+		left join
+		RPT_MGR_FRS_EXT frs
+		on rpt.rpt_id = frs.rpt_id
+		left join
+		RPT_DESIGN_TMP_INFO tmp
+		on rpt.cfg_id = tmp.template_id
+		left join 
+		FRS_SYSTEM_CFG sys
+		on frs.busi_type = sys.busi_type
+		and tmp.ver_id = sys.system_ver_id
+		where 1 = 1
+		<if test="rptId != null">
+			and rpt.rpt_id=#{rptId}
+		</if>
+		order by tmp.ver_id desc
+	</select>
+	
+	<update id="updateRptBase"
+		parameterType="HashMap">
+		update RPT_MGR_REPORT_INFO
+		<set>
+			rpt_nm=#{rptNm}
+			<if test="catalogId != null">
+				,catalog_id=#{catalogId}
+			</if>
+			<if test="rptCycle != null">
+				,rpt_cycle=#{rptCycle}
+			</if>
+			<if test="rptDesc != null">
+				,rpt_desc=#{rptDesc}
+			</if>
+			<if test="rptSts != null">
+				,rpt_sts=#{rptSts}
+			</if>
+			<if test="rankOrder != null">
+				,rank_order=#{rankOrder}
+			</if>
+		</set>
+		where rpt_id=#{rptId}
+	</update>
+	
+	<update id="updateRptExt"
+		parameterType="HashMap">
+		update RPT_MGR_FRS_EXT
+		<set>
+			<if test="defDept != null">
+				def_Dept=#{defDept},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId}
+			</if>
+		</set>
+		where rpt_id=#{rptId}
+	</update>
+	
+	<update id="updateTemplateInfo"
+		parameterType="HashMap">
+		update RPT_DESIGN_TMP_INFO
+		<set>
+			template_unit=#{templateUnit}
+			<if test="verStartDate != null">
+				,ver_start_date=#{verStartDate}
+			</if>
+			<if test="isAutoAdj != null">
+				,is_auto_adj=#{isAutoAdj}
+			</if>
+		</set>
+		where template_id=#{templateId}
+		   and ver_id=#{verId}
+	</update>
+	
+	<update id="updateIndexInfo"
+		parameterType="HashMap">
+		update RPT_IDX_INFO
+		<set>
+			start_date = #{verStartDate}	
+		</set>
+		where template_id=#{templateId}
+		   and index_ver_id=#{verId}
+	</update>
+	
+	<select id="getRptById" 
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+		parameterType="HashMap">
+		select * from RPT_MGR_REPORT_INFO rptInfo
+		where 1=1
+		<if test="rptId != null">
+			and rptInfo.rpt_id = #{rptId}
+		</if>
+	</select>
+	<!-- 任务与报表是否绑定 -->
+	<select id="getDeployedTaskparams"
+		resultType="String"  parameterType="HashMap">
+		select info.TASK_NM from RPT_MGR_REPORT_INFO rpt,rpt_fltsk_tskobj_rel rel , rpt_fltsk_info info
+		where rpt.RPT_ID=rel.TASK_OBJ_ID and rel.TASK_ID = info.TASK_ID 
+		and rpt.RPT_ID  in 
+        <foreach collection="rptIds" item="rptId" open="("
+	  		separator="," close=")">
+	  		#{rptId}
+	    </foreach>
+	</select>
+	
+	<!-- 保存rptid和表样路径 -->
+	<insert id="saveRptidTempRel" parameterType="HashMap">
+		insert into
+		rpt_mgr_rpttemplate_rel(id,rpt_id,version_id,template_path,modify_time)
+		values(#{id},#{rptId},#{versionId},#{templatePath},#{modifyTime})
+	</insert>
+	<!-- 通过报表名称获取报表id -->
+	<select id="getRptIdByName" resultType="String"  parameterType="String">
+		select t.rpt_id rptId from RPT_MGR_REPORT_INFO t where t.rpt_nm = #{rptNm,jdbcType=VARCHAR}
+	</select>
+	<!-- 关联业务类型获取制度名称、制度版本、业务类型名称 -->
+	<select id="getVeridByVernmAndBusitype" resultType="HashMap">
+		select cfg.system_ver_id verid, cfg.system_name vernm,dict.param_name businm from FRS_SYSTEM_CFG cfg inner join bione_param_info dict on cfg.busi_type = dict.param_value where dict.param_type_no='reportorgtype'
+	</select>
+	<!-- 关联业务类型获取制度名称、制度版本、业务类型名称 -->
+	<select id="getRptTemplateList" parameterType="HashMap" resultType="HashMap">
+		select t.id "id",t.rpt_id "rptid",t.template_path "templatepath",t.modify_time "modifytime" from rpt_mgr_rpttemplate_rel t where 1=1
+		<if test="templatepath != null">
+			and t.template_path like #{templatepath}
+		</if>
+		<if test="rptId != null">
+			and t.rpt_id = #{rptId}
+		</if>
+		<if test="versionId != null">
+			and t.version_id = #{versionId}
+		</if>
+	</select>
+	
+	<delete id="delRptTemplateById" parameterType="String">
+		delete from rpt_mgr_rpttemplate_rel where id = #{id,jdbcType=VARCHAR}
+		<!-- 
+		delete from rpt_mgr_rpttemplate_rel where id in
+		<foreach collection="list" item="idslist" open="("
+			separator="," close=")">
+			#{idslist}
+		</foreach>
+		 -->
+	</delete>
+	
+	<delete id="delRptTemplateByIdVer" parameterType="HashMap">
+		delete from rpt_mgr_rpttemplate_rel where rpt_id = #{rptId} and version_id = #{versionId}
+	</delete>
+	
+	<insert id="saveTmpInfo"
+		parameterType="com.yusys.bione.plugin.design.entity.RptDesignTmpInfo">
+		insert into RPT_DESIGN_TMP_INFO(
+			TEMPLATE_ID, VER_ID, IS_UPT, remark, TEMPLATE_CONTENTJSON, TEMPLATE_NM, VER_END_DATE, VER_START_DATE, TEMPLATE_TYPE, PARENT_TEMPLATE_ID, LINE_ID, TEMPLATE_UNIT, IS_AUTO_ADJ, FIXED_LENGTH, IS_PAGING, SORT_SQL, IMPORT_CONFIG)
+		values(
+			#{id.templateId}, #{id.verId}, #{isUpt}, #{remark}, #{templateContentjson}, #{templateNm}, #{verEndDate}, #{verStartDate}, #{templateType}, #{parentTemplateId}, #{lineId}, #{templateUnit}, #{isAutoAdj}, #{fixedLength}, #{isPaging}, #{sortSql}, #{importConfig})
+	</insert>
+	
+	<select id="getPkColsByDsId" parameterType="string" resultType="map">
+		select col_id as "colId" from rpt_sys_module_col t where 1=1 and is_pk = 'Y' and dim_type_no is null and set_id = #{_parameter} 
+	</select>
+	
+	<select id="getRptIdxCfgList" parameterType="map" resultType="map">
+		select t.cell_no "cellNo",
+			   t.index_no "indexNo" 
+		from rpt_idx_cfg t 
+		where 1=1 
+		and t.template_id = #{templateId} 
+		and t.ver_id = #{verId}
+	</select>
+	
+	<delete id="deleteRptIdxCfg">
+		delete from
+		RPT_IDX_CFG
+		where template_id = #{tmpId}
+		<if test="verId != null">
+			and ver_id = #{verId}
+		</if>
+	</delete>
+
+	<select id="getStatictextCell" parameterType="map" resultType="map">
+		select t.template_id as "templateId",
+				t1.cell_no  as "cellNO",
+			 	t1.row_id as "rowId",
+			 	t1.col_id as "colId",
+		  		t2.expression as "expression"
+		from rpt_design_tmp_info t
+		left join rpt_design_cell_info t1
+			on t.template_id = t1.template_id
+		left join RPT_DESIGN_SOURCE_TEXT t2
+			on t1.template_id = t2.template_id
+			and t1.cell_no = t2.cell_no
+		where t1.template_id = #{templateId}
+			and t.ver_start_date &lt;= #{dataDate}
+			and t.ver_end_date > #{dataDate}
+			and t2.cell_no is not null
+	</select>
+
+	<delete id="delAuthObjRels">
+		delete from
+		bione_auth_obj_res_rel
+		where res_id in
+		<foreach collection="list" item="rptId" open="("
+				 separator="," close=")">
+			#{rptId}
+		</foreach>
+	</delete>
+	
+	<!-- 保存指标收藏信息 -->
+	<insert id="saveRptDesignFavInfo" parameterType="java.util.List">
+		insert into RPT_DESIGN_FAV_INFO(
+			FAVOUR_ID,
+			INDEX_NO,
+			TEMPLATE_ID,
+			VER_ID
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.favourId},
+				#{item.indexNo},
+				#{item.templateId},
+				#{item.verId}
+			from dual
+		</foreach>
+	</insert>
+	
+	<insert id="saveRptDesignFavInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_FAV_INFO(
+			FAVOUR_ID,
+			INDEX_NO,
+			TEMPLATE_ID,
+			VER_ID
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.favourId},
+				#{item.indexNo},
+				#{item.templateId},
+				#{item.verId}
+			)
+		</foreach>
+	</insert>
+	<!-- 保存批量过滤配置 -->
+	<insert id="saveBatchCfg" parameterType="java.util.List">
+		insert into RPT_DESIGN_BATCH_CFG(
+			TEMPLATE_ID,
+			VER_ID,
+			CFG_ID,
+			DIM_TYPE,
+			FILTER_MODE,
+			FILTER_VAL,
+			POS_TYPE,
+			POS_NUM
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.id.cfgId},
+				#{item.dimType},
+				#{item.filterMode},
+				#{item.filterVal},
+				#{item.posType},
+				#{item.posNum}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveBatchCfg" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_BATCH_CFG(
+			TEMPLATE_ID,
+			VER_ID,
+			CFG_ID,
+			DIM_TYPE,
+			FILTER_MODE,
+			FILTER_VAL,
+			POS_TYPE,
+			POS_NUM
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.id.cfgId},
+				#{item.dimType},
+				#{item.filterMode},
+				#{item.filterVal},
+				#{item.posType},
+				#{item.posNum}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveSourceDs" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_DS(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			DS_ID,
+			COLUMN_ID,
+			IS_EXT,
+			EXT_DIRECTION,
+			EXT_MODE,
+			IS_GRP,
+			SUM_MODE,
+			IS_FILT,
+			IS_SORT,
+			SORT_MODE,
+			SORT_ORDER,
+			IS_CONVER
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId, jdbcType=INTEGER},
+				#{item.dsId},
+				#{item.columnId},
+				#{item.isExt},
+				#{item.extDirection},
+				#{item.extMode},
+				#{item.isGrp},
+				#{item.sumMode},
+				#{item.isFilt},
+				#{item.isSort},
+				#{item.sortMode},
+				#{item.sortOrder,jdbcType=INTEGER},
+				#{item.isConver}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveSourceDs" parameterType="java.util.List"  databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_DS(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			DS_ID,
+			COLUMN_ID,
+			IS_EXT,
+			EXT_DIRECTION,
+			EXT_MODE,
+			IS_GRP,
+			SUM_MODE,
+			IS_FILT,
+			IS_SORT,
+			SORT_MODE,
+			SORT_ORDER,
+			IS_CONVER
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId,jdbcType=INTEGER},
+				#{item.dsId},
+				#{item.columnId},
+				#{item.isExt},
+				#{item.extDirection},
+				#{item.extMode},
+				#{item.isGrp},
+				#{item.sumMode},
+				#{item.isFilt},
+				#{item.isSort},
+				#{item.sortMode},
+				#{item.sortOrder,jdbcType=INTEGER},
+				#{item.isConver}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveComDetail" parameterType="java.util.List">
+		insert into RPT_DESIGN_COMCELL_INFO(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			TYPE_ID,
+			COL_ID,
+			ROW_ID,
+			CONTENT
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId,jdbcType=INTEGER},
+				#{item.typeId},
+				#{item.colId},
+				#{item.rowId},
+				#{item.content}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveComDetail" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_COMCELL_INFO(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			TYPE_ID,
+			COL_ID,
+			ROW_ID,
+			CONTENT
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId,jdbcType=INTEGER},
+				#{item.typeId},
+				#{item.colId},
+				#{item.rowId},
+				#{item.content}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveSourceText" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_TEXT(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			EXPRESSION
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId,jdbcType=INTEGER},
+				#{item.expression}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveSourceText" parameterType="java.util.List"  databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_TEXT(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			EXPRESSION
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId,jdbcType=INTEGER},
+				#{item.expression}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveSourceFormula" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_FORMULA(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			IS_ANALYSE_EXT,
+			ANALYSE_EXT_TYPE,
+			IS_RPT_INDEX,
+			EXCEL_FORMULA
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId,jdbcType=INTEGER},
+				#{item.isAnalyseExt},
+				#{item.analyseExtType},
+				#{item.isRptIndex},
+				#{item.excelFormula}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveSourceFormula" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_FORMULA(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			IS_ANALYSE_EXT,
+			ANALYSE_EXT_TYPE,
+			IS_RPT_INDEX,
+			EXCEL_FORMULA
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId,jdbcType=INTEGER},
+				#{item.isAnalyseExt},
+				#{item.analyseExtType},
+				#{item.isRptIndex},
+				#{item.excelFormula}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveIdxMeasureRel" parameterType="java.util.List">
+		insert into RPT_IDX_MEASURE_REL(
+			MEASURE_NO,
+			INDEX_NO,
+			INDEX_VER_ID,
+			DS_ID,
+			STORE_COL,
+			ORDER_NUM
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.measureNo},
+				#{item.id.indexNo},
+				#{item.id.indexVerId,jdbcType=INTEGER},
+				#{item.id.dsId},
+				#{item.storeCol},
+				#{item.orderNum,jdbcType=INTEGER}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveIdxMeasureRel" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_MEASURE_REL(
+			MEASURE_NO,
+			INDEX_NO,
+			INDEX_VER_ID,
+			DS_ID,
+			STORE_COL,
+			ORDER_NUM
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.measureNo},
+				#{item.id.indexNo},
+				#{item.id.indexVerId,jdbcType=INTEGER},
+				#{item.id.dsId},
+				#{item.storeCol},
+				#{item.orderNum,jdbcType=INTEGER}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveIdxDimRel" parameterType="java.util.List">
+		insert into RPT_IDX_DIM_REL(
+			DIM_NO,
+			INDEX_NO,
+			INDEX_VER_ID,
+			DS_ID,
+			STORE_COL,
+			DIM_TYPE,
+			ORDER_NUM
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.dimNo},
+				#{item.id.indexNo},
+				#{item.id.indexVerId,jdbcType=INTEGER},
+				#{item.id.dsId},
+				#{item.storeCol},
+				#{item.dimType},
+				#{item.orderNum,jdbcType=INTEGER}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveIdxDimRel" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_DIM_REL(
+			DIM_NO,
+			INDEX_NO,
+			INDEX_VER_ID,
+			DS_ID,
+			STORE_COL,
+			DIM_TYPE,
+			ORDER_NUM
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.dimNo},
+				#{item.id.indexNo},
+				#{item.id.indexVerId,jdbcType=INTEGER},
+				#{item.id.dsId},
+				#{item.storeCol},
+				#{item.dimType},
+				#{item.orderNum,jdbcType=INTEGER}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveIdxFilter" parameterType="java.util.List">
+		insert into RPT_IDX_FILTER_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			DIM_NO,
+			FILTER_MODE,
+			FILTER_VAL
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo},
+				#{item.id.indexVerId},
+				#{item.id.dimNo},
+				#{item.filterMode},
+				#{item.filterVal}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveIdxFilter" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_FILTER_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			DIM_NO,
+			FILTER_MODE,
+			FILTER_VAL
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.indexNo},
+				#{item.id.indexVerId},
+				#{item.id.dimNo},
+				#{item.filterMode},
+				#{item.filterVal}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveIdxInfo" parameterType="java.util.List">
+		insert into RPT_IDX_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			INDEX_CATALOG_NO,
+			INDEX_STS,
+			INDEX_NM,
+			INDEX_TYPE,
+			START_DATE,
+			END_DATE,
+			CALC_CYCLE,
+			DATA_TYPE,
+			DATA_PRECISION,
+			DATA_UNIT,
+			SRC_SOURCE_ID,
+			SRC_INDEX_NO,
+			SRC_INDEX_MEASURE,
+			REMARK,
+			LAST_UPT_USER,
+			LAST_UPT_TIME,
+			IS_SUM,
+			IS_FILL_SUM,
+			IS_RPT_INDEX,
+			BUSI_TYPE,
+			IS_SAVE,
+			STAT_TYPE,
+			DEF_SRC,
+			DEF_ORG,
+			DEF_USER,
+			BUSI_NO,
+			TEMPLATE_ID,
+			DEPT_ID,
+			LINE_ID,
+			USER_ID,
+			CREATE_DATE,
+			SET_ID,
+			IS_CABIN,
+			BUSI_LIB_ID
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo},
+				#{item.id.indexVerId},
+				#{item.indexCatalogNo},
+				#{item.indexSts},
+				#{item.indexNm},
+				#{item.indexType},
+				#{item.startDate},
+				#{item.endDate},
+				#{item.calcCycle},
+				#{item.dataType},
+				#{item.dataPrecision, jdbcType=INTEGER},
+				#{item.dataUnit},
+				#{item.srcSourceId},
+				#{item.srcIndexNo},
+				#{item.srcIndexMeasure},
+				#{item.remark},
+				#{item.lastUptUser},
+				#{item.lastUptTime},
+				#{item.isSum},
+				#{item.isFillSum},
+				#{item.isRptIndex},
+				#{item.busiType},
+				#{item.isSave},
+				#{item.statType},
+				#{item.defSrc},
+				#{item.defOrg},
+				#{item.defUser},
+				#{item.busiNo},
+				#{item.templateId},
+				#{item.deptId},
+				#{item.lineId},
+				#{item.userId},
+				#{item.createDate},
+				#{item.setId},
+				#{item.isCabin},
+				#{item.busiLibId}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveIdxInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			INDEX_CATALOG_NO,
+			INDEX_STS,
+			INDEX_NM,
+			INDEX_TYPE,
+			START_DATE,
+			END_DATE,
+			CALC_CYCLE,
+			DATA_TYPE,
+			DATA_PRECISION,
+			DATA_UNIT,
+			SRC_SOURCE_ID,
+			SRC_INDEX_NO,
+			SRC_INDEX_MEASURE,
+			REMARK,
+			LAST_UPT_USER,
+			LAST_UPT_TIME,
+			IS_SUM,
+			IS_FILL_SUM,
+			IS_RPT_INDEX,
+			BUSI_TYPE,
+			IS_SAVE,
+			STAT_TYPE,
+			DEF_SRC,
+			DEF_ORG,
+			DEF_USER,
+			BUSI_NO,
+			TEMPLATE_ID,
+			DEPT_ID,
+			LINE_ID,
+			USER_ID,
+			CREATE_DATE,
+			SET_ID,
+			IS_CABIN,
+			BUSI_LIB_ID
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.indexNo},
+				#{item.id.indexVerId},
+				#{item.indexCatalogNo},
+				#{item.indexSts},
+				#{item.indexNm},
+				#{item.indexType},
+				#{item.startDate},
+				#{item.endDate},
+				#{item.calcCycle},
+				#{item.dataType},
+				#{item.dataPrecision, jdbcType=INTEGER},
+				#{item.dataUnit},
+				#{item.srcSourceId},
+				#{item.srcIndexNo},
+				#{item.srcIndexMeasure},
+				#{item.remark},
+				#{item.lastUptUser},
+				#{item.lastUptTime},
+				#{item.isSum},
+				#{item.isFillSum},
+				#{item.isRptIndex},
+				#{item.busiType},
+				#{item.isSave},
+				#{item.statType},
+				#{item.defSrc},
+				#{item.defOrg},
+				#{item.defUser},
+				#{item.busiNo},
+				#{item.templateId},
+				#{item.deptId},
+				#{item.lineId},
+				#{item.userId},
+				#{item.createDate},
+				#{item.setId},
+				#{item.isCabin},
+				#{item.busiLibId}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveIdxSrcRel" parameterType="java.util.List">
+		insert into RPT_IDX_SRC_REL_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			SRC_INDEX_NO,
+			SRC_MEASURE_NO
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo},
+				#{item.id.indexVerId,jdbcType=INTEGER},
+				#{item.id.srcIndexNo},
+				#{item.id.srcMeasureNo}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveIdxSrcRel" parameterType="java.util.List"  databaseId="mysql">
+		insert into RPT_IDX_SRC_REL_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			SRC_INDEX_NO,
+			SRC_MEASURE_NO
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.indexNo},
+				#{item.id.indexVerId,jdbcType=INTEGER},
+				#{item.id.srcIndexNo},
+				#{item.id.srcMeasureNo}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveIdxFormula" parameterType="java.util.List">
+		insert into RPT_IDX_FORMULA_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			FORMULA_TYPE,
+			FORMULA_CONTENT,
+			FORMULA_DESC,
+			REMARK
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo},
+				#{item.id.indexVerId},
+				#{item.formulaType},
+				#{item.formulaContent},
+				#{item.formulaDesc},
+				#{item.remark}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveIdxFormula" parameterType="java.util.List"  databaseId="mysql">
+		insert into RPT_IDX_FORMULA_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			FORMULA_TYPE,
+			FORMULA_CONTENT,
+			FORMULA_DESC,
+			REMARK
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.indexNo},
+				#{item.id.indexVerId},
+				#{item.formulaType},
+				#{item.formulaContent},
+				#{item.formulaDesc},
+				#{item.remark}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveDesignCell" parameterType="java.util.List">
+		insert into RPT_DESIGN_CELL_INFO(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			CELL_NM,
+			ROW_ID,
+			COL_ID,
+			DATA_TYPE,
+			IS_UPT,
+			IS_NULL,
+			DATA_UNIT,
+			DATA_PRECISION,
+			CELL_SUFFIX,
+			DISPLAY_FORMAT,
+			CALIBER_EXPLAIN,
+			CELL_DATA_SRC,
+			BUSI_NO,
+			SORT_MODE,
+			REMARK,
+			CALIBER_TECHNOLOGY,
+			IS_MERGE,
+			IS_MERGE_COL,
+			IS_LOCK
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.cellNm},
+				#{item.rowId},
+				#{item.colId},
+				#{item.dataType},
+				#{item.isUpt},
+				#{item.isNull},
+				#{item.dataUnit},
+				#{item.dataPrecision, jdbcType=INTEGER},
+				#{item.cellSuffix},
+				#{item.displayFormat},
+				#{item.caliberExplain},
+				#{item.cellDataSrc},
+				#{item.busiNo},
+				#{item.sortMode},
+				#{item.remark},
+				#{item.caliberTechnology},
+				#{item.isMerge},
+				#{item.isMergeCol},
+				#{item.isLock}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveDesignCell" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_CELL_INFO(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			CELL_NM,
+			ROW_ID,
+			COL_ID,
+			DATA_TYPE,
+			IS_UPT,
+			IS_NULL,
+			DATA_UNIT,
+			DATA_LEN,
+			DATA_PRECISION,
+			CELL_SUFFIX,
+			DISPLAY_FORMAT,
+			CALIBER_EXPLAIN,
+			CELL_DATA_SRC,
+			BUSI_NO,
+			SORT_MODE,
+			REMARK,
+			CALIBER_TECHNOLOGY,
+			IS_MERGE,
+			IS_MERGE_COL,
+			IS_LOCK
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.cellNm},
+				#{item.rowId},
+				#{item.colId},
+				#{item.dataType},
+				#{item.isUpt},
+				#{item.isNull},
+				#{item.dataUnit},
+				#{item.dataLen},
+				#{item.dataPrecision, jdbcType=INTEGER},
+				#{item.cellSuffix},
+				#{item.displayFormat},
+				#{item.caliberExplain},
+				#{item.cellDataSrc},
+				#{item.busiNo},
+				#{item.sortMode},
+				#{item.remark},
+				#{item.caliberTechnology},
+				#{item.isMerge},
+				#{item.isMergeCol},
+				#{item.isLock}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveSourceIdx" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_IDX(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			INDEX_NO,
+			TIME_MEASURE_ID,
+			MODE_ID,
+			RULE_ID,
+			IS_CFG_SRCINDEX
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.indexNo},
+				#{item.timeMeasureId},
+				#{item.modeId},
+				#{item.ruleId},
+				#{item.isCfgSrcIndex}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveSourceIdx" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_IDX(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			INDEX_NO,
+			TIME_MEASURE_ID,
+			MODE_ID,
+			RULE_ID,
+			IS_CFG_SRCINDEX
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.cellNo},
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.indexNo},
+				#{item.timeMeasureId},
+				#{item.modeId},
+				#{item.ruleId},
+				#{item.isCfgSrcIndex}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveRptIdxCfg" parameterType="java.util.List">
+		insert into RPT_IDX_CFG(
+			TEMPLATE_ID,
+			VER_ID,
+			CELL_NO,
+			INDEX_NO,
+			RPT_NUM
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.id.cellNo},
+				#{item.id.indexNo},
+				#{item.rptNum}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="saveRptIdxCfg" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_CFG(
+			TEMPLATE_ID,
+			VER_ID,
+			CELL_NO,
+			INDEX_NO,
+			RPT_NUM
+		) values
+		<foreach item="item" index="index" collection="list" open="" close="" separator=",">
+			(
+				#{item.id.templateId},
+				#{item.id.verId},
+				#{item.id.cellNo},
+				#{item.id.indexNo},
+				#{item.rptNum}
+			)
+		</foreach>
+	</insert>
+</mapper> 

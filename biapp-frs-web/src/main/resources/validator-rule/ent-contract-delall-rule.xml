@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30079212.0.0" classType="org.pbccrc.archive.collect.messagetools.entcontract.message.ContractDeleteAllRecord" >
+
+			<field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+				<rule  id="InfRecType_NotNull" type="NotNull" errCode="ABD000"  />
+				<rule  id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecType_NotNull" />
+				<rule  id="InfRecType_EqCtxt" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecType_NotEmpty" >
+						<property  name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field> 
+			<field  name="DelRecCode" fbTag="DelRecCode" classType="java.lang.String" >
+				<rule  id="DelRecCode_NotNull" type="NotNull" errCode="ABD000"  />
+				<rule  id="DelRecCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecCode_NotNull" />
+				<rule  id="DelRecCode_DataType" type="DataType" errCode="ABE001" depExp="DelRecCode_NotEmpty" >
+					<property  name="type" value="AN..60" />
+				</rule>
+				<!-- 校验前14位与数据机构提供区段码相等 错误码ABE002 -->
+				<rule id="DelRecCode_finanOrg" type="FinanOrgan" errCode="ABE002" depExp="DelRecCode_DataType" />
+			</field> 
+		 
+	</validator>
+</validators>

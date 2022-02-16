@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<firstinstall descr="首次安装的表数据">
+		<table name="east_cr_tab">58张模型</table>
+		<table name="east_cr_col">模型表字段</table>
+		<table name="east_cr_rule_type">规则类型</table>
+		<table name="east_cr_rule">校验规则表</table>
+		<table name="east_cr_rule_range">取值范围配置明细</table>
+		<table name="east_cr_rule_fmt">格式校验配置明细</table>
+		<table name="east_cr_rule_logic_in">表内逻辑校验配置明细</table>
+		<table name="east_cr_rule_logic_btw">表间逻辑校验配置明细</table>
+		<table name="east_cr_rule_aggr">总分校验配置</table>
+		<table name="east_cr_rule_aggr_sub">总分校验配置明细</table>
+		<table name="east_cr_rule_dss">脱敏校验配置</table>
+		<table name="east_cr_cmd_template">引擎命令模板</table>
+	</firstinstall>
+
+	<upgrade descr="升级安装的表数据">
+	</upgrade>
+</root>

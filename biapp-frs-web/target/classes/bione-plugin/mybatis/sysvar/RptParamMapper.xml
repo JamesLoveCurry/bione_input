@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptsys.repository.RptParamMybatisDao">
+	<select id="paramTypelist"
+		resultType="com.yusys.bione.frame.variable.entity.BioneParamTypeInfo"
+		parameterType="HashMap">
+		select PARAM_TYPE_ID,LOGIC_SYS_NO,PARAM_TYPE_NAME,PARAM_TYPE_NO,REMARK,UP_NO
+		from
+		BIONE_PARAM_TYPE_INFO
+		where 1=1
+		<if test="paramTypeId != null">
+			and PARAM_TYPE_ID = #{paramTypeId}</if>
+		<if test="logicSysNo != null">
+			and LOGIC_SYS_NO = #{logicSysNo}</if>
+		<if test="paramTypeName != null">
+			and PARAM_TYPE_NAME = #{paramTypeName}</if>
+		<if test="paramTypeNo != null">
+			and PARAM_TYPE_NO = #{paramTypeNo}</if>
+		<if test="remark != null">
+			and = #{remark}</if>
+		<if test="upNo != null">
+			and UP_NO = #{upNo}</if>
+
+	</select>
+	<insert id="paramTypesave"
+		parameterType="com.yusys.bione.frame.variable.entity.BioneParamTypeInfo">
+		insert into
+		BIONE_PARAM_TYPE_INFO(PARAM_TYPE_ID,LOGIC_SYS_NO,PARAM_TYPE_NAME,PARAM_TYPE_NO,REMARK,UP_NO)
+		values(#{paramTypeId},#{logicSysNo},#{paramTypeName},#{paramTypeNo},#{remark},#{upNo})
+	</insert>
+	<update id="paramTypeupdate"
+		parameterType="com.yusys.bione.frame.variable.entity.BioneParamTypeInfo">
+		update BIONE_PARAM_TYPE_INFO
+		<set>
+			<if test="paramTypeId != null">PARAM_TYPE_ID=#{paramTypeId},</if>
+			<if test="logicSysNo != null">LOGIC_SYS_NO=#{logicSysNo},</if>
+			<if test="paramTypeName != null">PARAM_TYPE_NAME=#{paramTypeName},</if>
+			<if test="paramTypeNo != null">PARAM_TYPE_NO=#{paramTypeNo},</if>
+			<if test="remark != null">REMARK=#{remark},</if>
+			<if test="upNo != null">UP_NO=#{upNo}</if>
+		</set>
+		where 1=1 and PARAM_TYPE_ID=#{paramTypeId}
+	</update>
+
+	<delete id="paramTypedelete" parameterType="String">
+		delete from
+		BIONE_PARAM_TYPE_INFO
+		where 1=1
+		<if test="paramTypeId != null">
+			and PARAM_TYPE_ID=#{paramTypeId}
+		</if>
+		<if test="paramTypeNo != null">
+			and PARAM_TYPE_NO=#{paramTypeNo}
+		</if>
+		<if test="logicSysNo != null">
+			and LOGIC_SYS_NO=#{logicSysNo}
+		</if>
+	</delete>
+
+	<select id="paramInfolist"
+		resultType="com.yusys.bione.frame.variable.entity.BioneParamInfo"
+		parameterType="HashMap">
+		select
+		PARAM_ID,LOGIC_SYS_NO,ORDER_NO,PARAM_NAME,PARAM_TYPE_NO,PARAM_VALUE,UP_NO,REMARK
+		from
+		BIONE_PARAM_INFO
+		where 1=1
+		<if test="paramIds != null">
+			 <foreach collection="paramIds" item="id" open="(" separator=","
+				close=")">
+				#{id}
+			</foreach>
+		</if>
+		<if test="paramId != null">
+			and PARAM_ID = #{paramId}</if>
+		<if test="logicSysNo != null">
+			and LOGIC_SYS_NO = #{logicSysNo}</if>
+		<if test="orderNo != null">
+			and ORDER_NO = #{orderNo}</if>
+		<if test="paramName != null">
+			and PARAM_NAME = #{paramName}</if>
+		<if test="paramTypeNo != null">
+			and PARAM_TYPE_NO = #{paramTypeNo}</if>
+		<if test="paramValue != null">
+			and PARAM_VALUE = #{paramValue}</if>
+		<if test="upNo != null">
+			and UP_NO = #{upNo}</if>
+		<if test="noUpNo != null">
+			and UP_NO != #{noUpNo}</if>
+		<if test="remark != null">
+			and = #{remark}</if>
+		order by PARAM_VALUE
+	</select>
+	
+	<select id="paramInfoOrderlist"
+		resultType="com.yusys.bione.frame.variable.entity.BioneParamInfo"
+		parameterType="HashMap">
+		select
+		PARAM_ID,LOGIC_SYS_NO,ORDER_NO,PARAM_NAME,PARAM_TYPE_NO,PARAM_VALUE,UP_NO,REMARK
+		from
+		BIONE_PARAM_INFO
+		where 1=1
+		<if test="paramIds != null">
+			 <foreach collection="paramIds" item="id" open="(" separator=","
+				close=")">
+				#{id}
+			</foreach>
+		</if>
+		<if test="paramId != null">
+			and PARAM_ID = #{paramId}</if>
+		<if test="logicSysNo != null">
+			and LOGIC_SYS_NO = #{logicSysNo}</if>
+		<if test="orderNo != null">
+			and ORDER_NO = #{orderNo}</if>
+		<if test="paramName != null">
+			and PARAM_NAME = #{paramName}</if>
+		<if test="paramTypeNo != null">
+			and PARAM_TYPE_NO = #{paramTypeNo}</if>
+		<if test="paramValue != null">
+			and PARAM_VALUE = #{paramValue}</if>
+		<if test="upNo != null">
+			and UP_NO != #{upNo}</if>
+		<if test="remark != null">
+			and = #{remark}</if>
+		order by order_No asc
+	</select>
+	<insert id="paramInfosave"
+		parameterType="com.yusys.bione.frame.variable.entity.BioneParamInfo">
+		insert into
+		BIONE_PARAM_INFO(PARAM_ID,LOGIC_SYS_NO,ORDER_NO,PARAM_NAME,PARAM_TYPE_NO,PARAM_VALUE,UP_NO,REMARK)
+		values(#{paramId},#{logicSysNo},#{orderNo},#{paramName},#{paramTypeNo},#{paramValue},#{upNo},#{remark})
+	</insert>
+	<update id="paramInfoupdate"
+		parameterType="com.yusys.bione.frame.variable.entity.BioneParamInfo">
+		update BIONE_PARAM_INFO
+		<set>
+			<if test="paramId != null">PARAM_ID=#{paramId},</if>
+			<if test="logicSysNo != null">LOGIC_SYS_NO=#{logicSysNo},</if>
+			<if test="orderNo != null">ORDER_NO=#{orderNo},</if>
+			<if test="paramName != null">PARAM_NAME=#{paramName},</if>
+			<if test="paramTypeNo != null">PARAM_TYPE_NO=#{paramTypeNo},</if>
+			<if test="paramValue != null">PARAM_VALUE=#{paramValue},</if>
+			<if test="upNo != null">UP_NO=#{upNo},</if>
+			<if test="remark != null">remark=#{remark}</if>
+		</set>
+		where 1=1 and PARAM_ID=#{paramId}
+	</update>
+
+	<delete id="paramInfodelete" parameterType="HashMap">
+		delete from BIONE_PARAM_INFO
+		where 1=1
+		
+		<if test="paramId != null">
+			and PARAM_ID=#{paramId}
+		</if>
+		<if test="paramTypeId != null">
+			and PARAM_TYPE_ID=#{paramTypeId}
+		</if>
+		<if test="logicSysNo != null">
+			and LOGIC_SYS_NO=#{logicSysNo}
+		</if>
+	</delete>
+
+</mapper> 

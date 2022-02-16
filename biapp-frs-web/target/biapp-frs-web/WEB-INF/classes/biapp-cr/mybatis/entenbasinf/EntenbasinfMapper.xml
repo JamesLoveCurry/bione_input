@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entenbasinf.repository.EnBasInfDao">
+<!--企业间基本信息-->
+<!-- 根据条件查询报表列表 -->
+<!--企业间基本信息_基础段信息-->
+	<select id="getEntBInf"  resultType="com.yusys.cr.entenbasinf.entity.EntB">
+		SELECT
+			eb.InfRecType   infrectype,<!--信息记录类型-->
+			eb.EntName	entname,<!--企业名称-->
+			eb.EntCertType	 entcerttype,<!--企业身份标识类型-->
+			eb.EntCertNum	entcertnum,<!--企业身份标识号码-->
+			eb.InfSurcCode	infsurccode,<!--信息来源编码-->
+			eb.RptDate	rptdate,<!--信息报告日期-->
+			eb.RptDateCode	rptdatecode,<!--报告时点说明代码-->
+			eb.Cimoc cimoc,<!--客户资料维护机构代码-->
+			eb.CustomerType	customertype,<!--客户资料类型-->
+			eb.EtpSts	etpsts,<!--存续状态-->
+			eb.OrgType orgtype<!--机构类型-->
+		FROM 
+			Ent_Bs eb
+			where 1=1 and eb.incrementflag in('1','2')
+	</select>
+	
+<!--企业基本信息_基本概况段信息-->
+<select id="getEntFcsinf"  resultType="com.yusys.cr.entenbasinf.entity.EntFcsinf"  parameterType="HashMap">
+		SELECT
+			efi.Nationality	nationality,<!--国别代码-->
+			efi.RegAdd	 regadd,<!--登记地址-->
+			efi.AdmDivOfReg	admdivofreg,<!--登记地行政区划代码-->
+			efi.EstablishDate	establishdate,<!--成立日期-->
+			efi.BizEndDate	bizenddate,<!--营业许可到期日-->
+			efi.BizRange	bizrange,<!--业务范围-->
+			efi.EcoIndusCate	ecoinduscate,<!--登记地行政区划代码-->
+			efi.EcoType	ecotype,<!--经济类型代码-->
+			efi.EntScale	entscale,<!--企业规模-->
+			efi.FcsInfoUpDate	fcsinfoupdate<!--信息更新日期-->
+		FROM 
+			Ent_FcsInf efi
+			where 1=1 and efi.incrementflag in('1','2')
+	    and efi.ENTCERTTYPE = #{entCertType} 
+		and efi.ENTCERTNUM = #{entCertNum}
+	</select>
+	
+<!--企业基本信息_上级机构段信息-->
+<select id="getEntSpvsgathrtyinf"  resultType="com.yusys.cr.entenbasinf.entity.EntSpvsgathrtyinf"  parameterType="HashMap">
+		SELECT
+			esa.SupOrgType	suporgtype,<!--上级机构类型-->
+			esa.SupOrgName	 suporgname,<!--上级机构名称-->
+			esa.SupOrgCertType	suporgcerttype,<!--上级机构身份标识类型-->
+			esa.SupOrgCertNum	suporgcertnum,<!--上级机构身份标识码-->
+			esa.SupOrgInfoUpDate	suporginfoupdate<!--信息更新日期-->
+		FROM 
+			Ent_SpvsgAthrtyInf esa
+			where 1=1 and esa.incrementflag in('1','2')
+	    and esa.ENTCERTTYPE = #{entCertType} 
+		and esa.ENTCERTNUM = #{entCertNum}
+	</select>
+
+<!--企业基本信息_联系方式段信息-->
+<select id="getEntCotainf"  resultType="com.yusys.cr.entenbasinf.entity.EntCotainf"  parameterType="HashMap">
+		SELECT
+			ect.ConAddDistrictCode	conadddistrictcode,<!--联系地址行政区划代码-->
+			ect.ConAdd	 conadd,<!--联系地址-->
+			ect.ConPhone	conphone,<!--联系电话-->
+			ect.FinConPhone	finconphone,<!--财务部门联系电话-->
+			ect.CotaInfoUpDate	cotainfoupdate<!--信息更新日期-->
+		FROM 
+			Ent_CotaInf ect
+			where 1=1 and ect.incrementflag in('1','2')
+	    and ect.ENTCERTTYPE = #{entCertType} 
+		and ect.ENTCERTNUM = #{entCertNum}
+	</select>
+</mapper> 

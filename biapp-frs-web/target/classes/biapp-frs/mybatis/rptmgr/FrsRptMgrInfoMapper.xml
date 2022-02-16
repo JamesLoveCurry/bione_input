@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper
+	namespace="com.yusys.bione.plugin.rptmgr.repository.FrsRptMgrInfoMybatisDao">
+
+	<select id="getRptModuleRelByRptId"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrModuleRelVO"
+		parameterType="String">
+		select RPT_MGR_MODULE_REL.SET_ID as
+		"id.setId",RPT_MGR_MODULE_REL.RPT_ID as
+		"id.rptId",RPT_SYS_MODULE_INFO.set_Nm
+		from
+		RPT_MGR_MODULE_REL,
+		RPT_SYS_MODULE_INFO
+		where 1=1
+		AND
+		RPT_MGR_MODULE_REL.SET_ID=RPT_SYS_MODULE_INFO.SET_ID
+		and
+		RPT_MGR_MODULE_REL.RPT_ID = #{rptId}
+	</select>
+
+	<select id="getRptMgrModuleIdxRelByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrModuleIdxRelVO"
+		parameterType="HashMap">
+		select RPT_MGR_MODULE_IDX_REL.SET_ID as
+		"id.setId",RPT_MGR_MODULE_IDX_REL.INDEX_NO as
+		"id.indexNo",RPT_MGR_MODULE_IDX_REL.COL_ID
+		,RPT_MGR_MODULE_IDX_REL.RPT_ID as
+		"id.rptId",RPT_MGR_MODULE_IDX_REL.FILTER_FORMULA,RPT_IDX_INFO.INDEX_NM,
+		RPT_SYS_MODULE_COL.EN_NM
+		from
+		RPT_MGR_MODULE_IDX_REL,
+		RPT_SYS_MODULE_COL,
+		RPT_IDX_INFO,
+		(SELECT
+		INDEX_NO,MAX(INDEX_VER_ID) as
+		INDEX_VER_ID FROM RPT_IDX_INFO GROUP BY
+		INDEX_NO) l
+		where 1=1
+		AND
+		RPT_MGR_MODULE_IDX_REL.COL_ID=RPT_SYS_MODULE_COL.COL_ID
+		AND
+		RPT_MGR_MODULE_IDX_REL.INDEX_NO=RPT_IDX_INFO.INDEX_NO
+		AND
+		l.INDEX_NO=RPT_IDX_INFO.INDEX_NO
+		AND
+		l.INDEX_VER_ID=RPT_IDX_INFO.INDEX_VER_ID
+		<if test="setId != null">
+			and RPT_MGR_MODULE_IDX_REL.SET_ID = #{setId}</if>
+		<if test="indexNo != null">
+			and RPT_MGR_MODULE_IDX_REL.INDEX_NO = #{indexNo}</if>
+		<if test="colId != null">
+			and RPT_MGR_MODULE_IDX_REL.COL_ID = #{colId}</if>
+		<if test="rptId != null">
+			and RPT_MGR_MODULE_IDX_REL.RPT_ID = #{rptId}</if>
+		<if test="filterFormula != null">
+			and FILTER_FORMULA = #{filterFormula}</if>
+	</select>
+	
+	<select id="getIdxByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.web.vo.RptMgrRptitemIdxRelVO"
+		parameterType="HashMap">
+		SELECT
+		RPT_MGR_RPTITEM_IDX_REL.RPT_ITEM_ID as "id.rptItemId",
+		RPT_MGR_RPTITEM_IDX_REL.RPT_ID as "id.rptId",
+		RPT_MGR_RPTITEM_IDX_REL.FILTER_FORMULA,
+		RPT_MGR_RPTITEM_IDX_REL.INDEX_NO as "id.indexNo",
+		RPT_IDX_INFO.INDEX_NM
+		from
+		RPT_MGR_RPTITEM_IDX_REL,
+		RPT_IDX_INFO,
+		(
+		SELECT
+		INDEX_NO,MAX(INDEX_VER_ID) as INDEX_VER_ID
+		FROM
+		RPT_IDX_INFO
+		GROUP BY
+		INDEX_NO
+		) l
+		where 1=1
+		AND
+		l.INDEX_NO=RPT_MGR_RPTITEM_IDX_REL.INDEX_NO
+		AND
+		RPT_IDX_INFO.INDEX_NO=RPT_MGR_RPTITEM_IDX_REL.INDEX_NO
+		AND
+		RPT_IDX_INFO.INDEX_VER_ID=l.INDEX_VER_ID
+		<if test="rptItemId != null">
+			and RPT_MGR_RPTITEM_IDX_REL.RPT_ITEM_ID = #{rptItemId}
+		</if>
+		<if test="rptId != null">
+			and RPT_MGR_RPTITEM_IDX_REL.RPT_ID = #{rptId}
+		</if>
+		<if test="filterFormula != null">
+			and RPT_MGR_RPTITEM_IDX_REL.FILTER_FORMULA =
+			#{filterFormula}
+		</if>
+		<if test="indexNo != null">
+			and RPT_MGR_RPTITEM_IDX_REL.INDEX_NO = #{indexNo}
+		</if>
+	</select>
+	
+    <insert id="saveRptConcernOrg" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptConcernOrg">
+		INSERT INTO RPT_CONCERN_ORG(MODULE_TYPE,USER_ID,ORG_ID,ORG_NM)
+		VALUES	(#{id.moduleType},#{id.userId},#{id.orgId},#{orgNm})
+	</insert>
+	
+	<insert id="saveRptConcernRpt" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptConcernRpt">
+		INSERT INTO RPT_CONCERN_RPT(MODULE_TYPE,USER_ID,RPT_ID,RPT_NM)
+		VALUES	(#{id.moduleType},#{id.userId},#{id.rptId},#{rptNm})
+	</insert>
+
+	<delete id="deleteRptConcernOrgOfUser" parameterType="HashMap">
+		delete from RPT_CONCERN_ORG	where 1=1 
+		<if test="userId != null">
+			and USER_ID=#{userId} 
+		</if>
+		<if test="moduleType != null">
+			and MODULE_TYPE=#{moduleType}
+		</if>
+	</delete>
+
+    <delete id="deleteRptConcernRptOfUser" parameterType="HashMap">
+		delete from RPT_CONCERN_RPT	where 1=1 
+		<if test="userId != null">
+			and USER_ID=#{userId} 
+		</if>
+		<if test="moduleType != null">
+			and MODULE_TYPE=#{moduleType}
+		</if>
+	</delete>
+	
+	<select id="getRptConcernOrgOfUser" resultType="com.yusys.bione.plugin.rptmgr.entity.RptConcernOrg"
+			parameterType="HashMap" >
+		SELECT MODULE_TYPE as "id.moduleType",
+		USER_ID as "id.userId",
+		ORG_ID as "id.orgId",
+		ORG_NM 
+		FROM RPT_CONCERN_ORG
+		WHERE 1=1
+		<if test=" moduleType != null">
+			and MODULE_TYPE=#{moduleType}
+		</if>
+		<if test=" userId != null">
+			and USER_ID=#{userId}
+		</if>
+	</select>
+	
+	<select id="getRptConcernRptOfUser" resultType="com.yusys.bione.plugin.rptmgr.entity.RptConcernRpt"
+			parameterType="HashMap" >
+		SELECT MODULE_TYPE as "id.moduleType",
+		USER_ID as "id.userId",
+		RPT_ID as "id.orgId",
+		RPT_NM 
+		FROM RPT_CONCERN_RPT
+		WHERE 1=1
+		<if test=" moduleType != null">
+			and MODULE_TYPE=#{moduleType}
+		</if>
+		<if test=" userId != null">
+			and USER_ID=#{userId}
+		</if>
+	</select>
+	
+		<select id="getEastRptTreeNodes" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		SELECT 
+			INFO.*
+		FROM 
+			RPT_MGR_REPORT_INFO INFO, 
+			RPT_MGR_REPORT_CATALOG CATALOG
+		WHERE 
+			1 = 1
+		AND 
+			INFO.CATALOG_ID = CATALOG.CATALOG_ID
+		   	AND INFO.RPT_TYPE = '04'
+		   <!-- 添加条件搜索 -->
+		<if test="rptNm != null">
+		AND 
+			info.rpt_nm like #{rptNm}
+		</if>
+		ORDER BY 
+			INFO.RANK_ORDER
+	</select>
+	
+	<select id="getRptInfoByParams"
+		resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo"
+		parameterType="HashMap">
+		select
+		INFO_RIGHTS,RPT_ID,CATALOG_ID,CFG_ID,END_DATE,EXT_TYPE,RANK_ORDER,RPT_CYCLE,RPT_DESC,RPT_NM,
+		RPT_STS,RPT_TYPE,SHOW_PRIORITY,START_DATE,CREATE_TIME,BUSI_TYPE,RPT_NUM,BUSI_LIB_ID
+		from
+		RPT_MGR_REPORT_INFO
+		where 1=1
+		<if test="rptId != null">
+			and RPT_ID = #{rptId}</if>
+		<if test="catalogId != null">
+			and CATALOG_ID = #{catalogId}</if>
+		<if test="cfgId != null">
+			and CFG_ID = #{cfgId}</if>
+		<if test="endDate != null">
+			and END_DATE = #{endDate}</if>
+		<if test="extType != null">
+			and EXT_TYPE = #{extType}</if>
+		<if test="rankOrder != null">
+			and RANK_ORDER = #{rankOrder}</if>
+		<if test="rptCycle != null">
+			and RPT_CYCLE = #{rptCycle}</if>
+		<if test="rptDesc != null">
+			and RPT_DESC = #{rptDesc}</if>
+		<if test="rptNm != null">
+			and RPT_NM = #{rptNm}</if>
+		<if test="rptSts != null">
+			and RPT_STS = #{rptSts}</if>
+		<if test="rptType != null">
+			and RPT_TYPE = #{rptType}</if>
+		<if test="showPriority != null">
+			and SHOW_PRIORITY = #{showPriority}</if>
+		<if test="startDate != null">
+			and START_DATE = #{startDate}</if>
+		<if test="createTime != null">
+			and CREATE_TIME = #{createTime}</if>
+		<if test="busiType != null">
+			and BUSI_TYPE = #{busiType}</if>
+		<if test="rptNum != null">
+			and RPT_NUM = #{rptNum}</if>
+		<if test="infoRights != null">
+			and INFO_RIGHTS = #{infoRights}</if>
+	</select>
+	
+</mapper> 

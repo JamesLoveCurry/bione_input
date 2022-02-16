@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.frs.rejectforce.repository.RejectforceDao">
+	<!-- 根据条件查询报表列表 -->
+	<select id="getRejectForceInfos" parameterType="HashMap" resultType="com.yusys.biapp.frs.rejectforce.web.vo.RejectforceVO">
+		select a.task_id,
+		       b.TASK_INSTANCE_ID taskInstanceId,
+		       b.TASK_NM          taskNm,
+		       b.END_TIME         endTime,
+		       b.STS              sts,
+		       b.DATA_DATE        dataDate,
+		       b.TASK_TYPE        taskType,
+		       b.TASK_OBJ_ID      taskObjId,
+		       f.rpt_id           rptId,
+		       f.rpt_nm           rptNm,
+		       d.org_no           orgNo,
+		       d.org_nm           orgNm,
+		       re.REBUT_DESC      rebutDesc,
+		       re.REBUT_ID        rebutId,
+		       re.COLLATE_USER_NO collateUserNo,
+		       g.base_check_sts   baseCheckSts,
+		       g.rel_check_sts    relCheckSts,
+		       g.spe_check_sts    speCheckSts
+	 	 from RPT_FLTSK_INFO a
+		 		right join RPT_FLTSK_INS b
+	           on b.task_id = a.task_id
+		  left join (SELECT org.ORG_NO, org.ORG_TYPE, org.ORG_NM, org.ORG_LEVEL
+		               FROM RPT_ORG_INFO org
+		              WHERE 1=1
+		              <if test="orgType != null and orgType != ''">
+							AND org.ORG_TYPE = #{orgType}
+					  </if>
+		              ) d
+		    on b.exe_obj_id = d.org_no
+		  left join rpt_mgr_report_info f
+		       on b.task_obj_id = f.rpt_id
+		  left join EAST_CHECK_TASK_RESULT_STS g
+		       on g.rpt_id = b.task_obj_id
+				   and g.org_no = d.org_no
+				   and g.data_date = b.data_date
+		 left join (select e1.TASK_INSTANCE_ID,
+	                      e1.REBUT_DESC,
+	                      e1.REBUT_ID,
+	                      e1.COLLATE_USER_NO,
+	                      e1.COLLATE_TIME
+	         from (select e.TASK_INSTANCE_ID,
+	                      e.REBUT_DESC,
+	                      e.REBUT_ID,
+	                      e.COLLATE_USER_NO,
+	                      e.COLLATE_TIME,
+	                      rank() over(partition by e.TASK_INSTANCE_ID order by (e.COLLATE_TIME) desc) maxtime
+	                 from RPT_FLTSK_REBUT e) e1
+	        where e1.maxtime = 1) re on b.task_instance_id = re.task_instance_id
+		 where 1 = 1
+		      
+			   AND b.STS in ('D', 'E')
+			<if test="taskType != null and taskType != ''">
+				AND b.TASK_TYPE = #{taskType}
+			</if>
+    		<!-- 条件查询 -->
+			<if test="conditionSql != null">
+				${conditionSql}
+			</if>
+
+		<if test="taskNm != null and taskNm != ''">
+			AND b.TASK_ID = #{taskNm}
+		</if>
+		<if test="rptNm != null and rptNm != ''">
+			AND b.TASK_OBJ_ID = #{rptNm}
+		</if>
+		<if test="orgNm != null and orgNm != ''">
+			AND orgNo = #{orgNm}
+		</if>
+		<if test="dataDate != null and dataDate!=''">
+			AND ins.DATA_DATE = #{dataDate}
+		</if>
+		<if test="baseCheckSts!=null and baseCheckSts!=''">
+			AND baseCheckSts = #{baseCheckSts}
+		</if>
+		<if test="relCheckSts!=null and relCheckSts!=''">
+			AND relCheckSts = #{relCheckSts}
+		</if>
+		<if test="speCheckSts!=null and speCheckSts!=''">
+			AND speCheckSts = #{speCheckSts}
+		</if>
+		
+		<if test="exeObjId != null and exeObjId !=''">
+			and (
+			b.EXE_OBJ_ID IN
+			<foreach collection="exeObjId" item="items" open="("
+				separator=") or b.EXE_OBJ_ID IN (" close=")">
+					select distinct(o.org_no) from RPT_ORG_INFO o
+					where 1=1
+					and
+						o.ORG_TYPE = #{items.orgType}
+					and 
+						<foreach collection="items.orgLike" item="orgLike" open=""
+							separator=" or " close="">
+							o.NAMESPACE like #{orgLike}
+						</foreach>
+			</foreach>
+			)
+		</if>
+		
+		<if test="taskObjId != null">
+			and b.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+				separator=" or b.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+					separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+	<select id="getRejectForceInfos" parameterType="HashMap" resultType="com.yusys.biapp.frs.rejectforce.web.vo.RejectforceVO" databaseId="mysql">
+		select a.task_id,
+		b.TASK_INSTANCE_ID taskInstanceId,
+		b.TASK_NM          taskNm,
+		b.END_TIME         endTime,
+		b.STS              sts,
+		b.DATA_DATE        dataDate,
+		b.TASK_TYPE        taskType,
+		b.TASK_OBJ_ID      taskObjId,
+		f.rpt_id           rptId,
+		f.rpt_nm           rptNm,
+		d.org_no           orgNo,
+		d.org_nm           orgNm,
+		re.REBUT_DESC      rebutDesc,
+		re.REBUT_ID        rebutId,
+		re.COLLATE_USER_NO collateUserNo,
+		g.base_check_sts   baseCheckSts,
+		g.rel_check_sts    relCheckSts,
+		g.spe_check_sts    speCheckSts
+		from RPT_FLTSK_INFO a
+		right join RPT_FLTSK_INS b
+		on b.task_id = a.task_id
+		left join (SELECT org.ORG_NO, org.ORG_TYPE, org.ORG_NM, org.ORG_LEVEL
+		FROM RPT_ORG_INFO org
+		WHERE 1=1
+		<if test="orgType != null and orgType != ''">
+			AND org.ORG_TYPE = #{orgType}
+		</if>
+		) d
+		on b.exe_obj_id = d.org_no
+		left join rpt_mgr_report_info f
+		on b.task_obj_id = f.rpt_id
+		left join EAST_CHECK_TASK_RESULT_STS g
+		on g.rpt_id = b.task_obj_id
+		and g.org_no = d.org_no
+		and g.data_date = b.data_date
+		left join (select e1.TASK_INSTANCE_ID,
+		e1.REBUT_DESC,
+		e1.REBUT_ID,
+		e1.COLLATE_USER_NO,
+		e1.COLLATE_TIME
+		from (
+		SELECT e1.TASK_INSTANCE_ID,e1.REBUT_DESC,e1.REBUT_ID,e1.COLLATE_USER_NO,e1.COLLATE_TIME, e1.rn
+		from (
+		select tmp.*,
+		@rownum := @rownum + 1,
+		IF (
+		@taskid = tmp.TASK_INSTANCE_ID,
+		@rank :=@rank + 1 ,@rank := 1
+		) AS rn,
+		@taskid := tmp.TASK_INSTANCE_ID
+		from (select  *  from RPT_FLTSK_REBUT order by COLLATE_TIME desc) tmp, (select @rownum := 0, @taskid:=null, @rn:=0) a
+		) e1 where e1.rn = 1
+		) re
+		on b.task_instance_id = re.task_instance_id
+		where 1 = 1
+		AND b.STS in ('D', 'E')
+		<if test="taskType != null and taskType != ''">
+			AND b.TASK_TYPE = #{taskType}
+		</if>
+		<!-- 条件查询 -->
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+
+		<if test="taskNm != null and taskNm != ''">
+			AND b.TASK_ID = #{taskNm}
+		</if>
+		<if test="rptNm != null and rptNm != ''">
+			AND b.TASK_OBJ_ID = #{rptNm}
+		</if>
+		<if test="orgNm != null and orgNm != ''">
+			AND orgNo = #{orgNm}
+		</if>
+		<if test="dataDate != null and dataDate!=''">
+			AND ins.DATA_DATE = #{dataDate}
+		</if>
+		<if test="baseCheckSts!=null and baseCheckSts!=''">
+			AND baseCheckSts = #{baseCheckSts}
+		</if>
+		<if test="relCheckSts!=null and relCheckSts!=''">
+			AND relCheckSts = #{relCheckSts}
+		</if>
+		<if test="speCheckSts!=null and speCheckSts!=''">
+			AND speCheckSts = #{speCheckSts}
+		</if>
+
+		<if test="exeObjId != null and exeObjId !=''">
+			and (
+			b.EXE_OBJ_ID IN
+			<foreach collection="exeObjId" item="items" open="("
+					 separator=") or b.EXE_OBJ_ID IN (" close=")">
+				select distinct(o.org_no) from RPT_ORG_INFO o
+				where 1=1
+				and
+				o.ORG_TYPE = #{items.orgType}
+				and
+				<foreach collection="items.orgLike" item="orgLike" open=""
+						 separator=" or " close="">
+					o.NAMESPACE like #{orgLike}
+				</foreach>
+			</foreach>
+			)
+		</if>
+
+		<if test="taskObjId != null">
+			and b.TASK_OBJ_ID in
+			<foreach item="taskObjIds" index="index" collection="taskObjId"
+					 separator=" or b.TASK_OBJ_ID in ">
+				<foreach collection="taskObjIds" item="taskObjId" open="("
+						 separator="," close=")">
+					#{taskObjId}
+				</foreach>
+			</foreach>
+		</if>
+	</select>
+	<!-- 强制解锁前判断是否已经申请解锁 -->
+	<select id="doBeforeForce" parameterType="HashMap" resultType="String">
+		select 
+		    distinct   b.STS              sts
+		      
+	 	 from RPT_FLTSK_INFO a
+		 		right join RPT_FLTSK_INS b
+	           on b.task_id = a.task_id
+		  left join (SELECT org.ORG_NO, org.ORG_TYPE, org.ORG_NM, org.ORG_LEVEL
+		               FROM RPT_ORG_INFO org
+		              WHERE org.ORG_TYPE = '04') d
+		    on b.exe_obj_id = d.org_no
+		  left join rpt_mgr_report_info f
+		       on b.task_obj_id = f.rpt_id
+		  left join EAST_CHECK_TASK_RESULT_STS g
+		       on g.rpt_id = b.task_obj_id
+				   and g.org_no = d.org_no
+				   and g.data_date = b.data_date
+		  LEFT JOIN RPT_FLTSK_REBUT re
+		       ON b.TASK_INSTANCE_ID = re.TASK_INSTANCE_ID
+		 where 1 = 1
+		      
+			   AND b.TASK_TYPE = '04'
+			   AND b.STS in ('D', 'E')
+
+    	<!-- 条件查询 -->
+		<if test="taskInsIds != null and taskInsIds != ''">
+			AND b.TASK_INSTANCE_ID = #{taskInsIds}
+		</if>
+		
+	</select>
+	
+	<!-- 申请驳回保存 -->
+	<insert id="saveApplyData"
+		parameterType="com.yusys.biapp.frs.rptfill.entity.RptFltskRebut">
+		INSERT
+		INTO
+		RPT_FLTSK_REBUT
+		(
+		REBUT_ID,
+		TASK_INSTANCE_ID,
+		APPLY_USER_NO,
+		APPLY_TIME,
+		COLLATE_USER_NO,
+		COLLATE_TIME,
+		APPLY_DESC,
+		REBUT_DESC,
+		STS
+		)
+		VALUES
+		(
+		#{rebutId},
+		#{taskInstanceId},
+		#{applyUserNo},
+		#{applyTime},
+		#{collateUserNo},
+		#{collateTime},
+		#{applyDesc},
+		#{rebutDesc},
+		#{sts}
+		)
+	</insert>
+	
+	<update id="saveTaskInsSts" parameterType="HashMap">
+		update
+			rpt_fltsk_ins
+		set
+			sts = #{insSts}
+		where
+		    TASK_INSTANCE_ID = #{taskInstanceId}
+	</update>
+	
+</mapper> 

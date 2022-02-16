@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30078882.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrrelation.msg.CertConfNormalRecord" > 
+			<field  name="InfRecType" fbTag="InfRecType"  classType="java.lang.String" >
+				<rule  id="InfRecTp_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="InfRecTp_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfRecTp_NotNull" />
+				<rule id="InfRecTp_Equal" type="Equals" errCode="ABR000" fbTag="0000"  depExp="InfRecTp_NotEmpty">
+					<property name="data" value="${$context.REC_TYPE}" />
+				</rule>
+				<rule id="InfRecTp_Dict" type="DictManage" errCode="ABE001" depExp="InfRecTp_Equal">
+					<property  name="dictKey" value="InfRecType" />
+				</rule>
+			</field> 
+			<field  name="InfSurcCode" fbTag="InfSurcCode"  classType="java.lang.String" >
+				<rule  id="InfoSorcCd_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="InfoSorcCd_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="InfoSorcCd_NotNull" />
+				<rule  id="InfoSorcCd_DataType" type="DataType" errCode="ABE001" depExp="InfoSorcCd_NotEmpty" >
+					<property  name="type" value="AN..20" />
+				</rule>
+				<rule  id="InfoSorcCd_FinanVali" type="FinanOrgan" errCode="ABE002" depExp="InfoSorcCd_DataType" >
+				</rule>
+			</field> 	
+			<field  name="Name" fbTag="Name" classType="java.lang.String" >
+				<rule  id="Name_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="Name_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="Name_NotNull" />
+				<rule  id="Name_DataType" type="DataType" errCode="ABE001" depExp="Name_NotEmpty" >
+					<property  name="type" value="ANC..30" />
+				</rule>
+			</field> 
+			<field  name="IDType" fbTag="IDType" classType="java.lang.String" >
+				<rule  id="IDType_NotNull" type="NotNull" errCode="ABD000"  />
+				<rule  id="IDType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDType_NotNull" />
+				<rule id="IDType_Dict" type="Dict" errCode="ABE001" depExp="IDType_NotEmpty" scope="local">
+							<property name="dictKey" value="NtrCertType" />
+				</rule>
+			</field> 
+			<field  name="IDNum" fbTag="IDNum" classType="java.lang.String" >
+				<rule  id="IDNum_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="IDNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IDNum_NotNull" />
+				<rule  id="IDNum_DataType" type="DataType" errCode="ABE001" depExp="IDNum_NotEmpty" >
+					<property  name="type" value="ANC..20" />
+				</rule>
+				<!-- 根据证件类型，校验不同的证件号xxxx -->
+				<rule id="IDNum_Vali" type="NtrCert" errCode="ABE004" depExp="IDType_Dict"> 
+				   <property name="certType" value="${IDType}"></property>
+				</rule>
+			</field> 
+			
+			<field  name="OthName" fbTag="OthName" classType="java.lang.String" >
+				<rule  id="OthName_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="OthName_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OthName_NotNull" />
+				<rule  id="OthName_DataType" type="DataType" errCode="ABE001" depExp="OthName_NotEmpty" >
+					<property  name="type" value="ANC..30" />
+				</rule>
+			</field> 
+			<field  name="OthIDType" fbTag="OthIDType" classType="java.lang.String" >
+				<rule  id="OthIDType_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="OthIDType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OthIDType_NotNull" />
+				<rule  id="OthIDType_Dict" type="Dict" errCode="ABE001" depExp="OthIDType_NotEmpty" scope="local" >
+					<property  name="dictKey" value="NtrCertType" />
+				</rule>
+			</field> 
+			<field  name="OthIDNum" fbTag="OthIDNum" classType="java.lang.String" >
+				<rule  id="OthIDNum_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="OthIDNum_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OthIDNum_NotNull" />
+				<rule id="OthIDNum_DataType" type="DataType" errCode="ABE001" depExp="OthIDNum_NotEmpty">
+					<property name="type" value="ANC..20" />
+				</rule>
+				<!-- 根据证件类型，校验不同的证件号xxxx -->
+				<rule id="OthIDNum_Vali" type="NtrCert" errCode="ABE004" depExp="IDType_Dict"> 
+				   <property name="certType" value="${OthIDType}"></property>
+				</rule>
+				<rule id="PPD101_NotRepeat" fbTag="0000" type="Method" errCode="BPE000" fbValue="">
+					<package>
+				        org.pbccrc.archive.collect.messagetools.ntrrelation.msg.CertConfNormalRecord;
+					</package>
+					<method>
+					{
+						String idNum = record.getIDNum();
+						String idType = record.getIDType();
+						String name = record.getName();
+						if(ValueUtil.hasNull(idNum,idType)){
+							return true;
+						}
+						String othIdNum = record.getOthIDNum();
+						String othIdType = record.getOthIDType();
+						String  othName = record.getOthName();
+						if(ValueUtil.hasNull(othIdNum,othIdType)){
+							return true;
+						}
+						if (idNum.equals(othIdNum) &amp;&amp; idType.equals(othIdType)) {
+							return false;
+						}
+						return true;
+					}
+					</method>
+				</rule>
+			</field> 
+			<field  name="OthAssFlg" fbTag="OthAssFlg" classType="java.lang.String" >
+				<rule  id="OthAssFlg_NotNull" type="NotNull" errCode="ABD000" />
+				<rule  id="OthAssFlg_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OthAssFlg_NotNull" />
+				<rule  id="OthAssFlg_DataType" type="Dict" errCode="ABE001" depExp="OthAssFlg_NotEmpty" >
+					<property name="dictKey" value="ValidRelFlag" />
+				</rule>
+			</field> 
+			<field  name="RptDate" fbTag="RptDate" classType="java.lang.String" >
+				<rule  id="RptDate_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="RptDate_NotNull" />
+				<rule  id="RptDate_DataType" type="DataType" errCode="ABE001" depExp="RptDate_NotEmpty" >
+					<property  name="type" value="Date" />
+				</rule>
+				<rule  id="RptDate_Range" type="DateRange" errCode="ABE008" depExp="RptDate_DataType" />
+				<rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001" depExp="RptDate_Range">
+						<property name="type" value="date" />
+						<property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+				</rule>
+			</field> 
+	</validator>
+</validators>

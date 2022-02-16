@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>一键下载</templetname>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+	    <itemkey>data_dt</itemkey>
+	    <itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>280</card_width>
+	    <list_isshow>N</list_isshow>
+	    <list_width>100</list_width>
+	    <list_align>中</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>机构号</itemname>
+		<itemtype>树型参照</itemtype>
+		<itemdefine>【templetcode=/biapp-fsrs/freexml/fsrs/fsrs_rpt_org_info_CODE1.xml】【cols=org_no->org_no;org_nm->org_name】【winsize=400*560】
+		</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>280</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>90</list_width>
+		<list_align>中</list_align>
+		<query3_isshow>Y</query3_isshow>
+		<query3_iswrap>N</query3_iswrap>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>type</itemkey>
+		<itemname>报送目标</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>{"类型":"直接值","内容":"人行总行|地方人行"}</itemdefine>
+		<issave>N</issave>
+		<ismust>N</ismust>
+		<card_isshow>N</card_isshow>
+		<card_iseditable>N2</card_iseditable>
+		<card_width>280</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>90</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+
+</root>

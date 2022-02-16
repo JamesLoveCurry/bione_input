@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<templet>
+	<templetname>企业还款表现信息</templetname>
+	<fromtable>Ent_ActLbltyInf</fromtable>
+	<savetable>Ent_ActLbltyInf</savetable>
+	<pkname>ACCTCODE</pkname>
+	<!-- <autocondition descr="自动查询时的条件"> status = '1' </autocondition> -->
+	<autoquery descr="是否自动查询数据">N</autoquery>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<!-- <list_btns>$INSERT;$UPDATE;$DELETE;[icon-p05]详情/onDetail</list_btns> -->
+	<list_btns>$INSERT;$UPDATE;$DELETE</list_btns>
+	<list_ispagebar>Y</list_ispagebar>
+</templet>
+
+<templet_item>
+	<itemkey>ACCTCODE</itemkey>
+	<itemname>账户标识码</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<list_isshow>Y</list_isshow>
+	<list_width>180</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+	<isonlyone>Y</isonlyone>
+</templet_item>
+
+<templet_item>
+	<itemkey>AcctStatus</itemkey>
+	<itemname>账户状态</itemname>
+	<itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode,normsnote from ent_codelibrary where datatype='AcctStatus'"}】</itemdefine>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+	
+<templet_item>
+	<itemkey>AcctBal</itemkey>
+	<itemname>余额</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>BalChgDate</itemkey>
+	<itemname>余额变化日期</itemname>
+	<itemtype>日历</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>FiveCate</itemkey>
+	<itemname>五级分类</itemname>
+	<itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode,normsnote from ent_codelibrary where datatype='FiveCate'"}】</itemdefine>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>FiveCateAdjDate</itemkey>
+	<itemname>五级分类认定日期</itemname>
+	<itemtype>日历</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>PymtPrd</itemkey>
+	<itemname>剩余还款月数</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>TotOverd</itemkey>
+	<itemname>当前逾期总额</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>OverdPrinc</itemkey>
+	<itemname>当前逾期本金</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>OverdDy</itemkey>
+	<itemname>当前逾期天数</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>LatRpyDate</itemkey>
+	<itemname>最近一次实际还款日期</itemname>
+	<itemtype>日历</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>LatRpyAmt</itemkey>
+	<itemname>最近一次实际还款金额</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>LatRpyPrincAmt</itemkey>
+	<itemname>最近一次实际归还本金</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>RpmtType</itemkey>
+	<itemname>还款形式</itemname>
+	<itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"SQL","内容":"select normscode,normsnote from ent_codelibrary where datatype='RpmtType'"}】</itemdefine>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>LatAgrrRpyDate</itemkey>
+	<itemname>最近一次约定还款日</itemname>
+	<itemtype>日历</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>LatAgrrRpyAmt</itemkey>
+	<itemname>最近一次约定还款金额</itemname>
+	<itemtype>文本框</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>NxtAgrrRpyDate</itemkey>
+	<itemname>下一次约定还款日期</itemname>
+	<itemtype>日历</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>CloseDate</itemkey>
+	<itemname>账户关闭日期</itemname>
+	<itemtype>日历</itemtype>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>N</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+
+<templet_item>
+	<itemkey>IncrementFlag</itemkey>
+	<itemname>增量标记</itemname>
+	<itemtype>下拉框</itemtype>
+	<itemdefine>【{"类型":"直接值","内容":"0/不上报|1/新增|2/变更|3/永远不上报|4/待处理"}】</itemdefine>
+	<card_isshow>Y</card_isshow>
+	<card_width>150,320</card_width>
+	<card_iswrap>Y</card_iswrap>
+	<list_isshow>Y</list_isshow>
+	<list_width>120</list_width>
+	<list_align>中</list_align>
+	<issave>Y</issave>
+	<ismust>Y</ismust>
+</templet_item>
+</root>

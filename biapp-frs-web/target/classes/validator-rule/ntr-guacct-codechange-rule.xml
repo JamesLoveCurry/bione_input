@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30079012.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrguacct.msg.GuacctCodeChangeRecord" >
+			<field  name="IdCagsType" fbTag="InfRecType" classType="java.lang.String" >
+				<rule  id="IdCagsType_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="IdCagsType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="IdCagsType_NotNull" />
+				<rule id="IdCagsType_EqCtxt" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="IdCagsType_NotEmpty" >
+					<property  name="data" value="${$context.REC_TYPE}" />
+				</rule>
+			</field> 
+			<field  name="OdBnesCode" fbTag="OdBnesCode" classType="java.lang.String" >
+				<rule  id="OdBnesCode_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="OdBnesCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="OdBnesCode_NotNull" />
+				<rule  id="OdBnesCode_DataType" type="DataType" errCode="ABE001" depExp="OdBnesCode_NotEmpty" >
+					<property  name="type" value="AN..60" />
+				</rule>
+				<rule id="OdBnesCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="OdBnesCode_DataType"/>
+			</field> 
+			<field  name="NwBnesCode" fbTag="NwBnesCode" classType="java.lang.String" >
+				<rule  id="NwBnesCode_NotNull" type="NotNull" errCode="ABD000"/>
+				<rule  id="NwBnesCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="NwBnesCode_NotNull" />
+				<rule  id="NwBnesCode_DataType" type="DataType" errCode="ABE001" depExp="NwBnesCode_NotEmpty" >
+					<property  name="type" value="AN..60" />
+				</rule>
+				<rule id="NwBnesCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="NwBnesCode_DataType"/>
+				<rule id="NwBnesCode_OdBnesCode" type="NotEquals" fbTag="0000" fbValue="" errCode="BIE200" depExp="NwBnesCode_DataType &amp; OdBnesCode_DataType">
+					<property name="data" value="${OdBnesCode}" />
+				</rule>
+			</field> 
+	</validator>
+</validators>

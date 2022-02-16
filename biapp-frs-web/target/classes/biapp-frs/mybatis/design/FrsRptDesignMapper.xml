@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 报表信息相关动态sql -->
+<mapper namespace="com.yusys.biapp.frs.design.repository.FrsRptTmpDAO">
+
+	<select id="getFrsRptByPage" parameterType="HashMap"
+		resultType="com.yusys.bione.plugin.design.web.vo.FrsReportInfoVO">
+		select rpt.rpt_id
+		,rpt.rpt_nm
+		,rpt.catalog_id
+		,catalog.catalog_nm
+		,rpt.rpt_sts
+		,rpt.rpt_desc
+		,rpt.show_priority
+		,rpt.create_time
+		,rpt.start_date
+		,rpt.end_date
+		,rpt.rpt_num
+		,rpt.rpt_cycle
+		,rpt.def_src
+		,rpt.def_org
+		,rpt.def_user
+		,frs.fill_Desc
+		,frs.busi_type
+		,frs.def_dept
+		,frs.is_release_submit
+		,frs.report_code
+		,frs.submit_main
+		,frs.submit_range
+		,frs.tmp_version_id
+		,tmp.template_id
+		,tmp.template_type
+		,tmp.is_upt
+		,tmp.ver_id
+		,tmp.ver_start_date
+		,tmp.template_unit
+		from RPT_MGR_REPORT_INFO rpt
+		left join
+		RPT_MGR_FRS_EXT frs
+		on rpt.rpt_id = frs.rpt_id
+		left join
+		RPT_DESIGN_TMP_INFO tmp
+		on rpt.cfg_id = tmp.template_id
+		left join
+		RPT_MGR_REPORT_CATALOG catalog
+		on rpt.catalog_id = catalog.catalog_id
+		where exists (
+  			select 1
+     		 from  (
+        		select
+            		template_id ,
+            		MAX(ver_id) AS max_ver
+        		from
+            		RPT_DESIGN_TMP_INFO tmp2
+        		group by
+            		template_id ) vertmp
+       		where vertmp.template_id = tmp.template_id
+           	and vertmp.max_ver = tmp.ver_id
+		)
+		<if test="catalogId != null">
+			and rpt.catalog_id = #{catalogId}
+		</if>
+		<if test="rptId != null">
+			and rpt.rpt_id = #{rptId}
+		</if>
+		<if test="currDt != null">
+			and tmp.ver_start_date >= #{currDt}
+			<![CDATA[and tmp.ver_end_date < #{currDt}]]>
+		</if>
+		<if test="busiType != null">
+			and frs.busi_type = #{busiType}
+		</if>
+		<if test="defSrc != null">
+			and rpt.def_src = #{defSrc}
+		</if>
+		<if test="catalogId == null">
+			<if test="defSrc == null and defaultDefSrc !=null">
+				and (rpt.def_src = #{defaultDefSrc} or rpt.def_src is null)
+			</if> 
+		</if>
+		<if test="defOrg != null">
+			and rpt.def_org = #{defOrg}
+		</if>
+		<if test="defUser != null">
+			and rpt.def_user = #{defUser}
+		</if>
+		<if test="rptNm != null">
+			and rpt.rpt_nm like #{rptNm}
+		</if>
+		order by rpt.SHOW_PRIORITY,rpt.RPT_NM
+	</select>
+
+	<insert id="addAttachs" parameterType="com.yusys.biapp.frs.design.entity.RptTmpAttachRel">
+		MERGE INTO RPT_TMP_ATTACH_REL REL USING (SELECT #{id.attachId} ATTACH_ID,
+              #{id.rptId} RPT_ID
+         FROM DUAL) A
+		ON ( A.ATTACH_ID = REL.ATTACH_ID AND A.RPT_ID = REL.RPT_ID)
+		WHEN NOT MATCHED THEN
+		  INSERT
+		  VALUES
+		    (#{id.attachId},
+		     #{id.rptId})
+	</insert>
+
+	<insert id="addAttachs" parameterType="com.yusys.biapp.frs.design.entity.RptTmpAttachRel" databaseId="mysql">
+		INSERT INTO RPT_TMP_ATTACH_REL(ATTACH_ID, RPT_ID) VALUES (#{id.attachId}, #{id.rptId})
+	</insert>
+	
+	<delete id="deleteAttachs" parameterType="java.util.List">
+		DELETE FROM RPT_TMP_ATTACH_REL WHERE ATTACH_ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="getComCanEditCell"
+		resultType="com.yusys.bione.plugin.design.web.vo.RptDesignEditorCellVO" parameterType="HashMap">
+		select cell.cell_no     as "id.cellNo",
+		       cell.template_id as "id.template_id",
+		       cell.ver_id      as "id.ver_id",
+		       cell.row_id,
+		       cell.col_id,
+		       cell.content,
+		       textvar.cell_val 
+		  from rpt_design_comcell_info cell
+		  left join RPT_FLTSK_INS_TEXTVAR textvar
+		  on cell.template_id = textvar.template_id
+		  and cell.cell_no = textvar.cell_no
+     	  and textvar.org_no=#{orgNo}
+      	  and textvar.data_date = #{dataDate}
+      	  and textvar.template_id = #{templateId}
+		 where cell.template_id = #{templateId}
+		   and cell.ver_id = #{verId}
+		   and cell.type_id = '05'
+	</select>
+
+	<select id="getRptDetailCell" resultType="com.yusys.biapp.frs.design.web.vo.RptDetailCellVO" parameterType="HashMap">
+		SELECT CELL_NO, TEMPLATE_ID, ROW_NO, COL_NO, ORG_NO, DATA_DATE, DETAIL_VAL FROM RPT_DETAIL_CELL
+		WHERE  DATA_DATE=#{dataDate} 
+		  AND  TEMPLATE_ID=#{templateId} 
+		  AND  ORG_NO=#{orgNo}
+		  AND VER_ID=#{verId}
+		  <if test="start != null and  end != null">
+		  	and row_no >= #{start}
+		  	and row_no &lt;= #{end}
+		  </if>
+	</select>
+
+	<select id="findModuleType"  parameterType="HashMap" resultType="com.yusys.biapp.frs.design.entity.RptModuleInfo">
+		SELECT MODULE_TYPE,MODULE_NAME FROM  RPT_MODULE_INFO
+		<if test="moduleType != null">
+			WHERE MODULE_TYPE=#{moduleType}
+		</if>
+	</select>
+	
+	<select id="getSystemList"  parameterType="HashMap" resultType="com.yusys.biapp.frs.system.entity.FrsSystemCfg">
+		SELECT 	system.system_ver_id	 as "id.systemVerId",
+				system.busi_type	 as "id.busiType",
+				system.system_name,
+				system.ver_start_date,
+				system.ver_end_date,
+				system.remark
+		FROM  FRS_SYSTEM_CFG system
+	</select>
+	
+	<select id="findSystemVerRpt"  parameterType="HashMap" resultType="com.yusys.bione.plugin.design.web.vo.FrsReportInfoVO">
+		select 
+			rpt.rpt_id
+			,rpt.rpt_nm
+			,rpt.catalog_id
+			,rpt.rpt_sts
+			,rpt.rpt_desc
+			,rpt.show_priority
+			,rpt.create_time
+			,rpt.start_date
+			,rpt.end_date
+			,rpt.rpt_num
+			,rpt.rpt_cycle
+			,rpt.def_src
+			,rpt.def_org
+			,rpt.def_user
+			,tmp.template_id
+			,tmp.template_type
+			,tmp.is_upt
+			,tmp.ver_id
+			,tmp.ver_start_date
+			,tmp.template_unit
+		from RPT_MGR_REPORT_INFO rpt 
+		left join RPT_DESIGN_TMP_INFO tmp 
+		on rpt.CFG_ID = tmp.TEMPLATE_ID 
+		where 1=1
+		<if test="busiType != null">
+			and rpt.BUSI_TYPE=#{busiType}
+		</if>
+		<if test="systemVerId != null">
+			and tmp.VER_ID=#{systemVerId}
+		</if>
+	</select>
+	
+<!-- 	<select id="loadRptGrid" resultType="com.yusys.bione.plugin.design.web.vo.FrsReportIdxInfoVO" parameterType="HashMap">
+		select 
+			rpt.rpt_Num as rptNum,
+			rpt.busi_Type as busiType,
+			rpt.rpt_Nm as rptNm,
+			idx.index_Nm as indexNm,
+			idx.index_No as indexNo
+		from RPT_IDX_INFO idx 
+		left join RPT_MGR_REPORT_INFO rpt
+		on idx.TEMPLATE_ID = rpt.CFG_ID
+	  	where 1=1
+	  	and idx.INDEX_STS='Y'
+	  	and (idx.INDEX_TYPE='02' or idx.INDEX_TYPE='03')
+	  	and idx.IS_RPT_INDEX='Y' 
+	  	<if test="startDate != null and endDate != null">
+	  		and ((idx.START_DATE &lt;= #{startDate} 
+	  			and idx.END_DATE &gt;= #{endDate})
+	  			or (idx.START_DATE &lt;= #{startDate} 
+	  			and idx.END_DATE &gt;= #{startDate})
+	  			or (idx.START_DATE &gt;= #{startDate} 
+	  			and idx.END_DATE &lt;= #{endDate})
+	  			or (idx.START_DATE &lt;= #{endDate} 
+	  			and idx.END_DATE &gt;= #{endDate})) 
+	  	</if>
+ 		<if test="srcIdxNo != null">
+		and (idx.SRC_INDEX_NO like #{srcIdxNo}
+			<if test="srcIdxNoHead != null">or idx.SRC_INDEX_NO like #{srcIdxNoHead}</if>
+			<if test="srcIdxNoTail != null">or idx.SRC_INDEX_NO like #{srcIdxNoTail}</if>
+			<if test="srcIdxNoCentre != null">or idx.SRC_INDEX_NO like #{srcIdxNoCentre}</if>
+		)
+		</if> 
+	</select> -->
+	
+	<select id="loadRptGrid" resultType="com.yusys.biapp.frs.design.web.vo.FrsReportIdxInfoVO" parameterType="HashMap">
+		select 
+			rpt.rpt_Num as rptNum,
+			rpt.busi_Type as busiType,
+			rpt.rpt_Nm as rptNm,
+			t3_.index_Nm as indexNm,
+			t3_.index_No as indexNo
+		from
+		(
+	   		select distinct
+	   			t1_.template_id,
+	   			t1_.index_Nm,
+	   			t1_.index_No 
+	   		from 
+	   			rpt_idx_info  t1_ , 
+	   			(select distinct
+	 				t.index_no,
+			    	t.index_ver_id
+			    from 
+			    	rpt_idx_src_rel_info t
+			    where 
+			    	1=1
+			    <if test="srcIdxNo != null">and t.src_index_no = #{srcIdxNo}</if>
+			    ) t2_
+	   		where 1=1
+			<if test="startDate != null and endDate != null">
+		  		and ((t1_.START_DATE &lt;= #{startDate} 
+		  			and t1_.END_DATE &gt;= #{endDate})
+		  			or (t1_.START_DATE &lt;= #{startDate} 
+		  			and t1_.END_DATE &gt;= #{startDate})
+		  			or (t1_.START_DATE &gt;= #{startDate} 
+		  			and t1_.END_DATE &lt;= #{endDate})
+		  			or (t1_.START_DATE &lt;= #{endDate} 
+		  			and t1_.END_DATE &gt;= #{endDate})) 
+	  		</if>
+	   		and 
+				t1_.index_no = t2_.index_no
+			and
+				t1_.index_ver_id = t2_.index_ver_id
+		) t3_ 
+		left join 
+			rpt_mgr_report_info rpt
+	    on t3_.template_id = rpt.cfg_id
+	</select>
+	
+	<select id="countRptsBySrcIdxNos" resultType="int" parameterType="HashMap">
+		select count(*) 
+		from
+		(
+	   		select distinct
+	   			t1_.template_id,
+	   			t1_.index_Nm,
+	   			t1_.index_No 
+	   		from 
+	   			rpt_idx_info  t1_ , 
+	   			(select distinct
+	 				t.index_no,
+			    	t.index_ver_id
+			    from 
+			    	rpt_idx_src_rel_info t
+			    where 
+			    	1=1
+			    <if test="srcIdxNo != null">and t.src_index_no = #{srcIdxNo}</if>
+			    ) t2_
+	   		where 1=1
+ 			<if test="startDate != null and endDate != null">
+		  		and ((t1_.START_DATE &lt;= #{startDate} 
+		  			and t1_.END_DATE &gt;= #{endDate})
+		  			or (t1_.START_DATE &lt;= #{startDate} 
+		  			and t1_.END_DATE &gt;= #{startDate})
+		  			or (t1_.START_DATE &gt;= #{startDate} 
+		  			and t1_.END_DATE &lt;= #{endDate})
+		  			or (t1_.START_DATE &lt;= #{endDate} 
+		  			and t1_.END_DATE &gt;= #{endDate})) 
+	  		</if>
+	   		and 
+				t1_.index_no = t2_.index_no
+			and
+				t1_.index_ver_id = t2_.index_ver_id
+		) t3_ 
+		left join 
+			rpt_mgr_report_info rpt
+	    on t3_.template_id = rpt.cfg_id
+	</select>
+	
+	<!-- 查询报表是否已存在任务中 -->
+	<select id="getRptTaskByRptId"  parameterType="java.util.List" resultType="HashMap">
+		select distinct t.rpt_id "RPTID",
+		       t.rpt_nm "RPTM",
+		       t2.task_nm "TASKNM"
+		 from rpt_fltsk_ins t2
+		 left join rpt_mgr_report_info t
+		   on t.rpt_id = t2.task_obj_id
+		where 1 = 1
+		 and t.rpt_id in
+		<foreach item="rptId" index="index" collection="list" open="("
+			separator="," close=")">
+			#{rptId}
+		</foreach>
+	</select>
+	
+	<!-- 查询报表是否已被表间公式引用 -->
+	<select id="getSrcIdxByRptId"  parameterType="java.util.List" resultType="HashMap">
+		select distinct a3.rpt_nm rptNm,
+		       a5.rpt_nm rptNm2
+		  from RPT_IDX_SRC_REL_INFO a
+		  left join rpt_idx_info a2
+		    on a.src_index_no = a2.index_no
+		  left join rpt_mgr_report_info a3
+		    on a2.template_id = a3.cfg_id
+		  left join rpt_idx_info a4
+		    on a.index_no = a4.index_no
+		  left join rpt_mgr_report_info a5
+		    on a4.template_id = a5.cfg_id
+		 where exists (select t2.index_no
+		          from rpt_mgr_report_info t
+		          left join rpt_idx_info t2
+		            on t.cfg_id = t2.template_id
+		         where 1=1
+		          and t.rpt_id in 
+		           <foreach item="rptId" index="index" collection="list" open="("
+						separator="," close=")">
+						#{rptId}
+				   </foreach>
+		           and a.src_index_no = t2.index_no)
+		   and not exists (select t2.index_no
+		          from rpt_mgr_report_info t
+		          left join rpt_idx_info t2
+		            on t.cfg_id = t2.template_id
+		         where 1=1 
+		         and t.rpt_id in 
+		           <foreach item="rptId" index="index" collection="list" open="("
+						separator="," close=")">
+						#{rptId}
+				   </foreach>
+		           and a.index_no = t2.index_no)
+	</select>
+	
+	<delete id="deleteRptUserRel" parameterType="map">
+		delete from rpt_user_rel where 1=1
+		<if test="rptNumList != null">
+			and (rpt_num in
+				<foreach item="rptNums"  collection="rptNumList" separator=" or rpt_num in ">
+					<foreach collection="rptNums" item="rptNum" open="("
+						separator="," close=")">
+						#{rptNum}
+					</foreach>
+				</foreach>)
+		</if>
+		<if test="orgNo != null">
+			and (org_id in
+				<foreach item="orgNos"  collection="orgNo" separator=" or org_id in ">
+					<foreach collection="orgNos" item="orgId" open="("
+						separator="," close=")">
+						#{orgId}
+					</foreach>
+				</foreach>)
+		</if>
+		<if test="ids != null">
+			and id in
+				<foreach collection="ids" item="id" open="("
+						separator="," close=")">
+						#{id}
+				</foreach>			
+		</if>
+	</delete>
+	
+	<insert id="saveRptUserRel" parameterType="map" useGeneratedKeys="false">
+		insert ALL
+		<foreach item="item" index="index" collection="list">
+			into rpt_user_rel
+			(
+				id,
+				rpt_num,
+				org_id,
+				fill_er,
+				charger,
+				auditor,
+				phone_number,
+				remark
+			) values
+			(
+				#{item.id, jdbcType=VARCHAR},
+				#{item.rptNum, jdbcType=VARCHAR},
+				#{item.orgNo, jdbcType=VARCHAR},
+				#{item.fillEr, jdbcType=VARCHAR},
+				#{item.charger, jdbcType=VARCHAR},
+				#{item.auditor, jdbcType=VARCHAR},
+				#{item.phoneNumber, jdbcType=VARCHAR},
+				#{item.remark, jdbcType=VARCHAR}
+			)
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+	
+	<insert id="saveRptUserRel" parameterType="java.util.List" databaseId="mysql">
+      INSERT INTO rpt_user_rel
+      		(
+				id,
+				rpt_num,
+				org_id,
+				fill_er,
+				charger,
+				auditor,
+				remark
+			)
+      VALUES
+      <foreach collection="list" item="item" separator=",">
+      		(
+      			#{item.id, jdbcType=VARCHAR},
+				#{item.rptNum, jdbcType=VARCHAR},
+				#{item.orgNo, jdbcType=VARCHAR},
+				#{item.fillEr, jdbcType=VARCHAR},
+				#{item.charger, jdbcType=VARCHAR},
+				#{item.auditor, jdbcType=VARCHAR},
+				#{item.remark, jdbcType=VARCHAR}
+      		)
+      </foreach>
+	</insert>
+
+	<insert id="saveRptUserRel" parameterType="java.util.List" databaseId="postgresql">
+		INSERT INTO rpt_user_rel
+		(
+		id,
+		rpt_num,
+		org_id,
+		fill_er,
+		charger,
+		auditor,
+		remark
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id, jdbcType=VARCHAR},
+			#{item.rptNum, jdbcType=VARCHAR},
+			#{item.orgNo, jdbcType=VARCHAR},
+			#{item.fillEr, jdbcType=VARCHAR},
+			#{item.charger, jdbcType=VARCHAR},
+			#{item.auditor, jdbcType=VARCHAR},
+			#{item.remark, jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	
+	<select id="getRptUserRel" parameterType="map" resultType="map">
+		SELECT t2.busi_type as "busiType",
+	       t.rpt_num    as "rptNum",
+	       t2.rpt_nm    as "rptNm",
+	       t.org_id     as "orgNo",
+	       t3.org_nm    as "orgNm",
+	       t.fill_er    as "fillEr",
+	       t.charger    as "charger",
+	       t.auditor    as "auditor",
+	       t.phone_number    as "phoneNumber",
+	       t.remark     as "remark",
+	       t.id as "id"
+	  FROM rpt_user_rel t
+	  left join rpt_mgr_report_info t2
+	    on t.rpt_num = t2.rpt_num
+	  left join rpt_org_info t3
+	    on t.org_id = t3.org_no
+	   and t2.busi_type = t3.org_type
+	 where t.rpt_num = #{rptNum}
+	 <if test="orgNo != null">
+	 	and t.org_id = #{orgNo}
+	 </if>
+	</select>
+	
+	<select id="getRptNumsByRptIds" parameterType="list" resultType="map">
+		select rpt_num as "rptNum" from rpt_mgr_report_info where 1=1 and 
+		(rpt_id in
+			<foreach item="rptIds"  collection="list" separator=" or rpt_id in ">
+				<foreach collection="rptIds" item="rptId" open="("
+					separator="," close=")">
+					#{rptId}
+				</foreach>
+			</foreach>)
+	</select>
+	
+	<select id="getIdxByTable" parameterType="map" resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxInfoVO">
+		select 
+			t.index_no,
+			t4.FORMULA_CONTENT,
+			t.src_index_no,
+		    t3.template_id as rptId,
+    		t3.ver_id as indexVerId,
+			t3.EXCEL_FORMULA as remark
+		from 
+			RPT_IDX_SRC_REL_INFO t
+		left join 
+			RPT_DESIGN_SOURCE_IDX t2
+		on t.src_index_no = t2.index_no
+		left join 
+			RPT_DESIGN_SOURCE_FORMULA t3
+		on t2.cell_no = t3.cell_no
+		and t2.template_id = t3.template_id
+		and t2.ver_id = t3.ver_id
+		left join 
+			RPT_IDX_FORMULA_INFO t4
+		on t.INDEX_NO = t4.INDEX_NO
+		and t.INDEX_VER_ID = t4.INDEX_VER_ID
+		where t3.EXCEL_FORMULA is not null 
+		and t4.FORMULA_CONTENT like '%I%'
+		and t3.EXCEL_FORMULA not like '%SUM%'
+		and t3.EXCEL_FORMULA not like '%ROUND%'
+		and t3.EXCEL_FORMULA not like '%MIN%'
+		and t3.EXCEL_FORMULA not like '%MAX%'
+		and t3.EXCEL_FORMULA not like '%IF%'
+		and t3.EXCEL_FORMULA not like '%(%'
+		and t3.EXCEL_FORMULA not like '%)%'
+	</select>
+	
+	<select id="getIdxNmByTmp" parameterType="map" resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxInfoVO">
+		SELECT
+		    t.INDEX_NO,
+		    t.INDEX_Nm,
+		    t2.CELL_NO as isRptIndex
+		FROM
+		    RPT_IDX_INFO t
+		LEFT JOIN
+		    RPT_DESIGN_SOURCE_IDX t2
+		ON
+		    t.index_no = t2.index_no
+		WHERE
+		    t.END_DATE = '29991231'
+		and    
+		    t2.CELL_NO is not null
+		 <if test="tmpId != null">
+	 		and t.template_id = #{tmpId}
+	 	</if>
+	</select>
+	
+	<select id="getRptIdxNoByFilter" parameterType="map" resultType="string">
+		SELECT t.index_no
+		  FROM rpt_idx_info t
+		  left join rpt_design_source_idx t2
+		    on t.template_id = t2.template_id
+		   and t.index_ver_id = t2.ver_id
+		   and t.index_no = t2.index_no
+		  left join rpt_design_cell_info t3
+		    on t.template_id = t3.template_id
+		   and t.index_ver_id = t3.ver_id
+		   and t2.cell_no = t3.cell_no
+		 where t.template_id = #{templateId}
+		   and t.index_ver_id = #{verId}
+		   and t3.cell_data_src = #{cellType}
+		   and t3.display_format = #{displayFormat}
+	</select>
+	
+	<update id="updateCellInfo" parameterType="map">
+		update rpt_design_cell_info
+		   set 
+		  data_unit = #{dataUnit}
+		  ,data_precision = #{dataPrecision}
+		  <if test="isUpt != null and isUpt != ''">,is_upt = #{isUpt}</if>
+		  <if test="isNull != null and isNull != ''">,is_null = #{isNull}</if>
+		where template_id = #{templateId}
+		  and ver_id = #{verId}
+		  and cell_data_src = #{cellType}
+		  <if test="displayFormat != null and displayFormat != ''">
+		  	and display_format = #{displayFormat}
+		  </if>
+	</update>
+	
+	<update id="updateIdxInfo" parameterType="map">
+		update rpt_idx_info
+		   set 
+		  data_unit = #{dataUnit}
+		  ,data_precision = #{dataPrecision}
+		  <if test="isSum != null and isSum != ''">,is_sum = #{isSum}</if>
+		where template_id = #{templateId}
+		  and index_ver_id = #{verId}
+		  <if test="rptIdxNos != null and rptIdxNos.size() > 0">
+		  and (index_no in
+			<foreach item="idxNos"  collection="rptIdxNos" separator=" or index_no in ">
+				<foreach collection="idxNos" item="idxNo" open="("
+					separator="," close=")">
+					#{idxNo}
+				</foreach>
+			</foreach>)
+		  </if>  
+	</update>
+</mapper> 

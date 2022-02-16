@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator id="30079032.0.0" classType="org.pbccrc.archive.collect.messagetools.ntrguacct.msg.GuacctDelPartRecord" >
+		<field  name="DelRecType" fbTag="InfRecType" classType="java.lang.String" >
+			<rule  id="DelRecType_NotNull" type="NotNull" errCode="ABD000"/>
+			<rule  id="DelRecType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecType_NotNull" />
+			<rule id="DelRecType_EqCtxt" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="DelRecType_NotEmpty" >
+				<property  name="data" value="${$context.REC_TYPE}" />
+			</rule>
+		</field> 
+		<field  name="DelRecCode" fbTag="DelRecCode" classType="java.lang.String" >
+			<rule  id="DelRecCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelRecCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelRecCode_NotNull" />
+			<rule  id="DelRecCode_DataType" type="DataType" errCode="ABE001" depExp="DelRecCode_NotEmpty" >
+				<property  name="type" value="AN..60" />
+			</rule>
+			<rule id="DelRecCode_FinanOrgan" type="FinanOrgan" errCode="ABE002" depExp="DelRecCode_DataType"/>
+		</field> 
+		<field  name="DelSgmtCode" fbTag="DelSgmtCode" classType="java.lang.String" >
+			<rule  id="DelSgmtCode_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelSgmtCode_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="DelSgmtCode_NotNull" />
+			<rule  id="DelSgmtCode_Contains" type="Contains" errCode="ABE001" depExp="DelSgmtCode_NotEmpty" >
+				<property name="dict" value="C;D" />
+			</rule>
+		</field> 
+		<field  name="DelStartDate" fbTag="DelStartDate" classType="java.lang.String" >
+			<rule  id="DelStartDate_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelStartDate_Empty" type="Empty" depExp="DelStartDate_NotNull" />
+			<rule  id="DelStartDate_DataType" type="DataType" errCode="ABE001" depExp="!DelStartDate_Empty" >
+				<property  name="type" value="Date" />
+			</rule>
+			<rule id="DelStartDate_Range" type="DateRange" errCode="ABE008" depExp="DelStartDate_DataType" />
+			<rule id="DelStartDate_Compare" type="DateCompare" errCode="BSE201" depExp="DelStartDate_DataType &amp; DelEndDate_DataType">
+				<property name="endDate" value="${DelEndDate}" />
+			</rule>
+		</field> 
+		<field  name="DelEndDate" fbTag="DelEndDate" classType="java.lang.String" >
+			<rule  id="DelEndDate_NotNull" type="NotNull" errCode="ABD000" />
+			<rule  id="DelEndDate_Empty" type="Empty" depExp="DelEndDate_NotNull" />
+			<rule  id="DelEndDate_NotEmpty_startEmpty" type="NotEmpty" fbTag="0000" fbValue="" errCode="BSE200" depExp="DelEndDate_NotNull &amp; DelStartDate_Empty" />
+			<rule  id="DelEndDate_DataType" type="DataType" errCode="ABE001" depExp="!DelEndDate_Empty" >
+				<property  name="type" value="Date" />
+			</rule>
+			<rule id="DelEndDate_Range" type="DateRange" errCode="ABE008" depExp="DelEndDate_DataType" />
+		</field> 
+	</validator>
+</validators>

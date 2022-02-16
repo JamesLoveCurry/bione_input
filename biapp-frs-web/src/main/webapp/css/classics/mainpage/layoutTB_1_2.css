@@ -1,0 +1,36 @@
+.design_all {
+	width: 100%;
+	padding:0 5px;
+}
+
+.design_head {
+	width: 100%;
+	min-height: 80px;
+}
+
+.design_footer {
+	float: left;
+	width: 100%;
+	min-height: 80px;
+}
+
+.design_left {
+	margin-left: 0px;
+	width:50%;
+	min-height: 80px;
+	float: left;
+}
+
+.design_subdiv {
+	width:100%;
+	background-color: #FFFFFF;
+	border:1px solid #D6D6D6;
+}
+
+
+.design_right {
+	width:50%;
+	float: left;
+	min-height: 80px;
+}
+

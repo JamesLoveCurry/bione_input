@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.yusys.biapp.input.logs.repository.ValidateLogDao">
+	<select id="getRptInputLstValidateLog"  parameterType="HashMap" resultType="com.yusys.biapp.input.logs.entity.RptInputLstValidateLog">
+		SELECT * FROM RPT_INPUT_LST_VALIDATE_LOG WHERE 1=1 
+		<if test="  templeId !=null ">
+			AND  TEMPLE_ID= #{templeId}
+		</if>
+		<if test="  caseId !=null ">
+			AND  CASE_ID= #{caseId}
+		</if>
+		<if test="  orgNo !=null ">
+			AND  ORG_NO= #{orgNo}
+		</if>
+	</select>
+
+</mapper> 

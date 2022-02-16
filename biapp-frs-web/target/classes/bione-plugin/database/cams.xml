@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="cams_indv_acct" pkname="rid" descr="个人账户信息">
+		<columns>
+			<col name="rid" 				type="varchar" 	length="50"		 descr="数据主键" />
+			<col name="data_dt" 			type="varchar" 	length="10"		 descr="数据日期" />
+			<col name="clct_mode" 			type="varchar" 	length="10"		 descr="采集模式" />
+			<col name="doc_type_indic" 		type="varchar" 	length="2"		 descr="报告类型" />
+			<col name="account_number" 		type="varchar" 	length="32"		 descr="账号" />
+			<col name="first_name" 			type="varchar" 	length="100"	 descr="法定英文（拼音）名" />
+			<col name="last_name" 			type="varchar" 	length="100"	 descr="法定英文（拼音）姓" />
+			<col name="closed_account" 		type="varchar" 	length="10"		 descr="是否销户账户" />
+			<col name="due_diligence_ind" 	type="varchar" 	length="1"		 descr="账户类别" />
+			<col name="self_certification" 	type="varchar" 	length="10"		 descr="是否取得自证声明" />
+			<col name="account_balance" 	type="decimal" 	length="20,2"	 descr="账户余额" />
+			<col name="bal_curr_code" 		type="varchar" 	length="3"		 descr="余额币种代码" />
+			<col name="account_holder_type" type="varchar" 	length="6"		 descr="账户持有人类别" />
+			<col name="opening_fin_name" 	type="varchar" 	length="14"		 descr="开户银行金融机构编码" />
+			<col name="payment_type" 		type="varchar" 	length="6"		 descr="收入类型" />
+			<col name="payment_amt" 		type="decimal" 	length="20,2"	 descr="收入金额" />
+			<col name="payment_curr_code" 	type="varchar" 	length="3"		 descr="收入币种" />
+			<col name="gender" 				type="varchar" 	length="1"		 descr="性别" />
+			<col name="phone_no" 			type="varchar" 	length="20"		 descr="联系电话" />
+			<col name="id_type" 			type="varchar" 	length="5"		 descr="身份证件类型" />
+			<col name="id_number" 			type="varchar" 	length="30"		 descr="身份证件号码" />
+			<col name="res_country_code" 	type="varchar" 	length="50"		 descr="税收居民国（地区）代码" />
+			<col name="nationality" 		type="varchar" 	length="50"		 descr="国籍" />
+			<col name="birth_date" 			type="varchar" 	length="10"		 descr="出生日期" />
+			<col name="birth_city" 			type="varchar" 	length="200"	 descr="出生城市" />
+			<col name="birth_country_code" 	type="varchar" 	length="3"		 descr="出生国代码" />
+			<col name="former_country_name" type="varchar" 	length="200"	 descr="出生国英文名称" />
+			<col name="explanation" 		type="varchar" 	length="1000"	 descr="TIN信息说明" />
+			
+			<col name="status" 				type="varchar" 	length="1"	 	 descr="数据状态：1初始化2待复核3待审批4退回5完成" />
+			<col name="org_no" 				type="varchar" 	length="30"	 	 descr="机构号" />
+			<col name="user_name" 			type="varchar" 	length="100"	 descr="创建人名称" />
+			<col name="create_time" 		type="varchar" 	length="20"	 	 descr="创建时间" />
+		</columns>
+	</table>
+	
+	<table name="cams_indv_acct_m" pkname="rid" descr="个人账户信息报送表">
+		<columns>
+			<col name="docrefid" 			type="varchar" 	length="50"		 descr="账户记录编号" />
+			<col name="rid" 				type="varchar" 	length="50"		 descr="数据主键" />
+			<col name="data_dt" 			type="varchar" 	length="10"		 descr="数据日期" />
+			<col name="clct_mode" 			type="varchar" 	length="10"		 descr="采集模式" />
+			<col name="doc_type_indic" 		type="varchar" 	length="2"		 descr="报告类型" />
+			<col name="account_number" 		type="varchar" 	length="32"		 descr="账号" />
+			<col name="first_name" 			type="varchar" 	length="100"	 descr="法定英文（拼音）名" />
+			<col name="last_name" 			type="varchar" 	length="100"	 descr="法定英文（拼音）姓" />
+			<col name="closed_account" 		type="varchar" 	length="10"		 descr="是否销户账户" />
+			<col name="due_diligence_ind" 	type="varchar" 	length="1"		 descr="账户类别" />
+			<col name="self_certification" 	type="varchar" 	length="10"		 descr="是否取得自证声明" />
+			<col name="account_balance" 	type="decimal" 	length="20,2"	 descr="账户余额" />
+			<col name="bal_curr_code" 		type="varchar" 	length="3"		 descr="余额币种代码" />
+			<col name="account_holder_type" type="varchar" 	length="6"		 descr="账户持有人类别" />
+			<col name="opening_fin_name" 	type="varchar" 	length="14"		 descr="开户银行金融机构编码" />
+			<col name="payment_type" 		type="varchar" 	length="6"		 descr="收入类型" />
+			<col name="payment_amt" 		type="decimal" 	length="20,2"	 descr="收入金额" />
+			<col name="payment_curr_code" 	type="varchar" 	length="3"		 descr="收入币种" />
+			<col name="gender" 				type="varchar" 	length="1"		 descr="性别" />
+			<col name="phone_no" 			type="varchar" 	length="20"		 descr="联系电话" />
+			<col name="id_type" 			type="varchar" 	length="5"		 descr="身份证件类型" />
+			<col name="id_number" 			type="varchar" 	length="30"		 descr="身份证件号码" />
+			<col name="res_country_code" 	type="varchar" 	length="50"		 descr="税收居民国（地区）代码" />
+			<col name="nationality" 		type="varchar" 	length="50"		 descr="国籍" />
+			<col name="birth_date" 			type="varchar" 	length="10"		 descr="出生日期" />
+			<col name="birth_city" 			type="varchar" 	length="200"	 descr="出生城市" />
+			<col name="birth_country_code" 	type="varchar" 	length="3"		 descr="出生国代码" />
+			<col name="former_country_name" type="varchar" 	length="200"	 descr="出生国英文名称" />
+			<col name="explanation" 		type="varchar" 	length="1000"	 descr="TIN信息说明" />
+			
+			<col name="status" 				type="varchar" 	length="1"	 	 descr="数据状态：1初始化2待复核3待审批4退回5完成" />
+			<col name="org_no" 				type="varchar" 	length="30"	 	 descr="机构号" />
+			<col name="user_name" 			type="varchar" 	length="100"	 descr="创建人名称" />
+			<col name="create_time" 		type="varchar" 	length="20"	 	 descr="创建时间" />
+			
+			<col name="revise_status" 			type="varchar" 	length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_indv_name" pkname="rid" descr="个人名称信息">
+		<columns>
+			<col name="rid" 					type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="data_type" 				type="varchar"  length="1"  	descr="数据类型 "/>
+			<col name="data_id" 				type="varchar"  length="50"   	descr="数据ID "/>
+			<col name="name_type" 				type="varchar"  length="7"   	descr="姓名类型 "/>
+			<col name="first_name" 				type="varchar"  length="100"   	descr="法定英文（拼音）名 "/>
+			<col name="middle_name" 			type="varchar"  length="500"   	descr="英文中间名 "/>
+			<col name="last_name" 				type="varchar"  length="100"   	descr="法定英文（拼音）姓 "/>
+			<col name="name_cn" 				type="varchar"  length="100"   	descr="中文姓名 "/>
+			<col name="preceding_title" 		type="varchar"  length="200"   	descr="Preceding Title"/>
+			<col name="title" 					type="varchar"  length="1000"   descr="Title"/>
+			<col name="name_prefix" 			type="varchar"  length="200"   	descr="Name Prefix"/>
+			<col name="generation_identifier" 	type="varchar"  length="1000"   descr="Generation Identifier"/>
+			<col name="suffix" 					type="varchar"  length="1000"   descr="Suffix"/>
+			<col name="general_suffix" 			type="varchar"  length="200"   	descr="General Suffix"/>
+		</columns>
+	</table>
+	
+	<table name="cams_indv_name_m" pkname="rid" descr="个人名称信息报送表">
+		<columns>
+			<col name="rid" 					type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 				type="varchar" 	length="50"		 descr="账户记录编号" />
+			<col name="data_type" 				type="varchar"  length="1"  	descr="数据类型 "/>
+			<col name="data_id" 				type="varchar"  length="50"   	descr="数据ID "/>
+			<col name="name_type" 				type="varchar"  length="7"   	descr="姓名类型 "/>
+			<col name="first_name" 				type="varchar"  length="100"   	descr="法定英文（拼音）名 "/>
+			<col name="middle_name" 			type="varchar"  length="500"   	descr="英文中间名 "/>
+			<col name="last_name" 				type="varchar"  length="100"   	descr="法定英文（拼音）姓 "/>
+			<col name="name_cn" 				type="varchar"  length="100"   	descr="中文姓名 "/>
+			<col name="preceding_title" 		type="varchar"  length="200"   	descr="Preceding Title"/>
+			<col name="title" 					type="varchar"  length="1000"   descr="Title"/>
+			<col name="name_prefix" 			type="varchar"  length="200"   	descr="Name Prefix"/>
+			<col name="generation_identifier" 	type="varchar"  length="1000"   descr="Generation Identifier"/>
+			<col name="suffix" 					type="varchar"  length="1000"   descr="Suffix"/>
+			<col name="general_suffix" 			type="varchar"  length="200"   	descr="General Suffix"/>
+			
+			<col name="revise_status" 			type="varchar" 	length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_indv_addr" pkname="rid" descr="个人地址信息">
+		<columns>
+			<col name="rid" 					type="varchar"  	length="50"   	descr="数据主键 "/>
+			<col name="data_type" 				type="varchar"  	length="1"   	descr="数据类型 "/>
+			<col name="data_id" 				type="varchar"  	length="50"   	descr="数据ID "/>
+			<col name="legal_address_type" 		type="varchar"  	length="7"   	descr="地址类型 "/>
+			<col name="country_code" 			type="varchar"  	length="3"   	descr="国家代码 "/>
+			<col name="city_en" 				type="varchar"  	length="200"   	descr="所在城市（英文地址） "/>
+			<col name="street_en" 				type="varchar" 		length="200"   	descr="街道（英文地址） "/>
+			<col name="building_identifier_en" 	type="varchar"  	length="100"   	descr="楼号（英文地址） "/>
+			<col name="suite_identifier_en" 	type="varchar"  	length="100"   	descr="房门号（英文地址） "/>
+			<col name="floor_identifier_en" 	type="varchar"  	length="100"   	descr="楼层（英文地址） "/>
+			<col name="district_name_en" 		type="varchar"  	length="200"   	descr="区（英文地址） "/>
+			<col name="pob_en" 					type="varchar"  	length="50"   	descr="邮箱（英文地址） "/>
+			<col name="post_code_en" 			type="varchar"  	length="50"   	descr="邮编（英文地址） "/>
+			<col name="country_subentity_en" 	type="varchar"  	length="200"   	descr="国家行政区划（英文地址） "/>
+			<col name="address_free_en" 		type="varchar"  	length="500"   	descr="英文详细地址 "/>
+			<col name="province_cn" 			type="varchar"  	length="6"   	descr="省级行政区划代码(中文地址) "/>
+			<col name="city_cn" 				type="varchar"  	length="6"   	descr="地市级行政区划代码(中文地址) "/>
+			<col name="district_cn" 			type="varchar"  	length="6"   	descr="县级行政区划代码(中文地址) "/>
+			<col name="post_code_cn" 			type="varchar"  	length="10"   	descr="邮编(中文地址) "/>
+			<col name="address_free_cn" 		type="varchar"  	length="500"   	descr="中文详细地址 "/>
+		</columns>
+	</table>
+	
+	<table name="cams_indv_addr_m" pkname="rid" descr="个人地址信息报送表">
+		<columns>
+			<col name="rid" 					type="varchar"  	length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 				type="varchar" 		length="50"		descr="账户记录编号" />
+			<col name="data_type" 				type="varchar"  	length="1"   	descr="数据类型 "/>
+			<col name="data_id" 				type="varchar"  	length="50"   	descr="数据ID "/>
+			<col name="legal_address_type" 		type="varchar"  	length="7"   	descr="地址类型 "/>
+			<col name="country_code" 			type="varchar"  	length="3"   	descr="国家代码 "/>
+			<col name="city_en" 				type="varchar"  	length="200"   	descr="所在城市（英文地址） "/>
+			<col name="street_en" 				type="varchar" 		length="200"   	descr="街道（英文地址） "/>
+			<col name="building_identifier_en" 	type="varchar"  	length="100"   	descr="楼号（英文地址） "/>
+			<col name="suite_identifier_en" 	type="varchar"  	length="100"   	descr="房门号（英文地址） "/>
+			<col name="floor_identifier_en" 	type="varchar"  	length="100"   	descr="楼层（英文地址） "/>
+			<col name="district_name_en" 		type="varchar"  	length="200"   	descr="区（英文地址） "/>
+			<col name="pob_en" 					type="varchar"  	length="50"   	descr="邮箱（英文地址） "/>
+			<col name="post_code_en" 			type="varchar"  	length="50"   	descr="邮编（英文地址） "/>
+			<col name="country_subentity_en" 	type="varchar"  	length="200"   	descr="国家行政区划（英文地址） "/>
+			<col name="address_free_en" 		type="varchar"  	length="500"   	descr="英文详细地址 "/>
+			<col name="province_cn" 			type="varchar"  	length="6"   	descr="省级行政区划代码(中文地址) "/>
+			<col name="city_cn" 				type="varchar"  	length="6"   	descr="地市级行政区划代码(中文地址) "/>
+			<col name="district_cn" 			type="varchar"  	length="6"   	descr="县级行政区划代码(中文地址) "/>
+			<col name="post_code_cn" 			type="varchar"  	length="10"   	descr="邮编(中文地址) "/>
+			<col name="address_free_cn" 		type="varchar"  	length="500"   	descr="中文详细地址 "/>
+			
+			<col name="revise_status" 			type="varchar" 		length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_indv_tin" pkname="rid" descr="个人TIN信息">
+		<columns>
+			<col name="rid" 			type="varchar"  	length="50"   	descr="数据主键 "/>
+			<col name="data_type" 		type="varchar"  	length="1"   	descr="数据类型 "/>
+			<col name="data_id" 		type="varchar"  	length="50"   	descr="数据ID "/>
+			<col name="issued_by" 		type="varchar"  	length="3"   	descr="发放识别号的国家（地区）代码 "/>
+			<col name="in_type" 		type="varchar"  	length="3"   	descr="类型 "/>
+			<col name="tin" 			type="varchar"  	length="200"   	descr="纳税人识别号 "/>
+		</columns>
+	</table>
+	
+	<table name="cams_indv_tin_m" pkname="rid" descr="个人TIN信息报送表">
+		<columns>
+			<col name="rid" 			type="varchar"  	length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 		type="varchar" 	 	length="50"		descr="账户记录编号" />
+			<col name="data_type" 		type="varchar"  	length="1"   	descr="数据类型 "/>
+			<col name="data_id" 		type="varchar"  	length="50"   	descr="数据ID "/>
+			<col name="issued_by" 		type="varchar"  	length="3"   	descr="发放识别号的国家（地区）代码 "/>
+			<col name="in_type" 		type="varchar"  	length="3"   	descr="类型 "/>
+			<col name="tin" 			type="varchar"  	length="200"   	descr="纳税人识别号 "/>
+			
+			<col name="revise_status" 	type="varchar" 		length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_corp_acct" pkname="rid" descr="机构账户信息">
+		<columns>
+			<col name="rid" 				type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="data_dt" 			type="varchar"  length="10"   	descr="数据日期 "/>
+			<col name="clct_mode" 			type="varchar"  length="10"   	descr="采集模式 "/>
+			<col name="doc_type_indic" 		type="varchar"  length="2"   	descr="报告类型 "/>
+			<col name="account_number" 		type="varchar"  length="32"   	descr="账号 "/>
+			<col name="organ_name_en" 		type="varchar"  length="200"   	descr="英文名称 "/>
+			<col name="closed_account" 		type="varchar"  length="10"   	descr="是否销户账户 "/>
+			<col name="due_diligence_ind" 	type="varchar"  length="1"   	descr="账户类别 "/>
+			<col name="self_certification" 	type="varchar"  length="10"   	descr="是否取得自证声明 "/>
+			<col name="account_balance" 	type="decimal"  length="20,2"   descr="账户余额 "/>
+			<col name="bal_curr_code" 		type="varchar"  length="3"   	descr="余额币种代码 "/>
+			<col name="account_holder_type" type="varchar"  length="6"   	descr="账户持有人类别 "/>
+			<col name="opening_fin_name" 	type="varchar"  length="14"   	descr="开户银行金融机构编码 "/>
+			<col name="payment_type" 		type="varchar"  length="6"   	descr="收入类型 "/>
+			<col name="payment_amt" 		type="decimal"  length="20,2"   descr="收入金额 "/>
+			<col name="payment_curr_code" 	type="varchar"  length="3"   	descr="收入币种 "/>
+			<col name="phone_no" 			type="varchar"  length="20"   	descr="联系电话 "/>
+			<col name="res_country_code" 	type="varchar"  length="50"   	descr="税收居民国（地区）代码 "/>
+			<col name="explanation" 		type="varchar"  length="1000"   descr="TIN信息说明 "/>
+			
+			<col name="status" 				type="varchar" 	length="1"	 	descr="数据状态：1初始化2待复核3待审批4退回5完成" />
+			<col name="org_no" 				type="varchar" 	length="30"	 	descr="机构号" />
+			<col name="user_name" 			type="varchar" 	length="100"	descr="创建人名称" />
+			<col name="create_time" 		type="varchar" 	length="20"	 	descr="创建时间" />
+		</columns>
+	</table>
+	
+	<table name="cams_corp_acct_m" pkname="rid" descr="机构账户信息报送表">
+		<columns>
+			<col name="rid" 				type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 			type="varchar" 	length="50"		descr="账户记录编号" />
+			<col name="data_dt" 			type="varchar"  length="10"   	descr="数据日期 "/>
+			<col name="clct_mode" 			type="varchar"  length="10"   	descr="采集模式 "/>
+			<col name="doc_type_indic" 		type="varchar"  length="2"   	descr="报告类型 "/>
+			<col name="account_number" 		type="varchar"  length="32"   	descr="账号 "/>
+			<col name="organ_name_en" 		type="varchar"  length="200"   	descr="英文名称 "/>
+			<col name="closed_account" 		type="varchar"  length="10"   	descr="是否销户账户 "/>
+			<col name="due_diligence_ind" 	type="varchar"  length="1"   	descr="账户类别 "/>
+			<col name="self_certification" 	type="varchar"  length="10"   	descr="是否取得自证声明 "/>
+			<col name="account_balance" 	type="decimal"  length="20,2"   descr="账户余额 "/>
+			<col name="bal_curr_code" 		type="varchar"  length="3"   	descr="余额币种代码 "/>
+			<col name="account_holder_type" type="varchar"  length="6"   	descr="账户持有人类别 "/>
+			<col name="opening_fin_name" 	type="varchar"  length="14"   	descr="开户银行金融机构编码 "/>
+			<col name="payment_type" 		type="varchar"  length="6"   	descr="收入类型 "/>
+			<col name="payment_amt" 		type="decimal"  length="20,2"   descr="收入金额 "/>
+			<col name="payment_curr_code" 	type="varchar"  length="3"   	descr="收入币种 "/>
+			<col name="phone_no" 			type="varchar"  length="20"   	descr="联系电话 "/>
+			<col name="res_country_code" 	type="varchar"  length="50"   	descr="税收居民国（地区）代码 "/>
+			<col name="explanation" 		type="varchar"  length="1000"   descr="TIN信息说明 "/>
+			
+			<col name="status" 				type="varchar" 	length="1"	 	descr="数据状态：1初始化2待复核3待审批4退回5完成" />
+			<col name="org_no" 				type="varchar" 	length="30"	 	descr="机构号" />
+			<col name="user_name" 			type="varchar" 	length="100"	descr="创建人名称" />
+			<col name="create_time" 		type="varchar" 	length="20"	 	descr="创建时间" />
+			
+			<col name="revise_status" 			type="varchar" 	length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_corp_name" pkname="rid" descr="机构名称信息">
+		<columns>
+			<col name="rid" 				type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="account_number" 		type="varchar"  length="32"   	descr="账号 "/>
+			<col name="name_type" 			type="varchar"  length="7"   	descr="名称类型 "/>
+			<col name="organ_name_en" 		type="varchar"  length="200"   	descr="英文名称 "/>
+			<col name="organ_name_cn" 		type="varchar"  length="200"   	descr="中文名称 "/>
+		</columns>
+	</table>
+	
+	<table name="cams_corp_name_m" pkname="rid" descr="机构名称信息报送表">
+		<columns>
+			<col name="rid" 				type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 			type="varchar" 	length="50"		descr="账户记录编号" />
+			<col name="account_number" 		type="varchar"  length="32"   	descr="账号 "/>
+			<col name="name_type" 			type="varchar"  length="7"   	descr="名称类型 "/>
+			<col name="organ_name_en" 		type="varchar"  length="200"   	descr="英文名称 "/>
+			<col name="organ_name_cn" 		type="varchar"  length="200"   	descr="中文名称 "/>
+			
+			<col name="revise_status" 		type="varchar" 	length="1"	 	 descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_corp_addr" pkname="rid" descr="机构地址信息">
+		<columns>
+			<col name="rid" 					type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="account_number" 			type="varchar"  length="32"   	descr="账号 "/>
+			<col name="legal_address_type" 		type="varchar"  length="7"   	descr="地址类型 "/>
+			<col name="country_code" 			type="varchar"  length="3"   	descr="国家代码 "/>
+			<col name="city_en" 				type="varchar"  length="200"   	descr="所在城市（英文地址） "/>
+			<col name="street_en" 				type="varchar"  length="200"   	descr="街道（英文地址） "/>
+			<col name="building_identifier_en" 	type="varchar"  length="100"   	descr="楼号（英文地址） "/>
+			<col name="suite_identifier_en" 	type="varchar"  length="100"   	descr="房门号（英文地址） "/>
+			<col name="floor_identifier_en" 	type="varchar"  length="100"   	descr="楼层（英文地址） "/>
+			<col name="district_name_en" 		type="varchar"  length="200"   	descr="区（英文地址） "/>
+			<col name="pob_en" 					type="varchar"  length="50"   	descr="邮箱（英文地址） "/>
+			<col name="post_code_en" 			type="varchar"  length="50"   	descr="邮编（英文地址） "/>
+			<col name="country_subentity_en" 	type="varchar"  length="200"   	descr="国家行政区划（英文地址） "/>
+			<col name="address_free_en" 		type="varchar"  length="500"   	descr="英文详细地址 "/>
+			<col name="province_cn" 			type="varchar"  length="6"   	descr="省级行政区划代码(中文地址) "/>
+			<col name="city_cn" 				type="varchar"  length="6"   	descr="地市级行政区划代码(中文地址) "/>
+			<col name="district_cn" 			type="varchar"  length="6"   	descr="县级行政区划代码(中文地址) "/>
+			<col name="post_code_cn" 			type="varchar"  length="10"   	descr="邮编(中文地址) "/>
+			<col name="address_free_cn" 		type="varchar"  length="500"   	descr="中文详细地址 "/>
+		</columns>
+	</table>
+	
+	<table name="cams_corp_addr_m" pkname="rid" descr="机构地址信息报送表">
+		<columns>
+			<col name="rid" 					type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 				type="varchar" 	length="50"		descr="账户记录编号" />
+			<col name="account_number" 			type="varchar"  length="32"   	descr="账号 "/>
+			<col name="legal_address_type" 		type="varchar"  length="7"   	descr="地址类型 "/>
+			<col name="country_code" 			type="varchar"  length="3"   	descr="国家代码 "/>
+			<col name="city_en" 				type="varchar"  length="200"   	descr="所在城市（英文地址） "/>
+			<col name="street_en" 				type="varchar"  length="200"   	descr="街道（英文地址） "/>
+			<col name="building_identifier_en" 	type="varchar"  length="100"   	descr="楼号（英文地址） "/>
+			<col name="suite_identifier_en" 	type="varchar"  length="100"   	descr="房门号（英文地址） "/>
+			<col name="floor_identifier_en" 	type="varchar"  length="100"   	descr="楼层（英文地址） "/>
+			<col name="district_name_en" 		type="varchar"  length="200"   	descr="区（英文地址） "/>
+			<col name="pob_en" 					type="varchar"  length="50"   	descr="邮箱（英文地址） "/>
+			<col name="post_code_en" 			type="varchar"  length="50"   	descr="邮编（英文地址） "/>
+			<col name="country_subentity_en" 	type="varchar"  length="200"   	descr="国家行政区划（英文地址） "/>
+			<col name="address_free_en" 		type="varchar"  length="500"   	descr="英文详细地址 "/>
+			<col name="province_cn" 			type="varchar"  length="6"   	descr="省级行政区划代码(中文地址) "/>
+			<col name="city_cn" 				type="varchar"  length="6"   	descr="地市级行政区划代码(中文地址) "/>
+			<col name="district_cn" 			type="varchar"  length="6"   	descr="县级行政区划代码(中文地址) "/>
+			<col name="post_code_cn" 			type="varchar"  length="10"   	descr="邮编(中文地址) "/>
+			<col name="address_free_cn" 		type="varchar"  length="500"   	descr="中文详细地址 "/>
+			
+			<col name="revise_status" 			type="varchar" 	length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_corp_tin" pkname="rid" descr="机构TIN信息">
+		<columns>
+			<col name="rid" 			type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="account_number" 	type="varchar"  length="32"   	descr="账号 "/>
+			<col name="issued_by" 		type="varchar"  length="3"   	descr="发放识别号的国家（地区）代码 "/>
+			<col name="in_type" 		type="varchar"  length="3"   	descr="类型 "/>
+			<col name="tin" 			type="varchar"  length="200"   	descr="纳税人识别号 "/>
+		</columns>
+	</table>
+	
+	<table name="cams_corp_tin_m" pkname="rid" descr="机构TIN信息报送表">
+		<columns>
+			<col name="rid" 			type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 		type="varchar" 	length="50"		descr="账户记录编号" />
+			<col name="account_number" 	type="varchar"  length="32"   	descr="账号 "/>
+			<col name="issued_by" 		type="varchar"  length="3"   	descr="发放识别号的国家（地区）代码 "/>
+			<col name="in_type" 		type="varchar"  length="3"   	descr="类型 "/>
+			<col name="tin" 			type="varchar"  length="200"   	descr="纳税人识别号 "/>
+			
+			<col name="revise_status" 	type="varchar" 	length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_corp_ctrl" pkname="rid" descr="机构账户控制人信息">
+		<columns>
+			<col name="rid" 				type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="account_number" 		type="varchar"  length="32"   	descr="账号 "/>
+			<col name="ctrl_person_type" 	type="varchar"  length="6"   	descr="控制人类型 "/>
+			<col name="first_name" 			type="varchar"  length="100"   	descr="法定英文（拼音）名 "/>
+			<col name="last_name" 			type="varchar"  length="100"   	descr="法定英文（拼音）姓 "/>
+			<col name="res_country_code" 	type="varchar"  length="50"   	descr="税收居民国（地区）代码 "/>
+			<col name="nationality" 		type="varchar"  length="100"   	descr="国籍 "/>
+			<col name="birth_date" 			type="varchar"  length="10"   	descr="出生日期 "/>
+			<col name="birth_city" 			type="varchar"  length="200"   	descr="出生城市 "/>
+			<col name="birth_country_code" 	type="varchar"  length="3"   	descr="出生国代码 "/>
+			<col name="former_country_name" type="varchar"  length="200"   	descr="出生国英文名称 "/>
+			<col name="explanation" 		type="varchar"  length="1000"   descr="TIN信息说明 "/>
+		</columns>
+	</table>
+	
+	<table name="cams_corp_ctrl_m" pkname="rid" descr="机构账户控制人信息报送表">
+		<columns>
+			<col name="rid" 				type="varchar"  length="50"   	descr="数据主键 "/>
+			<col name="docrefid" 			type="varchar" 	length="50"		descr="账户记录编号" />
+			<col name="account_number" 		type="varchar"  length="32"   	descr="账号 "/>
+			<col name="ctrl_person_type" 	type="varchar"  length="6"   	descr="控制人类型 "/>
+			<col name="first_name" 			type="varchar"  length="100"   	descr="法定英文（拼音）名 "/>
+			<col name="last_name" 			type="varchar"  length="100"   	descr="法定英文（拼音）姓 "/>
+			<col name="res_country_code" 	type="varchar"  length="50"   	descr="税收居民国（地区）代码 "/>
+			<col name="nationality" 		type="varchar"  length="100"   	descr="国籍 "/>
+			<col name="birth_date" 			type="varchar"  length="10"   	descr="出生日期 "/>
+			<col name="birth_city" 			type="varchar"  length="200"   	descr="出生城市 "/>
+			<col name="birth_country_code" 	type="varchar"  length="3"   	descr="出生国代码 "/>
+			<col name="former_country_name" type="varchar"  length="200"   	descr="出生国英文名称 "/>
+			<col name="explanation" 		type="varchar"  length="1000"   descr="TIN信息说明 "/>
+			
+			<col name="revise_status" 		type="varchar" 	length="1"	 	descr="回执补录状态：1待处理，2已处理" />
+		</columns>
+	</table>
+	
+	<table name="cams_data_log" pkname="rid" descr="数据处理日志">
+		<columns>
+			<col name="rid" 			type="varchar" 		length="50" 	descr="RID" />
+			<col name="data_id" 		type="varchar" 		length="50" 	descr="数据id" />
+			<col name="data_type" 		type="varchar" 		length="10" 	descr="数据类型：indv个人corp机构" />
+			<col name="status" 			type="varchar" 		length="1" 		descr="状态：1提交2复核通过3审批通过4退回" />
+			<col name="reason" 			type="varchar" 		length="1000" 	descr="描述原因" />
+			<col name="user_no" 		type="varchar" 		length="100" 	descr="用户" />
+			<col name="data_time" 		type="varchar" 		length="20" 	descr="时间" />
+		</columns>
+	</table>
+	
+	<table name="cams_engine_task_param" pkname="task_id" descr="引擎参数表">
+		<columns>
+			<col name="task_id" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"							type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"							type="varchar"   		length="2000"     	descr="参数值"/>
+		</columns>
+	</table>
+	
+	<table name="cams_engine_task_param_bak" pkname="rid" descr="引擎参数表">
+		<columns>
+			<col name="rid" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="pname"						type="varchar"   		length="50"     	descr="参数名称"/>	
+		  	<col name="pvalue"						type="varchar"   		length="2000"     	descr="参数值"/>
+		  	<col name="remark"						type="varchar"   		length="500"     	descr="备注"/>
+		</columns>
+	</table>
+	
+	<table name="cams_engine_task" pkname="task_id" descr="引擎任务表">
+		<columns>
+			<col name="task_id" 						type="varchar" 			length="50" 		descr="主键" />
+		  	<col name="data_dt"							type="varchar"   		length="10"     	descr="数据日期"/>	
+		  	<col name="tab_name"						type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="status"							type="varchar"   		length="30"     	descr="状态"/>
+		  	<col name="create_tm"						type="varchar"   		length="20"     	descr="创建时间"/>
+		  	<col name="update_tm"						type="varchar"   		length="20"     	descr="更新时间"/>
+		  	<col name="command1"						type="varchar"   		length="2000"     	descr="配置命令"/>
+		  	<col name="command2"						type="varchar"   		length="2000"     	descr="展示命令"/>
+		  	<col name="task_name"						type="varchar"   		length="100"     	descr="任务名称"/>
+		  	<col name="rule_name"						type="varchar"   		length="2000"     	descr="规则名称"/>
+		  	<col name="rule_ids"						type="varchar"   		length="4000"     	descr="规则ids"/>
+		  	<col name="tab_ids"							type="varchar"   		length="4000"     	descr="表id"/>
+		  	<col name="info"							type="varchar"   		length="1000"     	descr="信息"/>
+		  	<col name="tab_names"						type="varchar"   		length="4000"     	descr="表名"/>
+		  	<col name="task_type"						type="varchar"   		length="15"     	descr="任务类型"/>
+		</columns>
+	</table>
+	
+	<table name="cams_engine_cmd_template" pkname="rid" descr="任务命令模板表">
+		<columns>
+		  <col name="rid"						type="varchar"   length="50"   		descr="主键"/>
+		  <col name="template_sts"				type="varchar"   length="1"   		descr="模板状态"/>
+		  <col name="cmd"						type="varchar"   length="2500"  	descr="命令"/>
+		  <col name="tem_name"					type="varchar"   length="200"   	descr="模板名称"/>
+		  <col name="cmd_type"					type="varchar"   length="20"   		descr="任务类型（规则任务/表任务）"/>
+		  <col name="last_upd_tm"				type="varchar"   length="19"   		descr="最后更新时间"/>
+		  <col name="create_tm"					type="varchar"   length="19"   		descr="创建时间"/>
+		  <col name="last_update_user"			type="varchar"   length="200"   	descr="最后修改人"/>
+		  <col name="creat_user"				type="varchar"   length="200"   	descr="创建人"/>
+		</columns>
+	</table>
+	
+	<table name="cams_engine_log" pkname="rid" descr="检核日志">
+		<columns>
+		  <col name="rid"				type="varchar"   	length="50"   	descr="ID"/>
+		  <col name="task_id"			type="varchar"   	length="50"   	descr="检核任务主键"/>
+		  <col name="data_dt"			type="varchar"   	length="10"   	descr="数据日期"/>
+		  <col name="log_level"			type="varchar"   	length="20"   	descr="日志级别"/>
+		  <col name="log_cont"			type="varchar"   	length="2000"   descr="日志信息"/>
+		  <col name="create_tm"			type="char"   		length="19"   	descr="创建时间"/>
+		  <col name="log_no"			type="decimal"   	length="38"   	descr="日志序号"/>
+		</columns>
+	</table>
+	
+	<table name="cams_rule" pkname="rid" descr="校验规则">
+		<columns>
+		  <col name="rid"						type="varchar"   	length="50"     descr="主键"/>
+		  <col name="ruletype"					type="varchar"   	length="50"     descr="类型"		remark='基本类,完整性,唯一性,特殊类'/>
+		  
+		  <col name="problemcode"				type="varchar"   	length="50"    	descr="问题编号"/>
+		  <col name="problemmsg"				type="varchar"   	length="2000"   descr="提示消息"/>
+		   	  		  
+		  <col name="tablename"					type="varchar"   	length="100"    descr="表名"/>	
+		  <col name="tablename_en"				type="varchar"   	length="100"    descr="表名(英文)"/>		  
+		  <col name="colname"					type="varchar"   	length="100"    descr="字段名"/>
+		  <col name="colname_en"				type="varchar"   	length="100"    descr="字段名(英文)"/>
+		  <col name="lable"						type="varchar"   	length="200"    descr="字段说明"/>
+		 
+		  <col name="execmethod"				type="varchar"   	length="50"    	descr="方法名"/>
+		  <col name="param1"					type="varchar"   	length="500"    descr="参数1"/>
+		  <col name="param2"					type="varchar"   	length="500"    descr="参数2"/>
+
+		  <col name="flagone"					type="varchar"   	length="50"    	descr="标记号"/>
+		  <col name="verifytype"				type="varchar"   	length="50"    	descr="验证类型"/>		
+		  <col name="rulelevel"					type="varchar"   	length="10"    	descr="级别"/>
+		  <col name="isopen"					type="char"   		length="1"    	descr="是否启用"  remark="表示是否生效"  />
+		  <col name="id"						type="decimal"   	length="38"     descr="规则ID"/>
+		  <col name="issql"						type="char"   		length="1"      descr="是否SQL检核"/>
+		  <col name="expr"						type="varchar"   	length="1500"   descr="检核表达式"/>
+		  <col name="isremark"					type="char"   		length="1"    	descr=""/>
+		</columns>
+	</table>
+	
+	<table name="cams_result_data" pkname="rid" descr="校验结果"  remark="精确到明细记录,即某一条记录的主键值都存入">
+		<columns>
+		  <col name="rid"              type="varchar"   length="50"    descr="主键"/>
+		  <col name="reportdate"       type="varchar"   length="10"    descr="报告日期"/>
+		  <col name="rulerid"          type="varchar"   length="50"    descr="校验id"/>
+		  <col name="rulecode"         type="varchar"   length="30"    descr="校验编号"/>
+		  <col name="ruletype"         type="varchar"   length="30"    descr="校验类型"/>
+		  
+		  <col name="tablename"        type="varchar"   length="50"    descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"    descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"    descr="字段名"/>
+		  <col name="colname_en"       type="varchar"   length="30"    descr="字段名(英文)"/>
+		  <col name="colvalue"         type="varchar"   length="300"   descr="字段值"/>
+		  <col name="pkcolname"        type="varchar"   length="30"    descr="主键字段名"/>
+		  <col name="pkvalue"          type="varchar"   length="100"   descr="主键字段值"/>
+		  
+		  <col name="problemcode"      type="varchar"   length="30"    descr="问题编号"/>
+		  <col name="problemmsg"       type="varchar"   length="2000"  descr="问题提示"/>
+		  
+		  <col name="org_no"           type="varchar"   length="30"    descr="经办机构代码"/>
+		  <col name="org_name"         type="varchar"   length="200"   descr="经办机构名称"/>
+		  
+		  <col name="result_status"    type="varchar"   length="20"    descr="状态:待处理，完成"/>
+		</columns>
+	</table>
+	
+	<table name="cams_receipt_data" pkname="rid" descr="回执校验结果"  remark="精确到明细记录,即某一条记录的主键值都存入">
+		<columns>
+		  <col name="rid"              type="varchar"   length="50"    descr="主键"/>
+		  <col name="reportdate"       type="varchar"   length="10"    descr="报告日期"/>
+		  <col name="docrefid" 		   type="varchar" 	length="50"	   descr="账户记录编号" />
+		  
+		  <col name="tablename"        type="varchar"   length="50"    descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"    descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"    descr="字段名"/>
+		  <col name="colname_en"       type="varchar"   length="30"    descr="字段名(英文)"/>
+		  <col name="colvalue"         type="varchar"   length="300"   descr="字段值"/>
+		  
+		  <col name="errorcode"        type="varchar"   length="30"    descr="错误代码"/>
+		  <col name="errormsg"         type="varchar"   length="2000"  descr="错误描述"/>
+		  
+		  <col name="org_no"           type="varchar"   length="30"    descr="经办机构代码"/>
+		  <col name="org_name"         type="varchar"   length="200"   descr="经办机构名称"/>
+	      <col name="result_status"    type="varchar"   length="20"    descr="状态:待处理，完成"/>
+	      
+	      <col name="acct_type" 		type="varchar"  length="1"   descr="账户类型：1个人2机构 "/>
+		</columns>
+	</table>
+	
+	<table name="cams_receipt_errorcode" pkname="errorcode" descr="回执校验码值表"  remark="用来存储回执校验码值信息">
+		<columns>
+	  	  <col name="errorcode"        type="varchar"   length="30"     descr="错误代码"/>
+		  <col name="tablename"        type="varchar"   length="50"     descr="表名"/>
+		  <col name="tablename_en"     type="varchar"   length="30"     descr="表名(英文)"/>
+		  <col name="colname"          type="varchar"   length="30"     descr="字段名"/>
+		  <col name="colname_en"       type="varchar"   length="30"     descr="字段名(英文)"/>
+		  <col name="errormsg"         type="varchar"   length="2000"   descr="错误描述"/>
+		</columns>
+	</table>
+	
+	<table name="cams_cr_report" pkname="rid" descr="报文管理">
+		<columns>
+			<col name="rid" 				type="varchar" 		length="50" 	descr="报文id" />
+			<col name="data_dt" 			type="varchar" 		length="10" 	descr="报告日期" />
+			<col name="jr_org_no" 			type="varchar" 		length="14" 	descr="金融机构编码" />
+			<col name="report_type" 		type="varchar" 		length="6" 		descr="数据类型：CRS701：新数据，CRS702：修改和删除数据，CRS703：无数据申报" />
+			<col name="status" 				type="varchar" 		length="10" 	descr="报告状态：已生成，生成失败，回执处理，完成" />
+			
+			<col name="rtype" 				type="varchar" 		length="10" 	descr="报文类型：1：正常报文，2：重报报文" />
+			
+			<col name="org_no" 				type="varchar" 		length="100" 	descr="机构编码" />
+			<col name="org_name" 			type="varchar" 		length="100" 	descr="机构名称" />
+
+			<col name="create_tm" 			type="varchar" 		length="19" 	descr="创建时间" />
+			<col name="start_tm" 			type="varchar" 		length="19" 	descr="报告开始时间" />
+			<col name="end_tm" 				type="varchar" 		length="19" 	descr="报告生成时间" />
+			
+			<col name="messagerefid" 		type="varchar" 		length="100" 	descr="序列号" />
+			<col name="due_diligence_ind" 	type="varchar" 		length="10" 	descr="账户类型：N:新增报文, ;P:存量报文" />
+			<col name="filename" 			type="varchar" 		length="100" 	descr="报文文件名" />
+			<col name="filepath" 			type="varchar" 		length="500" 	descr="报文文件路径" />
+			
+		</columns>
+	</table>
+	
+	<table name="cams_cr_report_acct_rel" pkname="rid,docrefid" descr="报文账户关系表">
+		<columns>
+			<col name="rid" 				type="varchar" 		length="50" 	descr="报文id" />
+			<col name="messagerefid" 		type="varchar" 		length="100" 	descr="报文序列号" />
+			<col name="docrefid" 			type="varchar" 		length="50"		descr="账户记录编号" />
+			<col name="acct_status" 		type="varchar" 		length="10"		descr="账户报送状态：1：正常，2：需补录：" />
+			<col name="acct_input_status" 	type="varchar" 		length="10"		descr="账户补录状态：Y：补录完成，N：未补录" />
+			<col name="acct_type" 			type="varchar" 		length="10"		descr="账户类型：1：个人账户 , 2: 机构账户" />
+		</columns>
+	</table>
+
+	<table name="cams_cr_report_config" pkname="rid" descr="报文日志">
+		<columns>
+			<col name="rid" 			type="varchar" 		length="50" 	descr="主键" />
+			<col name="report_rid" 		type="varchar" 		length="50" 	descr="报文rid" />
+			<col name="log_level" 		type="varchar" 		length="10" 	descr="日志级别" />
+			<col name="log_cont" 		type="varchar" 		length="500" 	descr="日志内容" />
+			<col name="create_tm" 		type="varchar" 		length="19" 	descr="日志时间" />
+			<col name="seq" 			type="decimal" 		length="38" 	descr="日志序号" />
+		</columns>
+	</table>
+
+	<table name="cams_cr_receipt" pkname="rid" descr="回执信息">
+		<columns>
+			<col name="rid" 				type="varchar" 		length="50" 	descr="主键" />
+			<col name="report_data"			type="varchar" 		length="10" 	descr="报告日期" />
+			<col name="report_type" 		type="varchar" 		length="1" 		descr="结果类型S：无错误数据F：文件级错误R：记录级错误" />
+			<col name="report_file_name" 	type="varchar" 		length="100" 	descr="回执文件名" />
+			<col name="messagerefid" 		type="varchar" 		length="100" 	descr="回执对应报文序列号" />
+			<col name="filepath" 			type="varchar" 		length="500" 	descr="回执文件路径" />
+			<col name="create_tm" 			type="varchar" 		length="19" 	descr="创建时间" />
+			<col name="ferrcode" 			type="varchar" 		length="20" 	descr="文件级错误码" />
+		</columns>
+	</table>
+	
+	<table name="cams_bs_dict_code" pkname="rid" descr="字典参数表">
+		<columns>
+		  <col name="rid"							type="varchar"   length="50"   		descr="主键"/>
+		  <col name="parent_item_code"				type="varchar"   length="50"   		descr="父编码"/>
+		  <col name="parent_item_name"				type="varchar"   length="100"   	descr="父名称"/>
+		  <col name="item_code"						type="varchar"   length="50"   		descr="编码"/>
+		  <col name="item_name"						type="varchar"   length="100"   	descr="名称"/>
+		  <col name="item_order"					type="decimal"   length="16"   		descr="排序"/>
+		  <col name="item_desc"						type="varchar"   length="500"   	descr="描述"/>
+		  <col name="is_edited"						type="varchar"   length="1"   		descr="是否编辑"/>
+		  <col name="start_time"					type="varchar"   length="10"   		descr="开始时间"/>
+		  <col name="end_time"						type="varchar"   length="10"   		descr="截止时间"/>
+		  <col name="create_time"					type="varchar"   length="20"   		descr="创建时间"/>
+		</columns>
+	</table>
+	
+</root>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <templet>
+        <templetname>国民经济部门</templetname>
+        <fromtable>rpt_std_code_info</fromtable>
+        <savetable>rpt_std_code_info</savetable>
+        <pkname>item</pkname>
+        <querycontion>code_type='FIN_ORG_TYPE'</querycontion>
+        <autocondition descr="自动查询时的条件">code_type='FIN_ORG_TYPE'</autocondition>
+        <autoquery descr="是否自动查询数据">Y</autoquery>
+        <ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+        <orderbys>order_no</orderbys>
+        <card_btns></card_btns>
+        <list_btns></list_btns>
+        <list_issearch></list_issearch>
+        <list_ispagebar>N</list_ispagebar>
+
+        <tree_type>parent</tree_type>
+        <tree_id>item</tree_id>
+        <tree_text>item_name</tree_text>
+        <tree_parentid>p_item</tree_parentid>
+    </templet>
+
+    <templet_item>
+        <itemkey>rpt_type</itemkey>
+        <itemname>业务类型</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>code_type</itemkey>
+        <itemname>代码类型</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>code_type_name</itemkey>
+        <itemname>代码类型名称</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>200</card_width>
+        <card_iswrap>N</card_iswrap>
+        <card_iseditable>N</card_iseditable>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>item</itemkey>
+        <itemname>代码项</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>item_name</itemkey>
+        <itemname>代码项名称</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>order_no</itemkey>
+        <itemname>代码项序号</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>p_item</itemkey>
+        <itemname>上级代码项</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>item_lvl</itemkey>
+        <itemname>代码级别</itemname>
+        <itemtype>下拉框</itemtype>
+        <itemdefine>{"类型":"直接值","内容":"0|1|2|3"}</itemdefine>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>200</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>modifier</itemkey>
+        <itemname>修改人</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>modify_tm</itemkey>
+        <itemname>修改时间</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>create_tm</itemkey>
+        <itemname>创建时间</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+    <templet_item>
+        <itemkey>creator</itemkey>
+        <itemname>创建人</itemname>
+        <itemtype>文本框</itemtype>
+        <issave>Y</issave>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>N</list_isshow>
+        <list_width>120</list_width>
+        <list_align>中</list_align>
+    </templet_item>
+
+</root>

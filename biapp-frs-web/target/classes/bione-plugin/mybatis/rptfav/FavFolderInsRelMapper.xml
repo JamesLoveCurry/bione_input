@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptfav.repository.FavFolderInsRelMybatisDao">
+	<select id="list" resultType="com.yusys.bione.plugin.rptfav.entity.RptFavFolderInsRel"
+	parameterType="HashMap">
+		select USER_ID as "id.userId",INSTANCE_ID as "id.instanceId",FOLDER_ID as "id.folderId",INSTANCE_TYPE
+		from
+		RPT_FAV_FOLDER_INS_REL
+		where 1=1
+		<if test="userId != null">and USER_ID = #{userId}</if>
+		<if test="instanceId != null">and INSTANCE_ID = #{instanceId}</if>
+		<if test="folderId != null">and FOLDER_ID = #{folderId}</if>
+		<if test="instanceType != null">and INSTANCE_TYPE = #{instanceType}</if>
+	</select>
+	<insert id="save" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavFolderInsRel">insert into RPT_FAV_FOLDER_INS_REL(USER_ID,INSTANCE_ID,FOLDER_ID,INSTANCE_TYPE)
+		values(#{id.userId},#{id.instanceId},#{id.folderId},#{instanceType})</insert>
+	<update id="update" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavFolderInsRel">
+		update RPT_FAV_FOLDER_INS_REL
+		<set>
+			<if test="id.userId != null">USER_ID=#{id.userId},</if>
+			<if test="id.instanceId != null">INSTANCE_ID=#{id.instanceId},</if>
+			<if test="id.folderId != null">FOLDER_ID=#{id.folderId},</if>
+			<if test="instanceType != null">INSTANCE_TYPE=#{instanceType}</if>
+		</set>
+		where 1=1 and USER_ID=#{id.userId}
+		and INSTANCE_ID=#{id.instanceId}
+		and FOLDER_ID=#{id.folderId}
+	</update>
+	<delete id="delete" parameterType="HashMap">delete from RPT_FAV_FOLDER_INS_REL
+		where 1=1
+		<if test="userId != null">and USER_ID=#{userId}</if>
+		<if test="instanceId != null">and INSTANCE_ID=#{instanceId}</if>
+		<if test="folderId != null">and FOLDER_ID=#{folderId}</if>
+		</delete>
+
+	<update id="updateRel" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavFolderInsRel">
+		update RPT_FAV_FOLDER_INS_REL
+		<set>
+			<if test="userIdNew != null">USER_ID=#{userIdNew},</if>
+			<if test="instanceIdNew != null">INSTANCE_ID=#{instanceIdNew},</if>
+			<if test="folderIdNew != null">FOLDER_ID=#{folderIdNew},</if>
+			<if test="instanceTypeNew != null">INSTANCE_TYPE=#{instanceType}</if>
+		</set>
+		where 1=1 
+		<if test="userId != null">and USER_ID=#{userId}</if>
+		<if test="instanceId != null">and INSTANCE_ID=#{instanceId}</if>
+		<if test="folderId != null">and FOLDER_ID=#{folderId}</if>
+	</update>
+</mapper>

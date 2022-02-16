@@ -1,0 +1,19 @@
+#left {
+	/* border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6; */
+	border: none;
+}
+#right {
+	/* border-width: 0px;
+	border-style: solid;
+	border-color: #D6D6D6; */
+	border: none;
+	background-color: #FCFCFC;
+}
+#tree {
+	background-color: #F1F1F1;
+}
+.l-layout-center {
+	border: none;
+}

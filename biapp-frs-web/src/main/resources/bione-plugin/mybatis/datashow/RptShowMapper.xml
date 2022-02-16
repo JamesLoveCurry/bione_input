@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+namespace="com.yusys.bione.plugin.datashow.repository.RptShowMybatisDao">
+	<select id="findOuterCfgInfo" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrOuterCfg" parameterType="HashMap">SELECT
+		r.*
+		FROM
+		RPT_MGR_REPORT_INFO l
+		LEFT JOIN
+		RPT_MGR_OUTER_CFG r
+		ON
+		l.CFG_ID = r.CFG_ID
+		WHERE
+		l.RPT_ID = #{rptId}</select>
+	
+	
+	<select id="findCfgByRptId" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrOuterCfg" parameterType="String">SELECT
+		t2.*
+		FROM
+		RPT_MGR_REPORT_INFO t1,
+		RPT_MGR_OUTER_CFG t2
+		where
+		t1.CFG_ID = t2.CFG_ID
+		and
+		t1.RPT_ID=#{rptId}</select>
+	<select id="getStoreCount" resultType="Long" parameterType="String">SELECT
+		COUNT(t1.INSTANCE_ID)
+		FROM
+		RPT_FAV_FOLDER_INS_REL t1,
+		RPT_FAV_QUERYINS t2
+		WHERE
+		t1.INSTANCE_ID = t2.INSTANCE_ID
+		AND t1.INSTANCE_TYPE='04'
+		AND t2.INSTANCE_ID=#{instanceId}
+		AND t1.USER_ID=#{userId}</select>
+</mapper>

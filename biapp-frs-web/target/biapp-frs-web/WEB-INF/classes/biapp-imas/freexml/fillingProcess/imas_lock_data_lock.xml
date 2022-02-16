@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <templet>
+        <templetname>选择报表</templetname>
+        <ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+        <list_ispagebar>N</list_ispagebar>
+        <list_ischeckstyle>N</list_ischeckstyle>
+        <list_ismultisel>N</list_ismultisel>
+    </templet>
+
+    <templet_item>
+        <itemkey>status</itemkey>
+        <itemname>加锁类型</itemname>
+        <itemtype>下拉框</itemtype>
+        <itemdefine>{"类型":"直接值","内容":"1/全部加锁|2/维护加锁|3/填报加锁"}</itemdefine>
+        <issave>Y</issave>
+        <ismust>N</ismust>
+        <card_isshow>Y</card_isshow>
+        <card_width>300</card_width>
+        <card_iswrap>Y</card_iswrap>
+        <list_isshow>Y</list_isshow>
+        <list_width>150</list_width>
+        <list_align>中</list_align>
+        <query_isshow>Y</query_isshow>
+        <query_width>280</query_width>
+    </templet_item>
+
+</root>
+

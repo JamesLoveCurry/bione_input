@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper
+	namespace="com.yusys.bione.plugin.frsorg.repository.RptMgrFrsLineMybatisDao">
+	<select id="getInfo"
+		resultType="com.yusys.bione.plugin.businessline.entity.RptMgrBusiLine"
+		parameterType="HashMap">
+		select LINE_ID,LINE_NM, RANK_ORDER 
+		 from 
+		RPT_MGR_BUSI_LINE 
+		 where 1=1
+		<if test="lineId != null">
+			and LINE_ID = #{lineId}</if>
+		<if test="lineNm != null">
+			and LINE_NM = #{lineNm}</if>
+	</select>
+
+	<select id="findNm" resultType="com.yusys.bione.plugin.businessline.entity.RptMgrBusiLine" parameterType="HashMap">
+		select LINE_NM,LINE_Id 
+		 from 
+		RPT_MGR_FRS_LINE 
+		 where 1=1
+		 <if test="olineId != null">
+		  and LINE_ID!=#{olineId}
+		 </if>
+		<if test="lineId != null">
+			and LINE_ID = #{lineId}</if>
+		<if test="lineNm != null">
+			and LINE_NM = #{lineNm}</if>
+	</select>
+	
+	<insert id="addLine" parameterType="com.yusys.bione.plugin.businessline.entity.RptMgrBusiLine">
+	insert into RPT_MGR_FRS_LINE(LINE_ID,LINE_NM)
+		values(#{lineId},#{lineNm})
+</insert>
+
+<update id="editLine" parameterType="HashMap">
+	 update RPT_MGR_FRS_LINE
+	<set> 
+		<if test="lineId != null">LINE_ID=#{lineId},</if>
+		<if test="lineNm != null">LINE_NM=#{lineNm}</if>
+	</set>
+	where 1=1 and LINE_ID=#{olineId} 
+</update>
+ 
+<delete id="deleteInfo">
+	delete from RPT_MGR_FRS_LINE
+	where 1=1
+	and LINE_ID in 
+	<foreach collection="list" item="lineId" open="(" separator=","
+			close=")">
+			#{lineId}
+		</foreach>
+</delete>
+
+	
+</mapper> 

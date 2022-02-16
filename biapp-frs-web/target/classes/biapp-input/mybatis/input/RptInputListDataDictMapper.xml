@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.input.dict.repository.RptInputListDataDictInfoDao">
+	<delete id="deleteDictInfoById" parameterType="String">
+		DELETE FROM RPT_INPUT_LIST_DATA_DICT_INFO WHERE DICT_ID= #{templateId}
+	</delete>
+	<!-- 向数据库字典信息表中插入数据-->
+	<insert id="saveDataInputDict"
+		parameterType="com.yusys.biapp.input.dict.entity.RptInputListDataDictInfo">
+		INSERT INTO RPT_INPUT_LIST_DATA_DICT_INFO(DICT_ID,DS_ID,CATALOG_ID,DICT_NAME,DICT_TYPE,SHOW_TYPE,STATIC_CONTENT,SQL_TEXT,CREATE_USER,CREATE_TIME,LOGIC_SYS_NO)
+		VALUES(#{dictId},#{dsId},#{catalogId},#{dictName},#{dictType},#{showType},#{staticContent},#{sqlText},#{createUser},#{createTime},#{logicSysNo})
+	</insert>
+	<!-- 查询数据字典表中的数据字典的信息-->
+	<select id="getDictDataByIds"
+		resultType="com.yusys.biapp.input.dict.entity.RptInputListDataDictInfo">
+		SELECT
+		    DICT_ID,DS_ID,CATALOG_ID,DICT_NAME,DICT_TYPE,SHOW_TYPE,STATIC_CONTENT,SQL_TEXT,CREATE_USER,CREATE_TIME,LOGIC_SYS_NO
+		FROM
+		    RPT_INPUT_LIST_DATA_DICT_INFO
+	</select>
+	<!-- 删除资源表中的对应数据字典的资源信息-->
+	<delete id="deleteDictResRel"
+		parameterType="HashMap">
+		DELETE from
+		    BIONE_AUTH_OBJ_RES_REL
+		WHERE
+		    RES_DEF_NO = #{resDefNo}
+		AND RES_ID = #{dictId}
+	</delete>
+</mapper> 

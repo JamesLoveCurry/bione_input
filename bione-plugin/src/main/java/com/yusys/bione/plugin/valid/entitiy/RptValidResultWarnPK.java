@@ -1,0 +1,83 @@
+package com.yusys.bione.plugin.valid.entitiy;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+/**
+ * The primary key class for the RPT_VALID_RESULT_WARN database table.
+ * 
+ */
+@Embeddable
+public class RptValidResultWarnPK implements Serializable {
+	//default serial version id, required for serializable classes.
+	private static final long serialVersionUID = 1L;
+
+	@Column(name="CHECK_ID", unique=true, nullable=false, length=32)
+	private String checkId;
+
+	@Column(name="DATA_DATE", unique=true, nullable=false, length=8)
+	private String dataDate;
+
+	@Column(name="ORG_NO", unique=true, nullable=false, length=32)
+	private String orgNo;
+	
+//	@Column(name="ORG_Type", unique=true, nullable=false, length=32)
+//	private String orgType;
+
+    public RptValidResultWarnPK() {
+    }
+	
+	public String getCheckId() {
+		return checkId;
+	}
+
+	public void setCheckID(String checkId) {
+		this.checkId = checkId;
+	}
+
+	public String getDataDate() {
+		return this.dataDate;
+	}
+	public void setDataDate(String dataDate) {
+		this.dataDate = dataDate;
+	}
+	public String getOrgNo() {
+		return this.orgNo;
+	}
+	public void setOrgNo(String orgNo) {
+		this.orgNo = orgNo;
+	}
+	
+//	public String getOrgType() {
+//		return orgType;
+//	}
+//	public void setOrgType(String orgType) {
+//		this.orgType = orgType;
+//	}
+	public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof RptValidResultWarnPK)) {
+			return false;
+		}
+		RptValidResultWarnPK castOther = (RptValidResultWarnPK)other;
+		return 
+			this.checkId.equals(castOther.checkId)
+			&& this.dataDate.equals(castOther.dataDate)
+			&& this.orgNo.equals(castOther.orgNo);
+
+    }
+    
+	public int hashCode() {
+		final int prime = 31;
+		int hash = 17;
+		hash = hash * prime + this.checkId.hashCode();
+		hash = hash * prime + this.dataDate.hashCode();
+		hash = hash * prime + this.orgNo.hashCode();
+		
+		return hash;
+    }
+}

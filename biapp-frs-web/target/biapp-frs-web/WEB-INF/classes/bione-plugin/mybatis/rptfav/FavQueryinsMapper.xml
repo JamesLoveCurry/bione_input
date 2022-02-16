@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptfav.repository.FavQueryinsMybatisDao">
+	<select id="list" resultType="com.yusys.bione.plugin.rptfav.entity.RptFavQueryins"
+	parameterType="HashMap">
+		select INSTANCE_ID,CREATE_TIME,CREATE_USER,QUERY_NM,remark
+		from
+		RPT_FAV_QUERYINS
+		where 1=1
+		<if test="instanceId != null">and INSTANCE_ID = #{instanceId}</if>
+		<if test="createTime != null">and CREATE_TIME = #{createTime}</if>
+		<if test="createUser != null">and CREATE_USER = #{createUser}</if>
+		<if test="queryNm != null">and QUERY_NM = #{queryNm}</if>
+	</select>
+	<select id="getAll" resultType="com.yusys.bione.plugin.rptfav.entity.RptFavQueryins"
+		parameterType="HashMap">
+		select ins.INSTANCE_ID,CREATE_TIME,CREATE_USER,QUERY_NM,remark
+		from
+		RPT_FAV_QUERYINS ins, Rpt_fav_folder_ins_rel rel
+		where ins.instance_id = rel.instance_id
+		<if test="instanceId != null">and ins.INSTANCE_ID = #{instanceId}</if>
+		<if test="createTime != null">and CREATE_TIME = #{createTime}</if>
+		<if test="createUser != null">and CREATE_USER = #{createUser}</if>
+		<if test="queryNm != null">and QUERY_NM = #{queryNm}</if>
+		<if test="userId != null">and rel.user_id =#{userId}</if>
+		<if test="folderId != null">and rel.folder_id =#{folderId}</if>
+		<if test="instanceType != null">and rel.instance_Type =#{instanceType}</if>
+	</select>
+	<insert id="save" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavQueryins">insert into RPT_FAV_QUERYINS(INSTANCE_ID,CREATE_TIME,CREATE_USER,QUERY_NM,remark)
+		values(#{instanceId},#{createTime},#{createUser},#{queryNm},#{remark})</insert>
+	<update id="update" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavQueryins">
+		update RPT_FAV_QUERYINS
+		<set>
+			<if test="instanceId != null">INSTANCE_ID=#{instanceId},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			<if test="createUser != null">CREATE_USER=#{createUser},</if>
+			<if test="queryNm != null">QUERY_NM=#{queryNm},</if>
+			<if test="remark != null">remark=#{remark}</if>
+		</set>
+		where 1=1 and INSTANCE_ID=#{instanceId}
+	</update>
+	<delete id="delete" parameterType="HashMap">delete from RPT_FAV_QUERYINS
+		where 1=1
+		and INSTANCE_ID=#{instanceId}</delete>
+	
+	<select id="listInfo" resultType="com.yusys.bione.plugin.rptfav.web.vo.RptFavQueryinsVo"
+	parameterType="HashMap">
+		select
+		s.INSTANCE_ID,s.QUERY_NM,s.REMARK,s.CREATE_USER,s.CREATE_TIME,i.user_name
+		from RPT_FAV_FOLDER_INS_REL l,RPT_FAV_QUERYINS s,BIONE_user_info i
+		where 1=1
+		and s.INSTANCE_ID = l.INSTANCE_ID
+		and i.user_id = l.user_id
+		<if test="folderId != null">
+			and l.FOLDER_ID = #{folderId}
+		</if>
+		<if test="instanceId != null">
+			and s.INSTANCE_ID = #{instanceId}
+		</if>
+		<if test="userId != null">
+			and l.USER_ID = #{userId}
+		</if>
+		<if test="instanceType != null">
+			and l.instance_Type = #{instanceType}
+		</if>
+	</select>
+
+	<select id="findFolderNm" resultType="com.yusys.bione.plugin.rptfav.web.vo.NameIdVo"
+		parameterType="HashMap">
+		select folder_nm,folder_id from rpt_fav_folder
+		where folder_id in (select folder_id from rpt_fav_folder_ins_rel where
+		1=1
+		<if test="userId != null">
+			and user_id = #{userId}
+		</if>
+		<if test="folderId != null">
+			and instance_id = #{folderId}
+		</if>
+		)
+	</select>
+	
+	
+</mapper>

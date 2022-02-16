@@ -1,0 +1,242 @@
+.design-all {
+	margins: 0px;
+	padding: 0px;
+	height: 100%;
+}
+
+.clearfix:after {
+	/*START 真正起到清除浮动的代码*/
+	content: '';
+	display: block;
+	clear: both;
+	/*END 真正起到清除浮动的代码*/
+	height: 0;
+}
+
+.clearfix {
+	/*  display: inline-block; */
+	
+} /* for IE/Mac */
+h5 {
+	margin: 0px;
+}
+
+.design-left {
+	display: inline-block;
+	float: left;
+	overflow-y: auto;
+	background-color: #f5f5f5;
+	width: 48%;
+	height: 97%;
+	margin-top : 10px;
+	margin-left : 1%;
+}
+
+.design-right {
+	display: inline-block;
+	float: left;
+	overflow-y: auto;
+	background-color: #f5f5f5;
+	width: 48%;
+	height: 97%;
+	margin-top : 10px;
+	margin-left : 1%;
+}
+
+.sub-head {
+	margin-bottom: 5px;
+	border-bottom: 2px solid #3c8dbc;
+	height: 30px;
+	line-height: 30px;
+}
+
+.sub-title-img {
+	display: inline-block;
+	padding-left: 10px;
+	line-height: 10px;
+}
+
+.sub-title {
+	display: inline-block;
+	margin: 0px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #666;
+}
+
+.sub-content-title {
+	height: 20px;
+	padding-left: 10px;
+}
+
+.sub-content-name {
+	display: inline-block;
+	margin: 0px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #666;
+}
+
+.box-left {
+	position: relative;
+	display: inline-block;
+	margin-left: 15px;
+	margin-bottom: 20px;
+	float: left;
+	border-radius: 3px;
+	height: 80px;
+	width: 132px;
+	background-color: #3c8dbc;
+}
+
+.box-title {
+	padding: 20px 0 0 15px;
+	color: white;
+	font-weight: 800;
+}
+
+.icon-size {
+	font-size: 28px;
+	color: #eeeeee3b;
+	float: right;
+	margin-right: 10px;
+	z-index: 10000;
+	position: relative;
+	margin-top: -20px;
+}
+
+.sub-badge {
+	position: absolute;
+	top: -9px;
+	right: -9px;
+	border-radius: 9px;
+	font-size: 12px;
+	height: 18px;
+	width: 30px;
+	text-align: center;
+	line-height: 18px;
+	color: #DFDFDF;
+	background-color: #f56c6c;
+}
+
+.small-box-left {
+	position: absolute;
+	bottom: 0px;
+	text-align: center;
+	padding: 3px 0;
+	display: block;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.1);
+	color: rgba(255, 255, 255, 0.8);
+	text-decoration: none;
+}
+
+.small-box-left:hover {
+	text-decoration: none;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.box-right {
+	position: relative;
+	margin-left: 40px;
+	border-left: 5px solid #DFDFDF;
+	height: 150px;
+}
+
+.date-box {
+	display: inline-block;
+	padding: 2px 0px;
+	margin-left: 10px;
+	border-radius: 5px;
+	width: 65px;
+	background-color: #3c8dbc;
+	color: #ffffff;
+	font-size: 12px;
+	text-align: center;
+	line-height: 20px;
+}
+
+.small-box-right {
+	position: relative;
+	top: 5px;
+	bottom: 10px;
+	margin: 0px 20px;
+	border-radius: 3px;
+	height: 120px;
+	width: 500px;
+	background-color: #ffffff;
+}
+
+.small-box-right-title {
+	margin-bottom: 5px;
+	border-bottom: 1px solid #DFDFDF;
+	height: 30px;
+	width: 500px;
+}
+
+.small-box-right-title h5 {
+	display: inline-block;
+	float: left;
+	margin-left: 10px;
+	line-height: 30px;
+	color: #f39c12;
+}
+
+.time {
+	display: inline-block;
+	margin-right: 5px;
+	float: right;
+	line-height: 30px;
+	color: #ccc;
+	font-size: 12px;
+}
+
+.small-box-right-content span {
+	margin-left: 10px;
+}
+
+.small-box-right-content button {
+	position: absolute;
+    bottom: 5px;
+    margin-left: 10px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #f39c12;
+    border: none;
+    font-size: 13px;
+    width: 80px;
+    height: 20px;
+}
+
+.pos-icon {
+	position: absolute;
+	top: 20px;
+	left: -10px;
+}
+
+.span-title {
+	color: #3c8dbc;
+	margin-left: 10px;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+/* 修改 滚动条的 下面 的 样式 */
+::-webkit-scrollbar-track {
+	background-color: #fff;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+/* 修改 滑块  */
+::-webkit-scrollbar-thumb {
+	background-color: #dfdfdf;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+/* 定义两端按钮的样式 */
+::-webkit-scrollbar-button {
+	background-color: #fff;
+}

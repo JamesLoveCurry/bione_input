@@ -1,0 +1,38 @@
+.labelPad .label {
+	display: block;
+	float: left;
+	margin: 2px;
+}
+
+.labelPad {
+	position: relative;
+	overflow: hidden;
+	padding: 45px 15px 15px 15px;
+}
+
+.labelpad-recent::after {
+	content: "最近使用：";
+}
+
+.labelpad-offen::after {
+	content: "常用：";
+}
+.bootstrap-tagsinput {
+	border-color: #DDD;
+	padding-top: 45px;
+	position: relative;
+}
+.bootstrap-tagsinput::after {
+	content: "标签：";
+}
+
+.labelPad:after, .bootstrap-tagsinput:after {
+	position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #959595;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

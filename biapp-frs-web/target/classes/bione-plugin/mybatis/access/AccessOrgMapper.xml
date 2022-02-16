@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yusys.bione.plugin.access.repository.RptAccessOrgDao">
+
+<select id="list" resultType="com.yusys.bione.frame.authobj.entity.BioneOrgInfo"
+	parameterType="HashMap">
+		select ORG_ID,LAST_UPDATE_TIME,LAST_UPDATE_USER,LOGIC_SYS_NO,ORG_NAME,ORG_NO,ORG_STS,REMARK,UP_NO
+		from
+		BIONE_ORG_INFO
+		where 1=1
+		<if test="orgId != null">and ORG_ID = #{orgId}</if>
+		<if test="lastUpdateTime != null">and LAST_UPDATE_TIME = #{lastUpdateTime}</if>
+		<if test="lastUpdateUser != null">and LAST_UPDATE_USER = #{lastUpdateUser}</if>
+		<if test="logicSysNo != null">and LOGIC_SYS_NO = #{logicSysNo}</if>
+		<if test="orgName != null">and ORG_NAME = #{orgName}</if>
+		<if test="orgNo != null">and ORG_NO = #{orgNo}</if>
+		<if test="orgSts != null">and ORG_STS = #{orgSts}</if>
+		<if test="remark != null">and REMARK = #{remark}</if>
+		<if test="upNo != null">and UP_NO = #{upNo}</if>
+		ORDER BY ORG_NO
+	</select>
+
+</mapper> 

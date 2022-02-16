@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+    <validator id="30079352.0.0" classType="org.pbccrc.archive.collect.messagetools.report.message.ReportGPIAALNormalRecord" >
+
+         <field  name="InstitutionBalanceSheetBsSgmt" fbTag="InstitutionBalanceSheetBsSgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.InstitutionBalanceSheetBsSgmt" >
+            <rule  id="InstitutionBalanceSheetBsSgmt_NotNull" type="NotNull" errCode="ABD000" />
+            <field  name="InfRecType" fbTag="InfRecType" classType="java.lang.String" >
+            <rule  id="InfRecType_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+            <rule  id="InfRecType_NotEmpty" type="NotEmpty" errCode="ABE000"   depExp="InfRecType_NotNull"/>
+            <rule id="InfRecType_Equal" type="Equals" errCode="ABR000" fbTag="0000" fbValue="" depExp="InfRecType_NotEmpty">
+                <property name="data" value="${$context.REC_TYPE}" />
+            </rule>
+            <rule id="InfRecTp_Dict" type="DictManage" errCode="ABE001" depExp="InfRecType_NotEmpty">
+					<property name="dictKey" value="EntInfRecType" />
+				</rule>
+	        </field> 
+	        <field  name="EntName" fbTag="EntName" classType="java.lang.String" >
+	            <rule  id="EntName_NotNull" type="NotNull" errCode="ABD000"   depExp="InstitutionBalanceSheetBsSgmt_NotNull"/>
+	            <rule  id="EntName_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntName_NotNull" />
+	            <rule  id="EntName_DataType" type="DataType" errCode="ABE001"  depExp="EntName_NotEmpty" >
+	                <property  name="type" value="ANC..80" />
+	            </rule>
+	        </field> 
+	        <!-- 证件类型判断 -->
+	        <field  name="EntCertType" fbTag="EntCertType" classType="java.lang.String" >
+	            <rule  id="EntCertType_NotNull" type="NotNull" errCode="ABD000"  depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+	            <rule  id="EntCertType_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertType_NotNull" />
+	            <rule id="EntCertType_Dict" type="Dict" errCode="ABE001"  depExp="EntCertType_NotEmpty"  scope="local">
+	                <property name="dictKey" value="EntCertType" />
+	            </rule> 
+	        </field> 
+	        <field  name="EntCertNum" fbTag="EntCertNum" classType="java.lang.String" >
+	            <rule  id="EntCertNum_NotNull" type="NotNull" errCode="ABD000"   depExp="InstitutionBalanceSheetBsSgmt_NotNull"/>
+	            <rule  id="EntCertNum_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="EntCertNum_NotNull"/>
+	            <rule  id="EntCertNum_DataType" type="DataType" errCode="ABE001"   depExp="EntCertNum_NotEmpty">
+	                <property  name="type" value="ANC..40" />
+	            </rule>
+	             <!-- 根据证件类型，校验不同的证件号 -->
+	             <rule id="EntCertNum_Vali" type="LegCert" errCode="ABE004"  depExp="EntCertNum_DataType"> 
+	               <property name="certType" value="${InstitutionBalanceSheetBsSgmt.EntCertType}"/>
+	            </rule> 
+	        </field> 
+	        <field  name="RptDate" fbTag="RptDate" classType="java.lang.String" >
+	            <rule  id="RptDate_NotNull" type="NotNull" errCode="ABD000"   depExp="InstitutionBalanceSheetBsSgmt_NotNull"/>
+	            <rule  id="RptDate_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="RptDate_NotNull"/>
+	            <rule  id="RptDate_DataType" type="DataType" errCode="ABE001"  depExp="RptDate_NotEmpty" >
+	                <property  name="type" value="Date" />
+	            </rule>
+	            <rule  id="RptDate_Range" type="DateRange" errCode="ABE008"  depExp="RptDate_DataType" />
+	            <rule id="RptDate_LTfileCreate" type="DateCompare" errCode="ABR001"  depExp="RptDate_Range">
+	                    <property name="type" value="date" />
+	                    <property name="endDate" value="${$context.FILE_CREATE_DATE}" />
+	            </rule>
+	        </field> 
+	        <field  name="SheetYear" fbTag="SheetYear" classType="java.lang.String" >
+	                <rule  id="SheetYear_NotNull" type="NotNull" errCode="ABD000"  depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+	                <rule  id="SheetYear_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetYear_NotNull"/>
+	                <rule id="SheetYear_DataType" type="DataType" errCode="ABR001"  depExp="SheetYear_NotEmpty">
+	                        <property name="type" value="Year" />
+	                </rule>
+	                <rule  id="SheetYear_Range" type="DateRange" errCode="ABE008"  depExp="SheetYear_DataType" />
+	        </field> 
+	        <field  name="SheetType" fbTag="SheetType" classType="java.lang.String" >
+	            <rule  id="SheetType_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetBsSgmt_NotNull"/>
+	            <rule  id="SheetType_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="SheetType_NotNull"/>
+	            <rule id="SheetType_Dict" type="Dict" errCode="ABE001"  depExp="SheetType_NotEmpty"  >
+	                <property name="dictKey" value="EntSheetType" />
+	            </rule>
+	            <rule id="SheetType_Equals" type="Equals" errCode="CRE200" depExp="SheetType_Dict">
+					<property name="data" value="10" />
+				</rule>
+	        </field> 
+	        <field  name="SheetTypeDivide" fbTag="SheetTypeDivide" classType="java.lang.String" >
+	            <rule  id="SheetTypeDivide_NotNull" type="NotNull" errCode="ABD000"  depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+	            <rule  id="SheetTypeDivide_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="SheetTypeDivide_NotNull"/>
+	            <rule id="SheetTypeDivide_Dict" type="Dict" errCode="ABE001"  depExp="SheetTypeDivide_NotEmpty"  >
+	                <property name="dictKey" value="EntSheetTypeDivide" />
+	            </rule>
+	        </field>  
+            <field  name="RptDateCode" fbTag="RptDateCode" classType="java.lang.String" >
+                <rule  id="RptDateCode_NotNull" type="NotNull" errCode="ABD000"  depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+                <rule  id="RptDateCode_NotEmpty" type="NotEmpty" errCode="ABE000"   depExp="RptDateCode_NotNull"/>
+                <rule id="RptDateCode_Dict" type="Dict" errCode="ABE001"  depExp="RptDateCode_NotEmpty">
+                    <property name="dictKey" value="EntSheetRptDateCode" />
+                </rule> 
+            </field> 
+            <field  name="Cimoc" fbTag="Cimoc" classType="java.lang.String" >
+                <rule  id="Cimoc_NotNull" type="NotNull" errCode="ABD000"  depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+                <rule  id="Cimoc_NotEmpty" type="NotEmpty" errCode="ABE000"  depExp="Cimoc_NotNull"/>
+                <rule  id="Cimoc_DataType" type="DataType" errCode="ABE001"  depExp="Cimoc_NotEmpty">
+                    <property  name="type" value="AN14" />
+                </rule>
+                <!-- 客户资料维护机构/业务管理机构应在库中存在，且应是数据提供机构的分支机构或数据提供机构本身ABE003 -->
+                <rule  id="Cimoc_FinanVali" type="Organ" errCode="ABE003" fbTag="Cimoc" depExp="Cimoc_DataType" >
+                </rule> 
+            </field> 
+            <field  name="AuditFirmName" fbTag="AuditFirmName" classType="java.lang.String" >
+                <rule  id="AuditFirmName_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+                <rule  id="AuditFirmName_Empty" type="Empty"   depExp="AuditFirmName_NotNull"/>
+                <rule  id="AuditFirmName_NotEmpty" type="NotEmpty"   depExp="AuditFirmName_NotNull"/>
+                <rule id="AuditFirmName_DataType" type="DataType" errCode="ABE001"  depExp="AuditFirmName_NotNull">
+                        <property name="type" value="ANC..80" />
+                </rule>
+            </field> 
+            <field  name="AuditorName" fbTag="AuditorName" classType="java.lang.String" >
+                <rule  id="AuditorName_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+                <rule  id="AuditorName_Empty" type="Empty"   depExp="AuditorName_NotNull"/>
+                <rule  id="AuditorName_NotEmpty" type="NotEmpty"   depExp="AuditorName_NotNull"/>
+                <rule id="AuditorName_DataType" type="DataType" errCode="ABE001"  depExp="AuditorName_NotEmpty">
+                        <property name="type" value="ANC..30" />
+                </rule>
+            </field> 
+            <field  name="AuditTime" fbTag="AuditTime" classType="java.lang.String" >
+                <rule  id="AuditTime_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetBsSgmt_NotNull" />
+                <rule  id="AuditTime_Empty" type="Empty"   depExp="AuditTime_NotNull"/>
+                <rule  id="AuditTime_NotEmpty" type="NotEmpty"   depExp="AuditTime_NotNull"/>
+                <rule id="AuditTime_DataType" type="DataType" errCode="ABR001"  depExp="AuditTime_NotEmpty">
+                        <property name="type" value="Date" />
+                </rule>
+                <rule  id="AuditTime_Range" type="DateRange" errCode="ABE008"  depExp="AuditTime_DataType" />
+                <rule id="AuditTime_LTfileCreate" type="DateCompare" errCode="ABE007"  depExp="AuditTime_Range">
+                        <property name="type" value="date" />
+                        <property name="endDate" value="${InstitutionBalanceSheetBsSgmt.RptDate}" />
+                </rule>
+            </field>  
+        </field> 
+        
+        <field  name="InstitutionBalanceSheetSgmt" fbTag="InstitutionBalanceSheetSgmt" classType="org.pbccrc.archive.collect.messagetools.report.message.segment.InstitutionBalanceSheetSgmt" >
+			<rule  id="InstitutionBalanceSheetSgmt_NotNull" type="NotNull" errCode="ABD000" />
+			<field  name="CurrencyFunds" fbTag="CurrencyFunds" classType="java.lang.String" >
+				<rule  id="CurrencyFunds_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="CurrencyFunds_NotEmpty" type="NotEmpty" depExp="CurrencyFunds_NotNull" />
+				<rule  id="CurrencyFunds_Empty" type="Empty" depExp="CurrencyFunds_NotNull" />
+				<rule  id="CurrencyFunds_DataType" type="DataType" errCode="ABE001" depExp="CurrencyFunds_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ShortTermInvestments" fbTag="ShortTermInvestments" classType="java.lang.String" >
+				<rule  id="ShortTermInvestments_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="ShortTermInvestments_NotEmpty" type="NotEmpty" depExp="ShortTermInvestments_NotNull" />
+				<rule  id="ShortTermInvestments_Empty" type="Empty" depExp="ShortTermInvestments_NotNull" />
+				<rule  id="ShortTermInvestments_DataType" type="DataType" errCode="ABE001" depExp="ShortTermInvestments_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AmountOfFinancialReturn" fbTag="AmountOfFinancialReturn" classType="java.lang.String" >
+				<rule  id="AmountOfFinancialReturn_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="AmountOfFinancialReturn_NotEmpty" type="NotEmpty" depExp="AmountOfFinancialReturn_NotNull" />
+				<rule  id="AmountOfFinancialReturn_Empty" type="Empty" depExp="AmountOfFinancialReturn_NotNull" />
+				<rule  id="AmountOfFinancialReturn_DataType" type="DataType" errCode="ABE001" depExp="AmountOfFinancialReturn_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NotesReceivable" fbTag="NotesReceivable" classType="java.lang.String" >
+				<rule  id="NotesReceivable_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="NotesReceivable_NotEmpty" type="NotEmpty" depExp="NotesReceivable_NotNull" />
+				<rule  id="NotesReceivable_Empty" type="Empty" depExp="NotesReceivable_NotNull" />
+				<rule  id="NotesReceivable_DataType" type="DataType" errCode="ABE001" depExp="NotesReceivable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AccountsReceivable" fbTag="AccountsReceivable" classType="java.lang.String" >
+				<rule  id="AccountsReceivable_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="AccountsReceivable_NotEmpty" type="NotEmpty" depExp="AccountsReceivable_NotNull" />
+				<rule  id="AccountsReceivable_Empty" type="Empty" depExp="AccountsReceivable_NotNull" />
+				<rule  id="AccountsReceivable_DataType" type="DataType" errCode="ABE001" depExp="AccountsReceivable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="Prepayments" fbTag="Prepayments" classType="java.lang.String" >
+				<rule  id="Prepayments_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="Prepayments_NotEmpty" type="NotEmpty" depExp="Prepayments_NotNull" />
+				<rule  id="Prepayments_Empty" type="Empty" depExp="Prepayments_NotNull" />
+				<rule  id="Prepayments_DataType" type="DataType" errCode="ABE001" depExp="Prepayments_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherReceivables" fbTag="OtherReceivables" classType="java.lang.String" >
+				<rule  id="OtherReceivables_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="OtherReceivables_NotEmpty" type="NotEmpty" depExp="OtherReceivables_NotNull" />
+				<rule  id="OtherReceivables_Empty" type="Empty" depExp="OtherReceivables_NotNull" />
+				<rule  id="OtherReceivables_DataType" type="DataType" errCode="ABE001" depExp="OtherReceivables_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="Inventories" fbTag="Inventories" classType="java.lang.String" >
+				<rule  id="Inventories_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="Inventories_NotEmpty" type="NotEmpty" depExp="Inventories_NotNull" />
+				<rule  id="Inventories_Empty" type="Empty" depExp="Inventories_NotNull" />
+				<rule  id="Inventories_DataType" type="DataType" errCode="ABE001" depExp="Inventories_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCurrentAssets" fbTag="OtherCurrentAssets" classType="java.lang.String" >
+				<rule  id="OtherCurrentAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="OtherCurrentAssets_NotEmpty" type="NotEmpty" depExp="OtherCurrentAssets_NotNull" />
+				<rule  id="OtherCurrentAssets_Empty" type="Empty" depExp="OtherCurrentAssets_NotNull" />
+				<rule  id="OtherCurrentAssets_DataType" type="DataType" errCode="ABE001" depExp="OtherCurrentAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCurrentAssets" fbTag="TotalCurrentAssets" classType="java.lang.String" >
+				<rule  id="TotalCurrentAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalCurrentAssets_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCurrentAssets_NotNull" />
+				<rule  id="TotalCurrentAssets_DataType" type="DataType" errCode="ABE001" depExp="TotalCurrentAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LongTermInvestment" fbTag="LongTermInvestment" classType="java.lang.String" >
+				<rule  id="LongTermInvestment_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="LongTermInvestment_NotEmpty" type="NotEmpty" depExp="LongTermInvestment_NotNull" />
+				<rule  id="LongTermInvestment_Empty" type="Empty" depExp="LongTermInvestment_NotNull" />
+				<rule  id="LongTermInvestment_DataType" type="DataType" errCode="ABE001" depExp="LongTermInvestment_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FixedAssets" fbTag="FixedAssets" classType="java.lang.String" >
+				<rule  id="FixedAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="FixedAssets_NotEmpty" type="NotEmpty" depExp="FixedAssets_NotNull" />
+				<rule  id="FixedAssets_Empty" type="Empty" depExp="FixedAssets_NotNull" />
+				<rule  id="FixedAssets_DataType" type="DataType" errCode="ABE001" depExp="FixedAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OriginalCostOfFixedAsset" fbTag="OriginalCostOfFixedAsset" classType="java.lang.String" >
+				<rule  id="OriginalCostOfFixedAsset_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="OriginalCostOfFixedAsset_NotEmpty" type="NotEmpty" depExp="OriginalCostOfFixedAsset_NotNull" />
+				<rule  id="OriginalCostOfFixedAsset_Empty" type="Empty" depExp="OriginalCostOfFixedAsset_NotNull" />
+				<rule  id="OriginalCostOfFixedAsset_DataType" type="DataType" errCode="ABE001" depExp="OriginalCostOfFixedAsset_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FixedAssetAccumulatedDepreciation" fbTag="FixedAssetAccumulatedDepreciation" classType="java.lang.String" >
+				<rule  id="FixedAssetAccumulatedDepreciation_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="FixedAssetAccumulatedDepreciation_NotEmpty" type="NotEmpty" depExp="FixedAssetAccumulatedDepreciation_NotNull" />
+				<rule  id="FixedAssetAccumulatedDepreciation_Empty" type="Empty" depExp="FixedAssetAccumulatedDepreciation_NotNull" />
+				<rule  id="FixedAssetAccumulatedDepreciation_DataType" type="DataType" errCode="ABE001" depExp="FixedAssetAccumulatedDepreciation_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ConstructionInProcess" fbTag="ConstructionInProcess" classType="java.lang.String" >
+				<rule  id="ConstructionInProcess_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="ConstructionInProcess_NotEmpty" type="NotEmpty" depExp="ConstructionInProcess_NotNull" />
+				<rule  id="ConstructionInProcess_Empty" type="Empty" depExp="ConstructionInProcess_NotNull" />
+				<rule  id="ConstructionInProcess_DataType" type="DataType" errCode="ABE001" depExp="ConstructionInProcess_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="IntangibleAssets" fbTag="IntangibleAssets" classType="java.lang.String" >
+				<rule  id="IntangibleAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="IntangibleAssets_NotEmpty" type="NotEmpty" depExp="IntangibleAssets_NotNull" />
+				<rule  id="IntangibleAssets_Empty" type="Empty" depExp="IntangibleAssets_NotNull" />
+				<rule  id="IntangibleAssets_DataType" type="DataType" errCode="ABE001" depExp="IntangibleAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OriginalPriceOfIntangibleAssets" fbTag="OriginalPriceOfIntangibleAssets" classType="java.lang.String" >
+				<rule  id="OriginalPriceOfIntangibleAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="OriginalPriceOfIntangibleAssets_NotEmpty" type="NotEmpty" depExp="OriginalPriceOfIntangibleAssets_NotNull" />
+				<rule  id="OriginalPriceOfIntangibleAssets_Empty" type="Empty" depExp="OriginalPriceOfIntangibleAssets_NotNull" />
+				<rule  id="OriginalPriceOfIntangibleAssets_DataType" type="DataType" errCode="ABE001" depExp="OriginalPriceOfIntangibleAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AccumulatedAmortization" fbTag="AccumulatedAmortization" classType="java.lang.String" >
+				<rule  id="AccumulatedAmortization_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="AccumulatedAmortization_NotEmpty" type="NotEmpty" depExp="AccumulatedAmortization_NotNull" />
+				<rule  id="AccumulatedAmortization_Empty" type="Empty" depExp="AccumulatedAmortization_NotNull" />
+				<rule  id="AccumulatedAmortization_DataType" type="DataType" errCode="ABE001" depExp="AccumulatedAmortization_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AssetsToBeProcessedPendingTheProfit" fbTag="AssetsToBeProcessedPendingTheProfit" classType="java.lang.String" >
+				<rule  id="AssetsToBeProcessedPendingTheProfit_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="AssetsToBeProcessedPendingTheProfit_NotEmpty" type="NotEmpty" depExp="AssetsToBeProcessedPendingTheProfit_NotNull" />
+				<rule  id="AssetsToBeProcessedPendingTheProfit_Empty" type="Empty" depExp="AssetsToBeProcessedPendingTheProfit_NotNull" />
+				<rule  id="AssetsToBeProcessedPendingTheProfit_DataType" type="DataType" errCode="ABE001" depExp="AssetsToBeProcessedPendingTheProfit_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalNonCurrentAssets" fbTag="TotalNonCurrentAssets" classType="java.lang.String" >
+				<rule  id="TotalNonCurrentAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalNonCurrentAssets_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalNonCurrentAssets_NotNull" />
+				<rule  id="TotalNonCurrentAssets_DataType" type="DataType" errCode="ABE001" depExp="TotalNonCurrentAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalAssets" fbTag="TotalAssets" classType="java.lang.String" >
+				<rule  id="TotalAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalAssets_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalAssets_NotNull" />
+				<rule  id="TotalAssets_DataType" type="DataType" errCode="ABE001" depExp="TotalAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="TotalAssets_NumberLimit" type="NumberLimit" errCode="CRE201"  
+					depExp="TotalAssets_DataType &amp; TotalCurrentAssets_DataType &amp; TotalNonCurrentAssets_DataType ">
+	               <property name="startValue" value="${InstitutionBalanceSheetSgmt.TotalCurrentAssets}+${InstitutionBalanceSheetSgmt.TotalNonCurrentAssets}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${InstitutionBalanceSheetSgmt.TotalCurrentAssets}+${InstitutionBalanceSheetSgmt.TotalNonCurrentAssets}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+	           <rule id="TotalAssets_Equals" type="Equals" errCode="CRE204" depExp="TotalAssets_NumberLimit">
+					<property name="data" value="${InstitutionBalanceSheetSgmt.TotalLiabilitiesAndNetAssets}" />
+				</rule>
+			</field> 
+			<field  name="ShortTermBorrowings" fbTag="ShortTermBorrowings" classType="java.lang.String" >
+				<rule  id="ShortTermBorrowings_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="ShortTermBorrowings_NotEmpty" type="NotEmpty" depExp="ShortTermBorrowings_NotNull" />
+				<rule  id="ShortTermBorrowings_Empty" type="Empty" depExp="ShortTermBorrowings_NotNull" />
+				<rule  id="ShortTermBorrowings_DataType" type="DataType" errCode="ABE001" depExp="ShortTermBorrowings_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TaxPayable" fbTag="TaxPayable" classType="java.lang.String" >
+				<rule  id="TaxPayable_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TaxPayable_NotEmpty" type="NotEmpty" depExp="TaxPayable_NotNull" />
+				<rule  id="TaxPayable_Empty" type="Empty" depExp="TaxPayable_NotNull" />
+				<rule  id="TaxPayable_DataType" type="DataType" errCode="ABE001" depExp="TaxPayable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TreasuryPayable" fbTag="TreasuryPayable" classType="java.lang.String" >
+				<rule  id="TreasuryPayable_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TreasuryPayable_NotEmpty" type="NotEmpty" depExp="TreasuryPayable_NotNull" />
+				<rule  id="TreasuryPayable_Empty" type="Empty" depExp="TreasuryPayable_NotNull" />
+				<rule  id="TreasuryPayable_DataType" type="DataType" errCode="ABE001" depExp="TreasuryPayable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="PayableFinancialSpecialAccount" fbTag="PayableFinancialSpecialAccount" classType="java.lang.String" >
+				<rule  id="PayableFinancialSpecialAccount_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="PayableFinancialSpecialAccount_NotEmpty" type="NotEmpty" depExp="PayableFinancialSpecialAccount_NotNull" />
+				<rule  id="PayableFinancialSpecialAccount_Empty" type="Empty" depExp="PayableFinancialSpecialAccount_NotNull" />
+				<rule  id="PayableFinancialSpecialAccount_DataType" type="DataType" errCode="ABE001" depExp="PayableFinancialSpecialAccount_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="EmployeeBenefitsPayable" fbTag="EmployeeBenefitsPayable" classType="java.lang.String" >
+				<rule  id="EmployeeBenefitsPayable_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="EmployeeBenefitsPayable_NotEmpty" type="NotEmpty" depExp="EmployeeBenefitsPayable_NotNull" />
+				<rule  id="EmployeeBenefitsPayable_Empty" type="Empty" depExp="EmployeeBenefitsPayable_NotNull" />
+				<rule  id="EmployeeBenefitsPayable_DataType" type="DataType" errCode="ABE001" depExp="EmployeeBenefitsPayable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NotesPayable" fbTag="NotesPayable" classType="java.lang.String" >
+				<rule  id="NotesPayable_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="NotesPayable_NotEmpty" type="NotEmpty" depExp="NotesPayable_NotNull" />
+				<rule  id="NotesPayable_Empty" type="Empty" depExp="NotesPayable_NotNull" />
+				<rule  id="NotesPayable_DataType" type="DataType" errCode="ABE001" depExp="NotesPayable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="AccountsPayable" fbTag="AccountsPayable" classType="java.lang.String" >
+				<rule  id="AccountsPayable_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="AccountsPayable_NotEmpty" type="NotEmpty" depExp="AccountsPayable_NotNull" />
+				<rule  id="AccountsPayable_Empty" type="Empty" depExp="AccountsPayable_NotNull" />
+				<rule  id="AccountsPayable_DataType" type="DataType" errCode="ABE001" depExp="AccountsPayable_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="ReceiptsInAdvance" fbTag="ReceiptsInAdvance" classType="java.lang.String" >
+				<rule  id="ReceiptsInAdvance_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="ReceiptsInAdvance_NotEmpty" type="NotEmpty" depExp="ReceiptsInAdvance_NotNull" />
+				<rule  id="ReceiptsInAdvance_Empty" type="Empty" depExp="ReceiptsInAdvance_NotNull" />
+				<rule  id="ReceiptsInAdvance_DataType" type="DataType" errCode="ABE001" depExp="ReceiptsInAdvance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherPayables" fbTag="OtherPayables" classType="java.lang.String" >
+				<rule  id="OtherPayables_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="OtherPayables_NotEmpty" type="NotEmpty" depExp="OtherPayables_NotNull" />
+				<rule  id="OtherPayables_Empty" type="Empty" depExp="OtherPayables_NotNull" />
+				<rule  id="OtherPayables_DataType" type="DataType" errCode="ABE001" depExp="OtherPayables_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OtherCurrentLiabilities" fbTag="OtherCurrentLiabilities" classType="java.lang.String" >
+				<rule  id="OtherCurrentLiabilities_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="OtherCurrentLiabilities_NotEmpty" type="NotEmpty" depExp="OtherCurrentLiabilities_NotNull" />
+				<rule  id="OtherCurrentLiabilities_Empty" type="Empty" depExp="OtherCurrentLiabilities_NotNull" />
+				<rule  id="OtherCurrentLiabilities_DataType" type="DataType" errCode="ABE001" depExp="OtherCurrentLiabilities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalCurrentLiabilities" fbTag="TotalCurrentLiabilities" classType="java.lang.String" >
+				<rule  id="TotalCurrentLiabilities_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalCurrentLiabilities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalCurrentLiabilities_NotNull" />
+				<rule  id="TotalCurrentLiabilities_DataType" type="DataType" errCode="ABE001" depExp="TotalCurrentLiabilities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LongTermBorrowings" fbTag="LongTermBorrowings" classType="java.lang.String" >
+				<rule  id="LongTermBorrowings_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="LongTermBorrowings_NotEmpty" type="NotEmpty" depExp="LongTermBorrowings_NotNull" />
+				<rule  id="LongTermBorrowings_Empty" type="Empty" depExp="LongTermBorrowings_NotNull" />
+				<rule  id="LongTermBorrowings_DataType" type="DataType" errCode="ABE001" depExp="LongTermBorrowings_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="LongTermPayables" fbTag="LongTermPayables" classType="java.lang.String" >
+				<rule  id="LongTermPayables_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="LongTermPayables_NotEmpty" type="NotEmpty" depExp="LongTermPayables_NotNull" />
+				<rule  id="LongTermPayables_Empty" type="Empty" depExp="LongTermPayables_NotNull" />
+				<rule  id="LongTermPayables_DataType" type="DataType" errCode="ABE001" depExp="LongTermPayables_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalNonCurrentLiabilities" fbTag="TotalNonCurrentLiabilities" classType="java.lang.String" >
+				<rule  id="TotalNonCurrentLiabilities_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalNonCurrentLiabilities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalNonCurrentLiabilities_NotNull" />
+				<rule  id="TotalNonCurrentLiabilities_DataType" type="DataType" errCode="ABE001" depExp="TotalNonCurrentLiabilities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalLiabilities" fbTag="TotalLiabilities" classType="java.lang.String" >
+				<rule  id="TotalLiabilities_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalLiabilities_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalLiabilities_NotNull" />
+				<rule  id="TotalLiabilities_DataType" type="DataType" errCode="ABE001" depExp="TotalLiabilities_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="TotalLiabilities_NumberLimit" type="NumberLimit" errCode="CRE202"  
+					depExp="TotalLiabilities_DataType &amp; TotalCurrentLiabilities_DataType &amp; TotalNonCurrentLiabilities_DataType ">
+	               <property name="startValue" value="${InstitutionBalanceSheetSgmt.TotalCurrentLiabilities}+${InstitutionBalanceSheetSgmt.TotalNonCurrentLiabilities}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${InstitutionBalanceSheetSgmt.TotalCurrentLiabilities}+${InstitutionBalanceSheetSgmt.TotalNonCurrentLiabilities}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+			<field  name="EnterpriseFund" fbTag="EnterpriseFund" classType="java.lang.String" >
+				<rule  id="EnterpriseFund_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="EnterpriseFund_NotEmpty" type="NotEmpty" depExp="EnterpriseFund_NotNull" />
+				<rule  id="EnterpriseFund_Empty" type="Empty" depExp="EnterpriseFund_NotNull" />
+				<rule  id="EnterpriseFund_DataType" type="DataType" errCode="ABE001" depExp="EnterpriseFund_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonCurrentAssetsFund" fbTag="NonCurrentAssetsFund" classType="java.lang.String" >
+				<rule  id="NonCurrentAssetsFund_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="NonCurrentAssetsFund_NotEmpty" type="NotEmpty" depExp="NonCurrentAssetsFund_NotNull" />
+				<rule  id="NonCurrentAssetsFund_Empty" type="Empty" depExp="NonCurrentAssetsFund_NotNull" />
+				<rule  id="NonCurrentAssetsFund_DataType" type="DataType" errCode="ABE001" depExp="NonCurrentAssetsFund_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="SpecialPurposeFunds" fbTag="SpecialPurposeFunds" classType="java.lang.String" >
+				<rule  id="SpecialPurposeFunds_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="SpecialPurposeFunds_NotEmpty" type="NotEmpty" depExp="SpecialPurposeFunds_NotNull" />
+				<rule  id="SpecialPurposeFunds_Empty" type="Empty" depExp="SpecialPurposeFunds_NotNull" />
+				<rule  id="SpecialPurposeFunds_DataType" type="DataType" errCode="ABE001" depExp="SpecialPurposeFunds_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinancialAidCarriedOver" fbTag="FinancialAidCarriedOver" classType="java.lang.String" >
+				<rule  id="FinancialAidCarriedOver_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="FinancialAidCarriedOver_NotEmpty" type="NotEmpty" depExp="FinancialAidCarriedOver_NotNull" />
+				<rule  id="FinancialAidCarriedOver_Empty" type="Empty" depExp="FinancialAidCarriedOver_NotNull" />
+				<rule  id="FinancialAidCarriedOver_DataType" type="DataType" errCode="ABE001" depExp="FinancialAidCarriedOver_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="FinancialAidBalance" fbTag="FinancialAidBalance" classType="java.lang.String" >
+				<rule  id="FinancialAidBalance_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="FinancialAidBalance_NotEmpty" type="NotEmpty" depExp="FinancialAidBalance_NotNull" />
+				<rule  id="FinancialAidBalance_Empty" type="Empty" depExp="FinancialAidBalance_NotNull" />
+				<rule  id="FinancialAidBalance_DataType" type="DataType" errCode="ABE001" depExp="FinancialAidBalance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonFinancialAidCarriedOver" fbTag="NonFinancialAidCarriedOver" classType="java.lang.String" >
+				<rule  id="NonFinancialAidCarriedOver_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="NonFinancialAidCarriedOver_NotEmpty" type="NotEmpty" depExp="NonFinancialAidCarriedOver_NotNull" />
+				<rule  id="NonFinancialAidCarriedOver_Empty" type="Empty" depExp="NonFinancialAidCarriedOver_NotNull" />
+				<rule  id="NonFinancialAidCarriedOver_DataType" type="DataType" errCode="ABE001" depExp="NonFinancialAidCarriedOver_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="NonFinancialAidBalance" fbTag="NonFinancialAidBalance" classType="java.lang.String" >
+				<rule  id="NonFinancialAidBalance_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="NonFinancialAidBalance_NotEmpty" type="NotEmpty" depExp="NonFinancialAidBalance_NotNull" />
+				<rule  id="NonFinancialAidBalance_Empty" type="Empty" depExp="NonFinancialAidBalance_NotNull" />
+				<rule  id="NonFinancialAidBalance_DataType" type="DataType" errCode="ABE001" depExp="NonFinancialAidBalance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="UndertakingsBalance" fbTag="UndertakingsBalance" classType="java.lang.String" >
+				<rule  id="UndertakingsBalance_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="UndertakingsBalance_NotEmpty" type="NotEmpty" depExp="UndertakingsBalance_NotNull" />
+				<rule  id="UndertakingsBalance_Empty" type="Empty" depExp="UndertakingsBalance_NotNull" />
+				<rule  id="UndertakingsBalance_DataType" type="DataType" errCode="ABE001" depExp="UndertakingsBalance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="OperatingBalance" fbTag="OperatingBalance" classType="java.lang.String" >
+				<rule  id="OperatingBalance_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="OperatingBalance_NotEmpty" type="NotEmpty" depExp="OperatingBalance_NotNull" />
+				<rule  id="OperatingBalance_Empty" type="Empty" depExp="OperatingBalance_NotNull" />
+				<rule  id="OperatingBalance_DataType" type="DataType" errCode="ABE001" depExp="OperatingBalance_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalNetAssets" fbTag="TotalNetAssets" classType="java.lang.String" >
+				<rule  id="TotalNetAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalNetAssets_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalNetAssets_NotNull" />
+				<rule  id="TotalNetAssets_DataType" type="DataType" errCode="ABE001" depExp="TotalNetAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+			</field> 
+			<field  name="TotalLiabilitiesAndNetAssets" fbTag="TotalLiabilitiesAndNetAssets" classType="java.lang.String" >
+				<rule  id="TotalLiabilitiesAndNetAssets_NotNull" type="NotNull" errCode="ABD000" depExp="InstitutionBalanceSheetSgmt_NotNull"/>
+				<rule  id="TotalLiabilitiesAndNetAssets_NotEmpty" type="NotEmpty" errCode="ABE000" depExp="TotalLiabilitiesAndNetAssets_NotNull" />
+				<rule  id="TotalLiabilitiesAndNetAssets_DataType" type="DataType" errCode="ABE001" depExp="TotalLiabilitiesAndNetAssets_NotEmpty" >
+					<property  name="type" value="Float(17,2)" />
+				</rule>
+				<rule id="TotalLiabilitiesAndNetAssets_NumberLimit" type="NumberLimit" errCode="CRE203"  
+					 depExp="TotalLiabilitiesAndNetAssets_DataType &amp; TotalLiabilities_DataType &amp; TotalNetAssets_DataType ">
+	               <property name="startValue" value="${InstitutionBalanceSheetSgmt.TotalLiabilities}+${InstitutionBalanceSheetSgmt.TotalNetAssets}" />
+	               <property name="startSign" value="&gt;=" />
+	               <property name="endValue" value="${InstitutionBalanceSheetSgmt.TotalLiabilities}+${InstitutionBalanceSheetSgmt.TotalNetAssets}" />
+	               <property name="endSign" value="&lt;=" />
+	           </rule>
+			</field> 
+		</field>
+    </validator>
+</validators>

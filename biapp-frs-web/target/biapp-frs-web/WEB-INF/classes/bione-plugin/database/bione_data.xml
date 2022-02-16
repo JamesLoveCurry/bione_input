@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<firstinstall descr="首次安装的表数据">
+		<table name="bione_user_info">人员表</table>
+		<table name="bione_menu_info">菜单信息表</table>
+		<table name="bione_func_info">功能信息表</table>
+		<table name="bione_logic_sys_info">逻辑系统信息表</table>
+		<table name="bione_admin_user_info">管理用户</table>
+		<table name="bione_org_info">系统机构</table>
+		<table name="bione_auth_info">认证信息表</table>
+		<table name="bione_auth_obj_def">授权对象定义表</table>
+		<table name="bione_auth_obj_sys_rel">授权对象与逻辑系统关系表</table>
+		<table name="bione_auth_res_def">授权资源定义表</table>
+		<table name="bione_auth_res_sys_rel">授权资源与逻辑系统关系表</table>
+		<table name="bione_driver_info">驱动类信息表</table>
+		<table name="bione_ds_info">动态数据源</table>
+		<table name="bione_export_entity">逻辑系统导出实体表</table>
+		<table name="bione_user_attr">用户信息属性表</table>
+		<table name="bione_user_attr_grp">用户信息属性分组表</table>
+		<table name="bione_pwd_security_cfg">密码安全配置</table>
+		<table name="bione_param_type_info">参数类型信息表</table>
+		<table name="bione_param_info">参数信息表</table>
+		<table name="bione_role_info_ext">角色信息</table>
+		<table name="bione_module_info">功能模块信息表</table>
+		<table name="bione_label_obj_info">标签对象表</table>
+		<table name="bione_mp_design_detail">首页定制内容表</table>
+		<table name="bione_mp_design_info">首页定制信息表</table>
+		<table name="bione_mp_layout_info">首页布局信息表</table>
+		<table name="bione_mp_module_info">首页模块信息表</table>
+		<table name="bione_msg_send_type">消息发送类型</table>
+		<table name="bione_valid_type_def">校验类型定义表</table>
+		<table name="bione_valid_type_sys_rel">授权对象与逻辑系统关系表</table>
+	</firstinstall>
+
+	<upgrade descr="升级安装的表数据">
+		<table name="bione_func_info">功能信息表</table>
+	</upgrade>
+</root>

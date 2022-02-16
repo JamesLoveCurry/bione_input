@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<!-- 该模板是平台使用的,构建灵活查询SQL界面上排序列 -->
+<templet>
+	<templetname>排序</templetname>
+	<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+	<list_btns>[icon-p03]添加/onAddOrderCol;[icon-cut]删除/onDelOrderCol</list_btns>
+	<list_ispagebar>N</list_ispagebar>
+</templet>
+
+<templet_item>
+    <itemkey>itemkey</itemkey>
+    <itemname>itemkey</itemname>
+    <itemtype>文本框</itemtype>
+    <list_isshow>N</list_isshow>
+    <list_width>100</list_width>
+    <list_align>中</list_align>
+</templet_item>
+
+
+<templet_item>
+    <itemkey>itemname</itemkey>
+    <itemname>参与排序列</itemname>
+    <itemtype>文本框</itemtype>
+    <list_isshow>Y</list_isshow>
+    <list_width>160</list_width>
+    <list_align>左</list_align>
+</templet_item>
+
+<templet_item>
+    <itemkey>isdesc</itemkey>
+    <itemname>是否倒序</itemname>
+    <itemtype>勾选框</itemtype>
+    <list_isshow>Y</list_isshow>
+    <list_width>100</list_width>
+    <list_checkaction>onIsDesc</list_checkaction>
+    <list_align>中</list_align>
+</templet_item>
+
+</root>

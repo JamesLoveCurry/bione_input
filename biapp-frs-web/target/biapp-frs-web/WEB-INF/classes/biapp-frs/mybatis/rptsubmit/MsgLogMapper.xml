@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.yusys.biapp.frs.message.repository.MsgNoticeLogDao">
+
+	<!-- 增加新的条线填报配置信息 -->
+	<insert id="saveMsgLog" parameterType="com.yusys.bione.frame.message.entity.BioneMsgLog">
+		insert into bione_msg_log 
+		(MSG_ID, SEND_TYPE_NO, MSG_DETAIL, LOGIC_SYS_NO, MSG_TITLE, SEND_TIME, SEND_USER, MSG_MODE,
+		 RECEIVE_ADDRESS,VIEW_STS, VIEW_TIME, RECEIVE_USER, MSG_TYPE, SEND_STS) 
+		values (#{msgId}, #{sendTypeNo}, #{msgDetail}, #{logicSysNo}, #{msgTitle}, #{sendTime}, #{sendUser},#{msgMode},
+		 #{receiveAddress}, #{viewSts}, #{viewTime}, #{receiveUser}, #{msgType}, #{sendSts})
+	</insert>
+	
+	<select id="getReceiveUser" resultType="HashMap" parameterType="java.util.Map">
+		SELECT
+            re.APPLY_USER_NO as APPLY_USER_NO,
+            re.APPLY_TIME as APPLY_TIME,
+            rpt.RPT_NM as RPT_NM,
+            rpt.RPT_ID as RPT_ID,
+            I.DATA_DATE as DATA_DATE,
+            I.EXE_OBJ_ID as ORG_NO,
+            I.TASK_TYPE  as  ORG_TYPE
+		FROM
+		  	RPT_FLTSK_REBUT re
+		INNER JOIN
+		    RPT_FLTSK_INS I
+		ON
+		    re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		INNER JOIN
+		    RPT_MGR_REPORT_INFO rpt
+		ON
+		    I.TASK_OBJ_ID = rpt.RPT_ID
+		WHERE
+		    1 = 1
+		AND I.LOGIC_DEL_NO = 'N'
+		AND re.STS='0'
+		<if test="taskInstanceId != null">
+			AND re.TASK_INSTANCE_ID = #{taskInstanceId}
+		</if>
+	</select>
+		
+	<select id="getListReceiveUser" resultType="HashMap" parameterType="HashMap">
+		select  t1.USER_ID as  USER_ID,
+				t4.ORG_TYPE as ORG_TYPE
+		from  BIONE_USER_INFO t1  
+		inner join  BIONE_AUTH_OBJ_USER_REL t2 
+			on t1.USER_ID = t2.USER_ID 
+			and t2.LOGIC_SYS_NO='FRS' AND t2.OBJ_DEF_NO='AUTH_OBJ_ROLE' 
+		inner join BIONE_AUTH_OBJ_RES_REL t3 
+			on t2.OBJ_ID = t3.OBJ_ID 
+			and t3.RES_DEF_NO ='AUTH_RES_RPT_FILL'  
+			and  t3.OBJ_DEF_NO= 'AUTH_OBJ_ROLE' 
+		inner join 
+			RPT_MGR_REPORT_INFO mr
+			on t3.RES_ID=mr.RPT_ID
+		<if test="rptId != null">
+			AND  mr.RPT_NUM  = #{rptId}
+		</if>
+		inner join RPT_ORG_INFO t4 
+			on t1.ORG_NO = t4.MGR_ORG_NO 
+		<if test="orgNo != null">
+			and t4.ORG_NO =#{orgNo}
+		</if>
+	</select>
+	
+	<select id="selectRefIS" resultType="com.yusys.biapp.frs.message.entity.RptExmaineInfo"
+		 parameterType="com.yusys.biapp.frs.message.entity.RptExmaineInfo">
+		SELECT  *
+		FROM RPT_EXMAINE_INFO
+		where 
+		1=1
+		<if test="taskInsId != null">
+		AND
+		TASK_INS_ID =#{taskInsId}
+		</if>
+		<if test="rptId != null">
+		AND
+		RPT_ID =#{rptId}
+		</if>
+		<if test="orgNo != null">
+		AND 
+		ORG_NO =#{orgNo}
+		</if>
+		<if test="orgType != null">
+		AND 
+		ORG_TYPE =#{orgType}
+		</if>
+		<if test="taskDate != null">
+		AND 
+		TASK_DATE =#{taskDate}
+		</if>
+		<if test="fillEr != null">
+		AND
+		FILL_ER =#{fillEr}
+		</if>
+	</select>
+		
+	<insert id="saveNewErrFlag" parameterType="com.yusys.biapp.frs.message.entity.RptExmaineInfo">
+		insert into RPT_EXMAINE_INFO 
+		(TASK_INS_ID,RPT_ID,ORG_NO,TASK_DATE,FILL_ER,ERR_FLAG,LATE_FLAG,REMARK,ORG_TYPE) 
+		values (#{taskInsId},#{rptId},#{orgNo},#{taskDate},#{fillEr},#{errFlag},#{lateFlag},#{remark},#{orgType})
+	</insert>
+	
+	<select id="getInsInfo" resultType="HashMap" parameterType="HashMap">
+			select DISTINCT
+				U.USER_ID as FILL_ER,
+				BO.ORG_NO as ORG_NO,
+				MR.RPT_NM  as RPT_NM,
+				T.TASK_TYPE  as ORG_TYPE,
+				T.TASK_OBJ_ID as RPT_ID,
+				MR.RPT_NUM as RPT_NUM,
+				T.DATA_DATE  as  RDATE
+			from 	BIONE_USER_INFO U,
+					BIONE_ORG_INFO BO,
+					RPT_ORG_INFO RO,
+					RPT_FLTSK_INS T,
+					BIONE_AUTH_OBJ_USER_REL UR,
+					BIONE_AUTH_OBJ_RES_REL RES,
+					RPT_MGR_REPORT_INFO MR
+			WHERE   U.ORG_NO = BO.ORG_NO
+			AND 	T.TASK_OBJ_ID=MR.RPT_ID
+			AND 	BO.ORG_NO = RO.MGR_ORG_NO
+			AND 	RO.ORG_NO =T.EXE_OBJ_ID
+			AND 	RO.ORG_TYPE = T.TASK_TYPE
+		<if test="taskIdObj != null">
+			AND 	T.TASK_INSTANCE_ID =#{taskIdObj}
+		</if>
+			AND 	UR.USER_ID = U.USER_ID
+			AND 	T.TASK_OBJ_ID = RES.RES_ID
+			AND 	RES.OBJ_DEF_NO = 'AUTH_OBJ_ROLE'
+			AND 	RES.RES_DEF_NO = 'AUTH_RES_RPT_FILL'
+			AND 	UR.OBJ_ID = RES.OBJ_ID
+		<if test="logicSysNo != null">
+			AND 	UR.LOGIC_SYS_NO=#{logicSysNo}
+		</if>
+			AND 	UR.OBJ_DEF_NO='AUTH_OBJ_ROLE' 
+	</select>
+	
+	<select id="getSubmitInsInfo" resultType="HashMap" parameterType="HashMap">
+	
+		select OPER_USER_ID     as FILL_ER,
+	       ORG_NO           as ORG_NO,
+	       RPT_NM           as RPT_NM,
+	       TASK_TYPE        as ORG_TYPE,
+	       TASK_OBJ_ID      as RPT_ID,
+	       TASK_INSTANCE_ID as taskInsId,
+	       RPT_NM           as RPT_NUM,
+	       DATA_DATE        as RDATE
+       from (
+			select t.*,
+               INS.TASK_TYPE,
+               INS.TASK_OBJ_ID,
+               INS.TASK_INSTANCE_ID,
+               row_number() over(partition by t.task_id, t.rpt_id, ins.exe_obj_id, t.data_date order by t.oper_time desc) rn
+	          from rpt_oper_log t
+	         inner join
+	        
+	         (select *
+	           from rpt_fltsk_ins ins
+	          where ins.task_instance_id in
+					<foreach item="taskInsIdss"  collection="taskInsIds" separator=" or ins.TASK_INSTANCE_ID in ">
+						<foreach collection="taskInsIdss" item="taskInsIdsss" open="("
+							separator="," close=")">
+							#{taskInsIdsss}
+						</foreach>
+					</foreach>
+					)
+			   ins
+			    on t.task_id = ins.task_id
+			   and t.data_date = ins.data_date
+			   and t.rpt_id = ins.task_obj_id
+			 where t.log_type = '03'
+			 ) where rn =1
+	</select>
+	
+	<select id="getSubmitInsInfo" resultType="HashMap" parameterType="HashMap" databaseId="mysql">
+		SELECT
+			result.OPER_USER_ID AS FILL_ER,
+			result.ORG_NO AS ORG_NO,
+			result.RPT_NM AS RPT_NM,
+			result.TASK_TYPE AS ORG_TYPE,
+			result.TASK_OBJ_ID AS RPT_ID,
+			result.TASK_INSTANCE_ID AS taskInsId,
+			result.RPT_NM AS RPT_NUM,
+			result.DATA_DATE AS RDATE,
+			result.rn
+		FROM
+			(
+				SELECT
+					tmp.*,
+					@rownum := @rownum + 1,
+					IF (
+						@taskid = tmp.task_id
+						and @rptid = tmp.rpt_id
+						and @exeobjid = tmp.exe_obj_id
+						and @datadate = tmp.data_date,
+						@rank :=@rank + 1 ,@rank := 1
+					) AS rn,
+					@taskid := tmp.task_id,
+					@rptid := tmp.rpt_id,
+					@exeobjid := tmp.exe_obj_id,
+					@datadate := tmp.data_date
+			FROM
+				(
+					SELECT
+						t.*,
+						INS.TASK_TYPE,
+						INS.TASK_OBJ_ID,
+						INS.TASK_INSTANCE_ID,
+						INS.exe_obj_id
+					FROM
+						rpt_oper_log t
+					INNER JOIN (
+						(select *
+				           from rpt_fltsk_ins ins
+				          where ins.task_instance_id in
+								<foreach item="taskInsIdss"  collection="taskInsIds" separator=" or ins.TASK_INSTANCE_ID in ">
+									<foreach collection="taskInsIdss" item="taskInsIdsss" open="("
+										separator="," close=")">
+										#{taskInsIdsss}
+									</foreach>
+								</foreach>
+						)
+					) ins ON t.task_id = ins.task_id
+					AND t.data_date = ins.data_date
+					AND t.rpt_id = ins.task_obj_id
+					WHERE
+						t.log_type = '03'
+					ORDER BY
+						# 注意 ORDER BY 的参数顺序
+						t.task_id,
+						t.rpt_id,
+						ins.exe_obj_id,
+						t.data_date,
+						t.oper_time DESC
+				) tmp,
+				(
+					SELECT
+						@rownum := 0,
+						@taskid := NULL ,@rptid := NULL ,@exeobjid :=NULL, @datadate :=NULL, @rank := 0
+				) a
+			) result
+		where rn = 1
+	</select>
+	
+	<update id="updateErrFlag"
+		parameterType="com.yusys.biapp.frs.message.entity.RptExmaineInfo">
+		UPDATE RPT_EXMAINE_INFO
+		<set>
+			ERR_FLAG=#{errFlag}
+		</set>
+		where 1=1 
+		and TASK_INS_ID=#{taskInsId}
+	</update>
+	
+	<select id="getFillEr"  parameterType="HashMap" resultType="String">
+		SELECT  FILL_ER
+		FROM
+		 	RPT_USER_REL r
+		LEFT JOIN
+		    RPT_MGR_REPORT_INFO m
+		ON
+	    	r.RPT_NUM=m.RPT_NUM
+	    WHERE 1=1
+		<if test="rptId != null">
+				AND m.RPT_NUM =#{rptId}
+		</if>
+	 	<if test="orgNo != null">
+				AND r.ORG_ID =#{orgNo}
+		</if>
+	</select>
+	
+	<select id="getrptNum"  parameterType="HashMap" resultType="String">
+		SELECT  RPT_NUM
+		FROM
+		 	RPT_MGR_REPORT_INFO 
+	    WHERE 1=1
+		<if test="rptId != null">
+			AND RPT_ID = #{rptId}
+		</if>
+	</select>
+</mapper>

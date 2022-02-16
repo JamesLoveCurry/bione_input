@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.input.rule.repository.DataRuleDao">
+	<select id="getRptInputListDataRuleInfoByRuleId"
+		resultType="com.yusys.biapp.input.rule.entity.RptInputListDataRuleInfo" parameterType="String">
+		SELECT RULE_ID, RULE_NM, RULE_TYPE, FIELD_NM, MAX_VAL, MIN_VAL, VALUE_SET, REGEX, LOGIC, FILTER_CONDITION, TIME_RANGE, ERROR_TIP, LOGIC_SYS_NO, CREATE_USER, CREATE_DATE 
+		FROM RPT_INPUT_LIST_DATA_RULE_INFO
+		WHERE RULE_ID=#{ruleId}
+	</select>
+</mapper> 

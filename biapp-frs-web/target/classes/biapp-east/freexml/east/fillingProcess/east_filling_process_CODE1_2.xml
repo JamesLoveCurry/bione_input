@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>报表分发</templetname>
+		<fromtable>east_filling_process</fromtable>
+		<savetable>east_filling_process</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+	    <orderbys></orderbys>
+	</templet>
+	
+	<templet_item>
+	    <itemkey>data_dt</itemkey>
+	    <itemname>数据日期</itemname>
+	    <itemtype>日历</itemtype>
+	    <helptip></helptip>
+	    <itemdefine></itemdefine>
+	    <loadformula></loadformula>
+	    <editformula></editformula>
+	    <issave>Y</issave>
+	    <ismust>Y</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>Y</card_isshow>
+	    <card_width>100,300</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>120</list_width>
+	    <list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+	    <query_itemtype>日历</query_itemtype>
+		<query_width>200</query_width>
+	</templet_item>
+	<templet_item>
+		<itemkey>distribute_type</itemkey>
+		<itemname>下发分类</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"直接值","内容":"1/按法人|2/按网点"}】
+		</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>100,300</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+	</templet_item>
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>报送机构</itemname>
+		<itemtype>自定义参照</itemtype>
+		<comparetype>in</comparetype>
+		<itemdefine>【jsfile=/yujs/east/common/east_comm_orgfilter_dialog.js】【cols=org_no->org_no】【winsize=600*560】</itemdefine>
+		<checkbox>Y</checkbox>
+		<tree_ischeckboxcascade>N</tree_ischeckboxcascade>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>100,600</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>150</list_width>
+		<list_align>中</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_itemtype>下拉框</query_itemtype>
+		<query_ismust>N</query_ismust>
+		<query_iseditable>N</query_iseditable>
+		<query_itemdefine>【{"类型":"SQL","内容":"select org_no id, org_nm name from rpt_org_info where org_type = '04' and is_org_report='Y' order by org_no"}】</query_itemdefine>
+		<query_width>250</query_width>
+	</templet_item>
+
+	<templet_item>
+	    <itemkey>explain</itemkey>
+	    <itemname>下发说明</itemname>
+	    <itemtype>多行文本框</itemtype>
+	    <issave>Y</issave>
+	    <ismust>N</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>Y</card_isshow>
+	    <card_width>100,600</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>300</list_width>
+	    <list_align>左</list_align>
+	    <list_render></list_render>
+	</templet_item>
+	
+</root>

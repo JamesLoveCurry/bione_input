@@ -1,0 +1,1414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.rptidx.repository.IdxInfoMybatisDao">
+	<select id="getAllIdxInfo" resultType="HashMap"
+		parameterType="HashMap"> 
+		select INDEX_NO as indexNo,SRC_INDEX_NO as srcIndexNo,TEMPLATE_ID as templateId
+	 from 
+		RPT_IDX_INFO 
+	
+	</select>
+	<select id="getAllIdxInfoBean" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+        parameterType="HashMap"> 
+        select INDEX_NO as "id.indexNo",SRC_INDEX_NO as srcIndexNo,TEMPLATE_ID as templateId
+     from 
+        RPT_IDX_INFO where  END_DATE='29991231'
+    
+    </select>
+    <select id="getRelatedCountByIndexNo" resultType="java.lang.Integer"     parameterType="java.util.Map">
+         select   t1.count_+t2.count_ from   
+         (
+             select  count(*) as  count_ from  rpt_mgr_module_idx_rel where    INDEX_NO  in
+                  <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                  </foreach>  
+         )t1,(
+             select  count(*)  as  count_  from  rpt_mgr_idx_filter where    INDEX_NO in
+                   <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                   </foreach>  
+         )t2
+    </select>
+	<select id="getIdxListByNmList" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+		parameterType="HashMap"> 
+		select INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",INDEX_NM 
+	 from 
+		RPT_IDX_INFO 
+	 where  END_DATE='29991231'
+	      and (
+			     INDEX_NM  in
+				 <foreach item="indexNm"  collection="indexNmList" separator=" or  INDEX_NM  in ">
+					<foreach collection="indexNm" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				 </foreach>
+		 )
+	</select>
+	
+	<select id="getIdxListByIdList" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+		parameterType="HashMap"> 
+		select INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",INDEX_NM ,START_DATE
+	 from 
+		RPT_IDX_INFO 
+	 where  END_DATE='29991231'
+	      and (
+			     INDEX_NO  in
+				 <foreach item="indexNo"  collection="indexNoList" separator=" or  INDEX_NO  in ">
+					<foreach collection="indexNo" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				 </foreach>
+		 )
+	</select>
+	
+	<select id="getIdxMaxVerId" resultType="java.lang.Long" parameterType="HashMap">
+		select MAX(INDEX_VER_ID)
+	 from 
+		RPT_IDX_INFO 
+	 where  1=1
+	      and (
+			     INDEX_NO  in
+				 <foreach item="indexNo"  collection="idxNos" separator=" or  INDEX_NO  in ">
+					<foreach collection="indexNo" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				 </foreach>
+		 )
+		AND IS_RPT_INDEX = 'N'
+	</select>
+	
+	<select id="listIdxInfo" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+	parameterType="HashMap">
+		select t1_.INDEX_NO as "id.indexNo",t1_.INDEX_VER_ID as "id.indexVerId",t1_.CALC_CYCLE,t1_.DATA_TYPE,t1_.DATA_UNIT,
+		t1_.END_DATE,t1_.INDEX_CATALOG_NO,t1_.INDEX_NM,t1_.INDEX_STS,t1_.INDEX_TYPE,t1_.LAST_UPT_TIME,t1_.LAST_UPT_USER,t1_.REMARK,
+		t1_.SRC_INDEX_NO,t1_.SRC_SOURCE_ID,t1_.START_DATE,t1_.IS_SUM,t1_.IS_RPT_INDEX,t1_.SRC_INDEX_MEASURE,t1_.DEF_SRC,t1_.DEF_ORG,t1_.DEF_USER,
+        t1_.STAT_TYPE,t1_.USER_ID,t1_.DEPT_ID,t1_.IS_SAVE,t1_.LINE_ID,t1_.BUSI_LIB_ID,t1_.BUSI_TYPE
+		from
+		RPT_IDX_INFO  t1_ left join RPT_IDX_BUSI_EXT ext  
+		on (t1_.index_no=ext.index_no  and  t1_.index_ver_id=ext.index_ver_id)
+		where t1_.IS_RPT_INDEX='N'
+		<if test="indexVerId == null and endDate == null">
+		and   t1_.END_DATE='29991231'
+		</if>
+		<if test="indexNo != null">and t1_.INDEX_NO = #{indexNo}</if>
+		<if test="idxNos != null">
+		   	and (t1_.index_No not in
+			<foreach item="idxNo"  collection="idxNos" separator=" and t1_.index_No not in ">
+				<foreach collection="idxNo" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="isEngineList != null">
+			AND t1_.INDEX_TYPE  IN 
+			<foreach  collection = "isEngineList" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach> 
+		</if>
+		<if test="indexVerId != null">and t1_.INDEX_VER_ID = #{indexVerId}</if>
+		<if test="calcCycle != null">and t1_.CALC_CYCLE = #{calcCycle}</if>
+		<if test="dataPrecision != null">and t1_.DATA_PRECISION = #{dataPrecision}</if>
+		<if test="dataType != null">and t1_.DATA_TYPE = #{dataType}</if>
+		<if test="dataUnit != null">and t1_.DATA_UNIT = #{dataUnit}</if>
+		<if test="endDate != null">and t1_.END_DATE = #{endDate}</if>
+		<if test="indexCatalogNo != null">and t1_.INDEX_CATALOG_NO = #{indexCatalogNo}</if>
+		<if test="indexNm != null">
+		       and (t1_.INDEX_NM like #{indexNm}   or ext.INDEX_USUAL_NM  like  #{indexNm})
+		</if>
+		<if test="indexSts != null">and t1_.INDEX_STS = #{indexSts}</if>
+		<if test="indexType != null">and t1_.INDEX_TYPE = #{indexType}</if>
+		<if test="lastUptTime != null">and t1_.LAST_UPT_TIME = #{lastUptTime}</if>
+		<if test="lastUptUser != null">and t1_.LAST_UPT_USER = #{lastUptUser}</if>
+		<if test="remark != null">and t1_.remark = #{remark}</if>
+		<if test="srcIndexNo != null">and t1_.SRC_INDEX_NO = #{srcIndexNo}</if>
+		<if test="srcSourceId != null">and t1_.SRC_SOURCE_ID = #{srcSourceId}</if>
+		<if test="startDate != null">and t1_.START_DATE = #{startDate}</if>
+		<if test="isSum != null">and t1_.IS_SUM = #{isSum}</if>
+		<if test="infoRights != null">and t1_.INFO_RIGHTS = #{infoRights}</if>
+		<if test="isRptIndex != null">and t1_.IS_RPT_INDEX = #{isRptIndex}</if>
+		<if test="isPublish != null">and  t1_.INDEX_STS = #{isPublish}</if>
+		<if test="indexNo == null">
+			<if test="defSrc != null">and  t1_.DEF_SRC = #{defSrc}</if>
+			<if test="defSrc == null">
+				and  ( t1_.DEF_SRC is null
+				<if test="defaultDefSrc != null">
+				  or t1_.DEF_SRC = #{defaultDefSrc}
+				</if>
+				<if test="defaultDefSrc == null">
+				  or t1_.DEF_SRC = '01'
+				</if>
+				)
+			</if>
+			<if test="defOrg != null">and  t1_.DEF_ORG = #{defOrg}</if>
+			<if test="defUser != null">and  t1_.DEF_USER = #{defUser}</if>
+		</if>	
+		<!--排除总账指标-->
+		<if test="exSumAccoutIndex != null">
+			and t1_.INDEX_TYPE != #{exSumAccoutIndex}
+		</if>
+		<if  test  =  "list!=null and  list.size()>0">
+			and (t1_.INDEX_NO in
+			<foreach item="ls"  collection="list" separator=" or t1_.INDEX_NO in ">
+				<foreach collection="ls" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if  test  =  "indexNms!=null and  indexNms.size()>0">
+			and (t1_.INDEX_NM in
+			<foreach item="ls"  collection="indexNms" separator=" or t1_.INDEX_NM in ">
+				<foreach collection="ls" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="noNeedCatalog == null">		
+			and  exists(
+			   select   * from  rpt_idx_catalog   catalog   where  catalog.index_catalog_no =   t1_.index_catalog_no  and   catalog.index_catalog_no  is not  null
+			)
+		</if>
+		<if test="needOrderByNo != null">
+			order by t1_.INDEX_NO
+		</if>
+		<if test="needOrderByNm != null">
+			order by t1_.INDEX_NM
+		</if>
+	</select>
+	
+	<select id="listIdxDsInfo" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+	parameterType="HashMap">
+		select t1_.INDEX_NO as "id.indexNo",t1_.INDEX_VER_ID as "id.indexVerId",t1_.CALC_CYCLE,t1_.DATA_TYPE,t1_.DATA_UNIT,
+		t1_.END_DATE,t1_.INDEX_CATALOG_NO,t1_.INDEX_NM,t1_.INDEX_STS,t1_.INDEX_TYPE,t1_.LAST_UPT_TIME,t1_.LAST_UPT_USER,
+		t1_.SRC_INDEX_NO,t1_.SRC_SOURCE_ID,t1_.START_DATE,t1_.IS_SUM,t1_.IS_RPT_INDEX,t1_.SRC_INDEX_MEASURE,t1_.DEF_SRC,t1_.DEF_ORG,t1_.DEF_USER,
+        t1_.STAT_TYPE,t1_.USER_ID,t1_.DEPT_ID,t2_.ds_id as "remark"
+		from
+		RPT_IDX_INFO  t1_ ,(SELECT DISTINCT
+		    index_no,
+		    index_ver_id,
+		    ds_id
+		FROM
+    rpt_idx_measure_rel) t2_
+		where t1_.IS_RPT_INDEX='N'
+		and
+		t1_.index_no = t2_.index_no
+		and
+		t1_.index_ver_id = t2_.index_ver_id
+		<if test="indexVerId == null and endDate == null">
+		and   t1_.END_DATE='29991231'
+		</if>
+		<if test="indexNo != null">and t1_.INDEX_NO = #{indexNo}</if>
+		<if test="idxNos != null">
+		   	and (t1_.index_No not in
+			<foreach item="idxNo"  collection="idxNos" separator=" and t1_.index_No not in ">
+				<foreach collection="idxNo" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="isEngineList != null">
+			AND t1_.INDEX_TYPE  IN 
+			<foreach  collection = "isEngineList" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach> 
+		</if>
+		<if test="indexVerId != null">and t1_.INDEX_VER_ID = #{indexVerId}</if>
+		<if test="calcCycle != null">and t1_.CALC_CYCLE = #{calcCycle}</if>
+		<if test="dataPrecision != null">and t1_.DATA_PRECISION = #{dataPrecision}</if>
+		<if test="dataType != null">and t1_.DATA_TYPE = #{dataType}</if>
+		<if test="dataUnit != null">and t1_.DATA_UNIT = #{dataUnit}</if>
+		<if test="endDate != null">and t1_.END_DATE = #{endDate}</if>
+		<if test="indexCatalogNo != null">and t1_.INDEX_CATALOG_NO = #{indexCatalogNo}</if>
+		<if test="indexNm != null">
+		       and (t1_.INDEX_NM like #{indexNm}   or ext.INDEX_USUAL_NM  like  #{indexNm})
+		</if>
+		<if test="indexSts != null">and t1_.INDEX_STS = #{indexSts}</if>
+		<if test="indexType != null">and t1_.INDEX_TYPE = #{indexType}</if>
+		<if test="lastUptTime != null">and t1_.LAST_UPT_TIME = #{lastUptTime}</if>
+		<if test="lastUptUser != null">and t1_.LAST_UPT_USER = #{lastUptUser}</if>
+		<if test="remark != null">and t1_.remark = #{remark}</if>
+		<if test="srcIndexNo != null">and t1_.SRC_INDEX_NO = #{srcIndexNo}</if>
+		<if test="srcSourceId != null">and t1_.SRC_SOURCE_ID = #{srcSourceId}</if>
+		<if test="startDate != null">and t1_.START_DATE = #{startDate}</if>
+		<if test="isSum != null">and t1_.IS_SUM = #{isSum}</if>
+		<if test="infoRights != null">and t1_.INFO_RIGHTS = #{infoRights}</if>
+		<if test="isRptIndex != null">and t1_.IS_RPT_INDEX = #{isRptIndex}</if>
+		<if test="isPublish != null">and  t1_.INDEX_STS = #{isPublish}</if>
+		<if test="indexNo == null">
+			<if test="defSrc != null">and  t1_.DEF_SRC = #{defSrc}</if>
+			<if test="defSrc == null">
+				and  ( t1_.DEF_SRC is null
+				<if test="defaultDefSrc != null">
+				  or t1_.DEF_SRC = #{defaultDefSrc}
+				</if>
+				<if test="defaultDefSrc == null">
+				  or t1_.DEF_SRC = '01'
+				</if>
+				)
+			</if>
+			<if test="defOrg != null">and  t1_.DEF_ORG = #{defOrg}</if>
+			<if test="defUser != null">and  t1_.DEF_USER = #{defUser}</if>
+		</if>	
+		<!--排除总账指标-->
+		<if test="exSumAccoutIndex != null">
+			and t1_.INDEX_TYPE != #{exSumAccoutIndex}
+		</if>
+		<if  test  =  "list!=null and  list.size()>0">
+			and (t1_.INDEX_NO in
+			<foreach item="ls"  collection="list" separator=" or t1_.INDEX_NO in ">
+				<foreach collection="ls" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if  test  =  "indexNms!=null and  indexNms.size()>0">
+			and (t1_.INDEX_NM in
+			<foreach item="ls"  collection="indexNms" separator=" or t1_.INDEX_NM in ">
+				<foreach collection="ls" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="noNeedCatalog == null">		
+			and  exists(
+			   select   * from  rpt_idx_catalog   catalog   where  catalog.index_catalog_no =   t1_.index_catalog_no  and   catalog.index_catalog_no  is not  null
+			)
+		</if>
+		<if test="needOrderByNo != null">
+			order by t1_.INDEX_NO
+		</if>
+		<if test="needOrderByNm != null">
+			order by t1_.INDEX_NM
+		</if>
+	</select>
+	
+	<select id="listIdxInfoShow" resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxInfoVO"
+	parameterType="HashMap">
+		select 
+			t1_.INDEX_NO as "id.indexNo",  t1_.INDEX_VER_ID as "id.indexVerId",   t1_.CALC_CYCLE,     
+			t1_.DATA_PRECISION,            t1_.DATA_TYPE,                         t1_.DATA_UNIT,      
+			t1_.END_DATE,                  t1_.INDEX_CATALOG_NO,                  t1_.INDEX_NM,       t1_.INDEX_STS,
+			t1_.INDEX_TYPE,                t1_.LAST_UPT_TIME,                     t1_.LAST_UPT_USER,  t1_.REMARK,
+			t1_.SRC_INDEX_NO,              t1_.SRC_SOURCE_ID,                     t1_.START_DATE,     t1_.IS_SUM,
+			t1_.IS_RPT_INDEX,              t1_.SRC_INDEX_MEASURE,				  t1_.USER_ID,	  
+			t1_.IS_CABIN,                  t1_.DEPT_ID,
+			usr.TEL as "tel",      usr.EMAIL as "mail",           usr.USER_NAME as "userNm",
+			dept.DEPT_NAME as "deptNm",
+			ext.DEF_DEPT,                  ext.USE_DEPT,                          ext.BUSI_DEF,       ext.BUSI_RULE                        
+		  FROM   RPT_IDX_INFO  t1_  left join BIONE_USER_INFO usr on t1_.USER_ID = usr.USER_ID
+		  left join BIONE_DEPT_INFO dept on t1_.DEPT_ID = dept.DEPT_ID
+		  left join RPT_IDX_BUSI_EXT ext  
+		  on   (
+			    t1_.index_no=ext.index_no  
+			      and  
+			    t1_.index_ver_id=ext.index_ver_id
+		      )
+		 <if test="isNotSuper != null">
+			 inner join (
+			 	select t.res_id from bione_auth_obj_res_rel t
+				where t.res_def_no = 'AUTH_RES_IDX'
+				and t.obj_def_no = 'AUTH_OBJ_USER'
+				and t.obj_id = #{userId}
+				<if test="authRole != null">
+					union
+					select t.res_id from bione_auth_obj_res_rel t
+					where t.res_def_no = 'AUTH_RES_IDX'
+					and t.obj_def_no = 'AUTH_OBJ_ROLE'
+					and (t.obj_id in
+					<foreach item="roles"  collection="authRole" separator=" or t.obj_id in ">
+						<foreach collection="roles" item="roleId" open="("
+							separator="," close=")">
+							#{roleId}
+						</foreach>
+					</foreach>
+					)
+				</if>
+				<if test="authOrg != null">
+					union
+					select t.res_id from bione_auth_obj_res_rel t
+					where t.res_def_no = 'AUTH_RES_IDX'
+					and t.obj_def_no = 'AUTH_OBJ_ORG'
+					and (t.obj_id in
+					<foreach item="orgs"  collection="authOrg" separator=" or t.obj_id in ">
+						<foreach collection="orgs" item="orgNo" open="("
+							separator="," close=")">
+							#{orgNo}
+						</foreach>
+					</foreach>
+					)
+				</if>
+				<if test="authDept != null">
+					union
+					select t.res_id from bione_auth_obj_res_rel t
+					where t.res_def_no = 'AUTH_RES_IDX'
+					and t.obj_def_no = 'AUTH_OBJ_DEPT'
+					and (t.obj_id in
+					<foreach item="depts"  collection="authDept" separator=" or t.obj_id in ">
+						<foreach collection="depts" item="deptId" open="("
+							separator="," close=")">
+							#{deptId}
+						</foreach>
+					</foreach>
+					)
+				</if>
+			 ) res
+			 on t1_.index_no = res.res_id
+		 </if>
+		where t1_.IS_RPT_INDEX='N'
+		and t1_.END_DATE = '29991231'
+		<if test="indexNo != null">and t1_.INDEX_NO = #{indexNo}</if>
+		<if test="indexVerId != null">and t1_.INDEX_VER_ID = #{indexVerId}</if>
+		<if test="indexCatalogNo != null">and t1_.INDEX_CATALOG_NO = #{indexCatalogNo}</if>
+		<if test="ibIdxCtl != null">and t1_.INDEX_CATALOG_NO not like #{ibIdxCtl}</if>
+		<if test="indexNm != null">
+		     and (t1_.INDEX_NM like #{indexNm}   or ext.INDEX_USUAL_NM  like  #{indexNm})
+		</if>
+		<if test="indexType != null">and t1_.INDEX_TYPE = #{indexType}</if>
+		<if test="indexSts != null">and t1_.INDEX_STS = #{indexSts}</if>
+		<if  test  =  "labelIds!=null and  labelIds.size()>0">
+			and (t1_.INDEX_NO in
+			<foreach item="ls"  collection="labelIds" separator=" or t1_.INDEX_NO in ">
+				<foreach collection="ls" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if  test  =  "list!=null and  list.size()>0">
+			and (t1_.INDEX_NO in
+			<foreach item="ls"  collection="list" separator=" or t1_.INDEX_NO in ">
+				<foreach collection="ls" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="isPublish != null">and  IS_PUBLISH = #{isPublish}</if>
+		<if test="indexNo == null">
+			<if test="defSrc != null">and  def_src = #{defSrc}</if>
+			<if test="defSrc == null">and  (def_src is  null or  def_src='01')</if>
+			<if test="defOrg != null">and  def_org = #{defOrg}</if>
+			<if test="defUser != null">and  def_user = #{defUser}</if>
+		</if>	
+		<if test="indexCatalogNos != null">
+				and index_catalog_no in
+				<foreach collection="indexCatalogNos" item="indexCatalogNo" open="("
+					separator="," close=")">
+					#{indexCatalogNo}
+				</foreach>
+		</if>
+		<if test="srcIdxNo != null">
+			and (t1_.SRC_INDEX_NO like #{srcIdxNo}
+				<if test="srcIdxNoHead != null">or t1_.SRC_INDEX_NO like #{srcIdxNoHead}</if>
+				<if test="srcIdxNoTail != null">or t1_.SRC_INDEX_NO like #{srcIdxNoTail}</if>
+				<if test="srcIdxNoCentre != null">or t1_.SRC_INDEX_NO like #{srcIdxNoCentre}</if>
+			)
+		</if>
+		and  ( t1_.index_catalog_no='0' or exists(
+		   select   * from  rpt_idx_catalog   catalog   where  catalog.index_catalog_no =   t1_.index_catalog_no  and   catalog.index_catalog_no  is not  null
+		))
+	</select>
+	
+	<select id="listIdxEditorInfoShow" resultType="com.yusys.bione.plugin.rptidx.web.vo.IdxEditorInfoVO"
+	parameterType="HashMap">
+		select idx.INDEX_NO,idx.INDEX_VER_ID,idx.INDEX_CATALOG_NO,idx.INDEX_STS,idx.INDEX_NM,idx.INDEX_TYPE,
+			   idx.START_DATE,idx.END_DATE,idx.CALC_CYCLE,idx.DATA_TYPE,idx.DATA_UNIT,idx.SRC_SOURCE_ID,idx.SRC_INDEX_NO,
+			   idx.SRC_INDEX_MEASURE,idx.REMARK,idx.LAST_UPT_USER,idx.LAST_UPT_TIME,idx.IS_SUM,idx.IS_RPT_INDEX,
+			   idx.BUSI_TYPE,idx.IS_SAVE,idx.DEF_SRC,idx.DEF_ORG,idx.DEF_USER,idx.BUSI_NO,idx.TEMPLATE_ID,idx.STAT_TYPE,
+			   idx.DATA_PRECISION,idx.IS_CABIN,idx.CREATE_DATE,idx.USER_ID,idx.DEPT_ID,idx.line_id,idx.BUSI_LIB_ID,
+			   ctl.INDEX_CATALOG_NM,bsi.INDEX_USUAL_NM,bsi.BUSI_RULE,bsi.BUSI_DEF,bsi.DEF_DEPT,bsi.USE_DEPT,bsi.BUSI_MODEL,
+			   usr.TEL as "tel",usr.EMAIL as "mail",usr.USER_NAME as "userNm",dept.DEPT_NAME as "deptNm"
+		from Rpt_Idx_Info idx
+		inner join Rpt_Idx_Catalog ctl on idx.index_Catalog_No = ctl.index_Catalog_No
+		inner join Rpt_Idx_Busi_Ext bsi on idx.index_Ver_Id = bsi.index_Ver_Id and idx.index_No=bsi.index_No
+		left join Bione_User_Info usr on idx.User_Id = usr.User_Id
+		left join Bione_dept_Info dept on idx.dept_id = dept.DEPT_ID
+		where 1=1
+		<if test="indexNo != null">
+			and idx.index_no = #{indexNo}
+		</if>
+		<if test="indexVerId != null">
+		    and idx.index_Ver_Id = #{indexVerId}
+			order by idx.index_Ver_Id desc
+		</if>
+	</select>
+	
+	<select  id="getAllIdxVersionByParams"  resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo" parameterType="java.util.Map">
+	      SELECT
+	            INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",CALC_CYCLE,DATA_PRECISION,DATA_TYPE,DATA_UNIT,END_DATE,INDEX_CATALOG_NO,INDEX_NM,INDEX_STS,INDEX_TYPE,LAST_UPT_TIME,LAST_UPT_USER,REMARK,SRC_INDEX_NO,SRC_SOURCE_ID,START_DATE,IS_SUM,IS_RPT_INDEX,SRC_INDEX_MEASURE,STAT_TYPE  
+              FROM  RPT_IDX_INFO   WHERE  INDEX_NO  =#{indexNo}  ORDER BY   INDEX_VER_ID  DESC
+	</select>
+	
+	<select  id="getIdxInfoByParams"  resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo" parameterType="java.util.Map">
+	      SELECT
+	            INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",CALC_CYCLE,DATA_TYPE,DATA_UNIT,END_DATE,INDEX_CATALOG_NO,INDEX_NM,INDEX_STS,INDEX_TYPE,LAST_UPT_TIME,LAST_UPT_USER,REMARK,SRC_INDEX_NO,SRC_SOURCE_ID,START_DATE,IS_SUM,IS_RPT_INDEX,SRC_INDEX_MEASURE,STAT_TYPE,DEPT_ID,USER_ID
+	       FROM  RPT_IDX_INFO   WHERE 1=1
+	       <if test="indexNo!=null">
+	          and INDEX_NO  =#{indexNo}
+	       </if>
+	       <if test="indexVerId!=null">
+	           and  INDEX_VER_ID  =#{indexVerId}
+	       </if>
+	</select>
+	
+	<select id="getRptIdxDsRel"
+		resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDsRel"
+		parameterType="HashMap">
+		select RPT_ID as "id.rptId",INDEX_NO as "id.indexNo",INDEX_VER_ID as
+		"id.indexVerId",SET_ID as "id.setId",COL_ID as
+		"id.colId",FILTER_FORMULA
+		from
+		RPT_IDX_DS_REL
+		where 1=1
+		<if test="rptId != null">
+			and RPT_ID = #{rptId}</if>
+		<if test="indexNo != null">
+			and INDEX_NO = #{indexNo}</if>
+		<if test="indexVerId != null">
+			and INDEX_VER_ID = #{indexVerId}</if>
+		<if test="setId != null">
+			and SET_ID = #{setId}</if>
+		<if test="colId != null">
+			and COL_ID = #{colId}</if>
+		<if test="filterFormula != null">
+			and FILTER_FORMULA = #{filterFormula}</if>
+	</select>
+	
+	<select id="getParamDeptListByParams"
+		resultType="com.yusys.bione.frame.variable.entity.BioneParamInfo"
+		parameterType="HashMap">
+		select param_value,param_name  from bione_param_info  where  param_type_no=#{type}
+	</select>
+	
+	<insert id="saveIdxInfo" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo">
+	     insert into RPT_IDX_INFO(
+		     INDEX_NO,
+		     INDEX_VER_ID,
+		     CALC_CYCLE,
+		     DATA_PRECISION,
+		     DATA_TYPE,
+		     DATA_UNIT,
+		     END_DATE,
+		     INDEX_CATALOG_NO,
+		     INDEX_NM,
+		     INDEX_STS,
+		     INDEX_TYPE,
+		     LAST_UPT_TIME,
+		     LAST_UPT_USER,
+		     REMARK,
+		     SRC_INDEX_NO,
+		     SRC_SOURCE_ID,
+		     START_DATE,
+		     IS_SUM,
+		     IS_RPT_INDEX,
+		     SRC_INDEX_MEASURE,
+		     def_src,
+		     def_org,
+		     def_user,
+		     STAT_TYPE,
+		     IS_SAVE,
+		     USER_ID,
+			 DEPT_ID,
+			 IS_CABIN
+	     )
+		values(
+		   #{id.indexNo},
+		   #{id.indexVerId},
+		   #{calcCycle},
+		   #{dataPrecision},
+		   #{dataType},
+		   #{dataUnit},
+		   #{endDate},
+		   #{indexCatalogNo},
+		   #{indexNm},
+		   #{indexSts},
+		   #{indexType},
+		   #{lastUptTime},
+		   #{lastUptUser},
+		   #{remark},
+		   #{srcIndexNo},
+		   #{srcSourceId},
+		   #{startDate},
+		   #{isSum},
+		   #{isRptIndex},
+		   #{srcIndexMeasure},
+		   #{defSrc},
+		   #{defOrg},
+		   #{defUser},
+		   #{statType},
+		   #{isSave},
+		   #{userId},
+		   #{deptId},
+		   #{isCabin}
+		 )
+    </insert>
+	<update id="updateIdxInfo" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo">
+		update RPT_IDX_INFO
+		<set>
+			<if test="id.indexNo != null">INDEX_NO=#{id.indexNo},</if>
+			<if test="id.indexVerId != null">INDEX_VER_ID=#{id.indexVerId},</if>
+			<if test="calcCycle != null">CALC_CYCLE=#{calcCycle},</if>
+			<if test="dataPrecision != null">DATA_PRECISION=#{dataPrecision},</if>
+			<if test="dataType != null">DATA_TYPE=#{dataType},</if>
+			<if test="dataUnit != null">DATA_UNIT=#{dataUnit},</if>
+			<if test="endDate != null">END_DATE=#{endDate},</if>
+			<if test="indexCatalogNo != null">INDEX_CATALOG_NO=#{indexCatalogNo},</if>
+			<if test="indexNm != null">INDEX_NM=#{indexNm},</if>
+			<if test="indexSts != null">INDEX_STS=#{indexSts},</if>
+			<if test="indexType != null">INDEX_TYPE=#{indexType},</if>
+			<if test="lastUptTime != null">LAST_UPT_TIME=#{lastUptTime},</if>
+			<if test="lastUptUser != null">LAST_UPT_USER=#{lastUptUser},</if>
+			<if test="remark != null">REMARK=#{remark},</if>
+			<if test="srcIndexNo != null">SRC_INDEX_NO=#{srcIndexNo},</if>
+			<if test="srcSourceId != null">SRC_SOURCE_ID=#{srcSourceId},</if>
+			<if test="startDate != null">START_DATE=#{startDate},</if>
+			<if test="isSum != null">IS_SUM=#{isSum},</if>
+			<if test="isSave != null">IS_SAVE=#{isSave},</if>
+			<if test="isRptIndex != null">IS_RPT_INDEX=#{isRptIndex},</if>
+			<if test="srcIndexMeasure != null">SRC_INDEX_MEASURE= #{srcIndexMeasure},</if>
+			<if test="statType != null">STAT_TYPE=#{statType},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="deptId != null">DEPT_ID=#{deptId}</if>
+		</set>
+		where 1=1 and INDEX_NO=#{id.indexNo}
+		and INDEX_VER_ID=#{id.indexVerId}
+	</update>
+	
+	<update id="updateBusiExt" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxBusiExt">
+		update RPT_IDX_BUSI_EXT
+		<set>
+			<if test="id.indexNo != null">INDEX_NO=#{id.indexNo},</if>
+			<if test="id.indexVerId != null">INDEX_VER_ID=#{id.indexVerId},</if>
+			<if test="indexUsualNm != null">INDEX_USUAL_NM=#{indexUsualNm},</if>
+			<if test="busiRule != null">BUSI_RULE=#{busiRule},</if>
+			<if test="busiDef != null">BUSI_DEF=#{busiDef},</if>
+			<if test="defDept != null">DEF_DEPT=#{defDept},</if>
+			<if test="useDept != null">USE_DEPT=#{useDept},</if>
+			<if test="busiModel != null">BUSI_MODEL=#{busiModel}</if>
+		</set>
+		where   INDEX_NO=#{id.indexNo}
+		and INDEX_VER_ID=#{id.indexVerId}
+	</update>
+	
+	<delete id="deleteIdxInfo" parameterType="HashMap">
+			delete from RPT_IDX_INFO
+			where 1=1
+			<if test="id != null">
+				and INDEX_NO=#{id}
+			</if>
+			<if test="templateId != null">
+				and template_id = #{templateId}
+			</if>
+			<if test="indexNos != null">
+				and index_no in
+				<foreach collection="indexNos" item="indexNos" open="("
+					separator="," close=")">
+					#{indexNos}
+				</foreach>
+			</if>
+			<if test="vid != null">
+				and index_ver_id = #{vid}
+			</if>
+		</delete>
+		
+	<delete id="deleteIdxBusiExt" parameterType="HashMap">
+			delete from RPT_IDX_BUSI_EXT
+			where  1=1
+			<if test="id!=null">
+			   and  INDEX_NO=#{id}
+			</if>
+			<if test="indexNos != null">
+				and index_no in
+				<foreach collection="indexNos" item="indexNos" open="("
+					separator="," close=")">
+					#{indexNos}
+				</foreach>
+			</if>
+			<if test="vid!=null">
+			   and  INDEX_VER_ID=#{vid}
+			</if>     
+		</delete>
+		
+	<delete id="deleteIdxDimRel" parameterType="HashMap">
+			delete from RPT_IDX_DIM_REL
+			where  
+			  INDEX_NO=#{indexNo}   
+			and 
+			  INDEX_VER_ID=#{indexVerId}
+			and
+			  DIM_NO=#{dimNo}
+			and   
+			  DIM_TYPE=#{dimType}
+		</delete>
+		
+   
+	<delete id="deleteIdxMeasureRel" parameterType="HashMap">
+			delete from RPT_IDX_MEASURE_REL
+			where 1 = 1
+			   <if test="id != null">
+					and index_no = #{id}
+				</if>
+			   <if test="indexNos != null">
+					and index_no in
+					<foreach collection="indexNos" item="indexNos" open="("
+						separator="," close=")">
+						#{indexNos}
+					</foreach>
+				</if>
+				<if test="vid!=null">
+			       and  INDEX_VER_ID=#{vid}
+				</if>
+	</delete>
+   
+	<delete id="deleteIdxFormula" parameterType="HashMap">
+			delete from RPT_IDX_FORMULA_INFO
+			where 1 = 1
+				<if test="id != null">
+					and index_no = #{id}
+				</if>
+			   <if test="indexNos != null">
+					and index_no in
+					<foreach collection="indexNos" item="indexNos" open="("
+						separator="," close=")">
+						#{indexNos}
+					</foreach>
+				</if>
+				<if test="vid!=null">
+                     and INDEX_VER_ID=#{vid}
+				</if>
+	</delete>
+   
+	<delete id="deleteIdxFilter" parameterType="HashMap">
+			delete from RPT_IDX_FILTER_INFO
+			where 1 = 1
+			   <if test="id != null">
+					and index_no = #{id}
+				</if>
+			   <if test="indexNos != null">
+					and index_no in
+					<foreach collection="indexNos" item="indexNos" open="("
+						separator="," close=")">
+						#{indexNos}
+					</foreach>
+				</if>
+				<if test="vid!=null">
+					and INDEX_VER_ID=#{vid}
+				</if>
+	</delete>
+   
+	<delete id="deleteIdxDim" parameterType="HashMap">
+			delete from RPT_IDX_DIM_REL
+			where 1 = 1
+			   <if test="id != null">
+					and index_no = #{id}
+				</if>
+			   <if test="indexNos != null">
+					and index_no in
+					<foreach collection="indexNos" item="indexNos" open="("
+						separator="," close=")">
+						#{indexNos}
+					</foreach>
+				</if>
+				<if test="vid!=null">
+			       and  INDEX_VER_ID=#{vid}
+				</if>
+	</delete>
+	
+	<delete id="deleteIdxSrc" parameterType="HashMap">
+			delete from RPT_IDX_SRC_REL_INFO
+			where 1 = 1
+			   <if test="id != null">
+					and index_no = #{id}
+				</if>
+			   <if test="indexNos != null">
+					and index_no in
+					<foreach collection="indexNos" item="indexNos" open="("
+						separator="," close=")">
+						#{indexNos}
+					</foreach>
+				</if>
+				<if test="vid!=null">
+			       and  INDEX_VER_ID=#{vid}
+				</if>
+	</delete>
+   
+   <select id="testSameIndexNo" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  RPT_IDX_INFO    
+		  where      INDEX_NO=#{indexNo}
+	</select>
+	
+   <select id="testSameIndexNm" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		 select   count(*)  from  RPT_IDX_INFO
+         where 1=1
+              and  END_DATE='29991231' 
+              and  index_nm =  #{indexNm}
+		  <if test="indexNo != null">
+                and  INDEX_NO != #{indexNo}
+		  </if>
+	</select>
+	
+	
+   <select id="findLIkeInfoList" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxBusiExt"  parameterType="java.util.Map"> 
+		 select
+		       INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",INDEX_USUAL_NM,
+		       BUSI_RULE    ,
+			   BUSI_DEF     ,
+		       DEF_DEPT        ,
+			   USE_DEPT ,
+			   BUSI_MODEL 
+		 from  RPT_IDX_BUSI_EXT    t1_
+         where
+              exists  (
+                    select  * from  (select max(INDEX_VER_ID)  as  index_ver_id,INDEX_NO from RPT_IDX_BUSI_EXT    group by  INDEX_NO)t2_
+                    where t2_.index_ver_id = t1_.index_ver_id
+                        and t2_.index_no = t1_.index_no
+              )    
+          <if test="indexNm != null">
+              and INDEX_USUAL_NM   like  #{indexNm}
+		  </if> 
+          <if test="indexNo != null">
+		                and  INDEX_NO != #{indexNo}
+		  </if>
+		  <if test="idxNoList!=null and  idxNoList.size()>0">
+		     and (
+			     index_no  in
+				 <foreach item="idxNo"  collection="idxNoList" separator=" or  index_no  in ">
+					<foreach collection="idxNo" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				 </foreach>
+			)
+		  </if>
+	</select>
+	
+   <select id="getIdxListByUsualNmList" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxBusiExt"  parameterType="java.util.Map"> 
+		 select
+		       t1_.INDEX_NO as "id.indexNo",t1_.INDEX_VER_ID as "id.indexVerId",t1_.INDEX_USUAL_NM
+		 from  RPT_IDX_BUSI_EXT    t1_
+         where
+              exists  (
+                    select  * from  (select max(INDEX_VER_ID)  as  index_ver_id,INDEX_NO from RPT_IDX_BUSI_EXT    group by  INDEX_NO)t2_
+                    where t2_.index_ver_id = t1_.index_ver_id
+                        and t2_.index_no = t1_.index_no
+              )    
+               and (
+			      t1_.INDEX_USUAL_NM  in
+				 <foreach item="indexUsualNm"  collection="indexUsualNmList" separator=" or   t1_.INDEX_USUAL_NM  in ">
+					<foreach collection="indexUsualNm" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				 </foreach>
+			 )
+	</select>
+	
+	
+   <select id="getMeasureColListByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureInfo"  parameterType="java.util.Map">
+		   SELECT MEASURE_NO,MEASURE_NM  from  RPT_IDX_MEASURE_INFO  
+           where   MEASURE_NO  in(
+                 SELECT  DISTINCT  MEASURE_NO   from  RPT_SYS_MODULE_COL  where  MEASURE_NO  IS  NOT NULL
+		         <if test="setId!=null">
+		              and SET_ID =#{setId}
+		         </if>  
+            )         
+          <if test="indexNo != null">
+		                and  INDEX_NO != #{indexNo}
+		  </if>
+	</select>
+	
+   <select id="getSourceIdBySetId" resultType="java.lang.String"  parameterType="java.lang.String">
+		   SELECT   SOURCE_ID  from   RPT_SYS_MODULE_INFO  where SET_ID  =#{setId}
+	</select>
+	
+   <select id="getRptSysColByParams" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCol"  parameterType="java.util.Map">
+		    SELECT 
+				    t.COL_ID
+				    ,t.SET_ID               
+		            ,t.CN_NM
+		            ,t.EN_NM                
+		            ,t.DB_TYPE
+		            ,t.LEN                  
+		            ,t.PRECISION2
+		            ,t.ORDER_NUM            
+		            ,t.IS_NULL
+		            ,t.IS_USE               
+		            ,t.IS_PK
+		            ,t.IS_QUERY_COL         
+		            ,t.QUERY_LOGIC
+		            ,t.DIM_TYPE_NO          
+		            ,t.COL_TYPE
+		            ,t.MEASURE_NO 
+		            from  RPT_SYS_MODULE_COL t        
+		   WHERE  
+		    t.SET_ID =#{setId}  
+		      and  t.IS_USE = #{isUse}
+		      <if test="colType != null">
+		             and   t.COL_TYPE = #{colType}
+		      </if>
+	          <if test="colId != null">
+				     and   t.COL_ID = #{colId}
+			  </if>
+		     order by t.ORDER_NUM asc
+	</select>
+	
+   <select id="getMeasureRelByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureRel"  parameterType="java.util.Map">
+		    SELECT    
+			    MEASURE_NO    as "id.measureNo",
+				INDEX_NO      as "id.indexNo",
+				INDEX_VER_ID  as "id.indexVerId",
+				DS_ID         as "id.dsId",
+				STORE_COL     ,
+				ORDER_NUM
+		    FROM  RPT_IDX_MEASURE_REL 
+		    WHERE  	
+		          INDEX_NO  = #{indexNo}
+		    AND   INDEX_VER_ID = #{indexVerId} 	
+	</select>
+	
+   <select id="getFormulaInfoByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo"  parameterType="java.util.Map">
+		    SELECT    
+				INDEX_NO      as "id.indexNo",
+				INDEX_VER_ID  as "id.indexVerId",
+				FORMULA_TYPE     ,
+				FORMULA_CONTENT,
+				FORMULA_DESC,
+				REMARK
+		    FROM  RPT_IDX_FORMULA_INFO 
+		    WHERE  	
+		          INDEX_NO  = #{indexNo}
+		    AND   INDEX_VER_ID = #{indexVerId} 	
+	</select>
+	
+   <select id="getMeasureRelInfoList" resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxMeasureRelInfoVO"  parameterType="java.util.Map">
+		    SELECT    
+			    MEASURE.MEASURE_NO    as measureNo,
+				MEASURE.INDEX_NO      as indexNo,
+				MEASURE.INDEX_VER_ID  as indexVerId,
+				MEASURE.DS_ID         as dsId,
+				MEASURE.STORE_COL     as storeCol,
+				MEASURE.ORDER_NUM     as orderNum,
+				DATASET.SET_NM        as setNm,
+				DATASET.TABLE_EN_NM   as tableEnNm,
+				COL.CN_NM             as cnNm
+		    FROM   RPT_IDX_MEASURE_REL  MEASURE 
+		    LEFT   JOIN  
+		           RPT_SYS_MODULE_INFO  DATASET
+		    ON     DATASET.SET_ID = MEASURE.DS_ID   
+		    LEFT   JOIN  
+		           RPT_SYS_MODULE_COL   COL   
+		    ON     (COL.SET_ID  = DATASET.SET_ID  AND  COL.EN_NM = MEASURE.STORE_COL )               
+		    WHERE  1=1	
+		    AND   MEASURE.INDEX_NO  = #{indexNo}
+		    AND   MEASURE.INDEX_VER_ID = #{indexVerId} 	
+	</select>
+	
+   <select id="getMeasureById" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureInfo"  parameterType="string">
+		      SELECT  MEASURE.MEASURE_NO,MEASURE.MEASURE_NM,MEASURE.MEASURE_TYPE
+		      FROM    
+		               RPT_IDX_MEASURE_INFO   MEASURE
+		      where   MEASURE.MEASURE_NO  =#{measureNo}
+		      
+	</select>
+	
+   <select id="getMaxIndexNo" resultType="java.lang.String"  parameterType="java.lang.String">
+		      select    max(INDEX_NO) from     rpt_idx_info  where   index_no  like #{type}
+		      
+	</select>
+	
+	
+   <select id="getIdxBusiExtByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxBusiExt"  parameterType="java.util.Map">
+		   SELECT   
+		      INDEX_NO as "id.indexNo",
+		      INDEX_VER_ID as "id.indexVerId",
+		      INDEX_USUAL_NM,  
+		      BUSI_RULE    ,
+			  BUSI_DEF     ,
+		      DEF_DEPT        ,
+			  USE_DEPT ,
+			  BUSI_MODEL 
+  		   FROM   RPT_IDX_BUSI_EXT  
+ 		   WHERE 
+		           INDEX_NO  =#{indexNo}
+		           and  INDEX_VER_ID =#{indexVerId}
+	</select>
+	
+   <select id="getDimTypeInfos" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo" >
+		   SELECT
+		   		*
+		   	FROM RPT_DIM_TYPE_INFO
+		   	WHERE 1 = 1
+		   	<if test="cellNos != null">
+		   		and dim_type_no in 
+		   	   <foreach collection="dimNos" item="dimNos" open="("
+					separator="," close=")">
+					#{dimNos}
+				</foreach>
+			</if>
+	</select>
+	
+	<select id="getDimListBySrcIndex" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel"  parameterType="java.util.Map">
+		   SELECT   distinct
+		    DIM_NO       as  "id.dimNo",
+			INDEX_NO     as  "id.indexNo",
+			INDEX_VER_ID as  "id.indexVerId",
+			DS_ID        as  "id.dsId",
+			DIM_TYPE     ,
+			ORDER_NUM    ,
+			STORE_COL
+  		   FROM   RPT_IDX_DIM_REL  
+ 		   WHERE 
+		           INDEX_NO  =#{indexNo}
+		           and  INDEX_VER_ID =#{indexVerId}
+		           and   dim_no  in(
+		                 SELECT  
+				         distinct   DIM_NO
+				         FROM RPT_IDX_DIM_REL 
+				         WHERE INDEX_NO =#{indexNo} and INDEX_VER_ID =#{indexVerId}
+		           )
+		           order by  ORDER_NUM  asc
+	</select>
+	
+	<select id="getDimListByOldVerIndex" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel"  parameterType="java.util.Map">
+		   SELECT   
+		    DIM_NO       as  "id.dimNo",
+			INDEX_NO     as  "id.indexNo",
+			INDEX_VER_ID as  "id.indexVerId",
+			DS_ID        as  "id.dsId",
+			DIM_TYPE     ,
+			ORDER_NUM    ,
+			STORE_COL
+  		   FROM   RPT_IDX_DIM_REL  
+ 		   WHERE 
+		           INDEX_NO  =#{indexNo}
+		           and  INDEX_VER_ID =#{indexVerId}
+		  ORDER  BY ORDER_NUM ASC        
+	</select>
+	
+   <select id="getIdxFilterInfoByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFilterInfo"  parameterType="java.util.Map">
+		   SELECT   
+			INDEX_NO     as  "id.indexNo",
+			INDEX_VER_ID as  "id.indexVerId",
+		    DIM_NO       as  "id.dimNo",
+			FILTER_VAL,
+			FILTER_MODE     
+  		   FROM   RPT_IDX_FILTER_INFO  
+ 		   WHERE 
+		           INDEX_NO  =#{indexNo}
+		           and  INDEX_VER_ID =#{indexVerId}
+		           and  DIM_NO =#{dimNo}
+	</select>
+	
+   <select id="getIdxFilterInfoListByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFilterInfo"  parameterType="java.util.Map">
+		   SELECT   
+			filter.INDEX_NO     as  "id.indexNo",
+			filter.INDEX_VER_ID as  "id.indexVerId",
+		    filter.DIM_NO       as  "id.dimNo",
+			filter.FILTER_VAL,
+			filter.FILTER_MODE     
+  		   FROM   RPT_IDX_FILTER_INFO filter,rpt_dim_type_info  dim 
+ 		   WHERE  filter.DIM_NO=dim.DIM_TYPE_NO
+ 		   <if test="indexNo!=null">
+		        and   INDEX_NO  =#{indexNo}
+ 		   </if>
+ 		   <if test="indexVerId!=null">
+		        and  INDEX_VER_ID =#{indexVerId}
+ 		   </if>
+ 		   <if test="idxNoList!=null  and  idxNoList.size()>0">
+	 		   and (
+				     index_no  in
+					 <foreach item="idxNo"  collection="idxNoList" separator=" or  index_no  in ">
+						<foreach collection="idxNo" item="item" open="("
+							separator="," close=")">
+							#{item}
+						</foreach>
+					 </foreach>
+				)
+		  </if>
+		  order by dim.dim_type 
+	</select>
+	
+   	<select id="getIdxFormulaByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo"  parameterType="java.util.Map">
+			select   
+				index_no     as  "id.indexNo",
+				index_ver_id as  "id.indexVerId",
+				formula_content,
+				formula_desc,
+				formula_type,
+				remark
+			from   rpt_idx_formula_info  
+			where 1=1
+				<if test="indexNo!=null">
+				and   index_no  =#{indexNo}
+				</if>
+				<if test="indexVerId!=null">
+				and  index_ver_id =#{indexVerId}
+				</if>
+				<if test="idxNoList!=null and  idxNoList.size()>0">
+				and (
+					index_no  in
+					<foreach item="idxNo" collection="idxNoList" separator=" or  index_no  in ">
+						<foreach collection="idxNo" item="item" open="(" separator="," close=")">
+						#{item}
+						</foreach>
+					</foreach>
+					)	
+				</if>
+				<if test="rptTmpId!=null">
+	    		and index_no in (
+						select	
+							index_no
+						from 
+							rpt_idx_info
+						where 
+							1=1
+						and 
+							index_type = '03'
+						and 
+							end_date = '29991231'
+						and template_id = #{rptTmpId}
+					)
+				</if>
+	</select>
+	
+   <select id="getIdxDimRelByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel"  parameterType="java.util.Map">
+		   SELECT   
+		    rel.DIM_NO       as  "id.dimNo",
+			rel.INDEX_NO     as  "id.indexNo",
+			rel.INDEX_VER_ID as  "id.indexVerId",
+			rel.DS_ID        as  "id.dsId",
+			rel.DIM_TYPE     ,
+			rel.ORDER_NUM    ,
+			rel.STORE_COL
+  		   FROM   RPT_IDX_DIM_REL rel
+ 		   WHERE 1=1
+ 		   <if test="indexNo!=null">
+		        and   rel.INDEX_NO  =#{indexNo}
+ 		   </if>
+ 		   <if test="indexVerId!=null">
+		        and  rel.INDEX_VER_ID =#{indexVerId}
+ 		   </if>
+ 		   <if test="idxNoList!=null and  idxNoList.size()>0">
+ 		    and (
+			     rel.index_no  in
+				 <foreach item="idxNo"  collection="idxNoList" separator=" or  rel.index_no  in ">
+					<foreach collection="idxNo" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				 </foreach>
+			)
+		  </if>
+		  order  by  rel.dim_type
+	</select>
+	
+	
+   <select id="getIdxMeasureRelByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureRel"  parameterType="java.util.Map">
+		   SELECT    
+			    rel.MEASURE_NO    as "id.measureNo",
+				rel.INDEX_NO      as "id.indexNo",
+				rel.INDEX_VER_ID  as "id.indexVerId",
+				rel.DS_ID         as "id.dsId",
+				rel.STORE_COL,
+				rel.ORDER_NUM
+		    FROM  RPT_IDX_MEASURE_REL rel 
+ 		   WHERE 1=1
+ 		   <if test="indexNo!=null">
+		        and   rel.INDEX_NO  =#{indexNo}
+ 		   </if>
+ 		   <if test="indexVerId!=null">
+		        and  rel.INDEX_VER_ID =#{indexVerId}
+ 		   </if>
+ 		   <if test="idxNoList!=null and  idxNoList.size()>0">
+	 		   and (
+				     rel.index_no  in
+					 <foreach item="idxNo"  collection="idxNoList" separator=" or  rel.index_no  in ">
+						<foreach collection="idxNo" item="item" open="("
+							separator="," close=")">
+							#{item}
+						</foreach>
+					 </foreach>
+				)
+		  </if>
+	</select>
+	
+	 <select id="getIdxMeasureRelMaxByParams" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureRel"  parameterType="java.util.Map">
+		   SELECT    
+			    rel.MEASURE_NO    as "id.measureNo",
+				rel.INDEX_NO      as "id.indexNo",
+				rel.INDEX_VER_ID  as "id.indexVerId",
+				rel.DS_ID         as "id.dsId",
+				rel.STORE_COL,
+				rel.ORDER_NUM
+		    FROM  RPT_IDX_MEASURE_REL rel <if test="indexVerId == null">,RPT_IDX_INFO info</if>  
+ 		   WHERE 1=1
+ 		    <if test="indexVerId == null">
+	 		   and
+	 		   info.index_No = rel.index_No
+	 		   and
+	 		   info.index_ver_id = rel.index_ver_id
+	 		   and info.end_date = '29991231'
+ 		   </if>
+ 		   <if test="indexNo!=null">
+		        and   rel.INDEX_NO  =#{indexNo}
+ 		   </if>
+ 		   <if test="indexVerId!=null">
+		        and  rel.INDEX_VER_ID =#{indexVerId}
+ 		   </if>
+ 		   <if test="idxNoList!=null and  idxNoList.size()>0">
+	 		   and (
+				     rel.index_no  in
+					 <foreach item="idxNo"  collection="idxNoList" separator=" or  rel.index_no  in ">
+						<foreach collection="idxNo" item="item" open="("
+							separator="," close=")">
+							#{item}
+						</foreach>
+					 </foreach>
+				)
+		  </if>
+	</select>
+	
+	<select id="getDimTypeInfoById" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"  parameterType="string"> 
+		SELECT DIM_TYPE_NO ,CATALOG_ID
+		,DIM_TYPE_NM,DIM_TYPE_EN_NM
+		,DIM_TYPE_DESC,DIM_TYPE
+		,DIM_TYPE_STRUCT 
+		  FROM
+		RPT_DIM_TYPE_INFO    
+		where   DIM_TYPE_NO = #{dimTypeNo} 
+	</select>
+	
+	<insert id="saveBusiExt" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxBusiExt">
+	   insert into RPT_IDX_BUSI_EXT(
+	        INDEX_NO        ,
+			INDEX_VER_ID    ,
+			INDEX_USUAL_NM  ,
+			BUSI_RULE    ,
+			BUSI_DEF     ,
+			DEF_DEPT        ,
+			USE_DEPT ,
+			BUSI_MODEL
+	   
+	   )
+	   values(
+	       #{id.indexNo},#{id.indexVerId},#{indexUsualNm},#{busiRule},#{busiDef},#{defDept},#{useDept},#{busiModel}
+	   )
+    </insert>
+    
+	<insert id="saveIdxFormulaInfo" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo">
+	   insert into RPT_IDX_FORMULA_INFO(
+	        INDEX_NO        ,
+			INDEX_VER_ID    ,
+			FORMULA_TYPE    ,
+			FORMULA_CONTENT ,
+			FORMULA_DESC    ,
+			REMARK
+	   
+	   )
+	   values(
+	       #{id.indexNo},#{id.indexVerId},#{formulaType},#{formulaContent},#{formulaDesc},#{remark}
+	   )
+    </insert>
+    
+	<insert id="saveIdxFilterInfo" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxFilterInfo">
+	   insert into RPT_IDX_FILTER_INFO(
+	        INDEX_NO        ,
+			INDEX_VER_ID    ,
+			DIM_NO    ,
+			FILTER_VAL ,
+			FILTER_MODE
+	   
+	   )
+	   values(
+	       #{id.indexNo},#{id.indexVerId},#{id.dimNo},#{filterVal},#{filterMode}
+	   )
+    </insert>
+    
+	<insert id="saveIdxMeasureRel" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureRel">
+	   insert into RPT_IDX_MEASURE_REL(
+	        MEASURE_NO    ,
+			INDEX_NO      ,
+			INDEX_VER_ID  ,
+			DS_ID         ,
+			STORE_COL     ,
+			ORDER_NUM
+	   )
+	   values(
+	       #{id.measureNo},#{id.indexNo},#{id.indexVerId},#{id.dsId},#{storeCol},#{orderNum}
+	   )
+    </insert>
+    
+	<insert id="saveIdxDimRel" parameterType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel">
+	   insert into RPT_IDX_DIM_REL(
+	        DIM_NO       ,
+			INDEX_NO     ,
+			INDEX_VER_ID ,
+			DS_ID        ,
+			DIM_TYPE     ,
+			ORDER_NUM    ,
+			STORE_COL
+	   )
+	   values(
+	       #{id.dimNo},#{id.indexNo},#{id.indexVerId},#{id.dsId},#{dimType},#{orderNum},#{storeCol}
+	   )
+    </insert>
+    <select id="getIdxCountByCataNos" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  RPT_IDX_INFO    
+		  where      INDEX_CATALOG_NO  in
+		  <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	      </foreach>  
+	</select>
+	<select id="getCatalogHaveIdx" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxCatalog" parameterType="java.util.Map">
+		select * from Rpt_idx_catalog c
+		inner join (
+		        select index_catalog_no from rpt_idx_info where 1=1
+				<if test="isPublish != null">
+					<if test="isPublish == Y">
+					and (is_publish = #{isPublish} or is_publish is null)
+					</if>
+					<if test="isPublish == N">
+					and (is_publish = #{isPublish} )
+					</if>
+				</if>
+				<if test="exSumAccoutIndex != null">
+					and INDEX_TYPE != #{exSumAccoutIndex}
+				</if>
+				<if test="indexNos != null">
+				        and (
+						     index_no  in
+							 <foreach item="idxNo"  collection="indexNos" separator=" or  index_no  in ">
+								<foreach collection="idxNo" item="item" open="("
+									separator="," close=")">
+									#{item}
+								</foreach>
+							 </foreach>
+						)
+				</if>
+	  )i
+	  on c.index_catalog_no = i.index_catalog_no
+	</select>
+	<select  id="getOrgIdxs"  resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo" parameterType="java.util.Map">
+	      SELECT
+	            INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",CALC_CYCLE,DATA_PRECISION,DATA_TYPE,DATA_UNIT,END_DATE,INDEX_CATALOG_NO,INDEX_NM,INDEX_STS,INDEX_TYPE,LAST_UPT_TIME,LAST_UPT_USER,REMARK,SRC_INDEX_NO,SRC_SOURCE_ID,START_DATE,IS_SUM,IS_RPT_INDEX,SRC_INDEX_MEASURE,STAT_TYPE
+	       FROM  RPT_IDX_INFO   WHERE 1=1
+	       <if test="indexNo!=null">
+	          and INDEX_NO  =#{indexNo}
+	       </if>
+	       <if test="indexVerId!=null">
+	           and  INDEX_VER_ID  =#{indexVerId}
+	       </if>
+	       <if test="defSrc!=null">
+	           and  DEF_SRC  =#{defSrc}
+	       </if>
+	       <if test="defOrg!=null">
+	           and  DEF_ORG  =#{defOrg}
+	       </if>
+	</select>
+	<select  id="getUserIdxs"  resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo" parameterType="java.util.Map">
+	      SELECT
+	            INDEX_NO as "id.indexNo",INDEX_VER_ID as "id.indexVerId",CALC_CYCLE,DATA_PRECISION,DATA_TYPE,DATA_UNIT,END_DATE,INDEX_CATALOG_NO,INDEX_NM,INDEX_STS,INDEX_TYPE,LAST_UPT_TIME,LAST_UPT_USER,REMARK,SRC_INDEX_NO,SRC_SOURCE_ID,START_DATE,IS_SUM,IS_RPT_INDEX,SRC_INDEX_MEASURE,STAT_TYPE
+	       FROM  RPT_IDX_INFO   WHERE 1=1
+	       <if test="indexNo!=null">
+	          and INDEX_NO  =#{indexNo}
+	       </if>
+	       <if test="indexVerId!=null">
+	           and  INDEX_VER_ID  =#{indexVerId}
+	       </if>
+	       <if test="defSrc!=null">
+	           and  DEF_SRC  =#{defSrc}
+	       </if>
+	       <if test="defUser!=null">
+	           and  DEF_USER  =#{defUser}
+	       </if>
+	       <if test="indexSts">
+	           and  INDEX_STS  =#{indexSts}
+	       </if>
+	</select>
+	<select id="getIdxDsInfo" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo"
+	parameterType="HashMap">
+		select t1_.INDEX_NO as "id.indexNo",t1_.INDEX_VER_ID as "id.indexVerId",t1_.CALC_CYCLE,t1_.DATA_TYPE,t1_.DATA_UNIT,
+		t1_.END_DATE,t1_.INDEX_CATALOG_NO,t1_.INDEX_NM,t1_.INDEX_STS,t1_.INDEX_TYPE,t1_.LAST_UPT_TIME,t1_.LAST_UPT_USER,
+		t1_.SRC_INDEX_NO,t1_.SRC_SOURCE_ID,t1_.START_DATE,t1_.IS_SUM,t1_.IS_RPT_INDEX,t1_.SRC_INDEX_MEASURE,t1_.DEF_SRC,t1_.DEF_ORG,t1_.DEF_USER,
+        t1_.STAT_TYPE,t1_.USER_ID,t1_.DEPT_ID,t2_.ds_id as "remark"
+		from
+		RPT_IDX_INFO  t1_ ,(SELECT DISTINCT
+		    index_no,
+		    index_ver_id,
+		    ds_id
+		FROM
+    	rpt_idx_measure_rel) t2_
+    	where 1=1 
+ 		and
+		t1_.index_no = t2_.index_no
+		and
+		t1_.index_ver_id = t2_.index_ver_id
+    	<if test="indexNo != null">and t1_.INDEX_NO = #{indexNo}</if>
+		<if test="dataDate == null">and t1_.END_DATE = '29991231'</if>
+		<if test="dataDate != null">and t1_.START_DATE  &lt;= #{dataDate} and t1_.END_DATE &gt;= #{dataDate}</if>
+   	</select>
+   	
+   	<select id="influenceIdxList" resultType="com.yusys.bione.plugin.rptidx.web.vo.RptIdxInfoVO" parameterType="HashMap">
+   		select
+   			t1_.index_no as "id.indexno", t1_.index_nm, t1_.index_type
+   		from 
+   			rpt_idx_info  t1_ , 
+   			(select distinct
+ 				t.index_no,
+		    	t.index_ver_id
+		    from 
+		    	rpt_idx_src_rel_info t
+		    where 
+		    	1=1
+		    <if test="srcIdxNo != null">and t.src_index_no = #{srcIdxNo}</if>
+		    ) t2_
+   		where 
+   			t1_.is_rpt_index = 'N'
+   		and 
+			t1_.index_no = t2_.index_no
+		and
+			t1_.index_ver_id = t2_.index_ver_id
+ 	</select>
+ 	
+	<select id="getSrcIdxNoListByParams" resultType="java.lang.String"  parameterType="HashMap">
+		select distinct
+			src_index_no  
+		from   
+			rpt_idx_src_rel_info srcInfo 
+		where 
+			1=1
+			<if test="verId != null">and srcInfo.index_ver_id = #{verId}</if>
+		and
+			srcInfo.index_no in (
+				select	
+					index_no
+				from 
+					rpt_idx_info
+				where 
+					1=1
+				and 
+					index_type = '03'
+				and 
+					end_date = '29991231'
+				<if test="rptTmpId != null">and template_id = #{rptTmpId}</if>
+			)
+	</select>
+</mapper> 

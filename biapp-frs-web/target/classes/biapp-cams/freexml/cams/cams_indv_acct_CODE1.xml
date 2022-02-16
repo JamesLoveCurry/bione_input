@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>个人账户信息</templetname>
+		<fromtable>cams_indv_acct</fromtable>
+		<savetable>cams_indv_acct</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys>data_dt</orderbys>
+		<card_btns></card_btns>
+		<card_size>800*560</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns>[icon-add]新增/insert1;[icon-edit]编辑/update1;[icon-remove]删除/delete1;[icon-p27]查看日志/proclogs1;</list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ischeckstyle>Y</list_ischeckstyle>
+		<list_ismultisel>Y</list_ismultisel>
+	</templet>
+
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<seq>5</seq>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>data_dt</itemkey>
+		<itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>status</itemkey>
+		<itemname>数据状态</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"直接值","内容":"1/初始化|2/待复核|3/待审批|4/退回|5/完成"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>clct_mode</itemkey>
+		<itemname>采集模式</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01001'"}】</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>doc_type_indic</itemkey>
+		<itemname>报告类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01002'"}】</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<seq>5</seq>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>account_number</itemkey>
+		<itemname>账号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<seq>5</seq>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>180</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>first_name</itemkey>
+		<itemname>法定英文（拼音）名</itemname>
+		<itemtype>文本框</itemtype>
+		<formatvalidate>全英文</formatvalidate>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<seq>5</seq>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>140</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>150,250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>last_name</itemkey>
+		<itemname>法定英文（拼音）姓</itemname>
+		<itemtype>文本框</itemtype>
+		<formatvalidate>全英文</formatvalidate>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>140</list_width>
+		<list_align>左</list_align>
+		<list_render></list_render>
+		<query_isshow>Y</query_isshow>
+		<query_width>150,250</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>closed_account</itemkey>
+		<itemname>是否销户账户</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01003'"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>due_diligence_ind</itemkey>
+		<itemname>账户类别</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01004'"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>self_certification</itemkey>
+		<itemname>是否取得自证声明</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01005'"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>account_balance</itemkey>
+		<itemname>账户余额</itemname>
+		<itemtype>数字框</itemtype>
+		<maxlen>20</maxlen>
+		<itemdefine>【精度=2】【是否有千分位=Y】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>bal_curr_code</itemkey>
+		<itemname>余额币种代码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>account_holder_type</itemkey>
+		<itemname>账户持有人类别</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01006'"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>opening_fin_name</itemkey>
+		<itemname>开户银行金融机构编码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>140</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>payment_type</itemkey>
+		<itemname>收入类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01007'"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>payment_amt</itemkey>
+		<itemname>收入金额</itemname>
+		<itemtype>数字框</itemtype>
+		<maxlen>20</maxlen>
+		<itemdefine>【精度=2】【是否有千分位=Y】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>payment_curr_code</itemkey>
+		<itemname>收入币种</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>gender</itemkey>
+		<itemname>性别</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01008'"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>phone_no</itemkey>
+		<itemname>联系电话</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>id_type</itemkey>
+		<itemname>身份证件类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01009'"}】</itemdefine>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>id_number</itemkey>
+		<itemname>身份证件号码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>Y</query_isshow>
+		<query_width>100,230</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>res_country_code</itemkey>
+		<itemname>税收居民国（地区）代码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>150</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>nationality</itemkey>
+		<itemname>国籍</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>birth_date</itemkey>
+		<itemname>出生日期</itemname>
+		<itemtype>日历</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>birth_city</itemkey>
+		<itemname>出生城市</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>birth_country_code</itemkey>
+		<itemname>出生国代码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>100</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>former_country_name</itemkey>
+		<itemname>出生国英文名称</itemname>
+		<itemtype>文本框</itemtype>
+		<formatvalidate>全英文</formatvalidate>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>explanation</itemkey>
+		<itemname>TIN信息说明</itemname>
+		<itemtype>多行文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,740</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>org_no</itemkey>
+		<itemname>机构号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>user_name</itemkey>
+		<itemname>创建人名称</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>create_time</itemkey>
+		<itemname>创建时间</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+	</templet_item>
+	
+</root>
+

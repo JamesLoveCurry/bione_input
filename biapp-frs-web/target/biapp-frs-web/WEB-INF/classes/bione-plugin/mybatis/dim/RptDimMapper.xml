@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.bione.plugin.rptdim.repository.mybatis.RptDimDao">
+
+	<select id="getCatalogsByUpId" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimCatalog"  parameterType="string"> 
+		SELECT CATALOG_ID ,CATALOG_NM
+		,UP_CATALOG_ID,REMARK FROM
+		RPT_DIM_CATALOG  
+		where   UP_CATALOG_ID = #{nodeId}
+		order by  CATALOG_ID  asc
+	</select>
+	
+	<select id="findDimCatalogById" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimCatalog"  parameterType="string"> 
+		SELECT CATALOG_ID ,CATALOG_NM
+		,UP_CATALOG_ID,REMARK  FROM
+		RPT_DIM_CATALOG    
+		where   CATALOG_ID = #{catalogId}
+	</select>
+	
+	 <select id="testSameDimCatalogNm" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  RPT_DIM_CATALOG    
+		  where      CATALOG_NM=#{catalogNm}
+		  and  UP_CATALOG_ID=#{upCatalogId}
+		  <if test="catalogId!=null">
+		     and  CATALOG_ID != #{catalogId}
+		  </if>
+	</select>
+     
+	<select id="findDimTypeInfoById" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"  parameterType="string"> 
+		SELECT DIM_TYPE_NO ,CATALOG_ID
+		,DIM_TYPE_NM,DIM_TYPE_EN_NM
+		,DIM_TYPE_DESC,DIM_TYPE
+		,DIM_TYPE_STRUCT 
+		,START_DATE
+		,END_DATE
+		,BUSI_DEF
+		,BUSI_RULE
+		,DEF_DEPT
+		,USE_DEPT
+		,DIM_STS
+		  FROM
+		RPT_DIM_TYPE_INFO    
+		where   DIM_TYPE_NO = #{dimTypeNo}
+	</select>
+	
+	<select id="findDimTypeInfoByIds" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo" > 
+		SELECT DIM_TYPE_NO ,CATALOG_ID
+		,DIM_TYPE_NM,DIM_TYPE_EN_NM
+		,DIM_TYPE_DESC,DIM_TYPE
+		,DIM_TYPE_STRUCT 
+		,START_DATE
+		,END_DATE
+		,BUSI_DEF
+		,BUSI_RULE
+		,DEF_DEPT
+		,USE_DEPT
+		,DIM_STS
+		  FROM
+		RPT_DIM_TYPE_INFO    
+		where   DIM_TYPE_NO in
+		<foreach collection="list" item="ids" open="(" separator=","
+				close=")">
+				#{ids}
+		</foreach>
+	</select>
+	
+	<select id="getAllTypeInfoByParams" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"  parameterType="java.util.Map"> 
+		SELECT DIM_TYPE_NO ,CATALOG_ID
+		,DIM_TYPE_NM,DIM_TYPE_EN_NM,
+		DIM_TYPE_DESC,DIM_TYPE
+		,DIM_TYPE_STRUCT 
+		,START_DATE
+		,END_DATE
+		,BUSI_DEF
+		,BUSI_RULE
+		,DEF_DEPT
+		,USE_DEPT
+		,DIM_STS
+		 FROM
+		RPT_DIM_TYPE_INFO    
+		where   DIM_TYPE_NM like #{searchText}  and  DIM_TYPE_NO  not  in
+    		 <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                       #{item}               
+             </foreach>  
+       <if test="dimTypeList!=null">
+           and    DIM_TYPE   in 
+           <foreach  collection = "dimTypeList" index="index" item="item"  open="("  separator="," close=")">
+                       #{item}               
+           </foreach>  
+       </if>      
+	</select>
+	
+	<select id="testSameDimTypeNo" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  RPT_DIM_TYPE_INFO    
+		where   DIM_TYPE_NO = #{dimTypeNo}
+	</select>
+	
+	<select id="testSameDimTypeNm" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  RPT_DIM_TYPE_INFO    
+		where   DIM_TYPE_NM = #{dimTypeNm}
+		<if test="dimTypeNo!=null">
+		     and  DIM_TYPE_NO!=#{dimTypeNo}
+		</if>
+	</select>
+	
+	<select id="testSameDimItemNm" resultType="java.lang.Integer"  parameterType="java.util.Map"> 
+		SELECT count(*)  FROM  RPT_DIM_ITEM_INFO    
+		where   DIM_ITEM_NM = #{dimItemNm}
+		and     DIM_TYPE_NO = #{dimTypeNo}
+		<if test="dimItemNo!=null">
+		     and  DIM_ITEM_NO!=#{dimItemNo}
+		</if>
+	</select>
+	
+	 <select id="getMaxDimNo" resultType="java.lang.String"  parameterType="java.lang.String">
+		      select    max(DIM_TYPE_NO) from     RPT_DIM_TYPE_INFO  where   DIM_TYPE_NO  like #{type}
+		      
+	</select>
+	<select id="findDimItemInfoByPkId" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo"  parameterType="java.util.Map"> 
+		SELECT DIM_ITEM_NO as "id.dimItemNo" 
+		      ,DIM_ITEM_NM
+        ,UP_NO,REMARK 
+        ,DIM_TYPE_NO as "id.dimTypeNo" ,DEF_DEPT,USE_DEPT, BUSI_RULE, BUSI_DEF ,ITEM_STS ,START_DATE,END_DATE,RANK_ORDER  from   RPT_DIM_ITEM_INFO   
+		where   DIM_ITEM_NO = #{dimItemNo}
+		and  
+		DIM_TYPE_NO  = #{dimTypeNo}
+	</select>
+	
+    <delete id="rptDimCatalogDelById" parameterType="string">
+	         delete from RPT_DIM_CATALOG where CATALOG_ID=#{id}
+	</delete>
+	
+    <delete id="rptDimItemDelByPkId" parameterType="java.util.Map">
+	         delete from RPT_DIM_ITEM_INFO 
+	           where DIM_ITEM_NO =#{dimItemNo}  
+	           and
+	           DIM_TYPE_NO =#{dimTypeNo}   
+	</delete>
+	
+	
+    <delete id="rptDimTypeDelByIds" parameterType="java.util.List">
+	         delete from RPT_DIM_TYPE_INFO where DIM_TYPE_NO   in
+	         <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                   #{item}	             
+	         </foreach> 
+	</delete>
+    
+    <insert id="createRptDimCatalog" parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimCatalog">
+		insert into RPT_DIM_CATALOG
+		(
+			  CATALOG_ID   ,
+			  CATALOG_NM      ,
+			  UP_CATALOG_ID     ,
+			  REMARK         
+		) values (
+			  #{catalogId},
+			  #{catalogNm},
+			  #{upCatalogId},
+			  #{remark}
+		)
+	</insert>
+    
+    <insert id="createRptDimHistory" parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimHistoryInfo">
+		insert into RPT_DIM_HISTORY_INFO
+		(
+			HIS_ID, 
+	        DIM_TYPE_NO, 
+	        START_DATE, 
+	        END_DATE, 
+	        VER_ID, 
+	        HIS_INFO 
+		) values (
+			  #{hisId},
+			  #{dimTypeNo},
+			  #{startDate},
+			  #{endDate},
+			  #{veId},
+			  #{hisInfo}
+		)
+	</insert>
+    
+     <select id="getMaxVerHistory" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimHistoryInfo"> 
+        SELECT  
+            HIS_ID, 
+	        DIM_TYPE_NO, 
+	        START_DATE, 
+	        END_DATE, 
+	        VER_ID, 
+	        HIS_INFO 
+	    from   RPT_DIM_HISTORY_INFO  
+	    where   END_DATE='29991231'
+    </select>
+    
+     <select id="getRptDimHistoryByHisId" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimHistoryInfo"  parameterType="string">  
+        SELECT  
+            HIS_ID, 
+	        DIM_TYPE_NO, 
+	        START_DATE, 
+	        END_DATE, 
+	        VER_ID, 
+	        HIS_INFO 
+	    from   RPT_DIM_HISTORY_INFO  
+	    where   HIS_ID=#{hisId}
+    </select>
+    
+     <select id="getAllHistoryByDimTypeNo" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimHistoryInfo"> 
+        SELECT  
+            HIS_ID, 
+	        DIM_TYPE_NO, 
+	        START_DATE, 
+	        END_DATE, 
+	        VER_ID, 
+	        HIS_INFO 
+	    from   RPT_DIM_HISTORY_INFO  
+	    where   DIM_TYPE_NO=#{dimTypeNo}
+	    order by  start_date desc
+    </select>
+    
+    <update id="updateRptDimHistory"  parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimHistoryInfo">
+		update RPT_DIM_HISTORY_INFO  set 
+			  DIM_TYPE_NO  =  #{dimTypeNo},
+			  START_DATE   = #{startDate},
+			  END_DATE  = #{endDate},
+			  VER_ID  = #{veId},
+			  HIS_INFO  = #{hisInfo}
+     	where 
+     	     HIS_ID = #{hisId}
+	</update>
+	
+	<delete id="deleteRptDimHistoryById" parameterType="string">
+	         delete from RPT_DIM_HISTORY_INFO where HIS_ID=#{hisId}
+	</delete>
+	
+    <insert id="createRptDimTypeInfo" parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo">
+		insert into RPT_DIM_TYPE_INFO
+		(
+			  DIM_TYPE_NO     ,
+			  CATALOG_ID      ,
+			  DIM_TYPE_NM     ,
+			  DIM_TYPE_EN_NM  ,
+			  DIM_TYPE        , 
+			  DIM_TYPE_DESC   ,
+			  DIM_TYPE_STRUCT ,
+			  START_DATE      ,        
+			  END_DATE        ,
+			  BUSI_DEF        ,
+			  BUSI_RULE       ,
+			  DEF_DEPT        ,
+			  USE_DEPT        ,
+			  DIM_STS
+			         
+		) values (
+			  #{dimTypeNo},
+			  #{catalogId},
+			  #{dimTypeNm},
+			  #{dimTypeEnNm},
+			  #{dimType},
+			  #{dimTypeDesc},
+			  #{dimTypeStruct},
+			  #{startDate},
+			  #{endDate},
+			  #{busiDef},
+			  #{busiRule},
+			  #{defDept},
+			  #{useDept},
+			  #{dimSts}
+		)
+	</insert>
+    
+    <insert id="createRptDimItemInfo" parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo">
+		insert into RPT_DIM_ITEM_INFO
+		(
+			  DIM_ITEM_NO    ,
+			  DIM_ITEM_NM     ,
+			  UP_NO     ,
+			  REMARK   ,
+			  DIM_TYPE_NO,DEF_DEPT,USE_DEPT, BUSI_RULE, BUSI_DEF ,ITEM_STS ,START_DATE,END_DATE,RANK_ORDER          
+		) values (
+			  #{id.dimItemNo},
+			  #{dimItemNm},
+			  #{upNo},
+			  #{remark},
+			  #{id.dimTypeNo},
+			  #{defDept},#{useDept}, #{busiRule}, #{busiDef} ,#{itemSts} ,#{startDate},#{endDate},#{rankOrder}
+		)
+	</insert>
+    
+    <update id="updateRptDimCatalog" parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimCatalog">
+		update RPT_DIM_CATALOG  set 
+			CATALOG_NM = #{catalogNm},
+			REMARK =  #{remark}
+     	where CATALOG_ID = #{catalogId}
+	</update>
+    
+    <update id="updateRptDimTypeInfo" parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo">
+		update RPT_DIM_TYPE_INFO  set 
+		    CATALOG_ID  = #{catalogId},
+			DIM_TYPE_NM = #{dimTypeNm},
+			DIM_TYPE_EN_NM =  #{dimTypeEnNm},    
+			DIM_TYPE_DESC =  #{dimTypeDesc},
+			DIM_TYPE_STRUCT = #{dimTypeStruct},
+			START_DATE = #{startDate},
+			END_DATE = #{endDate},
+			BUSI_DEF = #{busiDef},
+			BUSI_RULE = #{busiRule},
+			DEF_DEPT = #{defDept},
+			USE_DEPT = #{useDept},
+			DIM_STS = #{dimSts}
+     	where DIM_TYPE_NO = #{dimTypeNo}
+	</update>
+    
+    <update id="updateRptDimItemInfo" parameterType = "com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo">
+		update RPT_DIM_ITEM_INFO  set 
+			DIM_ITEM_NM = #{dimItemNm},
+			REMARK =  #{remark} ,
+			DEF_DEPT = #{defDept},USE_DEPT = #{useDept}, BUSI_RULE = #{busiRule}, BUSI_DEF = #{busiDef} ,ITEM_STS = #{itemSts},START_DATE = #{startDate},END_DATE = #{endDate},RANK_ORDER = #{rankOrder}
+     	where 
+     	DIM_ITEM_NO = #{id.dimItemNo}
+     	and
+     	DIM_TYPE_NO = #{id.dimTypeNo}
+     	
+	</update>
+    
+    
+    <select id="getTypeInfosByParams" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"> 
+        SELECT dim.DIM_TYPE_NO ,dim.CATALOG_ID
+        ,dim.DIM_TYPE_NM,dim.DIM_TYPE_EN_NM 
+        ,dim.DIM_TYPE_DESC ,dim.DIM_TYPE
+        ,dim.DIM_TYPE_STRUCT
+        ,dim.START_DATE
+		,dim.END_DATE
+		,dim.BUSI_DEF
+		,dim.BUSI_RULE
+		,dim.DEF_DEPT
+		,dim.USE_DEPT
+		,dim.DIM_STS
+		,catalog.CATALOG_NM
+         from   RPT_DIM_TYPE_INFO dim left   join RPT_DIM_CATALOG catalog  on  dim.CATALOG_ID = catalog.CATALOG_ID
+         where 1=1  
+          <if test="dimTypeList!=null">
+           and    DIM_TYPE   in 
+           <foreach  collection = "dimTypeList" index="index" item="item"  open="("  separator="," close=")">
+                       #{item}               
+           </foreach>  
+       </if>
+       <if test="dimTypeNo != null">
+       		and dim_type_no = #{dimTypeNo}
+       	</if>    
+       	 <if test="dimTypeNos!=null">
+           and    dim_type_no   in 
+           <foreach  collection = "dimTypeNos" index="index" item="item"  open="("  separator="," close=")">
+                       #{item}               
+           </foreach>  
+       </if> 
+    </select>
+    
+    <select id="getItemInfosByParams" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo"> 
+        SELECT DIM_ITEM_NO as "id.dimItemNo",DIM_ITEM_NM
+        ,UP_NO,REMARK 
+        ,DIM_TYPE_NO as  "id.dimTypeNo" ,DEF_DEPT,USE_DEPT, BUSI_RULE, BUSI_DEF ,ITEM_STS ,START_DATE,END_DATE  from   RPT_DIM_ITEM_INFO  
+    </select>
+    
+     <select id="getItemInfosByDimType" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo"> 
+        SELECT DIM_ITEM_NO as "id.dimItemNo",DIM_ITEM_NM
+        ,UP_NO,REMARK 
+        ,DIM_TYPE_NO as  "id.dimTypeNo" ,DEF_DEPT,USE_DEPT, BUSI_RULE, BUSI_DEF ,ITEM_STS ,START_DATE,END_DATE,RANK_ORDER  from   RPT_DIM_ITEM_INFO  
+          where 1=1  
+           <if test="dimTypeNos!=null">
+           and    dim_type_no   in 
+           <foreach  collection = "dimTypeNos" index="index" item="item"  open="("  separator="," close=")">
+                       #{item}               
+           </foreach>  
+       </if> 
+        <if test="dimTypeNo!=null">
+           and    dim_type_no   =  #{dimTypeNo}
+       </if> 
+        order by DIM_ITEM_NO
+    </select>
+    
+    <select id="getTypeInfosByCatalogId" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"  parameterType="string"> 
+        SELECT DIM_TYPE_NO ,CATALOG_ID
+        ,DIM_TYPE_NM,DIM_TYPE_EN_NM 
+        ,DIM_TYPE_DESC,DIM_TYPE
+        ,DIM_TYPE_STRUCT
+        ,START_DATE
+		,END_DATE
+		,BUSI_DEF
+		,BUSI_RULE
+		,DEF_DEPT
+		,USE_DEPT
+		,DIM_STS
+          from   RPT_DIM_TYPE_INFO  
+        where  CATALOG_ID = #{catalogId}
+    </select>
+    
+    <select id="findDimItemListByTypeNo" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo"  parameterType="java.util.Map"> 
+        SELECT DIM_ITEM_NO  as "id.dimItemNo",DIM_ITEM_NM
+        ,UP_NO,REMARK 
+        ,DIM_TYPE_NO as  "id.dimTypeNo" ,DEF_DEPT,USE_DEPT, BUSI_RULE, BUSI_DEF ,ITEM_STS ,START_DATE,END_DATE       from   RPT_DIM_ITEM_INFO  
+        where  DIM_TYPE_NO = #{dimTypeNo}
+        <if test="itemSts!=null">
+          and    (ITEM_STS  = #{itemSts} or item_sts is null)
+        </if>
+        order by DIM_ITEM_NO
+    </select>
+    
+    <select id="findDimItemListByUpNo" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimItemInfo"  parameterType="java.util.Map"> 
+        SELECT DIM_ITEM_NO as  "id.dimItemNo",DIM_ITEM_NM
+        ,UP_NO,REMARK 
+        ,DIM_TYPE_NO  as "id.dimTypeNo" ,DEF_DEPT,USE_DEPT, BUSI_RULE, BUSI_DEF ,ITEM_STS ,START_DATE,END_DATE     from   RPT_DIM_ITEM_INFO  
+        where  UP_NO = #{upNo}
+        and    DIM_TYPE_NO =#{dimTypeNo}
+    </select>
+    
+    
+    <select id="getItemsCount" resultType="java.lang.Integer"> 
+        SELECT count(*)  from   RPT_DIM_ITEM_INFO  
+    </select>
+    
+    <select id="getCatalogChildrenCountByUpId" resultType="java.lang.Integer"   parameterType="string"> 
+        SELECT count(*)  from   RPT_DIM_CATALOG   WHERE UP_CATALOG_ID = #{catalogId}   
+    </select>
+    
+    <select id="getAllRptDimCatalogs" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimCatalog"> 
+        SELECT CATALOG_ID ,CATALOG_NM
+        ,UP_CATALOG_ID,REMARK  FROM
+        RPT_DIM_CATALOG 
+    </select>
+    
+    <select id="getAllRptDimTypeInfos" resultType="com.yusys.bione.plugin.rptdim.entity.RptDimTypeInfo"> 
+        SELECT DIM_TYPE_NO ,CATALOG_ID
+        ,DIM_TYPE_NM,DIM_TYPE_EN_NM 
+        ,DIM_TYPE_DESC,DIM_TYPE
+        ,DIM_TYPE_STRUCT
+        ,START_DATE
+		,END_DATE
+		,BUSI_DEF
+		,BUSI_RULE
+		,DEF_DEPT
+		,USE_DEPT
+		,DIM_STS
+          from   RPT_DIM_TYPE_INFO  
+    </select>
+    
+    <select id="getAllRptDimItemInfos" resultType="com.yusys.bione.plugin.rptdim.web.vo.RptDimItemInfoVO"> 
+        SELECT *  from   RPT_DIM_ITEM_INFO  
+    </select>
+    
+    <!-- 导出 -->
+    <select id="getCatalogById" resultType="com.yusys.bione.plugin.datamodel.entity.RptSysModuleCatalog"
+	parameterType="HashMap"> 
+	select CATALOG_ID,CATALOG_DESC,CATALOG_NM,UP_ID
+ from 
+	RPT_SYS_MODULE_CATALOG 
+	 where 1=1 
+	 <if test="catalogId != null">
+		 and CATALOG_ID = #{catalogId}</if>
+	 <if test="catalogDesc != null">
+		 and CATALOG_DESC = #{catalogDesc}</if>
+	 <if test="catalogNm != null">
+		 and CATALOG_NM = #{catalogNm}</if>
+	 <if test="upId != null">
+		 and UP_ID = #{upId}</if>
+</select>
+
+<select id="getExportModelInfo" resultType="com.yusys.bione.plugin.wizard.web.vo.DataSetImportVO"
+	parameterType="HashMap"> 
+	select RPT_SYS_MODULE_INFO.SET_ID,RPT_SYS_MODULE_INFO.CATALOG_ID,RPT_SYS_MODULE_INFO.remark,RPT_SYS_MODULE_INFO.SET_NM,RPT_SYS_MODULE_INFO.SOURCE_ID,RPT_SYS_MODULE_INFO.TABLE_EN_NM,RPT_SYS_MODULE_COL.CN_NM,RPT_SYS_MODULE_COL.COL_TYPE,RPT_SYS_MODULE_COL.DB_TYPE,RPT_SYS_MODULE_COL.DIM_TYPE_NO,RPT_SYS_MODULE_COL.EN_NM,RPT_SYS_MODULE_COL.IS_NULL,RPT_SYS_MODULE_COL.IS_PK,RPT_SYS_MODULE_COL.IS_QUERY_COL,RPT_SYS_MODULE_COL.IS_USE,RPT_SYS_MODULE_COL.LEN,RPT_SYS_MODULE_COL.MEASURE_NO,RPT_SYS_MODULE_COL.ORDER_NUM,RPT_SYS_MODULE_COL.PRECISION2,RPT_SYS_MODULE_COL.QUERY_LOGIC from 
+	RPT_SYS_MODULE_INFO,RPT_SYS_MODULE_COL 
+	 where 1=1 
+ and RPT_SYS_MODULE_INFO.SET_ID=RPT_SYS_MODULE_COL.SET_ID
+	 <if test="dimTypeName != null">
+		 and RPT_SYS_MODULE_COL.dimTypeName = #{dimTypeName}</if>
+	 <if test="tableEnNm != null">
+		 and RPT_SYS_MODULE_INFO.TABLE_EN_NM = #{tableEnNm}</if>
+	 <if test="colType != null">
+		 and RPT_SYS_MODULE_COL.COL_TYPE = #{colType}</if>
+	 <if test="dbType != null">
+		 and RPT_SYS_MODULE_COL.DB_TYPE = #{dbType}</if>
+	 <if test="orderNum != null">
+		 and RPT_SYS_MODULE_COL.ORDER_NUM = #{orderNum}</if>
+	 <if test="isQueryCol != null">
+		 and RPT_SYS_MODULE_COL.IS_QUERY_COL = #{isQueryCol}</if>
+	 <if test="sourceId != null">
+		 and RPT_SYS_MODULE_INFO.SOURCE_ID = #{sourceId}</if>
+	 <if test="remark != null">
+		 and RPT_SYS_MODULE_INFO.remark = #{remark}</if>
+	 <if test="isNull != null">
+		 and RPT_SYS_MODULE_COL.IS_NULL = #{isNull}</if>
+	 <if test="colId != null">
+		 and RPT_SYS_MODULE_COL.COL_ID = #{colId}</if>
+	 <if test="cnNm != null">
+		 and RPT_SYS_MODULE_COL.CN_NM = #{cnNm}</if>
+	 <if test="precision2 != null">
+		 and RPT_SYS_MODULE_COL.PRECISION2 = #{precision2}</if>
+	 <if test="queryLogic != null">
+		 and RPT_SYS_MODULE_COL.QUERY_LOGIC = #{queryLogic}</if>
+	 <if test="isPk != null">
+		 and RPT_SYS_MODULE_COL.IS_PK = #{isPk}</if>
+	 <if test="catalogId != null">
+		 and RPT_SYS_MODULE_INFO.CATALOG_ID = #{catalogId}</if>
+	 <if test="setNm != null">
+		 and RPT_SYS_MODULE_INFO.SET_NM = #{setNm}</if>
+	 <if test="setType != null">
+		 and RPT_SYS_MODULE_INFO.SET_TYPE = #{setType}</if>
+	 <if test="len != null">
+		 and RPT_SYS_MODULE_COL.LEN = #{len}</if>
+	 <if test="enNm != null">
+		 and RPT_SYS_MODULE_COL.EN_NM = #{enNm}</if>
+	 <if test="measureNo != null">
+		 and RPT_SYS_MODULE_COL.MEASURE_NO = #{measureNo}</if>
+	 <if test="isUse != null">
+		 and RPT_SYS_MODULE_COL.IS_USE = #{isUse}</if>
+	 <if test="dimTypeNo != null">
+		 and RPT_SYS_MODULE_COL.DIM_TYPE_NO = #{dimTypeNo}</if>
+	 <if test="setIds != null">
+		 and RPT_SYS_MODULE_INFO.SET_ID in
+		 <foreach collection="setIds" item="id" open="("
+				separator="," close=")">
+		 	#{id}
+		 </foreach>
+		 </if>
+	 <if test="measureName != null">
+		 and RPT_SYS_MODULE_COL.measureName = #{measureName}</if>
+</select>
+<select id="getRelatedCountByDimno" resultType="java.lang.Integer"     parameterType="java.util.Map">
+         select   t1.count_+t2.count_+t3.count_ from   
+         (
+             select  count(*) as  count_ from  rpt_idx_dim_rel where    dim_no  in
+                  <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                  </foreach>  
+         )t1,(
+             select  count(*)  as  count_  from  rpt_mgr_idx_filter where    dim_no in
+                   <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                   </foreach>  
+         )t2,(
+             select  count(*)  as  count_  from  rpt_sys_module_col where   DIM_TYPE_NO in
+                   <foreach  collection = "list" index="index" item="item"  open="("  separator="," close=")">
+                           #{item}               
+                   </foreach>  
+         )t3
+</select>
+</mapper> 

@@ -1,0 +1,124 @@
+.familytree {
+	background-color : #fff;
+}
+.familytree .content { 
+    margin:auto; 
+} 
+
+.familytree ul { 
+    padding-top: 20px; 
+    padding-left: 0px;
+    position: relative; 
+    transition: all 0.5s; 
+    -webkit-transition: all 0.5s; 
+    -moz-transition: all 0.5s; 
+} 
+
+.familytree li { 
+    float: left; text-align: center; 
+    list-style-type: none; 
+    position: relative; 
+    padding: 20px 0px 0px 0px; 
+     
+    transition: all 0.5s; 
+    -webkit-transition: all 0.5s; 
+    -moz-transition: all 0.5s; 
+} 
+ 
+/*We will use ::before and ::after to draw the connectors*/ 
+ 
+.familytree li::before, .familytree li::after{ 
+    content: ''; 
+    position: absolute; top: 0; right: 50%; 
+    border-top: 1px solid #ccc; 
+    width: 50%; height: 20px; 
+} 
+.familytree li::after{ 
+    right: auto; left: 50%; 
+    border-left: 1px solid #ccc; 
+} 
+ 
+/*We need to remove left-right connectors from elements without  
+any siblings*/ 
+.familytree li:only-child::after, .familytree li:only-child::before { 
+    display: none; 
+} 
+ 
+/*Remove space from the top of single children*/ 
+.familytree li:only-child{ padding-top: 0;} 
+ 
+/*Remove left connector from first child and  
+right connector from last child*/ 
+.familytree li:first-child::before, .familytree li:last-child::after{ 
+    border: 0 none; 
+} 
+/*Adding back the vertical connector to the last nodes*/ 
+.familytree li:last-child::before{ 
+    border-right: 1px solid #ccc; 
+    border-radius: 0 5px 0 0; 
+    -webkit-border-radius: 0 5px 0 0; 
+    -moz-border-radius: 0 5px 0 0; 
+} 
+.familytree li:first-child::after{ 
+    border-radius: 5px 0 0 0; 
+    -webkit-border-radius: 5px 0 0 0; 
+    -moz-border-radius: 5px 0 0 0; 
+} 
+ 
+/*Time to add downward connectors from parents*/ 
+.familytree ul ul::before{ 
+    content: ''; 
+    position: absolute; top: 0; left: 50%; 
+    border-left: 1px solid #ccc; 
+    width: 0; height: 20px; 
+} 
+.familytree li .parent,.familytree li .children{ 
+	cursor:pointer;
+}
+.familytree li a{ 
+	width: 100px;
+	word-wrap :break-word;;
+    border: 1px solid #ccc; 
+    padding: 5px 10px; 
+    text-decoration: none; 
+    color: #666; 
+    font-family: arial, verdana, tahoma; 
+    font-size: 11px; 
+    display: inline-block; 
+    border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+    -moz-border-radius: 5px; 
+     cursor :default;
+    transition: all 0.5s; 
+    -webkit-transition: all 0.5s; 
+    -moz-transition: all 0.5s; 
+} 
+ 
+/*Time for some hover effects*/ 
+/*We will apply the hover effect the the lineage of the element also*/ 
+.familytree li a:hover, .familytree li a:hover+ul li a { 
+    background: #c8e4f8; color: #000; border: 1px solid #94a0b4; 
+} 
+/*Connector styles on hover*/ 
+.familytree li a:hover+ul li::after,  
+.familytree li a:hover+ul li::before,  
+.familytree li a:hover+ul::before,  
+.familytree li a:hover+ul ul::before{ 
+    border-color:  #94a0b4; 
+}
+
+.familytree .children.expand{
+	background-image: url("./img/minus_up.gif");
+}
+
+.familytree .children.unexpand{
+	background-image: url("./img/plus_up.gif");
+} 
+
+.familytree .parent.expand{
+	background-image: url("./img/minus_down.gif");
+}
+
+.familytree .parent.unexpand{
+	background-image: url("./img/plus_down.gif");
+} 

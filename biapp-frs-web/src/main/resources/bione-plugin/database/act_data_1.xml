@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<record tabname="act_ge_property">
+  <col name="name_">schema.version</col>
+  <col name="value_">5.22.0.0</col>
+  <col name="rev_">1</col>
+</record>
+
+<record tabname="act_ge_property">
+  <col name="name_">schema.history</col>
+  <col name="value_">create(5.22.0.0)</col>
+  <col name="rev_">1</col>
+</record>
+
+<record tabname="act_ge_property">
+  <col name="name_">next.dbid</col>
+  <col name="value_">397501</col>
+  <col name="rev_">160</col>
+</record>
+
+
+</root>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.pisamessage.repository.PisaMessageDao">
+<!-- pisa报送 获取 基本指标值 -->
+	<select id="getIdxVvData" resultType="com.yusys.biapp.frs.pisamessage.web.vo.FrsPisaBaseIdxValDataVO"
+		parameterType="HashMap">
+		select pi.pisaId,
+		   pi.orgCode,
+		   pi.dataDate,
+		   sum(pi.vvVal) as vvVal,
+		   sum(pi.vv2Val) as vv2Val
+		from (
+			select    
+			   pisaIdx.PISA_IDX_ID as pisaId,
+			   rptRes.org_no as orgCode,
+			   rptRes.data_date as dataDate,
+			   NVL(rptRes.INDEX_VAl,0) as vvVal,
+			   0 as vv2Val
+			from FRS_PISA_IDX_INFO pisaIdx 
+			left join rpt_report_result rptRes on rptRes.index_no = pisaIdx.VAL1_INDEX_NO and rptRes.data_date = #{dataDate}
+			where pisaIdx.SUBMIT_FREQ = #{freqType}
+			union all
+			select    
+			   pisaIdx.PISA_IDX_ID as pisaId,
+			   rptRes.org_no as orgCode,
+			   rptRes.data_date as dataDate,
+			   0 as vvVal,
+			   NVL(rptRes.INDEX_VAl,0) as vv2Val
+			from FRS_PISA_IDX_INFO pisaIdx 
+			left join rpt_report_result rptRes on rptRes.index_no = pisaIdx.VAL2_INDEX_NO and rptRes.data_date = #{dataDate}
+			where pisaIdx.SUBMIT_FREQ =#{freqType}
+		) pi group by pi.pisaId, pi.orgCode, pi.dataDate
+	</select>
+	<select id="getRptCellIdxRel" resultType="com.yusys.biapp.frs.pbcmessage.web.vo.FrsPbcCellIdxVO"
+		parameterType="HashMap">
+		select rptInfo.rpt_num as "rptNum", 
+		       sourIdx.cell_no as "cellNo", 
+		       sourIdx.index_no as "indexNo"
+		from RPT_DESIGN_SOURCE_IDX sourIdx
+		left join RPT_MGR_REPORT_INFO rptInfo on sourIdx.template_id = rptInfo.cfg_id
+		where 1=1
+			<if test="ids != null">
+			 	and rptInfo.RPT_NUM in 
+			 	<foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+					#{ids}
+				</foreach>
+			</if>
+	</select>
+</mapper> 

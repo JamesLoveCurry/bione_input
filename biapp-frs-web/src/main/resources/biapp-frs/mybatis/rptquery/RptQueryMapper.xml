@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.integratedquery.rptidxquery.repository.RptQueryMybatisDao">
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<!-- 这里为避免类膨胀, 借用了RptMgrReportCatalog, catalogId：id, catalogNm:text, upCatalogId: upId, 0: 目录, 1: 报表 -->
+	<select id="searchRptForTree" resultType="HashMap" parameterType="HashMap">
+		select distinct id, text, up_id, node_type, ext_type, busi_type, cfg_id, rpt_nm, rpt_num, rank_order, rpt_id, catalog_id, template_type, fixed_length, is_paging from (
+	        select ca.catalog_id id, ca.catalog_nm as text, ca.up_catalog_id up_id, '1' node_type, ca.ext_type, null busi_type, ''  cfg_id, ''  rpt_num, ca.catalog_order rank_order, ''  rpt_nm, ' ' rpt_id,      ca.catalog_id, '' template_type, '' fixed_length, '' is_paging from rpt_mgr_report_catalog ca
+	        where 1=1
+	         <if test="defSrc!=null and defSrc==01">
+	         	and ca.def_src not in('02','03') or ca.def_src is null
+	         </if>
+	         <if test="defSrc!=null and defSrc!=01">
+	         	and ca.def_src=#{defSrc}
+	         	<if test="defSrc==02">
+	         		and ca.def_org=#{defOrg}
+	         	</if>
+	         	<if test="defSrc==03">
+	         		and ca.def_user=#{defUser}
+	         	</if>
+	         </if>
+	        union all
+	        select inf.rpt_id    id, inf.rpt_nm  as  text, inf.catalog_id   up_id, '2' node_type, inf.ext_type, inf.busi_type, inf.cfg_id, inf.rpt_num, inf.rank_order, inf.rpt_nm, inf.rpt_id, ' ' catalog_id, tpp.template_type, tpp.fixed_length, tpp.is_paging from rpt_mgr_report_info inf
+	        INNER JOIN
+		            rpt_design_tmp_info tpp ON inf.cfg_id = tpp.template_id
+		            and tpp.ver_id = (select max(ver_id) from rpt_design_tmp_info where template_id =  inf.cfg_id )
+	        where inf.rpt_sts = 'Y'  
+			 <if test="defSrc!=null and defSrc==01">
+	         	and inf.def_src not in('02','03') or inf.def_src is null
+	         </if>
+	         <if test="defSrc!=null and defSrc!=01">
+	         	and inf.def_src=#{defSrc}
+	         	<if test="defSrc==02">
+	         		and inf.def_org=#{defOrg}
+	         	</if>
+	         	<if test="defSrc==03">
+	         		and inf.def_user=#{defUser}
+	         	</if>
+	         </if>
+	        <if test="nodeType != null and nodeType == 2">
+		        union all
+		        SELECT
+		            lin.line_id id, lin.line_nm as text, rpt.rpt_id up_id, '3' node_type, rpt.ext_type, null busi_type, null cfg_id, null rpt_num, 999 rank_order, null rpt_nm, rpt.rpt_id, rpt.catalog_id, tpp.template_type, tpp.fixed_length, tpp.is_paging
+		        FROM
+		            rpt_mgr_report_info rpt
+		        INNER JOIN
+		            rpt_design_tmp_info tpp ON rpt.cfg_id = tpp.template_id
+		            and tpp.ver_id = (select max(ver_id) from rpt_design_tmp_info where template_id =  rpt.cfg_id )
+		        INNER JOIN
+		            rpt_design_tmp_info tpc ON tpc.parent_template_id = tpp.template_id
+		        INNER JOIN
+		            rpt_mgr_frs_line lin ON tpc.line_id = lin.line_id
+	        </if>
+		) rptTab
+		<where>
+			<if test="id != null and id.length() > 0">rptTab.up_id = #{id}</if>
+			<if test="text != null and text.length() > 0">and rptTab.text like #{text}</if>
+			<if test="extType != null and extType.length() > 0">and rptTab.ext_type = #{extType}</if>
+			<if test="rptIdList != null and rptIdList.size() > 0">
+				and (
+					rptTab.rpt_id in
+					<foreach item="list" index="index" collection="rptIdList" separator=" or rpt_id in ">
+						<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</foreach>
+				)
+			</if>
+			<if test="catalogIdList != null and catalogIdList.size() > 0">
+				and (
+					rptTab.catalog_id in
+					<foreach item="list" index="index" collection="catalogIdList" separator=" or catalog_id in ">
+						<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</foreach>
+				)
+			</if>
+		</where>
+		order by rptTab.text
+	</select>
+	<!-- 获取报表的目录 -->
+	<select id="searchCatalogFromRpt" resultType="java.lang.String" parameterType="java.util.List">
+		select distinct catalog_id from rpt_mgr_report_info rpt
+		<where>
+			rpt.rpt_Id in 
+			<foreach item="lis" index="index" collection="list" separator=" or rpt.rpt_id in ">
+				<foreach item="item" index="index" collection="lis" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</foreach>
+		</where>
+	</select>
+	<!-- 获取目录的上级目录 -->
+	<select id="searchCatalogWithChild" resultType="java.lang.String" parameterType="java.util.List">
+		select distinct ca.up_catalog_id from rpt_mgr_report_catalog ca
+		<where>
+			ca.catalog_id in 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where> 
+	</select>
+	<select id="searchFolderForTree" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    fod.folder_id    id,
+		    fod.up_folder_id up_id,
+		    fod.folder_nm    text,
+		    '1'              is_parent,
+		    CASE
+		        WHEN (
+		                SELECT
+		                    COUNT(rel.folder_id)
+		                FROM
+		                    rpt_fav_folder_ins_rel rel
+		                WHERE
+		                    rel.folder_id = fod.folder_id) > 0
+		        THEN 1
+		        ELSE 0
+		    END has_rpt
+		FROM
+		    RPT_FAV_FOLDER fod
+		<where>
+			<if test="id != null and id.length() > 0"> and fod.up_folder_id = #{id}</if> 
+			<if test="text != null and text.length() > 0"> and fod.folder_nm like #{text}</if>
+			<if test="userId != null and userId.length() > 0"> and fod.user_id = #{userId}</if>
+		</where>
+	</select>
+	<!-- 查询我的查询相关信息, 查询条件来自前台表单 -->
+	<select id="searchMyQueryInfo" resultType="HashMap">
+		SELECT
+		    ins.instance_id,
+		    ins.query_nm,
+		    ins.remark,
+		    ins.create_time,
+		    concat(concat(ins.create_user, '_'), usr.user_name) create_user,
+		    rel.instance_type
+		FROM
+		    rpt_fav_queryins ins
+		INNER JOIN
+		    bione_user_info usr
+		ON
+		    ins.create_user = usr.user_id
+		INNER JOIN
+		    rpt_fav_folder_ins_rel rel
+		ON
+		    rel.instance_id = ins.instance_id
+		where
+		1=1
+		 <if test="userId != null ">
+			and usr.user_id=#{userId}
+		</if>
+		    
+	</select>
+	<!-- 通过用户及实例类型查询 我的报表/我的查询相关信息 -->
+	<select id="searchMyQueryByUsr" resultType="com.yusys.bione.plugin.rptfav.entity.RptFavQueryins" parameterType="HashMap">
+		SELECT
+		    ins.*
+		FROM
+		    rpt_fav_queryins ins
+		INNER JOIN
+		    rpt_fav_folder_ins_rel rel
+		ON
+		    ins.instance_id = rel.instance_id
+		WHERE
+		    rel.user_id = #{userId}
+		AND rel.instance_type = #{instType}
+	</select>
+	<!-- 通过机构标识集合获取目标机构树节点信息 -->
+	<select id="searchTargetOrgTreeData" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    org.org_no    id,
+		    org.org_nm    text,
+		    org.up_org_no up_id,
+		    'true'        checked,
+		    'true'        is_parent
+		FROM
+		    rpt_org_info org
+		WHERE
+		    org.org_type = #{orgType}
+	    <if test="orgNosList != null and orgNosList.size() > 0">
+			and (
+				org.org_no in
+				<foreach item="list" index="index" collection="orgNosList" separator=" or org.org_no in ">
+					<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</foreach>
+			)
+	    </if>
+	</select>
+	<!-- 通过机构标识获取上级机构标识 -->
+	<select id="searchOrgUpIdList" resultType="String" parameterType="HashMap">
+		SELECT
+		    org.up_org_no up_id
+		FROM
+		    rpt_org_info org
+		WHERE
+		    org.org_type = #{orgType}
+	    <if test="orgNosList != null and orgNosList.size() > 0">
+			and (
+				org.org_no in
+				<foreach item="list" index="index" collection="orgNosList" separator=" or org.org_no in ">
+					<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</foreach>
+			)
+	    </if>
+	</select>
+	<!-- 获取所有祖先机构的同辈机构 -->
+	<select id="searchSameLevelOrgInfo" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    org.org_no    id,
+		    org.org_nm    text,
+		    org.up_org_no up_id,
+		    'true'        is_parent
+		FROM
+		    rpt_org_info org
+		WHERE
+		    org.org_type = #{orgType}
+	    <if test="orgNosList != null and orgNosList.size() > 0">
+			and (
+				org.up_org_no in
+				<foreach item="list" index="index" collection="orgNosList" separator=" or org.up_org_no in ">
+					<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</foreach>
+			)
+	    </if>
+	</select>
+	
+	<!-- 通过管理机构获取所属机构 -->
+	<select id="searchOrgWithMgrOrgNo" resultType="String" parameterType="HashMap">
+		SELECT DISTINCT
+	        ORG_NO
+	    FROM
+	        RPT_ORG_INFO
+		<where>
+	        <if test="orgType != null and orgType.length() > 0">
+	        	AND ORG_TYPE = #{orgType}
+	        </if>
+	        <if test="mgrOrgNo != null and mgrOrgNo.length() > 0">
+	        	AND MGR_ORG_NO = #{mgrOrgNo}
+	        </if>
+		</where>
+	</select>
+	
+	<!-- 通过所属机构获取下属机构 -->
+	<select id="searchOrgWithNamespace" resultType="String" parameterType="HashMap">
+		SELECT DISTINCT
+			org.ORG_NO
+		FROM 
+			RPT_ORG_INFO org
+		<where>
+			<if test="orgType != null and orgType.length() > 0"> org.org_type = #{orgType} </if>
+			<if test="mgrOrgNoList != null and mgrOrgNoList.size() > 0">
+				AND (
+					org.namespace LIKE '%' || 
+					<foreach item="orgNo"  collection="mgrOrgNoList" separator=" or org.namespace LIKE '%' || ">
+						#{orgNo} || '%'
+					</foreach>
+				)
+			</if>
+		</where>
+	</select>
+	
+	<!-- 通过用户查询 我的报表相关信息 -->
+<!-- 	<select id="searchMyRptByUsr" resultType="com.yuchengtech.report.frame.rptmgr.entity.RptMgrReportInfo" parameterType="String"> -->
+<!-- 		SELECT -->
+<!-- 		    inf.* -->
+<!-- 		FROM -->
+<!-- 		    rpt_fav_queryins ins -->
+<!-- 		INNER JOIN -->
+<!-- 		    rpt_fav_folder_ins_rel rel -->
+<!-- 		ON -->
+<!-- 		    ins.instance_id = rel.instance_id -->
+<!-- 		INNER JOIN -->
+<!-- 		    rpt_fav_querys_rpt_rel qrs -->
+<!-- 		ON -->
+<!-- 		    qrs.instance_id = ins.instance_id -->
+<!-- 		INNER JOIN -->
+<!-- 		    rpt_mgr_report_info inf -->
+<!-- 		ON -->
+<!-- 		    qrs.rpt_id = inf.rpt_id -->
+<!-- 		WHERE -->
+<!-- 		    rel.user_id = #{userId} -->
+<!-- 	</select> -->
+	
+	<!-- 通过我的查询反查报表信息 -->
+	<select id="searchRptByIds" resultType="HashMap" parameterType="java.util.List">
+		select rpt.rpt_Id id, rpt.rpt_Nm text, '2' node_type, rpt.rpt_Num rpt_Num from Rpt_Mgr_Report_Info rpt
+		<where>
+			rpt.rpt_Id in 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	
+	<!-- 通过机构标识集合获取机构信息 -->
+	<select id="searchOrgInfo" resultType="HashMap" parameterType="HashMap">
+		select from RPT_ORG_INFO org 
+		<where>
+			org.org_Type = #{orgType} and org.org_No in 
+			<foreach item="item" index="index" collection="orgNoList" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	
+	<!-- 查询报表指标信息 -->
+	<select id="searchRptidxInfo" resultType="HashMap" parameterType="HashMap">
+		<!-- SELECT
+		    res.index_no,
+		    idx.index_nm,
+		    res.data_date,
+		    res.org_no,
+		    res.index_val
+		FROM
+		    rpt_report_result res
+		LEFT JOIN
+		    rpt_idx_info idx
+		ON
+		    idx.index_no = res.index_no
+		AND idx.index_Ver_Id =
+		    (
+		        SELECT
+		            MAX(index_ver_id)
+		        FROM
+		            rpt_idx_info
+		        WHERE
+		            index_no = res.index_no) -->
+		SELECT
+		    res.index_no,
+		    idx.index_nm,
+		    res.data_date,
+		    res.org_no,
+		    res.index_val
+		FROM
+		    rpt_report_result res
+		LEFT JOIN
+		    rpt_idx_info idx
+		ON
+		    idx.index_no = res.index_no
+		inner join (
+		 SELECT max(index_ver_id) index_ver_id,
+		              Q.index_no index_no
+		        FROM
+		            rpt_idx_info Q,
+		            rpt_report_result res
+		        WHERE
+		            Q.index_no = res.index_no
+		            group by  Q.index_no
+		)  maxidx 
+		on idx.index_no=maxidx.index_no and   idx.index_ver_id=maxidx.index_ver_id
+		<!-- <if test="startDate != null and startDate.size() > 0">
+			AND #{startDate} &lt; idx.start_date
+		</if>
+		<if test="endDate != null and endDate.size() > 0">
+			AND idx.end_date &lt; #{endDate}
+		</if>
+		<if test="dataDate != null and dataDate.size() > 0">
+			AND idx.start_date &lt; #{dataDate} AND #{dataDate} &lt; idx.end_date
+		</if> -->
+		<where>
+			<if test="startDate != null and startDate.length() > 0"> and res.data_date > #{startDate}</if>
+			<if test="endDate != null and endDate.length() > 0"> and res.data_date &lt;= #{endDate}</if>
+			<if test="orgNo != null and orgNo.size() > 0">
+				and res.org_no in 
+				<foreach item="item" index="index" collection="orgNo" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="indexNo != null and indexNo.size() > 0">
+				and res.index_no in 
+				<foreach item="item" index="index" collection="indexNo" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="dataDate != null and dataDate.size() > 0">
+				and res.data_date in 
+				<foreach item="item" index="index" collection="dataDate" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="dataDate == null">
+				and 1 = 0
+			</if>
+		</where> 
+	</select>
+	
+	<!-- 根据机构标识查询机构名称 -->
+	<select id="searchMgrFrsOrgNms" resultType="java.lang.String" parameterType="HashMap">
+		select org.ORG_NM from RPT_ORG_INFO org
+		<where>
+			<if test="orgType != null and orgType.length() > 0"> org.org_type = #{orgType}</if>
+			<if test="orgNo != null and orgNo.size() > 0">
+				and org.org_no in 
+				<foreach item="item" index="index" collection="orgNo" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where> 
+	</select>
+	
+	<!-- 保存我的文件夹与实例关系 -->
+	<insert id="insertFolderInstRel" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavQueryins">
+		insert into RPT_FAV_FOLDER_INS_REL (USER_ID, INSTANCE_ID, FOLDER_ID, INSTANCE_TYPE) 
+		values (#{id.userId}, #{id.instanceId}, #{id.folderId}, #{instanceType})
+	</insert>
+	<!-- 保存查询实例信息 -->
+	<insert id="insertQueryins" parameterType="com.yusys.bione.plugin.rptfav.entity.RptFavQueryins">
+		insert into RPT_FAV_QUERYINS (INSTANCE_ID, QUERY_NM, CREATE_USER, CREATE_TIME, remark) 
+		values (#{instanceId}, #{queryNm}, #{createUser}, #{createTime}, #{remark})
+	</insert>
+	<!-- 保存报表批量查询与报表关系信息 -->
+<!-- 	<select id="insertQuerysRel" parameterType="com.yuchengtech.report.frs.rptquery.entity.RptFavQuerysRptRel">
+		insert into RPT_FAV_QUERYS_RPT_REL (RPT_ID, INSTANCE_ID) values (#{id.rptId}, #{id.instanceId})
+	</select> -->
+	<!-- 保存报表批量查询项信息 -->
+<!-- 	<select id="insertQuerysItem" parameterType="com.yuchengtech.report.frs.rptquery.entity.RptFavQuerysItem">
+		insert into RPT_FAV_QUERYS_ITEM (QUERY_ID, INSTANCE_ID, PARAM_TYPE, PARAM_VAL_EXPRESSION) 
+		values (#{queryId}, #{instanceId}, #{paramType}, #{paramValExpression})
+	</select> -->
+	<!-- 保存报表指标查询与指标关系信息 -->
+<!-- 	<select id="insertRptidxRel" parameterType="com.yuchengtech.report.frs.rptquery.entity.RptFavRptidxRel">
+		insert into RPT_FAV_RPTIDX_REL (QUERY_ID, INSTANCE_ID, RPT_ID, INDEX_NO, RPT_NM, INDEX_NM)
+		values (#{queryId}, #{instanceId}, #{rptId}, #{indexNo}, #{rptNm}, #{indexNm})
+	</select> -->
+	<!-- 保存报表指标查询项信息 -->
+<!-- 	<select id="insertRptidxItem" parameterType="com.yuchengtech.report.frs.rptquery.entity.RptFavRptidxItem">
+		insert into RPT_FAV_RPTIDX_ITEM (QUERY_ID, INSTANCE_ID, PARAM_TYPE, PARAM_VAL_EXPRESSION)
+		values (#{queryId}, #{instanceId}, #{paramType}, #{paramValExpression})
+	</select> -->
+	<!-- 报表批量查询与报表关系 -->
+	<select id="searchQuerysRel" resultType="com.yusys.biapp.frs.integratedquery.rptidxquery.entity.RptFavQuerysRptRel" parameterType="String">
+		select rel.rpt_id as "id.rptId", rel.instance_id as "id.instanceId" from RPT_FAV_QUERYS_RPT_REL rel where rel.instance_id = #{instId}
+	</select>
+	<!-- 报表批量查询项 -->
+	<select id="searchQuerysItem" resultType="com.yusys.biapp.frs.integratedquery.rptidxquery.entity.RptFavQuerysItem" parameterType="String">
+		select item.* from RPT_FAV_QUERYS_ITEM item where item.instance_id = #{instId}
+	</select>
+	<!-- 报表指标查询与指标关系 -->
+	<select id="searchRptidxRel" resultType="com.yusys.biapp.frs.integratedquery.rptidxquery.web.vo.RptFavRptidxRelVO" parameterType="String">
+		SELECT
+		    rel.*,
+		    cell.cell_no,
+		    cell.cell_nm
+		FROM
+		    RPT_FAV_RPTIDX_REL rel,
+		    RPT_IDX_INFO info,
+		    RPT_DESIGN_SOURCE_IDX idx,
+		    RPT_DESIGN_CELL_INFO cell
+		WHERE
+		    info.index_no=rel.index_no
+		AND info.end_date='29991231'
+		AND idx.index_no=info.index_no
+		AND idx.ver_id=info.index_ver_id
+		AND cell.cell_no=idx.cell_no
+		AND cell.ver_id=idx.ver_id
+		AND cell.template_id=idx.template_id
+		AND rel.instance_id = #{instId}
+	</select>
+	<!-- 报表指标查询项信息 -->
+	<select id="searchRptidxItem" resultType="com.yusys.biapp.frs.integratedquery.rptidxquery.entity.RptFavRptidxItem" parameterType="String">
+		select item.* from RPT_FAV_RPTIDX_ITEM item where item.instance_id = #{instId}
+	</select>
+	
+	<!-- 删除我的文件夹与实例关系 -->
+	<delete id="deleteFolderInstRel" parameterType="HashMap">
+		delete from RPT_FAV_FOLDER_INS_REL where instance_type = #{instanceType} and instance_id in 
+    	<foreach item="item" index="index" collection="instanceIdList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+    </delete>
+    <!-- 删除查询实例信息 -->
+    <delete id="deleteQueryins" parameterType="java.util.List">
+    	delete from RPT_FAV_QUERYINS where instance_id in 
+    	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+    </delete>
+    <!-- 删除报表批量查询与报表关系信息 -->
+	<delete id="deleteQuerysRel" parameterType="java.util.List">
+		delete from RPT_FAV_QUERYS_RPT_REL where instance_id in 
+    	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 删除报表批量查询项信息 -->
+	<delete id="deleteQuerysItem" parameterType="java.util.List">
+		delete from RPT_FAV_QUERYS_ITEM where instance_id in 
+    	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 删除报表指标查询与指标关系信息 -->
+	<delete id="deleteRptidxRel" parameterType="java.util.List">
+		delete from RPT_FAV_RPTIDX_REL where instance_id in 
+    	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 删除报表指标查询项信息 -->
+	<delete id="deleteRptidxItem" parameterType="java.util.List">
+		delete from RPT_FAV_RPTIDX_ITEM where instance_id in 
+    	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 判断文件夹是否为空, 包括是否有报表和是否有子目录 -->
+	<select id="searchIsEmptyFolder" resultType="Long" parameterType="java.lang.String">
+		select count(*) from rpt_fav_folder_ins_rel rel full join rpt_fav_folder fod 
+			on rel.folder_id = fod.up_folder_id where rel.folder_id = #{folderId} or fod.up_folder_id = #{folderId}
+	</select>
+	
+	<!-- 删除文件夹信息 -->
+	<delete id="deleteFolderByIds" parameterType="java.util.List">
+		delete from RPT_FAV_FOLDER where folder_id in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 查询全部文件夹 -->
+	<select id="searchFolderAll" resultType="com.yusys.bione.plugin.rptfav.entity.RptFavFolder">
+		select * from RPT_FAV_FOLDER 
+	</select>
+	<!-- 查询文件夹与实例关系信息 -->
+	<select id="searchFolderInsRel" resultType="com.yusys.bione.plugin.rptfav.entity.RptFavFolderInsRel" parameterType="java.util.List">
+		select  user_id as "id.userId", instance_id as "id.instanceId", folder_id as "id.folderId", instance_type
+		from RPT_FAV_FOLDER_INS_REL where folder_id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach> 
+	</select>
+	<!-- 查询文件夹信息 -->
+	<select id="searchFolderByFolderId" resultType="com.yusys.bione.plugin.rptfav.entity.RptFavFolder" parameterType="java.lang.String">
+		select * from RPT_FAV_FOLDER where folder_id = #{folderId}
+	</select>
+	<!-- 查询报表的定义来源 -->
+	<select id="getRptDefSrc" resultType="String" parameterType="HashMap">
+		SELECT t.DEF_SRC
+			FROM
+			    RPT_MGR_REPORT_INFO t
+			WHERE
+			    (t.DEF_ORG = #{defOrg}
+			OR 
+			        t.DEF_USER = #{defUser}
+			   )
+			AND t.RPT_STS='Y'
+			GROUP BY
+			    t.DEF_SRC
+	</select>
+	<!-- 查询待办事项相关信息, 查询条件来自前台表单 -->
+	<select id="searchBacklogInfo" resultType="HashMap"  parameterType="HashMap">
+	select t.task_id,
+	t.task_nm,
+	t.exe_obj_id,
+	t.rpt_id,
+	t.taskobjnm,
+	t.cfg_id,
+	t.TASK_INSTANCE_ID,
+	t.line_id,
+	t.org_no,
+	t.exeObjNm,
+	t.TASK_TYPE,
+	t.data_date,
+	t.sts,
+	t.END_TIME,
+	t.is_fill as "isFill",
+	t.is_check as "isCheck",
+	t.is_examine as "isExamine",
+	t.task_deadline
+	from ((SELECT I.TASK_INSTANCE_ID,
+	I.TASK_ID,
+	I.TASK_NM,
+	I.DATA_DATE,
+	I.EXE_OBJ_ID,
+	O.ORG_NM AS exeObjNm,
+	O.ORG_NO,
+	I.TASK_OBJ_ID,
+	rpt.RPT_NM AS taskObjNm,
+	rpt.RPT_ID,
+	rpt.cfg_id,
+	I.TASK_TYPE,
+	I.LINE_ID,
+	I.sts as sts,
+	I.END_TIME,
+	t.is_fill,
+	'' is_check,
+	'' is_examine,
+	t.task_deadline
+	FROM RPT_FLTSK_INS I
+	left join rpt_fltsk_info t
+	on I.task_id = t.task_id
+	INNER JOIN
+	RPT_MGR_REPORT_INFO rpt
+	ON I.TASK_OBJ_ID = rpt.RPT_ID
+	<if test="taskObjIdFill != null and taskObjIdFill.size() > 0">
+		and I.TASK_OBJ_ID in
+		<foreach item="item" index="index" collection="taskObjIdFill"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	INNER JOIN RPT_ORG_INFO O
+	ON I.EXE_OBJ_ID = O.ORG_NO
+	and i.task_type =
+	O.ORG_TYPE
+	INNER JOIN BIONE_ORG_INFO BO
+	ON( BO.ORG_NO = O.MGR_ORG_NO
+	<if test="listOrg != null and listOrg.size()>0" >
+		and (BO.ORG_NO in
+		<foreach item="orgNos" index="index" collection="listOrg"
+				 separator=" or BO.ORG_NO in ">
+			<foreach collection="orgNos" item="orgNo" open="("
+					 separator="," close=")">
+				#{orgNo}
+			</foreach>
+		</foreach>
+		)
+	</if>
+	)
+	where 1 = 1
+	and I.sts = '0'
+	<if test=" todayTime != null ">
+		and I.START_TIME &lt; #{todayTime}
+		and I.END_TIME &gt;
+		#{todayTime}
+	</if>)
+
+	union
+	(SELECT I.TASK_INSTANCE_ID,
+	I.TASK_ID,
+	I.TASK_NM,
+	I.DATA_DATE,
+	I.EXE_OBJ_ID,
+	O.ORG_NM AS exeObjNm,
+	O.ORG_NO,
+	I.TASK_OBJ_ID,
+	rpt.RPT_NM AS
+	taskObjNm,
+	rpt.RPT_ID,
+	rpt.cfg_id,
+	I.TASK_TYPE,
+	I.LINE_ID,
+	(case when re.sts = '0' then '6' else ''  end) as sts,
+	<!-- decode(re.sts,'0','6','') as sts, -->
+	I.END_TIME,
+	'' is_fill,
+	'' is_check,
+	'' is_examine,
+	t.task_deadline
+	FROM RPT_FLTSK_REBUT re
+	INNER JOIN
+	RPT_FLTSK_INS I
+	ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+	left join rpt_fltsk_info t
+	on I.task_id = t.task_id
+	INNER JOIN
+	RPT_MGR_REPORT_INFO rpt
+	ON I.TASK_OBJ_ID = rpt.RPT_ID
+	<if test="taskObjIdFill != null and taskObjIdFill.size() > 0">
+		and I.TASK_OBJ_ID in
+		<foreach item="item" index="index" collection="taskObjIdFill"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	INNER JOIN RPT_ORG_INFO O
+	ON I.EXE_OBJ_ID = O.ORG_NO
+	AND I.TASK_TYPE =
+	O.ORG_TYPE
+	INNER JOIN BIONE_USER_INFO u
+	ON u.USER_NO = re.APPLY_USER_NO
+	LEFT JOIN BIONE_USER_INFO uc
+	ON uc.USER_NO = re.COLLATE_USER_NO
+	INNER
+	JOIN BIONE_ORG_INFO BO
+	ON( BO.ORG_NO = O.MGR_ORG_NO
+	<if test="listOrg != null and listOrg.size()>0" >
+		and (BO.ORG_NO in
+		<foreach item="orgNos" index="index" collection="listOrg"
+				 separator=" or BO.ORG_NO in ">
+			<foreach collection="orgNos" item="orgNo" open="("
+					 separator="," close=")">
+				#{orgNo}
+			</foreach>
+		</foreach>
+		)
+	</if>
+	)
+	where 1 = 1
+	and re.sts = '0'
+	<if test=" todayTime != null ">
+		and I.START_TIME &lt; #{todayTime}
+		and I.END_TIME &gt;
+		#{todayTime}
+	</if>)
+
+	union
+	(SELECT I.TASK_INSTANCE_ID,
+	I.TASK_ID,
+	I.TASK_NM,
+	I.DATA_DATE,
+	I.EXE_OBJ_ID,
+	O.ORG_NM AS exeObjNm,
+	O.ORG_NO,
+	I.TASK_OBJ_ID,
+	rpt.RPT_NM AS
+	taskObjNm,
+	rpt.RPT_ID,
+	rpt.cfg_id,
+	I.TASK_TYPE,
+	I.LINE_ID,
+	I.sts as sts,
+	I.END_TIME,
+	'' is_fill,
+	t.is_check,
+	'' is_examine,
+	t.task_deadline
+	FROM RPT_FLTSK_INS I
+	left join rpt_fltsk_info t
+	on I.task_id = t.task_id
+	INNER JOIN RPT_MGR_REPORT_INFO rpt
+	ON
+	I.TASK_OBJ_ID = rpt.RPT_ID
+	<if test="taskObjIdCheck != null and taskObjIdCheck.size() > 0">
+		and I.TASK_OBJ_ID in
+		<foreach item="item" index="index" collection="taskObjIdCheck"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	INNER JOIN RPT_ORG_INFO O
+	ON I.EXE_OBJ_ID = O.ORG_NO
+	AND I.TASK_TYPE =
+	O.ORG_TYPE
+	INNER JOIN BIONE_ORG_INFO BO
+	ON( BO.ORG_NO = O.MGR_ORG_NO
+	<if test="listOrg != null and listOrg.size()>0" >
+		and (BO.ORG_NO in
+		<foreach item="orgNos" index="index" collection="listOrg"
+				 separator=" or BO.ORG_NO in ">
+			<foreach collection="orgNos" item="orgNo" open="("
+					 separator="," close=")">
+				#{orgNo}
+			</foreach>
+		</foreach>
+		)
+	</if>
+	)
+	WHERE 1 = 1
+	and I.sts = '1'
+	<if test=" todayTime != null ">
+		and I.START_TIME &lt; #{todayTime}
+		and I.END_TIME &gt;
+		#{todayTime}
+	</if>)
+	union
+	(SELECT I.TASK_INSTANCE_ID,
+	I.TASK_ID,
+	I.TASK_NM,
+	I.DATA_DATE,
+	I.EXE_OBJ_ID,
+	O.ORG_NM AS exeObjNm,
+	O.ORG_NO,
+	I.TASK_OBJ_ID,
+	rpt.RPT_NM AS
+	taskObjNm,
+	rpt.RPT_ID,
+	rpt.cfg_id,
+	I.TASK_TYPE,
+	I.LINE_ID,
+	I.sts as sts,
+	I.END_TIME,
+	'' is_fill,
+	'' is_check,
+	t.is_examine,
+	t.task_deadline
+	FROM RPT_FLTSK_INS I
+	left join rpt_fltsk_info t
+	on I.task_id = t.task_id
+	INNER JOIN RPT_MGR_REPORT_INFO rpt
+	ON
+	I.TASK_OBJ_ID = rpt.RPT_ID
+	<if test="taskObjIdAudt != null and taskObjIdAudt.size() > 0">
+		and I.TASK_OBJ_ID in
+		<foreach item="item" index="index" collection="taskObjIdAudt"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	INNER JOIN RPT_ORG_INFO O
+	ON I.EXE_OBJ_ID = O.ORG_NO
+	AND I.TASK_TYPE =
+	O.ORG_TYPE
+	INNER JOIN BIONE_ORG_INFO BO
+	ON( BO.ORG_NO = O.MGR_ORG_NO
+	<if test="listOrg != null and listOrg.size()>0" >
+		and (BO.ORG_NO in
+		<foreach item="orgNos" index="index" collection="listOrg"
+				 separator=" or BO.ORG_NO in ">
+			<foreach collection="orgNos" item="orgNo" open="("
+					 separator="," close=")">
+				#{orgNo}
+			</foreach>
+		</foreach>
+		)
+	</if>
+	)
+	WHERE 1 = 1
+	and I.sts = '2'
+	<if test=" todayTime != null ">
+		and I.START_TIME &lt; #{todayTime}
+		and I.END_TIME &gt;
+		#{todayTime}
+	</if>)
+	) t
+	where 1 = 1
+	<!-- <if test="menuTypeList != null and menuTypeList.size() > 0 ">
+		and ( t.TASK_TYPE in
+		<foreach item="item" index="index" collection="menuTypeList"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		)
+	</if> -->
+	<if test=" taskType != null and taskType != ''">
+		and t.TASK_TYPE = #{taskType}
+	</if>
+	<if test="conditionSql != null">
+		${conditionSql}
+	</if>
+	order by t.data_date desc , t.sts asc, t.task_id, t.org_no asc
+	</select>
+	<!-- 报表批量查询项 -->
+	<select id="searchQuerysItemTwo" resultType="com.yusys.biapp.frs.integratedquery.rptidxquery.entity.RptFavQuerysItem" parameterType="HashMap">
+	  select item.*
+        from RPT_FAV_QUERYS_ITEM item
+        left join RPT_FAV_QUERYS_RPT_REL rel
+          on item.instance_id = rel.instance_id
+        left join rpt_mgr_report_info rm
+          on rel.rpt_id = rm.rpt_id
+       where rm.rpt_nm = #{insNm} AND rel.instance_id = #{instId}
+	</select>
+	<select id="searchMgrFrsOrgNmsTwo" resultType="java.lang.String" parameterType="HashMap">
+		select org.ORG_NM from RPT_ORG_INFO org where org.org_no = #{orgNo}
+	</select>
+	
+	<delete id="deleteRptData" parameterType="hashmap">
+		delete from rpt_report_result where template_id = #{templateId} and org_no = #{orgNo} and data_date = #{dataDate}
+	</delete>
+
+	<insert id="saveRptData" parameterType="hashmap">
+		insert into rpt_report_result(index_no, data_date, org_no, index_val, template_id) (
+			<foreach collection ="cells" item="cell" index= "index" separator ="UNION ALL">
+				select #{cell.indexNo}, #{cell.dataDate}, #{cell.orgNo}, #{cell.indexVal}, #{cell.templateId} from dual
+	        </foreach >
+		)
+	</insert>
+	
+	<insert id="saveRptData" parameterType="hashmap" databaseId="mysql">
+		insert into rpt_report_result(index_no, data_date, org_no, index_val, template_id) values
+		<foreach item="item" index="index" collection="cells" open="" close="" separator=",">
+			(
+			#{item.indexNo},
+			#{item.dataDate},
+			#{item.orgNo},
+			#{item.indexVal},
+			#{item.templateId}
+			)
+		</foreach>
+	</insert>
+
+	<select id="getRptCellInfo" parameterType="hashmap" resultType="hashmap">
+		select t.template_id as "templateId",
+	       t2.cell_no as "cellNo",
+	       t2.display_format as "displayFormat",
+	       case
+	         when t2.data_unit is null or t2.data_unit = '' then
+	          t.template_unit
+	         else
+	          t2.data_unit
+	       end as "unit",
+	       t2.data_precision as "dataPrecision",
+	       t3.index_no as "indexNo",
+	       t4.set_id as "setId",
+	       t2.row_id as "rowId",
+	       t2.col_id as "colId",
+		   t2.is_upt as "isUpt"
+	  from rpt_design_tmp_info t
+	  left join rpt_design_cell_info t2
+	    on t.template_id = t2.template_id
+		   and t.ver_id = t2.ver_id
+	  left join rpt_design_source_idx t3
+	    on t.template_id = t3.template_id
+	   and t2.cell_no = t3.cell_no
+	   and t.ver_id = t3.ver_id
+	  left join rpt_idx_info t4
+	    on t.template_id = t4.template_id
+	   and t3.index_no = t4.index_no
+	   and t.ver_id = t4.index_ver_id
+	 where t.template_id = #{templateId}
+	 	and t.ver_start_date &lt;= #{dataDate} 
+	 	and t.ver_end_date > #{dataDate}
+	  	and t3.index_no is not null
+	</select>
+
+
+	<!-- 查询待办事项总个数 -->
+	<select id="searchBacklogCount" resultType="Integer"  parameterType="HashMap">
+		select count(*)
+		from ((SELECT I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm,
+		O.ORG_NO,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS taskObjNm,
+		rpt.RPT_ID,
+		rpt.cfg_id,
+		I.TASK_TYPE,
+		I.LINE_ID,
+		I.sts as sts,
+		I.END_TIME,
+		t.is_fill,
+		'' is_check,
+		'' is_examine
+		FROM RPT_FLTSK_INS I
+		left join rpt_fltsk_info t
+		on I.task_id = t.task_id
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		<if test="taskObjIdFill != null and taskObjIdFill.size() > 0">
+			and I.TASK_OBJ_ID in
+			<foreach item="item" index="index" collection="taskObjIdFill"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		and i.task_type =
+		O.ORG_TYPE
+		INNER JOIN BIONE_ORG_INFO BO
+		ON BO.ORG_NO = O.MGR_ORG_NO
+		<if test="listOrg != null and listOrg.size()>0" >
+			and (BO.ORG_NO in
+			<foreach item="orgNos" index="index" collection="listOrg"
+				separator=" or BO.ORG_NO in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		where 1 = 1
+		and I.sts = '0'
+		<if test=" todayTime != null ">
+			and I.START_TIME &lt; #{todayTime}
+			and I.END_TIME &gt;
+			#{todayTime}
+		</if>)
+
+		union
+		(SELECT I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm,
+		O.ORG_NO,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS
+		taskObjNm,
+		rpt.RPT_ID,
+		rpt.cfg_id,
+		I.TASK_TYPE,
+		I.LINE_ID,
+		(case when re.sts = '0' then '6' else ''  end) as sts,
+		<!-- decode(re.sts,'0','6','') as sts, -->
+		I.END_TIME,
+		'' is_fill,
+		'' is_check,
+		'' is_examine
+		FROM RPT_FLTSK_REBUT re
+		INNER JOIN
+		RPT_FLTSK_INS I
+		ON re.TASK_INSTANCE_ID = I.TASK_INSTANCE_ID
+		left join rpt_fltsk_info t
+		on I.task_id = t.task_id
+		INNER JOIN
+		RPT_MGR_REPORT_INFO rpt
+		ON I.TASK_OBJ_ID = rpt.RPT_ID
+		<if test="taskObjIdFill != null and taskObjIdFill.size() > 0">
+			and I.TASK_OBJ_ID in
+			<foreach item="item" index="index" collection="taskObjIdFill"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND I.TASK_TYPE =
+		O.ORG_TYPE
+		INNER JOIN BIONE_USER_INFO u
+		ON u.USER_NO = re.APPLY_USER_NO
+		LEFT JOIN BIONE_USER_INFO uc
+		ON uc.USER_NO = re.COLLATE_USER_NO
+		INNER
+		JOIN BIONE_ORG_INFO BO
+		ON BO.ORG_NO = O.MGR_ORG_NO
+		<if test="listOrg != null and listOrg.size()>0" >
+			and (BO.ORG_NO in
+			<foreach item="orgNos" index="index" collection="listOrg"
+				separator=" or BO.ORG_NO in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		where 1 = 1
+		and re.sts = '0'
+		<if test=" todayTime != null ">
+			and I.START_TIME &lt; #{todayTime}
+			and I.END_TIME &gt;
+			#{todayTime}
+		</if>)
+
+		union
+		(SELECT I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm,
+		O.ORG_NO,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS
+		taskObjNm,
+		rpt.RPT_ID,
+		rpt.cfg_id,
+		I.TASK_TYPE,
+		I.LINE_ID,
+		I.sts as sts,
+		I.END_TIME,
+		'' is_fill,
+		t.is_check,
+		'' is_examine
+		FROM RPT_FLTSK_INS I
+		left join rpt_fltsk_info t
+		on I.task_id = t.task_id
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		<if test="taskObjIdCheck != null and taskObjIdCheck.size() > 0">
+			and I.TASK_OBJ_ID in
+			<foreach item="item" index="index" collection="taskObjIdCheck"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND I.TASK_TYPE =
+		O.ORG_TYPE
+		INNER JOIN BIONE_ORG_INFO BO
+		ON BO.ORG_NO = O.MGR_ORG_NO
+		<if test="listOrg != null and listOrg.size()>0" >
+			and (BO.ORG_NO in
+			<foreach item="orgNos" index="index" collection="listOrg"
+				separator=" or BO.ORG_NO in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		WHERE 1 = 1
+		and I.sts = '1'
+		<if test=" todayTime != null ">
+			and I.START_TIME &lt; #{todayTime}
+			and I.END_TIME &gt;
+			#{todayTime}
+		</if>)
+		union
+		(SELECT I.TASK_INSTANCE_ID,
+		I.TASK_ID,
+		I.TASK_NM,
+		I.DATA_DATE,
+		I.EXE_OBJ_ID,
+		O.ORG_NM AS exeObjNm,
+		O.ORG_NO,
+		I.TASK_OBJ_ID,
+		rpt.RPT_NM AS
+		taskObjNm,
+		rpt.RPT_ID,
+		rpt.cfg_id,
+		I.TASK_TYPE,
+		I.LINE_ID,
+		I.sts as sts,
+		I.END_TIME,
+		'' is_fill,
+		'' is_check,
+		t.is_examine
+		FROM RPT_FLTSK_INS I
+		left join rpt_fltsk_info t
+		on I.task_id = t.task_id
+		INNER JOIN RPT_MGR_REPORT_INFO rpt
+		ON
+		I.TASK_OBJ_ID = rpt.RPT_ID
+		<if test="taskObjIdAudt != null and taskObjIdAudt.size() > 0">
+			and I.TASK_OBJ_ID in
+			<foreach item="item" index="index" collection="taskObjIdAudt"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		INNER JOIN RPT_ORG_INFO O
+		ON I.EXE_OBJ_ID = O.ORG_NO
+		AND I.TASK_TYPE =
+		O.ORG_TYPE
+		INNER JOIN BIONE_ORG_INFO BO
+		ON BO.ORG_NO = O.MGR_ORG_NO
+		<if test="listOrg != null and listOrg.size()>0" >
+			and (BO.ORG_NO in
+			<foreach item="orgNos" index="index" collection="listOrg"
+				separator=" or BO.ORG_NO in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		WHERE 1 = 1
+		and I.sts = '2'
+		<if test=" todayTime != null ">
+			and I.START_TIME &lt; #{todayTime}
+			and I.END_TIME &gt;
+			#{todayTime}
+		</if>)
+		) t
+		where 1 = 1
+		<if test=" taskType != null ">
+			and t.TASK_TYPE = #{taskType}
+		</if>
+		<if test="conditionSql != null">
+			${conditionSql}
+		</if>
+-- 		order by t.data_date desc , t.sts asc, t.task_id, t.org_no asc
+	</select>
+
+	<!--查询跨监管校验信息表-->
+	<select id="queryRptExcelDir" resultType="java.util.Map">
+		select RPT_TASK_ID as "rptTaskId",
+		       RPT_TYPE as "rptType",
+		       RPT_NAME as "rptName",
+		       ORG_NO as "orgNo",
+		       RPT_DATE as "rptDate",
+		       UPDATE_TIME as "updateTime"
+		from RPT_EXCEL_DIR
+		where 1 = 1
+		<if test="rptName != null and rptName != ''">
+			and RPT_NAME = #{rptName}
+		</if>
+		<if test="orgNo != null and orgNo != ''">
+			and ORG_NO = #{orgNo}
+		</if>
+		<if test="rptDate != null and rptDate != ''">
+			and RPT_DATE = #{rptDate}
+		</if>
+	</select>
+
+	<!--修改跨监管校验信息表-->
+	<update id="updateRptExcelDirByPrimary">
+		update RPT_EXCEL_DIR set
+			RPT_TYPE = #{rptType, jdbcType=VARCHAR},
+			RPT_NAME = #{rptName, jdbcType=VARCHAR},
+			ORG_NO = #{orgNo, jdbcType=VARCHAR},
+			RPT_DATE = #{rptDate, jdbcType=VARCHAR},
+			UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+		where RPT_TASK_ID = #{rptTaskId, jdbcType=VARCHAR}
+	</update>
+
+	<!--保存跨监管校验信息表-->
+	<insert id="insertRptExcelDir">
+		insert into RPT_EXCEL_DIR(RPT_TASK_ID,RPT_TYPE,RPT_NAME,ORG_NO,RPT_DATE,UPDATE_TIME)
+			values(
+			       #{rptTaskId, jdbcType=VARCHAR},
+			       #{rptType, jdbcType=VARCHAR},
+			       #{rptName, jdbcType=VARCHAR},
+			       #{orgNo, jdbcType=VARCHAR},
+			       #{rptDate, jdbcType=VARCHAR},
+			       #{updateTime, jdbcType=TIMESTAMP}
+			       )
+	</insert>
+
+	<!--删除rptExcelData-->
+	<delete id="deleteRptExcelData">
+		delete from RPT_EXCEL_DATA where rpt_task_id = #{rptTaskId}
+	</delete>
+
+	<!--保存rptExcelData-->
+	<insert id="insertRptExcelData" parameterType="map" useGeneratedKeys="false">
+		insert ALL
+		<foreach item="item" index="index" collection="list">
+			into RPT_EXCEL_DATA(rpt_task_id,cell_no,cell_value) values(
+			#{item.rptTaskId, jdbcType=VARCHAR},
+			#{item.cellNo, jdbcType=VARCHAR},
+			#{item.cellValue, jdbcType=VARCHAR}
+			 )
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+
+	<!--获取报表类型名称-->
+	<select id="getRptType" resultType="java.util.Map">
+		SELECT t.param_value as "paramValue",
+			   t.param_name as "paramName"
+		FROM bione_param_info t
+		where 1 = 1
+		<if test="paramTypeNo != null and paramTypeNo != ''">
+			and t.param_type_no = #{paramTypeNo}
+		</if>
+		<if test="paramValue != null and paramValue != ''">
+			and t.param_value = #{paramValue}
+		</if>
+	</select>
+
+	<delete id="deleteRptRechargeData">
+		delete from rpt_report_result_archive where template_id = #{templateId} and org_no = #{orgNo} and data_date = #{dataDate} and archive_type = #{archiveType}
+	</delete>
+
+	<insert id="saveRptRechargeData">
+		insert into rpt_report_result_archive (archive_type,index_no, data_date, org_no, index_val, template_id,sys_time) (
+		<foreach collection ="cells" item="cell" index= "index" separator ="UNION ALL">
+			select #{cell.archiveType}, #{cell.indexNo}, #{cell.dataDate}, #{cell.orgNo}, #{cell.indexVal}, #{cell.templateId}, #{cell.sysTime} from dual
+		</foreach >
+		)
+	</insert>
+
+	<insert id="saveRptRechargeData" parameterType="hashmap" databaseId="mysql">
+		insert into rpt_report_result_archive (archive_type,index_no, data_date, org_no, index_val, template_id,sys_time) values
+		<foreach item="item" index="index" collection="cells" open="" close="" separator=",">
+			(
+			#{item.archiveType},
+			#{item.indexNo},
+			#{item.dataDate},
+			#{item.orgNo},
+			#{item.indexVal},
+			#{item.templateId},
+			#{item.sysTime}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

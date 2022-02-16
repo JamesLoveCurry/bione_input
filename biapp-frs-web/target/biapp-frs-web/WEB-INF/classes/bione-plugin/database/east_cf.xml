@@ -1,0 +1,2411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<table name="EAST4_101_JGXXB" pkname="rid" descr="机构信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YYZZH" type="varchar" length="60" descr="营业执照号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="JGLB" type="varchar" length="30" descr="机构类别" />
+			<col name="LEIBM" type="varchar" length="30" descr="全球法人识别编码" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="WDH" type="varchar" length="30" descr="网点号" />
+			<col name="YYZT" type="varchar" length="6" descr="营业状态" />
+			<col name="CLRQ" type="varchar" length="8" descr="成立日期" />
+			<col name="JGGZKSSJ" type="varchar" length="6" descr="机构工作开始时间" />
+			<col name="JGGZZZSJ" type="varchar" length="6" descr="机构工作终止时间" />
+			<col name="JGDZ" type="varchar" length="400" descr="机构地址" />
+			<col name="FZRXM" type="varchar" length="100" descr="负责人姓名" />
+			<col name="FZRZW" type="varchar" length="60" descr="负责人职务" />
+			<col name="FZRLXDH" type="varchar" length="30" descr="负责人联系电话" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_102_YGXXB" pkname="rid" descr="员工信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="GH" type="varchar" length="30" descr="工号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="XM" type="varchar" length="100" descr="姓名" />
+			<col name="SFZH" type="varchar" length="60" descr="身份证号" />
+			<col name="LXDH" type="varchar" length="30" descr="联系电话" />
+			<col name="SSBM" type="varchar" length="60" descr="所属部门" />
+			<col name="ZW" type="varchar" length="60" descr="职务" />
+			<col name="YGZT" type="varchar" length="8" descr="员工状态" />
+			<col name="GWBH" type="varchar" length="60" descr="岗位编号" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_103_GDXXB" pkname="rid" descr="股东信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="TYSHXYDM" type="varchar" length="40" descr="统一社会信用代码" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="GDMC" type="varchar" length="200" descr="股东名称" />
+			<col name="GDZJLB" type="varchar" length="60" descr="股东证件类别" />
+			<col name="GDZJHM" type="varchar" length="60" descr="股东证件号码" />
+			<col name="GDZT" type="varchar" length="6" descr="股东状态" />
+			<col name="CGBL" type="decimal" length="10,2" descr="持股比例" />
+			<col name="RGSJ" type="varchar" length="8" descr="入股时间" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_104_HZJGXXB" pkname="rid" descr="合作机构信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="JRJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="HZJGLX" type="varchar" length="2" descr="合作机构类型" />
+			<col name="ZJLB" type="varchar" length="60" descr="证件类别" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="JGDZ" type="varchar" length="400" descr="机构地址" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="CLSJ" type="varchar" length="8" descr="成立时间" />
+			<col name="FZRXM" type="varchar" length="100" descr="负责人姓名" />
+			<col name="FZRZW" type="varchar" length="60" descr="负责人职务" />
+			<col name="FZRLXDH" type="varchar" length="30" descr="负责人联系电话" />
+			<col name="ZYYWLX" type="varchar" length="60" descr="主营业务类型" />
+			<col name="HZKSSJ" type="varchar" length="8" descr="合作开始时间" />
+			<col name="HZZZSJ" type="varchar" length="8" descr="合作终止时间" />
+			<col name="QDXE" type="decimal" length="20,2" descr="渠道限额" />
+			<col name="DBFS" type="varchar" length="60 " descr="担保方式" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_105_JGGXB" pkname="rid" descr="机构关系表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YHJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="SJGLJGDM" type="varchar" length="30" descr="上级管理机构代码" />
+			<col name="SJGLJGMC" type="varchar" length="200" descr="上级管理机构名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_106_ZHXXB" pkname="rid" descr="账户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="TYSHXYDM" type="varchar" length="40" descr="统一社会信用代码" />
+			<col name="LEIBM" type="varchar" length="30" descr="全球法人识别编码" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KHYH" type="varchar" length="200" descr="开户银行" />
+			<col name="KHHJRXKZH" type="varchar" length="30"
+				descr="开户行金融许可证号" />
+			<col name="KHHJGDM" type="varchar" length="30" descr="开户行机构代码" />
+			<col name="KHHLEI" type="varchar" length="30" descr="开户行全球法人识别编码" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="ZH" type="varchar" length="60" descr="账号" />
+			<col name="YHZHLX1" type="varchar" length="60" descr="银行账户类型" />
+			<col name="KHRQ" type="varchar" length="8" descr="开户日期" />
+			<col name="XHRQ" type="varchar" length="8" descr="销户日期" />
+			<col name="ZHZT" type="varchar" length="60" descr="账户状态" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_201_ZZHJQKMB" pkname="rid" descr="总账会计全科目表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YHJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KMBH" type="varchar" length="60" descr="总账会计科目编号" />
+			<col name="KMMC" type="varchar" length="200" descr="总账会计科目名称" />
+			<col name="KMJC" type="varchar" length="2" descr="总账会计科目级次" />
+			<col name="KMLX" type="varchar" length="60" descr="会计科目类型" />
+			<col name="QCJFYE" type="decimal" length="20,2" descr="期初借方余额" />
+			<col name="QCDFYE" type="decimal" length="20,2" descr="期初贷方余额" />
+			<col name="JFFSE" type="decimal" length="20,2" descr="本期借方发生额" />
+			<col name="DFFSE" type="decimal" length="20,2" descr="本期贷方发生额" />
+			<col name="QMJFYE" type="decimal" length="20,2" descr="期末借方余额" />
+			<col name="QMDFYE" type="decimal" length="20,2" descr="期末贷方余额" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="KJRQ" type="varchar" length="8" descr="会计日期" />
+			<col name="BSZQ" type="varchar" length="20" descr="报送周期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_202_NBKMDZB" pkname="rid" descr="内部科目对照表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KMBH" type="varchar" length="60" descr="总账会计科目编号" />
+			<col name="KMMC" type="varchar" length="200" descr="总账会计科目名称" />
+			<col name="KJKMJC" type="varchar" length="2" descr="会计科目级次" />
+			<col name="SJKMBH" type="varchar" length="60" descr="上级科目编号" />
+			<col name="SJKMMC" type="varchar" length="300" descr="上级科目名称" />
+			<col name="GSYWDL" type="varchar" length="60" descr="归属业务大类" />
+			<col name="GSYWZL" type="varchar" length="30" descr="归属业务子类" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_203_GRXDFHZ" pkname="rid" descr="个人信贷分户账">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="DKFHZH" type="varchar" length="60" descr="贷款分户账号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="KJHSFS" type="varchar" length="30" descr="会计核算方式" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="ZJHKRQ" type="varchar" length="8" descr="上次还款日期" />
+			<col name="TJKMBH" type="varchar" length="20" descr="统计科目编号" />
+			<col name="WJFL" type="varchar" length="6" descr="五级分类" />
+			<col name="HKZH" type="varchar" length="60" descr="还款账号" />
+			<col name="DKRZZH" type="varchar" length="60" descr="贷款入账账号" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="DKBJZE" type="decimal" length="20,2" descr="贷款本金总额" />
+			<col name="ZCBJ" type="decimal" length="20,2" descr="正常本金" />
+			<col name="YQBJ" type="decimal" length="20,2" descr="逾期本金" />
+			<col name="YSLX" type="decimal" length="20,2" descr="应收利息" />
+			<col name="BWQXYE" type="decimal" length="20,2" descr="表外欠息余额" />
+			<col name="DKQX" type="varchar" length="20" descr="贷款期限" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="QIXRQ" type="varchar" length="8" descr="起息日期" />
+			<col name="YQRQ" type="varchar" length="8" descr="逾期日期" />
+			<col name="ZHZT" type="varchar" length="60" descr="账户状态" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_204_GRXDFHZMXJL" pkname="rid"
+		descr="个人信贷分户账明细记录">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="HXJYLSH" type="varchar" length="60" descr="核心交易流水号" />
+			<col name="ZJYLSH" type="varchar" length="30" descr="子交易流水号" />
+			<col name="BCXH" type="varchar" length="30" descr="笔次序号" />
+			<col name="DKFHZH" type="varchar" length="60" descr="贷款分户账号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="HXJYRQ" type="varchar" length="8" descr="核心交易日期" />
+			<col name="HXJYSJ" type="varchar" length="6" descr="核心交易时间" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="JYLX" type="varchar" length="60" descr="交易类型" />
+			<col name="JYJDBZ" type="varchar" length="12" descr="交易借贷标志" />
+			<col name="JYJE" type="decimal" length="20,2" descr="交易金额" />
+			<col name="ZHYE" type="decimal" length="20,2" descr="账户余额" />
+			<col name="DFZH" type="varchar" length="60" descr="对方账号" />
+			<col name="DFHM" type="varchar" length="200" descr="对方户名" />
+			<col name="DFXH" type="varchar" length="30" descr="对方行号" />
+			<col name="DFXM" type="varchar" length="200" descr="对方行名" />
+			<col name="JYQD" type="varchar" length="60" descr="交易渠道" />
+			<col name="ZHY" type="varchar" length="400" descr="摘要" />
+			<col name="CBMBZ" type="varchar" length="10" descr="冲补抹标志" />
+			<col name="DBRXM" type="varchar" length="100" descr="代办人姓名" />
+			<col name="DBRZJLB" type="varchar" length="60" descr="代办人证件类别" />
+			<col name="DBRZJHM" type="varchar" length="60" descr="代办人证件号码" />
+			<col name="XZBZ" type="varchar" length="4" descr="现转标志" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_301_KHXXB" pkname="rid" descr="客户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJLB" type="varchar" length="60" descr="证件类别" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="SCDKSQQD" type="varchar" length="200" descr="首次贷款申请渠道" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHYWXM" type="varchar" length="200" descr="客户英文姓名" />
+			<col name="GJI" type="varchar" length="60" descr="国籍" />
+			<col name="MZ" type="varchar" length="30" descr="民族" />
+			<col name="ZY" type="varchar" length="10" descr="职业" />
+			<col name="XB" type="varchar" length="80" descr="性别" />
+			<col name="XL" type="varchar" length="255" descr="学历" />
+			<col name="CSRQ" type="varchar" length="8" descr="出生日期" />
+			<col name="GZDWMC" type="varchar" length="200" descr="工作单位名称" />
+			<col name="GSSF" type="varchar" length="255" descr="工作单位省份" />
+			<col name="GZDWDZ" type="varchar" length="400" descr="工作单位地址" />
+			<col name="GZDWDH" type="varchar" length="30" descr="工作单位电话" />
+			<col name="JTZZ" type="varchar" length="400" descr="家庭住址" />
+			<col name="TXDZ" type="varchar" length="400" descr="通讯地址" />
+			<col name="JTDH" type="varchar" length="30" descr="家庭电话" />
+			<col name="YDDH" type="varchar" length="30" descr="移动电话" />
+			<col name="SRFZB" type="decimal" length="20,2" descr="收入负债比" />
+			<col name="GRYSR" type="decimal" length="20,2" descr="个人月收入" />
+			<col name="JTYSR" type="decimal" length="20,2" descr="家庭月收入" />
+			<col name="HYQK" type="varchar" length="30" descr="婚姻情况" />
+			<col name="POXM" type="varchar" length="100" descr="配偶姓名" />
+			<col name="POLXDH" type="varchar" length="30" descr="配偶联系电话" />
+			<col name="POYDDH" type="varchar" length="30" descr="配偶移动电话" />
+			<col name="PODYKHH" type="varchar" length="60" descr="配偶对应客户号" />
+			<col name="BJGYGBZ" type="varchar" length="4" descr="本机构员工标志" />
+			<col name="SBXHMDBZ" type="varchar" length="4" descr="上本行黑名单标志" />
+			<col name="SHMDRQ" type="varchar" length="8" descr="上黑名单日期" />
+			<col name="SHMDYY" type="varchar" length="400" descr="上黑名单原因" />
+			<col name="DWXZ" type="varchar" length="60" descr="单位性质" />
+			<col name="ZC" type="varchar" length="60" descr="职称" />
+			<col name="SFNH" type="varchar" length="4" descr="是否农户" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_302_GLRXXB" pkname="rid" descr="关联人信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="GLRKHTYBH" type="varchar" length="60"
+				descr="关联人客户统一编号" />
+			<col name="KHSBM" type="varchar" length="60" descr="客户识别码" />
+			<col name="KHLB" type="varchar" length="30" descr="客户类别" />
+			<col name="GLRSBM" type="varchar" length="60" descr="关联人识别码" />
+			<col name="GLRMC" type="varchar" length="200" descr="关联人名称" />
+			<col name="GLRLB" type="varchar" length="30" descr="关联人类别" />
+			<col name="GXLX" type="varchar" length="300" descr="关系类型" />
+			<col name="GLGXZT" type="varchar" length="6" descr="关联关系状态" />
+			<col name="LRSJ" type="varchar" length="8" descr="录入时间" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_401_XFDKHTB" pkname="rid" descr="消费贷款合同表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="ZHTH" type="varchar" length="100" descr="主合同号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KHMC" type="varchar" length="200" descr="客户名称" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="JE" type="decimal" length="20,2" descr="金额" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HTYDRQ" type="varchar" length="8" descr="合同约定日期" />
+			<col name="HTDQRQ" type="varchar" length="8" descr="合同到期日期" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="LLLX" type="varchar" length="6" descr="利率类型" />
+			<col name="JZLL" type="decimal" length="10,6" descr="基准利率" />
+			<col name="LLFD" type="varchar" length="10" descr="利率浮动" />
+			<col name="ZYDBFS" type="varchar" length="60 " descr="主要担保方式" />
+			<col name="DKQX" type="varchar" length="20" descr="贷款期限" />
+			<col name="FKRQ" type="varchar" length="8" descr="放款日期" />
+			<col name="FKFS" type="varchar" length="12" descr="放款方式" />
+			<col name="KJHSFS" type="varchar" length="30" descr="会计核算方式" />
+			<col name="DKYT" type="varchar" length="400" descr="贷款用途" />
+			<col name="DKTXDQ" type="varchar" length="200" descr="贷款投向地区" />
+			<col name="SFGJXZXY" type="varchar" length="4" descr="是否国家限制行业" />
+			<col name="HKFS" type="varchar" length="40" descr="还款方式" />
+			<col name="HKZH" type="varchar" length="60" descr="还款账号" />
+			<col name="HKQD" type="varchar" length="100" descr="还款渠道" />
+			<col name="JKJE" type="decimal" length="20,2" descr="借款金额" />
+			<col name="JKYE" type="decimal" length="20,2" descr="借款余额" />
+			<col name="ZQCS" type="varchar" length="4" descr="展期次数" />
+			<col name="ZQS" type="varchar" length="4" descr="总期数" />
+			<col name="DQQS" type="varchar" length="4" descr="当前期数" />
+			<col name="YQTS" type="varchar" length="20" descr="逾期天数" />
+			<col name="YQBJ" type="decimal" length="20,2" descr="逾期本金" />
+			<col name="WJFL" type="varchar" length="6" descr="五级分类" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_501_XFDKFKXXB" pkname="rid" descr="消费贷款放款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="SXED" type="decimal" length="20,2" descr="授信额度" />
+			<col name="SXFS" type="varchar" length="60" descr="授信方式" />
+			<col name="SXKSSJ" type="varchar" length="8" descr="授信开始日期" />
+			<col name="SXJSSJ" type="varchar" length="8" descr="授信结束日期" />
+			<col name="FKJE" type="decimal" length="20,2" descr="放款金额" />
+			<col name="FKRQ" type="varchar" length="8" descr="放款日期" />
+			<col name="FKQS" type="varchar" length="4" descr="放款期数" />
+			<col name="DKDQR" type="varchar" length="8" descr="贷款到期日" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="FKQD" type="varchar" length="60 " descr="放款渠道" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_502_XFDKHKXXB" pkname="rid" descr="消费贷款还款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="HKJE" type="decimal" length="20,2" descr="还款金额" />
+			<col name="HKRQ" type="varchar" length="8" descr="还款日期" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_503_XFDKHXXXB" pkname="rid" descr="消费贷款核销信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="HXRQ" type="varchar" length="8" descr="核销日期" />
+			<col name="HXBJ" type="decimal" length="20,2" descr="核销本金" />
+			<col name="HXLX" type="decimal" length="20,2" descr="核销利息" />
+			<col name="HXSHBNLX" type="decimal" length="20,2" descr="核销收回本金" />
+			<col name="HXSHBWLX" type="decimal" length="20,2" descr="核销收回利息" />
+			<col name="SHBZ" type="varchar" length="4" descr="收回标志" />
+			<col name="HXSHRQ" type="varchar" length="8" descr="核销收回日期" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_601_ZJYWXXB" pkname="rid" descr="资金业务信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="JYBH" type="varchar" length="40" descr="交易编号" />
+			<col name="LCCPDJBM" type="varchar" length="30" descr="理财产品登记编码" />
+			<col name="ZJJYLX" type="varchar" length="6" descr="资金交易类型" />
+			<col name="JYZL" type="varchar" length="60" descr="资金交易子类" />
+			<col name="JRGJBH" type="varchar" length="60" descr="金融工具编号" />
+			<col name="JYZHLX" type="varchar" length="12" descr="交易账户类型" />
+			<col name="HTH" type="varchar" length="100" descr="合同号" />
+			<col name="HTJE" type="decimal" length="20,2" descr="合同金额" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="JCZCKHMC" type="varchar" length="200" descr="基础资产客户名称" />
+			<col name="JCZCSSHY" type="varchar" length="100" descr="基础资产所属行业" />
+			<col name="JCZCSFWBGSKH" type="varchar" length="4"
+				descr="基础资产是否为本公司客户" />
+			<col name="JCZCZXFS" type="varchar" length="30" descr="基础资产增信方式" />
+			<col name="JCZCZXR" type="varchar" length="200" descr="基础资产增信人" />
+			<col name="JYGY" type="varchar" length="100" descr="交易柜员" />
+			<col name="SPR" type="varchar" length="100" descr="审批人" />
+			<col name="JYDSDM" type="varchar" length="60" descr="交易对手代码" />
+			<col name="JYDSMC" type="varchar" length="200" descr="交易对手名称" />
+			<col name="JYDSLEIBM" type="varchar" length="30"
+				descr="交易对手全球法人识别编码" />
+			<col name="JYRQ" type="varchar" length="8" descr="交易日期" />
+			<col name="QSRQ" type="varchar" length="8" descr="起始日期" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="MMBZ" type="varchar" length="6" descr="买卖标志" />
+			<col name="JYQBZ" type="varchar" length="6" descr="即远期标志" />
+			<col name="MRBZ" type="varchar" length="3" descr="买入币种" />
+			<col name="MRJE" type="decimal" length="20,2" descr="买入金额" />
+			<col name="MCBZ" type="varchar" length="3" descr="卖出币种" />
+			<col name="MCJE" type="decimal" length="20,2" descr="卖出金额" />
+			<col name="CJJG" type="varchar" length="100 " descr="成交价格" />
+			<col name="YWZT" type="varchar" length="20" descr="交易状态" />
+			<col name="FHRQ" type="varchar" length="8" descr="复核日期" />
+			<col name="QXRQ" type="varchar" length="8" descr="取消日期" />
+			<col name="SJJGRQ" type="varchar" length="8" descr="实际交割日期" />
+			<col name="QSBZ" type="varchar" length="4" descr="清算标志" />
+			<col name="JFZH" type="varchar" length="60" descr="借方账号" />
+			<col name="DFZHH" type="varchar" length="60" descr="贷方账号" />
+			<col name="JFJE" type="decimal" length="20,2" descr="借方金额" />
+			<col name="DFJE" type="decimal" length="20,2" descr="贷方金额" />
+			<col name="JFBZ" type="varchar" length="3" descr="借方币种" />
+			<col name="DFBZ" type="varchar" length="3" descr="贷方币种" />
+			<col name="JFLL" type="decimal" length="10,6" descr="借方利率" />
+			<col name="DFLL" type="decimal" length="10,6" descr="贷方利率" />
+			<col name="BZJJYBZ" type="varchar" length="4" descr="保证金交易标志" />
+			<col name="GLBZJZH" type="varchar" length="60" descr="关联保证金账户" />
+			<col name="GLYWBH" type="varchar" length="40" descr="关联业务编号" />
+			<col name="WBGLXTMC" type="varchar" length="100" descr="外部关联系统名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_602_ZJYWYEB" pkname="rid" descr="资金业务余额表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="JYBH" type="varchar" length="40" descr="交易编号" />
+			<col name="ZJJYLX" type="varchar" length="6" descr="资金交易类型" />
+			<col name="JYZL" type="varchar" length="60" descr="资金交易子类" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="ZJYWYE" type="decimal" length="20,2" descr="资金业务余额" />
+			<col name="JYDSQQFRBM" type="varchar" length="60"
+				descr="交易对手全球法人识别编码" />
+			<col name="JYDSMC" type="varchar" length="200" descr="交易对手名称" />
+			<col name="JYDSLEIBM" type="varchar" length="30"
+				descr="交易对手LEI编码" />
+			<col name="JYRQ" type="varchar" length="8" descr="交易日期" />
+			<col name="QSRQ" type="varchar" length="8" descr="起始日期" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="MMBZ" type="varchar" length="6" descr="买卖标志" />
+			<col name="JYQBZ" type="varchar" length="6" descr="即远期标志" />
+			<col name="BZJJYBZ" type="varchar" length="4" descr="保证金交易标志" />
+			<col name="GLBZJZH" type="varchar" length="60" descr="关联保证金账户" />
+			<col name="GLYWBH" type="varchar" length="40" descr="关联业务编号" />
+			<col name="WBGLXTMC" type="varchar" length="100" descr="外部关联系统名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_101_JGXXB_M" pkname="rid" descr="机构信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YYZZH" type="varchar" length="60" descr="营业执照号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="JGLB" type="varchar" length="30" descr="机构类别" />
+			<col name="LEIBM" type="varchar" length="30" descr="全球法人识别编码" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="WDH" type="varchar" length="30" descr="网点号" />
+			<col name="YYZT" type="varchar" length="6" descr="营业状态" />
+			<col name="CLRQ" type="varchar" length="8" descr="成立日期" />
+			<col name="JGGZKSSJ" type="varchar" length="6" descr="机构工作开始时间" />
+			<col name="JGGZZZSJ" type="varchar" length="6" descr="机构工作终止时间" />
+			<col name="JGDZ" type="varchar" length="400" descr="机构地址" />
+			<col name="FZRXM" type="varchar" length="100" descr="负责人姓名" />
+			<col name="FZRZW" type="varchar" length="60" descr="负责人职务" />
+			<col name="FZRLXDH" type="varchar" length="30" descr="负责人联系电话" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_102_YGXXB_M" pkname="rid" descr="员工信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="GH" type="varchar" length="30" descr="工号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="XM" type="varchar" length="100" descr="姓名" />
+			<col name="SFZH" type="varchar" length="60" descr="身份证号" />
+			<col name="LXDH" type="varchar" length="30" descr="联系电话" />
+			<col name="SSBM" type="varchar" length="60" descr="所属部门" />
+			<col name="ZW" type="varchar" length="60" descr="职务" />
+			<col name="YGZT" type="varchar" length="8" descr="员工状态" />
+			<col name="GWBH" type="varchar" length="60" descr="岗位编号" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_103_GDXXB_M" pkname="rid" descr="股东信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="TYSHXYDM" type="varchar" length="40" descr="统一社会信用代码" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="GDMC" type="varchar" length="200" descr="股东名称" />
+			<col name="GDZJLB" type="varchar" length="60" descr="股东证件类别" />
+			<col name="GDZJHM" type="varchar" length="60" descr="股东证件号码" />
+			<col name="GDZT" type="varchar" length="6" descr="股东状态" />
+			<col name="CGBL" type="decimal" length="10,2" descr="持股比例" />
+			<col name="RGSJ" type="varchar" length="8" descr="入股时间" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_104_HZJGXXB_M" pkname="rid" descr="合作机构信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="JRJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="HZJGLX" type="varchar" length="2" descr="合作机构类型" />
+			<col name="ZJLB" type="varchar" length="60" descr="证件类别" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="JGDZ" type="varchar" length="400" descr="机构地址" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="CLSJ" type="varchar" length="8" descr="成立时间" />
+			<col name="FZRXM" type="varchar" length="100" descr="负责人姓名" />
+			<col name="FZRZW" type="varchar" length="60" descr="负责人职务" />
+			<col name="FZRLXDH" type="varchar" length="30" descr="负责人联系电话" />
+			<col name="ZYYWLX" type="varchar" length="60" descr="主营业务类型" />
+			<col name="HZKSSJ" type="varchar" length="8" descr="合作开始时间" />
+			<col name="HZZZSJ" type="varchar" length="8" descr="合作终止时间" />
+			<col name="QDXE" type="decimal" length="20,2" descr="渠道限额" />
+			<col name="DBFS" type="varchar" length="60 " descr="担保方式" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_105_JGGXB_M" pkname="rid" descr="机构关系表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YHJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="SJGLJGDM" type="varchar" length="30" descr="上级管理机构代码" />
+			<col name="SJGLJGMC" type="varchar" length="200" descr="上级管理机构名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_106_ZHXXB_M" pkname="rid" descr="账户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="TYSHXYDM" type="varchar" length="40" descr="统一社会信用代码" />
+			<col name="LEIBM" type="varchar" length="30" descr="全球法人识别编码" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KHYH" type="varchar" length="200" descr="开户银行" />
+			<col name="KHHJRXKZH" type="varchar" length="30"
+				descr="开户行金融许可证号" />
+			<col name="KHHJGDM" type="varchar" length="30" descr="开户行机构代码" />
+			<col name="KHHLEI" type="varchar" length="30" descr="开户行全球法人识别编码" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="ZH" type="varchar" length="60" descr="账号" />
+			<col name="YHZHLX1" type="varchar" length="60" descr="银行账户类型" />
+			<col name="KHRQ" type="varchar" length="8" descr="开户日期" />
+			<col name="XHRQ" type="varchar" length="8" descr="销户日期" />
+			<col name="ZHZT" type="varchar" length="60" descr="账户状态" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_201_ZZHJQKMB_M" pkname="rid" descr="总账会计全科目表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YHJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KMBH" type="varchar" length="60" descr="总账会计科目编号" />
+			<col name="KMMC" type="varchar" length="200" descr="总账会计科目名称" />
+			<col name="KMJC" type="varchar" length="2" descr="总账会计科目级次" />
+			<col name="KMLX" type="varchar" length="60" descr="会计科目类型" />
+			<col name="QCJFYE" type="decimal" length="20,2" descr="期初借方余额" />
+			<col name="QCDFYE" type="decimal" length="20,2" descr="期初贷方余额" />
+			<col name="JFFSE" type="decimal" length="20,2" descr="本期借方发生额" />
+			<col name="DFFSE" type="decimal" length="20,2" descr="本期贷方发生额" />
+			<col name="QMJFYE" type="decimal" length="20,2" descr="期末借方余额" />
+			<col name="QMDFYE" type="decimal" length="20,2" descr="期末贷方余额" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="KJRQ" type="varchar" length="8" descr="会计日期" />
+			<col name="BSZQ" type="varchar" length="20" descr="报送周期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_202_NBKMDZB_M" pkname="rid" descr="内部科目对照表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KMBH" type="varchar" length="60" descr="总账会计科目编号" />
+			<col name="KMMC" type="varchar" length="200" descr="总账会计科目名称" />
+			<col name="KJKMJC" type="varchar" length="2" descr="会计科目级次" />
+			<col name="SJKMBH" type="varchar" length="60" descr="上级科目编号" />
+			<col name="SJKMMC" type="varchar" length="300" descr="上级科目名称" />
+			<col name="GSYWDL" type="varchar" length="60" descr="归属业务大类" />
+			<col name="GSYWZL" type="varchar" length="30" descr="归属业务子类" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_203_GRXDFHZ_M" pkname="rid" descr="个人信贷分户账">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="DKFHZH" type="varchar" length="60" descr="贷款分户账号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="KJHSFS" type="varchar" length="30" descr="会计核算方式" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="ZJHKRQ" type="varchar" length="8" descr="上次还款日期" />
+			<col name="TJKMBH" type="varchar" length="20" descr="统计科目编号" />
+			<col name="WJFL" type="varchar" length="6" descr="五级分类" />
+			<col name="HKZH" type="varchar" length="60" descr="还款账号" />
+			<col name="DKRZZH" type="varchar" length="60" descr="贷款入账账号" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="DKBJZE" type="decimal" length="20,2" descr="贷款本金总额" />
+			<col name="ZCBJ" type="decimal" length="20,2" descr="正常本金" />
+			<col name="YQBJ" type="decimal" length="20,2" descr="逾期本金" />
+			<col name="YSLX" type="decimal" length="20,2" descr="应收利息" />
+			<col name="BWQXYE" type="decimal" length="20,2" descr="表外欠息余额" />
+			<col name="DKQX" type="varchar" length="20" descr="贷款期限" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="QIXRQ" type="varchar" length="8" descr="起息日期" />
+			<col name="YQRQ" type="varchar" length="8" descr="逾期日期" />
+			<col name="ZHZT" type="varchar" length="60" descr="账户状态" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_204_GRXDFHZMXJL_M" pkname="rid"
+		descr="个人信贷分户账明细记录">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="HXJYLSH" type="varchar" length="60" descr="核心交易流水号" />
+			<col name="ZJYLSH" type="varchar" length="30" descr="子交易流水号" />
+			<col name="BCXH" type="varchar" length="30" descr="笔次序号" />
+			<col name="DKFHZH" type="varchar" length="60" descr="贷款分户账号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="HXJYRQ" type="varchar" length="8" descr="核心交易日期" />
+			<col name="HXJYSJ" type="varchar" length="6" descr="核心交易时间" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="JYLX" type="varchar" length="60" descr="交易类型" />
+			<col name="JYJDBZ" type="varchar" length="12" descr="交易借贷标志" />
+			<col name="JYJE" type="decimal" length="20,2" descr="交易金额" />
+			<col name="ZHYE" type="decimal" length="20,2" descr="账户余额" />
+			<col name="DFZH" type="varchar" length="60" descr="对方账号" />
+			<col name="DFHM" type="varchar" length="200" descr="对方户名" />
+			<col name="DFXH" type="varchar" length="30" descr="对方行号" />
+			<col name="DFXM" type="varchar" length="200" descr="对方行名" />
+			<col name="JYQD" type="varchar" length="60" descr="交易渠道" />
+			<col name="ZHY" type="varchar" length="400" descr="摘要" />
+			<col name="CBMBZ" type="varchar" length="10" descr="冲补抹标志" />
+			<col name="DBRXM" type="varchar" length="100" descr="代办人姓名" />
+			<col name="DBRZJLB" type="varchar" length="60" descr="代办人证件类别" />
+			<col name="DBRZJHM" type="varchar" length="60" descr="代办人证件号码" />
+			<col name="XZBZ" type="varchar" length="4" descr="现转标志" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_301_KHXXB_M" pkname="rid" descr="客户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJLB" type="varchar" length="60" descr="证件类别" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="SCDKSQQD" type="varchar" length="200" descr="首次贷款申请渠道" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHYWXM" type="varchar" length="200" descr="客户英文姓名" />
+			<col name="GJI" type="varchar" length="60" descr="国籍" />
+			<col name="MZ" type="varchar" length="30" descr="民族" />
+			<col name="ZY" type="varchar" length="10" descr="职业" />
+			<col name="XB" type="varchar" length="80" descr="性别" />
+			<col name="XL" type="varchar" length="255" descr="学历" />
+			<col name="CSRQ" type="varchar" length="8" descr="出生日期" />
+			<col name="GZDWMC" type="varchar" length="200" descr="工作单位名称" />
+			<col name="GSSF" type="varchar" length="255" descr="工作单位省份" />
+			<col name="GZDWDZ" type="varchar" length="400" descr="工作单位地址" />
+			<col name="GZDWDH" type="varchar" length="30" descr="工作单位电话" />
+			<col name="JTZZ" type="varchar" length="400" descr="家庭住址" />
+			<col name="TXDZ" type="varchar" length="400" descr="通讯地址" />
+			<col name="JTDH" type="varchar" length="30" descr="家庭电话" />
+			<col name="YDDH" type="varchar" length="30" descr="移动电话" />
+			<col name="SRFZB" type="decimal" length="20,2" descr="收入负债比" />
+			<col name="GRYSR" type="decimal" length="20,2" descr="个人月收入" />
+			<col name="JTYSR" type="decimal" length="20,2" descr="家庭月收入" />
+			<col name="HYQK" type="varchar" length="30" descr="婚姻情况" />
+			<col name="POXM" type="varchar" length="100" descr="配偶姓名" />
+			<col name="POLXDH" type="varchar" length="30" descr="配偶联系电话" />
+			<col name="POYDDH" type="varchar" length="30" descr="配偶移动电话" />
+			<col name="PODYKHH" type="varchar" length="60" descr="配偶对应客户号" />
+			<col name="BJGYGBZ" type="varchar" length="4" descr="本机构员工标志" />
+			<col name="SBXHMDBZ" type="varchar" length="4" descr="上本行黑名单标志" />
+			<col name="SHMDRQ" type="varchar" length="8" descr="上黑名单日期" />
+			<col name="SHMDYY" type="varchar" length="400" descr="上黑名单原因" />
+			<col name="DWXZ" type="varchar" length="60" descr="单位性质" />
+			<col name="ZC" type="varchar" length="60" descr="职称" />
+			<col name="SFNH" type="varchar" length="4" descr="是否农户" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_302_GLRXXB_M" pkname="rid" descr="关联人信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="GLRKHTYBH" type="varchar" length="60"
+				descr="关联人客户统一编号" />
+			<col name="KHSBM" type="varchar" length="60" descr="客户识别码" />
+			<col name="KHLB" type="varchar" length="30" descr="客户类别" />
+			<col name="GLRSBM" type="varchar" length="60" descr="关联人识别码" />
+			<col name="GLRMC" type="varchar" length="200" descr="关联人名称" />
+			<col name="GLRLB" type="varchar" length="30" descr="关联人类别" />
+			<col name="GXLX" type="varchar" length="300" descr="关系类型" />
+			<col name="GLGXZT" type="varchar" length="6" descr="关联关系状态" />
+			<col name="LRSJ" type="varchar" length="8" descr="录入时间" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_401_XFDKHTB_M" pkname="rid" descr="消费贷款合同表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="ZHTH" type="varchar" length="100" descr="主合同号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KHMC" type="varchar" length="200" descr="客户名称" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="JE" type="decimal" length="20,2" descr="金额" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HTYDRQ" type="varchar" length="8" descr="合同约定日期" />
+			<col name="HTDQRQ" type="varchar" length="8" descr="合同到期日期" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="LLLX" type="varchar" length="6" descr="利率类型" />
+			<col name="JZLL" type="decimal" length="10,6" descr="基准利率" />
+			<col name="LLFD" type="varchar" length="10" descr="利率浮动" />
+			<col name="ZYDBFS" type="varchar" length="60 " descr="主要担保方式" />
+			<col name="DKQX" type="varchar" length="20" descr="贷款期限" />
+			<col name="FKRQ" type="varchar" length="8" descr="放款日期" />
+			<col name="FKFS" type="varchar" length="12" descr="放款方式" />
+			<col name="KJHSFS" type="varchar" length="30" descr="会计核算方式" />
+			<col name="DKYT" type="varchar" length="400" descr="贷款用途" />
+			<col name="DKTXDQ" type="varchar" length="200" descr="贷款投向地区" />
+			<col name="SFGJXZXY" type="varchar" length="4" descr="是否国家限制行业" />
+			<col name="HKFS" type="varchar" length="40" descr="还款方式" />
+			<col name="HKZH" type="varchar" length="60" descr="还款账号" />
+			<col name="HKQD" type="varchar" length="100" descr="还款渠道" />
+			<col name="JKJE" type="decimal" length="20,2" descr="借款金额" />
+			<col name="JKYE" type="decimal" length="20,2" descr="借款余额" />
+			<col name="ZQCS" type="varchar" length="4" descr="展期次数" />
+			<col name="ZQS" type="varchar" length="4" descr="总期数" />
+			<col name="DQQS" type="varchar" length="4" descr="当前期数" />
+			<col name="YQTS" type="varchar" length="20" descr="逾期天数" />
+			<col name="YQBJ" type="decimal" length="20,2" descr="逾期本金" />
+			<col name="WJFL" type="varchar" length="6" descr="五级分类" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_501_XFDKFKXXB_M" pkname="rid"
+		descr="消费贷款放款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="SXED" type="decimal" length="20,2" descr="授信额度" />
+			<col name="SXFS" type="varchar" length="60" descr="授信方式" />
+			<col name="SXKSSJ" type="varchar" length="8" descr="授信开始日期" />
+			<col name="SXJSSJ" type="varchar" length="8" descr="授信结束日期" />
+			<col name="FKJE" type="decimal" length="20,2" descr="放款金额" />
+			<col name="FKRQ" type="varchar" length="8" descr="放款日期" />
+			<col name="FKQS" type="varchar" length="4" descr="放款期数" />
+			<col name="DKDQR" type="varchar" length="8" descr="贷款到期日" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="FKQD" type="varchar" length="60 " descr="放款渠道" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_502_XFDKHKXXB_M" pkname="rid"
+		descr="消费贷款还款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="HKJE" type="decimal" length="20,2" descr="还款金额" />
+			<col name="HKRQ" type="varchar" length="8" descr="还款日期" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_503_XFDKHXXXB_M" pkname="rid"
+		descr="消费贷款核销信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="HXRQ" type="varchar" length="8" descr="核销日期" />
+			<col name="HXBJ" type="decimal" length="20,2" descr="核销本金" />
+			<col name="HXLX" type="decimal" length="20,2" descr="核销利息" />
+			<col name="HXSHBNLX" type="decimal" length="20,2" descr="核销收回本金" />
+			<col name="HXSHBWLX" type="decimal" length="20,2" descr="核销收回利息" />
+			<col name="SHBZ" type="varchar" length="4" descr="收回标志" />
+			<col name="HXSHRQ" type="varchar" length="8" descr="核销收回日期" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_601_ZJYWXXB_M" pkname="rid" descr="资金业务信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="JYBH" type="varchar" length="40" descr="交易编号" />
+			<col name="LCCPDJBM" type="varchar" length="30" descr="理财产品登记编码" />
+			<col name="ZJJYLX" type="varchar" length="6" descr="资金交易类型" />
+			<col name="JYZL" type="varchar" length="60" descr="资金交易子类" />
+			<col name="JRGJBH" type="varchar" length="60" descr="金融工具编号" />
+			<col name="JYZHLX" type="varchar" length="12" descr="交易账户类型" />
+			<col name="HTH" type="varchar" length="100" descr="合同号" />
+			<col name="HTJE" type="decimal" length="20,2" descr="合同金额" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="JCZCKHMC" type="varchar" length="200" descr="基础资产客户名称" />
+			<col name="JCZCSSHY" type="varchar" length="100" descr="基础资产所属行业" />
+			<col name="JCZCSFWBGSKH" type="varchar" length="4"
+				descr="基础资产是否为本公司客户" />
+			<col name="JCZCZXFS" type="varchar" length="30" descr="基础资产增信方式" />
+			<col name="JCZCZXR" type="varchar" length="200" descr="基础资产增信人" />
+			<col name="JYGY" type="varchar" length="100" descr="交易柜员" />
+			<col name="SPR" type="varchar" length="100" descr="审批人" />
+			<col name="JYDSDM" type="varchar" length="60" descr="交易对手代码" />
+			<col name="JYDSMC" type="varchar" length="200" descr="交易对手名称" />
+			<col name="JYDSLEIBM" type="varchar" length="30"
+				descr="交易对手全球法人识别编码" />
+			<col name="JYRQ" type="varchar" length="8" descr="交易日期" />
+			<col name="QSRQ" type="varchar" length="8" descr="起始日期" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="MMBZ" type="varchar" length="6" descr="买卖标志" />
+			<col name="JYQBZ" type="varchar" length="6" descr="即远期标志" />
+			<col name="MRBZ" type="varchar" length="3" descr="买入币种" />
+			<col name="MRJE" type="decimal" length="20,2" descr="买入金额" />
+			<col name="MCBZ" type="varchar" length="3" descr="卖出币种" />
+			<col name="MCJE" type="decimal" length="20,2" descr="卖出金额" />
+			<col name="CJJG" type="varchar" length="100 " descr="成交价格" />
+			<col name="YWZT" type="varchar" length="20" descr="交易状态" />
+			<col name="FHRQ" type="varchar" length="8" descr="复核日期" />
+			<col name="QXRQ" type="varchar" length="8" descr="取消日期" />
+			<col name="SJJGRQ" type="varchar" length="8" descr="实际交割日期" />
+			<col name="QSBZ" type="varchar" length="4" descr="清算标志" />
+			<col name="JFZH" type="varchar" length="60" descr="借方账号" />
+			<col name="DFZHH" type="varchar" length="60" descr="贷方账号" />
+			<col name="JFJE" type="decimal" length="20,2" descr="借方金额" />
+			<col name="DFJE" type="decimal" length="20,2" descr="贷方金额" />
+			<col name="JFBZ" type="varchar" length="3" descr="借方币种" />
+			<col name="DFBZ" type="varchar" length="3" descr="贷方币种" />
+			<col name="JFLL" type="decimal" length="10,6" descr="借方利率" />
+			<col name="DFLL" type="decimal" length="10,6" descr="贷方利率" />
+			<col name="BZJJYBZ" type="varchar" length="4" descr="保证金交易标志" />
+			<col name="GLBZJZH" type="varchar" length="60" descr="关联保证金账户" />
+			<col name="GLYWBH" type="varchar" length="40" descr="关联业务编号" />
+			<col name="WBGLXTMC" type="varchar" length="100" descr="外部关联系统名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_602_ZJYWYEB_M" pkname="rid" descr="资金业务余额表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="JYBH" type="varchar" length="40" descr="交易编号" />
+			<col name="ZJJYLX" type="varchar" length="6" descr="资金交易类型" />
+			<col name="JYZL" type="varchar" length="60" descr="资金交易子类" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="ZJYWYE" type="decimal" length="20,2" descr="资金业务余额" />
+			<col name="JYDSQQFRBM" type="varchar" length="60"
+				descr="交易对手全球法人识别编码" />
+			<col name="JYDSMC" type="varchar" length="200" descr="交易对手名称" />
+			<col name="JYDSLEIBM" type="varchar" length="30"
+				descr="交易对手LEI编码" />
+			<col name="JYRQ" type="varchar" length="8" descr="交易日期" />
+			<col name="QSRQ" type="varchar" length="8" descr="起始日期" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="MMBZ" type="varchar" length="6" descr="买卖标志" />
+			<col name="JYQBZ" type="varchar" length="6" descr="即远期标志" />
+			<col name="BZJJYBZ" type="varchar" length="4" descr="保证金交易标志" />
+			<col name="GLBZJZH" type="varchar" length="60" descr="关联保证金账户" />
+			<col name="GLYWBH" type="varchar" length="40" descr="关联业务编号" />
+			<col name="WBGLXTMC" type="varchar" length="100" descr="外部关联系统名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+		</columns>
+	</table>
+
+	<table name="EAST4_101_JGXXB_R" pkname="rid" descr="机构信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YYZZH" type="varchar" length="60" descr="营业执照号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="JGLB" type="varchar" length="30" descr="机构类别" />
+			<col name="LEIBM" type="varchar" length="30" descr="全球法人识别编码" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="WDH" type="varchar" length="30" descr="网点号" />
+			<col name="YYZT" type="varchar" length="6" descr="营业状态" />
+			<col name="CLRQ" type="varchar" length="8" descr="成立日期" />
+			<col name="JGGZKSSJ" type="varchar" length="6" descr="机构工作开始时间" />
+			<col name="JGGZZZSJ" type="varchar" length="6" descr="机构工作终止时间" />
+			<col name="JGDZ" type="varchar" length="400" descr="机构地址" />
+			<col name="FZRXM" type="varchar" length="100" descr="负责人姓名" />
+			<col name="FZRZW" type="varchar" length="60" descr="负责人职务" />
+			<col name="FZRLXDH" type="varchar" length="30" descr="负责人联系电话" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_102_YGXXB_R" pkname="rid" descr="员工信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="GH" type="varchar" length="30" descr="工号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="XM" type="varchar" length="100" descr="姓名" />
+			<col name="SFZH" type="varchar" length="60" descr="身份证号" />
+			<col name="LXDH" type="varchar" length="30" descr="联系电话" />
+			<col name="SSBM" type="varchar" length="60" descr="所属部门" />
+			<col name="ZW" type="varchar" length="60" descr="职务" />
+			<col name="YGZT" type="varchar" length="8" descr="员工状态" />
+			<col name="GWBH" type="varchar" length="60" descr="岗位编号" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_103_GDXXB_R" pkname="rid" descr="股东信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="TYSHXYDM" type="varchar" length="40" descr="统一社会信用代码" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="GDMC" type="varchar" length="200" descr="股东名称" />
+			<col name="GDZJLB" type="varchar" length="60" descr="股东证件类别" />
+			<col name="GDZJHM" type="varchar" length="60" descr="股东证件号码" />
+			<col name="GDZT" type="varchar" length="6" descr="股东状态" />
+			<col name="CGBL" type="decimal" length="10,2" descr="持股比例" />
+			<col name="RGSJ" type="varchar" length="8" descr="入股时间" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_104_HZJGXXB_R" pkname="rid" descr="合作机构信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="JRJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="HZJGLX" type="varchar" length="2" descr="合作机构类型" />
+			<col name="ZJLB" type="varchar" length="60" descr="证件类别" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="JGDZ" type="varchar" length="400" descr="机构地址" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="CLSJ" type="varchar" length="8" descr="成立时间" />
+			<col name="FZRXM" type="varchar" length="100" descr="负责人姓名" />
+			<col name="FZRZW" type="varchar" length="60" descr="负责人职务" />
+			<col name="FZRLXDH" type="varchar" length="30" descr="负责人联系电话" />
+			<col name="ZYYWLX" type="varchar" length="60" descr="主营业务类型" />
+			<col name="HZKSSJ" type="varchar" length="8" descr="合作开始时间" />
+			<col name="HZZZSJ" type="varchar" length="8" descr="合作终止时间" />
+			<col name="QDXE" type="decimal" length="20,2" descr="渠道限额" />
+			<col name="DBFS" type="varchar" length="60 " descr="担保方式" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_105_JGGXB_R" pkname="rid" descr="机构关系表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YHJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="YZBM" type="varchar" length="6" descr="邮政编码" />
+			<col name="SJGLJGDM" type="varchar" length="30" descr="上级管理机构代码" />
+			<col name="SJGLJGMC" type="varchar" length="200" descr="上级管理机构名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_106_ZHXXB_R" pkname="rid" descr="账户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="TYSHXYDM" type="varchar" length="40" descr="统一社会信用代码" />
+			<col name="LEIBM" type="varchar" length="30" descr="全球法人识别编码" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KHYH" type="varchar" length="200" descr="开户银行" />
+			<col name="KHHJRXKZH" type="varchar" length="30"
+				descr="开户行金融许可证号" />
+			<col name="KHHJGDM" type="varchar" length="30" descr="开户行机构代码" />
+			<col name="KHHLEI" type="varchar" length="30" descr="开户行全球法人识别编码" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="ZH" type="varchar" length="60" descr="账号" />
+			<col name="YHZHLX1" type="varchar" length="60" descr="银行账户类型" />
+			<col name="KHRQ" type="varchar" length="8" descr="开户日期" />
+			<col name="XHRQ" type="varchar" length="8" descr="销户日期" />
+			<col name="ZHZT" type="varchar" length="60" descr="账户状态" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_201_ZZHJQKMB_R" pkname="rid" descr="总账会计全科目表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YHJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KMBH" type="varchar" length="60" descr="总账会计科目编号" />
+			<col name="KMMC" type="varchar" length="200" descr="总账会计科目名称" />
+			<col name="KMJC" type="varchar" length="2" descr="总账会计科目级次" />
+			<col name="KMLX" type="varchar" length="60" descr="会计科目类型" />
+			<col name="QCJFYE" type="decimal" length="20,2" descr="期初借方余额" />
+			<col name="QCDFYE" type="decimal" length="20,2" descr="期初贷方余额" />
+			<col name="JFFSE" type="decimal" length="20,2" descr="本期借方发生额" />
+			<col name="DFFSE" type="decimal" length="20,2" descr="本期贷方发生额" />
+			<col name="QMJFYE" type="decimal" length="20,2" descr="期末借方余额" />
+			<col name="QMDFYE" type="decimal" length="20,2" descr="期末贷方余额" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="KJRQ" type="varchar" length="8" descr="会计日期" />
+			<col name="BSZQ" type="varchar" length="20" descr="报送周期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_202_NBKMDZB_R" pkname="rid" descr="内部科目对照表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KMBH" type="varchar" length="60" descr="总账会计科目编号" />
+			<col name="KMMC" type="varchar" length="200" descr="总账会计科目名称" />
+			<col name="KJKMJC" type="varchar" length="2" descr="会计科目级次" />
+			<col name="SJKMBH" type="varchar" length="60" descr="上级科目编号" />
+			<col name="SJKMMC" type="varchar" length="300" descr="上级科目名称" />
+			<col name="GSYWDL" type="varchar" length="60" descr="归属业务大类" />
+			<col name="GSYWZL" type="varchar" length="30" descr="归属业务子类" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_203_GRXDFHZ_R" pkname="rid" descr="个人信贷分户账">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="DKFHZH" type="varchar" length="60" descr="贷款分户账号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="KJHSFS" type="varchar" length="30" descr="会计核算方式" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="ZJHKRQ" type="varchar" length="8" descr="上次还款日期" />
+			<col name="TJKMBH" type="varchar" length="20" descr="统计科目编号" />
+			<col name="WJFL" type="varchar" length="6" descr="五级分类" />
+			<col name="HKZH" type="varchar" length="60" descr="还款账号" />
+			<col name="DKRZZH" type="varchar" length="60" descr="贷款入账账号" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="DKBJZE" type="decimal" length="20,2" descr="贷款本金总额" />
+			<col name="ZCBJ" type="decimal" length="20,2" descr="正常本金" />
+			<col name="YQBJ" type="decimal" length="20,2" descr="逾期本金" />
+			<col name="YSLX" type="decimal" length="20,2" descr="应收利息" />
+			<col name="BWQXYE" type="decimal" length="20,2" descr="表外欠息余额" />
+			<col name="DKQX" type="varchar" length="20" descr="贷款期限" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="QIXRQ" type="varchar" length="8" descr="起息日期" />
+			<col name="YQRQ" type="varchar" length="8" descr="逾期日期" />
+			<col name="ZHZT" type="varchar" length="60" descr="账户状态" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_204_GRXDFHZMXJL_R" pkname="rid"
+		descr="个人信贷分户账明细记录">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="HXJYLSH" type="varchar" length="60" descr="核心交易流水号" />
+			<col name="ZJYLSH" type="varchar" length="30" descr="子交易流水号" />
+			<col name="BCXH" type="varchar" length="30" descr="笔次序号" />
+			<col name="DKFHZH" type="varchar" length="60" descr="贷款分户账号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="HXJYRQ" type="varchar" length="8" descr="核心交易日期" />
+			<col name="HXJYSJ" type="varchar" length="6" descr="核心交易时间" />
+			<col name="ZHMC" type="varchar" length="200" descr="账户名称" />
+			<col name="JYLX" type="varchar" length="60" descr="交易类型" />
+			<col name="JYJDBZ" type="varchar" length="12" descr="交易借贷标志" />
+			<col name="JYJE" type="decimal" length="20,2" descr="交易金额" />
+			<col name="ZHYE" type="decimal" length="20,2" descr="账户余额" />
+			<col name="DFZH" type="varchar" length="60" descr="对方账号" />
+			<col name="DFHM" type="varchar" length="200" descr="对方户名" />
+			<col name="DFXH" type="varchar" length="30" descr="对方行号" />
+			<col name="DFXM" type="varchar" length="200" descr="对方行名" />
+			<col name="JYQD" type="varchar" length="60" descr="交易渠道" />
+			<col name="ZHY" type="varchar" length="400" descr="摘要" />
+			<col name="CBMBZ" type="varchar" length="10" descr="冲补抹标志" />
+			<col name="DBRXM" type="varchar" length="100" descr="代办人姓名" />
+			<col name="DBRZJLB" type="varchar" length="60" descr="代办人证件类别" />
+			<col name="DBRZJHM" type="varchar" length="60" descr="代办人证件号码" />
+			<col name="XZBZ" type="varchar" length="4" descr="现转标志" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_301_KHXXB_R" pkname="rid" descr="客户信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJLB" type="varchar" length="60" descr="证件类别" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="SCDKSQQD" type="varchar" length="200" descr="首次贷款申请渠道" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHYWXM" type="varchar" length="200" descr="客户英文姓名" />
+			<col name="GJI" type="varchar" length="60" descr="国籍" />
+			<col name="MZ" type="varchar" length="30" descr="民族" />
+			<col name="ZY" type="varchar" length="10" descr="职业" />
+			<col name="XB" type="varchar" length="80" descr="性别" />
+			<col name="XL" type="varchar" length="255" descr="学历" />
+			<col name="CSRQ" type="varchar" length="8" descr="出生日期" />
+			<col name="GZDWMC" type="varchar" length="200" descr="工作单位名称" />
+			<col name="GSSF" type="varchar" length="255" descr="工作单位省份" />
+			<col name="GZDWDZ" type="varchar" length="400" descr="工作单位地址" />
+			<col name="GZDWDH" type="varchar" length="30" descr="工作单位电话" />
+			<col name="JTZZ" type="varchar" length="400" descr="家庭住址" />
+			<col name="TXDZ" type="varchar" length="400" descr="通讯地址" />
+			<col name="JTDH" type="varchar" length="30" descr="家庭电话" />
+			<col name="YDDH" type="varchar" length="30" descr="移动电话" />
+			<col name="SRFZB" type="decimal" length="20,2" descr="收入负债比" />
+			<col name="GRYSR" type="decimal" length="20,2" descr="个人月收入" />
+			<col name="JTYSR" type="decimal" length="20,2" descr="家庭月收入" />
+			<col name="HYQK" type="varchar" length="30" descr="婚姻情况" />
+			<col name="POXM" type="varchar" length="100" descr="配偶姓名" />
+			<col name="POLXDH" type="varchar" length="30" descr="配偶联系电话" />
+			<col name="POYDDH" type="varchar" length="30" descr="配偶移动电话" />
+			<col name="PODYKHH" type="varchar" length="60" descr="配偶对应客户号" />
+			<col name="BJGYGBZ" type="varchar" length="4" descr="本机构员工标志" />
+			<col name="SBXHMDBZ" type="varchar" length="4" descr="上本行黑名单标志" />
+			<col name="SHMDRQ" type="varchar" length="8" descr="上黑名单日期" />
+			<col name="SHMDYY" type="varchar" length="400" descr="上黑名单原因" />
+			<col name="DWXZ" type="varchar" length="60" descr="单位性质" />
+			<col name="ZC" type="varchar" length="60" descr="职称" />
+			<col name="SFNH" type="varchar" length="4" descr="是否农户" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_302_GLRXXB_R" pkname="rid" descr="关联人信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="GLRKHTYBH" type="varchar" length="60"
+				descr="关联人客户统一编号" />
+			<col name="KHSBM" type="varchar" length="60" descr="客户识别码" />
+			<col name="KHLB" type="varchar" length="30" descr="客户类别" />
+			<col name="GLRSBM" type="varchar" length="60" descr="关联人识别码" />
+			<col name="GLRMC" type="varchar" length="200" descr="关联人名称" />
+			<col name="GLRLB" type="varchar" length="30" descr="关联人类别" />
+			<col name="GXLX" type="varchar" length="300" descr="关系类型" />
+			<col name="GLGXZT" type="varchar" length="6" descr="关联关系状态" />
+			<col name="LRSJ" type="varchar" length="8" descr="录入时间" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_401_XFDKHTB_R" pkname="rid" descr="消费贷款合同表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="ZHTH" type="varchar" length="100" descr="主合同号" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="KHMC" type="varchar" length="200" descr="客户名称" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="JE" type="decimal" length="20,2" descr="金额" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HTYDRQ" type="varchar" length="8" descr="合同约定日期" />
+			<col name="HTDQRQ" type="varchar" length="8" descr="合同到期日期" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="LLLX" type="varchar" length="6" descr="利率类型" />
+			<col name="JZLL" type="decimal" length="10,6" descr="基准利率" />
+			<col name="LLFD" type="varchar" length="10" descr="利率浮动" />
+			<col name="ZYDBFS" type="varchar" length="60 " descr="主要担保方式" />
+			<col name="DKQX" type="varchar" length="20" descr="贷款期限" />
+			<col name="FKRQ" type="varchar" length="8" descr="放款日期" />
+			<col name="FKFS" type="varchar" length="12" descr="放款方式" />
+			<col name="KJHSFS" type="varchar" length="30" descr="会计核算方式" />
+			<col name="DKYT" type="varchar" length="400" descr="贷款用途" />
+			<col name="DKTXDQ" type="varchar" length="200" descr="贷款投向地区" />
+			<col name="SFGJXZXY" type="varchar" length="4" descr="是否国家限制行业" />
+			<col name="HKFS" type="varchar" length="40" descr="还款方式" />
+			<col name="HKZH" type="varchar" length="60" descr="还款账号" />
+			<col name="HKQD" type="varchar" length="100" descr="还款渠道" />
+			<col name="JKJE" type="decimal" length="20,2" descr="借款金额" />
+			<col name="JKYE" type="decimal" length="20,2" descr="借款余额" />
+			<col name="ZQCS" type="varchar" length="4" descr="展期次数" />
+			<col name="ZQS" type="varchar" length="4" descr="总期数" />
+			<col name="DQQS" type="varchar" length="4" descr="当前期数" />
+			<col name="YQTS" type="varchar" length="20" descr="逾期天数" />
+			<col name="YQBJ" type="decimal" length="20,2" descr="逾期本金" />
+			<col name="WJFL" type="varchar" length="6" descr="五级分类" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_501_XFDKFKXXB_R" pkname="rid" descr="消费贷款放款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="SXED" type="decimal" length="20,2" descr="授信额度" />
+			<col name="SXFS" type="varchar" length="60" descr="授信方式" />
+			<col name="SXKSSJ" type="varchar" length="8" descr="授信开始日期" />
+			<col name="SXJSSJ" type="varchar" length="8" descr="授信结束日期" />
+			<col name="FKJE" type="decimal" length="20,2" descr="放款金额" />
+			<col name="FKRQ" type="varchar" length="8" descr="放款日期" />
+			<col name="FKQS" type="varchar" length="4" descr="放款期数" />
+			<col name="DKDQR" type="varchar" length="8" descr="贷款到期日" />
+			<col name="DKLL" type="decimal" length="20,2" descr="贷款利率" />
+			<col name="DSFTXLL" type="decimal" length="20,2" descr="第三方贴息利率" />
+			<col name="SXFL" type="decimal" length="10,6" descr="手续费率" />
+			<col name="FKQD" type="varchar" length="60 " descr="放款渠道" />
+			<col name="HZJGBH" type="varchar" length="30" descr="合作机构编号" />
+			<col name="HZJGMC" type="varchar" length="200" descr="合作机构名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_502_XFDKHKXXB_R" pkname="rid" descr="消费贷款还款信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="CPMC" type="varchar" length="200" descr="产品名称" />
+			<col name="HKJE" type="decimal" length="20,2" descr="还款金额" />
+			<col name="HKRQ" type="varchar" length="8" descr="还款日期" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_503_XFDKHXXXB_R" pkname="rid" descr="消费贷款核销信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="XDHTH" type="varchar" length="100" descr="信贷合同号" />
+			<col name="XDJJH" type="varchar" length="100" descr="信贷借据号" />
+			<col name="KHXM" type="varchar" length="100" descr="客户姓名" />
+			<col name="KHTYBH" type="varchar" length="60" descr="客户统一编号" />
+			<col name="ZJHM" type="varchar" length="60" descr="证件号码" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="HXRQ" type="varchar" length="8" descr="核销日期" />
+			<col name="HXBJ" type="decimal" length="20,2" descr="核销本金" />
+			<col name="HXLX" type="decimal" length="20,2" descr="核销利息" />
+			<col name="HXSHBNLX" type="decimal" length="20,2" descr="核销收回本金" />
+			<col name="HXSHBWLX" type="decimal" length="20,2" descr="核销收回利息" />
+			<col name="SHBZ" type="varchar" length="4" descr="收回标志" />
+			<col name="HXSHRQ" type="varchar" length="8" descr="核销收回日期" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_601_ZJYWXXB_R" pkname="rid" descr="资金业务信息表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="JYBH" type="varchar" length="40" descr="交易编号" />
+			<col name="LCCPDJBM" type="varchar" length="30" descr="理财产品登记编码" />
+			<col name="ZJJYLX" type="varchar" length="6" descr="资金交易类型" />
+			<col name="JYZL" type="varchar" length="60" descr="资金交易子类" />
+			<col name="JRGJBH" type="varchar" length="60" descr="金融工具编号" />
+			<col name="JYZHLX" type="varchar" length="12" descr="交易账户类型" />
+			<col name="HTH" type="varchar" length="100" descr="合同号" />
+			<col name="HTJE" type="decimal" length="20,2" descr="合同金额" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="JCZCKHMC" type="varchar" length="200" descr="基础资产客户名称" />
+			<col name="JCZCSSHY" type="varchar" length="100" descr="基础资产所属行业" />
+			<col name="JCZCSFWBGSKH" type="varchar" length="4"
+				descr="基础资产是否为本公司客户" />
+			<col name="JCZCZXFS" type="varchar" length="30" descr="基础资产增信方式" />
+			<col name="JCZCZXR" type="varchar" length="200" descr="基础资产增信人" />
+			<col name="JYGY" type="varchar" length="100" descr="交易柜员" />
+			<col name="SPR" type="varchar" length="100" descr="审批人" />
+			<col name="JYDSDM" type="varchar" length="60" descr="交易对手代码" />
+			<col name="JYDSMC" type="varchar" length="200" descr="交易对手名称" />
+			<col name="JYDSLEIBM" type="varchar" length="30"
+				descr="交易对手全球法人识别编码" />
+			<col name="JYRQ" type="varchar" length="8" descr="交易日期" />
+			<col name="QSRQ" type="varchar" length="8" descr="起始日期" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="MMBZ" type="varchar" length="6" descr="买卖标志" />
+			<col name="JYQBZ" type="varchar" length="6" descr="即远期标志" />
+			<col name="MRBZ" type="varchar" length="3" descr="买入币种" />
+			<col name="MRJE" type="decimal" length="20,2" descr="买入金额" />
+			<col name="MCBZ" type="varchar" length="3" descr="卖出币种" />
+			<col name="MCJE" type="decimal" length="20,2" descr="卖出金额" />
+			<col name="CJJG" type="varchar" length="100 " descr="成交价格" />
+			<col name="YWZT" type="varchar" length="20" descr="交易状态" />
+			<col name="FHRQ" type="varchar" length="8" descr="复核日期" />
+			<col name="QXRQ" type="varchar" length="8" descr="取消日期" />
+			<col name="SJJGRQ" type="varchar" length="8" descr="实际交割日期" />
+			<col name="QSBZ" type="varchar" length="4" descr="清算标志" />
+			<col name="JFZH" type="varchar" length="60" descr="借方账号" />
+			<col name="DFZHH" type="varchar" length="60" descr="贷方账号" />
+			<col name="JFJE" type="decimal" length="20,2" descr="借方金额" />
+			<col name="DFJE" type="decimal" length="20,2" descr="贷方金额" />
+			<col name="JFBZ" type="varchar" length="3" descr="借方币种" />
+			<col name="DFBZ" type="varchar" length="3" descr="贷方币种" />
+			<col name="JFLL" type="decimal" length="10,6" descr="借方利率" />
+			<col name="DFLL" type="decimal" length="10,6" descr="贷方利率" />
+			<col name="BZJJYBZ" type="varchar" length="4" descr="保证金交易标志" />
+			<col name="GLBZJZH" type="varchar" length="60" descr="关联保证金账户" />
+			<col name="GLYWBH" type="varchar" length="40" descr="关联业务编号" />
+			<col name="WBGLXTMC" type="varchar" length="100" descr="外部关联系统名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="EAST4_602_ZJYWYEB_R" pkname="rid" descr="资金业务余额表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="数据主键" />
+			<col name="JRXKZH" type="varchar" length="30" descr="金融许可证号" />
+			<col name="YXJGMC" type="varchar" length="200" descr="金融机构名称" />
+			<col name="NBJGH" type="varchar" length="30" descr="内部机构号" />
+			<col name="MXKMBH" type="varchar" length="60" descr="明细科目编号" />
+			<col name="MXKMMC" type="varchar" length="300" descr="明细科目名称" />
+			<col name="JYBH" type="varchar" length="40" descr="交易编号" />
+			<col name="ZJJYLX" type="varchar" length="6" descr="资金交易类型" />
+			<col name="JYZL" type="varchar" length="60" descr="资金交易子类" />
+			<col name="BZ" type="varchar" length="3" descr="币种" />
+			<col name="ZJYWYE" type="decimal" length="20,2" descr="资金业务余额" />
+			<col name="JYDSQQFRBM" type="varchar" length="60"
+				descr="交易对手全球法人识别编码" />
+			<col name="JYDSMC" type="varchar" length="200" descr="交易对手名称" />
+			<col name="JYDSLEIBM" type="varchar" length="30"
+				descr="交易对手LEI编码" />
+			<col name="JYRQ" type="varchar" length="8" descr="交易日期" />
+			<col name="QSRQ" type="varchar" length="8" descr="起始日期" />
+			<col name="DQRQ" type="varchar" length="8" descr="到期日期" />
+			<col name="MMBZ" type="varchar" length="6" descr="买卖标志" />
+			<col name="JYQBZ" type="varchar" length="6" descr="即远期标志" />
+			<col name="BZJJYBZ" type="varchar" length="4" descr="保证金交易标志" />
+			<col name="GLBZJZH" type="varchar" length="60" descr="关联保证金账户" />
+			<col name="GLYWBH" type="varchar" length="40" descr="关联业务编号" />
+			<col name="WBGLXTMC" type="varchar" length="100" descr="外部关联系统名称" />
+			<col name="CJRQ" type="varchar" length="8" descr="采集日期" />
+			<col name="dept_no" type="varchar" length="10" descr="部门编号" />
+			<col name="src_sys_id" type="varchar" length="10" descr="来源系统ID" />
+			<col name="task_id" type="varchar" length="50" descr="任务编号" />
+			<col name="proc_sts" type="varchar" length="20" descr="处理状态" />
+		</columns>
+	</table>
+
+	<table name="east_cr_cmd_template" pkname="rid"
+		descr="EAST_CR_CMD_TEMPLATE">
+		<columns>
+			<col name="last_upd_tm" type="varchar" length="19"
+				descr="last_upd_tm" />
+			<col name="create_tm" type="varchar" length="19"
+				descr="create_tm" />
+			<col name="last_update_user" type="varchar" length="200"
+				descr="last_update_user" />
+			<col name="creat_user" type="varchar" length="200"
+				descr="creat_user" />
+			<col name="template_sts" type="varchar" length="1"
+				descr="template_sts" />
+			<col name="cmd" type="varchar" length="2500" descr="cmd" />
+			<col name="tem_name" type="varchar" length="200" descr="tem_name" />
+			<col name="rid" type="varchar" length="50" descr="rid" />
+			<col name="cmd_type" type="varchar" length="20" descr="cmd_type" />
+		</columns>
+	</table>
+
+	<table name="east_cr_col" pkname="rid" descr="检核字段定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="字段序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="200" descr="中文字段名" />
+			<col name="col_name_en" type="varchar" length="200" descr="英文字段名" />
+			<col name="is_pk" type="varchar" length="1" descr="是否主键" />
+			<col name="filter_no" type="decimal" length="38" descr="过滤值序号" />
+			<col name="flow_no" type="decimal" length="38"
+				descr="并发Key字段生效流程序号" />
+			<col name="is_export" type="varchar" length="1" descr="是否参与报送" />
+			<col name="type_name" type="varchar" length="50" descr="字段字符类型" />
+			<col name="col_no" type="decimal" length="38" descr="" />
+			<col name="display_config" type="varchar" length="2000"
+				descr="展现的配置文件" />
+			<col name="is_limit" type="varchar" length="1" descr="是否限定额度" />
+			<col name="limit_value" type="decimal" length="16"
+				descr="限制金额（元）" />
+		</columns>
+	</table>
+
+	<table name="east_cr_col_d" pkname="rid" descr="检核字段定义-分行">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="字段序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="200" descr="中文字段名" />
+			<col name="col_name_en" type="varchar" length="200" descr="英文字段名" />
+			<col name="is_pk" type="varchar" length="1" descr="是否主键" />
+			<col name="filter_no" type="decimal" length="38" descr="过滤值序号" />
+			<col name="flow_no" type="decimal" length="38"
+				descr="并发Key字段生效流程序号" />
+			<col name="is_export" type="varchar" length="1" descr="是否参与报送" />
+			<col name="type_name" type="varchar" length="50" descr="字段字符类型" />
+			<col name="col_no" type="decimal" length="38" descr="" />
+			<col name="display_config" type="varchar" length="2000"
+				descr="展现的配置文件" />
+			<col name="is_limit" type="varchar" length="1" descr="是否限定额度" />
+			<col name="limit_value" type="decimal" length="16"
+				descr="限制金额（元）" />
+		</columns>
+	</table>
+
+	<table name="east_cr_data_quality_poc" pkname="rid"
+		descr="EAST_CR_DATA_QUALITY_POC">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="data_dt" type="varchar" length="10" descr="data_dt" />
+			<col name="create_tm" type="varchar" length="19"
+				descr="create_tm" />
+			<col name="rpt_no" type="varchar" length="50" descr="rpt_no" />
+			<col name="rpt_name" type="varchar" length="50" descr="rpt_name" />
+		</columns>
+	</table>
+
+	<table name="east_cr_engine_config" pkname="id"
+		descr="EAST_CR_ENGINE_CONFIG">
+		<columns>
+			<col name="id" type="varchar" length="50" descr="id" />
+			<col name="param_name" type="varchar" length="200" descr="参数名" />
+			<col name="param_value" type="varchar" length="200" descr="参数值" />
+			<col name="remark" type="varchar" length="1000" descr="备注" />
+		</columns>
+	</table>
+
+	<table name="east_cr_engine_log" pkname="id"
+		descr="EAST_CR_ENGINE_LOG">
+		<columns>
+			<col name="id" type="varchar" length="50" descr="id" />
+			<col name="type" type="varchar" length="15" descr="type" />
+			<col name="create_tm" type="varchar" length="20"
+				descr="create_tm" />
+			<col name="explain" type="varchar" length="500" descr="说明" />
+		</columns>
+	</table>
+
+	<table name="east_cr_engine_task" pkname="id"
+		descr="EAST_CR_ENGINE_TASK">
+		<columns>
+			<col name="id" type="varchar" length="50" descr="id" />
+			<col name="name" type="varchar" length="200" descr="name" />
+			<col name="status" type="varchar" length="1" descr="status" />
+			<col name="type" type="varchar" length="20" descr="分类（表，规则）" />
+			<col name="task_values" type="varchar" length="255"
+				descr="分类是表：存tab_name，以逗号分割；分类是规则：存rule_id，以逗号分割" />
+			<col name="remark" type="varchar" length="500" descr="备注" />
+		</columns>
+	</table>
+
+	<table name="east_cr_flow" pkname="flow_no,tab_no" descr="检核流程">
+		<columns>
+			<col name="flow_no" type="decimal" length="38" descr="流程序号" />
+			<col name="tab_no" type="decimal" length="38" descr="流程内数据表序号" />
+			<col name="tab_name" type="varchar" length="100" descr="中文表名" />
+		</columns>
+	</table>
+
+	<table name="east_cr_gl_rslt"
+		pkname="rule_id,data_dt,org_no,subj_no,curr_cd" descr="总分检核结果">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="rule_id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_no" type="varchar" length="30" descr="机构编号" />
+			<col name="subj_no" type="varchar" length="60" descr="总账会计科目编号" />
+			<col name="subj_name" type="varchar" length="200"
+				descr="总账会计科目名称" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="gl_d_amt" type="decimal" length="20,2" descr="总账借方金额" />
+			<col name="gl_c_amt" type="decimal" length="20,2" descr="总账贷方金额" />
+			<col name="gl_net_amt" type="decimal" length="20,2"
+				descr="总账轧差金额（贷-借）" />
+			<col name="ledr_sum_amt" type="decimal" length="20,2"
+				descr="分户账户金额" />
+			<col name="diff_amt" type="decimal" length="20,2" descr="总分差值金额" />
+			<col name="ledr_src_tab" type="varchar" length="1000"
+				descr="分户账户数据来源中文表名" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_cr_gl_rslt_sub" pkname="rid" descr="分户账检核结果子表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="pid" type="varchar" length="50" descr="总分检核结果表的主键" />
+			<col name="tab_name" type="varchar" length="200"
+				descr="分户账户数据来源中文表名" />
+			<col name="sum_amt" type="decimal" length="20,2" descr="分户账户金额" />
+		</columns>
+	</table>
+
+	<table name="east_cr_log" pkname="rid" descr="检核日志">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="ID" />
+			<col name="task_id" type="varchar" length="50" descr="检核任务主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="log_level" type="varchar" length="20" descr="日志级别" />
+			<col name="log_cont" type="varchar" length="2000" descr="日志信息" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="log_no" type="decimal" length="38" descr="日志序号" />
+		</columns>
+	</table>
+
+	<table name="east_cr_report" pkname="rid" descr="EAST_CR_REPORT">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="org_no" type="varchar" length="100" descr="org_no" />
+			<col name="org_name" type="varchar" length="100" descr="org_name" />
+			<col name="report_type" type="varchar" length="20"
+				descr="report_type" />
+			<col name="data_dt" type="varchar" length="10" descr="data_dt" />
+			<col name="tab_name" type="varchar" length="200" descr="tab_name" />
+			<col name="tab_name_en" type="varchar" length="200"
+				descr="tab_name_en" />
+			<col name="create_tm" type="varchar" length="19"
+				descr="create_tm" />
+			<col name="start_tm" type="varchar" length="19" descr="start_tm" />
+			<col name="end_tm" type="varchar" length="19" descr="end_tm" />
+			<col name="status" type="varchar" length="30" descr="status" />
+			<col name="execsql" type="varchar" length="500" descr="execsql" />
+			<col name="filepath" type="varchar" length="300" descr="filepath" />
+			<col name="filelog" type="varchar" length="500" descr="生成文件的日志内容" />
+		</columns>
+	</table>
+
+	<table name="east_cr_report_config" pkname="rid"
+		descr="EAST_CR_REPORT_CONFIG">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="org_no" type="varchar" length="100" descr="org_no" />
+			<col name="org_name" type="varchar" length="100" descr="org_name" />
+			<col name="report_type" type="varchar" length="20"
+				descr="report_type" />
+			<col name="tab_names" type="varchar" length="1000"
+				descr="tab_names" />
+			<col name="isautojob" type="varchar" length="1" descr="isautojob" />
+			<col name="autojobtrigger" type="varchar" length="40"
+				descr="autojobtrigger" />
+			<col name="seq" type="decimal" length="5" descr="seq" />
+		</columns>
+	</table>
+
+	<table name="east_cr_empty_summary_stat" pkname="rid"
+		descr="空值率结果统计-汇总表">
+		<columns>
+			<col name="rid" type="varchar" length="32" descr="UUID主键" />
+			<col name="code" type="varchar" length="200" descr="评估表编号" />
+			<col name="org_no" type="varchar" length="200" descr="机构号" />
+			<col name="org_name" type="varchar" length="200" descr="机构名称" />
+			<col name="data_dt" type="varchar" length="10" descr="采集日期" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="dim1" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim2" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim3" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim4" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim5" type="varchar" length="200" descr="其他统计维度" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_cr_empty_summary" pkname="rid" descr="空值率表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="rid" />
+			<col name="data_dt" type="varchar" length="10" descr="data_dt" />
+			<col name="org_no" type="varchar" length="100" descr="org_no" />
+			<col name="tab_name" type="varchar" length="100" descr="tab_name" />
+			<col name="tab_name_en" type="varchar" length="100"
+				descr="tab_name_en" />
+			<col name="col_name" type="varchar" length="100" descr="col_name" />
+			<col name="pass_count" type="decimal" length="38"
+				descr="nullcount" />
+			<col name="fail_count" type="decimal" length="38"
+				descr="nullrate" />
+			<col name="empty_rate" type="decimal" length="16,2"
+				descr="empty_rate" />
+			<col name="reasons" type="varchar" length="500" descr="reasons" />
+			<col name="solves" type="varchar" length="500" descr="solves" />
+			<col name="progress" type="varchar" length="500" descr="progress" />
+			<col name="create_tm" type="varchar" length="19"
+				descr="createtime" />
+			<col name="dim1" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim2" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim3" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim4" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim5" type="varchar" length="200" descr="其他统计维度" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_cr_report_log" pkname="rid"
+		descr="EAST_CR_REPORT_LOG">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="report_rid" type="varchar" length="40"
+				descr="report_rid" />
+			<col name="log_level" type="varchar" length="20"
+				descr="log_level" />
+			<col name="log_cont" type="varchar" length="2000"
+				descr="log_cont" />
+			<col name="create_tm" type="varchar" length="19"
+				descr="create_tm" />
+			<col name="seq" type="decimal" length="10" descr="seq" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule" pkname="id" descr="规则总表">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="id" />
+			<col name="type_cd" type="varchar" length="20" descr="校验类型" />
+			<col name="disp_cd" type="varchar" length="20" descr="展示分类" />
+			<col name="rule_name" type="varchar" length="2000" descr="规则名称" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="col_name" type="varchar" length="2000"
+				descr="数据项中文字段名" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="update_tm" type="varchar" length="19" descr="最后修改时间" />
+			<col name="update_user" type="varchar" length="200" descr="最后修改人" />
+			<col name="rule_sts" type="varchar" length="1" descr="是否启用" />
+			<col name="eff_dt" type="varchar" length="10" descr="生效日期" />
+			<col name="exp_dt" type="varchar" length="10" descr="失效日期" />
+			<col name="cond" type="varchar" length="1000" descr="前置条件表达式" />
+			<col name="weight" type="decimal" length="38" descr="权重" />
+			<col name="version" type="decimal" length="10" descr="版本" />
+			<col name="report_cd" type="varchar" length="20"
+				descr="EAST4检核类型" />
+			<col name="report_no" type="varchar" length="20"
+				descr="EAST4检核规则序号" />
+
+			<col name="rule_source" type="varchar" length="20"
+				descr="规则来源（监管、自定义）" />
+			<col name="constraint_type" type="varchar" length="20"
+				descr="约束类型（强制、警示）" />
+			<col name="rule_busi_type" type="varchar" length="50"
+				descr="中信用到" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_aggr" pkname="id" descr="汇总型校验总表">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="relative" type="decimal" length="20,4" descr="最大相对误差" />
+			<col name="grp_col_name" type="varchar" length="1000"
+				descr="总表分组中文字段名" />
+			<col name="expr" type="varchar" length="1000" descr="检核公式表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_aggr_sub" pkname="id,tab_name"
+		descr="汇总型校验子表">
+		<columns>
+			<col name="id" type="decimal" length="8" descr="规则总表ID" />
+			<col name="tab_name" type="varchar" length="200" descr="子表中文表名" />
+			<col name="grp_col_name" type="varchar" length="1000"
+				descr="子表分组中文字段名" />
+			<col name="expr" type="varchar" length="1000" descr="检核公式表达式" />
+			<col name="cond" type="varchar" length="1000" descr="前置条件表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_dss" pkname="id" descr="脱敏校验">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="expr" type="varchar" length="1000" descr="检核公式表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_fmt" pkname="id" descr="格式校验">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="expr" type="varchar" length="1000" descr="检核公式表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_logic_btw" pkname="id" descr="表间逻辑校验">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="expr" type="varchar" length="1000" descr="检核公式表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_logic_in" pkname="id" descr="表内逻辑校验">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="expr" type="varchar" length="1000" descr="检核公式表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_range" pkname="id" descr="取值范围校验">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="type_cd" type="varchar" length="12" descr="限制类型" />
+			<col name="multi_val" type="varchar" length="1" descr="是否多值" />
+			<col name="sep" type="varchar" length="1" descr="多值时分隔字符" />
+			<col name="max_val" type="decimal" length="20,2" descr="最大值" />
+			<col name="max_range" type="varchar" length="2" descr="最大值区间" />
+			<col name="min_val" type="decimal" length="20,2" descr="最小值" />
+			<col name="min_range" type="varchar" length="2" descr="最小值区间" />
+			<col name="range_cd" type="varchar" length="2000" descr="枚举值" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_summary" pkname="rid"
+		descr="EAST_CR_RULE_SUMMARY">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="rid" />
+			<col name="data_dt" type="varchar" length="10" descr="data_dt" />
+			<col name="tab_name" type="varchar" length="200" descr="tab_name" />
+			<col name="rule_id" type="decimal" length="20" descr="rule_id" />
+			<col name="pass_count" type="decimal" length="10"
+				descr="pass_count" />
+			<col name="fail_count" type="decimal" length="10"
+				descr="fail_count" />
+			<col name="create_tm" type="varchar" length="19"
+				descr="create_tm" />
+			<col name="org_no" type="varchar" length="100" descr="org_no" />
+			<col name="dim1" type="varchar" length="200" descr="其他统计维度中文字段名" />
+			<col name="dim2" type="varchar" length="200" descr="其他统计维度中文字段名" />
+			<col name="dim3" type="varchar" length="200" descr="其他统计维度中文字段名" />
+			<col name="dim4" type="varchar" length="200" descr="其他统计维度中文字段名" />
+			<col name="dim5" type="varchar" length="200" descr="其他统计维度中文字段名" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_type" pkname="rid" descr="检核规则类型">
+		<columns>
+			<col name="type_name" type="varchar" length="200" descr="规则名称" />
+			<col name="type_desc" type="varchar" length="500" descr="规则描述" />
+			<col name="rid" type="varchar" length="50" descr="rid" />
+			<col name="type_table" type="varchar" length="50" descr="表名" />
+			<col name="typeclass" type="varchar" length="30"
+				descr="typeclass" />
+			<col name="createtime" type="varchar" length="20"
+				descr="createtime" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_uprr" pkname="id" descr="跨监管一致性校验总表">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="relative" type="decimal" length="20,4" descr="最大相对误差" />
+			<col name="expr" type="varchar" length="1000" descr="汇总计算表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_rule_uprr_sub" pkname="id,tab_name"
+		descr="跨监管一致性校验子表">
+		<columns>
+			<col name="id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="tab_name" type="varchar" length="200" descr="子表中文表名" />
+			<col name="grp_col_name" type="varchar" length="1000"
+				descr="子表分组中文字段名" />
+			<col name="expr" type="varchar" length="1000" descr="汇总计算表达式" />
+			<col name="cond" type="varchar" length="1000" descr="前置条件表达式" />
+		</columns>
+	</table>
+
+	<table name="east_cr_tab" pkname="rid" descr="检核数据表定义">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="表序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="tab_name_en" type="varchar" length="200" descr="英文表名" />
+			<col name="is_common" type="varchar" length="1" descr="是否公共表" />
+			<col name="is_virtual" type="varchar" length="1" descr="是否虚拟表" />
+			<col name="tab_type" type="varchar" length="30" descr="分类" />
+			<col name="volume" type="decimal" length="38" descr="数据量" />
+			<col name="tab_no" type="decimal" length="5" descr="排序" />
+			<col name="ds_name" type="varchar" length="50" descr="ds" />
+			<col name="datatype" type="varchar" length="10" descr="datatype" />
+			<col name="col_org_no" type="varchar" length="200"
+				descr="机构编号中文字段名" />
+			<col name="col_data_dt" type="varchar" length="200"
+				descr="查询日期字段中文字段名" />
+			<col name="col_dim1" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim2" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim3" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim4" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim5" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+		</columns>
+	</table>
+
+	<table name="east_cr_tab_d" pkname="rid" descr="检核数据表定义_分行">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="表序号" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="tab_name_en" type="varchar" length="200" descr="英文表名" />
+			<col name="is_common" type="varchar" length="1" descr="是否公共表" />
+			<col name="is_virtual" type="varchar" length="1" descr="是否虚拟表" />
+			<col name="tab_type" type="varchar" length="30" descr="分类" />
+			<col name="volume" type="decimal" length="38" descr="数据量" />
+			<col name="tab_no" type="decimal" length="5" descr="排序" />
+			<col name="ds_name" type="varchar" length="50" descr="ds" />
+			<col name="datatype" type="varchar" length="10" descr="datatype" />
+			<col name="col_org_no" type="varchar" length="200"
+				descr="机构编号中文字段名" />
+			<col name="col_data_dt" type="varchar" length="200"
+				descr="查询日期字段中文字段名" />
+			<col name="col_dim1" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim2" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim3" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim4" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+			<col name="col_dim5" type="varchar" length="200"
+				descr="其他统计维度中文字段名" />
+		</columns>
+	</table>
+
+	<table name="east_cr_tab_summary" pkname="rid" descr="数据表检核结果统计">
+		<columns>
+			<col name="rid" type="varchar" length="40" descr="主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="pass_count" type="decimal" length="38" descr="检核通过记录数" />
+			<col name="fail_count" type="decimal" length="38" descr="检核失败记录数" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="org_no" type="varchar" length="100" descr="机构编号" />
+			<col name="dim1" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim2" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim3" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim4" type="varchar" length="200" descr="其他统计维度" />
+			<col name="dim5" type="varchar" length="200" descr="其他统计维度" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_cr_task" pkname="task_id" descr="检核任务">
+		<columns>
+			<col name="task_id" type="varchar" length="50" descr="检核任务主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="tab_name" type="varchar" length="4000"
+				descr="当前处理中文表名" />
+			<col name="status" type="varchar" length="50" descr="当前状态" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="update_tm" type="varchar" length="19" descr="最后更新时间" />
+			<col name="command1" type="varchar" length="2000" descr="输入命令" />
+			<col name="command2" type="varchar" length="2000" descr="执行命令" />
+			<col name="task_name" type="varchar" length="100"
+				descr="task_name" />
+			<col name="rule_name" type="varchar" length="2000"
+				descr="rule_name" />
+			<col name="rule_ids" type="varchar" length="4000"
+				descr="rule_ids" />
+			<col name="tab_ids" type="varchar" length="4000" descr="tab_ids" />
+			<col name="info" type="varchar" length="1000" descr="失败信息" />
+			<col name="tab_names" type="varchar" length="4000"
+				descr="tab_names" />
+			<col name="task_type" type="varchar" length="15"
+				descr="task_type" />
+			<col name="busi_type" type="varchar" length="1" descr="busi_type"
+				remark="1-总行,2-分行" />
+			<col name="busi_org_no" type="varchar" length="50" descr="报送机构" />
+			<col name="report_type" type="varchar" length="1"
+				descr="报送类型（1日报2月报）" />
+		</columns>
+	</table>
+
+	<table name="east_cr_task_flow" pkname="rid" descr="检核任务流程">
+		<columns>
+			<col name="rid" type="varchar" length="32" descr="主键" />
+			<col name="task_id" type="varchar" length="36" descr="检核任务主键" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="tab_name" type="varchar" length="200" descr="中文表名" />
+			<col name="tab_no" type="decimal" length="38" descr="流程中该表序号" />
+			<col name="cmd" type="varchar" length="30" descr="操作命令" />
+			<col name="status" type="varchar" length="30" descr="当前状态" />
+			<col name="start_tm" type="varchar" length="19" descr="操作开始时间" />
+			<col name="end_tm" type="varchar" length="19" descr="操作结束时间" />
+		</columns>
+	</table>
+
+	<table name="east_cr_task_param" pkname="task_id,pname"
+		descr="EAST_CR_TASK_PARAM">
+		<columns>
+			<col name="task_id" type="varchar" length="40" descr="task_id" />
+			<col name="pname" type="varchar" length="50" descr="pname" />
+			<col name="pvalue" type="varchar" length="2000" descr="pvalue" />
+		</columns>
+	</table>
+
+	<table name="east_cr_task_param_bak" pkname="rid" descr="检核任务">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="参数主键ID" />
+			<col name="pname" type="varchar" length="50" descr="参数名称" />
+			<col name="pvalue" type="varchar" length="200" descr="参数值" />
+			<col name="remark" type="varchar" length="500" descr="备注" />
+		</columns>
+	</table>
+
+	<table name="east_cr_uprr_rslt"
+		pkname="sys_id,org_no,data_dt,rpt_item_id" descr="跨监管一致性校验结果">
+		<columns>
+			<col name="rule_id" type="decimal" length="38" descr="规则总表ID" />
+			<col name="sys_id" type="varchar" length="32" descr="系统编号" />
+			<col name="sys_name" type="varchar" length="64" descr="系统名称" />
+			<col name="rpt_name" type="varchar" length="100" descr="报表名称" />
+			<col name="org_no" type="varchar" length="30" descr="机构编号" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="rpt_item_id" type="varchar" length="32"
+				descr="报表统计项ID" />
+			<col name="rpt_item_name" type="varchar" length="200"
+				descr="报表统计项名称" />
+			<col name="rpt_item_val" type="decimal" length="20,2"
+				descr="报表统计项值" />
+			<col name="east_sum_val" type="decimal" length="20,2"
+				descr="EAST汇总值" />
+			<col name="item_diff_val" type="decimal" length="20,2"
+				descr="统计项差值" />
+			<col name="ledr_src_tab" type="varchar" length="1000"
+				descr="EAST数据来源中文表名" />
+			<col name="create_tm" type="varchar" length="19" descr="创建时间" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_cr_warn" pkname="rid" descr="警报级别">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="警报级别ID" />
+			<col name="rule_id" type="varchar" length="50" descr="规则总表ID" />
+			<col name="warn_method" type="varchar" length="12" descr="警报方式" />
+			<col name="warn_cont" type="varchar" length="2000" descr="警报内容" />
+			<col name="start_val" type="decimal" length="20,2" descr="开始值" />
+			<col name="end_val" type="decimal" length="20,2" descr="结束值" />
+			<col name="warn_unit" type="varchar" length="12" descr="警报单位" />
+		</columns>
+	</table>
+
+	<table name="east_uprr_rpt_data"
+		pkname="sys_id,org_no,data_dt,rpt_item_id" descr="跨监管报表数据">
+		<columns>
+			<col name="sys_id" type="varchar" length="32" descr="系统编号" />
+			<col name="sys_name" type="varchar" length="64" descr="系统名称" />
+			<col name="rpt_name" type="varchar" length="100" descr="报表名称" />
+			<col name="org_no" type="varchar" length="30" descr="机构编号" />
+			<col name="data_dt" type="varchar" length="8" descr="数据日期" />
+			<col name="curr_cd" type="varchar" length="3" descr="币种" />
+			<col name="rpt_item_id" type="varchar" length="32"
+				descr="报表统计项ID" />
+			<col name="rpt_item_name" type="varchar" length="200"
+				descr="报表统计项名称" />
+			<col name="rpt_item_val" type="decimal" length="20,2"
+				descr="报表统计项值" />
+			<col name="load_tm" type="varchar" length="20" descr="加载时间" />
+		</columns>
+	</table>
+
+	<table name="rule_ranges_dict_code" pkname="rid"
+		descr="规则类型之取值范围之字典表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="ID" />
+			<col name="column_type" type="varchar" length="50" descr="字段类型" />
+			<col name="column_value" type="varchar" length="12" descr="字段值" />
+		</columns>
+	</table>
+
+	<table name="east_report_list" pkname="rid" descr="报送清单">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="ID" />
+			<col name="tab_name" type="varchar" length="200" descr="表名" />
+			<col name="record_count" type="decimal" length="38" descr="记录数" />
+			<col name="is_fully_reflect_business" type="varchar" length="5"
+				descr="是否完整反映业务情况" />
+			<col name="file_name" type="varchar" length="200" descr="文件名" />
+			<col name="file_size" type="decimal" length="38" descr="文件大小（字节）" />
+			<col name="is_check" type="varchar" length="5" descr="是否校验" />
+			<col name="remark" type="varchar" length="200" descr="备注" />
+			<col name="data_dt" type="varchar" length="10" descr="数据日期" />
+			<col name="org_name" type="varchar" length="100" descr="机构名称" />
+			<col name="org_no" type="varchar" length="30" descr="机构编号" />
+		</columns>
+	</table>
+
+	<table name="east_job" pkname="rid" descr="自动任务表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="name" type="varchar" length="30" descr="任务名" />
+			<col name="classname" type="varchar" length="100" descr="类名" />
+			<col name="triggerconf" type="varchar" length="50" descr="参数" />
+			<col name="activeflag" type="varchar" length="1" descr="是否激活" />
+			<col name="triggertype" type="varchar" length="100" descr="调度类型" />
+			<col name="descr" type="varchar" length="100" descr="备注" />
+			<col name="seq" type="decimal" length="3" descr="排序" />
+		</columns>
+	</table>
+
+	<table name="east_job_b" pkname="rid" descr="自动任务日志表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="jobid" type="varchar" length="50" descr="jobid" />
+			<col name="begintime" type="varchar" length="25" descr="开始时间" />
+			<col name="endtime" type="varchar" length="25" descr="结束时间" />
+			<col name="useseconds" type="decimal" length="10" descr="耗时" />
+			<col name="execresult" type="varchar" length="4000"
+				descr="执行结果信息" />
+		</columns>
+	</table>
+
+	<table name="east_check_result_col" pkname="rid"
+		descr="检核结果-字段校验">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="check_no" type="varchar" length="32" descr="检核规则序号" />
+			<col name="data_dt" type="varchar" length="8" descr="数据批次" />
+			<col name="check_type" type="varchar" length="20" descr="校验类型" />
+			<col name="tab_name" type="varchar" length="100" descr="表中文名" />
+			<col name="col_name" type="varchar" length="100" descr="字段中文名" />
+			<col name="check_rule" type="varchar" length="500" descr="检核规则" />
+			<col name="fail_count" type="decimal" length="16" descr="错误条数" />
+			<col name="total_count" type="decimal" length="16" descr="总量" />
+			<col name="fail_type" type="varchar" length="100" descr="错误类型" />
+			<col name="fail_source" type="varchar" length="100"
+				descr="错误所属源系统" />
+			<col name="org_no" type="varchar" length="20" descr="机构号" />
+			<col name="data_source" type="varchar" length="10"
+				descr="数据来源（总行，分行）" />
+			<col name="fail_reason" type="varchar" length="1000"
+				descr="错误数据原因解释" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_check_result_sum" pkname="rid"
+		descr="检核结果-总分核对">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="data_dt" type="varchar" length="8" descr="数据批次" />
+			<col name="check_rule" type="varchar" length="100" descr="检核规则" />
+			<col name="tab_name" type="varchar" length="500" descr="表中文名" />
+			<col name="check_key" type="varchar" length="500" descr="检核要素" />
+			<col name="subject_name" type="varchar" length="100"
+				descr="一级科目名称" />
+			<col name="subject_no" type="varchar" length="20" descr="科目编号" />
+			<col name="ledger_sum" type="decimal" length="20,2" descr="分户账数值" />
+			<col name="total_sum" type="decimal" length="20,2" descr="总账数值" />
+			<col name="differ_sum" type="decimal" length="20,2" descr="差额" />
+			<col name="differ_desc" type="varchar" length="1000" descr="差异解释" />
+			<col name="curr_cd" type="varchar" length="20" descr="币种" />
+			<col name="org_no" type="varchar" length="20" descr="机构号" />
+			<col name="busi_type" type="varchar" length="100" descr="业务类型" />
+		</columns>
+	</table>
+
+	<table name="east_check_result_explain" pkname="rid"
+		descr="检核结果-解释">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="explain" type="varchar" length="1000" descr="解释" />
+			<col name="type" type="varchar" length="10" descr="类型"
+				remark="1-字段校验,2-总分核对" />
+		</columns>
+	</table>
+
+	<table name="east_filling_process" pkname="rid" descr="填报流程-任务主表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="org_no" type="varchar" length="50" descr="归属机构" />
+			<col name="tab_name" type="varchar" length="100" descr="表名-中文" />
+			<col name="tab_name_en" type="varchar" length="100" descr="表名-英文" />
+			<col name="data_dt" type="varchar" length="10" descr="填报日期" />
+			<col name="status" type="varchar" length="1"
+				descr="状态(0初始化 1处理中2撤回3完成)" />
+			<col name="explain" type="varchar" length="1000" descr="下发说明" />
+			<col name="data_time" type="varchar" length="20" descr="创建时间" />
+			<col name="remark" type="varchar" length="1000" descr="备注" />
+		</columns>
+	</table>
+
+	<table name="east_filling_process_child" pkname="rid"
+		descr="填报流程-任务子表">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="task_id" type="varchar" length="100" descr="任务主表rid" />
+			<col name="org_no" type="varchar" length="50" descr="机构编码" />
+			<col name="tab_name" type="varchar" length="100" descr="表名-中文" />
+			<col name="tab_name_en" type="varchar" length="100" descr="表名-英文" />
+			<col name="data_dt" type="varchar" length="10" descr="填报日期" />
+			<col name="status" type="varchar" length="1"
+				descr="状态(0分发1待审核2退回3完成)" />
+			<col name="explain" type="varchar" length="1000" descr="下发说明" />
+			<col name="data_time" type="varchar" length="20" descr="创建时间" />
+			<col name="remark" type="varchar" length="1000" descr="备注" />
+		</columns>
+	</table>
+
+	<table name="east_filling_reason" pkname="rid"
+		descr="填报流程-任务表-提交/退回原因记录">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="child_task_id" type="varchar" length="100"
+				descr="子任务id" />
+			<col name="type" type="varchar" length="1" descr="类型：1提交原因2退回原因" />
+			<col name="reason" type="varchar" length="1000" descr="原因" />
+			<col name="user_no" type="varchar" length="100" descr="用户" />
+			<col name="data_time" type="varchar" length="20" descr="时间" />
+		</columns>
+	</table>
+
+	<table name="east_data_quality_report" pkname="rid"
+		descr="数据质量报告">
+		<columns>
+			<col name="rid" type="varchar" length="50" descr="RID" />
+			<col name="org_no" type="varchar" length="50" descr="机构号" />
+			<col name="org_type" type="varchar" length="10"
+				descr="机构类型：总行/分行" />
+			<col name="report_id" type="varchar" length="50" descr="报告编号" />
+			<col name="report_name" type="varchar" length="100" descr="报告名称" />
+			<col name="report_date" type="varchar" length="8" descr="期数" />
+			<col name="data_time" type="varchar" length="20" descr="报告生成时间" />
+			<col name="tab_count" type="decimal" length="3" descr="表数" />
+			<col name="total_count" type="decimal" length="16" descr="总记录数" />
+			<col name="fail_count" type="decimal" length="16" descr="错误条数" />
+			<col name="fail_rate" type="decimal" length="16,2" descr="错误率" />
+			<col name="mom_ratio" type="varchar" length="20" descr="环比" />
+			<col name="yoy_ratio" type="varchar" length="20" descr="同比" />
+			<col name="rule_type_count" type="decimal" length="3"
+				descr="规则种类数量" />
+			<col name="rule_count" type="decimal" length="5" descr="规则数" />
+		</columns>
+	</table>
+
+</root>

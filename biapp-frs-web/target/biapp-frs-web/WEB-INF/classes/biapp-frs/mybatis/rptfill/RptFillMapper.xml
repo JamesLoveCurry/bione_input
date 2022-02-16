@@ -1,0 +1,1526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.biapp.frs.rptfill.repository.RptFillTaskDao">
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<select id="searchMytaskTree"   resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select  sum(case when I.STS=1 then 1 else 0 end) as complete, 
+				sum(case when I.STS=1 then 0 else 1 end) as uncomplete,  
+				I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE
+				from RPT_FLTSK_INS I
+				<if test=" onlyWatch != null and onlyWatch ='on' ">
+	   				INNER JOIN RPT_CONCERN_ORG C
+	   				ON C.ORG_ID = I.EXE_OBJ_ID
+	   			</if>
+				WHERE  I.EXE_OBJ_ID IN (
+        		SELECT  o.org_no FROM RPT_ORG_INFO o
+        		WHERE O.ORG_PATH LIKE #{orgpath} OR  O.ORG_NO = #{exeObjId} )
+        		and I.TASK_ID = #{taskId}
+        		and I.LOGIC_DEL_NO = 'N'
+				<if test = " moduleType != null  ">
+					and I.TASK_TYPE = #{moduleType}
+				</if>
+				GROUP BY I.TASK_ID,I.TASK_OBJ_ID,I.DATA_DATE 
+
+	</select>
+	<select id="searchMyTask" resultType="com.yusys.biapp.frs.rpttsk.web.vo.RptFillMyTaskVO">
+		select distinct I.TASK_ID,I.DATA_DATE,I.TASK_NM AS TASK_NAME
+			   from RPT_FLTSK_INS I 
+			   INNER JOIN RPT_ORG_INFO O
+			   ON   I.EXE_OBJ_ID = O.ORG_no
+			   <if test=" onlyWatch != null and onlyWatch ='on' ">
+			   		INNER JOIN RPT_CONCERN_ORG C
+			   		ON C.ORG_ID = I.EXE_OBJ_ID
+			   </if>
+			   where (I.STS = 0 
+			   and I.LOGIC_DEL_NO = 'N'
+ 			   and  O.ORG_PATH like #{orgpath}
+	   		   or   O.ORG_NO = #{exeObjId})
+	   	<if test="moduleType != null">
+	   		and I.TASK_TYPE=#{moduleType}
+	   	</if>
+	</select>
+	<!-- 根据报表ID查询模板ID -->
+	<select id="getTmpIdByRptId" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		select 
+			rpt.CFG_ID as tmpId,
+			tmp.ver_id
+		from 
+			RPT_MGR_REPORT_INFO rpt
+		left join rpt_design_tmp_info tmp
+		on rpt.cfg_id = tmp.template_id
+		<if test="dataDate != null">
+			and tmp.ver_start_date &lt;= #{dataDate}
+    		and tmp.ver_end_date > #{dataDate}
+		</if>
+		where 1 = 1
+		<if test="rptId != null">
+			and rpt.RPT_ID = #{rptId}
+		</if>
+		<if test="rptSts != null">
+			and rpt.RPT_STS = #{rptSts}
+		</if>
+	</select>
+	<!-- 根据模板ID和数据日期查询版本ID -->
+	<select id="getVerIdByTmpIdAndDataDate" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		select 
+			tmp.VER_ID as verId
+		from 
+			RPT_DESIGN_TMP_INFO tmp
+		where 1 = 1
+		<if test="tmpId != null">
+			and tmp.TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="dataDate != null">
+			and tmp.VER_START_DATE &lt;= #{dataDate}
+			and tmp.VER_END_DATE > #{dataDate}
+		</if>
+	</select>
+	
+	<!-- 根据模板ID获取最新版本ID -->
+	<select id="getMaxVerIdByTmpId" resultType="String" parameterType="HashMap">
+		select 
+			MAX(tmp.VER_ID) as verId
+		from 
+			RPT_DESIGN_TMP_INFO tmp
+		where 1 = 1
+		<if test="tmpId != null">
+			and tmp.TEMPLATE_ID = #{tmpId}
+		</if>
+	</select>
+	<!-- 根据模板ID、版本ID、单元格标识查询指标信息 -->
+	<select id="searchIdx" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		select 
+			idx.TEMPLATE_ID as tmpId,
+			idx.VER_ID as verId,
+			idx.CELL_NO as cellNo,
+			idx.INDEX_NO as indexNo,
+			ii.INDEX_NM as indexNm
+		from 
+			RPT_DESIGN_SOURCE_IDX idx
+		inner join
+			RPT_IDX_INFO ii
+		on idx.INDEX_NO = ii.INDEX_NO
+		and idx.VER_ID = ii.INDEX_VER_ID
+		where 1 = 1
+		<if test="tmpId != null">
+			and idx.TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="verId != null">
+			and idx.VER_ID = #{verId}
+		</if>
+		<if test="cellNo != null">
+			and idx.CELL_NO = #{cellNo}
+		</if>
+	</select>
+	<!-- 插入校验状态数据 -->
+	<insert id="saveCheckSts" parameterType="com.yusys.bione.plugin.valid.entitiy.RptEngineCheckSts">
+		INSERT
+		INTO
+    		RPT_ENGINE_CHECK_STS
+    	(
+        	RPT_TEMPLATE_ID,
+        	DATA_DATE,
+        	ORG_NO,
+        	CHECK_TYPE,
+        	TASK_ID,
+        	TASK_TYPE,
+        	CHECK_STS,
+        	START_TIME,
+        	END_TIME
+    	)
+    	VALUES
+    	(
+	        #{id.rptTemplateId},
+	        #{id.dataDate},
+	        #{id.orgNo},
+	        #{id.checkType},
+	        #{taskId},
+	        #{taskType},
+	        #{checkSts},
+	        #{startTime},
+	        #{endTime}
+    	)
+	</insert>
+	
+	<insert id="saveRptFltskInsTextVar" parameterType="com.yusys.biapp.frs.rptfill.entity.RptFltskInsTextVar">
+		INSERT INTO RPT_FLTSK_INS_TEXTVAR (TASK_INSTANCE_ID, TEMPLATE_ID, VER_ID, CELL_NO, TYPE_ID, CELL_VAL, DATA_DATE, ORG_NO)
+		VALUES (#{taskInsId}, #{templateId}, #{verId}, #{cellNo}, #{typeId}, #{cellVal}, #{dataDate}, #{orgNo})
+	</insert>
+	
+	
+	<insert id="saveRptDetailCellVO" parameterType="com.yusys.biapp.frs.design.web.vo.RptDetailCellVO">
+		INSERT INTO RPT_DETAIL_CELL (CELL_NO, TEMPLATE_ID,VER_ID, ROW_NO, COL_NO, ORG_NO, DATA_DATE, DETAIL_VAL)
+		VALUES (#{cellNo}, #{templateId}, #{verId}, #{rowNo}, #{colNo}, #{orgNo}, #{dataDate}, #{detailVal})
+	</insert>
+	
+	<insert id="saveAuthUser" parameterType="HashMap">
+		insert into RPT_TSK_AUTH_INFO (TASK_INSTANCE_ID, USER_ID, OPER_TYPE) values (#{taskInsId}, #{userId},#{operType})
+	</insert>	
+	
+	<!-- 修改校验状态数据 -->
+	<update id="updateCheckSts" parameterType="com.yusys.bione.plugin.valid.entitiy.RptEngineCheckSts">
+		UPDATE
+		    RPT_ENGINE_CHECK_STS
+		SET
+			TASK_ID = #{taskId},
+			TASK_TYPE = #{taskType},
+		    CHECK_STS = #{checkSts},
+		    START_TIME = #{startTime},
+        	END_TIME = #{endTime}
+		WHERE
+		    RPT_TEMPLATE_ID = #{id.rptTemplateId}
+		AND DATA_DATE = #{id.dataDate}
+		AND ORG_NO = #{id.orgNo}
+		AND CHECK_TYPE = #{id.checkType}
+	</update>
+	<!-- 修改任务实例状态 -->
+	<update id="updateTaskInsSts" parameterType="com.yusys.biapp.frs.rpttsk.entity.RptFltskIns">
+		UPDATE
+		    RPT_FLTSK_INS
+		SET
+		    STS = #{sts},
+		    IS_UPT = #{isUpt}
+		WHERE
+		    TASK_INSTANCE_ID = #{taskInstanceId}
+	</update>
+	
+	<select id="searchRsSts" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO" parameterType="HashMap">
+		SELECT
+		    RPT_ID as taskObjId,
+		    DATA_DATE as dataDate,
+		    ORG_NO as exeObjId,
+		    CHECK_TYPE as "id.checkType",
+		    CHECK_STS
+		FROM
+		    RPT_ENGINE_CHECK_STS sts
+		where 1 = 1
+		<if test="rptId != null">
+			and sts.RPT_ID = #{rptId} 
+		</if>
+		<if test="orgNo != null">
+			and sts.ORG_NO = #{orgNo} 
+		</if>
+		<if test="checkType != null">
+			and sts.CHECK_TYPE = #{checkType} 
+		</if>
+		<if test="dataDate != null">
+			and sts.DATA_DATE = #{dataDate}
+		</if>
+	</select>
+	<!-- 根据任务实例ID修改任务实例状态 -->
+	<update id="updateTaskInsStsMap" parameterType="HashMap">
+		UPDATE RPT_FLTSK_INS
+		<set>
+			<if test="sts !=null and sts !=''">
+				STS = #{sts},
+			</if>
+			<if test="isForceSubmit !=null and isForceSubmit !=''">
+				IS_FORCE_SUBMIT = #{isForceSubmit},
+			</if>
+			<if test="forceSubmitReason !=null and forceSubmitReason !=''">
+				FORCE_SUBMIT_REASON = #{forceSubmitReason}
+			</if>
+		</set>
+		WHERE
+		    TASK_INSTANCE_ID = #{taskInstanceId}
+	</update>
+	<!-- 获取币种集合 -->
+	<select id="getCurrency" resultType="String" parameterType="HashMap">
+	SELECT
+	    FILTER_VAL
+	FROM
+	    RPT_IDX_FILTER_INFO
+	where 1 = 1 
+	<if test="indexNo != null">
+		and INDEX_NO = #{indexNo}
+	</if>
+	<if test="verId != null">
+		and INDEX_VER_ID = #{verId}
+	</if>
+	<if test="dimNo != null">
+		and DIM_NO = #{dimNo}
+	</if>
+	</select>
+	<!-- 根据字段ID获取字段名称 -->
+	<select id="getColNm" resultType="String" parameterType="HashMap">
+		SELECT
+		    EN_NM
+		FROM
+		    RPT_SYS_MODULE_COL
+		where 1 = 1
+		<if test="colId != null">
+			and COL_ID = #{colId}
+		</if>
+		<if test="dsId != null">
+			and SET_ID = #{dsId}
+		</if>
+	</select>
+	<!-- 获取二次任务实例对应的上级任务实例机构标识 -->
+	<select id="getUpOrgNo" resultType="String" parameterType="HashMap">
+		SELECT
+		    ins.EXE_OBJ_ID
+		FROM
+		    RPT_FLTSK_INS ins
+		WHERE
+		    1= 1
+		AND ins.TASK_INSTANCE_ID in
+		    (
+		        SELECT
+		            ins2.UP_TASK_INSTANCE_ID
+		        FROM
+		            RPT_FLTSK_INS ins2
+		        WHERE 1 = 1
+		        <if test="taskInsId != null">
+			        and ins2.TASK_INSTANCE_ID = #{taskInsId}
+		        </if>
+        	)
+	</select> 
+	<!-- 根据父模板ID、数据日期、条线ID获取模板ID -->
+	<select id="getTmpIdByParentTmpId" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		SELECT
+		    tmp.TEMPLATE_ID as tmpId
+		FROM
+		    RPT_DESIGN_TMP_INFO tmp
+		where 1 = 1
+		<if test="parentTmpId != null">
+			and tmp.PARENT_TEMPLATE_ID = #{parentTmpId}
+		</if>
+		<if test="lineId != null">
+			and tmp.LINE_ID = #{lineId}
+		</if>
+		<if test="dataDate != null">
+			and tmp.VER_START_DATE &lt;= #{dataDate}
+		</if>
+		<if test="dataDate != null">
+			and tmp.VER_END_DATE > #{dataDate}
+		</if>
+	</select>
+	
+	<select id="getLogicCellNo" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		SELECT
+		    idx.CELL_NO as cellNo
+		FROM
+		    RPT_VALID_RESULT_LOGIC logic
+		inner join
+		    RPT_VALID_LOGIC_DETAIL detail
+		on logic.CHECK_ID = detail.CHECK_ID
+		and logic.DATA_DATE = detail.DATA_DATE
+		and logic.ORG_NO = detail.ORG_NO
+		inner join
+		    RPT_DESIGN_SOURCE_IDX idx
+		on detail.INDEX_NO = idx.INDEX_NO
+		where 1 = 1
+		<if test="dataDate != null">
+			and logic.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and logic.ORG_NO = #{orgNo}
+		</if>
+		<if test="tmpId != null">
+			and logic.RPT_TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="tmpId != null">
+			and idx.TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="verId != null">
+			and idx.VER_ID = #{verId}
+		</if>
+	</select>
+	
+	<select id="getWarnCellNo" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		SELECT
+		    idx.CELL_NO as cellNo,
+		    lev.REMIND_COLOR as remindColor
+		FROM
+		    RPT_VALID_RESULT_WARN warn
+		inner join
+		    RPT_DESIGN_SOURCE_IDX idx
+		on warn.INDEX_NO = idx.INDEX_NO
+		left join
+			RPT_VALID_WARN_LEVEL lev
+		on  warn.CHECK_ID = lev.CHECK_ID
+		and warn.LEVEL_NUM = lev.LEVEL_NUM 
+		where 1 = 1
+		<if test="dataDate != null">
+			and warn.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and warn.ORG_NO = #{orgNo}
+		</if>
+		<if test="tmpId != null">
+			and warn.RPT_TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="verId != null">
+			and idx.VER_ID = #{verId}
+		</if>
+		<if test="tmpId != null">
+			and idx.TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="isPass != null">
+			and warn.IS_PASS = #{isPass}
+		</if>
+	</select>
+	
+	<select id="getSumPartCellNo" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		SELECT
+		    idx.CELL_NO as cellNo
+		FROM
+		    RPT_VALID_RESULT_ORGMERGE sumpart
+		inner join
+		    RPT_DESIGN_SOURCE_IDX idx
+		on sumpart.INDEX_NO = idx.INDEX_NO
+		where 1 = 1
+		<if test="dataDate != null">
+			and sumpart.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and sumpart.ORG_NO = #{orgNo}
+		</if>
+		<if test="tmpId != null">
+			and sumpart.RPT_TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="verId != null">
+			and idx.VER_ID = #{verId}
+		</if>
+		<if test="tmpId != null">
+			and idx.TEMPLATE_ID = #{tmpId}
+		</if>
+	</select>
+	
+	<select id="getZeroPartCellNo" resultType="com.yusys.biapp.frs.rptfill.web.vo.RptFillTmpVO" parameterType="HashMap">
+		SELECT
+		    idx.CELL_NO as cellNo
+		FROM
+		    RPT_VALID_RESULT_ZERO zero
+		inner join
+		    RPT_DESIGN_SOURCE_IDX idx
+		on zero.INDEX_NO = idx.INDEX_NO
+		where 1 = 1
+		<if test="dataDate != null">
+			and zero.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and zero.ORG_NO = #{orgNo}
+		</if>
+		<if test="tmpId != null">
+			and zero.RPT_TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="verId != null">
+			and idx.VER_ID = #{verId}
+		</if>
+		<if test="tmpId != null">
+			and idx.TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="resultType != null">
+			and zero.RESULT_TYPE = #{resultType}
+		</if>
+	</select>
+	
+	<select id="queryLogicResultCheckId" resultType="String" parameterType="HashMap">
+		SELECT
+		    logic.CHECK_ID
+		FROM
+		    RPT_VALID_RESULT_LOGIC logic
+		where 1 = 1
+		<if test="dataDate != null">
+			and logic.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and logic.ORG_NO = #{orgNo}
+		</if>
+		<if test="tmpId != null">
+			and logic.RPT_TEMPLATE_ID = #{tmpId}
+		</if>
+	</select>
+	<select id="queryLogicResultIndexNo" resultType="String" parameterType="HashMap">
+		SELECT
+		    ext.INDEX_NO
+		FROM
+		    RPT_VALID_RESULT_LOGIC logic
+		inner join
+		    RPT_VALID_LOGIC_IDX_REL ext
+		on ext.CHECK_ID = logic.CHECK_ID
+		where 1 = 1
+		<if test="dataDate != null">
+			and logic.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and logic.ORG_NO = #{orgNo}
+		</if>
+		<if test="tmpId != null">
+			and logic.RPT_TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="formulaType != null">
+			and ext.FORMULA_TYPE = #{formulaType}
+		</if>
+		<if test="isPass != null">
+			and logic.IS_PASS = #{isPass}
+		</if>
+	</select>
+	
+	<select id="queryLogicResultColId" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    ext.COLUMN_ID,
+		    ext.DIM_FILTER,
+		    ext.COLUMN_TYPE
+		FROM
+		    RPT_VALID_RESULT_LOGIC logic
+		inner join
+		    RPT_VALID_LOGIC_DS_REL ext
+		on ext.CHECK_ID = logic.CHECK_ID
+		where 1 = 1
+		<if test="dataDate != null">
+			and logic.DATA_DATE = #{dataDate}
+		</if>
+		<if test="orgNo != null">
+			and logic.ORG_NO = #{orgNo}
+		</if>
+		<if test="tmpId != null">
+			and logic.RPT_TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="formulaType != null">
+			and ext.FORMULA_TYPE = #{formulaType}
+		</if>
+	</select>
+	
+	<select id="queryLogicResultCellNo" resultType="String" parameterType="HashMap">
+		SELECT
+		    idx.CELL_NO<!-- ,
+		    idx.index_no -->
+		FROM
+		    RPT_DESIGN_SOURCE_IDX idx
+		WHERE 1 = 1
+	    <if test="indexNos != null">
+			and (idx.index_no in
+			<foreach item="indexNoss"  collection="indexNos" separator=" or idx.index_no in ">
+				<foreach collection="indexNoss" item="indexNosss" open="("
+					separator="," close=")">
+					#{indexNosss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="tmpId != null">
+			and idx.TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="verId != null">
+			and idx.VER_ID = #{verId}
+		</if>
+	</select>
+	
+	<select id="queryLogicResultDsCellNo" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    ds.CELL_NO,
+		    ds.COLUMN_ID
+		FROM
+		    RPT_DESIGN_SOURCE_DS ds
+		WHERE 1 = 1
+	    <if test="colIdNos != null">
+			and (ds.column_id in
+			<foreach item="colIdNoss"  collection="colIdNos" separator=" or ds.column_id in ">
+				<foreach collection="colIdNoss" item="colIdNosss" open="("
+					separator="," close=")">
+					#{colIdNosss}
+				</foreach>
+			</foreach>
+			)
+		</if>
+		<if test="tmpId != null">
+			and ds.TEMPLATE_ID = #{tmpId}
+		</if>
+		<if test="verId != null">
+			and ds.VER_ID = #{verId}
+		</if>
+	</select>
+	
+	
+	<!-- 修改任务实例提交状态 -->
+	<update id="updateTaskInsSubmitSts" parameterType="HashMap">
+		UPDATE
+		    RPT_FLTSK_INS
+		SET
+		    STS = #{sts}
+		WHERE
+		    TASK_INSTANCE_ID = #{taskInstanceId}
+	</update>
+	<!-- 获得某些机构的子机构标识 -->
+	<select id="getChildOrgNo" resultType="String" parameterType="HashMap">
+		SELECT
+		    org.ORG_NO
+		FROM
+		    RPT_ORG_INFO org
+		where 1 = 1
+		<if test="orgType != null">
+			and org.ORG_TYPE = #{orgType}
+		</if>
+		<if test="upOrgNo != null">
+			and org.UP_ORG_NO in 
+			<foreach item="upOrgNo" index="index" collection="upOrgNo" open="("
+			separator="," close=")">
+			#{upOrgNo}
+			</foreach>
+		</if>
+	</select>
+	
+	<insert id="saveTaskFillTabMsg" parameterType="com.yusys.biapp.frs.rptfill.entity.TaskFillTabMsg">
+		INSERT
+		INTO
+    		TASK_FILLTAB_MSG
+    	(
+        	TASK_INSTANCE_ID,
+        	USER_ID,
+        	USER_NM,
+        	TASK_INSTANCE_NM,
+        	OPER_DATE,
+        	OPER_CONTENT
+    	)
+    	VALUES
+    	(
+	        #{taskInstanceId},
+	        #{userId},
+	        #{userNm},
+	        #{taskInstanceNm},
+	        #{operDate},
+	        #{operContent}
+    	)
+	</insert>
+	
+	<select id="getRejectReason" resultType="String" parameterType="String">
+		SELECT
+		OPER_CONTENT
+		FROM
+			(SELECT
+			TASK_INSTANCE_ID,OPER_CONTENT,OPER_DATE,ROW_NUMBER()
+			OVER
+			(ORDER BY OPER_DATE DESC) AS NB
+			FROM 
+			TASK_FILLTAB_MSG
+			WHERE
+			TASK_INSTANCE_ID = #{taskInsId}
+			) MSG
+		WHERE
+		MSG.NB = 1
+	</select>
+	
+	<insert id="saveIptHis" parameterType="com.yusys.biapp.frs.rptfill.entity.RptFltskIptHis">
+		INSERT
+		INTO
+    		RPT_FLTSK_IPT_HIS
+    	(
+        	HIS_ID,
+        	TASK_INSTANCE_ID,
+        	UPT_USER,
+        	UPT_TIME,
+        	DS_ID,
+        	OBJ_TYPE,
+        	OBJ_VAL,
+        	OBJ_NO,
+        	CELL_NO,
+        	IS_INIT,
+        	NEW_OBJ_VAL
+    	)
+    	VALUES
+    	(
+	        #{hisId},
+	        #{taskInstanceId},
+	        #{uptUser},
+	        #{uptTime},
+	        #{dsId},
+	        #{objType},
+	        #{objVal},
+	        #{objNo},
+	        #{cellNo},
+	        #{isInit},
+	        #{newObjVal}
+    	)
+	</insert>
+	
+	
+	<!-- 获得某些机构的子机构标识 -->
+	<select id="getIpthisInfo" resultType="com.yusys.biapp.frs.rptfill.entity.RptFltskIptHis" parameterType="HashMap">
+		SELECT
+    		HIS_ID,
+			TASK_INSTANCE_ID,
+			UPT_USER,
+			UPT_TIME,
+			OBJ_TYPE,
+			OBJ_NO,
+			OBJ_VAL,
+			DS_ID,
+			CELL_NO,
+			IS_INIT
+		FROM
+    		rpt_fltsk_ipt_his
+		WHERE
+   		 	IS_INIT='1'
+   		AND
+    		TASK_INSTANCE_ID=#{taskInstanceId}
+	</select>
+	
+	<delete id="deleteAuthUserByTaskInsId" parameterType="HashMap">
+		DELETE FROM RPT_TSK_AUTH_INFO WHERE TASK_INSTANCE_ID=#{taskInsId}
+	</delete>
+	
+    <delete id="deleteRptFltskInsTextVar" parameterType="HashMap">
+        delete from RPT_FLTSK_INS_TEXTVAR where 
+        TEMPLATE_ID = #{templateId} and  DATA_DATE = #{dataDate} and  ORG_NO=#{orgNo}
+        and cell_no in 
+		<foreach collection="cellNos" item="cellNo" open="("
+				separator="," close=")">
+				#{cellNo}
+		</foreach>
+    </delete>
+
+    <delete id="deleteRptDetailCell" parameterType="HashMap">
+        delete from RPT_DETAIL_CELL where 
+        TEMPLATE_ID = #{templateId} and  DATA_DATE = #{dataDate} and  ORG_NO=#{orgNo}
+        and cell_no in 
+		<foreach collection="cellNos" item="cellNo" open="("
+				separator="," close=")">
+				#{cellNo}
+		</foreach>
+    </delete>
+	
+	<delete id="deleteRptDetailCellForTemp" parameterType="HashMap">
+		delete from RPT_DETAIL_CELL where
+		TEMPLATE_ID = #{templateId} and DATA_DATE = #{dataDate} and ORG_NO = #{orgNo}
+		<if test="cellNos!=null">
+			AND CELL_NO in 
+			<foreach collection="cellNos" item="cellNo" open="("
+					separator="," close=")">
+					#{cellNo}
+			</foreach>
+		</if>
+	</delete>
+	
+	<!-- 删除汇总状态 -->
+	<delete id="deleteOrgSumSts" parameterType="HashMap">
+		delete from RPT_ENGINE_ORG_SUM_STS S where exists (
+        	select *  from  rpt_fltsk_ins ins
+		where ins.task_obj_id = S.rpt_id and S.task_id=ins.task_id and S.DATA_DATE = ins.DATA_DATE and S.org_No = ins.exe_obj_id
+		<if test="taskInsIds!=null">
+			AND ins.TASK_INSTANCE_ID in 
+			<foreach collection="taskInsIds" item="taskInsId" open="("
+					separator="," close=")">
+					#{taskInsId}
+			</foreach>
+		</if>
+		)
+	</delete>
+	
+	<!-- 删除汇总状态 -->
+	<delete id="deleteOrgSumSts" parameterType="HashMap" databaseId="mysql">
+		delete S from RPT_ENGINE_ORG_SUM_STS S where exists (
+        	select *  from  rpt_fltsk_ins ins
+		where ins.task_obj_id = S.rpt_id and S.task_id=ins.task_id and S.DATA_DATE = ins.DATA_DATE and S.org_No = ins.exe_obj_id
+		<if test="taskInsIds!=null">
+			AND ins.TASK_INSTANCE_ID in 
+			<foreach collection="taskInsIds" item="taskInsId" open="("
+					separator="," close=")">
+					#{taskInsId}
+			</foreach>
+		</if>
+		)
+	</delete>	
+	<!-- 删除校验状态 -->
+	<delete id="deleteCheckSts" parameterType="HashMap">
+		delete from RPT_ENGINE_CHECK_STS  sts where exists 
+			(select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+				where ins.task_obj_id = rpt.rpt_id and sts.RPT_TEMPLATE_ID=rpt.cfg_id and sts.task_id = ins.task_instance_id and sts.DATA_DATE = ins.DATA_DATE and sts.org_No = ins.exe_obj_id
+			<if test="taskInsIds!=null">
+				AND ins.TASK_INSTANCE_ID in 
+				<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+						#{taskInsId}
+				</foreach>
+			</if>
+			)
+		
+	</delete>
+	<!-- 删除校验状态 -->
+	<delete id="deleteCheckSts" parameterType="HashMap" databaseId="mysql">
+		delete sts from RPT_ENGINE_CHECK_STS sts where exists 
+			(select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+				where ins.task_obj_id = rpt.rpt_id and sts.RPT_TEMPLATE_ID=rpt.cfg_id and sts.task_id = ins.task_id and sts.DATA_DATE = ins.DATA_DATE and sts.org_No = ins.exe_obj_id
+			<if test="taskInsIds!=null">
+				AND ins.TASK_INSTANCE_ID in 
+				<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+						#{taskInsId}
+				</foreach>
+			</if>
+			)
+		
+	</delete>
+	<!-- 删除逻辑校验状态 -->
+	<delete id="deleteLogicCheck">
+	delete from  RPT_VALID_RESULT_LOGIC  L where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and L.RPT_TEMPLATE_ID=rpt.cfg_id and L.DATA_DATE = ins.DATA_DATE and L.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+	
+	<!-- 删除逻辑校验状态 -->
+	<delete id="deleteLogicCheck" databaseId="mysql">
+	delete L from  RPT_VALID_RESULT_LOGIC  L where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and L.RPT_TEMPLATE_ID=rpt.cfg_id and L.DATA_DATE = ins.DATA_DATE and L.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+	<!-- 删除总分校验状态 -->
+	<delete id="deleteZfCheck">
+	delete from RPT_VALID_RESULT_ORGMERGE O where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and O.RPT_TEMPLATE_ID=rpt.cfg_id and O.DATA_DATE = ins.DATA_DATE and O.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+	<!-- 删除总分校验状态 -->
+	<delete id="deleteZfCheck" databaseId="mysql">
+	delete O from RPT_VALID_RESULT_ORGMERGE O where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and O.RPT_TEMPLATE_ID=rpt.cfg_id and O.DATA_DATE = ins.DATA_DATE and O.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+	<!-- 删除警戒值校验状态 -->
+	<delete id="dateteWarnCheck">
+	delete from  RPT_VALID_RESULT_WARN W where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and W.RPT_TEMPLATE_ID=rpt.cfg_id and W.DATA_DATE = ins.DATA_DATE and W.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+
+	<!-- 删除警戒值校验状态 -->
+	<delete id="dateteWarnCheck" databaseId="mysql">
+	delete W from  RPT_VALID_RESULT_WARN W where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and W.RPT_TEMPLATE_ID=rpt.cfg_id and W.DATA_DATE = ins.DATA_DATE and W.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+	
+	<!-- 删除明细逻辑校验状态 -->
+	<delete id="deleteDetailLogicCheck">
+	delete from rpt_detail_valid_result_logic W where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and W.RPT_TEMPLATE_ID=rpt.cfg_id and W.DATA_DATE = ins.DATA_DATE and W.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+	
+	<!-- 删除明细逻辑校验状态 -->
+	<delete id="deleteDetailLogicCheck" databaseId="mysql">
+	delete W from rpt_detail_valid_result_logic W where exists (
+        select *  from  rpt_fltsk_ins ins, rpt_mgr_report_info rpt
+	where ins.task_obj_id = rpt.rpt_id and W.RPT_TEMPLATE_ID=rpt.cfg_id and W.DATA_DATE = ins.DATA_DATE and W.org_No = ins.exe_obj_id
+	<if test="taskInsIds!=null">
+		AND ins.TASK_INSTANCE_ID in 
+		<foreach collection="taskInsIds" item="taskInsId" open="("
+						separator="," close=")">
+			#{taskInsId}
+		</foreach>
+	</if>
+	)
+	</delete>
+	
+	<select id="getTaskIns" resultType = "com.yusys.biapp.frs.rpttsk.entity.RptFltskIns" parameterType="HashMap">
+		SELECT
+		    *
+		FROM
+    		RPT_FLTSK_INS
+		WHERE 1 = 1
+		<if test="taskId != null">
+			AND TASK_ID = #{taskId}
+		</if>
+		<if test="dataDate != null">
+    		AND DATA_DATE = #{dataDate}
+    	</if>
+    	<if test="tskObjId != null">
+    		AND TASK_OBJ_ID = #{tskObjId}
+    	</if>
+    	 <if test="exeObjIds != null" >
+			AND EXE_OBJ_ID IN 
+			<foreach item="exeObjId" index="index" collection="exeObjIds" open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if> 
+    	<if test="sts != null">
+    		AND STS = #{sts}
+    	</if>
+	</select>
+	
+	<select id="getTaskInsByRpt" resultType = "com.yusys.biapp.frs.rpttsk.entity.RptFltskIns" parameterType="HashMap">
+		SELECT
+		    *
+		FROM
+    		RPT_FLTSK_INS t
+    	inner join RPT_MGR_REPORT_INFO r	
+		on t.task_obj_id = r.rpt_id 
+		AND  1=1
+		<if test="taskId != null">
+			AND TASK_ID = #{taskId}
+		</if>
+		<if test="dataDate != null">
+    		AND DATA_DATE = #{dataDate}
+    	</if>
+    	<if test="tskObjId != null">
+    		AND TASK_OBJ_ID = #{tskObjId}
+    	</if>
+    	 <if test="exeObjIds != null" >
+			AND EXE_OBJ_ID IN 
+			<foreach item="exeObjId" index="index" collection="exeObjIds" open="(" separator="," close=")">
+				#{exeObjId}
+			</foreach>
+		</if> 
+    	<if test="sts != null">
+    		AND STS = #{sts}
+    	</if>
+	</select>
+	
+	<select id = "getDataUnit" resultType = "String" parameterType = "HashMap">
+	select cell.data_unit
+	  from rpt_design_cell_info cell, rpt_design_tmp_info tmp, rpt_mgr_report_info rpt
+	  where 1 = 1
+	   and rpt.rpt_Id = #{rptId}
+	   and tmp.ver_Start_Date &lt;= #{dataDate}
+	   and tmp.ver_End_Date > #{dataDate}
+	   and tmp.TEMPLATE_ID = rpt.cfg_Id
+	   and tmp.template_id = cell.template_id
+	   AND tmp.ver_id = cell.ver_id
+	   and cell.cell_No = #{cellNo}
+	   and cell.template_Id = #{templateId}
+	</select>
+	<select id = "getTemplateUnit" resultType = "String" parameterType = "HashMap">
+	   select tmp.TEMPLATE_UNIT from rpt_design_tmp_info tmp where tmp.template_id=#{templateId}
+	   and tmp.ver_Start_Date &lt;= #{dataDate}
+	   and tmp.ver_End_Date >  #{dataDate}
+	</select>
+	<select id = "gethisDetail" resultType = "com.yusys.biapp.frs.rpttsk.web.vo.RptFltskIptHisVO" parameterType = "HashMap">
+		 select his.*,usr.user_Name as userNm,tmp.TEMPLATE_UNIT as templateUnit,cell.data_unit as dataUnit, cell.is_lock, org.org_nm
+	     from RPT_FLTSK_IPT_HIS    his,
+	          BIONE_USER_INFO      usr,
+	          RPT_DESIGN_CELL_INFO cell,
+	          rpt_design_tmp_info  tmp,
+	          rpt_mgr_report_info  rpt,
+	          rpt_fltsk_ins ins,
+	          rpt_org_info org 
+	    where his.cell_no = cell.cell_no
+       	<if test="cellNo != null">
+    		and his.cell_no = #{cellNo}
+    	</if>
+	      and ins.task_instance_id = his.task_instance_id
+	      and ins.task_obj_id = rpt.rpt_id
+	      and tmp.TEMPLATE_ID = rpt.cfg_Id
+	      and tmp.template_id = cell.template_id
+	      and his.Upt_User = usr.user_id
+	      and tmp.ver_Start_Date &lt;= #{dataDate}
+	      and tmp.ver_End_Date > #{dataDate}
+	      and cell.template_Id = #{templateId}
+	      and his.task_instance_id= #{tskInstanceIid}
+	      and tmp.ver_id = cell.ver_id
+	      and ins.exe_obj_id = org.org_no
+	      and ins.task_type = org.org_type
+	</select>
+
+	<select id="gethisDetailList" resultType = "com.yusys.biapp.frs.rpttsk.web.vo.RptFltskIptHisVO" parameterType = "HashMap">
+		select his.*,
+			   usr.user_Name     as userNm,
+			   tmp.TEMPLATE_UNIT as templateUnit,
+			   cell.data_unit    as dataUnit,
+			   cell.is_lock,
+			   org.org_nm,
+			   org.org_no
+		from RPT_FLTSK_IPT_HIS his
+				 inner join (select task_instance_id, cell_no, max(upt_time) maxtime
+							 from RPT_FLTSK_IPT_HIS
+							 group by task_instance_id, cell_no) t
+							on his.task_instance_id = t.task_instance_id
+								and his.cell_no = t.cell_no
+								and his.upt_time = t.maxtime
+				 inner join BIONE_USER_INFO usr
+							on his.Upt_User = usr.user_id
+				 inner join RPT_DESIGN_CELL_INFO cell
+							on his.cell_no = cell.cell_no
+				 inner join rpt_fltsk_ins ins
+							on his.task_instance_id = ins.task_instance_id
+				 inner join rpt_mgr_report_info rpt
+							on ins.task_obj_id = rpt.rpt_id
+				 inner join rpt_design_tmp_info tmp
+							on tmp.TEMPLATE_ID = rpt.cfg_Id
+								and tmp.template_id = cell.template_id
+								and tmp.ver_id = cell.ver_id
+				  inner join rpt_org_info org
+				  on ins.exe_obj_id = org.org_no
+	      		 and ins.task_type = org.org_type
+		where tmp.ver_Start_Date &lt;= #{dataDate}
+		  and tmp.ver_End_Date > #{dataDate}
+		  and cell.template_Id = #{templateId}
+		  <if test="tskInstanceIid != null">
+		  	and his.task_instance_id = #{tskInstanceIid}
+		  </if>
+		  <if test="isLock != null">
+    		and cell.is_lock = #{isLock}
+    	  </if>
+    	  <if test="updateDesc != null">
+    		and his.update_desc is null
+    	  </if>
+    	   <if test="taskId != null">
+    		and ins.task_id = #{taskId}
+    	  </if>
+    	  <if test="orgList != null and orgList.size()>0">
+			and (org.org_no in
+			<foreach item="orgNos" index="index" collection="orgList"
+				separator=" or org.org_no in ">
+				<foreach collection="orgNos" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+		  </if>
+		  <if test="taskInstanceIds != null and taskInstanceIds.size() > 0">
+		  	  and his.task_instance_id in
+			  <foreach collection="taskInstanceIds" item="taskInstanceId" open="("
+					   separator="," close=")">
+				  #{taskInstanceId}
+			  </foreach>
+		  </if>
+	</select>
+
+    <select id="getHisDetailAllList" resultType = "com.yusys.biapp.frs.rpttsk.web.vo.RptFltskIptHisVO" parameterType = "HashMap">
+        select his.*,
+        usr.user_Name     as userNm,
+        tmp.TEMPLATE_UNIT as templateUnit,
+        cell.data_unit    as dataUnit,
+        cell.is_lock,
+        org.org_nm,
+        org.org_no
+        from RPT_FLTSK_IPT_HIS his
+        left join (select task_instance_id, cell_no, max(upt_time) maxtime
+        from RPT_FLTSK_IPT_HIS
+        group by task_instance_id, cell_no) t
+        on his.task_instance_id = t.task_instance_id
+        and his.cell_no = t.cell_no
+        and his.upt_time = t.maxtime
+        inner join BIONE_USER_INFO usr
+        on his.Upt_User = usr.user_id
+        inner join RPT_DESIGN_CELL_INFO cell
+        on his.cell_no = cell.cell_no
+        inner join rpt_fltsk_ins ins
+        on his.task_instance_id = ins.task_instance_id
+        inner join rpt_mgr_report_info rpt
+        on ins.task_obj_id = rpt.rpt_id
+        inner join rpt_design_tmp_info tmp
+        on tmp.TEMPLATE_ID = rpt.cfg_Id
+        and tmp.template_id = cell.template_id
+        and tmp.ver_id = cell.ver_id
+        inner join rpt_org_info org
+        on ins.exe_obj_id = org.org_no
+        and ins.task_type = org.org_type
+        where tmp.ver_Start_Date &lt;= #{dataDate}
+        and tmp.ver_End_Date > #{dataDate}
+        and cell.template_Id = #{templateId}
+        <if test="cellNo != null">
+    		and his.cell_no = #{cellNo}
+    	</if>
+        <if test="tskInstanceIid != null">
+            and his.task_instance_id = #{tskInstanceIid}
+        </if>
+        <if test="isLock != null">
+            and cell.is_lock = #{isLock}
+        </if>
+        <if test="updateDesc != null">
+            and his.update_desc is null
+        </if>
+        <if test="taskId != null">
+            and ins.task_id = #{taskId}
+        </if>
+        <if test="orgList != null and orgList.size()>0">
+            and (org.org_no in
+            <foreach item="orgNos" index="index" collection="orgList"
+                     separator=" or org.org_no in ">
+                <foreach collection="orgNos" item="orgNo" open="("
+                         separator="," close=")">
+                    #{orgNo}
+                </foreach>
+            </foreach>
+            )
+        </if>
+        <if test="taskInstanceIds != null and taskInstanceIds.size() > 0">
+            and his.task_instance_id in
+            <foreach collection="taskInstanceIds" item="taskInstanceId" open="("
+                     separator="," close=")">
+                #{taskInstanceId}
+            </foreach>
+        </if>
+    </select>
+
+	<select id="getTaskCheckInfo"   resultType = "HashMap" parameterType = "HashMap">
+		select T.data_date,
+		       rpt_template_id,
+		       T.org_no,
+		       sum(decode(check_type, '02', 1, 0)) LOGIC,
+		       sum(decode(check_type, '03', 1, 0)) SUM,
+		       sum(decode(check_type, '04', 1, 0)) WARN,
+		       sum(decode(check_type, '05', 1, 0)) ZERO
+		  from RPT_ENGINE_CHECK_STS t
+		 INNER JOIN RPT_MGR_REPORT_INFO RPT
+		   ON RPT.CFG_ID = T.RPT_TEMPLATE_ID
+		 where  t.data_date = #{dataDate}
+		   and rpt.RPT_ID = #{rptId}
+		   and t.org_no = #{orgNo}
+		 group by T.data_date, rpt_template_id, T.org_no
+	</select>
+	
+	<select id="getCellIndexInfoByTemplateId" resultType = "HashMap" parameterType = "HashMap" >
+		 SELECT IDX.INDEX_NO,SC.CELL_NO
+		  FROM RPT_IDX_INFO IDX
+		 INNER JOIN RPT_DESIGN_SOURCE_IDX SC
+		    ON SC.TEMPLATE_ID = IDX.TEMPLATE_ID
+		   AND SC.INDEX_NO = IDX.INDEX_NO
+		   AND SC.TEMPLATE_ID=#{templateId}
+		   AND SC.VER_ID=#{versionId}
+		 INNER JOIN RPT_DESIGN_SOURCE_FORMULA FORMULA
+		 ON FORMULA.CELL_NO = SC.CELL_NO
+		 AND FORMULA.TEMPLATE_ID = SC.TEMPLATE_ID
+		 AND FORMULA.TEMPLATE_ID = #{templateId}
+ 		 AND FORMULA.VER_ID=#{versionId}
+		 WHERE IDX.TEMPLATE_ID=#{templateId}
+		 AND IDX.INDEX_VER_ID=#{versionId}
+	</select>
+	
+	<select id="queryTaskStates" resultType="String" parameterType="HashMap">
+		select max(t.check_sts) from RPT_ENGINE_CHECK_STS t
+			where t.data_date = #{dataDate,jdbcType=VARCHAR}
+			and t.org_no = #{orgNo,jdbcType=VARCHAR}
+			and t.task_id = #{taskId,jdbcType=VARCHAR}
+			and t.check_type IN 
+			<foreach item="checkFlag" index="index" collection="checkFlag" open="(" separator="," close=")">
+				#{checkFlag,jdbcType=VARCHAR}
+			</foreach>
+			and t.rpt_template_id = #{tmpId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryTaskSts" resultType="String" parameterType="String">
+		select ins.sts from rpt_fltsk_ins ins where ins.task_instance_id = #{taskInsId}
+	</select>
+	
+	<delete id="deleteNextRptTskAuthInfo" parameterType="HashMap">
+		delete
+  			from rpt_tsk_auth_info info
+			where info.task_instance_id = #{taskInsId}
+   				and info.oper_type = #{nextSts}
+	</delete>
+	
+	<update id="updateTaskSts" parameterType="HashMap">
+		update
+				rpt_fltsk_ins ins
+			set
+				ins.sts = #{upSts}
+			where
+				ins.task_instance_id = #{taskInsId}
+	</update>
+	<update id="updateTaskIsCal" parameterType="HashMap">
+		update
+				rpt_fltsk_ins ins
+			set
+				ins.is_calculation = #{isCalculation}
+			where
+				ins.task_instance_id = #{taskInsId}
+	</update>
+	<select id="getUserIdByName" resultType="String" parameterType="String">
+		SELECT USER_ID FROM BIONE_USER_INFO WHERE USER_NAME=#{userName}
+	</select>
+	<!-- chenhx 20170908 新增逻辑修改明细数据时修改数据源表 新增4个select->queryColnm queryTableEnNm queryDsInfoByCfgId queryDataUnit-->
+	<select id="queryColnm" parameterType="HashMap" resultType="HashMap">
+             SELECT distinct colnm.en_nm,ds.cell_no,colnm.dim_type_no,colnm.is_pk,colnm.DB_TYPE  
+             FROM RPT_SYS_MODULE_COL colnm
+				LEFT JOIN rpt_design_source_ds ds
+				ON colnm.col_id = ds.column_id
+				and ds.ds_id = colnm.set_id
+				where 1=1 
+				and colnm.set_id = (
+					select distinct setid.ds_id from rpt_design_source_ds setid
+					where setid.template_id = #{templateId}
+					and setid.ver_id = (
+						select max(ver.ver_id) from rpt_design_source_ds ver
+						where ver.template_id = #{templateId}
+					)
+				)
+    </select>
+     <select id="queryTableEnNm" parameterType="HashMap" resultType="string">
+             SELECT DISTINCT MOD.TABLE_EN_NM FROM rpt_design_source_ds ds
+			 LEFT JOIN RPT_SYS_MODULE_INFO MOD
+			 ON ds.ds_id = MOD.SET_ID
+			 WHERE ds.template_id = #{templateId}
+			 and ds.ver_id = (SELECT MAX(VER.VER_ID)
+		                      FROM RPT_DESIGN_SOURCE_DS VER
+		                     WHERE VER.Template_Id = #{templateId})
+    </select>
+    
+    <select id="queryDsInfoByCfgId" parameterType="HashMap" resultType="com.yusys.bione.frame.mtool.entity.BioneDsInfo">
+    SELECT * FROM BIONE_DS_INFO  driver 
+		WHERE driver.ds_id = (SELECT src.source_id FROM RPT_SYS_MODULE_INFO src 
+		where src.set_id = (SELECT DISTINCT ds.ds_id
+		  FROM RPT_DESIGN_SOURCE_DS DS
+		  LEFT JOIN RPT_SYS_MODULE_COL COLNM
+		    ON COLNM.COL_ID = DS.COLUMN_ID
+		 WHERE 1 = 1
+		   AND DS.Template_Id = #{templateId}
+		   AND DS.VER_ID = (SELECT MAX(VER.VER_ID)
+		                      FROM RPT_DESIGN_SOURCE_DS VER
+		                     WHERE VER.Template_Id = #{templateId})))
+    </select>
+    <select id="queryDataUnit" parameterType="HashMap" resultType="string">
+    	SELECT case cell.data_unit 
+			WHEN NULL then tmp.template_unit
+			WHEN '01' then tmp.template_unit
+			ELSE tmp.template_unit
+			END AS DATa_unit
+			FROM rpt_design_cell_info cell
+			LEFT JOIN rpt_design_tmp_info tmp
+			ON cell.template_id = tmp.template_id
+			WHERE cell.cell_no = #{cellNo}
+			AND cell.template_id = #{templateId}
+			AND cell.ver_id = 
+			    (SELECT MAX(ver_id) FROM rpt_design_cell_info ver 
+			            WHERE ver.template_id = #{templateId})
+     </select>
+
+	<select id="getTaskInsVoByRpt" resultType = "com.yusys.biapp.frs.rptfill.web.vo.RptFltskInsVO" parameterType="HashMap">
+		SELECT
+		    t.*,r.rpt_num,r.rpt_id
+		FROM
+    		RPT_FLTSK_INS t
+    	inner join RPT_MGR_REPORT_INFO r	
+		on t.task_obj_id = r.rpt_id 
+		where 1=1 
+		<if test="rptNum != null">
+    		AND  r.rpt_num = #{rptNum} 
+    	</if>
+    	
+    	<if test="rptIds != null" >
+			AND r.rpt_id IN 
+			<foreach item="rptId" index="index" collection="rptIds" open="(" separator="," close=")">
+				#{rptId}
+			</foreach>
+		</if> 
+		
+		<if test="dataDate != null">
+    		AND DATA_DATE = #{dataDate}
+    	</if>
+    	<if test="exeObjId != null">
+    		and (exe_Obj_Id in
+			<foreach item="exeObjIds"  collection="exeObjId" separator=" or exe_Obj_Id in ">
+				<foreach collection="exeObjIds" item="orgNo" open="("
+					separator="," close=")">
+					#{orgNo}
+				</foreach>
+			</foreach>
+			)
+    	</if>
+    	
+    	<if test="sts != null">
+    		AND t.sts = #{sts}
+    	</if>
+	</select>
+	
+	<select id="getRptDetailDataUpdateList" resultType="com.yusys.biapp.frs.rptfill.entity.RptDetailDataUpdate" parameterType="map">
+		select 
+			t.rid,
+			t.template_id,
+			t.rpt_num,
+			t.data_date,
+			t.org_no,
+			t.ds_id,
+			t.set_id,
+			t.table_en_nm,
+			t.module_key_name,
+			t.module_key_value,
+			t.column_name,
+			t.column_value,
+			t.oper_type
+		from rpt_detail_data_update t
+		where 1=1
+		<if test="templateId != null">
+			and t.template_id = #{templateId}
+		</if>
+		<if test="orgNo != null">
+			and t.org_no = #{orgNo}
+		</if>
+		<if test="dataDate != null">
+			and t.data_date = #{dataDate}
+		</if>
+		order by t.ds_id asc
+	</select>
+	
+	<delete id="deleteRptDetailData" parameterType="String">
+		delete from rpt_detail_data_update where 1=2 or (rid = #{rid})
+	</delete>
+	
+	<select id="getRptModuleInfos" parameterType="map" resultType="map">
+		select distinct t.table_en_nm as "tableEnNm",
+		                t2.ds_id    as "dsName",
+		                t.set_id      as "setId",
+		                t.set_nm      as "setNm"
+		  from rpt_sys_module_info t
+		  left join bione_ds_info t2
+		    on t.source_id = t2.ds_id
+		  left join rpt_sys_module_col t3
+		    on t.set_id = t3.set_id
+		  left join rpt_design_source_ds t4
+		    on t3.set_id = t4.ds_id
+		   and t3.col_id = t4.column_id
+		  left join rpt_design_tmp_info t5
+		    on t4.template_id = t5.template_id
+		   and t4.ver_id = t5.ver_id
+		 where t5.template_id = #{tmpId}
+		   and t5.ver_start_date &lt;= #{dataDate}
+		   and t5.ver_end_date > #{dataDate}
+	</select>
+	
+	<select id="getRptColInfos" parameterType="map" resultType="map">
+		SELECT t2.cell_no        as "cellNo",
+		       t2.ds_id          as "setId",
+		       t3.en_nm          as "colNm",
+		       t3.cn_nm          as "colCnNm",
+		       case when t4.data_unit is null then t.template_unit else t4.data_unit end as "dataUnit",
+		       t4.data_precision as "dataPrecision",
+		       t4.display_format as "dispalyFormat",
+		       t4.row_id		 as "rowId",
+           	   t4.col_id		 as "colId",
+		       t4.is_upt         as "isUpt",
+	           t3.db_type as "dbType",
+	           t3.is_null as "isNull",
+	           t3.len as "len",
+	           t3.precision2 as "colPrecision"
+		  FROM rpt_design_tmp_info t
+		  left join rpt_design_source_ds t2
+		    on t.template_id = t2.template_id
+		   and t.ver_id = t2.ver_id
+		  left join rpt_design_cell_info t4
+		    on t.template_id = t4.template_id
+		   and t.ver_id = t4.ver_id
+		   and t2.cell_no = t4.cell_no
+		  left join rpt_sys_module_col t3
+		    on t2.ds_id = t3.set_id
+		   and t2.column_id = t3.col_id
+		 where t.template_id = #{tmpId}
+		   and t.ver_start_date &lt;= #{dataDate}
+		   and t.ver_end_date > #{dataDate}
+	</select>
+	
+	<select id="getPkColBySetId" parameterType="string" resultType="string">
+		SELECT t.en_nm as "pkCol"
+		  FROM rpt_sys_module_col t
+		 where t.set_id = #{_parameter}
+		   and t.is_pk = 'Y'
+	</select>
+	
+	<insert id="insertRptReportResultArchive" parameterType="map">
+		insert into rpt_report_result_archive
+		  select #{archiveType} archive_type, t.index_no, t.data_date,t.org_no,t.currency,t.index_val,t.template_id, #{sysTime} sys_time
+		    from rpt_report_result t
+		   where t.template_id = #{templateId}
+		     and t.data_date = #{dataDate}
+		     and t.org_no = #{orgNo}
+	</insert>
+	
+	<delete id="deleteRptReportResultArchive" parameterType="map">
+		delete from rpt_report_result_archive
+		   where template_id = #{templateId}
+		     and data_date = #{dataDate}
+		     and org_no = #{orgNo}
+		     and archive_type = #{archiveType}
+	</delete>
+	
+	<select id="getRptDesignSourceFormual" parameterType="map" resultType="map">
+		SELECT t.cell_no as "cellNo", 
+		       t.excel_formula as "excelFormula"
+		  FROM rpt_design_source_formula t
+		  left join rpt_design_tmp_info t2
+		    on t.template_id = t2.template_id
+		   and t.ver_id = t2.ver_id
+		 where t.template_id = #{templateId}
+		   and t2.ver_start_date &lt;= #{dataDate} 
+		   and t2.ver_end_date > #{dataDate} 
+	</select>
+	
+	<select id="findFillChildOrg" parameterType="map" resultType="com.yusys.bione.plugin.rptorg.entity.RptOrgInfo">
+		SELECT o.org_no as "id.orgNo", o.org_nm
+		  FROM rpt_org_info o
+		 where o.up_org_no = #{orgNo}
+		   and o.org_type = #{taskType}
+		   and exists
+		 (SELECT t.exe_obj_id
+		          FROM rpt_fltsk_ins t
+		         where t.task_id = #{taskId}
+		           and t.data_date = #{dataDate}
+		           and t.task_obj_id = #{rptId}
+		           and o.org_no = t.exe_obj_id)
+	</select>
+	
+	<select id="getCellSourceInfo" parameterType="map" resultType="map">
+		SELECT t.cell_no "cellNo", t6.cell_no "sourceCellNo", t4.template_id "sourceTmpId", t5.rpt_nm "sourceRptNm", to_char(t7.formula_desc) "sourceFormulaDesc"
+		  FROM rpt_design_source_idx t
+		  left join rpt_idx_src_rel_info t2
+		    on t.index_no = t2.index_no
+		   and t.ver_id = t2.index_ver_id
+		  left join rpt_idx_formula_info t7
+	       on t.index_no = t7.index_no
+	       and t.ver_id = t7.index_ver_id
+		  left join rpt_idx_info t3
+		    on t2.src_index_no = t3.index_no
+		   and t3.start_date &lt;= #{dataDate}
+		   and t3.end_date > #{dataDate}
+		  left join rpt_design_source_idx t6
+		    on t3.template_id = t6.template_id
+		   and t3.index_ver_id = t6.ver_id
+		   and t3.index_no = t6.index_no
+		  left join rpt_design_tmp_info t4
+		    on t3.template_id = t4.template_id
+		   and t3.index_ver_id = t4.ver_id
+		  left join rpt_mgr_report_info t5
+		    on t4.template_id = t5.cfg_id
+		 where t.template_id = #{templateId}
+		   and t.ver_id = #{verId}
+    	   and (t.cell_no in
+			<foreach item="cellNos"  collection="cellNos" separator=" or t.cell_no in ">
+				<foreach collection="cellNos" item="cellNo" open="("
+					separator="," close=")">
+					#{cellNo}
+				</foreach>
+			</foreach>
+			)
+	</select>
+
+	<select id="findCfgextOrgmerge" parameterType="map" resultType="com.yusys.bione.plugin.valid.entitiy.RptValidCfgextOrgmerge">
+		select check_id,sum_index_no,sum_template_id,branch_index_no,
+		       branch_template_id,check_desc,start_date,end_date
+		from rpt_valid_cfgext_orgmerge
+		where 1=1
+		<if test="sumTemplateId != null">
+			and sum_template_id = #{sumTemplateId}
+		</if>
+		<if test="startDate != null">
+			and start_date = #{startDate}
+		</if>
+		<if test="endDate != null">
+			and end_date = #{endDate}
+		</if>
+	</select>
+
+    <select id="getIndexCol" resultType="map" parameterType="map">
+		select t2.col_id as "COL_ID"
+		from rpt_design_tmp_info t
+		 left join rpt_design_cell_info t2
+				   on t.template_id = t2.template_id
+					   and t.ver_id = t2.ver_id
+		 left join rpt_design_source_idx t3
+				   on t.template_id = t3.template_id
+					   and t2.cell_no = t3.cell_no
+					   and t.ver_id = t3.ver_id
+		 left join rpt_idx_info t4
+				   on t.template_id = t4.template_id
+					   and t3.index_no = t4.index_no
+					   and t.ver_id = t4.index_ver_id
+		where t.template_id = #{templateId}
+		  and t4.index_ver_id = #{verId}
+		group by t2.col_id order by t2.col_id
+	</select>
+
+	<select id="getCellInfoByColId" resultType="java.util.Map">
+		select t.template_id as "templateId",
+			   t2.cell_no as "cellNo",
+		       t2.cell_nm as "cellNm",
+			   t2.display_format as "displayFormat",
+			   case
+				   when t2.data_unit is null then
+					   t.template_unit
+				   else
+					   t2.data_unit
+				   end as "unit",
+			   t2.data_precision as "dataPrecision",
+			   t3.index_no as "indexNo",
+			   t4.set_id as "setId",
+			   t2.row_id as "rowId",
+			   t2.col_id as "colId",
+			   t2.is_upt as "isUpt",
+		       t4.index_nm as "indexNm"
+		from rpt_design_tmp_info t
+				 left join rpt_design_cell_info t2
+						   on t.template_id = t2.template_id
+							   and t.ver_id = t2.ver_id
+				 left join rpt_design_source_idx t3
+						   on t.template_id = t3.template_id
+							   and t2.cell_no = t3.cell_no
+							   and t.ver_id = t3.ver_id
+				 left join rpt_idx_info t4
+						   on t.template_id = t4.template_id
+							   and t3.index_no = t4.index_no
+							   and t.ver_id = t4.index_ver_id
+		where t.template_id = #{templateId}
+		  and t.ver_id = #{verId}
+		  and t2.col_id = #{colId}
+		  and t3.index_no is not null
+          order by t2.row_id
+	</select>
+	<!-- 编辑修改说明 -->
+	<update id="editUpdateDesc" parameterType="map">
+		UPDATE
+		    rpt_fltsk_ipt_his
+		SET
+			update_desc = #{updateDesc}
+		WHERE
+		    his_id = #{hisId}
+	</update>
+</mapper> 

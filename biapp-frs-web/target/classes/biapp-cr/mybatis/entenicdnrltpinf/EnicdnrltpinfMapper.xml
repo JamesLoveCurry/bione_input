@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.entenicdnrltpinf.repository.EntEnicdnrltpinfDao">
+<!-- 根据条件查询报表列表 -->
+<!--企业间关联关系信息记录  Ent_EnIcdnRltpInf-->
+	<select id="getEnicdnrltpinfList"  resultType="com.yusys.cr.entenicdnrltpinf.entity.EntEnicdnrltpinf">
+
+		SELECT
+			ei.InfRecType   infrectype,<!--信息记录类型-->
+			ei.EntName	entname,<!--a企业名称-->
+			ei.EntCertType	 entcerttype,<!--a企业身份标识类型-->
+			ei.EntCertNum	entcertnum,<!--a企业身份标识号码-->
+			ei.AssoEntName	assoentname,<!--b企业名称-->
+			ei.AssoEntCertType	assoentcerttype,<!--b企业身份标识类型-->
+			ei.AssoEntCertNum	assoentcertnum,<!--b企业身份标识号码-->
+			ei.AssoType	assotype,<!--关联关系类型-->
+			ei.AssoSign	assosign,<!--关联标志-->
+			ei.RptDate	rptdate<!--信息报告日期-->
+		FROM 
+			Ent_EnIcdnRltpInf ei
+		where 1=1 and ei.incrementflag in('1','2')
+	</select>
+
+</mapper> 

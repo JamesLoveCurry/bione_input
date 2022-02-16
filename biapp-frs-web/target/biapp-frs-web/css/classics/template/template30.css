@@ -1,0 +1,41 @@
+#center {
+	float: left;
+	width: 43%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6;
+	margin-left: 2%;
+}
+
+#center .ztree {
+	background-color: #F1F1F1;
+}
+
+#right {
+	width: 43%;
+	float: left;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D6D6D6;
+	margin-left: 10%;
+}
+
+#right .ztree {
+	background-color: #F1F1F1;
+}
+
+#all {
+	width: 100%;
+	position: relative;
+}
+
+#bottom {
+	margin:0 auto;
+	overflow: hidden;
+	position: relative;
+	margin-top: 10px;
+}
+
+#leftTree {
+	background-color: #F1F1F1;
+}

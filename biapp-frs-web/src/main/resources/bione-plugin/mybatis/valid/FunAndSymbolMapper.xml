@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.valid.repository.FunAndSymbolMybatisDao">
+	<select id="listFunc" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaFunc"
+	parameterType="HashMap">
+		select FORMULA_ID,FORMULA_DISPLAY,FORMULA_NM,FUNC_TYPE
+		from
+		RPT_IDX_FORMULA_FUNC
+		where 1=1
+		<if test="formulaId != null">and FORMULA_ID = #{formulaId}</if>
+		<if test="formulaDisplay != null">and FORMULA_DISPLAY = #{formulaDisplay}</if>
+		<if test="formulaNm != null">and FORMULA_NM = #{formulaNm}</if>
+		<if test="funcType != null">and FUNC_TYPE = #{funcType}</if>
+	</select>
+	<select id="listSymbol" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaSymbol"
+		parameterType="HashMap">
+			select SYMBOL_ID,SYMBOL_DISPLAY,SYMBOL_NM,SYMBOL_TYPE
+			from
+			RPT_IDX_FORMULA_SYMBOL
+			where 1=1
+			<if test="symbolId != null">and SYMBOL_ID = #{symbolId}</if>
+			<if test="symbolDisplay != null">and SYMBOL_DISPLAY = #{symbolDisplay}</if>
+			<if test="symbolNm != null">and SYMBOL_NM = #{symbolNm}</if>
+			<if test="symbolType != null">and SYMBOL_TYPE = #{symbolType}</if>
+		</select>
+
+</mapper>

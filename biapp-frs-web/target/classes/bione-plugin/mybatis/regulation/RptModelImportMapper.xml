@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yusys.bione.plugin.regulation.repository.RptModelImportDao">
+	<delete id="deleteTest">
+		delete from a
+	</delete>
+	<select id="getTemplateIdByRptNum" parameterType="string" resultType="string">
+		select cfg_id from rpt_mgr_report_info where rpt_num = #{rptNum}
+	</select>
+	<delete id="deleteRptIdxMeasureRel" parameterType="hashmap">
+		delete from RPT_IDX_MEASURE_REL
+		where exists (
+			select 1 from RPT_IDX_INFO
+			where RPT_IDX_INFO.template_id = #{templateId}
+			and RPT_IDX_INFO.index_no = RPT_IDX_MEASURE_REL.index_no
+			and RPT_IDX_INFO.index_ver_id = RPT_IDX_MEASURE_REL.index_ver_id
+			and RPT_IDX_MEASURE_REL.index_ver_id = #{verId}
+			)
+	</delete>
+	<delete id="deleteRptIdxDimRel" parameterType="hashmap">
+		delete from RPT_IDX_DIM_REL
+		where exists (
+			select 1 from RPT_IDX_INFO
+			where RPT_IDX_INFO.template_id = #{templateId}
+			and RPT_IDX_INFO.index_no = RPT_IDX_DIM_REL.index_no
+			and RPT_IDX_INFO.index_ver_id = RPT_IDX_DIM_REL.index_ver_id
+			and RPT_IDX_DIM_REL.index_ver_id = #{verId}
+			)
+	</delete>
+	<delete id="deleteRptIdxSrcRelInfo" parameterType="hashmap">
+		delete from RPT_IDX_SRC_REL_INFO
+		where exists (
+			select 1 from RPT_IDX_INFO
+			where RPT_IDX_INFO.template_id = #{templateId}
+			and RPT_IDX_INFO.index_no = RPT_IDX_SRC_REL_INFO.index_no
+			and RPT_IDX_INFO.index_ver_id = RPT_IDX_SRC_REL_INFO.index_ver_id
+			and RPT_IDX_SRC_REL_INFO.index_ver_id = #{verId}
+			)
+	</delete>
+	<delete id="deleteRptIdxFilterInfo" parameterType="hashmap">
+		delete from RPT_IDX_FILTER_INFO
+		where exists (
+			select 1 from RPT_IDX_INFO
+			where RPT_IDX_INFO.template_id = #{templateId}
+			and RPT_IDX_INFO.index_no = RPT_IDX_FILTER_INFO.index_no
+			and RPT_IDX_INFO.index_ver_id = RPT_IDX_FILTER_INFO.index_ver_id
+			and RPT_IDX_FILTER_INFO.index_ver_id = #{verId}
+			)
+	</delete>
+	<delete id="deleteRptIdxFormulaInfo" parameterType="hashmap">
+		delete from RPT_IDX_FORMULA_INFO
+		where exists (
+			select 1 from RPT_IDX_INFO
+			where RPT_IDX_INFO.template_id = #{templateId}
+			and RPT_IDX_INFO.index_no = RPT_IDX_FORMULA_INFO.index_no
+			and RPT_IDX_INFO.index_ver_id = RPT_IDX_FORMULA_INFO.index_ver_id
+			and RPT_IDX_FORMULA_INFO.index_ver_id = #{verId}
+			)
+	</delete>
+	<delete id="deleteRptIdxInfo" parameterType="hashmap">
+		delete from RPT_IDX_INFO where template_id = #{templateId} and index_ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptIdxCfg" parameterType="hashmap">
+		delete from RPT_IDX_CFG where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignTmpInfo" parameterType="hashmap">
+		delete from RPT_DESIGN_TMP_INFO where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignCellInfo" parameterType="hashmap">
+		delete from RPT_DESIGN_CELL_INFO where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignBatchCfg" parameterType="hashmap">
+		delete from RPT_DESIGN_BATCH_CFG where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignSourceDs" parameterType="hashmap">
+		delete from RPT_DESIGN_SOURCE_DS where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignSourceFormula" parameterType="hashmap">
+		delete from RPT_DESIGN_SOURCE_FORMULA where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignSourceText" parameterType="hashmap">
+		delete from RPT_DESIGN_SOURCE_TEXT where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignSourceIdx" parameterType="hashmap">
+		delete from RPT_DESIGN_SOURCE_IDX where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignSourceTabidx" parameterType="hashmap">
+		delete from RPT_DESIGN_SOURCE_TABIDX where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignSourceTabdim" parameterType="hashmap">
+		delete from RPT_DESIGN_SOURCE_TABDIM where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptParamtmpInfo" parameterType="hashmap">
+		delete from RPT_PARAMTMP_INFO
+		where paramtmp_id in (
+			select param_template_id from rpt_design_query_dim where template_id = #{templateId} and ver_id = #{verId}
+			)
+	</delete>
+	<delete id="deleteRptParamtmpAttrs" parameterType="hashmap">
+		delete from RPT_PARAMTMP_ATTRS
+		where paramtmp_id in (
+			select param_template_id from rpt_design_query_dim where template_id = #{templateId} and ver_id = #{verId}
+			)
+	</delete>
+	<delete id="deleteRptDesignQueryDim" parameterType="hashmap">
+		delete from RPT_DESIGN_QUERY_DIM where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignQueryDetail" parameterType="hashmap">
+		delete from RPT_DESIGN_QUERY_DETAIL where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignComCellInfo" parameterType="hashmap">
+		delete from RPT_DESIGN_COMCELL_INFO where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptDesignFavInfo" parameterType="hashmap">
+		delete from RPT_DESIGN_FAV_INFO where template_id = #{templateId} and ver_id = #{verId}
+	</delete>
+	<delete id="deleteRptMgrReportInfo" parameterType="hashmap">
+		delete from rpt_mgr_report_info where cfg_id = #{templateId}
+	</delete>
+	<delete id="deleteRptMgrFrsExt" parameterType="hashmap">
+		delete from RPT_MGR_FRS_EXT where rpt_id = (select rpt_id from rpt_mgr_report_info where cfg_id = #{templateId})
+	</delete>
+	<delete id="cleanImportDesignInfoLog">
+		delete from IMPORT_DESIGN_INFO_LOG
+	</delete>
+	<insert id="insertTest">
+		insert into a values('1')
+	</insert>
+	<insert id="insertRptMgrReportInfo" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		insert into RPT_MGR_REPORT_INFO(RPT_ID,CATALOG_ID,CFG_ID,END_DATE,EXT_TYPE,RANK_ORDER,RPT_CYCLE,RPT_DESC,RPT_NM,RPT_STS,RPT_TYPE,SHOW_PRIORITY,START_DATE,CREATE_TIME,BUSI_TYPE,RPT_NUM,INFO_RIGHTS,DEF_SRC,DEF_ORG,DEF_USER,IS_CABIN,LINE_ID,BUSI_LIB_ID,RPT_BUSI_NM)
+		values(#{rptId},#{catalogId},#{cfgId},#{endDate},#{extType},#{rankOrder},#{rptCycle},#{rptDesc},#{rptNm},#{rptSts},#{rptType},#{showPriority},#{startDate},#{createTime},#{busiType},#{rptNum},#{infoRights},#{defSrc},#{defOrg},#{defUser},#{isCabin},#{lineId},#{busiLibId},#{rptBusiNm})
+	</insert>
+	<insert id="insertRptMgrFrsExt" parameterType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsExt">
+		insert into RPT_MGR_FRS_EXT(RPT_ID,DEF_DEPT,USER_ID,IS_RELEASE_SUBMIT,REPORT_CODE,BUSI_TYPE,SUBMIT_MAIN,SUBMIT_RANGE,FILL_DESC,IS_MAIN_RPT,MAIN_RPT_ID,KEY_WORD,DATA_PRO,PRELIMINARY_DES,AUTHOR_SYS,SERVICE_CYC,VER_NUM,DEPT_USER_ID,DEPT_USER,DESC_INFO_PUB,ROLE_INFO,FROM_SYS,DATA_RESERVE,BUS_CAL,SRC_TABLE,IS_ADD_SRCFEILD,SRC_FEILD,IS_ADD_ORG,SEARCH_FEILD,IS_DATETYPE,TMP_VERSION_ID,REP_ID)
+		values(#{rptId},#{defDept},#{userId},#{isReleaseSubmit},#{reportCode},#{busiType},#{submitMain},#{submitRange},#{fillDesc},#{isMainRpt},#{mainRptId},#{keyword},#{datapro},#{preliminaryDes},#{authorSys},#{serviceCyc},#{verNum},#{deptUserID},#{deptUser},#{descInfoPub},#{roleInfo},#{fromSys},#{dataReserve},#{busCal},#{srcTable},#{isAddSrcFeild},#{srcFeild},#{isAddOrgFeild},#{searchFeild},#{isDateType},#{tmpVersionId},#{repId})
+	</insert>
+	<insert id="insertRptDesignTmpInfo" parameterType="com.yusys.bione.plugin.design.entity.RptDesignTmpInfo">
+		insert into RPT_DESIGN_TMP_INFO(TEMPLATE_ID,VER_ID,IS_UPT,TEMPLATE_CONTENTJSON,TEMPLATE_NM,VER_END_DATE,VER_START_DATE,TEMPLATE_TYPE,PARENT_TEMPLATE_ID,LINE_ID,TEMPLATE_UNIT,IS_AUTO_ADJ,FIXED_LENGTH,IS_PAGING,SORT_SQL,IMPORT_CONFIG)
+		values(#{id.templateId},#{id.verId},#{isUpt},#{templateContentjson},#{templateNm},#{verEndDate},#{verStartDate},#{templateType},#{parentTemplateId},#{lineId},#{templateUnit},#{isAutoAdj},#{fixedLength},#{isPaging},#{sortSql},#{importConfig})
+	</insert>
+	<insert id="insertRptDesignCellInfo" parameterType="java.util.List">
+		insert into RPT_DESIGN_CELL_INFO(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			CALIBER_EXPLAIN,
+			CALIBER_TECHNOLOGY,
+			CELL_DATA_SRC,
+			CELL_NM,
+			CELL_SUFFIX,
+			COL_ID,
+			DATA_LEN,
+			DATA_PRECISION,
+			DATA_TYPE,
+			DISPLAY_FORMAT,
+			IS_NULL,
+			IS_UPT,
+			ROW_ID,
+			DATA_UNIT,
+			BUSI_NO,
+			SORT_MODE,
+			IS_MERGE,
+			IS_MERGE_COL
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo,jdbcType=VARCHAR},
+				#{item.id.templateId,jdbcType=VARCHAR},
+				#{item.id.verId,jdbcType=DOUBLE},
+				#{item.caliberExplain,jdbcType=VARCHAR},
+				#{item.caliberTechnology,jdbcType=VARCHAR},
+				#{item.cellDataSrc,jdbcType=VARCHAR},
+				#{item.cellNm,jdbcType=VARCHAR},
+				#{item.cellSuffix,jdbcType=VARCHAR},
+				#{item.colId,jdbcType=DOUBLE},
+				#{item.dataLen,jdbcType=DOUBLE},
+				#{item.dataPrecision,jdbcType=DOUBLE},
+				#{item.dataType,jdbcType=VARCHAR},
+				#{item.displayFormat,jdbcType=VARCHAR},
+				#{item.isNull,jdbcType=VARCHAR},
+				#{item.isUpt,jdbcType=VARCHAR},
+				#{item.rowId,jdbcType=DOUBLE},
+				#{item.dataUnit,jdbcType=VARCHAR},
+				#{item.busiNo,jdbcType=VARCHAR},
+				#{item.sortMode,jdbcType=VARCHAR},
+				#{item.isMerge,jdbcType=VARCHAR},
+				#{item.isMergeCol,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignCellInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_CELL_INFO(
+		CELL_NO,
+		TEMPLATE_ID,
+		VER_ID,
+		CALIBER_EXPLAIN,
+		CALIBER_TECHNOLOGY,
+		CELL_DATA_SRC,
+		CELL_NM,
+		CELL_SUFFIX,
+		COL_ID,
+		DATA_LEN,
+		DATA_PRECISION,
+		DATA_TYPE,
+		DISPLAY_FORMAT,
+		IS_NULL,
+		IS_UPT,
+		ROW_ID,
+		DATA_UNIT,
+		BUSI_NO,
+		SORT_MODE,
+		IS_MERGE,
+		IS_MERGE_COL
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=DOUBLE},
+			#{item.caliberExplain,jdbcType=VARCHAR},
+			#{item.caliberTechnology,jdbcType=VARCHAR},
+			#{item.cellDataSrc,jdbcType=VARCHAR},
+			#{item.cellNm,jdbcType=VARCHAR},
+			#{item.cellSuffix,jdbcType=VARCHAR},
+			#{item.colId,jdbcType=DOUBLE},
+			#{item.dataLen,jdbcType=DOUBLE},
+			#{item.dataPrecision,jdbcType=DOUBLE},
+			#{item.dataType,jdbcType=VARCHAR},
+			#{item.displayFormat,jdbcType=VARCHAR},
+			#{item.isNull,jdbcType=VARCHAR},
+			#{item.isUpt,jdbcType=VARCHAR},
+			#{item.rowId,jdbcType=DOUBLE},
+			#{item.dataUnit,jdbcType=VARCHAR},
+			#{item.busiNo,jdbcType=VARCHAR},
+			#{item.sortMode,jdbcType=VARCHAR},
+			#{item.isMerge,jdbcType=VARCHAR},
+			#{item.isMergeCol,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceIdx" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_IDX(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			INDEX_NO,
+			TIME_MEASURE_ID,
+			MODE_ID,
+			RULE_ID,
+			IS_CFG_SRCINDEX
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo,jdbcType=VARCHAR},
+				#{item.id.templateId,jdbcType=VARCHAR},
+				#{item.id.verId,jdbcType=DOUBLE},
+				#{item.indexNo,jdbcType=VARCHAR},
+				#{item.timeMeasureId,jdbcType=VARCHAR},
+				#{item.modeId,jdbcType=VARCHAR},
+				#{item.ruleId,jdbcType=VARCHAR},
+				#{item.isCfgSrcIndex,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceIdx" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_IDX(
+		CELL_NO,
+		TEMPLATE_ID,
+		VER_ID,
+		INDEX_NO,
+		TIME_MEASURE_ID,
+		MODE_ID,
+		RULE_ID,
+		IS_CFG_SRCINDEX
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=DOUBLE},
+			#{item.indexNo,jdbcType=VARCHAR},
+			#{item.timeMeasureId,jdbcType=VARCHAR},
+			#{item.modeId,jdbcType=VARCHAR},
+			#{item.ruleId,jdbcType=VARCHAR},
+			#{item.isCfgSrcIndex,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxInfo" parameterType="java.util.List">
+		insert into RPT_IDX_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			INDEX_CATALOG_NO,
+			INDEX_STS,
+			INDEX_NM,
+			INDEX_TYPE,
+			START_DATE,
+			END_DATE,
+			CALC_CYCLE,
+			DATA_TYPE,
+			DATA_PRECISION,
+			DATA_UNIT,
+			SRC_SOURCE_ID,
+			SRC_INDEX_NO,
+			SRC_INDEX_MEASURE,
+			REMARK,
+			LAST_UPT_USER,
+			LAST_UPT_TIME,
+			IS_SUM,
+			IS_FILL_SUM,
+			IS_RPT_INDEX,
+			BUSI_TYPE,
+			IS_SAVE,
+			DEF_SRC,
+			DEF_ORG,
+			DEF_USER,
+			BUSI_NO,
+			TEMPLATE_ID,
+			SET_ID
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo,jdbcType=VARCHAR},
+				#{item.id.indexVerId,jdbcType=BIGINT},
+				#{item.indexCatalogNo,jdbcType=VARCHAR},
+				#{item.indexSts,jdbcType=VARCHAR},
+				#{item.indexNm,jdbcType=VARCHAR},
+				#{item.indexType,jdbcType=VARCHAR},
+				#{item.startDate,jdbcType=VARCHAR},
+				#{item.endDate,jdbcType=VARCHAR},
+				#{item.calcCycle,jdbcType=VARCHAR},
+				#{item.dataType,jdbcType=VARCHAR},
+				#{item.dataPrecision,jdbcType=DOUBLE},
+				#{item.dataUnit,jdbcType=VARCHAR},
+				#{item.srcSourceId,jdbcType=VARCHAR},
+				#{item.srcIndexNo,jdbcType=VARCHAR},
+				#{item.srcIndexMeasure,jdbcType=VARCHAR},
+				#{item.remark,jdbcType=VARCHAR},
+				#{item.lastUptUser,jdbcType=VARCHAR},
+				#{item.lastUptTime,jdbcType=TIMESTAMP},
+				#{item.isSum,jdbcType=VARCHAR},
+				#{item.isFillSum,jdbcType=VARCHAR},
+				#{item.isRptIndex,jdbcType=VARCHAR},
+				#{item.busiType,jdbcType=VARCHAR},
+				#{item.isSave,jdbcType=VARCHAR},
+				#{item.defSrc,jdbcType=VARCHAR},
+				#{item.defOrg,jdbcType=VARCHAR},
+				#{item.defUser,jdbcType=VARCHAR},
+				#{item.busiNo,jdbcType=VARCHAR},
+				#{item.templateId,jdbcType=VARCHAR},
+				#{item.setId,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_INFO(
+		INDEX_NO,
+		INDEX_VER_ID,
+		INDEX_CATALOG_NO,
+		INDEX_STS,
+		INDEX_NM,
+		INDEX_TYPE,
+		START_DATE,
+		END_DATE,
+		CALC_CYCLE,
+		DATA_TYPE,
+		DATA_PRECISION,
+		DATA_UNIT,
+		SRC_SOURCE_ID,
+		SRC_INDEX_NO,
+		SRC_INDEX_MEASURE,
+		REMARK,
+		LAST_UPT_USER,
+		LAST_UPT_TIME,
+		IS_SUM,
+		IS_FILL_SUM,
+		IS_RPT_INDEX,
+		BUSI_TYPE,
+		IS_SAVE,
+		DEF_SRC,
+		DEF_ORG,
+		DEF_USER,
+		BUSI_NO,
+		TEMPLATE_ID,
+		SET_ID
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.indexNo,jdbcType=VARCHAR},
+			#{item.id.indexVerId,jdbcType=BIGINT},
+			#{item.indexCatalogNo,jdbcType=VARCHAR},
+			#{item.indexSts,jdbcType=VARCHAR},
+			#{item.indexNm,jdbcType=VARCHAR},
+			#{item.indexType,jdbcType=VARCHAR},
+			#{item.startDate,jdbcType=VARCHAR},
+			#{item.endDate,jdbcType=VARCHAR},
+			#{item.calcCycle,jdbcType=VARCHAR},
+			#{item.dataType,jdbcType=VARCHAR},
+			#{item.dataPrecision,jdbcType=DOUBLE},
+			#{item.dataUnit,jdbcType=VARCHAR},
+			#{item.srcSourceId,jdbcType=VARCHAR},
+			#{item.srcIndexNo,jdbcType=VARCHAR},
+			#{item.srcIndexMeasure,jdbcType=VARCHAR},
+			#{item.remark,jdbcType=VARCHAR},
+			#{item.lastUptUser,jdbcType=VARCHAR},
+			#{item.lastUptTime,jdbcType=TIMESTAMP},
+			#{item.isSum,jdbcType=VARCHAR},
+			#{item.isFillSum,jdbcType=VARCHAR},
+			#{item.isRptIndex,jdbcType=VARCHAR},
+			#{item.busiType,jdbcType=VARCHAR},
+			#{item.isSave,jdbcType=VARCHAR},
+			#{item.defSrc,jdbcType=VARCHAR},
+			#{item.defOrg,jdbcType=VARCHAR},
+			#{item.defUser,jdbcType=VARCHAR},
+			#{item.busiNo,jdbcType=VARCHAR},
+			#{item.templateId,jdbcType=VARCHAR},
+			#{item.setId,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxMeasureRel" parameterType="java.util.List">
+		insert into RPT_IDX_MEASURE_REL(
+			MEASURE_NO,
+			INDEX_NO,
+			INDEX_VER_ID,
+			DS_ID,
+			STORE_COL,
+			ORDER_NUM
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.measureNo,jdbcType=VARCHAR},
+				#{item.id.indexNo,jdbcType=VARCHAR},
+				#{item.id.indexVerId,jdbcType=DOUBLE},
+				#{item.id.dsId,jdbcType=VARCHAR},
+				#{item.storeCol,jdbcType=VARCHAR},
+				#{item.orderNum,jdbcType=DOUBLE}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxMeasureRel" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_MEASURE_REL(
+		MEASURE_NO,
+		INDEX_NO,
+		INDEX_VER_ID,
+		DS_ID,
+		STORE_COL,
+		ORDER_NUM
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.measureNo,jdbcType=VARCHAR},
+			#{item.id.indexNo,jdbcType=VARCHAR},
+			#{item.id.indexVerId,jdbcType=DOUBLE},
+			#{item.id.dsId,jdbcType=VARCHAR},
+			#{item.storeCol,jdbcType=VARCHAR},
+			#{item.orderNum,jdbcType=DOUBLE}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxDimRel" parameterType="java.util.List">
+		insert into RPT_IDX_DIM_REL(
+			DIM_NO,
+			INDEX_NO,
+			INDEX_VER_ID,
+			DS_ID,
+			STORE_COL,
+			DIM_TYPE,
+			ORDER_NUM
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.dimNo,jdbcType=VARCHAR},
+				#{item.id.indexNo,jdbcType=VARCHAR},
+				#{item.id.indexVerId,jdbcType=DOUBLE},
+				#{item.id.dsId,jdbcType=VARCHAR},
+				#{item.storeCol,jdbcType=VARCHAR},
+				#{item.dimType,jdbcType=VARCHAR},
+				#{item.orderNum,jdbcType=DOUBLE}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxDimRel" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_DIM_REL(
+		DIM_NO,
+		INDEX_NO,
+		INDEX_VER_ID,
+		DS_ID,
+		STORE_COL,
+		DIM_TYPE,
+		ORDER_NUM
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.dimNo,jdbcType=VARCHAR},
+			#{item.id.indexNo,jdbcType=VARCHAR},
+			#{item.id.indexVerId,jdbcType=DOUBLE},
+			#{item.id.dsId,jdbcType=VARCHAR},
+			#{item.storeCol,jdbcType=VARCHAR},
+			#{item.dimType,jdbcType=VARCHAR},
+			#{item.orderNum,jdbcType=DOUBLE}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxSrcRelInfo" parameterType="java.util.List">
+		insert into RPT_IDX_SRC_REL_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			SRC_INDEX_NO,
+			SRC_MEASURE_NO
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo,jdbcType=VARCHAR},
+				#{item.id.indexVerId,jdbcType=DOUBLE},
+				#{item.id.srcIndexNo,jdbcType=VARCHAR},
+				#{item.id.srcMeasureNo,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxSrcRelInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_SRC_REL_INFO(
+		INDEX_NO,
+		INDEX_VER_ID,
+		SRC_INDEX_NO,
+		SRC_MEASURE_NO
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.indexNo,jdbcType=VARCHAR},
+			#{item.id.indexVerId,jdbcType=DOUBLE},
+			#{item.id.srcIndexNo,jdbcType=VARCHAR},
+			#{item.id.srcMeasureNo,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxFilterInfo" parameterType="java.util.List">
+		insert into RPT_IDX_FILTER_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			DIM_NO,
+			FILTER_MODE,
+			FILTER_VAL
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo,jdbcType=VARCHAR},
+				#{item.id.indexVerId,jdbcType=DOUBLE},
+				#{item.id.dimNo,jdbcType=VARCHAR},
+				#{item.filterMode,jdbcType=VARCHAR},
+				#{item.filterVal,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxFilterInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_FILTER_INFO(
+		INDEX_NO,
+		INDEX_VER_ID,
+		DIM_NO,
+		FILTER_MODE,
+		FILTER_VAL
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.indexNo,jdbcType=VARCHAR},
+			#{item.id.indexVerId,jdbcType=DOUBLE},
+			#{item.id.dimNo,jdbcType=VARCHAR},
+			#{item.filterMode,jdbcType=VARCHAR},
+			#{item.filterVal,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxFormulaInfo" parameterType="java.util.List">
+		insert into RPT_IDX_FORMULA_INFO(
+			INDEX_NO,
+			INDEX_VER_ID,
+			FORMULA_TYPE,
+			FORMULA_CONTENT,
+			FORMULA_DESC,
+			REMARK
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.indexNo,jdbcType=VARCHAR},
+				#{item.id.indexVerId,jdbcType=DOUBLE},
+				#{item.formulaType,jdbcType=VARCHAR},
+				#{item.formulaContent,jdbcType=VARCHAR},
+				#{item.formulaDesc,jdbcType=VARCHAR},
+				#{item.remark,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxFormulaInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_FORMULA_INFO(
+		INDEX_NO,
+		INDEX_VER_ID,
+		FORMULA_TYPE,
+		FORMULA_CONTENT,
+		FORMULA_DESC,
+		REMARK
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.indexNo,jdbcType=VARCHAR},
+			#{item.id.indexVerId,jdbcType=DOUBLE},
+			#{item.formulaType,jdbcType=VARCHAR},
+			#{item.formulaContent,jdbcType=VARCHAR},
+			#{item.formulaDesc,jdbcType=VARCHAR},
+			#{item.remark,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxCfg" parameterType="java.util.List">
+		insert into RPT_IDX_CFG(
+			TEMPLATE_ID,
+			VER_ID,
+			CELL_NO,
+			INDEX_NO,
+			RPT_NUM
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.templateId,jdbcType=VARCHAR},
+				#{item.id.verId,jdbcType=BIGINT},
+				#{item.id.cellNo,jdbcType=VARCHAR},
+				#{item.id.indexNo,jdbcType=VARCHAR},
+				#{item.rptNum,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptIdxCfg" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_IDX_CFG(
+		TEMPLATE_ID,
+		VER_ID,
+		CELL_NO,
+		INDEX_NO,
+		RPT_NUM
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=BIGINT},
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.indexNo,jdbcType=VARCHAR},
+			#{item.rptNum,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceDs" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_DS(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			DS_ID,
+			COLUMN_ID,
+			IS_EXT,
+			EXT_DIRECTION,
+			EXT_MODE,
+			IS_GRP,
+			SUM_MODE,
+			IS_FILT,
+			IS_SORT,
+			SORT_MODE,
+			SORT_ORDER,
+			IS_CONVER
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=DOUBLE},
+			#{item.dsId,jdbcType=VARCHAR},
+			#{item.columnId,jdbcType=VARCHAR},
+			#{item.isExt,jdbcType=VARCHAR},
+			#{item.extDirection,jdbcType=VARCHAR},
+			#{item.extMode,jdbcType=VARCHAR},
+			#{item.isGrp,jdbcType=VARCHAR},
+			#{item.sumMode,jdbcType=VARCHAR},
+			#{item.isFilt,jdbcType=VARCHAR},
+			#{item.isSort,jdbcType=VARCHAR},
+			#{item.sortMode,jdbcType=VARCHAR},
+			#{item.sortOrder,jdbcType=DOUBLE},
+			#{item.isConver,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceDs" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_DS(
+		CELL_NO,
+		TEMPLATE_ID,
+		VER_ID,
+		DS_ID,
+		COLUMN_ID,
+		IS_EXT,
+		EXT_DIRECTION,
+		EXT_MODE,
+		IS_GRP,
+		SUM_MODE,
+		IS_FILT,
+		IS_SORT,
+		SORT_MODE,
+		SORT_ORDER,
+		IS_CONVER
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=DOUBLE},
+			#{item.dsId,jdbcType=VARCHAR},
+			#{item.columnId,jdbcType=VARCHAR},
+			#{item.isExt,jdbcType=VARCHAR},
+			#{item.extDirection,jdbcType=VARCHAR},
+			#{item.extMode,jdbcType=VARCHAR},
+			#{item.isGrp,jdbcType=VARCHAR},
+			#{item.sumMode,jdbcType=VARCHAR},
+			#{item.isFilt,jdbcType=VARCHAR},
+			#{item.isSort,jdbcType=VARCHAR},
+			#{item.sortMode,jdbcType=VARCHAR},
+			#{item.sortOrder,jdbcType=DOUBLE},
+			#{item.isConver,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceFormula" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_FORMULA(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			IS_ANALYSE_EXT,
+			ANALYSE_EXT_TYPE,
+			IS_RPT_INDEX,
+			EXCEL_FORMULA
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo,jdbcType=VARCHAR},
+				#{item.id.templateId,jdbcType=VARCHAR},
+				#{item.id.verId,jdbcType=DOUBLE},
+				#{item.isAnalyseExt,jdbcType=VARCHAR},
+				#{item.analyseExtType,jdbcType=VARCHAR},
+				#{item.isRptIndex,jdbcType=VARCHAR},
+				#{item.excelFormula,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceFormula" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_FORMULA(
+		CELL_NO,
+		TEMPLATE_ID,
+		VER_ID,
+		IS_ANALYSE_EXT,
+		ANALYSE_EXT_TYPE,
+		IS_RPT_INDEX,
+		EXCEL_FORMULA
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=DOUBLE},
+			#{item.isAnalyseExt,jdbcType=VARCHAR},
+			#{item.analyseExtType,jdbcType=VARCHAR},
+			#{item.isRptIndex,jdbcType=VARCHAR},
+			#{item.excelFormula,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceText" parameterType="java.util.List">
+		insert into RPT_DESIGN_SOURCE_TEXT(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			EXPRESSION
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo,jdbcType=VARCHAR},
+				#{item.id.templateId,jdbcType=VARCHAR},
+				#{item.id.verId,jdbcType=DOUBLE},
+				#{item.expression,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignSourceText" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_SOURCE_TEXT(
+		CELL_NO,
+		TEMPLATE_ID,
+		VER_ID,
+		EXPRESSION
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=DOUBLE},
+			#{item.expression,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignComCellInfo" parameterType="java.util.List">
+		insert into RPT_DESIGN_COMCELL_INFO(
+			CELL_NO,
+			TEMPLATE_ID,
+			VER_ID,
+			TYPE_ID,
+			COL_ID,
+			ROW_ID,
+			CONTENT
+		)
+		<foreach collection="list" item="item" separator="union all" open="(" close=")">
+			select
+				#{item.id.cellNo,jdbcType=VARCHAR},
+				#{item.id.templateId,jdbcType=VARCHAR},
+				#{item.id.verId,jdbcType=DOUBLE},
+				#{item.typeId,jdbcType=VARCHAR},
+				#{item.colId,jdbcType=VARCHAR},
+				#{item.rowId,jdbcType=VARCHAR},
+				#{item.content,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+	<insert id="insertRptDesignComCellInfo" parameterType="java.util.List" databaseId="mysql">
+		insert into RPT_DESIGN_COMCELL_INFO(
+		CELL_NO,
+		TEMPLATE_ID,
+		VER_ID,
+		TYPE_ID,
+		COL_ID,
+		ROW_ID,
+		CONTENT
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id.cellNo,jdbcType=VARCHAR},
+			#{item.id.templateId,jdbcType=VARCHAR},
+			#{item.id.verId,jdbcType=DOUBLE},
+			#{item.typeId,jdbcType=VARCHAR},
+			#{item.colId,jdbcType=VARCHAR},
+			#{item.rowId,jdbcType=VARCHAR},
+			#{item.content,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertImportDesignInfoLog" parameterType="hashmap">
+		insert into IMPORT_DESIGN_INFO_LOG(
+			ID,
+			SORT_NO,
+			CONTENT
+		)
+		values (
+			#{id},
+			#{sortNo},
+			#{content}
+		)
+	</insert>
+	<select id="getSysReportInfo" parameterType="string" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportInfo">
+		select * from RPT_MGR_REPORT_INFO where rpt_num = #{rptNum}
+	</select>
+	<select id="getFrsSystemCfg" resultType="com.yusys.bione.plugin.regulation.vo.FrsSystemCfgVO" parameterType="hashmap">
+		select * from FRS_SYSTEM_CFG where busi_type = #{busiType} and system_ver_id = #{verId}
+	</select>
+	<select id="getSysRptMgrFrsExt" parameterType="string" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrFrsExt">
+		select * from RPT_MGR_FRS_EXT where rpt_id = #{rptId}
+	</select>
+	<select id="getSysRptDesignTmpInfo" parameterType="hashmap" resultType="com.yusys.bione.plugin.design.entity.RptDesignTmpInfo">
+		select  TEMPLATE_ID as "id.templateId",VER_ID as"id.verId",IS_UPT,remark,TEMPLATE_CONTENTJSON,TEMPLATE_NM,VER_END_DATE,VER_START_DATE,TEMPLATE_TYPE,PARENT_TEMPLATE_ID,LINE_ID,TEMPLATE_UNIT,IS_AUTO_ADJ
+		from RPT_DESIGN_TMP_INFO where template_id = #{templateId} and ver_id = #{verId}
+	</select>
+	<select id="getBusiInfo" parameterType="string" resultType="com.yusys.bione.frame.variable.entity.BioneParamInfo">
+		select  param_value, param_name
+		from bione_param_info where param_type_no = 'idxTaskType' and param_name = #{_parameter}
+	</select>
+	<select id="getUserInfo" parameterType="string" resultType="com.yusys.bione.frame.user.entity.BioneUserInfo">
+		select  user_id, user_name
+		from bione_user_info where user_name = #{_parameter}
+	</select>
+	<select id="getRptMgrBusiLibInfo" parameterType="string" resultType="com.yusys.bione.plugin.businesslib.entity.RptMgrBusiLibInfo">
+		select  busi_lib_id, busi_lib_nm
+		from rpt_mgr_busi_lib_info where busi_lib_nm = #{_parameter}
+	</select>
+	<select id="getSysRptMgrReportCatalog" resultType="com.yusys.bione.plugin.rptmgr.entity.RptMgrReportCatalog" parameterType="map">
+		SELECT t.*
+		  FROM rpt_mgr_report_catalog t
+		  <if test="upCatalogNm != null">
+			   inner join (SELECT a.catalog_id
+			               FROM rpt_mgr_report_catalog a
+			              where a.catalog_nm = #{upCatalogNm}) t2
+			    on t.up_catalog_id = t2.catalog_id
+		  </if>
+		 where t.catalog_nm = #{catalogNm}
+		 <if test="upCatalogId != null">
+		 	and t.up_catalog_id = #{upCatalogId}
+		 </if>
+	</select>
+	<select id="getSysIdxNo" parameterType="hashmap" resultType="string">
+		select index_no from RPT_IDX_INFO where index_nm = #{indexNm}
+		<if test="rptNm != null">
+			and template_id in (select cfg_id from RPT_MGR_REPORT_INFO where rpt_nm = #{rptNm})
+		</if>
+	</select>
+	<select id="getSetIdByModelNm" parameterType="hashmap" resultType="string">
+		select set_id from RPT_SYS_MODULE_INFO where set_nm = #{modelNm}
+	</select>
+	<select id="getColumnIdByColNm" resultType="string" parameterType="hashmap">
+		select col_id from RPT_SYS_MODULE_COL where set_id = #{setId} and cn_nm = #{colNm}
+	</select>
+	<select id="getImportDesignInfoLog" parameterType="string" resultType="string">
+		select content from IMPORT_DESIGN_INFO_LOG where id = #{uuid} order by sort_no
+	</select>
+	<select id="getTotalImportDesignInfoLogCount" resultType="integer">
+		select count(1) from IMPORT_DESIGN_INFO_LOG
+	</select>
+	<select id="getSysRptVerIds" resultType="string" parameterType="hashmap">
+		select ver_id from RPT_DESIGN_TMP_INFO where template_id = #{templateId} order by ver_id desc
+	</select>
+	<select id="getSysRptIdxFormulaInfo" parameterType="hashmap" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFormulaInfo">
+		select
+			INDEX_NO      as "id.indexNo",
+			INDEX_VER_ID  as "id.indexVerId",
+			FORMULA_TYPE     ,
+			FORMULA_CONTENT,
+			FORMULA_DESC,
+			REMARK
+		FROM  RPT_IDX_FORMULA_INFO
+		WHERE INDEX_NO in (
+		    	select index_no from rpt_design_source_idx where template_id = #{templateId}
+		    )
+		AND  INDEX_VER_ID = #{verId}
+	</select>
+	<select id="getSysRptIdxFilterInfo" parameterType="hashmap" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxFilterInfo">
+		SELECT
+			INDEX_NO     as  "id.indexNo",
+			INDEX_VER_ID as  "id.indexVerId",
+		    DIM_NO       as  "id.dimNo",
+			FILTER_VAL,
+			FILTER_MODE
+  		FROM  RPT_IDX_FILTER_INFO
+ 		WHERE INDEX_NO in (
+		    	select index_no from rpt_design_source_idx where template_id = #{templateId}
+		    )
+		and INDEX_VER_ID =#{verId}
+	</select>
+	<select id="getSysRptIdxSrcRelInfo" parameterType="hashmap" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxSrcRelInfo">
+		select
+			INDEX_NO as "id.indexNo",
+			INDEX_VER_ID as "id.indexVerId",
+			SRC_INDEX_NO as "id.srcIndexNo",
+			SRC_MEASURE_NO as "id.srcMeasureNo"
+		from
+			RPT_IDX_SRC_REL_INFO
+		where INDEX_NO in (
+		    	select index_no from rpt_design_source_idx where template_id = #{templateId}
+		    )
+		and INDEX_VER_ID =#{verId}
+	</select>
+	<select id="getSysRptIdxDimRel" parameterType="hashmap" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxDimRel">
+		SELECT
+		    DIM_NO as "id.dimNo",
+			INDEX_NO as "id.indexNo",
+			INDEX_VER_ID as "id.indexVerId",
+			DS_ID as "id.dsId",
+			STORE_COL,
+			DIM_TYPE,
+			ORDER_NUM
+  		FROM RPT_IDX_DIM_REL
+ 		WHERE INDEX_NO in (
+		    	select index_no from rpt_design_source_idx where template_id = #{templateId}
+		    )
+		and INDEX_VER_ID = #{verId}
+	</select>
+	<select id="getSysRptIdxMeasureRel" parameterType="hashmap" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxMeasureRel">
+		SELECT
+			MEASURE_NO    as "id.measureNo",
+			INDEX_NO      as "id.indexNo",
+			INDEX_VER_ID  as "id.indexVerId",
+			DS_ID         as "id.dsId",
+			STORE_COL,
+			ORDER_NUM
+		FROM RPT_IDX_MEASURE_REL
+		WHERE INDEX_NO in (
+		    	select index_no from rpt_design_source_idx where template_id = #{templateId}
+		    )
+		AND INDEX_VER_ID = #{verId}
+	</select>
+	<select id="getSysRptIdxInfo" parameterType="hashmap" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo">
+		SELECT
+	    	INDEX_NO as "id.indexNo",
+	    	INDEX_VER_ID as "id.indexVerId",
+			INDEX_CATALOG_NO,
+			INDEX_STS,
+			INDEX_NM,
+			INDEX_TYPE,
+			START_DATE,
+			END_DATE,
+			CALC_CYCLE,
+			DATA_TYPE,
+			DATA_PRECISION,
+			DATA_UNIT,
+			SRC_SOURCE_ID,
+			SRC_INDEX_NO,
+			SRC_INDEX_MEASURE,
+			REMARK,
+			LAST_UPT_USER,
+			LAST_UPT_TIME,
+			IS_SUM,
+			IS_RPT_INDEX,
+			BUSI_TYPE,
+			IS_SAVE,
+			DEF_SRC,
+			DEF_ORG,
+			DEF_USER,
+			BUSI_NO,
+			TEMPLATE_ID,
+			SET_ID,
+			IS_FILL_SUM
+        FROM
+        	RPT_IDX_INFO
+        WHERE INDEX_NO in (
+		    	select index_no from rpt_design_source_idx where template_id = #{templateId}
+		    )
+		and INDEX_VER_ID = #{verId}
+	</select>
+	<select id="getSysRptDesignSourceIdx" parameterType="hashmap" resultType="com.yusys.bione.plugin.design.entity.RptDesignSourceIdx">
+		select
+			CELL_NO as "id.cellNo",
+			TEMPLATE_ID as "id.templateId",
+			VER_ID as "id.verId",
+			INDEX_NO,
+			TIME_MEASURE_ID,
+			MODE_ID,
+			RULE_ID,
+			IS_CFG_SRCINDEX
+		from RPT_DESIGN_SOURCE_IDX
+		where template_id = #{templateId}
+		and ver_id = #{verId}
+	</select>
+	<select id="getSysRptDesignCellInfo" parameterType="hashmap" resultType="com.yusys.bione.plugin.design.entity.RptDesignCellInfo">
+		select
+			CELL_NO as "id.cellNo",
+			TEMPLATE_ID as "id.templateId",
+			VER_ID as "id.verId",
+			CELL_NM,
+			ROW_ID,
+			COL_ID,
+			DATA_TYPE,
+			IS_UPT,
+			IS_NULL,
+			DATA_UNIT,
+			DATA_LEN,
+			DATA_PRECISION,
+			CELL_SUFFIX,
+			DISPLAY_FORMAT,
+			CALIBER_EXPLAIN,
+			CELL_DATA_SRC,
+			BUSI_NO,
+			SORT_MODE,
+			REMARK,
+			CALIBER_TECHNOLOGY
+		from
+			RPT_DESIGN_CELL_INFO
+		where
+			template_id = #{templateId}
+		and ver_id = #{verId}
+	</select>
+	<update id="updateRptDesignTmpInfo" parameterType="hashmap">
+		update RPT_DESIGN_TMP_INFO set ver_end_date = #{endDate} where template_id = #{templateId} and ver_id = #{verId}
+	</update>
+	<update id="updateRptIdxInfo" parameterType="hashmap">
+		update RPT_IDX_INFO set end_date = #{endDate} where template_id = #{templateId} and index_ver_id = #{verId}
+	</update>
+	<select id="getSysMeasureNo" parameterType="hashmap" resultType="string">
+		select measure_no from rpt_idx_measure_info where measure_nm = #{measureNm}
+	</select>
+	<select id="getIdxNoAndNm" parameterType="hashmap" resultType="com.yusys.bione.plugin.rptidx.entity.RptIdxInfo">
+		select 
+			index_no as "id.indexNo",
+			index_nm 
+		from RPT_IDX_INFO where 1 = 1
+		<if test="endDate != null">
+			and end_Date = #{endDate}
+		</if>
+		<if test="isRptIndex != null">
+			and is_Rpt_Index = #{isRptIndex}
+		</if>
+	</select>
+ </mapper>

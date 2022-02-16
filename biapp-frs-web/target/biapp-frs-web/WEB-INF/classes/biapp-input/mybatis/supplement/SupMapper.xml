@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yusys.biapp.input.supplement.SupDao">
+
+	<select id="getRptTskCatalog"
+		resultType="com.yusys.biapp.input.task.entity.RptTskCatalog"
+		parameterType="HashMap">
+		SELECT CATALOG_ID,CATALOG_NM,REMARK,UP_NO FROM RPT_TSK_CATALOG WHERE
+		1=1
+		<if test="  parentCatalogId!=null ">
+			AND UP_NO=#{parentCatalogId}
+		</if>
+		<if test="  catalogName!=null ">
+			AND CATALOG_NM=#{catalogName} 
+		</if>
+		<if test= "  catalogId != null  ">
+			AND CATALOG_ID=#{catalogId}
+		</if>
+		<if test="objIds != null">
+        	and catalog_id in
+        	(select res_id from BIONE_AUTH_OBJ_RES_REL t
+				where 1=1 
+				and t.logic_sys_no = #{logicSysNo}
+				and t.obj_def_no = #{objDefNo}
+				and t.res_def_no = #{resDefNo}
+				and t.obj_id in 
+				<foreach collection="objIds" item="objId" open="("
+            	separator="," close=")">
+            	#{objId}
+        		</foreach>
+        	)
+   	 	</if>
+		ORDER BY CATALOG_NM
+	</select>
+	
+	<select id="getTaskInfos" parameterType="HashMap"
+		resultType="com.yusys.biapp.input.task.entity.RptTskInfo">
+		SELECT
+		CATALOG_ID,CHECK_STS,DATE_OFFSET_AMOUNT,EFFECT_DATE,EXEOBJ.EXE_OBJ_TYPE,INVALID_DATE,
+		IS_PRE,IS_RELY_DATA,LOGIC_DEL_NO,SUM_MODE,TASK_DEADLINE,TASK_DEF_ID,TASK_FREQ,
+		T.TASK_ID,TASK_NM,TASK_STS,PARAM.PARAM_NAME AS TASK_TYPE_NM,PARAM.PARAM_VALUE AS TASK_TYPE, TRIGGER_ID,TRIGGER_TYPE,T.EXE_OBJ_ID,UP_TASK_ID,TRIGGER_NM,NODE_TYPE
+		FROM RPT_TSK_INFO T,BIONE_PARAM_INFO PARAM,RPT_TSK_EXEOBJ_REL EXEOBJ
+		WHERE T.TASK_TYPE=PARAM.PARAM_VALUE
+		AND PARAM.PARAM_TYPE_NO=#{paramTypeNo} 
+		AND PARAM.UP_NO='0' 
+		AND EXEOBJ.TASK_ID = T.TASK_ID
+		<if test=" type!='grid' ">
+			<if test="  catalogId!=null ">
+				AND T.CATALOG_ID=#{catalogId}
+			</if>
+		</if>
+		<if test="  taskId!=null ">
+			AND T.TASK_ID=#{taskId}
+		</if>
+		<if test="  taskNm!=null ">
+			AND TASK_NM like #{taskNm}
+		</if>
+		<if test="  taskSts!=null ">
+			AND TASK_STS=#{taskSts}
+		</if>
+		<if test="  exeObjType!=null ">
+			AND T.EXE_OBJ_TYPE=#{exeObjType}
+		</if>
+		<if test="  taskType!=null ">
+			AND TASK_Type=#{taskType}
+		</if>
+		AND (LOGIC_DEL_NO='NO' OR LOGIC_DEL_NO IS NULL) 
+   	 	<if test="objIds != null">
+        	and t.task_id in
+        	(select res_id from BIONE_AUTH_OBJ_RES_REL t
+				where 1=1 
+				and t.logic_sys_no = #{logicSysNo}
+				and t.obj_def_no = #{objDefNo}
+				and t.res_def_no = #{resDefNo}
+				and t.obj_id in 
+				<foreach collection="objIds" item="objId" open="("
+            	separator="," close=")">
+            	#{objId}
+        		</foreach>
+        	)
+   	 	</if> 
+		
+        <if test=" loginName !='admin' ">
+			<if test="  orgList != null and orgList.size() > 0 ">
+				AND ( T.CREATE_ORG IN
+					<foreach item="item" index="index" collection="orgList" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+					OR T.CREATE_USER = #{currentUserId}
+				 )
+			</if>
+			AND (
+	                   T.CREATE_USER = #{currentUserId}
+	                  
+	                   OR  EXISTS
+	                       (
+	                           SELECT
+	                               1
+	                           FROM
+	                               RPT_INPUT_LST_TEMPLE_INFO TEMPLE
+	                           WHERE
+	                               TEMPLE.TEMPLE_ID=EXEOBJ.EXE_OBJ_ID
+	                           AND (
+	                           		TEMPLE.DEF_SRC='01'
+	                                   OR (TEMPLE.DEF_SRC ='02' AND  DEF_ORG LIKE  #{orgNo}  )
+	                              		OR (TEMPLE.DEF_SRC ='03' AND  DEF_USER LIKE #{userId})
+	                              )
+	                         )
+	           )
+        </if>
+         <if test="orderField != null">
+         	ORDER BY UPDATE_DATE DESC
+         </if>
+	</select>
+
+</mapper>

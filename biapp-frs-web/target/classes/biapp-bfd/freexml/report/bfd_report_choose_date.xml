@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>指标取数</templetname>
+		<ishavebillquery descr="是否有查询面板">N</ishavebillquery>
+		<list_ispagebar>N</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+		<list_ismultisel>N</list_ismultisel>
+	</templet>
+
+	<templet_item>
+	    <itemkey>data_dt</itemkey>
+	    <itemname>数据日期</itemname>
+		<itemtype>日历</itemtype>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>350</card_width>
+	    <list_isshow>N</list_isshow>
+	    <list_width>100</list_width>
+	    <list_align>中</list_align>
+	</templet_item>
+	
+	<templet_item>
+		<itemkey>help1</itemkey>
+		<itemname>帮助1</itemname>
+		<itemtype>Label</itemtype>
+		<itemdefine><![CDATA[ <span style="color:#006B9F;font-size:14px">友情提示:<br>可以不选择下列任何一张报表直接点确定，这样则全部取数</span> ]]></itemdefine>
+		<issave>N</issave>
+		<ismust>N</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>40,550*70</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+	</templet_item>
+</root>

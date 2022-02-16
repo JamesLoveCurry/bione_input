@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>检核结果表名排名</templetname>
+		<fromtable>east_cr_summary_q</fromtable>
+		<savetable>east_cr_summary_q</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">N</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys></orderbys>
+		<card_btns></card_btns>
+		<card_size>700*450</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns></list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+	</templet>
+	
+	<templet_item>
+	    <itemkey>rid</itemkey>
+	    <itemname>主键</itemname>
+	    <itemtype>文本框</itemtype>
+	    <helptip></helptip>
+	    <itemdefine></itemdefine>
+	    <defaultformula>UUID</defaultformula>
+	    <loadformula></loadformula>
+	    <editformula></editformula>
+	    <issave>Y</issave>
+	    <ismust>Y</ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>N</card_isshow>
+	    <card_width>300</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <list_isshow>N</list_isshow>
+	    <list_width>120</list_width>
+	    <list_align>中</list_align>
+	    <list_render></list_render>
+	    <query_isshow>N</query_isshow>
+	    <query_itemtype></query_itemtype>
+	    <query_itemdefine></query_itemdefine>
+	    <validateinfo></validateinfo>
+	    <showformula></showformula>
+	    <defvalue></defvalue>
+	</templet_item>
+	
+	<templet_item>
+	    <itemkey>data_dt</itemkey>
+	    <itemname>数据日期</itemname>
+	    <itemtype>文本框</itemtype>
+	    <helptip></helptip>
+	    <itemdefine></itemdefine>
+	    <loadformula></loadformula>
+	    <editformula></editformula>
+	    <issave>Y</issave>
+	    <ismust></ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>N</card_isshow>
+	    <card_width>300</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <card_iseditable>Y</card_iseditable>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>100</list_width>
+	    <list_align>左</list_align>
+	    <list_render></list_render>
+	    <query_isshow>Y</query_isshow>
+	    <query_itemtype>日历区间</query_itemtype>
+		<query_itemdefine>【is8=N】</query_itemdefine>
+		<query_ismust>Y</query_ismust>
+	    <query_width>300</query_width>
+	</templet_item>
+	
+	<templet_item>
+	    <itemkey>rule_name</itemkey>
+	    <itemname>规则名称</itemname>
+	    <itemtype>文本框</itemtype>
+	    <helptip></helptip>
+	    <itemdefine></itemdefine>
+	    <loadformula></loadformula>
+	    <editformula></editformula>
+	    <issave>Y</issave>
+	    <ismust></ismust>
+	    <seq>5</seq>
+	    <grouptitle></grouptitle>
+	    <card_isshow>N</card_isshow>
+	    <card_width>300</card_width>
+	    <card_iswrap>Y</card_iswrap>
+	    <card_iseditable>Y</card_iseditable>
+	    <list_isshow>Y</list_isshow>
+	    <list_width>100</list_width>
+	    <list_align>左</list_align>
+	    <list_render></list_render>
+	    <query_isshow>Y</query_isshow>
+	    <query_itemtype>文本框</query_itemtype>
+	</templet_item>
+
+</root>

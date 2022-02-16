@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<templet>
+		<templetname>机构地址信息</templetname>
+		<fromtable>cams_corp_addr_m</fromtable>
+		<savetable>cams_corp_addr_m</savetable>
+		<pkname>rid</pkname>
+		<querycontion></querycontion>
+		<autocondition descr="自动查询时的条件"></autocondition>
+		<autoquery descr="是否自动查询数据">Y</autoquery>
+		<ishavebillquery descr="是否有查询面板">Y</ishavebillquery>
+		<orderbys></orderbys>
+		<card_btns></card_btns>
+		<card_size>800*560</card_size>
+		<card_isdebugborder>N</card_isdebugborder>
+		<list_btns>[icon-add]新增/addData3;[icon-edit]编辑/editData3;$DELETE;</list_btns>
+		<list_issearch></list_issearch>
+		<list_ispagebar>Y</list_ispagebar>
+		<list_ischeckstyle>N</list_ischeckstyle>
+	</templet>
+
+	<templet_item>
+		<itemkey>rid</itemkey>
+		<itemname>主键</itemname>
+		<itemtype>文本框</itemtype>
+		<itemdefine></itemdefine>
+		<defaultformula>UUID</defaultformula>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<seq>5</seq>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>account_number</itemkey>
+		<itemname>账号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<card_iseditable>N</card_iseditable>
+		<list_isshow>N</list_isshow>
+		<list_width>200</list_width>
+		<list_align>左</list_align>
+		<list_render></list_render>
+		<query_isshow>Y</query_isshow>
+		<query_width>180</query_width>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>legal_address_type</itemkey>
+		<itemname>地址类型</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"SQL","内容":"select item_code id,item_name name from cams_bs_dict_code where parent_item_code = 'A01013'"}】</itemdefine>
+		<issave>Y</issave>
+		<ismust>Y</ismust>
+		<seq>5</seq>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>80</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>country_code</itemkey>
+		<itemname>国家代码</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<seq>5</seq>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>city_en</itemkey>
+		<itemname>所在城市（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<list_render></list_render>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>street_en</itemkey>
+		<itemname>街道（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>building_identifier_en</itemkey>
+		<itemname>楼号（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>suite_identifier_en</itemkey>
+		<itemname>房门号（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>floor_identifier_en</itemkey>
+		<itemname>楼层（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>district_name_en</itemkey>
+		<itemname>区（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>pob_en</itemkey>
+		<itemname>邮箱（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>post_code_en</itemkey>
+		<itemname>邮编（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>country_subentity_en</itemkey>
+		<itemname>国家行政区划（英文地址）</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>address_free_en</itemkey>
+		<itemname>英文详细地址</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>180</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>province_cn</itemkey>
+		<itemname>省级行政区划代码(中文地址)</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>city_cn</itemkey>
+		<itemname>地市级行政区划代码(中文地址)</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>district_cn</itemkey>
+		<itemname>县级行政区划代码(中文地址)</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>post_code_cn</itemkey>
+		<itemname>邮编(中文地址)</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>Y</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+
+	<templet_item>
+		<itemkey>address_free_cn</itemkey>
+		<itemname>中文详细地址</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<card_isshow>Y</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>180</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+	</templet_item>
+	
+	<!-- 隐藏字段：账户记录编号 -->
+	<templet_item>
+		<itemkey>docrefid</itemkey>
+		<itemname>账户记录编号</itemname>
+		<itemtype>文本框</itemtype>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<seq>5</seq>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>N</list_isshow>
+		<list_width>120</list_width>
+		<list_align>左</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>180</query_width>
+	</templet_item>
+	
+	<!-- 隐藏字段：回执补录状态 -->
+	<templet_item>
+		<itemkey>revise_status</itemkey>
+		<itemname>回执补录状态</itemname>
+		<itemtype>下拉框</itemtype>
+		<itemdefine>【{"类型":"直接值","内容":"1/待处理|2/已处理"}】</itemdefine>
+		<issave>Y</issave>
+		<ismust>N</ismust>
+		<seq>5</seq>
+		<card_isshow>N</card_isshow>
+		<card_width>180,370</card_width>
+		<card_iswrap>N</card_iswrap>
+		<list_isshow>Y</list_isshow>
+		<list_width>120</list_width>
+		<list_align>中</list_align>
+		<query_isshow>N</query_isshow>
+		<query_width>180</query_width>
+	</templet_item>
+
+</root>
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yusys.cr.alljob.repository.AllProDao">
+<!-- 接口表到当前表全部存储过程-->
+
+
+ <select id="runProtask"  statementType="CALLABLE">
+	{
+	call pro_ALL_main()
+	}
+	</select>
+	
+	<select id="runProCroEntBasic"  statementType="CALLABLE">
+		{
+		call pro_CroEntBasic_main()
+		}
+	</select>
+	
+	<select id="runProEntCredit"  statementType="CALLABLE">
+		{
+		call PRO_ENT_CREDIT_MAIN()
+		}
+	</select>
+	
+	<select id="runProEntEnAcctInf"  statementType="CALLABLE">
+		{
+		call pro_Ent_EnAcctInf_Main()
+		}
+	</select>
+	
+	<select id="runProEntFinan"  statementType="CALLABLE">
+		{
+		call PRO_ENT_FINAN_MAIN()
+		}
+	</select>
+	
+	<select id="runProEntFinanSYDW"  statementType="CALLABLE">
+		{
+		call pro_ENT_FINAN_SYDW()
+		}
+	</select>
+	
+	<select id="runProEntGuar"  statementType="CALLABLE">
+		{
+		call PRO_ENT_GUAR_MAIN()
+		}
+	</select>
+	
+	<select id="runProEntMotgaCltalCtrctBs"  statementType="CALLABLE">
+		{
+		call PRO_Ent_MotgaCltalCtrctBs_MAIN()
+		}
+	</select>
+	
+	<select id="runProIcrBasic"  statementType="CALLABLE">
+		{
+		call Pro_Icr_basic_main()
+		}
+	</select>
+	
+	<select id="runProIcrGuarAcc"  statementType="CALLABLE">
+		{
+		call PRO_ICR_GUARACC_MAIN()
+		}
+	</select>
+	
+	<select id="runProIcrIcrdr"  statementType="CALLABLE">
+		{
+		call PRO_ICR_ICRDR_MAIN()
+		}
+	</select>
+	
+</mapper>
